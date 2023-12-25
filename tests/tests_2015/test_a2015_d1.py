@@ -1,4 +1,4 @@
-from models.a2015_d1 import first_basement
+from models.aoc_2015 import first_basement
 
 
 def test_returns_first_time_santa_reaches_basement():

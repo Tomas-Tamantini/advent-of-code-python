@@ -1,4 +1,4 @@
-from models.a2015_d3 import houses_with_at_least_one_present
+from models.aoc_2015 import houses_with_at_least_one_present
 
 
 def test_santa_always_delivers_a_present_to_starting_house():

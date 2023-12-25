@@ -1,5 +1,8 @@
-from models.a2015_d1 import final_floor, first_basement
-from models.a2015_d3 import houses_with_at_least_one_present
+from models.aoc_2015 import (
+    final_floor,
+    first_basement,
+    houses_with_at_least_one_present,
+)
 from input_output.file_parser import parse_xmas_presents
 
 
