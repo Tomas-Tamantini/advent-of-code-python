@@ -1,4 +1,4 @@
-from models.a2015_d2 import XmasPresent
+from models.aoc_2015 import XmasPresent
 from typing import Iterator
 
 

@@ -1,15 +1,16 @@
+from models.vectors import CardinalDirection, Vector2D
+
+
 def houses_with_at_least_one_present(instructions: str) -> set[tuple[int, int]]:
-    visited_houses = {(0, 0)}
-    current_x = 0
-    current_y = 0
-    for direction in instructions:
-        if direction == "^":
-            current_y += 1
-        elif direction == "v":
-            current_y -= 1
-        elif direction == ">":
-            current_x += 1
-        elif direction == "<":
-            current_x -= 1
-        visited_houses.add((current_x, current_y))
+    directions = {
+        "^": CardinalDirection.NORTH,
+        ">": CardinalDirection.EAST,
+        "v": CardinalDirection.SOUTH,
+        "<": CardinalDirection.WEST,
+    }
+    current_position = Vector2D(0, 0)
+    visited_houses = {current_position}
+    for instruction in instructions:
+        current_position = current_position.move(directions[instruction])
+        visited_houses.add(current_position)
     return visited_houses
