@@ -2,6 +2,7 @@ from models.aoc_2015 import (
     final_floor,
     first_basement,
     houses_with_at_least_one_present,
+    mine_advent_coins,
 )
 from input_output.file_parser import parse_xmas_presents
 
@@ -38,3 +39,14 @@ houses_santa = houses_with_at_least_one_present(instructions[::2])
 houses_robot = houses_with_at_least_one_present(instructions[1::2])
 houses = houses_santa.union(houses_robot)
 print(f"AOC 2015 - Day 3/Part 2: Santa and Robot Santa visit {len(houses)} houses")
+
+# AOC 2015 - Day 4: The Ideal Stocking Stuffer
+with open("input_files/a2015_d4.txt", "r") as f:
+    secret_key = f.read()
+print(
+    f"AOC 2015 - Day 4/Part 1: The number to make hash start with 5 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=5)}"
+)
+
+print(
+    f"AOC 2015 - Day 4/Part 2: The number to make hash start with 6 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=6)}"
+)
