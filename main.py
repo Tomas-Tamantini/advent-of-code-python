@@ -3,6 +3,9 @@ from models.aoc_2015 import (
     first_basement,
     houses_with_at_least_one_present,
     mine_advent_coins,
+    StringClassifier,
+    simple_ruleset,
+    complex_ruleset,
 )
 from input_output.file_parser import parse_xmas_presents
 
@@ -49,4 +52,22 @@ print(
 
 print(
     f"AOC 2015 - Day 4/Part 2: The number to make hash start with 6 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=6)}"
+)
+
+# AOC 2015 - Day 5: Doesn't He Have Intern-Elves For This?
+with open("input_files/a2015_d5.txt", "r") as f:
+    strings = f.readlines()
+simple_classifier = StringClassifier(simple_ruleset)
+complex_classifier = StringClassifier(complex_ruleset)
+nice_strings_simple_ruleset = [
+    string for string in strings if simple_classifier.is_nice_string(string)
+]
+print(
+    f"AOC 2015 - Day 5/Part 1: There are {len(nice_strings_simple_ruleset)} nice strings"
+)
+nice_strings_complex_ruleset = [
+    string for string in strings if complex_classifier.is_nice_string(string)
+]
+print(
+    f"AOC 2015 - Day 5/Part 2: There are {len(nice_strings_complex_ruleset)} nice strings"
 )
