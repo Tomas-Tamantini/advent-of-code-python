@@ -6,8 +6,12 @@ from models.aoc_2015 import (
     StringClassifier,
     simple_ruleset,
     complex_ruleset,
+    LightGrid,
 )
-from input_output.file_parser import parse_xmas_presents
+from input_output.file_parser import (
+    parse_xmas_presents,
+    parse_and_give_light_grid_instruction,
+)
 
 
 # AOC 2015 - Day 1: Not Quite Lisp
@@ -71,3 +75,16 @@ nice_strings_complex_ruleset = [
 print(
     f"AOC 2015 - Day 5/Part 2: There are {len(nice_strings_complex_ruleset)} nice strings"
 )
+
+# AOC 2015 - Day 6: Probably a Fire Hazard
+with open("input_files/a2015_d6.txt", "r") as f:
+    lines = f.readlines()
+
+grid = LightGrid(1000, 1000)
+for line in lines:
+    parse_and_give_light_grid_instruction(line, grid)
+print(f"AOC 2015 - Day 6/Part 1: There are {grid.num_lights_on} lights on")
+grid = LightGrid(1000, 1000)
+for line in lines:
+    parse_and_give_light_grid_instruction(line, grid, use_elvish_tongue=True)
+print(f"AOC 2015 - Day 6/Part 1: The total brightness is {grid.num_lights_on}")
