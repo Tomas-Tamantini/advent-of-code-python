@@ -9,6 +9,7 @@ from models.aoc_2015 import (
     LightGrid,
     next_look_and_say,
     sum_all_numbers_in_json,
+    ReindeerOlympics,
 )
 from input_output.file_parser import (
     parse_xmas_presents,
@@ -197,11 +198,12 @@ def _aoc_2015_d14():
         lines = f.readlines()
     reindeers = [parse_reindeer(l) for l in lines]
     race_duration = 2503
-    furthest_reindeer = max(
-        reindeer.position_at_time(race_duration) for reindeer in reindeers
-    )
+    reindeer_olympics = ReindeerOlympics(reindeers)
+    max_distance = max(reindeer_olympics.positions_at_time(race_duration))
+    print(f"AOC 2015 - Day 14/Part 1: Furthest reindeer is at position {max_distance}")
+    max_points = max(reindeer_olympics.points_at_time(race_duration))
     print(
-        f"AOC 2015 - Day 14/Part 1: Leading reindeer is at position {furthest_reindeer}"
+        f"AOC 2015 - Day 14/Part 2: Reindeer with most points has {max_points} points"
     )
 
 
