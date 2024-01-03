@@ -146,9 +146,13 @@ def _aoc_2015_d9():
 def _aoc_2015_d10():
     with open(_get_file_name(10), "r") as f:
         current_term = f.read().strip()
+    current_digits = [int(d) for d in current_term]
     for _ in range(40):
-        current_term = next_look_and_say(current_term)
-    print(f"AOC 2015 - Day 10/Part 1: Lenght of 40th term is {len(current_term)}")
+        current_digits = next_look_and_say(current_digits)
+    print(f"AOC 2015 - Day 10/Part 1: Lenght of 40th term is {len(current_digits)}")
+    for _ in range(10):
+        current_digits = next_look_and_say(current_digits)
+    print(f"AOC 2015 - Day 10/Part 2: Lenght of 50th term is {len(current_digits)}")
 
 
 def advent_of_code_2015(*days: int):
