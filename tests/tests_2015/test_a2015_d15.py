@@ -20,3 +20,12 @@ def test_recipe_is_chosen_to_maximize_product_of_properties_except_calories():
     ]
     recipe = CookieRecipe(ingredients, num_tablespoons=100)
     assert recipe.optimal_recipe() == CookieProperties(68, 80, 152, 76, 520)
+
+
+def test_optimal_recipe_can_have_specified_calories_amount():
+    ingredients = [
+        CookieProperties(-1, -2, 6, 3, 8),
+        CookieProperties(2, 3, -2, -1, 3),
+    ]
+    recipe = CookieRecipe(ingredients, num_tablespoons=100)
+    assert recipe.optimal_recipe(num_calories=500).score() == 57_600_000

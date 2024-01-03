@@ -175,7 +175,7 @@ def _aoc_2015_d12():
     print(f"AOC 2015 - Day 12/Part 1: Sum of all numbers in JSON is {json_sum}")
     json_sum_minus_red = sum_all_numbers_in_json(json_str, property_to_ignore="red")
     print(
-        f"AOC 2015 - Day 12/Part 1: Sum of all numbers in JSON ignoring 'red' property is {json_sum_minus_red}"
+        f"AOC 2015 - Day 12/Part 2: Sum of all numbers in JSON ignoring 'red' property is {json_sum_minus_red}"
     )
 
 
@@ -216,7 +216,13 @@ def _aoc_2015_d15():
     ingredients = [parse_cookie_properties(l) for l in lines]
     recipe = CookieRecipe(ingredients, num_tablespoons=100)
     optimal_recipe = recipe.optimal_recipe()
-    print(f"AOC 2015 - Day 15/Part 1: Score of optimal recipe {optimal_recipe.score()}")
+    print(
+        f"AOC 2015 - Day 15/Part 1: Score of optimal recipe without calories restriction {optimal_recipe.score()}"
+    )
+    optimal_diet_recipe = recipe.optimal_recipe(num_calories=500)
+    print(
+        f"AOC 2015 - Day 15/Part 2: Score of optimal recipe with calories restriction {optimal_diet_recipe.score()}"
+    )
 
 
 def advent_of_code_2015(*days: int):

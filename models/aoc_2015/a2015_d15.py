@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from itertools import combinations
-from typing import Iterator
+from typing import Iterator, Optional
 
 
 @dataclass(frozen=True)
@@ -71,11 +71,13 @@ class CookieRecipe:
         recipe = CookieProperties.add_properties(*multiplied_ingredients)
         return recipe.remove_negative_properties()
 
-    def optimal_recipe(self) -> CookieProperties:
+    def optimal_recipe(self, num_calories: Optional[int] = None) -> CookieProperties:
         best_recipe = None
         best_score = -1
         for proportion in self._possible_proportions():
             recipe = self._recipe(proportion)
+            if num_calories is not None and recipe.calories != num_calories:
+                continue
             score = recipe.score()
             if score > best_score:
                 best_score = score
