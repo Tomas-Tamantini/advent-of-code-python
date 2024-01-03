@@ -181,8 +181,14 @@ def _aoc_2015_d13():
         graph_adjacencies = f.read()
     graph = parse_directed_graph(graph_adjacencies)
     max_happiness = graph.both_ways_trip_max_cost()
-    print(f"AOC 2015 - Day 13/Part 1: Maximum happiness is {max_happiness}")
-    
+    print(f"AOC 2015 - Day 13/Part 1: Maximum happiness without me is {max_happiness}")
+    pre_existing_nodes = list(graph.nodes)
+    for n in pre_existing_nodes:
+        graph.add_edge("Me", n, 0)
+        graph.add_edge(n, "Me", 0)
+    max_happiness = graph.both_ways_trip_max_cost()
+    print(f"AOC 2015 - Day 13/Part 2: Maximum happiness with me is {max_happiness}")
+
 
 def advent_of_code_2015(*days: int):
     solutions = [

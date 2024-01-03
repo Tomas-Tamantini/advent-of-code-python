@@ -11,6 +11,10 @@ class DirectedGraph:
             self._adjacencies[node_a] = dict()
         self._adjacencies[node_a][node_b] = cost
 
+    @property
+    def nodes(self) -> Iterable[str]:
+        return self._adjacencies.keys()
+
     def _cost(self, node_a: str, node_b: str) -> int:
         if node_a not in self._adjacencies:
             return float("inf")
