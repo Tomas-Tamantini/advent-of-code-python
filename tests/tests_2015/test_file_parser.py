@@ -2,6 +2,7 @@ from input_output.file_parser import (
     parse_and_give_light_grid_instruction,
     parse_logic_gates_circuit,
     LightGridRegion,
+    parse_adirected_graph,
 )
 
 
@@ -94,3 +95,11 @@ def test_can_parse_logic_gates_circuit():
     }
     for wire, value in expected_values.items():
         assert circuit.get_value(wire) == value
+
+
+def test_can_parse_adirected_graph():
+    graph_str = """a to b = 100
+                   a to c = 100
+                   b to c = 150"""
+    graph = parse_adirected_graph(graph_str)
+    assert graph.shortest_complete_itinerary_distance() == 200

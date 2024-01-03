@@ -9,6 +9,7 @@ from models.aoc_2015 import (
     LeftShiftGate,
     RightShiftGate,
     NotGate,
+    AdirectedGraph,
 )
 from typing import Iterator
 
@@ -86,3 +87,13 @@ def parse_logic_gates_circuit(circuit_spec: str) -> LogicGatesCircuit:
             _parse_logic_gate_input(gate, input)
         circuit.add_gate(gate, output_wire)
     return circuit
+
+
+def parse_adirected_graph(adjacencies: str) -> AdirectedGraph:
+    graph = AdirectedGraph()
+    for line in adjacencies.split("\n"):
+        nodes_str, distance_str = line.split("=")
+        nodes = [n.strip() for n in nodes_str.split("to")]
+        distance = int(distance_str)
+        graph.add_edge(*nodes, distance)
+    return graph

@@ -12,6 +12,7 @@ from input_output.file_parser import (
     parse_xmas_presents,
     parse_and_give_light_grid_instruction,
     parse_logic_gates_circuit,
+    parse_adirected_graph,
 )
 
 
@@ -119,6 +120,27 @@ def _aoc_2015_d7():
     )
 
 
+# AOC 2015 - Day 8: Matchsticks
+def _aoc_2015_d8():
+    print("AOC 2015 - Day 8/Part 1: Not implemented")
+    print("AOC 2015 - Day 8/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 9: All in a Single Night
+def _aoc_2015_d9():
+    with open(_get_file_name(9), "r") as f:
+        graph_adjacencies = f.read()
+    graph = parse_adirected_graph(graph_adjacencies)
+    shortest_distance = graph.shortest_complete_itinerary_distance()
+    print(
+        f"AOC 2015 - Day 9/Part 1: Distance of shortest itinerary is {shortest_distance}"
+    )
+    longest_distance = graph.longest_complete_itinerary_distance()
+    print(
+        f"AOC 2015 - Day 9/Part 2: Distance of longest itinerary is {longest_distance}"
+    )
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -128,6 +150,8 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d5,
         _aoc_2015_d6,
         _aoc_2015_d7,
+        _aoc_2015_d8,
+        _aoc_2015_d9,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]

@@ -13,3 +13,4 @@ from .a2015_d7 import (
     RightShiftGate,
     NotGate,
 )
+from .a2015_d9 import AdirectedGraph
