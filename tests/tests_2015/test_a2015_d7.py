@@ -117,3 +117,17 @@ def test_circuit_computes_signals_in_order():
 
     for wire, value in expected_values.items():
         assert circuit.get_value(wire) == value
+
+
+def test_can_override_value_in_circuit():
+    circuit = LogicGatesCircuit()
+
+    assign_x_gate = DoNothingGate()
+    assign_x_gate.add_input_signal(1)
+    circuit.add_gate(assign_x_gate, "x")
+
+    not_x_gate = NotGate(num_bits=3)
+    not_x_gate.add_input_wire("x")
+    circuit.add_gate(not_x_gate, "y")
+
+    assert circuit.get_value("y", override_values={"x": 3}) == 4

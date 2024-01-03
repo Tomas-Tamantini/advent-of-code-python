@@ -95,4 +95,8 @@ with open("input_files/a2015_d7.txt", "r") as f:
     circuit_spec = f.read()
 circuit = parse_logic_gates_circuit(circuit_spec)
 a_value = circuit.get_value("a")
-print(f"AOC 2015 - Day 7/Part 1: wire a has signal of {a_value}")
+print(f"AOC 2015 - Day 7/Part 1: Wire a has signal of {a_value}")
+new_a_value = circuit.get_value("a", override_values={"b": a_value})
+print(
+    f"AOC 2015 - Day 7/Part 1: After b is overriden, wire a has signal of {new_a_value}"
+)

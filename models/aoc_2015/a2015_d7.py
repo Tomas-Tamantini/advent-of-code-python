@@ -83,8 +83,10 @@ class LogicGatesCircuit:
             raise ValueError(f"Wire {output_wire} is already output of another gate")
         self._gates[output_wire] = gate
 
-    def get_value(self, wire: str) -> int:
-        wire_values = dict()
+    def get_value(
+        self, wire: str, override_values: Optional[dict[str, int]] = None
+    ) -> int:
+        wire_values = override_values if override_values else dict()
         return self._get_value_recursive(wire, wire_values)
 
     def _get_value_recursive(self, wire: str, wire_values: dict[str, int]) -> int:
