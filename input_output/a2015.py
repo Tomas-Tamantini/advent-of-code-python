@@ -8,6 +8,7 @@ from models.aoc_2015 import (
     complex_ruleset,
     LightGrid,
     next_look_and_say,
+    sum_all_numbers_in_json,
 )
 from input_output.file_parser import (
     parse_xmas_presents,
@@ -155,6 +156,24 @@ def _aoc_2015_d10():
     print(f"AOC 2015 - Day 10/Part 2: Lenght of 50th term is {len(current_digits)}")
 
 
+# AOC 2015 - Day 11: Corporate Policy
+def _aoc_2015_d11():
+    print("AOC 2015 - Day 11/Part 1: Not implemented")
+    print("AOC 2015 - Day 11/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 12: JSAbacusFramework.io
+def _aoc_2015_d12():
+    with open(_get_file_name(12), "r") as f:
+        json_str = f.read()
+    json_sum = sum_all_numbers_in_json(json_str)
+    print(f"AOC 2015 - Day 12/Part 1: Sum of all numbers in JSON is {json_sum}")
+    json_sum_minus_red = sum_all_numbers_in_json(json_str, property_to_ignore="red")
+    print(
+        f"AOC 2015 - Day 12/Part 1: Sum of all numbers in JSON ignoring 'red' property is {json_sum_minus_red}"
+    )
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -167,6 +186,8 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d8,
         _aoc_2015_d9,
         _aoc_2015_d10,
+        _aoc_2015_d11,
+        _aoc_2015_d12,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]
