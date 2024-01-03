@@ -15,6 +15,7 @@ from input_output.file_parser import (
     parse_and_give_light_grid_instruction,
     parse_logic_gates_circuit,
     parse_adirected_graph,
+    parse_directed_graph,
 )
 
 
@@ -174,6 +175,15 @@ def _aoc_2015_d12():
     )
 
 
+# AOC 2015 - Day 13: Knights of the Dinner Table
+def _aoc_2015_d13():
+    with open(_get_file_name(13), "r") as f:
+        graph_adjacencies = f.read()
+    graph = parse_directed_graph(graph_adjacencies)
+    max_happiness = graph.both_ways_trip_max_cost()
+    print(f"AOC 2015 - Day 13/Part 1: Maximum happiness is {max_happiness}")
+    
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -188,6 +198,7 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d10,
         _aoc_2015_d11,
         _aoc_2015_d12,
+        _aoc_2015_d13,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]

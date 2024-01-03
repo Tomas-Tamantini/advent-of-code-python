@@ -10,6 +10,7 @@ from models.aoc_2015 import (
     RightShiftGate,
     NotGate,
     AdirectedGraph,
+    DirectedGraph,
 )
 from typing import Iterator
 
@@ -96,4 +97,17 @@ def parse_adirected_graph(adjacencies: str) -> AdirectedGraph:
         nodes = [n.strip() for n in nodes_str.split("to")]
         distance = int(distance_str)
         graph.add_edge(*nodes, distance)
+    return graph
+
+
+def parse_directed_graph(adjacencies: str) -> DirectedGraph:
+    graph = DirectedGraph()
+    for line in adjacencies.split("\n"):
+        sentence_parts = line.strip().split(" ")
+        node_a = sentence_parts[0].strip()
+        node_b = sentence_parts[-1].replace(".", "").strip()
+        cost = int(sentence_parts[3])
+        if "lose" in line:
+            cost = -cost
+        graph.add_edge(node_a, node_b, cost)
     return graph

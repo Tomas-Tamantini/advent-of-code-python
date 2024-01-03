@@ -3,6 +3,7 @@ from input_output.file_parser import (
     parse_logic_gates_circuit,
     LightGridRegion,
     parse_adirected_graph,
+    parse_directed_graph,
 )
 
 
@@ -103,3 +104,12 @@ def test_can_parse_adirected_graph():
                    b to c = 150"""
     graph = parse_adirected_graph(graph_str)
     assert graph.shortest_complete_itinerary_distance() == 200
+
+
+def test_can_parse_directed_graph():
+    graph_str = """Alice would gain 54 happiness units by sitting next to Bob.
+                   Bob would lose 7 happiness units by sitting next to Carol.
+                   Carol would lose 62 happiness units by sitting next to Alice."""
+    graph = parse_directed_graph(graph_str)
+    assert graph.round_trip_itinerary_min_cost() == -15
+    assert graph.round_trip_itinerary_max_cost() == float("inf")
