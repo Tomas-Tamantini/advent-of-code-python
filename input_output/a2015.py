@@ -7,6 +7,7 @@ from models.aoc_2015 import (
     simple_ruleset,
     complex_ruleset,
     LightGrid,
+    next_look_and_say,
 )
 from input_output.file_parser import (
     parse_xmas_presents,
@@ -141,6 +142,15 @@ def _aoc_2015_d9():
     )
 
 
+# AOC 2015 - Day 10: Elves Look, Elves Say
+def _aoc_2015_d10():
+    with open(_get_file_name(10), "r") as f:
+        current_term = f.read().strip()
+    for _ in range(40):
+        current_term = next_look_and_say(current_term)
+    print(f"AOC 2015 - Day 10/Part 1: Lenght of 40th term is {len(current_term)}")
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -152,6 +162,7 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d7,
         _aoc_2015_d8,
         _aoc_2015_d9,
+        _aoc_2015_d10,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]

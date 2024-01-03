@@ -14,3 +14,4 @@ from .a2015_d7 import (
     NotGate,
 )
 from .a2015_d9 import AdirectedGraph
+from .a2015_d10 import next_look_and_say
