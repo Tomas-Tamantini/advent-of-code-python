@@ -16,6 +16,7 @@ from input_output.file_parser import (
     parse_logic_gates_circuit,
     parse_adirected_graph,
     parse_directed_graph,
+    parse_reindeer,
 )
 
 
@@ -190,6 +191,20 @@ def _aoc_2015_d13():
     print(f"AOC 2015 - Day 13/Part 2: Maximum happiness with me is {max_happiness}")
 
 
+# AOC 2015 - Day 14: Reindeer Olympics
+def _aoc_2015_d14():
+    with open(_get_file_name(14), "r") as f:
+        lines = f.readlines()
+    reindeers = [parse_reindeer(l) for l in lines]
+    race_duration = 2503
+    furthest_reindeer = max(
+        reindeer.position_at_time(race_duration) for reindeer in reindeers
+    )
+    print(
+        f"AOC 2015 - Day 14/Part 1: Leading reindeer is at position {furthest_reindeer}"
+    )
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -205,6 +220,7 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d11,
         _aoc_2015_d12,
         _aoc_2015_d13,
+        _aoc_2015_d14,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]

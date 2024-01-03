@@ -4,6 +4,7 @@ from input_output.file_parser import (
     LightGridRegion,
     parse_adirected_graph,
     parse_directed_graph,
+    parse_reindeer,
 )
 
 
@@ -113,3 +114,13 @@ def test_can_parse_directed_graph():
     graph = parse_directed_graph(graph_str)
     assert graph.round_trip_itinerary_min_cost() == -15
     assert graph.round_trip_itinerary_max_cost() == float("inf")
+
+
+def test_can_parse_reindeer():
+    reindeer_str = (
+        "Dancer can fly 27 km/s for 5 seconds, but then must rest for 132 seconds."
+    )
+    reindeer = parse_reindeer(reindeer_str)
+    assert reindeer.flight_speed == 27
+    assert reindeer.flight_interval == 5
+    assert reindeer.rest_interval == 132

@@ -11,6 +11,7 @@ from models.aoc_2015 import (
     NotGate,
     AdirectedGraph,
     DirectedGraph,
+    Reindeer,
 )
 from typing import Iterator
 
@@ -111,3 +112,12 @@ def parse_directed_graph(adjacencies: str) -> DirectedGraph:
             cost = -cost
         graph.add_edge(node_a, node_b, cost)
     return graph
+
+
+def parse_reindeer(reindeer_str: str) -> Reindeer:
+    sentence_parts = reindeer_str.split(" ")
+    return Reindeer(
+        flight_speed=int(sentence_parts[3]),
+        flight_interval=int(sentence_parts[6]),
+        rest_interval=int(sentence_parts[13]),
+    )
