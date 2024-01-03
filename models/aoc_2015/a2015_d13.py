@@ -23,14 +23,6 @@ class DirectedGraph:
         return self._adjacencies[node_a][node_b]
 
     def _round_trip_itinerary_cost(self, itinerary: Iterable[str]):
-        kkk = sum(
-            self._cost(
-                itinerary[i],
-                itinerary[(i + 1) % len(itinerary)],
-            )
-            for i in range(len(itinerary))
-        )
-
         return sum(
             self._cost(
                 itinerary[i],
