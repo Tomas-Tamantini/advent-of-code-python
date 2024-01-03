@@ -12,6 +12,7 @@ from models.aoc_2015 import (
     AdirectedGraph,
     DirectedGraph,
     Reindeer,
+    CookieProperties,
 )
 from typing import Iterator
 
@@ -120,4 +121,15 @@ def parse_reindeer(reindeer_str: str) -> Reindeer:
         flight_speed=int(sentence_parts[3]),
         flight_interval=int(sentence_parts[6]),
         rest_interval=int(sentence_parts[13]),
+    )
+
+
+def parse_cookie_properties(properties_str: str) -> CookieProperties:
+    parts = properties_str.replace(",", "").split(" ")
+    return CookieProperties(
+        capacity=int(parts[2]),
+        durability=int(parts[4]),
+        flavor=int(parts[6]),
+        texture=int(parts[8]),
+        calories=int(parts[10]),
     )

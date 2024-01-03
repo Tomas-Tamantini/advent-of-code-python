@@ -10,6 +10,7 @@ from models.aoc_2015 import (
     next_look_and_say,
     sum_all_numbers_in_json,
     ReindeerOlympics,
+    CookieRecipe,
 )
 from input_output.file_parser import (
     parse_xmas_presents,
@@ -18,6 +19,7 @@ from input_output.file_parser import (
     parse_adirected_graph,
     parse_directed_graph,
     parse_reindeer,
+    parse_cookie_properties,
 )
 
 
@@ -207,6 +209,16 @@ def _aoc_2015_d14():
     )
 
 
+# AOC 2015 - Day 15: Science for Hungry People
+def _aoc_2015_d15():
+    with open(_get_file_name(15), "r") as f:
+        lines = f.readlines()
+    ingredients = [parse_cookie_properties(l) for l in lines]
+    recipe = CookieRecipe(ingredients, num_tablespoons=100)
+    optimal_recipe = recipe.optimal_recipe()
+    print(f"AOC 2015 - Day 15/Part 1: Score of optimal recipe {optimal_recipe.score()}")
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -223,6 +235,7 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d12,
         _aoc_2015_d13,
         _aoc_2015_d14,
+        _aoc_2015_d15,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]

@@ -18,3 +18,4 @@ from .a2015_d10 import next_look_and_say
 from .a2015_d12 import sum_all_numbers_in_json
 from .a2015_d13 import DirectedGraph
 from .a2015_d14 import Reindeer, ReindeerOlympics
+from .a2015_d15 import CookieProperties, CookieRecipe

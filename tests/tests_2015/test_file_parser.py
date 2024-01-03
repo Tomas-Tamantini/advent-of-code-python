@@ -5,6 +5,7 @@ from input_output.file_parser import (
     parse_adirected_graph,
     parse_directed_graph,
     parse_reindeer,
+    parse_cookie_properties,
 )
 
 
@@ -124,3 +125,15 @@ def test_can_parse_reindeer():
     assert reindeer.flight_speed == 27
     assert reindeer.flight_interval == 5
     assert reindeer.rest_interval == 132
+
+
+def test_can_parse_cookie_properties():
+    properties_str = (
+        "PeanutButter: capacity -1, durability 3, flavor 0, texture 2, calories 1"
+    )
+    ingredient_properties = parse_cookie_properties(properties_str)
+    assert ingredient_properties.capacity == -1
+    assert ingredient_properties.durability == 3
+    assert ingredient_properties.flavor == 0
+    assert ingredient_properties.texture == 2
+    assert ingredient_properties.calories == 1
