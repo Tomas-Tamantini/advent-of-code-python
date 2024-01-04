@@ -11,6 +11,7 @@ from models.aoc_2015 import (
     sum_all_numbers_in_json,
     ReindeerOlympics,
     CookieRecipe,
+    eggnog_partition,
 )
 from input_output.file_parser import (
     parse_xmas_presents,
@@ -225,6 +226,22 @@ def _aoc_2015_d15():
     )
 
 
+# AOC 2015 - Day 16: Aunt Sue
+def _aoc_2015_d16():
+    print("AOC 2015 - Day 16/Part 1: Not implemented")
+    print("AOC 2015 - Day 16/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 17: No Such Thing as Too Much
+def _aoc_2015_d17():
+    with open(_get_file_name(17), "r") as f:
+        lines = f.readlines()
+    capacities = [int(l) for l in lines]
+    total_volume = 150
+    num_ways = len(list(eggnog_partition(total_volume, capacities)))
+    print(f"AOC 2015 - Day 17/Part 1: There are {num_ways} ways to store eggnog")
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -242,6 +259,8 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d13,
         _aoc_2015_d14,
         _aoc_2015_d15,
+        _aoc_2015_d16,
+        _aoc_2015_d17,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]
