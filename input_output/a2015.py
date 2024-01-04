@@ -238,8 +238,14 @@ def _aoc_2015_d17():
         lines = f.readlines()
     capacities = [int(l) for l in lines]
     total_volume = 150
-    num_ways = len(list(eggnog_partition(total_volume, capacities)))
+    partitions = list(eggnog_partition(total_volume, capacities))
+    num_ways = len(partitions)
     print(f"AOC 2015 - Day 17/Part 1: There are {num_ways} ways to store eggnog")
+    min_num_containers = min(len(p) for p in partitions)
+    num_ways_min_containers = sum(1 for p in partitions if len(p) == min_num_containers)
+    print(
+        f"AOC 2015 - Day 17/Part 2: There are {num_ways_min_containers} ways to store eggnog using {min_num_containers} containers"
+    )
 
 
 def advent_of_code_2015(*days: int):
