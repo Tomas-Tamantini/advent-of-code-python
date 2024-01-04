@@ -248,6 +248,54 @@ def _aoc_2015_d17():
     )
 
 
+# AOC 2015 - Day 18: Like a GIF For Your Yard
+def _aoc_2015_d18():
+    print("AOC 2015 - Day 18/Part 1: Not implemented")
+    print("AOC 2015 - Day 18/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 19: Medicine for Rudolph
+def _aoc_2015_d19():
+    print("AOC 2015 - Day 19/Part 1: Not implemented")
+    print("AOC 2015 - Day 19/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 20: Infinite Elves and Infinite Houses
+def _aoc_2015_d20():
+    print("AOC 2015 - Day 20/Part 1: Not implemented")
+    print("AOC 2015 - Day 20/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 21: RPG Simulator 20XX
+def _aoc_2015_d21():
+    print("AOC 2015 - Day 21/Part 1: Not implemented")
+    print("AOC 2015 - Day 21/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 22: Wizard Simulator 20XX
+def _aoc_2015_d22():
+    print("AOC 2015 - Day 22/Part 1: Not implemented")
+    print("AOC 2015 - Day 22/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 23: Opening the Turing Lock
+def _aoc_2015_d23():
+    print("AOC 2015 - Day 23/Part 1: Not implemented")
+    print("AOC 2015 - Day 23/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 24: It Hangs in the Balance
+def _aoc_2015_d24():
+    print("AOC 2015 - Day 24/Part 1: Not implemented")
+    print("AOC 2015 - Day 24/Part 2: Not implemented")
+
+
+# AOC 2015 - Day 25: Let It Snow
+def _aoc_2015_d25():
+    print("AOC 2015 - Day 25/Part 1: Not implemented")
+    print("AOC 2015 - Day 25/Part 2: Not implemented")
+
+
 def advent_of_code_2015(*days: int):
     solutions = [
         _aoc_2015_d1,
@@ -267,6 +315,14 @@ def advent_of_code_2015(*days: int):
         _aoc_2015_d15,
         _aoc_2015_d16,
         _aoc_2015_d17,
+        _aoc_2015_d18,
+        _aoc_2015_d19,
+        _aoc_2015_d20,
+        _aoc_2015_d21,
+        _aoc_2015_d22,
+        _aoc_2015_d23,
+        _aoc_2015_d24,
+        _aoc_2015_d25,
     ]
     if len(days) == 0:
         days = [i + 1 for i in range(len(solutions))]
