@@ -19,4 +19,5 @@ from .a2015_d12 import sum_all_numbers_in_json
 from .a2015_d13 import DirectedGraph
 from .a2015_d14 import Reindeer, ReindeerOlympics
 from .a2015_d15 import CookieProperties, CookieRecipe
-from .aoc2015_d17 import eggnog_partition
+from .a2015_d17 import eggnog_partition
+from .a2015_d20 import sum_of_divisors
