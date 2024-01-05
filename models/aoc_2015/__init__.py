@@ -22,4 +22,5 @@ from .a2015_d14 import Reindeer, ReindeerOlympics
 from .a2015_d15 import CookieProperties, CookieRecipe
 from .a2015_d16 import AuntSue, MatchType
 from .a2015_d17 import eggnog_partition
+from .a2015_d18 import GameOfLife
 from .a2015_d21 import Fighter, ItemAssortment, RpgItem, ItemShop

@@ -172,3 +172,15 @@ def test_can_parse_aunt_sue_collection():
     assert aunts[0]._attributes == {"children": 1, "cars": 8, "vizslas": 7}
     assert aunts[1].id == 2
     assert aunts[1]._attributes == {"akitas": 10, "perfumes": 10, "children": 5}
+
+
+def test_can_parse_game_of_life():
+    file_content = """#...
+                      ..#.
+                      .##."""
+    file_reader = MockFileReader(file_content)
+    file_parser = FileParser(file_reader)
+    game, live_cells = file_parser.parse_game_of_life("some_file_name")
+    assert game._width == 4
+    assert game._height == 3
+    assert live_cells == {(0, 0), (1, 2), (2, 1), (2, 2)}

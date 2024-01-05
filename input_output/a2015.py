@@ -296,7 +296,15 @@ def _aoc_2015_d17():
 
 # AOC 2015 - Day 18: Like a GIF For Your Yard
 def _aoc_2015_d18():
-    print("AOC 2015 - Day 18/Part 1: Not implemented")
+    game, initial_cells = _file_parser().parse_game_of_life(_get_file_name(18))
+    num_steps = 100
+    cells = initial_cells
+    for _ in range(num_steps):
+        cells = game.step(cells)
+    num_lights_on = len(cells)
+    print(
+        f"AOC 2015 - Day 18/Part 1: There are {num_lights_on} lights on after {num_steps} steps"
+    )
     print("AOC 2015 - Day 18/Part 2: Not implemented")
 
 

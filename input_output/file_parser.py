@@ -15,6 +15,7 @@ from models.aoc_2015 import (
     CookieProperties,
     Fighter,
     AuntSue,
+    GameOfLife,
 )
 from typing import Iterator, Protocol
 
@@ -174,3 +175,11 @@ class FileParser:
                 key, value = attribute.split(":")
                 attributes[key.strip()] = int(value.strip())
             yield AuntSue(sue_id, attributes)
+
+    def parse_game_of_life(self, file_name) -> tuple[GameOfLife, set[tuple[int, int]]]:
+        live_cells = set()
+        for y, line in enumerate(self._file_reader.readlines(file_name)):
+            for x, char in enumerate(line.strip()):
+                if char == "#":
+                    live_cells.add((x, y))
+        return GameOfLife(x + 1, y + 1), live_cells
