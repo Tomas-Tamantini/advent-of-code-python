@@ -16,6 +16,7 @@ from models.aoc_2015 import (
     RpgItem,
     ItemShop,
     num_chars_in_memory,
+    num_chars_encoded,
 )
 from input_output.file_parser import FileParser, FileReader
 
@@ -131,17 +132,22 @@ def _aoc_2015_d7():
 
 # AOC 2015 - Day 8: Matchsticks
 def _aoc_2015_d8():
-    char_difference = 0
+    difference_orignal_memory = 0
+    difference_encoded_original = 0
     with open(_get_file_name(8), "r") as f:
         for line in f.readlines():
             stripped_line = line.strip()
-            num_encoded = len(stripped_line)
+            num_original = len(stripped_line)
             num_memory = num_chars_in_memory(stripped_line)
-            char_difference += num_encoded - num_memory
+            num_encoded = num_chars_encoded(stripped_line)
+            difference_orignal_memory += num_original - num_memory
+            difference_encoded_original += num_encoded - num_original
     print(
-        f"AOC 2015 - Day 8/Part 1: Total number of characters difference is {char_difference}"
+        f"AOC 2015 - Day 8/Part 1: Difference between original and memory is {difference_orignal_memory}"
     )
-    print("AOC 2015 - Day 8/Part 2: Not implemented")
+    print(
+        f"AOC 2015 - Day 8/Part 2: Difference between encoded and original is {difference_encoded_original}"
+    )
 
 
 # AOC 2015 - Day 9: All in a Single Night

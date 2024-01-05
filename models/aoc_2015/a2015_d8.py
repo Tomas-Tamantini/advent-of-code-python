@@ -1,3 +1,7 @@
+def num_chars_encoded(string: str) -> int:
+    return len(string) + 2 + string.count('"') + string.count("\\")
+
+
 def num_chars_in_memory(string: str) -> int:
     char_counter = 0
     char_pointer = 1
