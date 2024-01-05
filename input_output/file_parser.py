@@ -14,6 +14,7 @@ from models.aoc_2015 import (
     Reindeer,
     CookieProperties,
     Fighter,
+    AuntSue,
 )
 from typing import Iterator, Protocol
 
@@ -163,3 +164,13 @@ class FileParser:
             elif "Armor" in line:
                 armor = value
         return Fighter(hit_points, damage, armor)
+
+    def parse_aunt_sue_collection(self, file_name) -> Iterator[AuntSue]:
+        for line in self._file_reader.readlines(file_name):
+            parts = line.split(":", 1)
+            sue_id = int(parts[0].replace("Sue ", ""))
+            attributes = {}
+            for attribute in parts[1].split(","):
+                key, value = attribute.split(":")
+                attributes[key.strip()] = int(value.strip())
+            yield AuntSue(sue_id, attributes)

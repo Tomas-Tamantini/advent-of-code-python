@@ -159,3 +159,16 @@ def test_can_parse_rpg_boss():
     assert boss.hit_points == 109
     assert boss.damage == 8
     assert boss.armor == 2
+
+
+def test_can_parse_aunt_sue_collection():
+    file_content = """Sue 1: children: 1, cars: 8, vizslas: 7
+                      Sue 2: akitas: 10, perfumes: 10, children: 5"""
+    file_reader = MockFileReader(file_content)
+    file_parser = FileParser(file_reader)
+    aunts = list(file_parser.parse_aunt_sue_collection("some_file_name"))
+    assert len(aunts) == 2
+    assert aunts[0].id == 1
+    assert aunts[0]._attributes == {"children": 1, "cars": 8, "vizslas": 7}
+    assert aunts[1].id == 2
+    assert aunts[1]._attributes == {"akitas": 10, "perfumes": 10, "children": 5}

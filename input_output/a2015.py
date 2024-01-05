@@ -240,7 +240,24 @@ def _aoc_2015_d15():
 
 # AOC 2015 - Day 16: Aunt Sue
 def _aoc_2015_d16():
-    print("AOC 2015 - Day 16/Part 1: Not implemented")
+    aunts = _file_parser().parse_aunt_sue_collection(_get_file_name(16))
+    measured_attributes = {
+        "children": 3,
+        "cats": 7,
+        "samoyeds": 2,
+        "pomeranians": 3,
+        "akitas": 0,
+        "vizslas": 0,
+        "goldfish": 5,
+        "trees": 3,
+        "cars": 2,
+        "perfumes": 1,
+    }
+    for aunt in aunts:
+        if aunt.matches(measured_attributes):
+            print(f"AOC 2015 - Day 16/Part 1: Aunt Sue {aunt.id} matches")
+            break
+
     print("AOC 2015 - Day 16/Part 2: Not implemented")
 
 
