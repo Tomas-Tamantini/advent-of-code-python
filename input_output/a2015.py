@@ -12,20 +12,20 @@ from models.aoc_2015 import (
     ReindeerOlympics,
     CookieRecipe,
     eggnog_partition,
+    ItemAssortment,
+    RpgItem,
+    ItemShop,
 )
-from input_output.file_parser import (
-    parse_xmas_presents,
-    parse_and_give_light_grid_instruction,
-    parse_logic_gates_circuit,
-    parse_adirected_graph,
-    parse_directed_graph,
-    parse_reindeer,
-    parse_cookie_properties,
-)
+from input_output.file_parser import FileParser, FileReader
 
 
 def _get_file_name(day: int) -> str:
     return f"input_files/a2015_d{day}.txt"
+
+
+def _file_parser() -> FileParser:
+    file_reader = FileReader()
+    return FileParser(file_reader)
 
 
 # AOC 2015 - Day 1: Not Quite Lisp
@@ -44,7 +44,7 @@ def _aoc_2015_d1():
 
 # AOC 2015 - Day 2: I Was Told There Would Be No Math
 def _aoc_2015_d2():
-    presents = list(parse_xmas_presents(_get_file_name(2)))
+    presents = list(_file_parser().parse_xmas_presents(_get_file_name(2)))
     total_area = sum(present.area_required_to_wrap() for present in presents)
     print(
         f"AOC 2015 - Day 2/Part 1: Santa needs {total_area} square feet of wrapping paper"
@@ -107,19 +107,19 @@ def _aoc_2015_d6():
 
     grid = LightGrid(1000, 1000)
     for line in lines:
-        parse_and_give_light_grid_instruction(line, grid)
+        FileParser.parse_and_give_light_grid_instruction(line, grid)
     print(f"AOC 2015 - Day 6/Part 1: There are {grid.num_lights_on} lights on")
     grid = LightGrid(1000, 1000)
     for line in lines:
-        parse_and_give_light_grid_instruction(line, grid, use_elvish_tongue=True)
+        FileParser.parse_and_give_light_grid_instruction(
+            line, grid, use_elvish_tongue=True
+        )
     print(f"AOC 2015 - Day 6/Part 2: The total brightness is {grid.num_lights_on}")
 
 
 # AOC 2015 - Day 7: Some Assembly Required
 def _aoc_2015_d7():
-    with open(_get_file_name(7), "r") as f:
-        circuit_spec = f.read()
-    circuit = parse_logic_gates_circuit(circuit_spec)
+    circuit = _file_parser().parse_logic_gates_circuit(_get_file_name(7))
     a_value = circuit.get_value("a")
     print(f"AOC 2015 - Day 7/Part 1: Wire a has signal of {a_value}")
     new_a_value = circuit.get_value("a", override_values={"b": a_value})
@@ -136,9 +136,7 @@ def _aoc_2015_d8():
 
 # AOC 2015 - Day 9: All in a Single Night
 def _aoc_2015_d9():
-    with open(_get_file_name(9), "r") as f:
-        graph_adjacencies = f.read()
-    graph = parse_adirected_graph(graph_adjacencies)
+    graph = _file_parser().parse_adirected_graph(_get_file_name(9))
     shortest_distance = graph.shortest_complete_itinerary_distance()
     print(
         f"AOC 2015 - Day 9/Part 1: Distance of shortest itinerary is {shortest_distance}"
@@ -182,9 +180,7 @@ def _aoc_2015_d12():
 
 # AOC 2015 - Day 13: Knights of the Dinner Table
 def _aoc_2015_d13():
-    with open(_get_file_name(13), "r") as f:
-        graph_adjacencies = f.read()
-    graph = parse_directed_graph(graph_adjacencies)
+    graph = _file_parser().parse_directed_graph(_get_file_name(13))
     max_happiness = graph.both_ways_trip_max_cost()
     print(f"AOC 2015 - Day 13/Part 1: Maximum happiness without me is {max_happiness}")
     pre_existing_nodes = list(graph.nodes)
@@ -199,7 +195,7 @@ def _aoc_2015_d13():
 def _aoc_2015_d14():
     with open(_get_file_name(14), "r") as f:
         lines = f.readlines()
-    reindeers = [parse_reindeer(l) for l in lines]
+    reindeers = [FileParser.parse_reindeer(l) for l in lines]
     race_duration = 2503
     reindeer_olympics = ReindeerOlympics(reindeers)
     max_distance = max(reindeer_olympics.positions_at_time(race_duration))
@@ -214,7 +210,7 @@ def _aoc_2015_d14():
 def _aoc_2015_d15():
     with open(_get_file_name(15), "r") as f:
         lines = f.readlines()
-    ingredients = [parse_cookie_properties(l) for l in lines]
+    ingredients = [FileParser.parse_cookie_properties(l) for l in lines]
     recipe = CookieRecipe(ingredients, num_tablespoons=100)
     optimal_recipe = recipe.optimal_recipe()
     print(
@@ -268,8 +264,53 @@ def _aoc_2015_d20():
 
 # AOC 2015 - Day 21: RPG Simulator 20XX
 def _aoc_2015_d21():
-    print("AOC 2015 - Day 21/Part 1: Not implemented")
-    print("AOC 2015 - Day 21/Part 2: Not implemented")
+    my_hit_points = 100
+    boss = _file_parser().parse_rpg_boss(_get_file_name(21))
+    weapons = ItemAssortment(
+        items=[
+            RpgItem(name="Dagger", cost=8, damage=4, armor=0),
+            RpgItem(name="Shortsword", cost=10, damage=5, armor=0),
+            RpgItem(name="Warhammer", cost=25, damage=6, armor=0),
+            RpgItem(name="Longsword", cost=40, damage=7, armor=0),
+            RpgItem(name="Greataxe", cost=74, damage=8, armor=0),
+        ],
+        min_num_items=1,
+        max_num_items=1,
+    )
+
+    armors = ItemAssortment(
+        items=[
+            RpgItem(name="Leather", cost=13, damage=0, armor=1),
+            RpgItem(name="Chainmail", cost=31, damage=0, armor=2),
+            RpgItem(name="Splintmail", cost=53, damage=0, armor=3),
+            RpgItem(name="Bandedmail", cost=75, damage=0, armor=4),
+            RpgItem(name="Platemail", cost=102, damage=0, armor=5),
+        ],
+        min_num_items=0,
+        max_num_items=1,
+    )
+
+    rings = ItemAssortment(
+        items=[
+            RpgItem(name="Damage +1", cost=25, damage=1, armor=0),
+            RpgItem(name="Damage +2", cost=50, damage=2, armor=0),
+            RpgItem(name="Damage +3", cost=100, damage=3, armor=0),
+            RpgItem(name="Defense +1", cost=20, damage=0, armor=1),
+            RpgItem(name="Defense +2", cost=40, damage=0, armor=2),
+            RpgItem(name="Defense +3", cost=80, damage=0, armor=3),
+        ],
+        min_num_items=0,
+        max_num_items=2,
+    )
+
+    shop = ItemShop(weapons, armors, rings)
+
+    winning_items = shop.cheapest_winning_items(my_hit_points, opponent=boss)
+    min_cost = sum(item.cost for item in winning_items)
+    print(f"AOC 2015 - Day 21/Part 1: Cheapest winning items cost {min_cost}")
+    losing_items = shop.most_expensive_losing_items(my_hit_points, opponent=boss)
+    max_cost = sum(item.cost for item in losing_items)
+    print(f"AOC 2015 - Day 21/Part 2: Most expensive losing items cost {max_cost}")
 
 
 # AOC 2015 - Day 22: Wizard Simulator 20XX
