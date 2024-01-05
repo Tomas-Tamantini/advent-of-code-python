@@ -18,6 +18,7 @@ from models.aoc_2015 import (
     num_chars_in_memory,
     num_chars_encoded,
     MatchType,
+    molecule_replacements,
 )
 from input_output.file_parser import FileParser, FileReader
 
@@ -316,7 +317,13 @@ def _aoc_2015_d18():
 
 # AOC 2015 - Day 19: Medicine for Rudolph
 def _aoc_2015_d19():
-    print("AOC 2015 - Day 19/Part 1: Not implemented")
+    molecule, replacements = _file_parser().parse_molecule_replacements(
+        _get_file_name(19)
+    )
+    new_molecules = set(molecule_replacements(molecule, replacements))
+    print(
+        f"AOC 2015 - Day 19/Part 1: There are {len(new_molecules)} new molecules after replacements"
+    )
     print("AOC 2015 - Day 19/Part 2: Not implemented")
 
 

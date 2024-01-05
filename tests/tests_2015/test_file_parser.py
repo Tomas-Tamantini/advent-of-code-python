@@ -184,3 +184,19 @@ def test_can_parse_game_of_life():
     assert game._width == 4
     assert game._height == 3
     assert live_cells == {(0, 0), (1, 2), (2, 1), (2, 2)}
+
+
+def test_can_parse_molecule_replacements():
+    file_content = """H => HO
+                      H => OH
+                      O => HH
+                      
+                      HOH"""
+    file_reader = MockFileReader(file_content)
+    file_parser = FileParser(file_reader)
+    molecule, replacements = file_parser.parse_molecule_replacements("some_file_name")
+    assert replacements == {
+        "H": ("HO", "OH"),
+        "O": ("HH",),
+    }
+    assert molecule == "HOH"

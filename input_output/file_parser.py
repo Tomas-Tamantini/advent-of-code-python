@@ -183,3 +183,18 @@ class FileParser:
                 if char == "#":
                     live_cells.add((x, y))
         return GameOfLife(x + 1, y + 1), live_cells
+
+    def parse_molecule_replacements(
+        self, file_name: str
+    ) -> tuple[str, dict[str, tuple[str]]]:
+        lines = list(self._file_reader.readlines(file_name))
+        molecule = lines[-1].strip()
+        replacements = {}
+        for line in lines:
+            if "=>" not in line:
+                continue
+            pattern, replacement = line.strip().split(" => ")
+            if pattern not in replacements:
+                replacements[pattern] = []
+            replacements[pattern].append(replacement)
+        return molecule, {k: tuple(v) for k, v in replacements.items()}
