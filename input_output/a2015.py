@@ -17,6 +17,7 @@ from models.aoc_2015 import (
     ItemShop,
     num_chars_in_memory,
     num_chars_encoded,
+    MatchType,
 )
 from input_output.file_parser import FileParser, FileReader
 
@@ -253,12 +254,28 @@ def _aoc_2015_d16():
         "cars": 2,
         "perfumes": 1,
     }
-    for aunt in aunts:
-        if aunt.matches(measured_attributes):
-            print(f"AOC 2015 - Day 16/Part 1: Aunt Sue {aunt.id} matches")
-            break
+    measured_attributes_exact = {
+        attribute: (value, MatchType.EXACT)
+        for attribute, value in measured_attributes.items()
+    }
 
-    print("AOC 2015 - Day 16/Part 2: Not implemented")
+    def match_type(attribute: str) -> MatchType:
+        if attribute in {"cats", "trees"}:
+            return MatchType.GREATER_THAN
+        elif attribute in {"pomeranians", "goldfish"}:
+            return MatchType.LESS_THAN
+        else:
+            return MatchType.EXACT
+
+    measure_attributes_retroencabulator = {
+        attribute: (value, match_type(attribute))
+        for attribute, value in measured_attributes.items()
+    }
+    for aunt in aunts:
+        if aunt.matches(measured_attributes_exact):
+            print(f"AOC 2015 - Day 16/Part 1: Aunt Sue {aunt.id} matches exact data")
+        if aunt.matches(measure_attributes_retroencabulator):
+            print(f"AOC 2015 - Day 16/Part 2: Aunt Sue {aunt.id} matches range data")
 
 
 # AOC 2015 - Day 17: No Such Thing as Too Much
