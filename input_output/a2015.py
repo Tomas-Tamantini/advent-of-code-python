@@ -298,14 +298,20 @@ def _aoc_2015_d17():
 def _aoc_2015_d18():
     game, initial_cells = _file_parser().parse_game_of_life(_get_file_name(18))
     num_steps = 100
-    cells = initial_cells
+    cells_default_game = initial_cells
+    cells_corners_always_on_game = initial_cells
+    corner_cells = set(game.corner_cells)
     for _ in range(num_steps):
-        cells = game.step(cells)
-    num_lights_on = len(cells)
+        cells_default_game = game.step(cells_default_game)
+        cells_corners_always_on_game = game.step_with_always_on_cells(
+            cells_corners_always_on_game, corner_cells
+        )
     print(
-        f"AOC 2015 - Day 18/Part 1: There are {num_lights_on} lights on after {num_steps} steps"
+        f"AOC 2015 - Day 18/Part 1: There are {len(cells_default_game)} lights on after {num_steps} steps"
     )
-    print("AOC 2015 - Day 18/Part 2: Not implemented")
+    print(
+        f"AOC 2015 - Day 18/Part 2: There are {len(cells_corners_always_on_game)} lights on after {num_steps} steps with corner lights always on"
+    )
 
 
 # AOC 2015 - Day 19: Medicine for Rudolph

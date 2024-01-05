@@ -7,6 +7,13 @@ class GameOfLife:
         self._width = grid_width
         self._height = grid_height
 
+    @property
+    def corner_cells(self) -> Iterator[tuple[int, int]]:
+        yield 0, 0
+        yield self._width - 1, 0
+        yield 0, self._height - 1
+        yield self._width - 1, self._height - 1
+
     def _is_within_bounds(self, cell: tuple[int, int]) -> bool:
         return 0 <= cell[0] < self._width and 0 <= cell[1] < self._height
 
@@ -30,3 +37,12 @@ class GameOfLife:
                 next_live_cells.add(cell)
 
         return next_live_cells
+
+    def step_with_always_on_cells(
+        self,
+        live_cells: set[tuple[int, int]],
+        always_on_cells: set[tuple[int, int]],
+    ) -> set[tuple[int, int]]:
+        actual_live_cells = live_cells | always_on_cells
+        next_live_cells = self.step(actual_live_cells)
+        return next_live_cells | always_on_cells

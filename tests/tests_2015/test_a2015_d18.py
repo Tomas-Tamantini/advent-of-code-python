@@ -40,3 +40,17 @@ def test_cell_which_is_off_and_has_three_neighbors_comes_alive():
 def test_cell_outside_grid_never_comes_alive():
     game = GameOfLife(3, 3)
     assert (3, 1) not in game.step({(2, 0), (2, 1), (2, 2)})
+
+
+def test_can_force_cells_to_be_always_on():
+    game = GameOfLife(3, 3)
+    new_cells = game.step_with_always_on_cells(
+        live_cells=set(),
+        always_on_cells={(0, 0), (2, 2), (0, 2)},
+    )
+    assert {(1, 1), (0, 0), (2, 2), (0, 2)} == new_cells
+
+
+def test_can_get_corner_cells():
+    game = GameOfLife(3, 3)
+    assert {(0, 0), (2, 0), (0, 2), (2, 2)} == set(game.corner_cells)
