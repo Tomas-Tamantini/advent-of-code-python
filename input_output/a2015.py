@@ -15,6 +15,7 @@ from models.aoc_2015 import (
     ItemAssortment,
     RpgItem,
     ItemShop,
+    num_chars_in_memory,
 )
 from input_output.file_parser import FileParser, FileReader
 
@@ -130,7 +131,16 @@ def _aoc_2015_d7():
 
 # AOC 2015 - Day 8: Matchsticks
 def _aoc_2015_d8():
-    print("AOC 2015 - Day 8/Part 1: Not implemented")
+    char_difference = 0
+    with open(_get_file_name(8), "r") as f:
+        for line in f.readlines():
+            stripped_line = line.strip()
+            num_encoded = len(stripped_line)
+            num_memory = num_chars_in_memory(stripped_line)
+            char_difference += num_encoded - num_memory
+    print(
+        f"AOC 2015 - Day 8/Part 1: Total number of characters difference is {char_difference}"
+    )
     print("AOC 2015 - Day 8/Part 2: Not implemented")
 
 
