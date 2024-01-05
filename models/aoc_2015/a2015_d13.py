@@ -1,5 +1,6 @@
 from itertools import permutations
 from typing import Iterable
+from math import inf
 
 
 class DirectedGraph:
@@ -17,12 +18,12 @@ class DirectedGraph:
 
     def _cost(self, node_a: str, node_b: str) -> int:
         if node_a not in self._adjacencies:
-            return float("inf")
+            return inf
         if node_b not in self._adjacencies[node_a]:
-            return float("inf")
+            return inf
         return self._adjacencies[node_a][node_b]
 
-    def _round_trip_itinerary_cost(self, itinerary: Iterable[str]):
+    def _round_trip_itinerary_cost(self, itinerary: list[str]):
         return sum(
             self._cost(
                 itinerary[i],
