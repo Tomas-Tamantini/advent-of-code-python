@@ -19,6 +19,7 @@ from models.aoc_2015 import (
     num_chars_encoded,
     MatchType,
     molecules_after_one_replacement,
+    num_replacements_from_atom_to_molecule,
     first_house_to_receive_n_presents,
 )
 from input_output.file_parser import FileParser, FileReader
@@ -325,7 +326,12 @@ def _aoc_2015_d19():
     print(
         f"AOC 2015 - Day 19/Part 1: There are {len(new_molecules)} new molecules after one replacement"
     )
-    print("AOC 2015 - Day 19/Part 2: Not implemented")
+    num_replacements = num_replacements_from_atom_to_molecule(
+        "e", molecule, replacements
+    )
+    print(
+        f"AOC 2015 - Day 19/Part 2: Minimum number of replacements to make molecule is {num_replacements}"
+    )
 
 
 # AOC 2015 - Day 20: Infinite Elves and Infinite Houses
