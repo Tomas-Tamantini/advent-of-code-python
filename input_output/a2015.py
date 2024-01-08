@@ -19,6 +19,7 @@ from models.aoc_2015 import (
     num_chars_encoded,
     MatchType,
     molecule_replacements,
+    first_house_to_receive_n_presents,
 )
 from input_output.file_parser import FileParser, FileReader
 
@@ -329,8 +330,20 @@ def _aoc_2015_d19():
 
 # AOC 2015 - Day 20: Infinite Elves and Infinite Houses
 def _aoc_2015_d20():
-    print("AOC 2015 - Day 20/Part 1: Not implemented")
-    print("AOC 2015 - Day 20/Part 2: Not implemented")
+    with open(_get_file_name(20), "r") as f:
+        target_num_presents = int(f.read())
+    first_house = first_house_to_receive_n_presents(
+        target_num_presents, presents_multiple_per_elf=10
+    )
+    print(
+        f"AOC 2015 - Day 20/Part 1: First house to receive {target_num_presents} presents is {first_house}"
+    )
+    first_house = first_house_to_receive_n_presents(
+        target_num_presents, presents_multiple_per_elf=11, houses_per_elf=50
+    )
+    print(
+        f"AOC 2015 - Day 20/Part 2: First house to receive {target_num_presents} presents (with 50 visits per elf) is {first_house}"
+    )
 
 
 # AOC 2015 - Day 21: RPG Simulator 20XX

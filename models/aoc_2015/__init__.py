@@ -24,4 +24,5 @@ from .a2015_d16 import AuntSue, MatchType
 from .a2015_d17 import eggnog_partition
 from .a2015_d18 import GameOfLife
 from .a2015_d19 import molecule_replacements
+from .a2015_d20 import first_house_to_receive_n_presents
 from .a2015_d21 import Fighter, ItemAssortment, RpgItem, ItemShop
