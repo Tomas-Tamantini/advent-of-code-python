@@ -16,8 +16,10 @@ from models.aoc_2015 import (
     Fighter,
     AuntSue,
     GameOfLife,
+    Molecule,
 )
 from typing import Iterator, Protocol
+import re
 
 
 class FileReaderProtocol(Protocol):
@@ -184,17 +186,23 @@ class FileParser:
                     live_cells.add((x, y))
         return GameOfLife(x + 1, y + 1), live_cells
 
+    @staticmethod
+    def _parse_molecule(molecule_str: str) -> Molecule:
+        atom_pattern = re.compile(r"([A-Z][a-z]?)")
+        atoms = re.findall(atom_pattern, molecule_str)
+        return Molecule(tuple(atoms))
+
     def parse_molecule_replacements(
         self, file_name: str
-    ) -> tuple[str, dict[str, tuple[str]]]:
+    ) -> tuple[Molecule, dict[str, tuple[Molecule]]]:
         lines = list(self._file_reader.readlines(file_name))
-        molecule = lines[-1].strip()
+        molecule = self._parse_molecule(lines[-1].strip())
         replacements = {}
         for line in lines:
             if "=>" not in line:
                 continue
-            pattern, replacement = line.strip().split(" => ")
-            if pattern not in replacements:
-                replacements[pattern] = []
-            replacements[pattern].append(replacement)
+            atom, replace_molecule_str = line.strip().split(" => ")
+            if atom not in replacements:
+                replacements[atom] = []
+            replacements[atom].append(self._parse_molecule(replace_molecule_str))
         return molecule, {k: tuple(v) for k, v in replacements.items()}

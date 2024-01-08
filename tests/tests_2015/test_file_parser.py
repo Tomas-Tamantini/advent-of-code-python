@@ -1,6 +1,6 @@
 from typing import Iterator
 from input_output.file_parser import FileParser
-from models.aoc_2015 import LightGridRegion
+from models.aoc_2015 import LightGridRegion, Molecule
 
 
 class MockFileReader:
@@ -196,7 +196,7 @@ def test_can_parse_molecule_replacements():
     file_parser = FileParser(file_reader)
     molecule, replacements = file_parser.parse_molecule_replacements("some_file_name")
     assert replacements == {
-        "H": ("HO", "OH"),
-        "O": ("HH",),
+        "H": (Molecule(("H", "O")), Molecule(("O", "H"))),
+        "O": (Molecule(("H", "H")),),
     }
-    assert molecule == "HOH"
+    assert molecule == Molecule(("H", "O", "H"))
