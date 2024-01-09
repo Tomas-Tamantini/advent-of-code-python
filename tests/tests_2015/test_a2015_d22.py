@@ -475,3 +475,18 @@ def test_game_state_is_hashable():
 
     assert hash(game_state_a) == hash(game_state_b)
     assert game_state_a == game_state_b
+
+
+def test_optimizing_winning_strategy_runs_efficiently():
+    wizard = Wizard(hit_points=20, mana=500)
+    boss = Boss(hit_points=28)
+    boss_move = BossMove(damage=9)
+    game_state = GameState(wizard, boss, is_wizard_turn=True)
+    spell_book = [
+        MagicMissile(mana_cost=53, damage=4),
+        Drain(mana_cost=73, damage=2, heal=2),
+        Shield(mana_cost=113, duration=6, armor=7),
+        Poison(mana_cost=173, duration=6, damage=3),
+        Recharge(mana_cost=229, duration=5, mana_recharge=101),
+    ]
+    assert min_mana_to_defeat_boss(game_state, spell_book, boss_move) == 445
