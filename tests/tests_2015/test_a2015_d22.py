@@ -11,6 +11,7 @@ from models.aoc_2015.a2015_d22 import (
     ShieldEffect,
     PoisonEffect,
     RechargeEffect,
+    DrainWizardHealthEffect,
     BossMove,
     MagicMissile,
     Drain,
@@ -210,11 +211,15 @@ def test_cannot_add_two_effects_with_same_id():
 
 
 def test_can_apply_effects_and_modify_characters_state():
-    wizard_original = mock.MagicMock(Wizard)
-    boss_original = mock.MagicMock(Boss)
+    wizard_original = _build_wizard(hit_points=10)
+    boss_original = Boss(hit_points=10)
     characters_original = CharactersState(wizard_original, boss_original)
-    characters_after_a = CharactersState(mock.MagicMock(Wizard), mock.MagicMock(Boss))
-    characters_after_b = CharactersState(mock.MagicMock(Wizard), mock.MagicMock(Boss))
+    characters_after_a = CharactersState(
+        _build_wizard(hit_points=9), Boss(hit_points=10)
+    )
+    characters_after_b = CharactersState(
+        _build_wizard(hit_points=9), Boss(hit_points=10)
+    )
     effect_a = mock.MagicMock(SpellEffect)
     effect_a.apply.return_value = characters_after_a
     effect_a.duration = 2
@@ -269,6 +274,7 @@ def test_some_spells_add_effects(spell_fn):
 def test_shield_adds_armor():
     wizard = mock.MagicMock(Wizard)
     wizard.mana = 500
+    wizard.is_dead.return_value = False
     wizard_with_armor = mock.MagicMock(Wizard)
     wizard.add_armor.return_value = wizard_with_armor
     effect = ShieldEffect(id="shield", duration=6, armor=7)
@@ -296,6 +302,7 @@ def test_shield_removes_armor_on_wear_off():
 
 def test_poison_deals_damage_to_boss():
     boss = mock.MagicMock(Boss)
+    boss.is_dead.return_value = False
     damaged_boss = mock.MagicMock(Boss)
     boss.take_damage.return_value = damaged_boss
     effect = PoisonEffect(id="poison", duration=6, damage=3)
@@ -310,6 +317,7 @@ def test_poison_deals_damage_to_boss():
 def test_recharge_adds_mana_to_wizard():
     wizard = mock.MagicMock(Wizard)
     wizard.mana = 500
+    wizard.is_dead.return_value = False
     wizard_with_mana = mock.MagicMock(Wizard)
     wizard.recharge_mana.return_value = wizard_with_mana
     effect = RechargeEffect(id="recharge", duration=5, mana=101)
@@ -319,6 +327,71 @@ def test_recharge_adds_mana_to_wizard():
     new_state = game_state.apply_effects()
     wizard.recharge_mana.assert_called_once_with(101)
     assert new_state.wizard == wizard_with_mana
+
+
+def test_drain_wizard_health_deals_damage_to_wizard():
+    wizard = mock.MagicMock(Wizard)
+    wizard.is_dead.return_value = False
+    damaged_wizard = mock.MagicMock(Wizard)
+    wizard.take_damage.return_value = damaged_wizard
+    effect = DrainWizardHealthEffect(id="drain", duration=5, damage=2)
+    game_state = _build_game_state(
+        wizard=wizard, effect_timers=SpellEffectTimers({effect: 5})
+    )
+    new_state = game_state.apply_effects()
+    wizard.take_damage.assert_called_once_with(2, ignore_armor=True)
+    assert new_state.wizard == damaged_wizard
+
+
+def test_effects_can_have_priorities():
+    characters_after_low = CharactersState(_build_wizard(10), Boss(10))
+    characters_after_high = CharactersState(_build_wizard(9), Boss(9))
+
+    effect_low_priority = mock.MagicMock(SpellEffect)
+    effect_low_priority.is_high_priority = False
+    effect_low_priority.apply.return_value = characters_after_low
+    effect_high_priority = mock.MagicMock(SpellEffect)
+    effect_high_priority.is_high_priority = True
+    effect_high_priority.apply.return_value = characters_after_high
+
+    game_state = _build_game_state(
+        effect_timers=SpellEffectTimers(
+            {
+                effect_low_priority: 6,
+                effect_high_priority: 2,
+            }
+        ),
+    )
+    new_state = game_state.apply_effects()
+    assert new_state.characters_state == characters_after_low
+
+
+def test_if_some_effect_kills_a_player_other_effects_do_not_run():
+    dead_wizard = mock.MagicMock(Wizard)
+    dead_wizard.is_dead.return_value = True
+    alive_wizard = mock.MagicMock(Wizard)
+    alive_wizard.is_dead.return_value = False
+    dead_boss = mock.MagicMock(Boss)
+    dead_boss.is_dead.return_value = True
+    alive_boss = mock.MagicMock(Boss)
+    alive_boss.is_dead.return_value = False
+
+    effect_a = mock.MagicMock(SpellEffect)
+    effect_a.is_high_priority = True
+    effect_a.apply.return_value = CharactersState(dead_wizard, alive_boss)
+    effect_b = mock.MagicMock(SpellEffect)
+    effect_b.is_high_priority = False
+    effect_b.apply.return_value = CharactersState(alive_wizard, dead_boss)
+    game_state = _build_game_state(
+        wizard=alive_wizard,
+        boss=alive_boss,
+        effect_timers=SpellEffectTimers({effect_a: 2, effect_b: 2}),
+    )
+    new_state = game_state.apply_effects()
+    effect_a.apply.assert_called_once()
+    effect_b.apply.assert_not_called()
+    assert new_state.wizard.is_dead()
+    assert not new_state.boss.is_dead()
 
 
 def test_boss_move_deals_damage_to_wizard():
@@ -397,6 +470,12 @@ def test_damage_cannot_be_reduced_to_less_than_one():
     wizard = _build_wizard(hit_points=10, armor=20)
     damaged_wizard = wizard.take_damage(4)
     assert damaged_wizard.hit_points == 9
+
+
+def test_armor_can_be_ignored():
+    wizard = _build_wizard(hit_points=10, armor=2)
+    damaged_wizard = wizard.take_damage(4, ignore_armor=True)
+    assert damaged_wizard.hit_points == 6
 
 
 def test_if_no_spells_available_min_mana_to_defeat_boss_is_infinite():

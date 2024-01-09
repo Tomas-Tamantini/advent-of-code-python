@@ -41,4 +41,5 @@ from .a2015_d22 import (
     Poison,
     Recharge,
     min_mana_to_defeat_boss,
+    DrainWizardHealthEffect,
 )

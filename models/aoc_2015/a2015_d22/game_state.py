@@ -38,7 +38,7 @@ class GameState:
         return self.__effect_timers
 
     def is_over(self) -> bool:
-        return self.wizard.is_dead() or self.boss.is_dead()
+        return self.characters_state.some_is_dead()
 
     def wizard_won(self) -> bool:
         return self.boss.is_dead()
@@ -55,7 +55,14 @@ class GameState:
 
     def apply_effects(self) -> "GameState":
         characters = self.characters_state
-        for effect in self.__effect_timers.active_effects():
+        effects = sorted(
+            self.__effect_timers.active_effects(),
+            key=lambda e: int(e.is_high_priority),
+            reverse=True,
+        )
+        for effect in effects:
+            if characters.some_is_dead():
+                break
             characters = effect.apply(characters)
         new_timers = self.__effect_timers.decrement_timers()
         characters = new_timers.wear_off_effects(characters)

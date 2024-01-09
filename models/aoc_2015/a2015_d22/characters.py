@@ -21,8 +21,8 @@ class Wizard:
     def is_dead(self):
         return self.hit_points <= 0
 
-    def take_damage(self, damage) -> "Wizard":
-        damage = max(1, damage - self.armor)
+    def take_damage(self, damage, ignore_armor: bool = False) -> "Wizard":
+        damage = damage if ignore_armor else max(1, damage - self.armor)
         return Wizard(self.hit_points - damage, self.mana, self.armor)
 
     def heal(self, heal: int) -> "Wizard":
@@ -45,3 +45,6 @@ class Wizard:
 class CharactersState:
     wizard: Wizard
     boss: Boss
+
+    def some_is_dead(self) -> bool:
+        return self.wizard.is_dead() or self.boss.is_dead()

@@ -3,9 +3,12 @@ from .characters import CharactersState
 
 
 class SpellEffect:
-    def __init__(self, id: Hashable, duration: int) -> None:
+    def __init__(
+        self, id: Hashable, duration: int, is_high_priority: bool = False
+    ) -> None:
         self._id = id
         self._duration = duration
+        self._is_high_priority = is_high_priority
 
     def __str__(self) -> str:
         return f"{self._id} ({self._duration})"
@@ -17,6 +20,10 @@ class SpellEffect:
     @property
     def duration(self) -> int:
         return self._duration
+
+    @property
+    def is_high_priority(self) -> bool:
+        return self._is_high_priority
 
     def apply(self, state: CharactersState) -> CharactersState:
         return state
@@ -108,4 +115,20 @@ class RechargeEffect(SpellEffect):
 
     def apply(self, state: CharactersState) -> CharactersState:
         new_wizard = state.wizard.recharge_mana(self._mana)
+        return CharactersState(new_wizard, state.boss)
+
+
+class DrainWizardHealthEffect(SpellEffect):
+    def __init__(
+        self,
+        id: Hashable,
+        duration: int,
+        damage: int,
+        is_high_priority: bool,
+    ) -> None:
+        super().__init__(id, duration, is_high_priority)
+        self._damage = damage
+
+    def apply(self, state: CharactersState) -> CharactersState:
+        new_wizard = state.wizard.take_damage(self._damage, ignore_armor=True)
         return CharactersState(new_wizard, state.boss)

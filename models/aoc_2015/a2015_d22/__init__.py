@@ -5,6 +5,7 @@ from .spell_effect import (
     ShieldEffect,
     PoisonEffect,
     RechargeEffect,
+    DrainWizardHealthEffect,
 )
 from .game_state import GameState
 from .game_move import BossMove, MagicMissile, Drain, Shield, Poison, Recharge

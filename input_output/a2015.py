@@ -31,6 +31,7 @@ from models.aoc_2015 import (
     Shield,
     Poison,
     Recharge,
+    DrainWizardHealthEffect,
     min_mana_to_defeat_boss,
 )
 from input_output.file_parser import FileParser, FileReader
@@ -431,7 +432,19 @@ def _aoc_2015_d22():
     ]
     min_mana = min_mana_to_defeat_boss(game_state, spell_book, boss_move)
     print(f"AOC 2015 - Day 22/Part 1: Minimum mana to defeat boss is {min_mana}")
-    print("AOC 2015 - Day 22/Part 2: Not implemented")
+
+    drain_health = DrainWizardHealthEffect(
+        id="drain_health",
+        duration=1_000_000,
+        damage=1,
+        is_high_priority=True,
+    )
+
+    game_state_hard_mode = game_state.add_spell_effect(drain_health)
+    min_mana = min_mana_to_defeat_boss(game_state_hard_mode, spell_book, boss_move)
+    print(
+        f"AOC 2015 - Day 22/Part 2: Minimum mana to defeat boss in hard mode is {min_mana}"
+    )
 
 
 # AOC 2015 - Day 23: Opening the Turing Lock
