@@ -1,6 +1,6 @@
 from typing import Iterator
 from input_output.file_parser import FileParser
-from models.aoc_2015 import LightGridRegion, Molecule
+from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 
 
 class MockFileReader:
@@ -155,7 +155,8 @@ def test_can_parse_rpg_boss():
                       Armor: 2"""
     file_reader = MockFileReader(file_content)
     file_parser = FileParser(file_reader)
-    boss = file_parser.parse_rpg_boss("some_file_name")
+    boss_kwargs = file_parser.parse_rpg_boss("some_file_name")
+    boss = Fighter(**boss_kwargs)
     assert boss.hit_points == 109
     assert boss.damage == 8
     assert boss.armor == 2

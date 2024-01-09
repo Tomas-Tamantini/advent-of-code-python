@@ -14,6 +14,7 @@ from models.aoc_2015 import (
     eggnog_partition,
     ItemAssortment,
     RpgItem,
+    Fighter,
     ItemShop,
     num_chars_in_memory,
     num_chars_encoded,
@@ -21,6 +22,16 @@ from models.aoc_2015 import (
     molecules_after_one_replacement,
     num_replacements_from_atom_to_molecule,
     first_house_to_receive_n_presents,
+    Wizard,
+    Boss,
+    BossMove,
+    GameState,
+    MagicMissile,
+    Drain,
+    Shield,
+    Poison,
+    Recharge,
+    min_mana_to_defeat_boss,
 )
 from input_output.file_parser import FileParser, FileReader
 
@@ -355,7 +366,8 @@ def _aoc_2015_d20():
 # AOC 2015 - Day 21: RPG Simulator 20XX
 def _aoc_2015_d21():
     my_hit_points = 100
-    boss = _file_parser().parse_rpg_boss(_get_file_name(21))
+    boss_kwargs = _file_parser().parse_rpg_boss(_get_file_name(21))
+    boss = Fighter(**boss_kwargs)
     weapons = ItemAssortment(
         items=[
             RpgItem(name="Dagger", cost=8, damage=4, armor=0),
@@ -405,7 +417,20 @@ def _aoc_2015_d21():
 
 # AOC 2015 - Day 22: Wizard Simulator 20XX
 def _aoc_2015_d22():
-    print("AOC 2015 - Day 22/Part 1: Not implemented")
+    wizard = Wizard(hit_points=50, mana=500)
+    boss_kwargs = _file_parser().parse_rpg_boss(_get_file_name(22))
+    boss = Boss(hit_points=boss_kwargs["hit_points"])
+    boss_move = BossMove(damage=boss_kwargs["damage"])
+    game_state = GameState(wizard, boss, is_wizard_turn=True)
+    spell_book = [
+        MagicMissile(mana_cost=53, damage=4),
+        Drain(mana_cost=73, damage=2, heal=2),
+        Shield(mana_cost=113, duration=6, armor=7),
+        Poison(mana_cost=173, duration=6, damage=3),
+        Recharge(mana_cost=229, duration=5, mana_recharge=101),
+    ]
+    min_mana = min_mana_to_defeat_boss(game_state, spell_book, boss_move)
+    print(f"AOC 2015 - Day 22/Part 1: Minimum mana to defeat boss is {min_mana}")
     print("AOC 2015 - Day 22/Part 2: Not implemented")
 
 

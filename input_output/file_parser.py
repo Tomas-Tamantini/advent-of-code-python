@@ -156,17 +156,18 @@ class FileParser:
             calories=int(parts[10]),
         )
 
-    def parse_rpg_boss(self, file_name: str) -> Fighter:
+    def parse_rpg_boss(self, file_name: str) -> dict[str, int]:
+        attributes = {}
         for line in self._file_reader.readlines(file_name):
             parts = line.split(":")
             value = int(parts[-1])
             if "Hit Points" in line:
-                hit_points = value
+                attributes["hit_points"] = value
             elif "Damage" in line:
-                damage = value
+                attributes["damage"] = value
             elif "Armor" in line:
-                armor = value
-        return Fighter(hit_points, damage, armor)
+                attributes["armor"] = value
+        return attributes
 
     def parse_aunt_sue_collection(self, file_name) -> Iterator[AuntSue]:
         for line in self._file_reader.readlines(file_name):
