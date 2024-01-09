@@ -30,3 +30,15 @@ from .a2015_d19 import (
 )
 from .a2015_d20 import first_house_to_receive_n_presents
 from .a2015_d21 import Fighter, ItemAssortment, RpgItem, ItemShop
+from .a2015_d22 import (
+    Wizard,
+    Boss,
+    BossMove,
+    GameState,
+    MagicMissile,
+    Drain,
+    Shield,
+    Poison,
+    Recharge,
+    min_mana_to_defeat_boss,
+)
