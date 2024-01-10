@@ -33,8 +33,10 @@ from models.aoc_2015 import (
     Recharge,
     DrainWizardHealthEffect,
     min_mana_to_defeat_boss,
+    possible_arrangements_of_packets_in_passenger_comparment,
 )
 from input_output.file_parser import FileParser, FileReader
+from math import prod
 
 
 def _get_file_name(day: int) -> str:
@@ -459,8 +461,27 @@ def _aoc_2015_d23():
 
 # AOC 2015 - Day 24: It Hangs in the Balance
 def _aoc_2015_d24():
-    print("AOC 2015 - Day 24/Part 1: Not implemented")
-    print("AOC 2015 - Day 24/Part 2: Not implemented")
+    with open(_get_file_name(24), "r") as f:
+        lines = f.readlines()
+    numbers = [int(l) for l in lines]
+    min_quantum_entanglement = min(
+        prod(group)
+        for group in possible_arrangements_of_packets_in_passenger_comparment(
+            numbers, num_groups=3
+        )
+    )
+    print(
+        f"AOC 2015 - Day 24/Part 1: Quantum entanglement of optimal arrangement divided in 3 groups is {min_quantum_entanglement}"
+    )
+    min_quantum_entanglement = min(
+        prod(group)
+        for group in possible_arrangements_of_packets_in_passenger_comparment(
+            numbers, num_groups=4
+        )
+    )
+    print(
+        f"AOC 2015 - Day 24/Part 2: Quantum entanglement of optimal arrangement divided in 4 groups is {min_quantum_entanglement}"
+    )
 
 
 # AOC 2015 - Day 25: Let It Snow

@@ -43,3 +43,4 @@ from .a2015_d22 import (
     min_mana_to_defeat_boss,
     DrainWizardHealthEffect,
 )
+from .a2015_d24 import possible_arrangements_of_packets_in_passenger_comparment
