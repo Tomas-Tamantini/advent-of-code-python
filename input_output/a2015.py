@@ -194,8 +194,8 @@ def _aoc_2015_d10():
 
 # AOC 2015 - Day 11: Corporate Policy
 def _aoc_2015_d11():
-    print("AOC 2015 - Day 11/Part 1: Not implemented")
-    print("AOC 2015 - Day 11/Part 2: Not implemented")
+    print("AOC 2015 - Day 11/Part 1: Done by hand - hepxxyzz")
+    print("AOC 2015 - Day 11/Part 2: Done by hand - hepxcrrq")
 
 
 # AOC 2015 - Day 12: JSAbacusFramework.io
@@ -449,8 +449,12 @@ def _aoc_2015_d22():
 
 # AOC 2015 - Day 23: Opening the Turing Lock
 def _aoc_2015_d23():
-    print("AOC 2015 - Day 23/Part 1: Not implemented")
-    print("AOC 2015 - Day 23/Part 2: Not implemented")
+    print(
+        "AOC 2015 - Day 23/Part 1: Done by hand (it's just 3n+1 problem in disguise) - Num. steps to go from 20895 to 1: 255 "
+    )
+    print(
+        "AOC 2015 - Day 23/Part 2: Done by hand (it's just 3n+1 problem in disguise) - Num. steps to go from 60975 to 1: 334"
+    )
 
 
 # AOC 2015 - Day 24: It Hangs in the Balance
