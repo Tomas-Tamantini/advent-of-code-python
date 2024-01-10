@@ -34,6 +34,7 @@ from models.aoc_2015 import (
     DrainWizardHealthEffect,
     min_mana_to_defeat_boss,
     possible_arrangements_of_packets_in_passenger_comparment,
+    code_at,
 )
 from input_output.file_parser import FileParser, FileReader
 from math import prod
@@ -486,8 +487,11 @@ def _aoc_2015_d24():
 
 # AOC 2015 - Day 25: Let It Snow
 def _aoc_2015_d25():
-    print("AOC 2015 - Day 25/Part 1: Not implemented")
-    print("AOC 2015 - Day 25/Part 2: Not implemented")
+    row_and_col = _file_parser().parse_code_row_and_col(_get_file_name(25))
+    code = code_at(**row_and_col, first_code=20151125, multiplier=252533, mod=33554393)
+    print(
+        f"AOC 2015 - Day 25: Code at row {row_and_col['row']}, column {row_and_col['col']} is {code}"
+    )
 
 
 def advent_of_code_2015(*days: int):

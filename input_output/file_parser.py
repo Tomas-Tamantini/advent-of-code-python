@@ -207,3 +207,8 @@ class FileParser:
                 replacements[atom] = []
             replacements[atom].append(self._parse_molecule(replace_molecule_str))
         return molecule, {k: tuple(v) for k, v in replacements.items()}
+
+    def parse_code_row_and_col(self, file_name: str) -> dict[str, int]:
+        text = self._file_reader.read(file_name)
+        parts = text.replace(",", "").replace(".", "").split(" ")
+        return {"row": int(parts[-3]), "col": int(parts[-1])}

@@ -201,3 +201,11 @@ def test_can_parse_molecule_replacements():
         "O": (Molecule(("H", "H")),),
     }
     assert molecule == Molecule(("H", "O", "H"))
+
+
+def test_can_parse_code_row_and_column():
+    file_content = "To continue, please consult the code grid in the manual.  Enter the code at row 3010, column 3019."
+    file_reader = MockFileReader(file_content)
+    file_parser = FileParser(file_reader)
+    row_and_col = file_parser.parse_code_row_and_col("some_file_name")
+    assert row_and_col == {"row": 3010, "col": 3019}
