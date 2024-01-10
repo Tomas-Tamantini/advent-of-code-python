@@ -7,12 +7,6 @@ class Vector2D:
     x: int
     y: int
 
-    def move(self, direction: CardinalDirection) -> "Vector2D":
-        if direction == CardinalDirection.NORTH:
-            return Vector2D(self.x, self.y + 1)
-        elif direction == CardinalDirection.EAST:
-            return Vector2D(self.x + 1, self.y)
-        elif direction == CardinalDirection.SOUTH:
-            return Vector2D(self.x, self.y - 1)
-        else:
-            return Vector2D(self.x - 1, self.y)
+    def move(self, direction: CardinalDirection, num_steps: int = 1) -> "Vector2D":
+        dx, dy = direction.offset()
+        return Vector2D(self.x + dx * num_steps, self.y + dy * num_steps)
