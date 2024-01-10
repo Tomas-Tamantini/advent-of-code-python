@@ -41,7 +41,7 @@ from models.aoc_2015 import (
 
 
 def _get_file_name(day: int) -> str:
-    return f"input_files/a2015_d{day}.txt"
+    return f"input_files/aoc_2015/a2015_d{day}.txt"
 
 
 def _file_parser() -> FileParser:

@@ -1,9 +1,9 @@
 from input_output.file_parser import FileParser, FileReader
-from models.aoc_2016 import TurnDirection, turtle_destination, TurtleInstruction
+from models.aoc_2016 import turtle_destination
 
 
 def _get_file_name(day: int) -> str:
-    return f"input_files/a2016_d{day}.txt"
+    return f"input_files/aoc_2016/a2016_d{day}.txt"
 
 
 def _file_parser() -> FileParser:
