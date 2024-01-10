@@ -8,10 +8,10 @@ class MockFileReader:
     def __init__(self, file_content: str) -> None:
         self._content = file_content
 
-    def read(self, file_name: str) -> str:
+    def read(self, _: str) -> str:
         return self._content
 
-    def readlines(self, file_name: str) -> Iterator[str]:
+    def readlines(self, _: str) -> Iterator[str]:
         yield from self._content.split("\n")
 
 
@@ -37,6 +37,11 @@ class MockLightGrid:
 
     def decrease_brightness(self, region: LightGridRegion, decrease: int) -> None:
         self.decrease_brightness_args = [region, decrease]
+
+
+def mock_file_parser(file_content: str) -> FileParser:
+    file_reader = MockFileReader(file_content)
+    return FileParser(file_reader)
 
 
 def test_can_parse_and_give_light_grid_instructions():
@@ -90,8 +95,7 @@ def test_can_parse_logic_gates_circuit():
                      y RSHIFT 2 -> g
                      NOT x -> h
                      NOT y -> i"""
-    file_reader = MockFileReader(circuit_str)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(circuit_str)
     circuit = file_parser.parse_logic_gates_circuit("some_file_name")
     expected_values = {
         "x": 123,
@@ -111,8 +115,7 @@ def test_can_parse_adirected_graph():
     graph_str = """a to b = 100
                    a to c = 100
                    b to c = 150"""
-    file_reader = MockFileReader(graph_str)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(graph_str)
     graph = file_parser.parse_adirected_graph("some_file_name")
     assert graph.shortest_complete_itinerary_distance() == 200
 
@@ -121,8 +124,7 @@ def test_can_parse_directed_graph():
     graph_str = """Alice would gain 54 happiness units by sitting next to Bob.
                    Bob would lose 7 happiness units by sitting next to Carol.
                    Carol would lose 62 happiness units by sitting next to Alice."""
-    file_reader = MockFileReader(graph_str)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(graph_str)
     graph = file_parser.parse_directed_graph("some_file_name")
     assert graph.round_trip_itinerary_min_cost() == -15
     assert graph.round_trip_itinerary_max_cost() == float("inf")
@@ -154,8 +156,7 @@ def test_can_parse_rpg_boss():
     file_content = """Hit Points: 109
                       Damage: 8
                       Armor: 2"""
-    file_reader = MockFileReader(file_content)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(file_content)
     boss_kwargs = file_parser.parse_rpg_boss("some_file_name")
     boss = Fighter(**boss_kwargs)
     assert boss.hit_points == 109
@@ -180,8 +181,7 @@ def test_can_parse_game_of_life():
     file_content = """#...
                       ..#.
                       .##."""
-    file_reader = MockFileReader(file_content)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(file_content)
     game, live_cells = file_parser.parse_game_of_life("some_file_name")
     assert game._width == 4
     assert game._height == 3
@@ -194,8 +194,7 @@ def test_can_parse_molecule_replacements():
                       O => HH
                       
                       HOH"""
-    file_reader = MockFileReader(file_content)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(file_content)
     molecule, replacements = file_parser.parse_molecule_replacements("some_file_name")
     assert replacements == {
         "H": (Molecule(("H", "O")), Molecule(("O", "H"))),
@@ -206,16 +205,14 @@ def test_can_parse_molecule_replacements():
 
 def test_can_parse_code_row_and_column():
     file_content = "To continue, please consult the code grid in the manual.  Enter the code at row 3010, column 3019."
-    file_reader = MockFileReader(file_content)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(file_content)
     row_and_col = file_parser.parse_code_row_and_col("some_file_name")
     assert row_and_col == {"row": 3010, "col": 3019}
 
 
 def test_can_parse_turtle_instructions():
     file_content = "R2, L3"
-    file_reader = MockFileReader(file_content)
-    file_parser = FileParser(file_reader)
+    file_parser = mock_file_parser(file_content)
     instructions = file_parser.parse_turtle_instructions("some_file_name")
     assert list(instructions) == [
         TurtleInstruction(TurnDirection.RIGHT, 2),
