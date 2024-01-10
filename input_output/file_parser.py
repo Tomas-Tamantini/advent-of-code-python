@@ -44,6 +44,10 @@ class FileParser:
     def __init__(self, file_reader: FileReaderProtocol) -> None:
         self._file_reader = file_reader
 
+    @staticmethod
+    def default() -> "FileParser":
+        return FileParser(FileReader())
+
     def parse_xmas_presents(self, file_name: str) -> Iterator[XmasPresent]:
         for l in self._file_reader.readlines(file_name):
             yield XmasPresent(*map(int, l.split("x")))

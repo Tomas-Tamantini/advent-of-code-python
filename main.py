@@ -1,3 +1,8 @@
-from input_output import advent_of_code_2016
+from input_output import run_solutions
 
-advent_of_code_2016()
+solutions_to_run = {
+    2015: (),
+    2016: (),
+}
+
+run_solutions(solutions_to_run)
