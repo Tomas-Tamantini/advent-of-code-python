@@ -17,6 +17,7 @@ from models.aoc_2015 import (
     GameOfLife,
     Molecule,
 )
+from models.aoc_2016 import TurnDirection, TurtleInstruction
 from typing import Iterator, Protocol
 import re
 
@@ -211,3 +212,13 @@ class FileParser:
         text = self._file_reader.read(file_name)
         parts = text.replace(",", "").replace(".", "").split(" ")
         return {"row": int(parts[-3]), "col": int(parts[-1])}
+
+    def parse_turtle_instructions(self, file_name):
+        instructions = []
+        text = self._file_reader.read(file_name)
+        for instruction in text.split(","):
+            instruction = instruction.strip()
+            turn = TurnDirection(instruction[0])
+            steps = int(instruction[1:])
+            instructions.append(TurtleInstruction(turn, steps))
+        return instructions

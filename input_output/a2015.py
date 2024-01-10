@@ -1,3 +1,5 @@
+from input_output.file_parser import FileParser, FileReader
+from math import prod
 from models.aoc_2015 import (
     final_floor,
     first_basement,
@@ -36,8 +38,6 @@ from models.aoc_2015 import (
     possible_arrangements_of_packets_in_passenger_comparment,
     code_at,
 )
-from input_output.file_parser import FileParser, FileReader
-from math import prod
 
 
 def _get_file_name(day: int) -> str:

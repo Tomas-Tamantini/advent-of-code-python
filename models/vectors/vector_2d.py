@@ -4,8 +4,8 @@ from .cardinal_directions import CardinalDirection
 
 @dataclass(frozen=True)
 class Vector2D:
-    x: int
-    y: int
+    x: int = 0
+    y: int = 0
 
     def move(self, direction: CardinalDirection, num_steps: int = 1) -> "Vector2D":
         dx, dy = direction.offset()

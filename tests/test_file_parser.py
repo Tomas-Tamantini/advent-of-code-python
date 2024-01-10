@@ -1,6 +1,7 @@
 from typing import Iterator
 from input_output.file_parser import FileParser
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
+from models.aoc_2016 import TurnDirection, TurtleInstruction
 
 
 class MockFileReader:
@@ -209,3 +210,14 @@ def test_can_parse_code_row_and_column():
     file_parser = FileParser(file_reader)
     row_and_col = file_parser.parse_code_row_and_col("some_file_name")
     assert row_and_col == {"row": 3010, "col": 3019}
+
+
+def test_can_parse_turtle_instructions():
+    file_content = "R2, L3"
+    file_reader = MockFileReader(file_content)
+    file_parser = FileParser(file_reader)
+    instructions = file_parser.parse_turtle_instructions("some_file_name")
+    assert list(instructions) == [
+        TurtleInstruction(TurnDirection.RIGHT, 2),
+        TurtleInstruction(TurnDirection.LEFT, 3),
+    ]
