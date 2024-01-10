@@ -334,7 +334,9 @@ def test_drain_wizard_health_deals_damage_to_wizard():
     wizard.is_dead.return_value = False
     damaged_wizard = mock.MagicMock(Wizard)
     wizard.take_damage.return_value = damaged_wizard
-    effect = DrainWizardHealthEffect(id="drain", duration=5, damage=2)
+    effect = DrainWizardHealthEffect(
+        id="drain", duration=5, damage=2, is_high_priority=False
+    )
     game_state = _build_game_state(
         wizard=wizard, effect_timers=SpellEffectTimers({effect: 5})
     )
