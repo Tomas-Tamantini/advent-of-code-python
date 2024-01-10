@@ -13,7 +13,6 @@ from models.aoc_2015 import (
     DirectedGraph,
     Reindeer,
     CookieProperties,
-    Fighter,
     AuntSue,
     GameOfLife,
     Molecule,
