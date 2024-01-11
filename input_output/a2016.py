@@ -151,7 +151,9 @@ def aoc_2016_d8(file_name: str):
     print(
         f"AOC 2016 - Day 8/Part 1: Number of lit pixels: {screen.number_of_lit_pixels()}"
     )
-    print("AOC 2016 - Day 8/Part 2: Not implemented")
+    print("AOC 2016 - Day 8/Part 2: Screen display")
+    screen_display = str(screen).replace("0", " ").replace("1", "#")
+    print(screen_display)
 
 
 # AOC 2016 - Day 9: Explosives in Cyberspace
