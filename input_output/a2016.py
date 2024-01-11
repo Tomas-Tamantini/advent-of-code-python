@@ -1,6 +1,6 @@
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
-from models.aoc_2016 import Turtle, Keypad
+from models.aoc_2016 import Turtle, Keypad, is_valid_triangle
 
 
 parser = FileParser.default()
@@ -49,7 +49,14 @@ def aoc_2016_d2(file_name: str):
 
 # AOC 2016 - Day 3: Squares With Three Sides
 def aoc_2016_d3(file_name: str):
-    print("AOC 2016 - Day 3/Part 1: Not implemented")
+    num_valid_triangles = 0
+    with open(file_name, "r") as f:
+        for line in f.readlines():
+            sides = [int(i) for i in line.strip().split()]
+            if is_valid_triangle(*sides):
+                num_valid_triangles += 1
+
+    print(f"AOC 2016 - Day 3/Part 1: Number of valid triangles: {num_valid_triangles}")
     print("AOC 2016 - Day 3/Part 2: Not implemented")
 
 
