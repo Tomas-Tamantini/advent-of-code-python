@@ -1,4 +1,4 @@
-from input_output.file_parser import FileParser, FileReader
+from input_output.file_parser import FileParser
 from math import prod
 from models.aoc_2015 import (
     final_floor,
