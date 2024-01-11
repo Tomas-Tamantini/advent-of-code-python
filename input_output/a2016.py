@@ -1,6 +1,12 @@
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
-from models.aoc_2016 import Turtle, Keypad, is_valid_triangle, PasswordGenerator
+from models.aoc_2016 import (
+    Turtle,
+    Keypad,
+    is_valid_triangle,
+    PasswordGenerator,
+    MessageReconstructor,
+)
 
 
 parser = FileParser.default()
@@ -100,7 +106,12 @@ def aoc_2016_d5(file_name: str):
 
 # AOC 2016 - Day 6: Signals and Noise
 def aoc_2016_d6(file_name: str):
-    print("AOC 2016 - Day 6/Part 1: Not implemented")
+    with open(file_name, "r") as f:
+        lines = f.readlines()
+    message_reconstructor = MessageReconstructor(lines)
+    print(
+        f"AOC 2016 - Day 6/Part 1: Message reconstructed from most common letters: {message_reconstructor.reconstruct_message()}"
+    )
     print("AOC 2016 - Day 6/Part 2: Not implemented")
 
 
