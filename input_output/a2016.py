@@ -6,7 +6,7 @@ from models.aoc_2016 import (
     is_valid_triangle,
     PasswordGenerator,
     MessageReconstructor,
-    ip_supports_tls,
+    IpParser,
 )
 
 
@@ -129,7 +129,8 @@ def aoc_2016_d7(file_name: str):
     num_ips_that_support_tls = 0
     with open(file_name, "r") as f:
         for line in f.readlines():
-            if ip_supports_tls(line.strip()):
+            ip_parser = IpParser(line.strip())
+            if ip_parser.supports_tls():
                 num_ips_that_support_tls += 1
     print(
         f"AOC 2016 - Day 7/Part 1: Number of IPs that support TLS: {num_ips_that_support_tls}"
