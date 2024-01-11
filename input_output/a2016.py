@@ -26,13 +26,22 @@ def aoc_2016_d1(file_name: str):
 
 # AOC 2016 - Day 2: Bathroom Security
 def aoc_2016_d2(file_name: str):
-    keypad = Keypad(initial_key=5)
-    keys = []
+    keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
+    keypad_rhombus = Keypad(
+        configuration="**1**\n*234*\n56789\n*ABC*\n**D**", initial_key="5"
+    )
+    keys_3x3 = []
+    keys_rhombus = []
     with open(file_name, "r") as f:
         for line in f.readlines():
             instructions = [
                 FileParser.parse_cardinal_direction(i) for i in line.strip()
             ]
-            keypad.move_multiple_keys(instructions)
-            keys.append(keypad.key)
-    print(f"AOC 2016 - Day 2/Part 1: Bathroom code is {''.join(map(str, keys))}")
+            keypad_three_by_three.move_multiple_keys(instructions)
+            keys_3x3.append(keypad_three_by_three.key)
+            keypad_rhombus.move_multiple_keys(instructions)
+            keys_rhombus.append(keypad_rhombus.key)
+    print(f"AOC 2016 - Day 2/Part 1: Bathroom code for 3x3 pad is {''.join(keys_3x3)}")
+    print(
+        f"AOC 2016 - Day 2/Part 2: Bathroom code for rhombus pad is {''.join(keys_rhombus)}"
+    )
