@@ -45,3 +45,141 @@ def aoc_2016_d2(file_name: str):
     print(
         f"AOC 2016 - Day 2/Part 2: Bathroom code for rhombus pad is {''.join(keys_rhombus)}"
     )
+
+
+# AOC 2016 - Day 3: Squares With Three Sides
+def aoc_2016_d3(file_name: str):
+    print("AOC 2016 - Day 3/Part 1: Not implemented")
+    print("AOC 2016 - Day 3/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 4: Security Through Obscurity
+def aoc_2016_d4(file_name: str):
+    print("AOC 2016 - Day 4/Part 1: Not implemented")
+    print("AOC 2016 - Day 4/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 5: How About a Nice Game of Chess?
+def aoc_2016_d5(file_name: str):
+    print("AOC 2016 - Day 5/Part 1: Not implemented")
+    print("AOC 2016 - Day 5/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 6: Signals and Noise
+def aoc_2016_d6(file_name: str):
+    print("AOC 2016 - Day 6/Part 1: Not implemented")
+    print("AOC 2016 - Day 6/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 7: Internet Protocol Version 7
+def aoc_2016_d7(file_name: str):
+    print("AOC 2016 - Day 7/Part 1: Not implemented")
+    print("AOC 2016 - Day 7/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 8: Two-Factor Authentication
+def aoc_2016_d8(file_name: str):
+    print("AOC 2016 - Day 8/Part 1: Not implemented")
+    print("AOC 2016 - Day 8/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 9: Explosives in Cyberspace
+def aoc_2016_d9(file_name: str):
+    print("AOC 2016 - Day 9/Part 1: Not implemented")
+    print("AOC 2016 - Day 9/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 10: Balance Bots
+def aoc_2016_d10(file_name: str):
+    print("AOC 2016 - Day 10/Part 1: Not implemented")
+    print("AOC 2016 - Day 10/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 11: Radioisotope Thermoelectric Generators
+def aoc_2016_d11(file_name: str):
+    print("AOC 2016 - Day 11/Part 1: Not implemented")
+    print("AOC 2016 - Day 11/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 12: Leonardo's Monorail
+def aoc_2016_d12(file_name: str):
+    print("AOC 2016 - Day 12/Part 1: Not implemented")
+    print("AOC 2016 - Day 12/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 13: A Maze of Twisty Little Cubicles
+def aoc_2016_d13(file_name: str):
+    print("AOC 2016 - Day 13/Part 1: Not implemented")
+    print("AOC 2016 - Day 13/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 14: One-Time Pad
+def aoc_2016_d14(file_name: str):
+    print("AOC 2016 - Day 14/Part 1: Not implemented")
+    print("AOC 2016 - Day 14/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 15: Timing is Everything
+def aoc_2016_d15(file_name: str):
+    print("AOC 2016 - Day 15/Part 1: Not implemented")
+    print("AOC 2016 - Day 15/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 16: Dragon Checksum
+def aoc_2016_d16(file_name: str):
+    print("AOC 2016 - Day 16/Part 1: Not implemented")
+    print("AOC 2016 - Day 16/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 17: Two Steps Forward
+def aoc_2016_d17(file_name: str):
+    print("AOC 2016 - Day 17/Part 1: Not implemented")
+    print("AOC 2016 - Day 17/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 18: Like a Rogue
+def aoc_2016_d18(file_name: str):
+    print("AOC 2016 - Day 18/Part 1: Not implemented")
+    print("AOC 2016 - Day 18/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 19: An Elephant Named Joseph
+def aoc_2016_d19(file_name: str):
+    print("AOC 2016 - Day 19/Part 1: Not implemented")
+    print("AOC 2016 - Day 19/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 20: Firewall Rules
+def aoc_2016_d20(file_name: str):
+    print("AOC 2016 - Day 20/Part 1: Not implemented")
+    print("AOC 2016 - Day 20/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 21: Scrambled Letters and Hash
+def aoc_2016_d21(file_name: str):
+    print("AOC 2016 - Day 21/Part 1: Not implemented")
+    print("AOC 2016 - Day 21/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 22: Grid Computing
+def aoc_2016_d22(file_name: str):
+    print("AOC 2016 - Day 22/Part 1: Not implemented")
+    print("AOC 2016 - Day 22/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 23: Safe Cracking
+def aoc_2016_d23(file_name: str):
+    print("AOC 2016 - Day 23/Part 1: Not implemented")
+    print("AOC 2016 - Day 23/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 24: Air Duct Spelunking
+def aoc_2016_d24(file_name: str):
+    print("AOC 2016 - Day 24/Part 1: Not implemented")
+    print("AOC 2016 - Day 24/Part 2: Not implemented")
+
+
+# AOC 2016 - Day 25: Clock Signal
+def aoc_2016_d25(file_name: str):
+    print("AOC 2016 - Day 25/Part 1: Not implemented")
+    print("AOC 2016 - Day 25/Part 2: Not implemented")
