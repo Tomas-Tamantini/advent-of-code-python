@@ -1,6 +1,6 @@
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
-from models.aoc_2016 import Turtle, Keypad, is_valid_triangle, generate_password
+from models.aoc_2016 import Turtle, Keypad, is_valid_triangle, PasswordGenerator
 
 
 parser = FileParser.default()
@@ -85,11 +85,17 @@ def aoc_2016_d4(file_name: str):
 
 # AOC 2016 - Day 5: How About a Nice Game of Chess?
 def aoc_2016_d5(file_name: str):
+    print("AOC 2016 - Day 5 - Be patient, it takes about a minute to run", end="\r")
     with open(file_name, "r") as f:
         door_id = f.read().strip()
-    password = generate_password(door_id)
-    print(f"AOC 2016 - Day 5/Part 1: Password for door ID {door_id}: {password}")
-    print("AOC 2016 - Day 5/Part 2: Not implemented")
+    password_generator = PasswordGenerator(door_id, num_zeroes=5, password_length=8)
+    password_generator.generate_passwords()
+    print(
+        f"AOC 2016 - Day 5/Part 1: Password generated left to right: {password_generator.password_left_to_right}"
+    )
+    print(
+        f"AOC 2016 - Day 5/Part 2: Password generated one position at a time: {password_generator.password_one_position_at_a_time}"
+    )
 
 
 # AOC 2016 - Day 6: Signals and Noise
