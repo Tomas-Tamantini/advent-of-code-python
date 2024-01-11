@@ -68,7 +68,13 @@ def aoc_2016_d3(file_name: str):
 
 # AOC 2016 - Day 4: Security Through Obscurity
 def aoc_2016_d4(file_name: str):
-    print("AOC 2016 - Day 4/Part 1: Not implemented")
+    id_sum = 0
+    with open(file_name, "r") as f:
+        for line in f.readlines():
+            room = FileParser.parse_encrypted_room(line.strip())
+            if room.is_real():
+                id_sum += room.sector_id
+    print(f"AOC 2016 - Day 4/Part 1: Sum of sector IDs of real rooms: {id_sum}")
     print("AOC 2016 - Day 4/Part 2: Not implemented")
 
 

@@ -260,3 +260,11 @@ def test_can_parse_triangle_sides_vertically_or_horizontally():
         (401, 402, 403),
         (601, 602, 603),
     ]
+
+
+def test_can_parse_encrypted_room():
+    room_str = "aaaaa-bbb-z-y-x-123[abxyz]"
+    room = FileParser.parse_encrypted_room(room_str)
+    assert room.room_name == "aaaaa-bbb-z-y-x"
+    assert room.sector_id == 123
+    assert room.checksum == "abxyz"

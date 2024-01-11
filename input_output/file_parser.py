@@ -18,7 +18,7 @@ from models.aoc_2015 import (
     GameOfLife,
     Molecule,
 )
-from models.aoc_2016 import TurnDirection, TurtleInstruction
+from models.aoc_2016 import TurnDirection, EncryptedRoom
 from typing import Iterator, Protocol
 import re
 
@@ -248,3 +248,12 @@ class FileParser:
             for i in range(0, len(lines), 3):
                 for j in range(3):
                     yield tuple(int(lines[i + k].strip().split()[j]) for k in range(3))
+
+    @staticmethod
+    def parse_encrypted_room(room: str) -> EncryptedRoom:
+        parts = room.split("[")
+        checksum = parts[-1].replace("]", "")
+        room_specs = parts[0].split("-")
+        sector_id = int(room_specs[-1])
+        room_name = "-".join(room_specs[:-1])
+        return EncryptedRoom(room_name, sector_id, checksum)
