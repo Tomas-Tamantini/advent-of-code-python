@@ -5,3 +5,4 @@ from .a2016_d4 import EncryptedRoom
 from .a2016_d5 import PasswordGenerator
 from .a2016_d6 import MessageReconstructor
 from .a2016_d7 import IpParser
+from .a2016_d8 import ProgrammableScreen
