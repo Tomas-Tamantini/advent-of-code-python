@@ -1,8 +1,9 @@
 from typing import Iterator
+from unittest.mock import Mock
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
-from models.aoc_2016 import TurnDirection, TurtleInstruction
+from models.aoc_2016 import TurnDirection, TurtleInstruction, ProgrammableScreen
 
 
 class MockFileReader:
@@ -268,3 +269,15 @@ def test_can_parse_encrypted_room():
     assert room.room_name == "aaaaa-bbb-z-y-x"
     assert room.sector_id == 123
     assert room.checksum == "abxyz"
+
+
+def test_can_parse_programmable_screen_instructions():
+    file_content = """rect 3x2
+                      rotate column x=1 by 1
+                      rotate row y=0 by 4"""
+    file_parser = mock_file_parser(file_content)
+    screen_spy = Mock(ProgrammableScreen)
+    file_parser.parse_programmable_screen_instructions("some_file", screen_spy)
+    assert screen_spy.rect.call_args_list == [((3, 2),)]
+    assert screen_spy.rotate_column.call_args_list == [((1, 1),)]
+    assert screen_spy.rotate_row.call_args_list == [((0, 4),)]

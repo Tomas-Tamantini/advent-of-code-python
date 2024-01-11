@@ -18,7 +18,12 @@ from models.aoc_2015 import (
     GameOfLife,
     Molecule,
 )
-from models.aoc_2016 import TurnDirection, EncryptedRoom, TurtleInstruction
+from models.aoc_2016 import (
+    TurnDirection,
+    EncryptedRoom,
+    TurtleInstruction,
+    ProgrammableScreen,
+)
 from typing import Iterator, Protocol
 import re
 
@@ -257,3 +262,22 @@ class FileParser:
         sector_id = int(room_specs[-1])
         room_name = "-".join(room_specs[:-1])
         return EncryptedRoom(room_name, sector_id, checksum)
+
+    def parse_programmable_screen_instructions(
+        self, file_name: str, screen: ProgrammableScreen
+    ) -> None:
+        for line in self._file_reader.readlines(file_name):
+            if "rect" in line:
+                width, height = map(int, line.split("rect")[-1].strip().split("x"))
+                screen.rect(width, height)
+            elif "rotate row" in line:
+                row, offset = map(
+                    int, line.replace("y=", "").split("row")[-1].strip().split(" by ")
+                )
+                screen.rotate_row(row, offset)
+            elif "rotate column" in line:
+                column, offset = map(
+                    int,
+                    line.replace("x=", "").split("column")[-1].strip().split(" by "),
+                )
+                screen.rotate_column(column, offset)

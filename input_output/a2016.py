@@ -7,6 +7,7 @@ from models.aoc_2016 import (
     PasswordGenerator,
     MessageReconstructor,
     IpParser,
+    ProgrammableScreen,
 )
 
 
@@ -145,7 +146,11 @@ def aoc_2016_d7(file_name: str):
 
 # AOC 2016 - Day 8: Two-Factor Authentication
 def aoc_2016_d8(file_name: str):
-    print("AOC 2016 - Day 8/Part 1: Not implemented")
+    screen = ProgrammableScreen(width=50, height=6)
+    parser.parse_programmable_screen_instructions(file_name, screen)
+    print(
+        f"AOC 2016 - Day 8/Part 1: Number of lit pixels: {screen.number_of_lit_pixels()}"
+    )
     print("AOC 2016 - Day 8/Part 2: Not implemented")
 
 
