@@ -18,7 +18,7 @@ from models.aoc_2015 import (
     GameOfLife,
     Molecule,
 )
-from models.aoc_2016 import TurnDirection, EncryptedRoom
+from models.aoc_2016 import TurnDirection, EncryptedRoom, TurtleInstruction
 from typing import Iterator, Protocol
 import re
 
