@@ -1,3 +1,4 @@
+from models.vectors import CardinalDirection
 from models.aoc_2015 import (
     XmasPresent,
     LightGrid,
@@ -226,3 +227,12 @@ class FileParser:
             steps = int(instruction[1:])
             instructions.append(TurtleInstruction(turn, steps))
         return instructions
+
+    @staticmethod
+    def parse_cardinal_direction(direction: str) -> CardinalDirection:
+        return {
+            "U": CardinalDirection.NORTH,
+            "R": CardinalDirection.EAST,
+            "D": CardinalDirection.SOUTH,
+            "L": CardinalDirection.WEST,
+        }[direction]

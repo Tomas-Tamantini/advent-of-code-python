@@ -1,6 +1,7 @@
 from input_output.file_parser import FileParser
-from models.aoc_2016 import Turtle
 from models.vectors import CardinalDirection
+from models.aoc_2016 import Turtle, Keypad
+
 
 parser = FileParser.default()
 
@@ -21,3 +22,17 @@ def aoc_2016_d1(file_name: str):
     print(
         f"AOC 2016 - Day 1/Part 2: First point of self intersection is {manhattan_distance} blocks away"
     )
+
+
+# AOC 2016 - Day 2: Bathroom Security
+def aoc_2016_d2(file_name: str):
+    keypad = Keypad(initial_key=5)
+    keys = []
+    with open(file_name, "r") as f:
+        for line in f.readlines():
+            instructions = [
+                FileParser.parse_cardinal_direction(i) for i in line.strip()
+            ]
+            keypad.move_multiple_keys(instructions)
+            keys.append(keypad.key)
+    print(f"AOC 2016 - Day 2/Part 1: Bathroom code is {''.join(map(str, keys))}")

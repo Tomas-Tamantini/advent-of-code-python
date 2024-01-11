@@ -25,7 +25,7 @@ from .a2015 import (
     aoc_2015_d24,
     aoc_2015_d25,
 )
-from .a2016 import aoc_2016_d1
+from .a2016 import aoc_2016_d1, aoc_2016_d2
 
 
 def run_solutions(problems: dict[int, tuple[int, ...]]) -> None:
@@ -57,7 +57,7 @@ def run_solutions(problems: dict[int, tuple[int, ...]]) -> None:
             aoc_2015_d24,
             aoc_2015_d25,
         ),
-        2016: (aoc_2016_d1,),
+        2016: (aoc_2016_d1, aoc_2016_d2),
     }
     for year, days in problems.items():
         if len(days) == 0:

@@ -1,5 +1,6 @@
 from typing import Iterator
 from input_output.file_parser import FileParser
+from models.vectors import CardinalDirection
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import TurnDirection, TurtleInstruction
 
@@ -218,3 +219,10 @@ def test_can_parse_turtle_instructions():
         TurtleInstruction(TurnDirection.RIGHT, 2),
         TurtleInstruction(TurnDirection.LEFT, 3),
     ]
+
+
+def test_can_parse_cardinal_direction():
+    assert FileParser.parse_cardinal_direction("U") == CardinalDirection.NORTH
+    assert FileParser.parse_cardinal_direction("R") == CardinalDirection.EAST
+    assert FileParser.parse_cardinal_direction("D") == CardinalDirection.SOUTH
+    assert FileParser.parse_cardinal_direction("L") == CardinalDirection.WEST
