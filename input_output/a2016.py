@@ -127,15 +127,20 @@ def aoc_2016_d6(file_name: str):
 # AOC 2016 - Day 7: Internet Protocol Version 7
 def aoc_2016_d7(file_name: str):
     num_ips_that_support_tls = 0
+    num_ips_that_support_ssl = 0
     with open(file_name, "r") as f:
         for line in f.readlines():
             ip_parser = IpParser(line.strip())
             if ip_parser.supports_tls():
                 num_ips_that_support_tls += 1
+            if ip_parser.supports_ssl():
+                num_ips_that_support_ssl += 1
     print(
         f"AOC 2016 - Day 7/Part 1: Number of IPs that support TLS: {num_ips_that_support_tls}"
     )
-    print("AOC 2016 - Day 7/Part 2: Not implemented")
+    print(
+        f"AOC 2016 - Day 7/Part 2: Number of IPs that support SSL: {num_ips_that_support_ssl}"
+    )
 
 
 # AOC 2016 - Day 8: Two-Factor Authentication

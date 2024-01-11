@@ -40,6 +40,16 @@ class IpParser:
                 return True
         return False
 
+    @staticmethod
+    def _aba_sequences(text: str) -> Iterator[str]:
+        for i in range(len(text) - 2):
+            if text[i] == text[i + 2] and text[i] != text[i + 1]:
+                yield text[i : i + 3]
+
+    @staticmethod
+    def _invert_aba_sequence(aba: str) -> str:
+        return aba[1] + aba[0] + aba[1]
+
     def supports_tls(self) -> bool:
         for sequence in self._hypernet_sequences:
             if self._contains_abba(sequence):
@@ -48,3 +58,19 @@ class IpParser:
             if self._contains_abba(sequence):
                 return True
         return False
+
+    def supports_ssl(self) -> bool:
+        supernet_aba_sequences = {
+            aba
+            for sequence in self._supernet_sequences
+            for aba in self._aba_sequences(sequence)
+        }
+        hypernet_aba_sequences = {
+            aba
+            for sequence in self._hypernet_sequences
+            for aba in self._aba_sequences(sequence)
+        }
+        inverted_hypernet_sequences = {
+            self._invert_aba_sequence(aba) for aba in hypernet_aba_sequences
+        }
+        return bool(supernet_aba_sequences & inverted_hypernet_sequences)
