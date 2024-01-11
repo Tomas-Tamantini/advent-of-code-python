@@ -69,13 +69,18 @@ def aoc_2016_d3(file_name: str):
 # AOC 2016 - Day 4: Security Through Obscurity
 def aoc_2016_d4(file_name: str):
     id_sum = 0
+    id_storage = -1
     with open(file_name, "r") as f:
         for line in f.readlines():
             room = FileParser.parse_encrypted_room(line.strip())
             if room.is_real():
                 id_sum += room.sector_id
+                if "pole" in room.decrypt_name():
+                    id_storage = room.sector_id
     print(f"AOC 2016 - Day 4/Part 1: Sum of sector IDs of real rooms: {id_sum}")
-    print("AOC 2016 - Day 4/Part 2: Not implemented")
+    print(
+        f"AOC 2016 - Day 4/Part 2: Sector ID of room where North Pole objects are stored: {id_storage}"
+    )
 
 
 # AOC 2016 - Day 5: How About a Nice Game of Chess?

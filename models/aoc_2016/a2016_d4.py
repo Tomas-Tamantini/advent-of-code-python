@@ -24,3 +24,14 @@ class EncryptedRoom:
 
     def is_real(self) -> bool:
         return self.checksum == self._proper_checksum()
+
+    def decrypt_name(self) -> str:
+        decrypted_name = ""
+        for letter in self.room_name:
+            if letter == "-":
+                decrypted_name += " "
+            else:
+                decrypted_name += chr(
+                    (ord(letter) - ord("a") + self.sector_id) % 26 + ord("a")
+                )
+        return decrypted_name
