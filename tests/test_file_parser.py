@@ -226,3 +226,37 @@ def test_can_parse_cardinal_direction():
     assert FileParser.parse_cardinal_direction("R") == CardinalDirection.EAST
     assert FileParser.parse_cardinal_direction("D") == CardinalDirection.SOUTH
     assert FileParser.parse_cardinal_direction("L") == CardinalDirection.WEST
+
+
+def test_can_parse_triangle_sides_vertically_or_horizontally():
+    file_content = """101 301 501
+                      102 302 502
+                      103 303 503
+                      201 401 601
+                      202 402 602
+                      203 403 603"""
+    file_parser = mock_file_parser(file_content)
+    sides_horizontal = list(
+        file_parser.parse_triangle_sides("some_file", read_horizontally=True)
+    )
+    sides_vertical = list(
+        file_parser.parse_triangle_sides("some_file", read_horizontally=False)
+    )
+
+    assert sides_horizontal == [
+        (101, 301, 501),
+        (102, 302, 502),
+        (103, 303, 503),
+        (201, 401, 601),
+        (202, 402, 602),
+        (203, 403, 603),
+    ]
+
+    assert sides_vertical == [
+        (101, 102, 103),
+        (301, 302, 303),
+        (501, 502, 503),
+        (201, 202, 203),
+        (401, 402, 403),
+        (601, 602, 603),
+    ]

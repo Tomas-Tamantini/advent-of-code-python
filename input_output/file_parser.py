@@ -236,3 +236,15 @@ class FileParser:
             "D": CardinalDirection.SOUTH,
             "L": CardinalDirection.WEST,
         }[direction]
+
+    def parse_triangle_sides(
+        self, file_name: str, read_horizontally: bool
+    ) -> Iterator[tuple[int, int, int]]:
+        if read_horizontally:
+            for line in self._file_reader.readlines(file_name):
+                yield tuple(map(int, line.strip().split()))
+        else:
+            lines = list(self._file_reader.readlines(file_name))
+            for i in range(0, len(lines), 3):
+                for j in range(3):
+                    yield tuple(int(lines[i + k].strip().split()[j]) for k in range(3))

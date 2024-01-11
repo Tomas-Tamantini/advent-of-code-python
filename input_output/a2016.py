@@ -49,15 +49,21 @@ def aoc_2016_d2(file_name: str):
 
 # AOC 2016 - Day 3: Squares With Three Sides
 def aoc_2016_d3(file_name: str):
-    num_valid_triangles = 0
-    with open(file_name, "r") as f:
-        for line in f.readlines():
-            sides = [int(i) for i in line.strip().split()]
-            if is_valid_triangle(*sides):
-                num_valid_triangles += 1
+    valid_triangles_horizontal = sum(
+        is_valid_triangle(*sides)
+        for sides in parser.parse_triangle_sides(file_name, read_horizontally=True)
+    )
+    valid_triangles_vertical = sum(
+        is_valid_triangle(*sides)
+        for sides in parser.parse_triangle_sides(file_name, read_horizontally=False)
+    )
 
-    print(f"AOC 2016 - Day 3/Part 1: Number of valid triangles: {num_valid_triangles}")
-    print("AOC 2016 - Day 3/Part 2: Not implemented")
+    print(
+        f"AOC 2016 - Day 3/Part 1: Number of valid triangles read horizontally: {valid_triangles_horizontal}"
+    )
+    print(
+        f"AOC 2016 - Day 3/Part 2: Number of valid triangles read vertically: {valid_triangles_vertical}"
+    )
 
 
 # AOC 2016 - Day 4: Security Through Obscurity
