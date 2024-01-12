@@ -11,6 +11,7 @@ from models.aoc_2016 import (
     TextDecompressor,
     RadioisotopeTestingFacility,
     FloorConfiguration,
+    run_parsed_assembly_code,
 )
 
 
@@ -207,8 +208,32 @@ def aoc_2016_d11(file_name: str):
 
 # AOC 2016 - Day 12: Leonardo's Monorail
 def aoc_2016_d12(file_name: str):
-    print("AOC 2016 - Day 12/Part 1: Not implemented")
-    print("AOC 2016 - Day 12/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        instructions = f.readlines()
+    c_register_cpy = int(instructions[5].split()[1])
+    d_register_cpy = int(instructions[2].split()[1])
+    c_multiplier = int(instructions[-7].split()[1])
+    d_multiplier = int(instructions[-6].split()[1])
+    result_c_zero = run_parsed_assembly_code(
+        c_register_cpy,
+        d_register_cpy,
+        c_multiplier,
+        d_multiplier,
+        c_starts_as_one=False,
+    )
+    print(
+        f"AOC 2016 - Day 12/Part 1: Value of register a if c starts as 0: {result_c_zero}"
+    )
+    result_c_one = run_parsed_assembly_code(
+        c_register_cpy,
+        d_register_cpy,
+        c_multiplier,
+        d_multiplier,
+        c_starts_as_one=True,
+    )
+    print(
+        f"AOC 2016 - Day 12/Part 2: Value of register a if c starts as 1: {result_c_one}"
+    )
 
 
 # AOC 2016 - Day 13: A Maze of Twisty Little Cubicles
