@@ -9,6 +9,7 @@ from models.aoc_2016 import (
     IpParser,
     ProgrammableScreen,
     TextDecompressor,
+    RadioisotopeTestingFacility,
 )
 
 
@@ -181,8 +182,14 @@ def aoc_2016_d10(file_name: str):
 
 # AOC 2016 - Day 11: Radioisotope Thermoelectric Generators
 def aoc_2016_d11(file_name: str):
-    print("AOC 2016 - Day 11/Part 1: Not implemented")
-    print("AOC 2016 - Day 11/Part 2: Not implemented")
+    floors = tuple(
+        parser.parse_radioisotope_testing_facility_floor_configurations(file_name)
+    )
+    facility = RadioisotopeTestingFacility(floors, elevator_floor=0)
+    steps = facility.min_num_steps_to_reach_final_state()
+    print(
+        f"AOC 2016 - Day 11/Part 1: Minimum number of steps to get all items on 4th floor: {steps}"
+    )
 
 
 # AOC 2016 - Day 12: Leonardo's Monorail

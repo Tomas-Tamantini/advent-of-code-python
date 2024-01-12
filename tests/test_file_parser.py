@@ -3,7 +3,12 @@ from unittest.mock import Mock
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
-from models.aoc_2016 import TurnDirection, TurtleInstruction, ProgrammableScreen
+from models.aoc_2016 import (
+    TurnDirection,
+    TurtleInstruction,
+    ProgrammableScreen,
+    FloorConfiguration,
+)
 
 
 class MockFileReader:
@@ -294,3 +299,22 @@ def test_can_parse_chip_factory():
     factory = file_parser.parse_chip_factory("some_file")
     factory.run()
     assert factory.output_bins == {0: [5], 1: [2], 2: [3]}
+
+
+def test_can_parse_radioisotope_testing_facility_floor_configurations():
+    file_content = """The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.
+                      The second floor contains a hydrogen generator.
+                      The third floor contains a lithium generator.
+                      The fourth floor contains nothing relevant."""
+    file_parser = mock_file_parser(file_content)
+    floors = list(
+        file_parser.parse_radioisotope_testing_facility_floor_configurations(
+            "some_file"
+        )
+    )
+    assert floors == [
+        FloorConfiguration(("hydrogen", "lithium"), tuple()),
+        FloorConfiguration(tuple(), ("hydrogen",)),
+        FloorConfiguration(tuple(), ("lithium",)),
+        FloorConfiguration(tuple(), tuple()),
+    ]

@@ -13,3 +13,4 @@ from .a2016_d10 import (
     RobotInstruction,
     RobotProgramming,
 )
+from .a2016_d11 import FloorConfiguration, RadioisotopeTestingFacility

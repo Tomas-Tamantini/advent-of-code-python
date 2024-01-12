@@ -1,3 +1,6 @@
+from typing import Iterator, Protocol
+import re
+
 from models.vectors import CardinalDirection
 from models.aoc_2015 import (
     XmasPresent,
@@ -27,9 +30,8 @@ from models.aoc_2016 import (
     ChipAssignment,
     RobotInstruction,
     RobotProgramming,
+    FloorConfiguration,
 )
-from typing import Iterator, Protocol
-import re
 
 
 class FileReaderProtocol(Protocol):
@@ -323,3 +325,20 @@ class FileParser:
                     raise ValueError(f"Robot {robot_id} already has a program")
                 robot_programs[robot_id] = robot_program
         return ChipFactory(input_assignments, robot_programs)
+
+    def _parse_floor_configuration(self, line: str) -> FloorConfiguration:
+        parts = line.strip().split(" ")
+        microchips = []
+        generators = []
+        for i, part in enumerate(parts):
+            if "generator" in part:
+                generators.append(parts[i - 1].strip())
+            elif "microchip" in part:
+                microchips.append(parts[i - 1].replace("-compatible", "").strip())
+        return FloorConfiguration(tuple(microchips), tuple(generators))
+
+    def parse_radioisotope_testing_facility_floor_configurations(
+        self, file_name: str
+    ) -> Iterator[FloorConfiguration]:
+        for line in self._file_reader.readlines(file_name):
+            yield self._parse_floor_configuration(line)
