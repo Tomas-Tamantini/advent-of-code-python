@@ -1,5 +1,5 @@
 from input_output.file_parser import FileParser
-from models.vectors import CardinalDirection
+from models.vectors import CardinalDirection, Vector2D
 from models.aoc_2016 import (
     Turtle,
     Keypad,
@@ -12,6 +12,8 @@ from models.aoc_2016 import (
     RadioisotopeTestingFacility,
     FloorConfiguration,
     run_parsed_assembly_code,
+    is_wall,
+    MazeCubicle,
 )
 
 
@@ -238,7 +240,17 @@ def aoc_2016_d12(file_name: str):
 
 # AOC 2016 - Day 13: A Maze of Twisty Little Cubicles
 def aoc_2016_d13(file_name: str):
-    print("AOC 2016 - Day 13/Part 1: Not implemented")
+    with open(file_name, "r") as f:
+        polynomial_offset = int(f.read().strip())
+    MazeCubicle.is_wall = lambda position: is_wall(position, polynomial_offset)
+    MazeCubicle.destination = Vector2D(31, 39)
+    origin = Vector2D(1, 1)
+
+    maze = MazeCubicle(position=origin)
+    num_steps = maze.length_shortest_path()
+    print(
+        f"AOC 2016 - Day 13/Part 1: Fewest number of steps to reach destination: {num_steps}"
+    )
     print("AOC 2016 - Day 13/Part 2: Not implemented")
 
 
