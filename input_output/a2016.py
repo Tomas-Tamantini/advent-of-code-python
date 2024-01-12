@@ -251,7 +251,11 @@ def aoc_2016_d13(file_name: str):
     print(
         f"AOC 2016 - Day 13/Part 1: Fewest number of steps to reach destination: {num_steps}"
     )
-    print("AOC 2016 - Day 13/Part 2: Not implemented")
+    max_steps = 50
+    num_reachable = maze.number_of_reachable_cubicles(max_steps)
+    print(
+        f"AOC 2016 - Day 13/Part 2: Number of cubicles reachable in at most {max_steps} steps: {num_reachable}"
+    )
 
 
 # AOC 2016 - Day 14: One-Time Pad

@@ -44,3 +44,30 @@ def test_shortest_path_that_does_not_go_through_negative_coordinates_is_found():
     maze = MazeCubicle(position=Vector2D(0, 0))
     # Cannot take shortcut through y = -1, so needs to go up to y = 1000
     assert maze.length_shortest_path() == 2010
+
+
+def test_number_of_reachable_cubicles_in_maze_without_walls_is_centered_square_numbers():
+    MazeCubicle.is_wall = lambda _: False
+    maze = MazeCubicle(position=Vector2D(100, 100))
+    assert maze.number_of_reachable_cubicles(0) == 1
+    assert maze.number_of_reachable_cubicles(1) == 5
+    assert maze.number_of_reachable_cubicles(2) == 13
+
+
+def test_number_of_reachable_cubicles_starting_at_origin_in_maze_without_walls_is_triangular_numbers():
+    MazeCubicle.is_wall = lambda _: False
+    maze = MazeCubicle(position=Vector2D(0, 0))
+    assert maze.number_of_reachable_cubicles(0) == 1
+    assert maze.number_of_reachable_cubicles(1) == 3
+    assert maze.number_of_reachable_cubicles(2) == 6
+
+
+def test_number_of_reachable_cubicles_in_tunnel_maze_grows_linearly_after_first_few_steps():
+    MazeCubicle.is_wall = lambda pos: pos.x not in (0, 1, 2)
+    maze = MazeCubicle(position=Vector2D(0, 0))
+    assert maze.number_of_reachable_cubicles(0) == 1
+    assert maze.number_of_reachable_cubicles(1) == 3
+    assert maze.number_of_reachable_cubicles(2) == 6
+    assert maze.number_of_reachable_cubicles(3) == 9
+    assert maze.number_of_reachable_cubicles(4) == 12
+    assert maze.number_of_reachable_cubicles(5) == 15

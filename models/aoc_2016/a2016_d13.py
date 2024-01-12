@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from models.vectors import Vector2D, CardinalDirection
-from models.graphs import min_path_length_with_bfs
+from models.graphs import min_path_length_with_bfs, explore_with_bfs
 from typing import Callable, ClassVar
 
 
@@ -30,3 +30,11 @@ class MazeCubicle:
 
     def length_shortest_path(self) -> int:
         return min_path_length_with_bfs(self)
+
+    def number_of_reachable_cubicles(self, max_steps: int) -> int:
+        num_visited = 0
+        for _, distance in explore_with_bfs(self):
+            if distance > max_steps:
+                break
+            num_visited += 1
+        return num_visited
