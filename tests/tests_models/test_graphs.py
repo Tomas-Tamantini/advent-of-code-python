@@ -1,4 +1,4 @@
-from models.graphs import min_path_length_with_bfs
+from models.graphs import min_path_length_with_bfs, explore_with_bfs
 import pytest
 from dataclasses import dataclass
 
@@ -16,6 +16,7 @@ class MockNode:
             "b": ("a", "d"),
             "c": ("final", "b"),
             "d": ("c",),
+            "final": tuple(),
             "e": ("f",),
             "f": ("e",),
         }
@@ -36,3 +37,14 @@ def test_if_no_path_to_final_state_then_raise_value_error():
 def test_minimum_path_from_initial_to_final_node_is_found():
     initial_node = MockNode("a")
     assert min_path_length_with_bfs(initial_node) == 2
+
+
+def test_can_explore_graph_with_bfs():
+    initial_node = MockNode("a")
+    assert list(explore_with_bfs(initial_node)) == [
+        (MockNode("a"), 0),
+        (MockNode("b"), 1),
+        (MockNode("c"), 1),
+        (MockNode("d"), 1),
+        (MockNode("final"), 2),
+    ]

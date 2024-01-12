@@ -23,3 +23,15 @@ def min_path_length_with_bfs(initial_node: _Node) -> int:
                 visited.add(neighbor)
                 queue.append((neighbor, distance + 1))
     raise ValueError("No path to final state found")
+
+
+def explore_with_bfs(initial_node: _Node) -> Iterator[tuple[_Node, int]]:
+    queue = [(initial_node, 0)]
+    visited = {initial_node}
+    while queue:
+        node, distance = queue.pop(0)
+        yield node, distance
+        for neighbor in node.neighboring_valid_states():
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, distance + 1))
