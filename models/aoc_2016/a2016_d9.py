@@ -13,7 +13,7 @@ class TextDecompressor:
     def _parse_marker(self, marker: str) -> tuple[int, int]:
         return tuple(int(value) for value in marker[1:-1].split("x"))
 
-    def length_decompressed(self) -> int:
+    def length_shallow_decompression(self) -> int:
         previous_marker_end = -1
         length = len(self._compressed_text)
         for start, end in self._markers_start_end():
@@ -25,3 +25,13 @@ class TextDecompressor:
             num_chars_ahead = min(num_chars, len(self._compressed_text) - end)
             length += (multiplier - 1) * num_chars_ahead
         return length
+
+    def length_recursive_decompression(self) -> int:
+        weights = [1] * len(self._compressed_text)
+        for start, end in self._markers_start_end():
+            num_chars, multiplier = self._parse_marker(self._compressed_text[start:end])
+            for i in range(start, end):
+                weights[i] = 0
+            for i in range(end, min(end + num_chars, len(self._compressed_text))):
+                weights[i] *= multiplier
+        return sum(weights)

@@ -5,23 +5,35 @@ from models.aoc_2016 import TextDecompressor
 def test_text_without_markers_is_not_compressed():
     text = "ADVENT"
     decompressor = TextDecompressor(text)
-    assert decompressor.length_decompressed() == len(text)
+    assert decompressor.length_shallow_decompression() == len(text)
+    assert decompressor.length_recursive_decompression() == len(text)
 
 
 def test_text_with_marker_is_decompressed():
     text = "A(1x5)BC"
     decompressor = TextDecompressor(text)
-    assert decompressor.length_decompressed() == 7
+    assert decompressor.length_shallow_decompression() == 7
+    assert decompressor.length_recursive_decompression() == 7
 
 
-def test_invalid_markers_are_not_considered():
+def test_nested_markers_are_not_considered_on_shallow_decompression():
     text = "(16x7)(1x3)A"
     decompressor = TextDecompressor(text)
-    assert decompressor.length_decompressed() == 42
+    assert decompressor.length_shallow_decompression() == 42
 
     text = "X(8x2)(3x3)ABCY"
     decompressor = TextDecompressor(text)
-    assert decompressor.length_decompressed() == 18
+    assert decompressor.length_shallow_decompression() == 18
+
+
+def test_nested_markers_are_considered_on_recursive_decompression():
+    text = "(16x7)(1x3)A"
+    decompressor = TextDecompressor(text)
+    assert decompressor.length_recursive_decompression() == 21
+
+    text = "X(8x2)(3x3)ABCY"
+    decompressor = TextDecompressor(text)
+    assert decompressor.length_recursive_decompression() == 20
 
 
 @pytest.mark.parametrize(
@@ -39,4 +51,4 @@ def test_invalid_markers_are_not_considered():
 )
 def test_texts_are_decompressed_properly(text, expected_length):
     decompressor = TextDecompressor(text)
-    assert decompressor.length_decompressed() == expected_length
+    assert decompressor.length_shallow_decompression() == expected_length

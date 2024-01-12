@@ -163,9 +163,11 @@ def aoc_2016_d9(file_name: str):
         compressed_text = f.read().strip()
     decompressor = TextDecompressor(compressed_text)
     print(
-        f"AOC 2016 - Day 9/Part 1: Length of decompressed text: {decompressor.length_decompressed()}"
+        f"AOC 2016 - Day 9/Part 1: Length of decompressed text: {decompressor.length_shallow_decompression()}"
     )
-    print("AOC 2016 - Day 9/Part 2: Not implemented")
+    print(
+        f"AOC 2016 - Day 9/Part 2: Length of recursively decompressed text: {decompressor.length_recursive_decompression()}"
+    )
 
 
 # AOC 2016 - Day 10: Balance Bots
