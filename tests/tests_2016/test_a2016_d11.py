@@ -82,7 +82,7 @@ def test_elevator_can_carry_one_or_two_items_up_or_down():
            .Mg.....
            ........"""
     )
-    expected_facilities = {
+    expected_facilities = [
         _build_facility(
             """........
                ........
@@ -125,10 +125,10 @@ def test_elevator_can_carry_one_or_two_items_up_or_down():
                .Mg.....
                ........"""
         ),
-    }
+    ]
     neighboring_states = list(facility.neighboring_valid_states())
     assert len(neighboring_states) == len(expected_facilities)
-    assert set(neighboring_states) == expected_facilities
+    assert all(state in expected_facilities for state in neighboring_states)
 
 
 def test_only_valid_neighboring_configurations_are_returned():
@@ -168,7 +168,7 @@ def test_only_valid_neighboring_configurations_are_returned():
                ........"""
         ),
         _build_facility(
-            """........
+            """.......
                E.Hg.Hm.
                ........
                .Mg.....
@@ -209,3 +209,13 @@ def test_can_find_minimum_number_of_steps_from_state_to_final_state():
            E.Hm.Lm."""
     )
     assert facility.min_num_steps_to_reach_final_state() == 11
+
+
+def test_minimum_number_of_steps_runs_efficiently():
+    facility = _build_facility(
+        """..............
+           .-Bm.Cm.Rm.Lm.
+           ..Bg.Cg.Rg.Lg.
+           E.Pg.Pm......."""
+    )
+    assert facility.min_num_steps_to_reach_final_state() == 33

@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Hashable
 from itertools import combinations
 from models.graphs import min_path_length_with_bfs
+from collections import defaultdict
 
 
 @dataclass(frozen=True)
@@ -85,46 +86,32 @@ class FloorConfiguration:
             + tuple(i.item_id for i in items if i.is_generator),
         )
 
-    def _sorted_items(self) -> tuple[_FacilityItem, ...]:
-        return tuple(sorted(self.all_items()))
 
-    def __eq__(self, __value: object) -> bool:
-        if not isinstance(__value, FloorConfiguration):
-            return NotImplemented
-        return self._sorted_items() == __value._sorted_items()
-
-    def __hash__(self) -> int:
-        return hash(self._sorted_items())
-
-    def __str__(self) -> str:
-        microchips_repr = sorted([f"{c}m" for c in self.microchips])
-        generators_repr = sorted([f"{g}g" for g in self.generators])
-        return ".".join(microchips_repr + generators_repr)
-
-
-@dataclass(frozen=True)
 class RadioisotopeTestingFacility:
-    floors: tuple[FloorConfiguration, ...]
-    elevator_floor: int = 0
+    def __init__(
+        self, floors: tuple[FloorConfiguration, ...], elevator_floor: int = 0
+    ) -> None:
+        self._floors = floors
+        self._elevator_floor = elevator_floor
 
     def is_valid(self) -> bool:
-        return all(floor.is_valid() for floor in self.floors)
+        return all(floor.is_valid() for floor in self._floors)
 
     @property
     def _current_floor(self) -> FloorConfiguration:
-        return self.floors[self.elevator_floor]
+        return self._floors[self._elevator_floor]
 
     def _try_move_up(self, *items: _FacilityItem) -> Optional[FloorConfiguration]:
-        if self.elevator_floor >= len(self.floors) - 1:
+        if self._elevator_floor >= len(self._floors) - 1:
             return None
-        upper_floor = self.floors[self.elevator_floor + 1].add_items(*items)
+        upper_floor = self._floors[self._elevator_floor + 1].add_items(*items)
         if upper_floor.is_valid():
             return upper_floor
 
     def _try_move_down(self, *items: _FacilityItem) -> Optional[FloorConfiguration]:
-        if self.elevator_floor <= 0:
+        if self._elevator_floor <= 0:
             return None
-        lower_floor = self.floors[self.elevator_floor - 1].add_items(*items)
+        lower_floor = self._floors[self._elevator_floor - 1].add_items(*items)
         if lower_floor.is_valid():
             return lower_floor
 
@@ -135,12 +122,12 @@ class RadioisotopeTestingFacility:
     ) -> "RadioisotopeTestingFacility":
         return RadioisotopeTestingFacility(
             floors=(
-                *self.floors[: self.elevator_floor],
+                *self._floors[: self._elevator_floor],
                 future_current_floor,
                 future_upper_floor,
-                *self.floors[self.elevator_floor + 2 :],
+                *self._floors[self._elevator_floor + 2 :],
             ),
-            elevator_floor=self.elevator_floor + 1,
+            elevator_floor=self._elevator_floor + 1,
         )
 
     def _move_down(
@@ -150,12 +137,12 @@ class RadioisotopeTestingFacility:
     ) -> "RadioisotopeTestingFacility":
         return RadioisotopeTestingFacility(
             floors=(
-                *self.floors[: self.elevator_floor - 1],
+                *self._floors[: self._elevator_floor - 1],
                 future_lower_floor,
                 future_current_floor,
-                *self.floors[self.elevator_floor + 1 :],
+                *self._floors[self._elevator_floor + 1 :],
             ),
-            elevator_floor=self.elevator_floor - 1,
+            elevator_floor=self._elevator_floor - 1,
         )
 
     def _neighboring_valid_states_moving_n_items(
@@ -179,20 +166,41 @@ class RadioisotopeTestingFacility:
         yield from self._neighboring_valid_states_moving_n_items(num_items_to_move=2)
 
     def is_final_state(self) -> bool:
-        return all(floor.is_empty for floor in self.floors[:-1])
+        return all(floor.is_empty for floor in self._floors[:-1])
 
     def __str__(self) -> str:
-        max_len = max(len(str(f)) for f in self.floors)
+        max_len = max(len(str(f)) for f in self._floors)
 
         def pad(s: str) -> str:
             return s + "." * (max_len - len(s))
 
         padded_floors = []
-        for i, f in enumerate(self.floors):
-            prefix = "E." if i == self.elevator_floor else ".."
+        for i, f in enumerate(self._floors):
+            prefix = "E." if i == self._elevator_floor else ".."
             padded_floors.append(prefix + pad(str(f)))
 
         return "\n".join(reversed(padded_floors))
 
     def min_num_steps_to_reach_final_state(self) -> int:
         return min_path_length_with_bfs(self)
+
+    # Custom __eq__ and __hash__ to reduce search space - All elements are interchangeable
+
+    def _element_floors(self) -> dict[str, tuple[int, int]]:
+        element_floors = defaultdict(lambda: [-1, -1])
+        for floor_idx, floor in enumerate(self._floors):
+            for chip in floor.microchips:
+                element_floors[chip][0] = floor_idx
+            for generator in floor.generators:
+                element_floors[generator][1] = floor_idx
+        return {k: tuple(v) for k, v in element_floors.items()}
+
+    def _pruned_state(self) -> Hashable:
+        element_floors = self._element_floors()
+        return self._elevator_floor, tuple(sorted(element_floors.values()))
+
+    def __eq__(self, __value: object) -> bool:
+        return self._pruned_state() == __value._pruned_state()
+
+    def __hash__(self) -> int:
+        return hash(self._pruned_state())
