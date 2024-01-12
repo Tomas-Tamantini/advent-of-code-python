@@ -1,3 +1,6 @@
+from typing import Iterator, Protocol
+import re
+
 from models.vectors import CardinalDirection
 from models.aoc_2015 import (
     XmasPresent,
@@ -23,9 +26,12 @@ from models.aoc_2016 import (
     EncryptedRoom,
     TurtleInstruction,
     ProgrammableScreen,
+    ChipFactory,
+    ChipAssignment,
+    RobotInstruction,
+    RobotProgramming,
+    FloorConfiguration,
 )
-from typing import Iterator, Protocol
-import re
 
 
 class FileReaderProtocol(Protocol):
@@ -281,3 +287,58 @@ class FileParser:
                     line.replace("x=", "").split("column")[-1].strip().split(" by "),
                 )
                 screen.rotate_column(column, offset)
+
+    def _parse_input_assignment(self, line: str) -> ChipAssignment:
+        parts = line.strip().split(" ")
+        return ChipAssignment(
+            chip_id=int(parts[1]),
+            instruction=RobotInstruction(destination_id=int(parts[-1])),
+        )
+
+    def _parse_robot_program(self, line: str) -> tuple[int, RobotProgramming]:
+        parts = line.strip().split(" ")
+        robot_id = int(parts[1])
+        destination_low = int(parts[-6])
+        destination_high = int(parts[-1])
+        low_is_output_bin = "output" in parts[5]
+        high_is_output_bin = "output" in parts[-2]
+        return robot_id, RobotProgramming(
+            instruction_low_id_chip=RobotInstruction(
+                destination_id=destination_low,
+                goes_to_output_bin=low_is_output_bin,
+            ),
+            instruction_high_id_chip=RobotInstruction(
+                destination_id=destination_high,
+                goes_to_output_bin=high_is_output_bin,
+            ),
+        )
+
+    def parse_chip_factory(self, file_name: str) -> ChipFactory:
+        input_assignments = list()
+        robot_programs = dict()
+        for line in self._file_reader.readlines(file_name):
+            if "value" in line:
+                input_assignments.append(self._parse_input_assignment(line))
+            else:
+                robot_id, robot_program = self._parse_robot_program(line)
+                if robot_id in robot_programs:
+                    raise ValueError(f"Robot {robot_id} already has a program")
+                robot_programs[robot_id] = robot_program
+        return ChipFactory(input_assignments, robot_programs)
+
+    def _parse_floor_configuration(self, line: str) -> FloorConfiguration:
+        parts = line.strip().split(" ")
+        microchips = []
+        generators = []
+        for i, part in enumerate(parts):
+            if "generator" in part:
+                generators.append(parts[i - 1].strip())
+            elif "microchip" in part:
+                microchips.append(parts[i - 1].replace("-compatible", "").strip())
+        return FloorConfiguration(tuple(microchips), tuple(generators))
+
+    def parse_radioisotope_testing_facility_floor_configurations(
+        self, file_name: str
+    ) -> Iterator[FloorConfiguration]:
+        for line in self._file_reader.readlines(file_name):
+            yield self._parse_floor_configuration(line)

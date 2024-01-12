@@ -1,5 +1,5 @@
 from input_output.file_parser import FileParser
-from models.vectors import CardinalDirection
+from models.vectors import CardinalDirection, Vector2D
 from models.aoc_2016 import (
     Turtle,
     Keypad,
@@ -9,6 +9,12 @@ from models.aoc_2016 import (
     IpParser,
     ProgrammableScreen,
     TextDecompressor,
+    RadioisotopeTestingFacility,
+    FloorConfiguration,
+    run_parsed_assembly_code,
+    is_wall,
+    MazeCubicle,
+    KeyGenerator,
 )
 
 
@@ -172,32 +178,120 @@ def aoc_2016_d9(file_name: str):
 
 # AOC 2016 - Day 10: Balance Bots
 def aoc_2016_d10(file_name: str):
-    print("AOC 2016 - Day 10/Part 1: Not implemented")
-    print("AOC 2016 - Day 10/Part 2: Not implemented")
+    factory = parser.parse_chip_factory(file_name)
+    factory.run()
+    bot_id = factory.robot_that_compared_chips(low_id=17, high_id=61)
+    print(f"AOC 2016 - Day 10/Part 1: Bot that compared chips 17 and 61: {bot_id}")
+    chips_to_multiply = [factory.output_bins[i][0] for i in range(3)]
+    product = chips_to_multiply[0] * chips_to_multiply[1] * chips_to_multiply[2]
+    print(f"AOC 2016 - Day 10/Part 2: Product of chips in bins 0, 1, and 2: {product}")
 
 
 # AOC 2016 - Day 11: Radioisotope Thermoelectric Generators
 def aoc_2016_d11(file_name: str):
-    print("AOC 2016 - Day 11/Part 1: Not implemented")
-    print("AOC 2016 - Day 11/Part 2: Not implemented")
+    floors = tuple(
+        parser.parse_radioisotope_testing_facility_floor_configurations(file_name)
+    )
+    facility = RadioisotopeTestingFacility(floors, elevator_floor=0)
+    steps = facility.min_num_steps_to_reach_final_state()
+    print(
+        f"AOC 2016 - Day 11/Part 1: Minimum number of steps to get all items on 4th floor: {steps}"
+    )
+    extra_microchips = ("elerium", "dilithium")
+    extra_generators = ("elerium", "dilithium")
+    updated_first_floor = FloorConfiguration(
+        microchips=floors[0].microchips + extra_microchips,
+        generators=floors[0].generators + extra_generators,
+    )
+    updated_floors = (updated_first_floor,) + floors[1:]
+    facility = RadioisotopeTestingFacility(updated_floors, elevator_floor=0)
+    steps = facility.min_num_steps_to_reach_final_state()
+    print(
+        f"AOC 2016 - Day 11/Part 2: Minimum number of steps to get all items on 4th floor with extra items: {steps}"
+    )
 
 
 # AOC 2016 - Day 12: Leonardo's Monorail
 def aoc_2016_d12(file_name: str):
-    print("AOC 2016 - Day 12/Part 1: Not implemented")
-    print("AOC 2016 - Day 12/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        instructions = f.readlines()
+    c_register_cpy = int(instructions[5].split()[1])
+    d_register_cpy = int(instructions[2].split()[1])
+    c_multiplier = int(instructions[-7].split()[1])
+    d_multiplier = int(instructions[-6].split()[1])
+    result_c_zero = run_parsed_assembly_code(
+        c_register_cpy,
+        d_register_cpy,
+        c_multiplier,
+        d_multiplier,
+        c_starts_as_one=False,
+    )
+    print(
+        f"AOC 2016 - Day 12/Part 1: Value of register a if c starts as 0: {result_c_zero}"
+    )
+    result_c_one = run_parsed_assembly_code(
+        c_register_cpy,
+        d_register_cpy,
+        c_multiplier,
+        d_multiplier,
+        c_starts_as_one=True,
+    )
+    print(
+        f"AOC 2016 - Day 12/Part 2: Value of register a if c starts as 1: {result_c_one}"
+    )
 
 
 # AOC 2016 - Day 13: A Maze of Twisty Little Cubicles
 def aoc_2016_d13(file_name: str):
-    print("AOC 2016 - Day 13/Part 1: Not implemented")
-    print("AOC 2016 - Day 13/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        polynomial_offset = int(f.read().strip())
+    MazeCubicle.is_wall = lambda position: is_wall(position, polynomial_offset)
+    MazeCubicle.destination = Vector2D(31, 39)
+    origin = Vector2D(1, 1)
+
+    maze = MazeCubicle(position=origin)
+    num_steps = maze.length_shortest_path()
+    print(
+        f"AOC 2016 - Day 13/Part 1: Fewest number of steps to reach destination: {num_steps}"
+    )
+    max_steps = 50
+    num_reachable = maze.number_of_reachable_cubicles(max_steps)
+    print(
+        f"AOC 2016 - Day 13/Part 2: Number of cubicles reachable in at most {max_steps} steps: {num_reachable}"
+    )
 
 
 # AOC 2016 - Day 14: One-Time Pad
 def aoc_2016_d14(file_name: str):
-    print("AOC 2016 - Day 14/Part 1: Not implemented")
-    print("AOC 2016 - Day 14/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        salt = f.read().strip()
+    one_hash_generator = KeyGenerator(
+        salt,
+        num_repeated_characters_first_occurrence=3,
+        num_repeated_characters_second_occurrence=5,
+        max_num_steps_between_occurrences=1000,
+    )
+    indices_one_hash = one_hash_generator.indices_which_produce_keys(num_indices=64)
+    print(
+        f"AOC 2016 - Day 14/Part 1: 64th key produced at index {indices_one_hash[-1]} with one hash"
+    )
+    multiple_hash_generator = KeyGenerator(
+        salt,
+        num_repeated_characters_first_occurrence=3,
+        num_repeated_characters_second_occurrence=5,
+        max_num_steps_between_occurrences=1000,
+        num_hashes=2017,
+    )
+    print(
+        "AOC 2016 - Day 14/Part 2 - Be patient, it takes about a minute to run",
+        end="\r",
+    )
+    indices_multiple_hash = multiple_hash_generator.indices_which_produce_keys(
+        num_indices=64
+    )
+    print(
+        f"AOC 2016 - Day 14/Part 2: 64th key produced at index {indices_multiple_hash[-1]} with multiple hashes"
+    )
 
 
 # AOC 2016 - Day 15: Timing is Everything
