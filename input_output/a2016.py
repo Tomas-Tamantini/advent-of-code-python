@@ -263,15 +263,33 @@ def aoc_2016_d13(file_name: str):
 def aoc_2016_d14(file_name: str):
     with open(file_name, "r") as f:
         salt = f.read().strip()
-    key_generator = KeyGenerator(
+    one_hash_generator = KeyGenerator(
         salt,
         num_repeated_characters_first_occurrence=3,
         num_repeated_characters_second_occurrence=5,
         max_num_steps_between_occurrences=1000,
     )
-    indices = key_generator.indices_which_produce_keys(num_indices=64)
-    print(f"AOC 2016 - Day 14/Part 1: 64th key produced at index {indices[-1]}")
-    print("AOC 2016 - Day 14/Part 2: Not implemented")
+    indices_one_hash = one_hash_generator.indices_which_produce_keys(num_indices=64)
+    print(
+        f"AOC 2016 - Day 14/Part 1: 64th key produced at index {indices_one_hash[-1]} with one hash"
+    )
+    multiple_hash_generator = KeyGenerator(
+        salt,
+        num_repeated_characters_first_occurrence=3,
+        num_repeated_characters_second_occurrence=5,
+        max_num_steps_between_occurrences=1000,
+        num_hashes=2017,
+    )
+    print(
+        "AOC 2016 - Day 14/Part 2 - Be patient, it takes about a minute to run",
+        end="\r",
+    )
+    indices_multiple_hash = multiple_hash_generator.indices_which_produce_keys(
+        num_indices=64
+    )
+    print(
+        f"AOC 2016 - Day 14/Part 2: 64th key produced at index {indices_multiple_hash[-1]} with multiple hashes"
+    )
 
 
 # AOC 2016 - Day 15: Timing is Everything

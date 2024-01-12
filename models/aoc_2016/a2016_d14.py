@@ -18,6 +18,7 @@ class KeyGenerator:
         num_repeated_characters_first_occurrence: int,
         num_repeated_characters_second_occurrence: int,
         max_num_steps_between_occurrences: int,
+        num_hashes: int = 1,
     ) -> None:
         self._salt = salt
         self._num_repeated_characters_first_occurrence = (
@@ -27,6 +28,7 @@ class KeyGenerator:
             num_repeated_characters_second_occurrence
         )
         self._max_num_steps_between_occurrences = max_num_steps_between_occurrences
+        self._num_hashes = num_hashes
 
     @staticmethod
     def _split_along_character_changes(string: str) -> Iterator[str]:
@@ -44,7 +46,9 @@ class KeyGenerator:
 
     def _hash_value(self, index: int) -> str:
         message = self._salt + str(index)
-        return md5(message.encode()).hexdigest()
+        for _ in range(self._num_hashes):
+            message = md5(message.encode()).hexdigest()
+        return message
 
     def _grouping_is_big_enough_to_be_a_key(self, grouping: str) -> bool:
         return len(grouping) >= self._num_repeated_characters_first_occurrence

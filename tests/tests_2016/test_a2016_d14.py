@@ -12,3 +12,16 @@ def test_key_are_generated_properly():
     assert len(indices) == 64
     assert indices[:2] == [39, 92]
     assert indices[-1] == 22728
+
+
+def test_keys_can_be_generated_with_recursive_hashes():
+    key_generator = KeyGenerator(
+        salt="abc",
+        num_repeated_characters_first_occurrence=3,
+        num_repeated_characters_second_occurrence=5,
+        max_num_steps_between_occurrences=1000,
+        num_hashes=2017,
+    )
+    indices = key_generator.indices_which_produce_keys(num_indices=1)
+    assert len(indices) == 1
+    assert indices[0] == 10
