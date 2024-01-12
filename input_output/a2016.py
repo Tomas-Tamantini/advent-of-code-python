@@ -170,8 +170,13 @@ def aoc_2016_d9(file_name: str):
 
 # AOC 2016 - Day 10: Balance Bots
 def aoc_2016_d10(file_name: str):
-    print("AOC 2016 - Day 10/Part 1: Not implemented")
-    print("AOC 2016 - Day 10/Part 2: Not implemented")
+    factory = parser.parse_chip_factory(file_name)
+    factory.run()
+    bot_id = factory.robot_that_compared_chips(low_id=17, high_id=61)
+    print(f"AOC 2016 - Day 10/Part 1: Bot that compared chips 17 and 61: {bot_id}")
+    chips_to_multiply = [factory.output_bins[i][0] for i in range(3)]
+    product = chips_to_multiply[0] * chips_to_multiply[1] * chips_to_multiply[2]
+    print(f"AOC 2016 - Day 10/Part 2: Product of chips in bins 0, 1, and 2: {product}")
 
 
 # AOC 2016 - Day 11: Radioisotope Thermoelectric Generators

@@ -281,3 +281,16 @@ def test_can_parse_programmable_screen_instructions():
     assert screen_spy.rect.call_args_list == [((3, 2),)]
     assert screen_spy.rotate_column.call_args_list == [((1, 1),)]
     assert screen_spy.rotate_row.call_args_list == [((0, 4),)]
+
+
+def test_can_parse_chip_factory():
+    file_content = """value 5 goes to bot 2
+                      bot 2 gives low to bot 1 and high to bot 0
+                      value 3 goes to bot 1
+                      bot 1 gives low to output 1 and high to bot 0
+                      bot 0 gives low to output 2 and high to output 0
+                      value 2 goes to bot 2"""
+    file_parser = mock_file_parser(file_content)
+    factory = file_parser.parse_chip_factory("some_file")
+    factory.run()
+    assert factory.output_bins == {0: [5], 1: [2], 2: [3]}
