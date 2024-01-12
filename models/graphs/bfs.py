@@ -9,11 +9,11 @@ class _Node(Protocol):
         ...
 
 
-def min_path_with_bfs(iniital_node: _Node) -> int:
-    if iniital_node.is_final_state():
+def min_path_length_with_bfs(initial_node: _Node) -> int:
+    if initial_node.is_final_state():
         return 0
-    queue = [(iniital_node, 0)]
-    visited = {iniital_node}
+    queue = [(initial_node, 0)]
+    visited = {initial_node}
     while queue:
         node, distance = queue.pop(0)
         for neighbor in node.neighboring_valid_states():

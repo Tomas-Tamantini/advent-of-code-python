@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator, Optional
 from itertools import combinations
-from models.graphs import min_path_with_bfs
+from models.graphs import min_path_length_with_bfs
 
 
 @dataclass(frozen=True)
@@ -195,4 +195,4 @@ class RadioisotopeTestingFacility:
         return "\n".join(reversed(padded_floors))
 
     def min_num_steps_to_reach_final_state(self) -> int:
-        return min_path_with_bfs(self)
+        return min_path_length_with_bfs(self)

@@ -1,1 +1,1 @@
-from .bfs import min_path_with_bfs
+from .bfs import min_path_length_with_bfs
