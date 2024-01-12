@@ -16,3 +16,4 @@ from .a2016_d10 import (
 from .a2016_d11 import FloorConfiguration, RadioisotopeTestingFacility
 from .a2016_d12 import run_parsed_assembly_code
 from .a2016_d13 import MazeCubicle, is_wall
+from .a2016_d14 import KeyGenerator

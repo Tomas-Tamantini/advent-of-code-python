@@ -14,6 +14,7 @@ from models.aoc_2016 import (
     run_parsed_assembly_code,
     is_wall,
     MazeCubicle,
+    KeyGenerator,
 )
 
 
@@ -260,7 +261,16 @@ def aoc_2016_d13(file_name: str):
 
 # AOC 2016 - Day 14: One-Time Pad
 def aoc_2016_d14(file_name: str):
-    print("AOC 2016 - Day 14/Part 1: Not implemented")
+    with open(file_name, "r") as f:
+        salt = f.read().strip()
+    key_generator = KeyGenerator(
+        salt,
+        num_repeated_characters_first_occurrence=3,
+        num_repeated_characters_second_occurrence=5,
+        max_num_steps_between_occurrences=1000,
+    )
+    indices = key_generator.indices_which_produce_keys(num_indices=64)
+    print(f"AOC 2016 - Day 14/Part 1: 64th key produced at index {indices[-1]}")
     print("AOC 2016 - Day 14/Part 2: Not implemented")
 
 
