@@ -8,6 +8,7 @@ from models.aoc_2016 import (
     MessageReconstructor,
     IpParser,
     ProgrammableScreen,
+    TextDecompressor,
 )
 
 
@@ -158,7 +159,12 @@ def aoc_2016_d8(file_name: str):
 
 # AOC 2016 - Day 9: Explosives in Cyberspace
 def aoc_2016_d9(file_name: str):
-    print("AOC 2016 - Day 9/Part 1: Not implemented")
+    with open(file_name, "r") as f:
+        compressed_text = f.read().strip()
+    decompressor = TextDecompressor(compressed_text)
+    print(
+        f"AOC 2016 - Day 9/Part 1: Length of decompressed text: {decompressor.length_decompressed()}"
+    )
     print("AOC 2016 - Day 9/Part 2: Not implemented")
 
 
