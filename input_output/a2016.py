@@ -19,6 +19,7 @@ from models.aoc_2016 import (
     DragonChecksum,
     SecureRoomMaze,
     SecureRoom,
+    num_safe_tiles,
 )
 
 
@@ -347,8 +348,13 @@ def aoc_2016_d17(file_name: str):
 
 # AOC 2016 - Day 18: Like a Rogue
 def aoc_2016_d18(file_name: str):
-    print("AOC 2016 - Day 18/Part 1: Not implemented")
-    print("AOC 2016 - Day 18/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        first_row = f.read().strip()
+    num_safe = num_safe_tiles(first_row, num_rows=40)
+    print(f"AOC 2016 - Day 18/Part 1: Number of safe tiles in 40 rows: {num_safe}")
+    print("AOC 2016 - Day 18/Part 2 - Be patient, it takes about 30s to run", end="\r")
+    num_safe = num_safe_tiles(first_row, num_rows=400_000)
+    print(f"AOC 2016 - Day 18/Part 2: Number of safe tiles in 400000 rows: {num_safe}")
 
 
 # AOC 2016 - Day 19: An Elephant Named Joseph
