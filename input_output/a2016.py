@@ -16,6 +16,7 @@ from models.aoc_2016 import (
     MazeCubicle,
     KeyGenerator,
     SpinningDisc,
+    DragonChecksum,
 )
 
 
@@ -311,8 +312,14 @@ def aoc_2016_d15(file_name: str):
 
 # AOC 2016 - Day 16: Dragon Checksum
 def aoc_2016_d16(file_name: str):
-    print("AOC 2016 - Day 16/Part 1: Not implemented")
-    print("AOC 2016 - Day 16/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        initial_state = f.read().strip()
+    checksum_272 = DragonChecksum(disk_space=272).checksum(initial_state)
+    print(f"AOC 2016 - Day 16/Part 1: Checksum of disk with 272 bits: {checksum_272}")
+    checksum_large = DragonChecksum(disk_space=35651584).checksum(initial_state)
+    print(
+        f"AOC 2016 - Day 16/Part 2: Checksum of disk with 35651584 bits: {checksum_large}"
+    )
 
 
 # AOC 2016 - Day 17: Two Steps Forward
