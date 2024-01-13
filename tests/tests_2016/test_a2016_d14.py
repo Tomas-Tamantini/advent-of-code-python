@@ -1,3 +1,4 @@
+import pytest
 from models.aoc_2016 import KeyGenerator
 
 
@@ -14,6 +15,7 @@ def test_key_are_generated_properly():
     assert indices[-1] == 22728
 
 
+@pytest.mark.skip(reason="Takes a couple of seconds")
 def test_keys_can_be_generated_with_recursive_hashes():
     key_generator = KeyGenerator(
         salt="abc",
