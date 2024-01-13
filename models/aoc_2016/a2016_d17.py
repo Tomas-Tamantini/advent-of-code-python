@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Iterator
 from hashlib import md5
 from models.vectors import Vector2D, CardinalDirection
-from models.graphs import explore_with_bfs
 
 
 @dataclass(frozen=True)
@@ -75,19 +74,17 @@ class SecureRoom:
         return self._position == SecureRoom.maze_structure.vault_room
 
     def steps_shortest_path(self) -> str:
-        for node, _ in explore_with_bfs(self):
-            if node.is_final_state():
-                return node._path_history
-        raise ValueError("No path to final state found")
+        path_generator = self._all_visits_to_vault_room()
+        try:
+            return next(path_generator)._path_history
+        except StopIteration:
+            raise ValueError("No path to final state found")
 
     def length_shortest_path(self) -> int:
         return len(self.steps_shortest_path())
 
     def length_longest_path(self) -> int:
-        return max(
-            len(node._path_history)
-            for node in SecureRoom._all_visits_to_vault_room(self)
-        )
+        return max(len(node._path_history) for node in self._all_visits_to_vault_room())
 
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, SecureRoom):
@@ -100,11 +97,10 @@ class SecureRoom:
     def __hash__(self) -> int:
         return hash((self._position, self._path_history))
 
-    @staticmethod
-    def _all_visits_to_vault_room(initial_node: "SecureRoom") -> Iterator["SecureRoom"]:
+    def _all_visits_to_vault_room(self) -> Iterator["SecureRoom"]:
         # Custom BFS, to avoid exploring neighbors of final state
-        queue = [initial_node]
-        visited = {initial_node}
+        queue = [self]
+        visited = {self}
         while queue:
             node = queue.pop(0)
             if node.is_final_state():
