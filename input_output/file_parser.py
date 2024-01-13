@@ -31,6 +31,8 @@ from models.aoc_2016 import (
     RobotInstruction,
     RobotProgramming,
     FloorConfiguration,
+    DiscSystem,
+    SpinningDisc,
 )
 
 
@@ -342,3 +344,16 @@ class FileParser:
     ) -> Iterator[FloorConfiguration]:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_floor_configuration(line)
+
+    def _parse_spinning_disc(self, line: str) -> SpinningDisc:
+        parts = line.strip().split(" ")
+        num_positions = int(parts[3])
+        position_at_time_zero = int(parts[-1].replace(".", ""))
+        return SpinningDisc(num_positions, position_at_time_zero)
+
+    def parse_disc_system(self, file_name: str) -> DiscSystem:
+        discs = [
+            self._parse_spinning_disc(line)
+            for line in self._file_reader.readlines(file_name)
+        ]
+        return DiscSystem(discs)

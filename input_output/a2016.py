@@ -15,6 +15,7 @@ from models.aoc_2016 import (
     is_wall,
     MazeCubicle,
     KeyGenerator,
+    SpinningDisc,
 )
 
 
@@ -296,8 +297,16 @@ def aoc_2016_d14(file_name: str):
 
 # AOC 2016 - Day 15: Timing is Everything
 def aoc_2016_d15(file_name: str):
-    print("AOC 2016 - Day 15/Part 1: Not implemented")
-    print("AOC 2016 - Day 15/Part 2: Not implemented")
+    disc_system = parser.parse_disc_system(file_name)
+    time_without_extra_disc = disc_system.time_to_press_button()
+    print(
+        f"AOC 2016 - Day 15/Part 1: Time to press button without extra disc: {time_without_extra_disc}"
+    )
+    disc_system.add_disc(SpinningDisc(num_positions=11, position_at_time_zero=0))
+    time_with_extra_disc = disc_system.time_to_press_button()
+    print(
+        f"AOC 2016 - Day 15/Part 2: Time to press button with extra disc: {time_with_extra_disc}"
+    )
 
 
 # AOC 2016 - Day 16: Dragon Checksum

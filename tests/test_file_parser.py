@@ -318,3 +318,11 @@ def test_can_parse_radioisotope_testing_facility_floor_configurations():
         FloorConfiguration(tuple(), ("lithium",)),
         FloorConfiguration(tuple(), tuple()),
     ]
+
+
+def test_can_parse_disc_system():
+    file_content = """Disc #1 has 5 positions; at time=0, it is at position 4.
+                      Disc #2 has 2 positions; at time=0, it is at position 1."""
+    file_parser = mock_file_parser(file_content)
+    disc_system = file_parser.parse_disc_system("some_file")
+    assert disc_system.time_to_press_button() == 5
