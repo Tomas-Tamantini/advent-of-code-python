@@ -17,6 +17,8 @@ from models.aoc_2016 import (
     KeyGenerator,
     SpinningDisc,
     DragonChecksum,
+    SecureRoomMaze,
+    SecureRoom,
 )
 
 
@@ -324,7 +326,20 @@ def aoc_2016_d16(file_name: str):
 
 # AOC 2016 - Day 17: Two Steps Forward
 def aoc_2016_d17(file_name: str):
-    print("AOC 2016 - Day 17/Part 1: Not implemented")
+    with open(file_name, "r") as f:
+        passcode = f.read().strip()
+    maze_structure = SecureRoomMaze(
+        width=4,
+        height=4,
+        vault_room=Vector2D(3, 0),
+        passcode=passcode,
+    )
+    SecureRoom.maze_structure = maze_structure
+    initial_position = Vector2D(0, 3)
+    room = SecureRoom(position=initial_position)
+    shortest_path = room.steps_shortest_path()
+    shortest_path_str = SecureRoomMaze.directions_to_string(shortest_path)
+    print(f"AOC 2016 - Day 17/Part 1: Shortest path to vault: {shortest_path_str}")
     print("AOC 2016 - Day 17/Part 2: Not implemented")
 
 

@@ -19,3 +19,4 @@ from .a2016_d13 import MazeCubicle, is_wall
 from .a2016_d14 import KeyGenerator
 from .a2016_d15 import SpinningDisc, DiscSystem
 from .a2016_d16 import DragonChecksum
+from .a2016_d17 import SecureRoom, SecureRoomMaze
