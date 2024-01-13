@@ -20,7 +20,7 @@ def _build_maze_structure(
 def test_cannot_go_to_room_with_invalid_coordinates():
     current_position = Vector2D(0, 3)
     valid_directions = set(
-        _build_maze_structure().valid_directions(current_position, path_history=())
+        _build_maze_structure().valid_directions(current_position, path_history="")
     )
     assert CardinalDirection.NORTH not in valid_directions
     assert CardinalDirection.EAST not in valid_directions
@@ -29,14 +29,14 @@ def test_cannot_go_to_room_with_invalid_coordinates():
 def test_open_doors_are_calculated_according_to_hashed_passcode():
     current_position = Vector2D(0, 3)
     valid_directions = set(
-        _build_maze_structure().valid_directions(current_position, path_history=())
+        _build_maze_structure().valid_directions(current_position, path_history="")
     )
     assert valid_directions == {CardinalDirection.SOUTH}
 
 
 def test_open_doors_are_calculated_according_to_path_history():
     current_position = Vector2D(0, 3)
-    path_history = (CardinalDirection.SOUTH, CardinalDirection.NORTH)
+    path_history = "DU"
     valid_directions = set(
         _build_maze_structure().valid_directions(current_position, path_history)
     )
@@ -82,6 +82,11 @@ def test_if_no_path_exists_raises_error():
 def test_steps_of_shortest_path_to_vault_is_found(passcode, expected_shortest_path):
     SecureRoom.maze_structure = _build_maze_structure(passcode=passcode)
     room = SecureRoom(position=Vector2D(0, 3))
-    steps_str = SecureRoomMaze.directions_to_string(room.steps_shortest_path())
-    assert steps_str == expected_shortest_path
+    assert room.steps_shortest_path() == expected_shortest_path
     assert room.length_shortest_path() == len(expected_shortest_path)
+
+
+def test_length_of_longest_path_to_vault_is_found():
+    SecureRoom.maze_structure = _build_maze_structure(passcode="ihgpwlah")
+    room = SecureRoom(position=Vector2D(0, 3))
+    assert room.length_longest_path() == 370

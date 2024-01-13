@@ -338,9 +338,11 @@ def aoc_2016_d17(file_name: str):
     initial_position = Vector2D(0, 3)
     room = SecureRoom(position=initial_position)
     shortest_path = room.steps_shortest_path()
-    shortest_path_str = SecureRoomMaze.directions_to_string(shortest_path)
-    print(f"AOC 2016 - Day 17/Part 1: Shortest path to vault: {shortest_path_str}")
-    print("AOC 2016 - Day 17/Part 2: Not implemented")
+    print(f"AOC 2016 - Day 17/Part 1: Shortest path to vault: {shortest_path}")
+    longest_path_length = room.length_longest_path()
+    print(
+        f"AOC 2016 - Day 17/Part 2: Length of longest path to vault: {longest_path_length}"
+    )
 
 
 # AOC 2016 - Day 18: Like a Rogue
