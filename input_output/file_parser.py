@@ -18,7 +18,7 @@ from models.aoc_2015 import (
     Reindeer,
     CookieProperties,
     AuntSue,
-    GameOfLife,
+    GameOfLifeLights,
     Molecule,
 )
 from models.aoc_2016 import (
@@ -206,13 +206,15 @@ class FileParser:
                 attributes[key.strip()] = int(value.strip())
             yield AuntSue(sue_id, attributes)
 
-    def parse_game_of_life(self, file_name) -> tuple[GameOfLife, set[tuple[int, int]]]:
+    def parse_game_of_life(
+        self, file_name
+    ) -> tuple[GameOfLifeLights, set[tuple[int, int]]]:
         live_cells = set()
         for y, line in enumerate(self._file_reader.readlines(file_name)):
             for x, char in enumerate(line.strip()):
                 if char == "#":
                     live_cells.add((x, y))
-        return GameOfLife(x + 1, y + 1), live_cells
+        return GameOfLifeLights(x + 1, y + 1), live_cells
 
     @staticmethod
     def _parse_molecule(molecule_str: str) -> Molecule:

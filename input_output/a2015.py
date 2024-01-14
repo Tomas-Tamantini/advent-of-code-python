@@ -313,7 +313,7 @@ def aoc_2015_d18(file_name: str):
     cells_corners_always_on_game = initial_cells
     corner_cells = set(game.corner_cells)
     for _ in range(num_steps):
-        cells_default_game = game.step(cells_default_game)
+        cells_default_game = game.next_state(cells_default_game)
         cells_corners_always_on_game = game.step_with_always_on_cells(
             cells_corners_always_on_game, corner_cells
         )
