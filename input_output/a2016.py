@@ -389,8 +389,11 @@ def aoc_2016_d20(file_name: str):
 
 # AOC 2016 - Day 21: Scrambled Letters and Hash
 def aoc_2016_d21(file_name: str):
-    print("AOC 2016 - Day 21/Part 1: Not implemented")
-    print("AOC 2016 - Day 21/Part 2: Not implemented")
+    scramblers = parser.parse_string_scrambler_functions(file_name)
+    password = "abcdefgh"
+    for scrambler in scramblers:
+        password = scrambler(password)
+    print(f"AOC 2016 - Day 21/Part 1: Password after scrambling: {password}")
 
 
 # AOC 2016 - Day 22: Grid Computing

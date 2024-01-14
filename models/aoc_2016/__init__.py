@@ -23,3 +23,11 @@ from .a2016_d17 import SecureRoom, SecureRoomMaze
 from .a2016_d18 import num_safe_tiles
 from .a2016_d19 import josephus, modified_josephus
 from .a2016_d20 import DisjoinIntervals
+from .a2016_d21 import (
+    swap_positions,
+    swap_letters,
+    rotate_string,
+    rotate_based_on_position_of_letter,
+    reverse_positions,
+    move_letter,
+)

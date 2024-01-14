@@ -326,3 +326,20 @@ def test_can_parse_disc_system():
     file_parser = mock_file_parser(file_content)
     disc_system = file_parser.parse_disc_system("some_file")
     assert disc_system.time_to_press_button() == 5
+
+
+def test_can_parse_string_scrambler_functions():
+    file_content = """swap position 4 with position 0
+                      swap letter d with letter b
+                      reverse positions 0 through 4
+                      rotate left 2 steps
+                      rotate right 1 step
+                      move position 1 to position 4
+                      move position 3 to position 0
+                      rotate based on position of letter b
+                      rotate based on position of letter d"""
+    file_parser = mock_file_parser(file_content)
+    string = "abcde"
+    for function in file_parser.parse_string_scrambler_functions("some_file"):
+        string = function(string)
+    assert string == "decab"

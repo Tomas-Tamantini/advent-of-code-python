@@ -1,5 +1,6 @@
-from typing import Iterator, Protocol
+from typing import Iterator, Protocol, Callable
 import re
+from functools import partial
 
 from models.vectors import CardinalDirection
 from models.aoc_2015 import (
@@ -33,6 +34,12 @@ from models.aoc_2016 import (
     FloorConfiguration,
     DiscSystem,
     SpinningDisc,
+    swap_positions,
+    swap_letters,
+    rotate_string,
+    rotate_based_on_position_of_letter,
+    reverse_positions,
+    move_letter,
 )
 
 
@@ -357,3 +364,50 @@ class FileParser:
             for line in self._file_reader.readlines(file_name)
         ]
         return DiscSystem(discs)
+
+    def parse_string_scrambler_functions(
+        self, file_name: str
+    ) -> Iterator[Callable[[str], str]]:
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(" ")
+            if "swap position" in line:
+                yield partial(
+                    swap_positions,
+                    x=int(parts[2]),
+                    y=int(parts[-1]),
+                )
+            elif "swap letter" in line:
+                yield partial(
+                    swap_letters,
+                    x=parts[2],
+                    y=parts[-1],
+                )
+            elif "rotate left" in line:
+                yield partial(
+                    rotate_string,
+                    steps=-int(parts[2]),
+                )
+            elif "rotate right" in line:
+                yield partial(
+                    rotate_string,
+                    steps=int(parts[2]),
+                )
+            elif "rotate based on position of letter" in line:
+                yield partial(
+                    rotate_based_on_position_of_letter,
+                    letter=parts[-1],
+                )
+            elif "reverse positions" in line:
+                yield partial(
+                    reverse_positions,
+                    x=int(parts[2]),
+                    y=int(parts[-1]),
+                )
+            elif "move position" in line:
+                yield partial(
+                    move_letter,
+                    x=int(parts[2]),
+                    y=int(parts[-1]),
+                )
+            else:
+                raise ValueError(f"Unknown instruction: {line.strip()}")
