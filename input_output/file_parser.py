@@ -1,6 +1,5 @@
-from typing import Iterator, Protocol, Callable
+from typing import Iterator, Protocol
 import re
-from functools import partial
 
 from models.vectors import CardinalDirection
 from models.aoc_2015 import (
@@ -34,13 +33,14 @@ from models.aoc_2016 import (
     FloorConfiguration,
     DiscSystem,
     SpinningDisc,
-    swap_positions,
-    swap_letters,
-    rotate_string,
-    rotate_based_on_position_of_letter,
-    inverse_rotate_based_on_position_of_letter,
-    reverse_positions,
-    move_letter,
+    StringScrambler,
+    MultiStepScrambler,
+    LetterSwapScrambler,
+    PositionSwapScrambler,
+    RotationScrambler,
+    LetterBasedRotationScrambler,
+    ReversionScrambler,
+    LetterMoveScrambler,
 )
 
 
@@ -366,81 +366,34 @@ class FileParser:
         ]
         return DiscSystem(discs)
 
-    def _parse_string_scrambler_function(
-        self, line: str, is_inverse: bool = False
-    ) -> Callable[[str], str]:
+    def _parse_string_scrambler_function(self, line: str) -> StringScrambler:
         parts = line.strip().split(" ")
         if "swap position" in line:
-            return partial(
-                swap_positions,
-                x=int(parts[2]),
-                y=int(parts[-1]),
+            return PositionSwapScrambler(
+                position_a=int(parts[2]), position_b=int(parts[-1])
             )
         elif "swap letter" in line:
-            return partial(
-                swap_letters,
-                x=parts[2],
-                y=parts[-1],
-            )
+            return LetterSwapScrambler(letter_a=parts[2], letter_b=parts[-1])
         elif "rotate left" in line:
             steps = -int(parts[2])
-            if is_inverse:
-                steps = -steps
-            return partial(
-                rotate_string,
-                steps=steps,
-            )
+            return RotationScrambler(steps=steps)
         elif "rotate right" in line:
             steps = int(parts[2])
-            if is_inverse:
-                steps = -steps
-            return partial(
-                rotate_string,
-                steps=steps,
-            )
+            return RotationScrambler(steps=steps)
         elif "rotate based on position of letter" in line:
-            return (
-                partial(
-                    rotate_based_on_position_of_letter,
-                    letter=parts[-1],
-                )
-                if not is_inverse
-                else partial(
-                    inverse_rotate_based_on_position_of_letter,
-                    letter=parts[-1],
-                )
-            )
+            return LetterBasedRotationScrambler(letter=parts[-1])
         elif "reverse positions" in line:
-            return partial(
-                reverse_positions,
-                x=int(parts[2]),
-                y=int(parts[-1]),
-            )
+            return ReversionScrambler(start=int(parts[2]), end=int(parts[-1]))
         elif "move position" in line:
             origin = int(parts[2])
             destination = int(parts[-1])
-            if is_inverse:
-                origin, destination = destination, origin
-            return partial(
-                move_letter,
-                x=origin,
-                y=destination,
-            )
+            return LetterMoveScrambler(origin=origin, destination=destination)
         else:
             raise ValueError(f"Unknown instruction: {line.strip()}")
 
-    def parse_string_scrambler_functions(
-        self, file_name: str
-    ) -> Iterator[Callable[[str], str]]:
-        for line in self._file_reader.readlines(file_name):
-            yield self._parse_string_scrambler_function(line)
-
-    def parse_inverse_string_scrambler_functions(
-        self, file_name: str
-    ) -> Iterator[Callable[[str], str]]:
-        inverse_functions = []
-        for line in self._file_reader.readlines(file_name):
-            inverse_functions.append(
-                self._parse_string_scrambler_function(line, is_inverse=True)
-            )
-        yield from reversed(inverse_functions)
+    def parse_string_scrambler(self, file_name: str) -> MultiStepScrambler:
+        scramblers = [
+            self._parse_string_scrambler_function(line)
+            for line in self._file_reader.readlines(file_name)
+        ]
+        return MultiStepScrambler(scramblers)

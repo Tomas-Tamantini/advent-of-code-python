@@ -389,14 +389,10 @@ def aoc_2016_d20(file_name: str):
 
 # AOC 2016 - Day 21: Scrambled Letters and Hash
 def aoc_2016_d21(file_name: str):
-    scramblers = parser.parse_string_scrambler_functions(file_name)
-    password = "abcdefgh"
-    for scrambler in scramblers:
-        password = scrambler(password)
+    scrambler = parser.parse_string_scrambler(file_name)
+    password = scrambler.scramble("abcdefgh")
     print(f"AOC 2016 - Day 21/Part 1: Password after scrambling: {password}")
-    password = "fbgdceah"
-    for scrambler in parser.parse_inverse_string_scrambler_functions(file_name):
-        password = scrambler(password)
+    password = scrambler.unscramble("fbgdceah")
     print(f"AOC 2016 - Day 21/Part 2: Password before scrambling: {password}")
 
 

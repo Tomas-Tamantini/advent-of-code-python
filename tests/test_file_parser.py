@@ -339,16 +339,5 @@ def test_can_parse_string_scrambler_functions():
                       rotate based on position of letter b
                       rotate based on position of letter d"""
     file_parser = mock_file_parser(file_content)
-    string = "abcde"
-    for function in file_parser.parse_string_scrambler_functions("some_file"):
-        string = function(string)
-    assert string == "decab"
-
-
-def test_can_parse_inverse_string_scrambler_functions():
-    file_name = "input_files\\aoc_2016\\a2016_d21.txt"
-    file_parser = FileParser(file_reader=FileReader())
-    string = "bfheacgd"
-    for function in file_parser.parse_inverse_string_scrambler_functions(file_name):
-        string = function(string)
-    assert string == "abcdefgh"
+    scrambler = file_parser.parse_string_scrambler("some_file")
+    assert scrambler.scramble("abcde") == "decab"
