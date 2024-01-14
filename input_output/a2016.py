@@ -22,6 +22,7 @@ from models.aoc_2016 import (
     num_safe_tiles,
     josephus,
     modified_josephus,
+    DisjoinIntervals,
 )
 
 
@@ -375,8 +376,15 @@ def aoc_2016_d19(file_name: str):
 
 # AOC 2016 - Day 20: Firewall Rules
 def aoc_2016_d20(file_name: str):
-    print("AOC 2016 - Day 20/Part 1: Not implemented")
-    print("AOC 2016 - Day 20/Part 2: Not implemented")
+    disjoint_intervals = DisjoinIntervals(0, 4_294_967_295)
+    with open(file_name, "r") as f:
+        for line in f.readlines():
+            start, end = map(int, line.strip().split("-"))
+            disjoint_intervals.remove(start, end)
+    lowest_allowed_ip = next(disjoint_intervals.intervals())[0]
+    print(f"AOC 2016 - Day 20/Part 1: Lowest allowed IP: {lowest_allowed_ip}")
+    num_allowed_ips = disjoint_intervals.num_elements()
+    print(f"AOC 2016 - Day 20/Part 2: Number of allowed IPs: {num_allowed_ips}")
 
 
 # AOC 2016 - Day 21: Scrambled Letters and Hash
