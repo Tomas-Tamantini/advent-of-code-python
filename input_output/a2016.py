@@ -23,6 +23,7 @@ from models.aoc_2016 import (
     josephus,
     modified_josephus,
     DisjoinIntervals,
+    AirDuctMaze,
 )
 
 
@@ -414,8 +415,22 @@ def aoc_2016_d23(file_name: str):
 
 # AOC 2016 - Day 24: Air Duct Spelunking
 def aoc_2016_d24(file_name: str):
-    print("AOC 2016 - Day 24/Part 1: Not implemented")
-    print("AOC 2016 - Day 24/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        blueprint = f.readlines()
+
+    maze = AirDuctMaze(blueprint)
+    min_steps = maze.min_num_steps_to_visit_points_of_interest(
+        must_return_to_origin=False
+    )
+    print(
+        f"AOC 2016 - Day 24/Part 1: Fewest number of steps to visit all points of interest: {min_steps}"
+    )
+    min_steps_round_trip = maze.min_num_steps_to_visit_points_of_interest(
+        must_return_to_origin=True
+    )
+    print(
+        f"AOC 2016 - Day 24/Part 2: Fewest number of steps to visit all points of interest and return to origin: {min_steps_round_trip}"
+    )
 
 
 # AOC 2016 - Day 25: Clock Signal

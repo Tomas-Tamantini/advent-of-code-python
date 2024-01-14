@@ -34,3 +34,4 @@ from .a2016_d21 import (
     LetterMoveScrambler,
 )
 from .a2016_d22 import StorageNode
+from .a2016_d24 import AirDuctMaze
