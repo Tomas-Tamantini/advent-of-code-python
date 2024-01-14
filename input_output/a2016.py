@@ -20,6 +20,8 @@ from models.aoc_2016 import (
     SecureRoomMaze,
     SecureRoom,
     num_safe_tiles,
+    josephus,
+    modified_josephus,
 )
 
 
@@ -359,8 +361,16 @@ def aoc_2016_d18(file_name: str):
 
 # AOC 2016 - Day 19: An Elephant Named Joseph
 def aoc_2016_d19(file_name: str):
-    print("AOC 2016 - Day 19/Part 1: Not implemented")
-    print("AOC 2016 - Day 19/Part 2: Not implemented")
+    with open(file_name, "r") as f:
+        num_elves = int(f.read().strip())
+    winning_elf_take_left = josephus(num_elves)
+    print(
+        f"AOC 2016 - Day 19/Part 1: Winning elf if they take from the left: {winning_elf_take_left}"
+    )
+    winning_elf_take_across = modified_josephus(num_elves)
+    print(
+        f"AOC 2016 - Day 19/Part 2: Winning elf if they take from across: {winning_elf_take_across}"
+    )
 
 
 # AOC 2016 - Day 20: Firewall Rules
