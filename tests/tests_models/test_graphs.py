@@ -1,4 +1,8 @@
-from models.graphs import min_path_length_with_bfs, explore_with_bfs
+from models.graphs import (
+    min_path_length_with_bfs,
+    explore_with_bfs,
+    travelling_salesman,
+)
 import pytest
 from dataclasses import dataclass
 
@@ -44,3 +48,34 @@ def test_can_explore_graph_with_bfs():
         ("d", 1),
         ("final", 2),
     ]
+
+
+def test_travelling_salesman_of_single_city_is_zero():
+    assert travelling_salesman(initial_node="0", distances={}) == 0
+
+
+distances = {
+    ("0", "1"): 2,
+    ("0", "2"): 8,
+    ("0", "3"): 10,
+    ("0", "4"): 2,
+    ("1", "2"): 6,
+    ("1", "3"): 8,
+    ("1", "4"): 4,
+    ("2", "3"): 2,
+    ("2", "4"): 10,
+    ("3", "4"): 8,
+}
+
+
+def test_travelling_salesman_must_make_round_trip_by_default():
+    assert travelling_salesman(initial_node="0", distances=distances) == 20
+
+
+def test_travelling_salesman_can_end_trip_before_returning_to_origin():
+    assert (
+        travelling_salesman(
+            initial_node="0", distances=distances, must_return_to_origin=False
+        )
+        == 14
+    )
