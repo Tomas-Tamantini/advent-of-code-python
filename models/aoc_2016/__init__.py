@@ -28,6 +28,7 @@ from .a2016_d21 import (
     swap_letters,
     rotate_string,
     rotate_based_on_position_of_letter,
+    inverse_rotate_based_on_position_of_letter,
     reverse_positions,
     move_letter,
 )

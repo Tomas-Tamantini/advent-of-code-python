@@ -17,6 +17,17 @@ def rotate_based_on_position_of_letter(s: str, letter: chr) -> str:
     return rotate_string(s, steps)
 
 
+def inverse_rotate_based_on_position_of_letter(s: str, letter: chr) -> str:
+    letter_idx = s.index(letter)
+    if letter_idx == 0:
+        steps = -1
+    elif letter_idx % 2 == 1:
+        steps = -(letter_idx // 2) - 1
+    else:
+        steps = 3 - letter_idx // 2
+    return rotate_string(s, steps)
+
+
 def reverse_positions(s: str, x: int, y: int) -> str:
     return s[:x] + s[x : y + 1][::-1] + s[y + 1 :]
 

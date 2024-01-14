@@ -1,6 +1,6 @@
 from typing import Iterator
 from unittest.mock import Mock
-from input_output.file_parser import FileParser
+from input_output.file_parser import FileParser, FileReader
 from models.vectors import CardinalDirection
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import (
@@ -343,3 +343,12 @@ def test_can_parse_string_scrambler_functions():
     for function in file_parser.parse_string_scrambler_functions("some_file"):
         string = function(string)
     assert string == "decab"
+
+
+def test_can_parse_inverse_string_scrambler_functions():
+    file_name = "input_files\\aoc_2016\\a2016_d21.txt"
+    file_parser = FileParser(file_reader=FileReader())
+    string = "bfheacgd"
+    for function in file_parser.parse_inverse_string_scrambler_functions(file_name):
+        string = function(string)
+    assert string == "abcdefgh"

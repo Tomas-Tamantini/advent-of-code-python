@@ -394,6 +394,10 @@ def aoc_2016_d21(file_name: str):
     for scrambler in scramblers:
         password = scrambler(password)
     print(f"AOC 2016 - Day 21/Part 1: Password after scrambling: {password}")
+    password = "fbgdceah"
+    for scrambler in parser.parse_inverse_string_scrambler_functions(file_name):
+        password = scrambler(password)
+    print(f"AOC 2016 - Day 21/Part 2: Password before scrambling: {password}")
 
 
 # AOC 2016 - Day 22: Grid Computing
