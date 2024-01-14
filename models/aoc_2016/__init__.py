@@ -33,3 +33,4 @@ from .a2016_d21 import (
     ReversionScrambler,
     LetterMoveScrambler,
 )
+from .a2016_d22 import StorageNode

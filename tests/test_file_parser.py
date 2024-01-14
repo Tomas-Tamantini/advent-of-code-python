@@ -341,3 +341,14 @@ def test_can_parse_string_scrambler_functions():
     file_parser = mock_file_parser(file_content)
     scrambler = file_parser.parse_string_scrambler("some_file")
     assert scrambler.scramble("abcde") == "decab"
+
+
+def test_can_parse_storage_nodes():
+    file_content = """root@ebhq-gridcenter# df -h
+                      Filesystem              Size  Used  Avail  Use%
+                      /dev/grid/node-x0-y0     92T   68T    24T   73%
+                      /dev/grid/node-x0-y1     88T   73T    15T   82%"""
+    file_parser = mock_file_parser(file_content)
+    nodes = list(file_parser.parse_storage_nodes("some_file"))
+    assert nodes[0].size, nodes[0].used == (92, 68)
+    assert nodes[1].size, nodes[1].used == (88, 73)

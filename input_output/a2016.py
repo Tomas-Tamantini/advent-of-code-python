@@ -398,7 +398,11 @@ def aoc_2016_d21(file_name: str):
 
 # AOC 2016 - Day 22: Grid Computing
 def aoc_2016_d22(file_name: str):
-    print("AOC 2016 - Day 22/Part 1: Not implemented")
+    nodes = list(parser.parse_storage_nodes(file_name))
+    viable_pairs = sum(
+        node_a.makes_viable_pair(node_b) for node_a in nodes for node_b in nodes
+    )
+    print(f"AOC 2016 - Day 22/Part 1: Number of viable pairs: {viable_pairs}")
     print("AOC 2016 - Day 22/Part 2: Not implemented")
 
 

@@ -41,6 +41,7 @@ from models.aoc_2016 import (
     LetterBasedRotationScrambler,
     ReversionScrambler,
     LetterMoveScrambler,
+    StorageNode,
 )
 
 
@@ -397,3 +398,16 @@ class FileParser:
             for line in self._file_reader.readlines(file_name)
         ]
         return MultiStepScrambler(scramblers)
+
+    def _parse_storage_node(self, line: str) -> StorageNode:
+        parts = line.strip().split()
+        return StorageNode(
+            id=parts[0].replace("/dev/grid/node-", ""),
+            size=int(parts[1].replace("T", "")),
+            used=int(parts[2].replace("T", "")),
+        )
+
+    def parse_storage_nodes(self, file_name: str) -> Iterator[StorageNode]:
+        for line in self._file_reader.readlines(file_name):
+            if "node" in line:
+                yield self._parse_storage_node(line)
