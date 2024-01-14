@@ -3,14 +3,11 @@ import pytest
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
-class MockNode:
-    id: str
+class MockGraph:
+    def is_final_state(self, node):
+        return node == "final"
 
-    def is_final_state(self):
-        return self.id == "final"
-
-    def neighboring_valid_states(self):
+    def neighbors(self, node):
         adjacencies = {
             "a": ("b", "c", "d"),
             "b": ("a", "d"),
@@ -20,31 +17,30 @@ class MockNode:
             "e": ("f",),
             "f": ("e",),
         }
-        return (MockNode(id) for id in adjacencies[self.id])
+        return adjacencies[node]
+
+
+graph = MockGraph()
 
 
 def test_if_initial_node_is_final_state_then_min_path_is_zero():
-    initial_node = MockNode("final")
-    assert min_path_length_with_bfs(initial_node) == 0
+    assert min_path_length_with_bfs(graph, initial_node="final") == 0
 
 
 def test_if_no_path_to_final_state_then_raise_value_error():
-    initial_node = MockNode("f")
     with pytest.raises(ValueError):
-        min_path_length_with_bfs(initial_node)
+        min_path_length_with_bfs(graph, initial_node="f")
 
 
 def test_minimum_path_from_initial_to_final_node_is_found():
-    initial_node = MockNode("a")
-    assert min_path_length_with_bfs(initial_node) == 2
+    assert min_path_length_with_bfs(graph, initial_node="a") == 2
 
 
 def test_can_explore_graph_with_bfs():
-    initial_node = MockNode("a")
-    assert list(explore_with_bfs(initial_node)) == [
-        (MockNode("a"), 0),
-        (MockNode("b"), 1),
-        (MockNode("c"), 1),
-        (MockNode("d"), 1),
-        (MockNode("final"), 2),
+    assert list(explore_with_bfs(graph, initial_node="a")) == [
+        ("a", 0),
+        ("b", 1),
+        ("c", 1),
+        ("d", 1),
+        ("final", 2),
     ]

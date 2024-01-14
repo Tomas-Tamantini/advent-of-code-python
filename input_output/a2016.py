@@ -13,7 +13,7 @@ from models.aoc_2016 import (
     FloorConfiguration,
     run_parsed_assembly_code,
     is_wall,
-    MazeCubicle,
+    CubicleMaze,
     KeyGenerator,
     SpinningDisc,
     DragonChecksum,
@@ -253,17 +253,17 @@ def aoc_2016_d12(file_name: str):
 def aoc_2016_d13(file_name: str):
     with open(file_name, "r") as f:
         polynomial_offset = int(f.read().strip())
-    MazeCubicle.is_wall = lambda position: is_wall(position, polynomial_offset)
-    MazeCubicle.destination = Vector2D(31, 39)
+    maze = CubicleMaze(
+        is_wall=lambda position: is_wall(position, polynomial_offset),
+        destination=Vector2D(31, 39),
+    )
     origin = Vector2D(1, 1)
-
-    maze = MazeCubicle(position=origin)
-    num_steps = maze.length_shortest_path()
+    num_steps = maze.length_shortest_path(initial_position=origin)
     print(
         f"AOC 2016 - Day 13/Part 1: Fewest number of steps to reach destination: {num_steps}"
     )
     max_steps = 50
-    num_reachable = maze.number_of_reachable_cubicles(max_steps)
+    num_reachable = maze.number_of_reachable_cubicles(origin, max_steps)
     print(
         f"AOC 2016 - Day 13/Part 2: Number of cubicles reachable in at most {max_steps} steps: {num_reachable}"
     )
@@ -403,7 +403,7 @@ def aoc_2016_d22(file_name: str):
         node_a.makes_viable_pair(node_b) for node_a in nodes for node_b in nodes
     )
     print(f"AOC 2016 - Day 22/Part 1: Number of viable pairs: {viable_pairs}")
-    print("AOC 2016 - Day 22/Part 2: Not implemented")
+    print("AOC 2016 - Day 22/Part 2: Done by hand (move hole around grid)")
 
 
 # AOC 2016 - Day 23: Safe Cracking

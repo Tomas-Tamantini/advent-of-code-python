@@ -10,30 +10,31 @@ def is_wall(position: Vector2D, polynomial_offset: int) -> bool:
     return bin(polynomial).count("1") % 2 == 1
 
 
-@dataclass(frozen=True)
-class MazeCubicle:
-    is_wall: ClassVar[Callable[[Vector2D], bool]]
-    destination: ClassVar[Vector2D]
-    position: Vector2D
+class CubicleMaze:
+    def __init__(self, is_wall: Callable[[Vector2D], bool], destination: Vector2D):
+        self._is_wall = is_wall
+        self._destination = destination
 
-    def neighboring_valid_states(self):
+    def is_final_state(self, position: Vector2D) -> bool:
+        return position == self._destination
+
+    def neighbors(self, position: Vector2D):
         for direction in CardinalDirection:
-            new_position = self.position.move(direction)
+            new_position = position.move(direction)
             if new_position.x < 0 or new_position.y < 0:
                 continue
-            if MazeCubicle.is_wall(new_position):
+            if self._is_wall(new_position):
                 continue
-            yield MazeCubicle(position=new_position)
+            yield new_position
 
-    def is_final_state(self) -> bool:
-        return self.position == self.destination
+    def length_shortest_path(self, initial_position: Vector2D) -> int:
+        return min_path_length_with_bfs(self, initial_position)
 
-    def length_shortest_path(self) -> int:
-        return min_path_length_with_bfs(self)
-
-    def number_of_reachable_cubicles(self, max_steps: int) -> int:
+    def number_of_reachable_cubicles(
+        self, initial_position: Vector2D, max_steps: int
+    ) -> int:
         num_visited = 0
-        for _, distance in explore_with_bfs(self):
+        for _, distance in explore_with_bfs(self, initial_position):
             if distance > max_steps:
                 break
             num_visited += 1

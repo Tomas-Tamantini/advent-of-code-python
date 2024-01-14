@@ -182,7 +182,14 @@ class RadioisotopeTestingFacility:
         return "\n".join(reversed(padded_floors))
 
     def min_num_steps_to_reach_final_state(self) -> int:
-        return min_path_length_with_bfs(self)
+        class GraphExplorer:
+            def is_final_state(self, node):
+                return node.is_final_state()
+
+            def neighbors(self, node):
+                yield from node.neighboring_valid_states()
+
+        return min_path_length_with_bfs(GraphExplorer(), initial_node=self)
 
     # Custom __eq__ and __hash__ to reduce search space - All elements are interchangeable
 
