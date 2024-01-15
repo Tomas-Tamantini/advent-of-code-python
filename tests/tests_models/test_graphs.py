@@ -51,7 +51,14 @@ def test_can_explore_graph_with_bfs():
 
 
 def test_travelling_salesman_of_single_city_is_zero():
-    assert travelling_salesman(initial_node="0", distances={}) == 0
+    assert (
+        travelling_salesman(
+            initial_node="0",
+            distances={},
+            must_return_to_origin=False,
+        )
+        == 0
+    )
 
 
 distances = {
