@@ -34,4 +34,15 @@ from .a2016_d21 import (
     LetterMoveScrambler,
 )
 from .a2016_d22 import StorageNode
+from .a2016_d23 import run_self_referential_code
 from .a2016_d24 import AirDuctMaze
+from .assembunny import (
+    Program,
+    Computer,
+    Processor,
+    CopyInstruction,
+    IncrementInstruction,
+    DecrementInstruction,
+    JumpNotZeroInstruction,
+    ToggleInstruction,
+)

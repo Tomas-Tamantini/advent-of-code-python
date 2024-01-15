@@ -42,6 +42,12 @@ from models.aoc_2016 import (
     ReversionScrambler,
     LetterMoveScrambler,
     StorageNode,
+    Program,
+    CopyInstruction,
+    IncrementInstruction,
+    DecrementInstruction,
+    JumpNotZeroInstruction,
+    ToggleInstruction,
 )
 
 
@@ -413,3 +419,34 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if "node" in line:
                 yield self._parse_storage_node(line)
+
+    def _parse_assembunny_instruction(self, line: str):
+        raw_parts = line.strip().split(" ")
+        parts = []
+        for part in raw_parts[1:]:
+            try:
+                parts.append(int(part))
+            except ValueError:
+                parts.append(part)
+        if "cpy" in line:
+            return CopyInstruction(source=parts[0], destination=parts[1])
+        elif "inc" in line:
+            return IncrementInstruction(register=parts[0])
+        elif "dec" in line:
+            return DecrementInstruction(register=parts[0])
+        elif "jnz" in line:
+            return JumpNotZeroInstruction(
+                value_to_compare=parts[0],
+                offset=parts[1],
+            )
+        elif "tgl" in line:
+            return ToggleInstruction(offset=parts[0])
+        else:
+            raise ValueError(f"Unknown instruction: {line.strip()}")
+
+    def parse_assembunny_code(self, file_name) -> Program:
+        instructions = [
+            self._parse_assembunny_instruction(line)
+            for line in self._file_reader.readlines(file_name)
+        ]
+        return Program(instructions)

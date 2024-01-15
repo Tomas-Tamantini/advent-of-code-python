@@ -8,6 +8,11 @@ from models.aoc_2016 import (
     TurtleInstruction,
     ProgrammableScreen,
     FloorConfiguration,
+    CopyInstruction,
+    IncrementInstruction,
+    DecrementInstruction,
+    JumpNotZeroInstruction,
+    ToggleInstruction,
 )
 
 
@@ -352,3 +357,18 @@ def test_can_parse_storage_nodes():
     nodes = list(file_parser.parse_storage_nodes("some_file"))
     assert nodes[0].size, nodes[0].used == (92, 68)
     assert nodes[1].size, nodes[1].used == (88, 73)
+
+
+def test_can_parse_assembunny_code():
+    file_content = """cpy 41 a
+                      inc b
+                      dec c
+                      jnz a 2
+                      tgl c"""
+    file_parser = mock_file_parser(file_content)
+    program = file_parser.parse_assembunny_code("some_file")
+    assert program.get(0) == CopyInstruction(41, "a")
+    assert program.get(1) == IncrementInstruction("b")
+    assert program.get(2) == DecrementInstruction("c")
+    assert program.get(3) == JumpNotZeroInstruction("a", 2)
+    assert program.get(4) == ToggleInstruction("c")

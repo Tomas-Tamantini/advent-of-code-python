@@ -24,6 +24,7 @@ from models.aoc_2016 import (
     modified_josephus,
     DisjoinIntervals,
     AirDuctMaze,
+    run_self_referential_code,
 )
 
 
@@ -409,8 +410,11 @@ def aoc_2016_d22(file_name: str):
 
 # AOC 2016 - Day 23: Safe Cracking
 def aoc_2016_d23(file_name: str):
-    print("AOC 2016 - Day 23/Part 1: Not implemented")
-    print("AOC 2016 - Day 23/Part 2: Not implemented")
+    program = parser.parse_assembunny_code(file_name)
+    a7 = run_self_referential_code(program, initial_value=7)
+    print(f"AOC 2016 - Day 23/Part 1: Value in register a if a starts as 7: {a7}")
+    a12 = run_self_referential_code(program, initial_value=12)
+    print(f"AOC 2016 - Day 23/Part 2: Value in register a if a starts as 12: {a12}")
 
 
 # AOC 2016 - Day 24: Air Duct Spelunking
