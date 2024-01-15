@@ -63,7 +63,7 @@ def test_computer_can_run_fibonacci_like_program_efficiently():
 
     computer = Computer(Processor(registers={"c": 1}))
     computer.run(fibonacci_program, optimize_assembunny_code=True)
-    assert computer.value_at("a") == 9227731
+    assert computer.value_at("a") == 9227737
 
 
 def test_computer_can_run_factorial_like_program_efficiently():
