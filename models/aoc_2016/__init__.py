@@ -35,6 +35,7 @@ from .a2016_d21 import (
 from .a2016_d22 import StorageNode
 from .a2016_d23 import run_self_referential_code
 from .a2016_d24 import AirDuctMaze
+from .a2016_d25 import smallest_value_to_send_clock_signal
 from .assembunny import (
     Program,
     Computer,
@@ -44,4 +45,5 @@ from .assembunny import (
     DecrementInstruction,
     JumpNotZeroInstruction,
     ToggleInstruction,
+    OutInstruction,
 )

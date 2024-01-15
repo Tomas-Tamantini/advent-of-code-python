@@ -110,3 +110,17 @@ class ToggleInstruction:
         if new_instruction:
             memory.update(instruction_idx, new_instruction)
         processor.program_counter += 1
+
+
+@dataclass
+class OutInstruction:
+    source: chr
+
+    def execute(
+        self,
+        processor: Processor,
+        memory: Optional[Memory] = None,
+        serial_output: Optional[SerialOutput] = None,
+    ) -> None:
+        serial_output.write(processor.get_value(self.source))
+        processor.program_counter += 1

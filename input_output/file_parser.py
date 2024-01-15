@@ -48,6 +48,7 @@ from models.aoc_2016 import (
     DecrementInstruction,
     JumpNotZeroInstruction,
     ToggleInstruction,
+    OutInstruction,
 )
 
 
@@ -441,6 +442,8 @@ class FileParser:
             )
         elif "tgl" in line:
             return ToggleInstruction(offset=parts[0])
+        elif "out" in line:
+            return OutInstruction(source=parts[0])
         else:
             raise ValueError(f"Unknown instruction: {line.strip()}")
 

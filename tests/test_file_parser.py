@@ -13,6 +13,7 @@ from models.aoc_2016 import (
     DecrementInstruction,
     JumpNotZeroInstruction,
     ToggleInstruction,
+    OutInstruction,
 )
 
 
@@ -364,7 +365,8 @@ def test_can_parse_assembunny_code():
                       inc b
                       dec c
                       jnz a 2
-                      tgl c"""
+                      tgl c
+                      out d"""
     file_parser = mock_file_parser(file_content)
     program = file_parser.parse_assembunny_code("some_file")
     assert program.get(0) == CopyInstruction(41, "a")
@@ -372,3 +374,4 @@ def test_can_parse_assembunny_code():
     assert program.get(2) == DecrementInstruction("c")
     assert program.get(3) == JumpNotZeroInstruction("a", 2)
     assert program.get(4) == ToggleInstruction("c")
+    assert program.get(5) == OutInstruction("d")

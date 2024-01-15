@@ -11,5 +11,6 @@ from .instructions import (
     AddInstruction,
     AddAndMultiplyInstruction,
     ToggleInstruction,
+    OutInstruction,
 )
 from .computer import Computer

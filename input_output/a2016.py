@@ -26,6 +26,7 @@ from models.aoc_2016 import (
     run_self_referential_code,
     Computer,
     Processor,
+    smallest_value_to_send_clock_signal,
 )
 
 
@@ -427,5 +428,6 @@ def aoc_2016_d24(file_name: str):
 
 # AOC 2016 - Day 25: Clock Signal
 def aoc_2016_d25(file_name: str):
-    print("AOC 2016 - Day 25/Part 1: Not implemented")
-    print("AOC 2016 - Day 25/Part 2: Not implemented")
+    program = parser.parse_assembunny_code(file_name)
+    smallest_value = smallest_value_to_send_clock_signal(program)
+    print(f"AOC 2016 - Day 25: Smallest value to send clock signal: {smallest_value}")
