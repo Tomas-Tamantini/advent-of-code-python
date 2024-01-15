@@ -14,7 +14,6 @@ from .a2016_d10 import (
     RobotProgramming,
 )
 from .a2016_d11 import FloorConfiguration, RadioisotopeTestingFacility
-from .a2016_d12 import run_parsed_assembly_code
 from .a2016_d13 import CubicleMaze, is_wall
 from .a2016_d14 import KeyGenerator
 from .a2016_d15 import SpinningDisc, DiscSystem
