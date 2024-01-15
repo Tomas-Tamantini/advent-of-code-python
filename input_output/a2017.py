@@ -1,12 +1,28 @@
 from input_output.file_parser import FileParser
+from models.aoc_2017 import (
+    digits_that_match_the_next,
+    digits_that_match_one_across_the_circle,
+)
 
 parser = FileParser.default()
 
 
 # AOC 2017 Day 1: Inverse Captcha
 def aoc_2017_d1(file_name: str):
-    print("AOC 2017 Day 1/Part 1: Not implemented")
-    print("AOC 2017 Day 1/Part 2: Not implemented")
+    with open(file_name) as f:
+        digit_sequence = f.read().strip()
+    sum_matches = sum(
+        int(d) for d in digits_that_match_the_next(digit_sequence, wrap_around=True)
+    )
+    print(
+        f"AOC 2017 Day 1/Part 1: Sum of digits that match the next one: {sum_matches}"
+    )
+    sum_matches = sum(
+        int(d) for d in digits_that_match_one_across_the_circle(digit_sequence)
+    )
+    print(
+        f"AOC 2017 Day 1/Part 2: Sum of digits that match one across the circle: {sum_matches}"
+    )
 
 
 # AOC 2017 Day 2: Corruption Checksum
