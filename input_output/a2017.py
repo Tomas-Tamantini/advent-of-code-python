@@ -4,6 +4,7 @@ from models.aoc_2017 import (
     digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
     Spreadsheet,
+    SquareSpiral,
 )
 
 
@@ -42,8 +43,13 @@ def aoc_2017_d2(file_name: str):
 
 # AOC 2017 Day 3: Spiral Memory
 def aoc_2017_d3(file_name: str):
-    print("AOC 2017 Day 3/Part 1: Not implemented")
-    print("AOC 2017 Day 3/Part 2: Not implemented")
+    with open(file_name) as f:
+        target = int(f.read().strip())
+    target_coordinates = SquareSpiral.coordinates(target)
+    manhattan_distance = sum(abs(c) for c in target_coordinates)
+    print(
+        f"AOC 2017 Day 3/Part 1: Manhattan distance to {target}: {manhattan_distance}"
+    )
 
 
 # AOC 2017 Day 4: High-Entropy Passphrases
