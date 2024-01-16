@@ -119,6 +119,10 @@ def aoc_2017_d6(file_name: str):
 def aoc_2017_d7(file_name: str):
     root = parser.parse_program_tree(file_name)
     print(f"AOC 2017 Day 7/Part 1: Root node: {root.name}")
+    imbalance = root.weight_imbalance()
+    print(
+        f"AOC 2017 Day 7/Part 2: Weight to fix imbalance: {imbalance.expected_weight}"
+    )
 
 
 # AOC 2017 Day 8: I Heard You Like Registers

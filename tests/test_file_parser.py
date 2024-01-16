@@ -394,3 +394,4 @@ def test_can_parse_program_tree():
     file_parser = mock_file_parser(file_content)
     root = file_parser.parse_program_tree("some_file")
     assert root.name == "tknk"
+    assert root.total_weight() == 778
