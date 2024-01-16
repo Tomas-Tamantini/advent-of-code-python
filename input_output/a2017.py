@@ -35,6 +35,9 @@ def aoc_2017_d2(file_name: str):
     print(
         f"AOC 2017 Day 2/Part 1: Spreadsheet checksum min/max: {spreadsheet.checksum_min_max()}"
     )
+    print(
+        f"AOC 2017 Day 2/Part 2: Spreadsheet checksum divisibility: {spreadsheet.checksum_divisibility()}"
+    )
 
 
 # AOC 2017 Day 3: Spiral Memory
