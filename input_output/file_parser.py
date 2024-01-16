@@ -460,6 +460,7 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             parts = line.strip().split(" ")
             node_name = parts[0]
+            node_weight = int(parts[1].replace("(", "").replace(")", ""))
             children = [p.replace(",", "") for p in parts[3:]]
-            tree_builder.add_node(node_name, children)
+            tree_builder.add_node(node_name, node_weight, children)
         return tree_builder.root()
