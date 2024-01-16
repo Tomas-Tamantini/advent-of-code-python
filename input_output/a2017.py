@@ -8,6 +8,7 @@ from models.aoc_2017 import (
     sentence_contains_no_duplicates,
     sentence_contains_no_anagrams,
     follow_and_increment_jump_instructions,
+    MemoryBankBalancer,
 )
 
 
@@ -105,8 +106,12 @@ def aoc_2017_d5(file_name: str):
 
 # AOC 2017 Day 6: Memory Reallocation
 def aoc_2017_d6(file_name: str):
-    print("AOC 2017 Day 6/Part 1: Not implemented")
-    print("AOC 2017 Day 6/Part 2: Not implemented")
+    with open(file_name) as f:
+        num_blocks = [int(block) for block in f.read().split()]
+    balancer = MemoryBankBalancer(num_blocks)
+    num_configurations = len(list(balancer.unique_configurations()))
+    num_redistributions = num_configurations - 1
+    print(f"AOC 2017 Day 6/Part 1: Number of redistributions: {num_redistributions}")
 
 
 # AOC 2017 Day 7: Recursive Circus
