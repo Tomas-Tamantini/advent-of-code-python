@@ -83,10 +83,24 @@ def aoc_2017_d4(file_name: str):
 def aoc_2017_d5(file_name: str):
     with open(file_name) as f:
         jump_offsets = [int(line) for line in f.readlines()]
-    steps_to_exit = 0
-    for _ in follow_and_increment_jump_instructions(jump_offsets):
-        steps_to_exit += 1
-    print(f"AOC 2017 Day 5/Part 1: Number of steps to exit the maze: {steps_to_exit}")
+    simple_increment_rule = lambda jump: jump + 1
+    steps_simple_increment = 0
+    for _ in follow_and_increment_jump_instructions(
+        jump_offsets[:], simple_increment_rule
+    ):
+        steps_simple_increment += 1
+    print(
+        f"AOC 2017 Day 5/Part 1: Steps to exit with simple increment: {steps_simple_increment}"
+    )
+    complex_increment_rule = lambda jump: jump - 1 if jump >= 3 else jump + 1
+    steps_complex_increment = 0
+    for _ in follow_and_increment_jump_instructions(
+        jump_offsets[:], complex_increment_rule
+    ):
+        steps_complex_increment += 1
+    print(
+        f"AOC 2017 Day 5/Part 2: Steps to exit with increment/decrement: {steps_complex_increment}"
+    )
 
 
 # AOC 2017 Day 6: Memory Reallocation
