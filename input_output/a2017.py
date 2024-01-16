@@ -5,6 +5,7 @@ from models.aoc_2017 import (
     digits_that_match_one_across_the_circle,
     Spreadsheet,
     SquareSpiral,
+    sentence_contains_no_duplicates,
 )
 
 
@@ -62,8 +63,14 @@ def aoc_2017_d3(file_name: str):
 
 # AOC 2017 Day 4: High-Entropy Passphrases
 def aoc_2017_d4(file_name: str):
-    print("AOC 2017 Day 4/Part 1: Not implemented")
-    print("AOC 2017 Day 4/Part 2: Not implemented")
+    with open(file_name) as f:
+        passphrases = f.readlines()
+    count_valid_passphrases = sum(
+        sentence_contains_no_duplicates(phrase) for phrase in passphrases
+    )
+    print(
+        f"AOC 2017 Day 4/Part 1: Number of valid passphrases: {count_valid_passphrases}"
+    )
 
 
 # AOC 2017 Day 5: A Maze of Twisty Trampolines, All Alike
