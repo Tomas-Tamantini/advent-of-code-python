@@ -1,4 +1,6 @@
+from typing import Iterator
 from math import sqrt, floor
+from models.vectors import Vector2D
 
 
 class SquareSpiral:
@@ -24,10 +26,7 @@ class SquareSpiral:
         elif offset < 3 * arm_length:
             return (-layer_idx, layer_idx - (offset - 2 * arm_length + 1))
         else:
-            return (
-                -layer_idx + (offset - 3 * arm_length + 1),
-                -layer_idx,
-            )
+            return (-layer_idx + (offset - 3 * arm_length + 1), -layer_idx)
 
     @staticmethod
     def spiral_index(x: int, y: int) -> int:
@@ -45,3 +44,19 @@ class SquareSpiral:
             return offset + 2 * arm_length - y
         else:
             return offset + 3 * arm_length + x
+
+    @staticmethod
+    def adjacent_sum_sequence() -> Iterator[int]:
+        yield 1
+        previous_terms = [1]
+        index = 2
+        while True:
+            pos = Vector2D(*SquareSpiral.coordinates(index))
+            current_term = 0
+            for neighbor in pos.adjacent_positions(include_diagonals=True):
+                neighbor_index = SquareSpiral.spiral_index(neighbor.x, neighbor.y)
+                if neighbor_index < index:
+                    current_term += previous_terms[neighbor_index - 1]
+            previous_terms.append(current_term)
+            yield current_term
+            index += 1

@@ -31,3 +31,9 @@ from models.aoc_2017 import SquareSpiral
 def test_can_map_between_coordinates_and_spiral_indices(index, coordinates):
     assert SquareSpiral.coordinates(index) == coordinates
     assert SquareSpiral.spiral_index(*coordinates) == index
+
+
+def test_can_generate_sequence_of_numbers_equal_to_sum_of_adjacent_ones():
+    sequence = SquareSpiral.adjacent_sum_sequence()
+    first_terms = [next(sequence) for _ in range(10)]
+    assert first_terms == [1, 1, 2, 4, 5, 10, 11, 23, 25, 26]

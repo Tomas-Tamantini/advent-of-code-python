@@ -50,6 +50,14 @@ def aoc_2017_d3(file_name: str):
     print(
         f"AOC 2017 Day 3/Part 1: Manhattan distance to {target}: {manhattan_distance}"
     )
+    first_value_larger_than_input = -1
+    for value in SquareSpiral.adjacent_sum_sequence():
+        if value > target:
+            first_value_larger_than_input = value
+            break
+    print(
+        f"AOC 2017 Day 3/Part 2: First sequence term larger than {target}: {first_value_larger_than_input}"
+    )
 
 
 # AOC 2017 Day 4: High-Entropy Passphrases
