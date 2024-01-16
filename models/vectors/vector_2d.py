@@ -1,3 +1,4 @@
+from typing import Iterator
 from dataclasses import dataclass
 from .cardinal_directions import CardinalDirection
 
@@ -10,3 +11,13 @@ class Vector2D:
     def move(self, direction: CardinalDirection, num_steps: int = 1) -> "Vector2D":
         dx, dy = direction.offset()
         return Vector2D(self.x + dx * num_steps, self.y + dy * num_steps)
+
+    def adjacent_positions(
+        self, include_diagonals: bool = False
+    ) -> Iterator["Vector2D"]:
+        for direction in CardinalDirection:
+            yield self.move(direction)
+        if include_diagonals:
+            for dx in (-1, 1):
+                for dy in (-1, 1):
+                    yield Vector2D(self.x + dx, self.y + dy)

@@ -15,8 +15,7 @@ class AirDuctMaze:
                     self._labels_points_of_interest[Vector2D(x, y)] = char
 
     def neighbors(self, node: Vector2D) -> Iterator[Vector2D]:
-        for direction in CardinalDirection:
-            neighbor = node.move(direction)
+        for neighbor in node.adjacent_positions():
             if self._blueprint[neighbor.y][neighbor.x] != "#":
                 yield neighbor
 

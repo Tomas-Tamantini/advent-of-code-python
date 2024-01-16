@@ -19,8 +19,7 @@ class CubicleMaze:
         return position == self._destination
 
     def neighbors(self, position: Vector2D):
-        for direction in CardinalDirection:
-            new_position = position.move(direction)
+        for new_position in position.adjacent_positions():
             if new_position.x < 0 or new_position.y < 0:
                 continue
             if self._is_wall(new_position):

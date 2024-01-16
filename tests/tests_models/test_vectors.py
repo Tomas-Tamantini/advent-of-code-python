@@ -12,6 +12,28 @@ def test_vector_can_move_specified_number_of_steps():
     assert Vector2D(10, 10).move(CardinalDirection.NORTH, 5) == Vector2D(10, 15)
 
 
+def test_can_find_all_adjacent_positions_not_including_diagonal_by_default():
+    assert set(Vector2D(0, 0).adjacent_positions()) == {
+        Vector2D(0, 1),
+        Vector2D(1, 0),
+        Vector2D(0, -1),
+        Vector2D(-1, 0),
+    }
+
+
+def test_can_find_all_adjacent_positions_including_diagonal():
+    assert set(Vector2D(0, 0).adjacent_positions(include_diagonals=True)) == {
+        Vector2D(0, 1),
+        Vector2D(1, 0),
+        Vector2D(0, -1),
+        Vector2D(-1, 0),
+        Vector2D(1, 1),
+        Vector2D(1, -1),
+        Vector2D(-1, -1),
+        Vector2D(-1, 1),
+    }
+
+
 def test_cardinal_directions_can_be_spun_around():
     assert CardinalDirection.NORTH.turn_left() == CardinalDirection.WEST
     assert CardinalDirection.WEST.turn_left() == CardinalDirection.SOUTH
