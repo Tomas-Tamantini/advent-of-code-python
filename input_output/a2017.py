@@ -6,6 +6,7 @@ from models.aoc_2017 import (
     Spreadsheet,
     SquareSpiral,
     sentence_contains_no_duplicates,
+    sentence_contains_no_anagrams,
 )
 
 
@@ -65,11 +66,15 @@ def aoc_2017_d3(file_name: str):
 def aoc_2017_d4(file_name: str):
     with open(file_name) as f:
         passphrases = f.readlines()
-    count_valid_passphrases = sum(
+    no_duplicates = sum(
         sentence_contains_no_duplicates(phrase) for phrase in passphrases
     )
     print(
-        f"AOC 2017 Day 4/Part 1: Number of valid passphrases: {count_valid_passphrases}"
+        f"AOC 2017 Day 4/Part 1: Number of passphrases with no duplicate words: {no_duplicates}"
+    )
+    no_anagrams = sum(sentence_contains_no_anagrams(phrase) for phrase in passphrases)
+    print(
+        f"AOC 2017 Day 4/Part 2: Number of passphrases with no anagrams: {no_anagrams}"
     )
 
 
