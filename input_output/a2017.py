@@ -1,8 +1,11 @@
+import numpy as np
 from input_output.file_parser import FileParser
 from models.aoc_2017 import (
     digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
+    Spreadsheet,
 )
+
 
 parser = FileParser.default()
 
@@ -27,8 +30,11 @@ def aoc_2017_d1(file_name: str):
 
 # AOC 2017 Day 2: Corruption Checksum
 def aoc_2017_d2(file_name: str):
-    print("AOC 2017 Day 2/Part 1: Not implemented")
-    print("AOC 2017 Day 2/Part 2: Not implemented")
+    with open(file_name) as f:
+        spreadsheet = Spreadsheet(np.loadtxt(f, dtype=int, delimiter="\t"))
+    print(
+        f"AOC 2017 Day 2/Part 1: Spreadsheet checksum min/max: {spreadsheet.checksum_min_max()}"
+    )
 
 
 # AOC 2017 Day 3: Spiral Memory
