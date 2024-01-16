@@ -109,9 +109,10 @@ def aoc_2017_d6(file_name: str):
     with open(file_name) as f:
         num_blocks = [int(block) for block in f.read().split()]
     balancer = MemoryBankBalancer(num_blocks)
-    num_configurations = len(list(balancer.unique_configurations()))
-    num_redistributions = num_configurations - 1
+    num_redistributions = len(list(balancer.unique_configurations()))
     print(f"AOC 2017 Day 6/Part 1: Number of redistributions: {num_redistributions}")
+    loop_size = balancer.loop_size()
+    print(f"AOC 2017 Day 6/Part 2: Loop size: {loop_size}")
 
 
 # AOC 2017 Day 7: Recursive Circus
