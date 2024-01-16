@@ -9,7 +9,7 @@ def test_tree_with_no_node_has_no_root():
 def test_tree_with_single_node_has_it_as_root():
     tree_builder = TreeBuilder()
     tree_builder.add_node("a")
-    assert tree_builder.root() == "a"
+    assert tree_builder.root().name == "a"
 
 
 def test_can_find_root_in_tree_with_multiple_nodes():
@@ -18,4 +18,4 @@ def test_can_find_root_in_tree_with_multiple_nodes():
     tree_builder.add_node("b")
     tree_builder.add_node("d", children=["e", "f", "g"])
     tree_builder.add_node("c", children=["a", "d"])
-    assert tree_builder.root() == "c"
+    assert tree_builder.root().name == "c"

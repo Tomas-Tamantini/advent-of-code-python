@@ -28,10 +28,10 @@ class TreeBuilder:
         if name not in self._nodes:
             self._nodes[name] = new_node
 
-    def root(self) -> Optional[str]:
+    def root(self) -> Optional[TreeNode]:
         if not self._nodes:
             return None
         node = next(iter(self._nodes.values()))
         while node.parent is not None:
             node = node.parent
-        return node.name
+        return node

@@ -377,7 +377,7 @@ def test_can_parse_assembunny_code():
     assert program.get(5) == OutInstruction("d")
 
 
-def test_can_parse_tree_builder():
+def test_can_parse_program_tree():
     file_content = """pbga (66)
                       xhth (57)
                       ebii (61)
@@ -392,5 +392,5 @@ def test_can_parse_tree_builder():
                       gyxo (61)
                       cntj (57)"""
     file_parser = mock_file_parser(file_content)
-    tree_builder = file_parser.parse_tree_builder("some_file")
-    assert tree_builder.root() == "tknk"
+    root = file_parser.parse_program_tree("some_file")
+    assert root.name == "tknk"
