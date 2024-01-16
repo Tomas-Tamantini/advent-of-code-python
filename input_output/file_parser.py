@@ -50,6 +50,7 @@ from models.aoc_2016 import (
     ToggleInstruction,
     OutInstruction,
 )
+from models.aoc_2017 import TreeBuilder
 
 
 class FileReaderProtocol(Protocol):
@@ -453,3 +454,12 @@ class FileParser:
             for line in self._file_reader.readlines(file_name)
         ]
         return Program(instructions)
+
+    def parse_tree_builder(self, file_name) -> TreeBuilder:
+        tree_builder = TreeBuilder()
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(" ")
+            node_name = parts[0]
+            children = [p.replace(",", "") for p in parts[3:]]
+            tree_builder.add_node(node_name, children)
+        return tree_builder

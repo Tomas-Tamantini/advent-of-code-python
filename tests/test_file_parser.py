@@ -375,3 +375,22 @@ def test_can_parse_assembunny_code():
     assert program.get(3) == JumpNotZeroInstruction("a", 2)
     assert program.get(4) == ToggleInstruction("c")
     assert program.get(5) == OutInstruction("d")
+
+
+def test_can_parse_tree_builder():
+    file_content = """pbga (66)
+                      xhth (57)
+                      ebii (61)
+                      havc (66)
+                      ktlj (57)
+                      fwft (72) -> ktlj, cntj, xhth
+                      qoyq (66)
+                      padx (45) -> pbga, havc, qoyq
+                      tknk (41) -> ugml, padx, fwft
+                      jptl (61)
+                      ugml (68) -> gyxo, ebii, jptl
+                      gyxo (61)
+                      cntj (57)"""
+    file_parser = mock_file_parser(file_content)
+    tree_builder = file_parser.parse_tree_builder("some_file")
+    assert tree_builder.root() == "tknk"

@@ -117,8 +117,8 @@ def aoc_2017_d6(file_name: str):
 
 # AOC 2017 Day 7: Recursive Circus
 def aoc_2017_d7(file_name: str):
-    print("AOC 2017 Day 7/Part 1: Not implemented")
-    print("AOC 2017 Day 7/Part 2: Not implemented")
+    tree_builder = parser.parse_tree_builder(file_name)
+    print(f"AOC 2017 Day 7/Part 1: Root node: {tree_builder.root()}")
 
 
 # AOC 2017 Day 8: I Heard You Like Registers
