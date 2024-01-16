@@ -7,6 +7,7 @@ from models.aoc_2017 import (
     SquareSpiral,
     sentence_contains_no_duplicates,
     sentence_contains_no_anagrams,
+    follow_and_increment_jump_instructions,
 )
 
 
@@ -80,8 +81,12 @@ def aoc_2017_d4(file_name: str):
 
 # AOC 2017 Day 5: A Maze of Twisty Trampolines, All Alike
 def aoc_2017_d5(file_name: str):
-    print("AOC 2017 Day 5/Part 1: Not implemented")
-    print("AOC 2017 Day 5/Part 2: Not implemented")
+    with open(file_name) as f:
+        jump_offsets = [int(line) for line in f.readlines()]
+    steps_to_exit = 0
+    for _ in follow_and_increment_jump_instructions(jump_offsets):
+        steps_to_exit += 1
+    print(f"AOC 2017 Day 5/Part 1: Number of steps to exit the maze: {steps_to_exit}")
 
 
 # AOC 2017 Day 6: Memory Reallocation
