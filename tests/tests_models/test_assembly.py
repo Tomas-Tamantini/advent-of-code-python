@@ -1,4 +1,4 @@
-from models.assembly import Computer, Processor, Program, Hardware
+from models.assembly import Computer, Processor, Program, Hardware, ImmutableProgram
 from unittest.mock import Mock
 
 
@@ -40,18 +40,13 @@ def test_program_instructions_are_executed_until_end_of_program():
             else:
                 hardware.processor.program_counter -= 1
 
-    class MockProgram:
-        def __init__(self):
-            self.instructions = [IncrementInstruction(), OutputInstruction()]
-
-        def get_instruction(self, program_counter):
-            return self.instructions[program_counter] if program_counter < 2 else None
+    program = ImmutableProgram([IncrementInstruction(), OutputInstruction()])
 
     processor = Processor(registers={"a": 1, "b": 2})
     serial_output = SerialOutputSpy()
     computer = Computer(
         hardware=Hardware(processor=processor, serial_output=serial_output)
     )
-    computer.run_program(MockProgram())
+    computer.run_program(program)
     assert computer.get_register_value("a") == 9
     assert serial_output.output == [3, 5, 7, 9]
