@@ -1,6 +1,6 @@
 from typing import Protocol, Union, Optional
 from dataclasses import dataclass
-from .processor import Processor
+from models.assembly import Processor
 from .memory import Memory
 from .serial_output import SerialOutput
 

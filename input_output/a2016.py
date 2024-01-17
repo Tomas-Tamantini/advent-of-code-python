@@ -1,5 +1,6 @@
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection, Vector2D
+from models.assembly import Processor
 from models.aoc_2016 import (
     Turtle,
     Keypad,
@@ -25,7 +26,6 @@ from models.aoc_2016 import (
     AirDuctMaze,
     run_self_referential_code,
     Computer,
-    Processor,
     smallest_value_to_send_clock_signal,
 )
 

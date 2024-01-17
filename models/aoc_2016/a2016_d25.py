@@ -1,4 +1,5 @@
-from .assembunny import Program, Computer, Processor
+from models.assembly import Processor
+from .assembunny import Program, Computer
 
 
 class ClockSignalSerialOutput:

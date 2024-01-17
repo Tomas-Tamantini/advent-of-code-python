@@ -1,8 +1,8 @@
 from copy import deepcopy
+from models.assembly import Processor
 from models.aoc_2016.assembunny import (
     Computer,
     Program,
-    Processor,
     CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,

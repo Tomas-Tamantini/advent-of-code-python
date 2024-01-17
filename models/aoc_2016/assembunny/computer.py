@@ -1,5 +1,5 @@
 from typing import Optional
-from .processor import Processor
+from models.assembly import Processor
 from .program import Program
 from .serial_output import SerialOutput
 

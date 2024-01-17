@@ -39,7 +39,6 @@ from .a2016_d25 import smallest_value_to_send_clock_signal
 from .assembunny import (
     Program,
     Computer,
-    Processor,
     CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,

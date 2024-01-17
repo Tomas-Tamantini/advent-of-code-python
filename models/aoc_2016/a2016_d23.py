@@ -1,5 +1,6 @@
 from copy import deepcopy
-from .assembunny import Processor, Program, Computer
+from models.assembly import Processor
+from .assembunny import Program, Computer
 
 
 def run_self_referential_code(program: Program, initial_value: int) -> int:
