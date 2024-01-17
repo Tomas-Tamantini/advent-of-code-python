@@ -1,5 +1,6 @@
-from models.assembly import Computer, Processor, Program, Hardware, ImmutableProgram
+import pytest
 from unittest.mock import Mock
+from models.assembly import Computer, Processor, Program, Hardware, ImmutableProgram
 
 
 def test_computer_can_be_initialized_from_processor():
@@ -50,3 +51,19 @@ def test_program_instructions_are_executed_until_end_of_program():
     computer.run_program(program)
     assert computer.get_register_value("a") == 9
     assert serial_output.output == [3, 5, 7, 9]
+
+
+def test_can_execute_instructions_one_by_one():
+    class NoOpInstruction:
+        def execute(self, hardware):
+            hardware.processor.program_counter += 1
+
+    program = ImmutableProgram([NoOpInstruction(), NoOpInstruction()])
+    processor = Processor()
+    computer = Computer.from_processor(processor)
+    computer.run_next_instruction(program)
+    assert computer._program_counter == 1
+    computer.run_next_instruction(program)
+    assert computer._program_counter == 2
+    with pytest.raises(StopIteration):
+        computer.run_next_instruction(program)

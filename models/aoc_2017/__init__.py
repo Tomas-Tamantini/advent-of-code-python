@@ -11,5 +11,5 @@ from .a2017_d7 import TreeBuilder, TreeNode
 from .a2017_d8 import (
     ComparisonOperator,
     ConditionalIncrementInstruction,
-    registers_after_conditional_increment_instructions,
+    maximum_value_at_registers,
 )

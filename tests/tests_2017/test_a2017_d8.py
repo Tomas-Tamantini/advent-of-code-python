@@ -3,7 +3,7 @@ from models.assembly import Hardware, Processor
 from models.aoc_2017 import (
     ComparisonOperator,
     ConditionalIncrementInstruction,
-    registers_after_conditional_increment_instructions,
+    maximum_value_at_registers,
 )
 
 
@@ -63,7 +63,7 @@ def test_instruction_updates_programs_counter_and_increments_register_when_compa
     assert processor.registers["a"] == 7
 
 
-def test_can_run_program_and_check_register_values_afterwards():
+def test_can_run_program_and_get_maximum_value_at_registers_at_each_point():
     program = [
         ConditionalIncrementInstruction(
             "b", 5, "a", 1, ComparisonOperator.GREATER_THAN
@@ -74,5 +74,5 @@ def test_can_run_program_and_check_register_values_afterwards():
         ),
         ConditionalIncrementInstruction("c", -20, "c", 10, ComparisonOperator.EQUALS),
     ]
-    registers = registers_after_conditional_increment_instructions(program)
-    assert registers == {"a": 1, "b": 0, "c": -10}
+    max_values = list(maximum_value_at_registers(program))
+    assert max_values == [0, 0, 1, 10, 1]

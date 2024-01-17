@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+from typing import Iterator
 from models.assembly import Hardware, ImmutableProgram, Processor, Computer
 
 
@@ -47,11 +48,15 @@ class ConditionalIncrementInstruction:
         hardware.processor.program_counter += 1
 
 
-def registers_after_conditional_increment_instructions(
+def maximum_value_at_registers(
     instructions: list[ConditionalIncrementInstruction],
-) -> dict[str, int]:
+) -> Iterator[int]:
     program = ImmutableProgram(instructions)
     processor = Processor()
     computer = Computer.from_processor(processor)
-    computer.run_program(program)
-    return processor.registers
+    while True:
+        yield max(processor.registers.values()) if processor.registers else 0
+        try:
+            computer.run_next_instruction(program)
+        except StopIteration:
+            break
