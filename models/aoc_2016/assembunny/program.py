@@ -15,11 +15,17 @@ class Program:
             i: instruction for i, instruction in enumerate(instructions)
         }
 
-    def get(self, index: int) -> Instruction:
+    def get_instruction(self, index: int) -> Instruction:
         return self._instructions.get(index)
 
-    def update(self, index: int, new_value: Instruction) -> None:
+    def update_instruction(self, index: int, new_value: Instruction) -> None:
         self._instructions[index] = new_value
+
+    def get_at(self, index: int) -> int:
+        return self.get_instruction(index)
+
+    def update_at(self, index: int, new_value: Instruction) -> None:
+        return self.update_instruction(index, new_value)
 
     def optimize(self) -> None:
         # These optimizations are specific to the programs given

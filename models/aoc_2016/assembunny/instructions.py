@@ -1,7 +1,6 @@
 from typing import Protocol, Union, Optional
 from dataclasses import dataclass
-from models.assembly import Processor
-from .memory import Memory
+from models.assembly import Processor, Memory
 from .serial_output import SerialOutput
 
 
@@ -91,7 +90,7 @@ class ToggleInstruction:
     def execute(self, processor: Processor, memory: Memory, *_, **__) -> None:
         offset_value = processor.get_value(self.offset)
         instruction_idx = processor.program_counter + offset_value
-        instruction = memory.get(instruction_idx)
+        instruction = memory.get_at(instruction_idx)
         new_instruction = None
         if isinstance(instruction, IncrementInstruction):
             new_instruction = DecrementInstruction(instruction.register)
@@ -108,7 +107,7 @@ class ToggleInstruction:
                 instruction.source, instruction.destination
             )
         if new_instruction:
-            memory.update(instruction_idx, new_instruction)
+            memory.update_at(instruction_idx, new_instruction)
         processor.program_counter += 1
 
 

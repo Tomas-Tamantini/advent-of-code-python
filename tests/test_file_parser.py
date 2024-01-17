@@ -369,12 +369,12 @@ def test_can_parse_assembunny_code():
                       out d"""
     file_parser = mock_file_parser(file_content)
     program = file_parser.parse_assembunny_code("some_file")
-    assert program.get(0) == CopyInstruction(41, "a")
-    assert program.get(1) == IncrementInstruction("b")
-    assert program.get(2) == DecrementInstruction("c")
-    assert program.get(3) == JumpNotZeroInstruction("a", 2)
-    assert program.get(4) == ToggleInstruction("c")
-    assert program.get(5) == OutInstruction("d")
+    assert program.get_instruction(0) == CopyInstruction(41, "a")
+    assert program.get_instruction(1) == IncrementInstruction("b")
+    assert program.get_instruction(2) == DecrementInstruction("c")
+    assert program.get_instruction(3) == JumpNotZeroInstruction("a", 2)
+    assert program.get_instruction(4) == ToggleInstruction("c")
+    assert program.get_instruction(5) == OutInstruction("d")
 
 
 def test_can_parse_program_tree():

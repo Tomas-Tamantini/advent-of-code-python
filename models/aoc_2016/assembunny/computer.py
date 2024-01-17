@@ -17,7 +17,7 @@ class Computer:
         if optimize_assembunny_code:
             program.optimize()
         while True:
-            instruction = program.get(self._processor.program_counter)
+            instruction = program.get_instruction(self._processor.program_counter)
             if instruction is None:
                 return
             instruction.execute(
