@@ -1,7 +1,6 @@
-from dataclasses import dataclass
-from models.vectors import Vector2D, CardinalDirection
+from models.vectors import Vector2D
 from models.graphs import min_path_length_with_bfs, explore_with_bfs
-from typing import Callable, ClassVar
+from typing import Callable
 
 
 def is_wall(position: Vector2D, polynomial_offset: int) -> bool:
