@@ -9,6 +9,7 @@ from models.aoc_2017 import (
     sentence_contains_no_anagrams,
     follow_and_increment_jump_instructions,
     MemoryBankBalancer,
+    registers_after_conditional_increment_instructions,
 )
 
 
@@ -127,8 +128,10 @@ def aoc_2017_d7(file_name: str):
 
 # AOC 2017 Day 8: I Heard You Like Registers
 def aoc_2017_d8(file_name: str):
-    print("AOC 2017 Day 8/Part 1: Not implemented")
-    print("AOC 2017 Day 8/Part 2: Not implemented")
+    instructions = parser.parse_conditional_increment_instructions(file_name)
+    registers = registers_after_conditional_increment_instructions(list(instructions))
+    largest_value = max(registers.values())
+    print(f"AOC 2017 Day 8/Part 1: Largest register value: {largest_value}")
 
 
 # AOC 2017 Day 9: Stream Processing

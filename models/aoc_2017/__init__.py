@@ -8,3 +8,8 @@ from .a2017_d4 import sentence_contains_no_duplicates, sentence_contains_no_anag
 from .a2017_d5 import follow_and_increment_jump_instructions
 from .a2017_d6 import MemoryBankBalancer
 from .a2017_d7 import TreeBuilder, TreeNode
+from .a2017_d8 import (
+    ComparisonOperator,
+    ConditionalIncrementInstruction,
+    registers_after_conditional_increment_instructions,
+)

@@ -1,6 +1,6 @@
 from typing import Iterator
 from unittest.mock import Mock
-from input_output.file_parser import FileParser, FileReader
+from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import (
@@ -15,6 +15,7 @@ from models.aoc_2016 import (
     ToggleInstruction,
     OutInstruction,
 )
+from models.aoc_2017 import ConditionalIncrementInstruction, ComparisonOperator
 
 
 class MockFileReader:
@@ -395,3 +396,26 @@ def test_can_parse_program_tree():
     root = file_parser.parse_program_tree("some_file")
     assert root.name == "tknk"
     assert root.total_weight() == 778
+
+
+def test_can_parse_conditional_increment_instructions():
+    file_content = """b inc 5 if a > 1
+                      a inc 1 if b < 5
+                      c dec -10 if a >= 1
+                      c inc -20 if c == 10"""
+    file_parser = mock_file_parser(file_content)
+    instructions = list(
+        file_parser.parse_conditional_increment_instructions("some_file")
+    )
+    assert instructions[0] == ConditionalIncrementInstruction(
+        "b", 5, "a", 1, ComparisonOperator.GREATER_THAN
+    )
+    assert instructions[1] == ConditionalIncrementInstruction(
+        "a", 1, "b", 5, ComparisonOperator.LESS_THAN
+    )
+    assert instructions[2] == ConditionalIncrementInstruction(
+        "c", 10, "a", 1, ComparisonOperator.GREATER_THAN_OR_EQUAL
+    )
+    assert instructions[3] == ConditionalIncrementInstruction(
+        "c", -20, "c", 10, ComparisonOperator.EQUALS
+    )

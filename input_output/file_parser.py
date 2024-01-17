@@ -50,7 +50,12 @@ from models.aoc_2016 import (
     ToggleInstruction,
     OutInstruction,
 )
-from models.aoc_2017 import TreeBuilder, TreeNode
+from models.aoc_2017 import (
+    TreeBuilder,
+    TreeNode,
+    ComparisonOperator,
+    ConditionalIncrementInstruction,
+)
 
 
 class FileReaderProtocol(Protocol):
@@ -464,3 +469,25 @@ class FileParser:
             children = [p.replace(",", "") for p in parts[3:]]
             tree_builder.add_node(node_name, node_weight, children)
         return tree_builder.root()
+
+    @staticmethod
+    def _parse_conditional_increment_instruction(
+        line: str,
+    ) -> ConditionalIncrementInstruction:
+        parts = line.strip().split(" ")
+        increment_amount = int(parts[2])
+        if "dec" in parts[1]:
+            increment_amount = -increment_amount
+        return ConditionalIncrementInstruction(
+            register_to_increment=parts[0],
+            increment_amount=increment_amount,
+            comparison_register=parts[4],
+            value_to_compare=int(parts[6]),
+            comparison_operator=ComparisonOperator(parts[5]),
+        )
+
+    def parse_conditional_increment_instructions(
+        self, file_name
+    ) -> Iterator[ConditionalIncrementInstruction]:
+        for line in self._file_reader.readlines(file_name):
+            yield self._parse_conditional_increment_instruction(line)
