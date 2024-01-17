@@ -10,7 +10,7 @@ from models.aoc_2017 import (
     follow_and_increment_jump_instructions,
     MemoryBankBalancer,
     maximum_value_at_registers,
-    stream_groups_total_score,
+    StreamHandler,
 )
 
 
@@ -143,8 +143,11 @@ def aoc_2017_d8(file_name: str):
 def aoc_2017_d9(file_name: str):
     with open(file_name) as f:
         stream = f.read().strip()
-    total_score = stream_groups_total_score(stream)
-    print(f"AOC 2017 Day 9/Part 1: Total score: {total_score}")
+    handler = StreamHandler(stream)
+    print(f"AOC 2017 Day 9/Part 1: Total score: {handler.total_score}")
+    print(
+        f"AOC 2017 Day 9/Part 2: Number of non-cancelled characters in garbage: {handler.num_non_cancelled_chars_in_garbage}"
+    )
 
 
 # AOC 2017 Day 10: Knot Hash
