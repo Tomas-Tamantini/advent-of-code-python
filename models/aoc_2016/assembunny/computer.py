@@ -1,7 +1,6 @@
 from typing import Optional
-from models.assembly import Processor
+from models.assembly import Processor, SerialOutput
 from .program import Program
-from .serial_output import SerialOutput
 
 
 class Computer:

@@ -1,7 +1,6 @@
 from typing import Protocol, Union, Optional
 from dataclasses import dataclass
-from models.assembly import Processor, Memory
-from .serial_output import SerialOutput
+from models.assembly import Processor, Memory, SerialOutput
 
 
 class Instruction(Protocol):

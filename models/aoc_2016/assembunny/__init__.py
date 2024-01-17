@@ -1,4 +1,3 @@
-from .serial_output import SerialOutput
 from .program import Program
 from .instructions import (
     Instruction,
