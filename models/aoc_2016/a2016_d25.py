@@ -1,5 +1,5 @@
-from models.assembly import Processor
-from .assembunny import Program, Computer
+from models.assembly import Processor, Computer, Hardware
+from .assembunny import AssembunnyProgram
 
 
 class ClockSignalSerialOutput:
@@ -17,17 +17,15 @@ class ClockSignalSerialOutput:
         self._expected_signal = 1 - self._expected_signal
 
 
-def smallest_value_to_send_clock_signal(program: Program) -> int:
+def smallest_value_to_send_clock_signal(program: AssembunnyProgram) -> int:
     program.optimize()
     for guess in range(1_000):
-        computer = Computer(
-            processor=Processor(
-                registers={"a": guess},
-            ),
-            serial_output=ClockSignalSerialOutput(buffer_size=20),
-        )
+        processor = Processor(registers={"a": guess})
+        serial_output = ClockSignalSerialOutput(buffer_size=20)
+        hardware = Hardware(processor=processor, serial_output=serial_output)
+        computer = Computer(hardware)
         try:
-            computer.run(program, optimize_assembunny_code=False)
+            computer.run_program(program)
         except ValueError:
             continue
         except OverflowError:

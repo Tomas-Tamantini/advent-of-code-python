@@ -45,7 +45,7 @@ class ConditionalIncrementInstruction:
                 self.register_to_increment,
                 self.increment_amount,
             )
-        hardware.processor.program_counter += 1
+        hardware.increment_program_counter()
 
 
 def maximum_value_at_registers(

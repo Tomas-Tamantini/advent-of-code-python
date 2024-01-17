@@ -1,10 +1,13 @@
 from copy import deepcopy
-from models.assembly import Processor
-from .assembunny import Program, Computer
+from models.assembly import Processor, Hardware, Computer
+from .assembunny import AssembunnyProgram
 
 
-def run_self_referential_code(program: Program, initial_value: int) -> int:
+def run_self_referential_code(program: AssembunnyProgram, initial_value: int) -> int:
     copied_program = deepcopy(program)
-    computer = Computer(Processor(registers={"a": initial_value}))
-    computer.run(copied_program, optimize_assembunny_code=True)
-    return computer.value_at("a")
+    copied_program.optimize()
+    processor = Processor(registers={"a": initial_value})
+    hardware = Hardware(processor=processor, memory=copied_program)
+    computer = Computer(hardware)
+    computer.run_program(copied_program)
+    return computer.get_register_value("a")

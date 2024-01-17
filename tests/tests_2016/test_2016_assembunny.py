@@ -1,8 +1,8 @@
 from copy import deepcopy
-from models.assembly import Processor
+from models.assembly import Processor, Computer
+from models.aoc_2016 import run_self_referential_code
 from models.aoc_2016.assembunny import (
-    Computer,
-    Program,
+    AssembunnyProgram,
     CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,
@@ -12,7 +12,7 @@ from models.aoc_2016.assembunny import (
 
 
 def test_computer_can_run_simple_program():
-    simple_program = Program(
+    simple_program = AssembunnyProgram(
         [
             CopyInstruction(41, "a"),
             IncrementInstruction("a"),
@@ -22,14 +22,14 @@ def test_computer_can_run_simple_program():
             DecrementInstruction("a"),
         ]
     )
-    computer = Computer(Processor())
+    computer = Computer.from_processor(Processor())
 
-    computer.run(simple_program, optimize_assembunny_code=False)
-    assert computer.value_at("a") == 42
+    computer.run_program(simple_program)
+    assert computer.get_register_value("a") == 42
 
 
 def test_computer_can_run_fibonacci_like_program_efficiently():
-    fibonacci_program = Program(
+    fibonacci_program = AssembunnyProgram(
         [
             CopyInstruction(1, "a"),
             CopyInstruction(1, "b"),
@@ -56,18 +56,18 @@ def test_computer_can_run_fibonacci_like_program_efficiently():
             JumpNotZeroInstruction("c", -5),
         ]
     )
+    fibonacci_program.optimize()
+    computer = Computer.from_processor(Processor())
+    computer.run_program(fibonacci_program)
+    assert computer.get_register_value("a") == 318083
 
-    computer = Computer(Processor())
-    computer.run(fibonacci_program, optimize_assembunny_code=True)
-    assert computer.value_at("a") == 318083
-
-    computer = Computer(Processor(registers={"c": 1}))
-    computer.run(fibonacci_program, optimize_assembunny_code=True)
-    assert computer.value_at("a") == 9227737
+    computer = Computer.from_processor(Processor(registers={"c": 1}))
+    computer.run_program(fibonacci_program)
+    assert computer.get_register_value("a") == 9227737
 
 
 def test_computer_can_run_factorial_like_program_efficiently():
-    factorial_program = Program(
+    factorial_program = AssembunnyProgram(
         [
             CopyInstruction("a", "b"),
             DecrementInstruction("b"),
@@ -97,11 +97,5 @@ def test_computer_can_run_factorial_like_program_efficiently():
             JumpNotZeroInstruction("c", -5),
         ]
     )
-
-    computer = Computer(Processor({"a": 7}))
-    computer.run(deepcopy(factorial_program), optimize_assembunny_code=True)
-    assert computer.value_at("a") == 11748
-
-    computer = Computer(Processor({"a": 12}))
-    computer.run(factorial_program, optimize_assembunny_code=True)
-    assert computer.value_at("a") == 479008308
+    assert run_self_referential_code(factorial_program, initial_value=7) == 11748
+    assert run_self_referential_code(factorial_program, initial_value=12) == 479008308

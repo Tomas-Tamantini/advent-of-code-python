@@ -1,7 +1,7 @@
 import pytest
 from models.aoc_2016 import (
     smallest_value_to_send_clock_signal,
-    Program,
+    AssembunnyProgram,
     CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,
@@ -12,7 +12,7 @@ from models.aoc_2016 import (
 
 @pytest.mark.skip(reason="Takes about 3s to run")
 def test_smallest_value_to_send_clock_signal_is_calculated_properly():
-    program = Program(
+    program = AssembunnyProgram(
         [
             CopyInstruction("a", "d"),
             CopyInstruction(7, "c"),

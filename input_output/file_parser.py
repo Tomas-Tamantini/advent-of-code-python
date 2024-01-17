@@ -42,7 +42,7 @@ from models.aoc_2016 import (
     ReversionScrambler,
     LetterMoveScrambler,
     StorageNode,
-    Program,
+    AssembunnyProgram,
     CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,
@@ -453,12 +453,12 @@ class FileParser:
         else:
             raise ValueError(f"Unknown instruction: {line.strip()}")
 
-    def parse_assembunny_code(self, file_name) -> Program:
+    def parse_assembunny_code(self, file_name) -> AssembunnyProgram:
         instructions = [
             self._parse_assembunny_instruction(line)
             for line in self._file_reader.readlines(file_name)
         ]
-        return Program(instructions)
+        return AssembunnyProgram(instructions)
 
     def parse_program_tree(self, file_name) -> TreeNode:
         tree_builder = TreeBuilder()

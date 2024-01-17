@@ -1,6 +1,6 @@
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection, Vector2D
-from models.assembly import Processor
+from models.assembly import Processor, Computer
 from models.aoc_2016 import (
     Turtle,
     Keypad,
@@ -25,7 +25,6 @@ from models.aoc_2016 import (
     DisjoinIntervals,
     AirDuctMaze,
     run_self_referential_code,
-    Computer,
     smallest_value_to_send_clock_signal,
 )
 
@@ -226,15 +225,16 @@ def aoc_2016_d11(file_name: str):
 # AOC 2016 - Day 12: Leonardo's Monorail
 def aoc_2016_d12(file_name: str):
     program = parser.parse_assembunny_code(file_name)
-    computer = Computer(Processor())
-    computer.run(program, optimize_assembunny_code=True)
-    result_c_zero = computer.value_at("a")
+    program.optimize()
+    computer = Computer.from_processor(Processor())
+    computer.run_program(program)
+    result_c_zero = computer.get_register_value("a")
     print(
         f"AOC 2016 - Day 12/Part 1: Value of register a if c starts as 0: {result_c_zero}"
     )
-    computer = Computer(Processor(registers={"c": 1}))
-    computer.run(program, optimize_assembunny_code=True)
-    result_c_one = computer.value_at("a")
+    computer = Computer.from_processor(Processor(registers={"c": 1}))
+    computer.run_program(program)
+    result_c_one = computer.get_register_value("a")
     print(
         f"AOC 2016 - Day 12/Part 2: Value of register a if c starts as 1: {result_c_one}"
     )

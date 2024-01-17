@@ -17,3 +17,8 @@ class ImmutableProgram:
             if 0 <= program_counter < len(self._instructions)
             else None
         )
+
+
+class MutableProgram(ImmutableProgram):
+    def update_instruction(self, index: int, new_value: Instruction) -> None:
+        self._instructions[index] = new_value

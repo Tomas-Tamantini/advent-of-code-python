@@ -17,5 +17,8 @@ class Hardware:
     def set_value_at_register(self, register: str, value: int) -> None:
         self.processor.registers[register] = value
 
-    def increment_value_at_register(self, register: str, value: int) -> None:
-        self.processor.registers[register] += value
+    def increment_value_at_register(self, register: str, increment: int) -> None:
+        self.processor.registers[register] += increment
+
+    def increment_program_counter(self, increment: int = 1) -> None:
+        self.processor.program_counter += increment
