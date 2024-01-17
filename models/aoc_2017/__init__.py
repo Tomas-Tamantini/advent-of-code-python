@@ -13,3 +13,4 @@ from .a2017_d8 import (
     ConditionalIncrementInstruction,
     maximum_value_at_registers,
 )
+from .a2017_d9 import stream_groups_total_score

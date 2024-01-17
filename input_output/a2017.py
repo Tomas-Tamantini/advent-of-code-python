@@ -10,6 +10,7 @@ from models.aoc_2017 import (
     follow_and_increment_jump_instructions,
     MemoryBankBalancer,
     maximum_value_at_registers,
+    stream_groups_total_score,
 )
 
 
@@ -140,8 +141,10 @@ def aoc_2017_d8(file_name: str):
 
 # AOC 2017 Day 9: Stream Processing
 def aoc_2017_d9(file_name: str):
-    print("AOC 2017 Day 9/Part 1: Not implemented")
-    print("AOC 2017 Day 9/Part 2: Not implemented")
+    with open(file_name) as f:
+        stream = f.read().strip()
+    total_score = stream_groups_total_score(stream)
+    print(f"AOC 2017 Day 9/Part 1: Total score: {total_score}")
 
 
 # AOC 2017 Day 10: Knot Hash
