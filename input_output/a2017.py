@@ -12,6 +12,8 @@ from models.aoc_2017 import (
     maximum_value_at_registers,
     StreamHandler,
     KnotHash,
+    HexDirection,
+    num_hex_steps_away,
 )
 
 
@@ -175,8 +177,10 @@ def aoc_2017_d10(file_name: str):
 
 # AOC 2017 Day 11: Hex Ed
 def aoc_2017_d11(file_name: str):
-    print("AOC 2017 Day 11/Part 1: Not implemented")
-    print("AOC 2017 Day 11/Part 2: Not implemented")
+    with open(file_name) as f:
+        directions = [HexDirection(d) for d in f.read().strip().split(",")]
+    steps_away = num_hex_steps_away(directions)
+    print(f"AOC 2017 Day 11/Part 1: He ended up {steps_away} steps away")
 
 
 # AOC 2017 Day 12: Digital Plumber
