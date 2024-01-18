@@ -10,3 +10,7 @@ def test_grid_calculates_used_squares_for_each_row_from_proper_hash():
 
 def test_grid_calculates_number_of_used_squares():
     assert grid.num_used_squares() == 8108
+
+
+def test_disk_grid_calculates_number_of_regions_within_itself():
+    assert grid.num_regions() == 1242

@@ -220,6 +220,7 @@ def aoc_2017_d14(file_name: str):
     num_rows = 128
     grid = DiskGrid(key, num_rows)
     print(f"AOC 2017 Day 14/Part 1: Number of used squares: {grid.num_used_squares()}")
+    print(f"AOC 2017 Day 14/Part 2: Number of regions: {grid.num_regions()}")
 
 
 # AOC 2017 Day 15: Dueling Generators
