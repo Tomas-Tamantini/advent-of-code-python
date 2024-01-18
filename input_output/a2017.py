@@ -15,6 +15,8 @@ from models.aoc_2017 import (
     HexDirection,
     num_hex_steps_away,
     DiskGrid,
+    SequenceMatchFinder,
+    SequenceGenerator,
 )
 
 
@@ -225,8 +227,14 @@ def aoc_2017_d14(file_name: str):
 
 # AOC 2017 Day 15: Dueling Generators
 def aoc_2017_d15(file_name: str):
-    print("AOC 2017 Day 15/Part 1: Not implemented")
-    print("AOC 2017 Day 15/Part 2: Not implemented")
+    with open(file_name) as f:
+        start_a, start_b = [int(line.split()[-1]) for line in f.readlines()]
+    divisor = 2_147_483_647
+    generator_a = SequenceGenerator(start_a, factor=16_807, divisor=divisor)
+    generator_b = SequenceGenerator(start_b, factor=48_271, divisor=divisor)
+    match_finder = SequenceMatchFinder(generator_a, generator_b, num_bits_to_match=16)
+    num_matches = match_finder.num_matches(num_steps=40_000_000)
+    print(f"AOC 2017 Day 15/Part 1: Number of matches: {num_matches}")
 
 
 # AOC 2017 Day 16: Permutation Promenade
