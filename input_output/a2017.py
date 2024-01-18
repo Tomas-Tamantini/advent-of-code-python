@@ -179,8 +179,9 @@ def aoc_2017_d10(file_name: str):
 def aoc_2017_d11(file_name: str):
     with open(file_name) as f:
         directions = [HexDirection(d) for d in f.read().strip().split(",")]
-    steps_away = num_hex_steps_away(directions)
-    print(f"AOC 2017 Day 11/Part 1: He ended up {steps_away} steps away")
+    steps_away = list(num_hex_steps_away(directions))
+    print(f"AOC 2017 Day 11/Part 1: He ended up {steps_away[-1]} steps away")
+    print(f"AOC 2017 Day 11/Part 2: He was at most {max(steps_away)} steps away")
 
 
 # AOC 2017 Day 12: Digital Plumber
