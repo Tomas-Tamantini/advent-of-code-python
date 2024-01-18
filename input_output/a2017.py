@@ -234,7 +234,15 @@ def aoc_2017_d15(file_name: str):
     generator_b = SequenceGenerator(start_b, factor=48_271, divisor=divisor)
     match_finder = SequenceMatchFinder(generator_a, generator_b, num_bits_to_match=16)
     num_matches = match_finder.num_matches(num_steps=40_000_000)
-    print(f"AOC 2017 Day 15/Part 1: Number of matches: {num_matches}")
+    print(
+        f"AOC 2017 Day 15/Part 1: Number of matches not filtering out multiples: {num_matches}"
+    )
+    generator_a.filter_multiples_of = 4
+    generator_b.filter_multiples_of = 8
+    num_matches = match_finder.num_matches(num_steps=5_000_000)
+    print(
+        f"AOC 2017 Day 15/Part 2: Number of matches filtering out multiples: {num_matches}"
+    )
 
 
 # AOC 2017 Day 16: Permutation Promenade

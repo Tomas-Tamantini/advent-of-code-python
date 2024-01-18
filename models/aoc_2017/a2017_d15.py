@@ -2,17 +2,19 @@ from typing import Iterator
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
+@dataclass
 class SequenceGenerator:
     starting_number: int
     factor: int
     divisor: int
+    filter_multiples_of: int = 1
 
     def generate(self) -> Iterator[int]:
         next_num = self.starting_number
         while True:
             next_num = (next_num * self.factor) % self.divisor
-            yield next_num
+            if next_num % self.filter_multiples_of == 0:
+                yield next_num
 
 
 class SequenceMatchFinder:
