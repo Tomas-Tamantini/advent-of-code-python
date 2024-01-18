@@ -26,3 +26,14 @@ class LayeredFirewall:
         for layer_depth, layer in self._layers.items():
             if layer.scanner_position_at_time(layer_depth) == 0:
                 yield layer_depth, layer
+
+    def minimum_delay_to_avoid_collisions(self) -> int:
+        candidates = [True for _ in range(5_000_000)]
+        for layer_depth, layer in self._layers.items():
+            first_term = (-layer_depth) % (2 * layer.scanning_range - 2)
+            for t in range(first_term, len(candidates), 2 * layer.scanning_range - 2):
+                candidates[t] = False
+        try:
+            return candidates.index(True)
+        except ValueError:
+            raise ValueError("No delay found")

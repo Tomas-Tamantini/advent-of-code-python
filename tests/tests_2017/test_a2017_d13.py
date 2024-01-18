@@ -28,3 +28,15 @@ def test_layered_firewall_keeps_track_of_all_layers_where_packet_collides_with_s
     layer_6 = FirewallLayer(scanning_range=4)
     firewall = LayeredFirewall(layers={0: layer_0, 1: layer_1, 4: layer_4, 6: layer_6})
     assert list(firewall.packet_collisions()) == [(0, layer_0), (6, layer_6)]
+
+
+def test_layered_firewall_informs_minimum_delay_to_avoid_collisions():
+    firewall = LayeredFirewall(
+        layers={
+            0: FirewallLayer(scanning_range=3),
+            1: FirewallLayer(scanning_range=2),
+            4: FirewallLayer(scanning_range=4),
+            6: FirewallLayer(scanning_range=4),
+        }
+    )
+    assert firewall.minimum_delay_to_avoid_collisions() == 10
