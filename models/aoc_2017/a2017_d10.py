@@ -1,3 +1,6 @@
+from typing import Iterator
+
+
 class KnotHash:
     def __init__(self, list_length: int) -> None:
         self._list = list(range(list_length))
@@ -17,6 +20,13 @@ class KnotHash:
             self._current_position + length + self._skip_size
         ) % len(self._list)
         self._skip_size += 1
+
+    def dense_hash(self) -> Iterator[int]:
+        for i in range(0, len(self._list), 16):
+            num = 0
+            for j in range(16):
+                num ^= self._list[i + j]
+            yield num
 
     def _roll_left(self):
         self._list = (

@@ -42,3 +42,11 @@ def test_skip_size_increases_by_one_at_each_iteration():
     knot_hash.iterate_hash(length=1)
     knot_hash.iterate_hash(length=5)
     assert knot_hash.list == [3, 4, 2, 1, 0]
+
+
+def test_dense_hash_is_each_group_of_16_numbers_xorred():
+    knot_hash = KnotHash(256)
+    for length in [17, 31, 73, 47, 23] * 64:
+        knot_hash.iterate_hash(length)
+    dense_hash = knot_hash.dense_hash()
+    assert list(dense_hash)[0:3] == [0xA2, 0x58, 0x2A]
