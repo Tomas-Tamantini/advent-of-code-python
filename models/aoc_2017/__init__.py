@@ -16,3 +16,4 @@ from .a2017_d8 import (
 from .a2017_d9 import StreamHandler
 from .a2017_d10 import KnotHash
 from .a2017_d11 import HexDirection, num_hex_steps_away
+from .a2017_d12 import ProgramGraph

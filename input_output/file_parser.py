@@ -55,6 +55,7 @@ from models.aoc_2017 import (
     TreeNode,
     ComparisonOperator,
     ConditionalIncrementInstruction,
+    ProgramGraph,
 )
 
 
@@ -491,3 +492,12 @@ class FileParser:
     ) -> Iterator[ConditionalIncrementInstruction]:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_conditional_increment_instruction(line)
+
+    def parse_program_graph(self, file_name) -> ProgramGraph:
+        graph = ProgramGraph()
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(" ")
+            node = int(parts[0])
+            for neighbor in parts[2:]:
+                graph.add_edge(node, int(neighbor.replace(",", "")))
+        return graph

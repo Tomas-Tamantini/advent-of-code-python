@@ -1,5 +1,6 @@
 import numpy as np
 from input_output.file_parser import FileParser
+from models.graphs import explore_with_bfs
 from models.aoc_2017 import (
     digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
@@ -186,8 +187,12 @@ def aoc_2017_d11(file_name: str):
 
 # AOC 2017 Day 12: Digital Plumber
 def aoc_2017_d12(file_name: str):
-    print("AOC 2017 Day 12/Part 1: Not implemented")
-    print("AOC 2017 Day 12/Part 2: Not implemented")
+    program_graph = parser.parse_program_graph(file_name)
+    initial_node = 0
+    visited_nodes = set(n for n, _ in explore_with_bfs(program_graph, initial_node))
+    print(
+        f"AOC 2017 Day 12/Part 1: Number of nodes in group with node {initial_node}: {len(visited_nodes)}"
+    )
 
 
 # AOC 2017 Day 13: Packet Scanners

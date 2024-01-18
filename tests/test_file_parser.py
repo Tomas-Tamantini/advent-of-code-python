@@ -419,3 +419,18 @@ def test_can_parse_conditional_increment_instructions():
     assert instructions[3] == ConditionalIncrementInstruction(
         "c", -20, "c", 10, ComparisonOperator.EQUALS
     )
+
+
+def test_can_parse_program_graph():
+    file_content = """0 <-> 2
+                      1 <-> 1
+                      2 <-> 0, 3, 4
+                      3 <-> 2, 4
+                      4 <-> 2, 3, 6
+                      5 <-> 6
+                      6 <-> 4, 5"""
+    file_parser = mock_file_parser(file_content)
+    graph = file_parser.parse_program_graph("some_file")
+    assert graph.num_nodes == 7
+    assert graph.neighbors(1) == set()
+    assert graph.neighbors(2) == {0, 3, 4}
