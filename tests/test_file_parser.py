@@ -432,5 +432,5 @@ def test_can_parse_program_graph():
     file_parser = mock_file_parser(file_content)
     graph = file_parser.parse_program_graph("some_file")
     assert graph.num_nodes == 7
-    assert graph.neighbors(1) == set()
+    assert graph.neighbors(1) == {1}
     assert graph.neighbors(2) == {0, 3, 4}

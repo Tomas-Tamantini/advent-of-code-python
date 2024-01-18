@@ -1,5 +1,6 @@
 from collections import defaultdict
-from typing import Hashable
+from typing import Hashable, Iterator
+from models.graphs import explore_with_bfs
 
 
 class ProgramGraph:
@@ -11,11 +12,17 @@ class ProgramGraph:
         return len(self._adjacencies)
 
     def add_edge(self, node_a: Hashable, node_b: Hashable) -> None:
-        if node_a == node_b:
-            self._adjacencies[node_a] = set()
-        else:
-            self._adjacencies[node_a].add(node_b)
-            self._adjacencies[node_b].add(node_a)
+        self._adjacencies[node_a].add(node_b)
+        self._adjacencies[node_b].add(node_a)
 
     def neighbors(self, node: Hashable) -> set[Hashable]:
         return self._adjacencies[node]
+
+    def disjoint_groups(self) -> Iterator[set[Hashable]]:
+        visited = set()
+        for node in self._adjacencies:
+            if node in visited:
+                continue
+            group = set(n for n, _ in explore_with_bfs(self, node))
+            visited |= group
+            yield group

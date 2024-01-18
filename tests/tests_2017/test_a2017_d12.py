@@ -19,3 +19,13 @@ def test_can_query_neighbors():
     assert graph.neighbors(0) == {1, 2}
     assert graph.neighbors(1) == {0}
     assert graph.neighbors(2) == {0}
+
+
+def test_can_divide_graph_into_disjoint_groups():
+    graph = ProgramGraph()
+    graph.add_edge(0, 1)
+    graph.add_edge(1, 2)
+    graph.add_edge(3, 4)
+    graph.add_edge(3, 5)
+    graph.add_edge(6, 6)
+    assert list(graph.disjoint_groups()) == [{0, 1, 2}, {3, 4, 5}, {6}]
