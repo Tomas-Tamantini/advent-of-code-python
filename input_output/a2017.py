@@ -11,6 +11,7 @@ from models.aoc_2017 import (
     MemoryBankBalancer,
     maximum_value_at_registers,
     StreamHandler,
+    KnotHash,
 )
 
 
@@ -152,8 +153,14 @@ def aoc_2017_d9(file_name: str):
 
 # AOC 2017 Day 10: Knot Hash
 def aoc_2017_d10(file_name: str):
-    print("AOC 2017 Day 10/Part 1: Not implemented")
-    print("AOC 2017 Day 10/Part 2: Not implemented")
+    with open(file_name) as f:
+        lengths = [int(length) for length in f.read().strip().split(",")]
+    knot_hash = KnotHash(list_length=256)
+    for length in lengths:
+        knot_hash.iterate_hash(length)
+    print(
+        f"AOC 2017 Day 10/Part 1: Product of first two numbers: {knot_hash.list[0] * knot_hash.list[1]}"
+    )
 
 
 # AOC 2017 Day 11: Hex Ed
