@@ -434,3 +434,13 @@ def test_can_parse_program_graph():
     assert graph.num_nodes == 7
     assert graph.neighbors(1) == {1}
     assert graph.neighbors(2) == {0, 3, 4}
+
+
+def test_can_parse_layered_firewall():
+    file_content = """0: 3
+                      1: 2
+                      4: 4
+                      6: 4"""
+    file_parser = mock_file_parser(file_content)
+    firewall = file_parser.parse_layered_firewall("some_file")
+    assert [l for l, _ in firewall.packet_collisions()] == [0, 6]

@@ -56,6 +56,8 @@ from models.aoc_2017 import (
     ComparisonOperator,
     ConditionalIncrementInstruction,
     ProgramGraph,
+    FirewallLayer,
+    LayeredFirewall,
 )
 
 
@@ -501,3 +503,12 @@ class FileParser:
             for neighbor in parts[2:]:
                 graph.add_edge(node, int(neighbor.replace(",", "")))
         return graph
+
+    def parse_layered_firewall(self, file_name) -> LayeredFirewall:
+        layers = {}
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(":")
+            layer_depth = int(parts[0])
+            scanning_range = int(parts[1])
+            layers[layer_depth] = FirewallLayer(scanning_range=scanning_range)
+        return LayeredFirewall(layers)

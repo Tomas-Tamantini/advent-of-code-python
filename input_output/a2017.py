@@ -202,8 +202,12 @@ def aoc_2017_d12(file_name: str):
 
 # AOC 2017 Day 13: Packet Scanners
 def aoc_2017_d13(file_name: str):
-    print("AOC 2017 Day 13/Part 1: Not implemented")
-    print("AOC 2017 Day 13/Part 2: Not implemented")
+    firewall = parser.parse_layered_firewall(file_name)
+    packet_collisions = list(firewall.packet_collisions())
+    severity = sum(
+        layer_depth * layer.scanning_range for layer_depth, layer in packet_collisions
+    )
+    print(f"AOC 2017 Day 13/Part 1: Severity of packet collisions: {severity}")
 
 
 # AOC 2017 Day 14: Disk Defragmentation
