@@ -14,6 +14,7 @@ from models.aoc_2017 import (
     KnotHash,
     HexDirection,
     num_hex_steps_away,
+    DiskGrid,
 )
 
 
@@ -214,8 +215,11 @@ def aoc_2017_d13(file_name: str):
 
 # AOC 2017 Day 14: Disk Defragmentation
 def aoc_2017_d14(file_name: str):
-    print("AOC 2017 Day 14/Part 1: Not implemented")
-    print("AOC 2017 Day 14/Part 2: Not implemented")
+    with open(file_name) as f:
+        key = f.read().strip()
+    num_rows = 128
+    grid = DiskGrid(key, num_rows)
+    print(f"AOC 2017 Day 14/Part 1: Number of used squares: {grid.num_used_squares()}")
 
 
 # AOC 2017 Day 15: Dueling Generators

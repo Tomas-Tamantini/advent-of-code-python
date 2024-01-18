@@ -28,16 +28,30 @@ class KnotHash:
                 num ^= self._list[i + j]
             yield num
 
-    def _roll_left(self):
+    def _roll_left(self) -> None:
         self._list = (
             self._list[self._current_position :] + self._list[: self._current_position]
         )
 
-    def _roll_right(self):
+    def _roll_right(self) -> None:
         self._list = (
             self._list[-self._current_position :]
             + self._list[: -self._current_position]
         )
 
-    def _invert_sublist(self, length):
-        self._list = self._list[length - 1 :: -1] + self._list[length:]
+    def _invert_sublist(self, length: int) -> None:
+        self._list[:length] = self._list[:length][::-1]
+
+
+def knot_hash(
+    input: str,
+    list_length: int = 256,
+    num_rounds=64,
+    suffix: tuple[int] = (17, 31, 73, 47, 23),
+) -> list[int]:
+    input_bytes = [ord(c) for c in input] + list(suffix)
+    knot_hash = KnotHash(list_length)
+    for _ in range(num_rounds):
+        for length in input_bytes:
+            knot_hash.iterate_hash(length)
+    return list(knot_hash.dense_hash())
