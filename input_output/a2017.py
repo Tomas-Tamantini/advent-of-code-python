@@ -270,6 +270,8 @@ def aoc_2017_d17(file_name: str):
     for i in range(1, 2018):
         buffer.insert_and_update_current_position(i, step_size)
     print(f"AOC 2017 Day 17/Part 1: Value after 2017: {buffer.values[1]}")
+    value_after_zero = CircularBuffer.value_after_zero(step_size, 50_000_000)
+    print(f"AOC 2017 Day 17/Part 2: Value after 0: {value_after_zero}")
 
 
 # AOC 2017 Day 18: Duet
