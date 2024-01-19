@@ -18,6 +18,7 @@ from models.aoc_2017 import (
     SequenceMatchFinder,
     SequenceGenerator,
     transform_string_multiple_rounds,
+    CircularBuffer,
 )
 
 
@@ -263,8 +264,12 @@ def aoc_2017_d16(file_name: str):
 
 # AOC 2017 Day 17: Spinlock
 def aoc_2017_d17(file_name: str):
-    print("AOC 2017 Day 17/Part 1: Not implemented")
-    print("AOC 2017 Day 17/Part 2: Not implemented")
+    with open(file_name) as f:
+        step_size = int(f.read().strip())
+    buffer = CircularBuffer()
+    for i in range(1, 2018):
+        buffer.insert_and_update_current_position(i, step_size)
+    print(f"AOC 2017 Day 17/Part 1: Value after 2017: {buffer.values[1]}")
 
 
 # AOC 2017 Day 18: Duet
