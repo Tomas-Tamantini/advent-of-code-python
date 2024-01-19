@@ -17,6 +17,7 @@ from models.aoc_2017 import (
     DiskGrid,
     SequenceMatchFinder,
     SequenceGenerator,
+    transform_string_multiple_rounds,
 )
 
 
@@ -252,6 +253,12 @@ def aoc_2017_d16(file_name: str):
     for move in dance_moves:
         dancers = move.transform(dancers)
     print(f"AOC 2017 Day 16/Part 1: Final order of dancers: {dancers}")
+    num_dances = 1_000_000_000
+    dancers = "abcdefghijklmnop"
+    dancers = transform_string_multiple_rounds(dancers, dance_moves, num_dances)
+    print(
+        f"AOC 2017 Day 16/Part 2: Final order of dancers after {num_dances} dances: {dancers}"
+    )
 
 
 # AOC 2017 Day 17: Spinlock

@@ -20,4 +20,10 @@ from .a2017_d12 import ProgramGraph
 from .a2017_d13 import FirewallLayer, LayeredFirewall
 from .a2017_d14 import DiskGrid
 from .a2017_d15 import SequenceGenerator, SequenceMatchFinder
-from .a2017_d16 import StringTransform, Spin, Exchange, Partner
+from .a2017_d16 import (
+    StringTransform,
+    Spin,
+    Exchange,
+    Partner,
+    transform_string_multiple_rounds,
+)
