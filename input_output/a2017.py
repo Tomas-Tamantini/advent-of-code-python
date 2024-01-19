@@ -19,6 +19,7 @@ from models.aoc_2017 import (
     SequenceGenerator,
     transform_string_multiple_rounds,
     CircularBuffer,
+    last_recovered_frequency,
 )
 
 
@@ -276,8 +277,9 @@ def aoc_2017_d17(file_name: str):
 
 # AOC 2017 Day 18: Duet
 def aoc_2017_d18(file_name: str):
-    print("AOC 2017 Day 18/Part 1: Not implemented")
-    print("AOC 2017 Day 18/Part 2: Not implemented")
+    instructions = list(parser.parse_duet_code(file_name))
+    audio_output = last_recovered_frequency(instructions)
+    print(f"AOC 2017 Day 18/Part 1: Last recovered frequency: {audio_output}")
 
 
 # AOC 2017 Day 19: A Series of Tubes

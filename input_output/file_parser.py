@@ -3,9 +3,12 @@ import re
 
 from models.vectors import CardinalDirection
 from models.assembly import (
+    Instruction,
     CopyInstruction,
     OutInstruction,
     JumpNotZeroInstruction,
+    JumpGreaterThanZeroInstruction,
+    AddInstruction,
 )
 from models.aoc_2015 import (
     XmasPresent,
@@ -64,6 +67,9 @@ from models.aoc_2017 import (
     Spin,
     Exchange,
     Partner,
+    MultiplyInstruction,
+    RemainderInstruction,
+    RecoverLastFrequencyInstruction,
 )
 
 
@@ -532,3 +538,35 @@ class FileParser:
     def parse_string_transformers(self, file_name) -> Iterator[StringTransform]:
         for instruction in self._file_reader.read(file_name).split(","):
             yield self._parse_string_transformer(instruction.strip())
+
+    def _parse_duet_instruction(self, instruction_str: str) -> Instruction:
+        raw_parts = instruction_str.split(" ")
+        parts = []
+        for part in raw_parts[1:]:
+            try:
+                parts.append(int(part))
+            except ValueError:
+                parts.append(part)
+        if "snd" in instruction_str:
+            return OutInstruction(source=parts[0])
+        elif "set" in instruction_str:
+            return CopyInstruction(source=parts[1], destination=parts[0])
+        elif "add" in instruction_str:
+            return AddInstruction(source=parts[1], destination=parts[0])
+        elif "mul" in instruction_str:
+            return MultiplyInstruction(source=parts[1], destination=parts[0])
+        elif "mod" in instruction_str:
+            return RemainderInstruction(source=parts[1], destination=parts[0])
+        elif "rcv" in instruction_str:
+            return RecoverLastFrequencyInstruction(source=parts[0])
+        elif "jgz" in instruction_str:
+            return JumpGreaterThanZeroInstruction(
+                value_to_compare=parts[0],
+                offset=parts[1],
+            )
+        else:
+            raise ValueError(f"Unknown instruction: {instruction_str}")
+
+    def parse_duet_code(self, file_name) -> Iterator[Instruction]:
+        for line in self._file_reader.readlines(file_name):
+            yield self._parse_duet_instruction(line.strip())

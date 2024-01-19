@@ -2,7 +2,13 @@ from typing import Iterator
 from unittest.mock import Mock
 from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
-from models.assembly import CopyInstruction, OutInstruction, JumpNotZeroInstruction
+from models.assembly import (
+    CopyInstruction,
+    OutInstruction,
+    JumpNotZeroInstruction,
+    JumpGreaterThanZeroInstruction,
+    AddInstruction,
+)
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import (
     TurnDirection,
@@ -19,6 +25,9 @@ from models.aoc_2017 import (
     Spin,
     Exchange,
     Partner,
+    MultiplyInstruction,
+    RemainderInstruction,
+    RecoverLastFrequencyInstruction,
 )
 
 
@@ -457,3 +466,25 @@ def test_can_parse_string_transformers():
     file_parser = mock_file_parser(file_content)
     transformers = list(file_parser.parse_string_transformers("some_file"))
     assert transformers == [Spin(1), Exchange(0, 12), Partner("b", "X")]
+
+
+def test_can_parse_duet_code():
+    file_content = """set a 1
+                      add a 2
+                      mul a b
+                      mod a 5
+                      snd a
+                      set a 0
+                      rcv a
+                      jgz a -1"""
+    file_parser = mock_file_parser(file_content)
+    instructions = list(file_parser.parse_duet_code("some_file"))
+    assert len(instructions) == 8
+    assert instructions[0] == CopyInstruction(1, "a")
+    assert instructions[1] == AddInstruction(2, "a")
+    assert instructions[2] == MultiplyInstruction("b", "a")
+    assert instructions[3] == RemainderInstruction(5, "a")
+    assert instructions[4] == OutInstruction("a")
+    assert instructions[5] == CopyInstruction(0, "a")
+    assert instructions[6] == RecoverLastFrequencyInstruction("a")
+    assert instructions[7] == JumpGreaterThanZeroInstruction(-1, "a")

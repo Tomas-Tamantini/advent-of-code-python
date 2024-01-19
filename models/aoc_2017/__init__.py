@@ -28,3 +28,9 @@ from .a2017_d16 import (
     transform_string_multiple_rounds,
 )
 from .a2017_d17 import CircularBuffer
+from .a2017_d18 import (
+    MultiplyInstruction,
+    RemainderInstruction,
+    RecoverLastFrequencyInstruction,
+    last_recovered_frequency,
+)
