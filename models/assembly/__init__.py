@@ -9,6 +9,7 @@ from .instruction import (
     AddInstruction,
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
+    InputInstruction,
     OutInstruction,
 )
 from .program import Program, ImmutableProgram, MutableProgram

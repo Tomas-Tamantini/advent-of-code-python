@@ -67,11 +67,20 @@ class JumpGreaterThanZeroInstruction(_JumpInstruction):
 
 
 @dataclass(frozen=True)
+class InputInstruction:
+    destination: chr
+
+    def execute(self, hardware: Hardware) -> None:
+        hardware.set_value_at_register(self.destination, hardware.serial_input.read())
+        hardware.increment_program_counter()
+
+
+@dataclass(frozen=True)
 class OutInstruction:
     source: Union[chr, int]
 
     def execute(self, hardware: Hardware) -> None:
-        hardware.serial_output.write(hardware.get_value_at_register(self.source))
+        hardware.serial_output.write(hardware.processor.get_value(self.source))
         hardware.increment_program_counter()
 
 
