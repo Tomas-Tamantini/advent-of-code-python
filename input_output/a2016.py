@@ -1,4 +1,5 @@
 from input_output.file_parser import FileParser
+from input_output.progress_bar import ProgressBarConsole
 from models.vectors import CardinalDirection, Vector2D
 from models.assembly import Processor, Computer
 from models.aoc_2016 import (
@@ -30,6 +31,7 @@ from models.aoc_2016 import (
 
 
 parser = FileParser.default()
+progress_bar = ProgressBarConsole()
 
 
 # AOC 2016 - Day 1: No Time for a Taxicab
@@ -111,11 +113,10 @@ def aoc_2016_d4(file_name: str):
 
 # AOC 2016 - Day 5: How About a Nice Game of Chess?
 def aoc_2016_d5(file_name: str):
-    print("AOC 2016 - Day 5 - Be patient, it takes about a minute to run", end="\r")
     with open(file_name, "r") as f:
         door_id = f.read().strip()
     password_generator = PasswordGenerator(door_id, num_zeroes=5, password_length=8)
-    password_generator.generate_passwords()
+    password_generator.generate_passwords(progress_bar=progress_bar)
     print(
         f"AOC 2016 - Day 5/Part 1: Password generated left to right: {password_generator.password_left_to_right}"
     )
@@ -285,6 +286,7 @@ def aoc_2016_d14(file_name: str):
         "AOC 2016 - Day 14/Part 2 - Be patient, it takes about a minute to run",
         end="\r",
     )
+    # TODO: Use progress bar
     indices_multiple_hash = multiple_hash_generator.indices_which_produce_keys(
         num_indices=64
     )
@@ -346,8 +348,7 @@ def aoc_2016_d18(file_name: str):
         first_row = f.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)
     print(f"AOC 2016 - Day 18/Part 1: Number of safe tiles in 40 rows: {num_safe}")
-    print("AOC 2016 - Day 18/Part 2 - Be patient, it takes about 30s to run", end="\r")
-    num_safe = num_safe_tiles(first_row, num_rows=400_000)
+    num_safe = num_safe_tiles(first_row, num_rows=400_000, progress_bar=progress_bar)
     print(f"AOC 2016 - Day 18/Part 2: Number of safe tiles in 400000 rows: {num_safe}")
 
 

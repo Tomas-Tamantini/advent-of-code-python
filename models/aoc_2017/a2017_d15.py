@@ -1,5 +1,6 @@
-from typing import Iterator
+from typing import Iterator, Optional
 from dataclasses import dataclass
+from models.progress_bar_protocol import ProgressBar
 
 
 @dataclass
@@ -31,14 +32,15 @@ class SequenceMatchFinder:
     def _bits_match(self, a: int, b: int) -> bool:
         return a & self._mask == b & self._mask
 
-    def num_matches(self, num_steps: int) -> int:
+    def num_matches(
+        self, num_steps: int, progress_bar: Optional[ProgressBar] = None
+    ) -> int:
         num_matches = 0
         a_generator = self._generator_a.generate()
         b_generator = self._generator_b.generate()
-        for _ in range(num_steps):
-            # TODO: Create progress bar class
-            if _ % 1_000_000 == 0:
-                print(f"Step {_//1_000_000}M/{num_steps//1_000_000}M", end="\r")
+        for step in range(num_steps):
+            if progress_bar:
+                progress_bar.update(step, num_steps)
             next_a = next(a_generator)
             next_b = next(b_generator)
             if self._bits_match(next_a, next_b):
