@@ -36,6 +36,7 @@ class SequenceMatchFinder:
         a_generator = self._generator_a.generate()
         b_generator = self._generator_b.generate()
         for _ in range(num_steps):
+            # TODO: Create progress bar class
             if _ % 1_000_000 == 0:
                 print(f"Step {_//1_000_000}M/{num_steps//1_000_000}M", end="\r")
             next_a = next(a_generator)
