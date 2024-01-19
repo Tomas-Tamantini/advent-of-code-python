@@ -1,12 +1,10 @@
 import pytest
+from models.assembly import CopyInstruction, OutInstruction, JumpNotZeroInstruction
 from models.aoc_2016 import (
     smallest_value_to_send_clock_signal,
     AssembunnyProgram,
-    CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,
-    JumpNotZeroInstruction,
-    OutInstruction,
 )
 
 

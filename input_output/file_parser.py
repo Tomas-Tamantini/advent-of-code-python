@@ -2,6 +2,11 @@ from typing import Iterator, Protocol
 import re
 
 from models.vectors import CardinalDirection
+from models.assembly import (
+    CopyInstruction,
+    OutInstruction,
+    JumpNotZeroInstruction,
+)
 from models.aoc_2015 import (
     XmasPresent,
     LightGrid,
@@ -43,12 +48,9 @@ from models.aoc_2016 import (
     LetterMoveScrambler,
     StorageNode,
     AssembunnyProgram,
-    CopyInstruction,
     IncrementInstruction,
     DecrementInstruction,
-    JumpNotZeroInstruction,
     ToggleInstruction,
-    OutInstruction,
 )
 from models.aoc_2017 import (
     TreeBuilder,
