@@ -6,6 +6,7 @@ from .instruction import (
     Instruction,
     NoOpInstruction,
     CopyInstruction,
+    UpdateRegisterInstruction,
     AddInstruction,
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,

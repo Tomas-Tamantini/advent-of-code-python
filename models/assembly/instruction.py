@@ -23,15 +23,36 @@ class CopyInstruction:
 
 
 @dataclass(frozen=True)
-class AddInstruction:
+class UpdateRegisterInstruction:
     source: Union[chr, int]
     destination: chr
 
+    def _value_source(self, processor: Processor) -> int:
+        return processor.get_value(self.source)
+
+    def _value_destination(self, processor: Processor) -> int:
+        return processor.get_value(self.destination)
+
+    @staticmethod
+    def _updated_value(value_source: int, value_destination: int) -> int:
+        raise NotImplementedError("This method should be implemented by subclasses")
+
     def execute(self, hardware: Hardware) -> None:
-        hardware.increment_value_at_register(
-            self.destination, hardware.processor.get_value(self.source)
+        hardware.set_value_at_register(
+            self.destination,
+            self._updated_value(
+                value_source=self._value_source(hardware.processor),
+                value_destination=self._value_destination(hardware.processor),
+            ),
         )
         hardware.increment_program_counter()
+
+
+@dataclass(frozen=True)
+class AddInstruction(UpdateRegisterInstruction):
+    @staticmethod
+    def _updated_value(value_source: int, value_destination: int) -> int:
+        return value_source + value_destination
 
 
 @dataclass(frozen=True)

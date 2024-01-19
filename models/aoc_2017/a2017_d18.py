@@ -1,6 +1,13 @@
 from typing import Union
 from dataclasses import dataclass
-from models.assembly import Hardware, Instruction, Computer, ImmutableProgram, Processor
+from models.assembly import (
+    Hardware,
+    Instruction,
+    Computer,
+    ImmutableProgram,
+    Processor,
+    UpdateRegisterInstruction,
+)
 
 
 class _AudioOutput:
@@ -37,35 +44,21 @@ class _MessageQueue:
         return self._queue.pop(0)
 
 
-# TODO: Multiply, Remainder and Add instructions are very similar. Maybe create a super class
+@dataclass(frozen=True)
+class MultiplyInstruction(UpdateRegisterInstruction):
+    @staticmethod
+    def _updated_value(value_source: int, value_destination: int) -> int:
+        return value_source * value_destination
 
 
 @dataclass(frozen=True)
-class MultiplyInstruction:
+class RemainderInstruction(UpdateRegisterInstruction):
     source: Union[chr, int]
     destination: chr
 
-    def execute(self, hardware: Hardware) -> None:
-        hardware.set_value_at_register(
-            self.destination,
-            hardware.processor.get_value(self.source)
-            * hardware.get_value_at_register(self.destination),
-        )
-        hardware.increment_program_counter()
-
-
-@dataclass(frozen=True)
-class RemainderInstruction:
-    source: Union[chr, int]
-    destination: chr
-
-    def execute(self, hardware: Hardware) -> None:
-        hardware.set_value_at_register(
-            self.destination,
-            hardware.get_value_at_register(self.destination)
-            % hardware.processor.get_value(self.source),
-        )
-        hardware.increment_program_counter()
+    @staticmethod
+    def _updated_value(value_source: int, value_destination: int) -> int:
+        return value_destination % value_source
 
 
 @dataclass(frozen=True)
