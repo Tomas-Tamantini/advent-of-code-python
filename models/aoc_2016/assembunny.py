@@ -66,7 +66,8 @@ class ToggleInstruction:
             )
         elif isinstance(instruction, CopyInstruction):
             new_instruction = JumpNotZeroInstruction(
-                instruction.source, instruction.destination
+                value_to_compare=instruction.source,
+                offset=instruction.destination,
             )
         if new_instruction:
             hardware.memory.update_at(instruction_idx, new_instruction)

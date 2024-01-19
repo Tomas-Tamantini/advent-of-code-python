@@ -35,12 +35,11 @@ class AddInstruction:
 
 
 @dataclass(frozen=True)
-class JumpNotZeroInstruction:
-    value_to_compare: Union[chr, int]
+class _JumpInstruction:
     offset: Union[chr, int]
 
     def _should_jump(self, processor: Processor) -> bool:
-        return processor.get_value(self.value_to_compare) != 0
+        raise NotImplementedError("This method should be implemented by subclasses")
 
     def execute(self, hardware: Hardware) -> None:
         if self._should_jump(hardware.processor):
@@ -49,6 +48,22 @@ class JumpNotZeroInstruction:
             )
         else:
             hardware.increment_program_counter()
+
+
+@dataclass(frozen=True)
+class JumpNotZeroInstruction(_JumpInstruction):
+    value_to_compare: Union[chr, int]
+
+    def _should_jump(self, processor: Processor) -> bool:
+        return processor.get_value(self.value_to_compare) != 0
+
+
+@dataclass(frozen=True)
+class JumpGreaterThanZeroInstruction(_JumpInstruction):
+    value_to_compare: Union[chr, int]
+
+    def _should_jump(self, processor: Processor) -> bool:
+        return processor.get_value(self.value_to_compare) > 0
 
 
 @dataclass(frozen=True)

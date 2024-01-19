@@ -377,7 +377,9 @@ def test_can_parse_assembunny_code():
     assert program.get_instruction(0) == CopyInstruction(41, "a")
     assert program.get_instruction(1) == IncrementInstruction("b")
     assert program.get_instruction(2) == DecrementInstruction("c")
-    assert program.get_instruction(3) == JumpNotZeroInstruction("a", 2)
+    assert program.get_instruction(3) == JumpNotZeroInstruction(
+        value_to_compare="a", offset=2
+    )
     assert program.get_instruction(4) == ToggleInstruction("c")
     assert program.get_instruction(5) == OutInstruction("d")
 
