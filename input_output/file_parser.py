@@ -58,6 +58,10 @@ from models.aoc_2017 import (
     ProgramGraph,
     FirewallLayer,
     LayeredFirewall,
+    StringTransform,
+    Spin,
+    Exchange,
+    Partner,
 )
 
 
@@ -512,3 +516,17 @@ class FileParser:
             scanning_range = int(parts[1])
             layers[layer_depth] = FirewallLayer(scanning_range=scanning_range)
         return LayeredFirewall(layers)
+
+    def _parse_string_transformer(self, instruction: str) -> StringTransform:
+        if instruction.startswith("s"):
+            return Spin(int(instruction[1:]))
+        elif instruction.startswith("x"):
+            parts = instruction[1:].split("/")
+            return Exchange(int(parts[0]), int(parts[1]))
+        elif instruction.startswith("p"):
+            parts = instruction[1:].split("/")
+            return Partner(parts[0], parts[1])
+
+    def parse_string_transformers(self, file_name) -> Iterator[StringTransform]:
+        for instruction in self._file_reader.read(file_name).split(","):
+            yield self._parse_string_transformer(instruction.strip())

@@ -247,8 +247,11 @@ def aoc_2017_d15(file_name: str):
 
 # AOC 2017 Day 16: Permutation Promenade
 def aoc_2017_d16(file_name: str):
-    print("AOC 2017 Day 16/Part 1: Not implemented")
-    print("AOC 2017 Day 16/Part 2: Not implemented")
+    dance_moves = list(parser.parse_string_transformers(file_name))
+    dancers = "abcdefghijklmnop"
+    for move in dance_moves:
+        dancers = move.transform(dancers)
+    print(f"AOC 2017 Day 16/Part 1: Final order of dancers: {dancers}")
 
 
 # AOC 2017 Day 17: Spinlock

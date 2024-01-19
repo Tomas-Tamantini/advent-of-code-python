@@ -15,7 +15,13 @@ from models.aoc_2016 import (
     ToggleInstruction,
     OutInstruction,
 )
-from models.aoc_2017 import ConditionalIncrementInstruction, ComparisonOperator
+from models.aoc_2017 import (
+    ConditionalIncrementInstruction,
+    ComparisonOperator,
+    Spin,
+    Exchange,
+    Partner,
+)
 
 
 class MockFileReader:
@@ -444,3 +450,10 @@ def test_can_parse_layered_firewall():
     file_parser = mock_file_parser(file_content)
     firewall = file_parser.parse_layered_firewall("some_file")
     assert [l for l, _ in firewall.packet_collisions()] == [0, 6]
+
+
+def test_can_parse_string_transformers():
+    file_content = "s1,x0/12, pb/X"
+    file_parser = mock_file_parser(file_content)
+    transformers = list(file_parser.parse_string_transformers("some_file"))
+    assert transformers == [Spin(1), Exchange(0, 12), Partner("b", "X")]
