@@ -2,13 +2,14 @@ from dataclasses import dataclass
 from typing import Optional
 from .processor import Processor
 from .memory import Memory
-from .serial_output import SerialOutput
+from .serial_io import SerialInput, SerialOutput
 
 
 @dataclass
 class Hardware:
     processor: Processor
     memory: Optional[Memory] = None
+    serial_input: Optional[SerialInput] = None
     serial_output: Optional[SerialOutput] = None
 
     def get_value_at_register(self, register: str) -> int:
