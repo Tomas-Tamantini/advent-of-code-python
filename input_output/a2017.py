@@ -20,6 +20,7 @@ from models.aoc_2017 import (
     transform_string_multiple_rounds,
     CircularBuffer,
     last_recovered_frequency,
+    sent_values_in_two_way_communication,
 )
 
 
@@ -277,9 +278,17 @@ def aoc_2017_d17(file_name: str):
 
 # AOC 2017 Day 18: Duet
 def aoc_2017_d18(file_name: str):
-    instructions = list(parser.parse_duet_code(file_name))
-    audio_output = last_recovered_frequency(instructions)
+    instructions_audio = list(parser.parse_duet_code(file_name))
+    audio_output = last_recovered_frequency(instructions_audio)
     print(f"AOC 2017 Day 18/Part 1: Last recovered frequency: {audio_output}")
+    instructions_communication = list(
+        parser.parse_duet_code(file_name, parse_rcv_as_input=True)
+    )
+    sent_values = sent_values_in_two_way_communication(instructions_communication)
+
+    print(
+        f"AOC 2017 Day 18/Part 2: Number of values sent by program 1: {len(sent_values['1'])}"
+    )
 
 
 # AOC 2017 Day 19: A Series of Tubes

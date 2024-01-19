@@ -5,6 +5,7 @@ from models.vectors import CardinalDirection
 from models.assembly import (
     Instruction,
     CopyInstruction,
+    InputInstruction,
     OutInstruction,
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
@@ -539,7 +540,9 @@ class FileParser:
         for instruction in self._file_reader.read(file_name).split(","):
             yield self._parse_string_transformer(instruction.strip())
 
-    def _parse_duet_instruction(self, instruction_str: str) -> Instruction:
+    def _parse_duet_instruction(
+        self, instruction_str: str, parse_rcv_as_input: bool
+    ) -> Instruction:
         raw_parts = instruction_str.split(" ")
         parts = []
         for part in raw_parts[1:]:
@@ -558,7 +561,11 @@ class FileParser:
         elif "mod" in instruction_str:
             return RemainderInstruction(source=parts[1], destination=parts[0])
         elif "rcv" in instruction_str:
-            return RecoverLastFrequencyInstruction(source=parts[0])
+            return (
+                InputInstruction(destination=parts[0])
+                if parse_rcv_as_input
+                else RecoverLastFrequencyInstruction(source=parts[0])
+            )
         elif "jgz" in instruction_str:
             return JumpGreaterThanZeroInstruction(
                 value_to_compare=parts[0],
@@ -567,6 +574,8 @@ class FileParser:
         else:
             raise ValueError(f"Unknown instruction: {instruction_str}")
 
-    def parse_duet_code(self, file_name) -> Iterator[Instruction]:
+    def parse_duet_code(
+        self, file_name, parse_rcv_as_input: bool = False
+    ) -> Iterator[Instruction]:
         for line in self._file_reader.readlines(file_name):
-            yield self._parse_duet_instruction(line.strip())
+            yield self._parse_duet_instruction(line.strip(), parse_rcv_as_input)

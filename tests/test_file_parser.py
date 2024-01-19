@@ -4,6 +4,7 @@ from input_output.file_parser import FileParser
 from models.vectors import CardinalDirection
 from models.assembly import (
     CopyInstruction,
+    InputInstruction,
     OutInstruction,
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
@@ -488,3 +489,12 @@ def test_can_parse_duet_code():
     assert instructions[5] == CopyInstruction(0, "a")
     assert instructions[6] == RecoverLastFrequencyInstruction("a")
     assert instructions[7] == JumpGreaterThanZeroInstruction(-1, "a")
+
+
+def test_can_parse_duet_code_with_rcv_as_input_instruction():
+    file_content = "rcv a"
+    file_parser = mock_file_parser(file_content)
+    instructions = list(
+        file_parser.parse_duet_code("some_file", parse_rcv_as_input=True)
+    )
+    assert instructions == [InputInstruction("a")]

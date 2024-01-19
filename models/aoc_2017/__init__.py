@@ -33,4 +33,5 @@ from .a2017_d18 import (
     RemainderInstruction,
     RecoverLastFrequencyInstruction,
     last_recovered_frequency,
+    sent_values_in_two_way_communication,
 )

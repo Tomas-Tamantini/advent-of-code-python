@@ -3,6 +3,7 @@ from models.assembly import (
     Hardware,
     Processor,
     CopyInstruction,
+    InputInstruction,
     OutInstruction,
     JumpGreaterThanZeroInstruction,
     AddInstruction,
@@ -12,6 +13,7 @@ from models.aoc_2017 import (
     RecoverLastFrequencyInstruction,
     MultiplyInstruction,
     RemainderInstruction,
+    sent_values_in_two_way_communication,
 )
 
 
@@ -74,3 +76,19 @@ def test_program_keeps_track_of_last_recovered_frequency():
         JumpGreaterThanZeroInstruction(offset=-2, value_to_compare="a"),
     ]
     assert last_recovered_frequency(instructions) == 4
+
+
+def test_computers_keep_track_of_values_they_send():
+    instructions = [
+        OutInstruction(1),
+        OutInstruction(2),
+        OutInstruction("p"),
+        InputInstruction("a"),
+        InputInstruction("b"),
+        InputInstruction("c"),
+        InputInstruction("d"),
+    ]
+    assert sent_values_in_two_way_communication(instructions) == {
+        "0": [1, 2, 0],
+        "1": [1, 2, 1],
+    }
