@@ -1,5 +1,6 @@
 import pytest
-from models.cellular_automata import ElementaryAutomaton, GameOfLife
+from models.cellular_automata import ElementaryAutomaton, GameOfLife, LangtonsAnt
+from models.vectors import Vector2D, CardinalDirection
 
 
 def test_rule_index_must_be_between_0_and_255():
@@ -70,3 +71,45 @@ def test_gof_cell_which_is_off_and_has_three_neighbors_comes_alive():
 def test_gof_cell_outside_grid_never_comes_alive():
     game = GameOfLife(width=3, height=3)
     assert (3, 1) not in game.next_state({(2, 0), (2, 1), (2, 2)})
+
+
+def test_at_an_off_square_ant_flips_square_then_turns_right_and_moves_forward():
+    initial_position = Vector2D(0, 0)
+    initial_direction = CardinalDirection.NORTH
+    ant = LangtonsAnt(initial_position, initial_direction, initial_on_squares=set())
+    ant.walk()
+    assert ant.position == Vector2D(1, 0)
+    assert ant.direction == CardinalDirection.EAST
+    assert ant.on_squares == {Vector2D(0, 0)}
+
+
+def test_at_an_on_square_ant_flips_square_then_turns_left_and_moves_forward():
+    initial_position = Vector2D(0, 0)
+    initial_direction = CardinalDirection.NORTH
+    ant = LangtonsAnt(
+        initial_position, initial_direction, initial_on_squares={initial_position}
+    )
+    ant.walk()
+    assert ant.position == Vector2D(-1, 0)
+    assert ant.direction == CardinalDirection.WEST
+    assert ant.on_squares == set()
+
+
+def test_after_transitional_phase_ant_builds_highway_with_period_104():
+    initial_position = Vector2D(0, 0)
+    initial_direction = CardinalDirection.NORTH
+    ant = LangtonsAnt(initial_position, initial_direction, initial_on_squares=set())
+    positions = []
+    directions = []
+    num_on_cells = []
+    for i in range(13_000):
+        ant.walk()
+        if i > 11_000 and i % 104 == 0:
+            positions.append(ant.position)
+            directions.append(ant.direction)
+            num_on_cells.append(len(ant.on_squares))
+    for i in range(len(positions) - 1):
+        assert directions[i + 1] == directions[i]
+        assert positions[i + 1].x == positions[i].x - 2
+        assert positions[i + 1].y == positions[i].y - 2
+        assert num_on_cells[i + 1] == num_on_cells[i] + 12
