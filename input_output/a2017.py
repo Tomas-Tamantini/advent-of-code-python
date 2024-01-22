@@ -310,8 +310,16 @@ def aoc_2017_d19(file_name: str):
 
 # AOC 2017 Day 20: Particle Swarm
 def aoc_2017_d20(file_name: str):
-    print("AOC 2017 Day 20/Part 1: Not implemented")
-    print("AOC 2017 Day 20/Part 2: Not implemented")
+    particles = list(parser.parse_particles(file_name))
+    particle_closest_to_origin = min(
+        particles,
+        key=lambda p: abs(p.acceleration[0])
+        + abs(p.acceleration[1])
+        + abs(p.acceleration[2]),
+    )
+    print(
+        f"AOC 2017 Day 20/Part 1: Particle closest to origin: {particle_closest_to_origin.id}"
+    )
 
 
 # AOC 2017 Day 21: Fractal Art

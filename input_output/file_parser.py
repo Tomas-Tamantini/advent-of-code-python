@@ -71,6 +71,7 @@ from models.aoc_2017 import (
     MultiplyInstruction,
     RemainderInstruction,
     RecoverLastFrequencyInstruction,
+    Particle,
 )
 
 
@@ -579,3 +580,13 @@ class FileParser:
     ) -> Iterator[Instruction]:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_duet_instruction(line.strip(), parse_rcv_as_input)
+
+    def parse_particles(self, file_name) -> Iterator[Particle]:
+        for particle_id, line in enumerate(self._file_reader.readlines(file_name)):
+            parts = line.strip().split(">,")
+            position = tuple(map(int, parts[0].replace("p=<", "").split(",")))
+            velocity = tuple(map(int, parts[1].replace("v=<", "").split(",")))
+            acceleration = tuple(
+                map(int, parts[2].replace("a=<", "").replace(">", "").split(","))
+            )
+            yield Particle(particle_id, position, velocity, acceleration)

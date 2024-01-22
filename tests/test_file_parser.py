@@ -29,6 +29,7 @@ from models.aoc_2017 import (
     MultiplyInstruction,
     RemainderInstruction,
     RecoverLastFrequencyInstruction,
+    Particle,
 )
 
 
@@ -498,3 +499,14 @@ def test_can_parse_duet_code_with_rcv_as_input_instruction():
         file_parser.parse_duet_code("some_file", parse_rcv_as_input=True)
     )
     assert instructions == [InputInstruction("a")]
+
+
+def test_can_parse_particles():
+    file_content = """p=< 3,0,0>, v=< 2,0,0>, a=<-1,0,0>
+                      p=< 4,0,0>, v=< 0,0,0>, a=<-2,0,0>"""
+    file_parser = mock_file_parser(file_content)
+    particles = list(file_parser.parse_particles("some_file"))
+    assert particles == [
+        Particle(0, (3, 0, 0), (2, 0, 0), (-1, 0, 0)),
+        Particle(1, (4, 0, 0), (0, 0, 0), (-2, 0, 0)),
+    ]
