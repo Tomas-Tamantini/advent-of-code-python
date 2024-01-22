@@ -22,6 +22,7 @@ from models.aoc_2017 import (
     CircularBuffer,
     last_recovered_frequency,
     sent_values_in_two_way_communication,
+    PackageRouter,
 )
 
 
@@ -299,8 +300,11 @@ def aoc_2017_d18(file_name: str):
 
 # AOC 2017 Day 19: A Series of Tubes
 def aoc_2017_d19(file_name: str):
-    print("AOC 2017 Day 19/Part 1: Not implemented")
-    print("AOC 2017 Day 19/Part 2: Not implemented")
+    with open(file_name) as f:
+        maze = [line for line in f.readlines()]
+    router = PackageRouter(maze)
+    letters = list(router.visited_letters())
+    print(f"AOC 2017 Day 19/Part 1: Letters visited: {''.join(letters)}")
 
 
 # AOC 2017 Day 20: Particle Swarm
