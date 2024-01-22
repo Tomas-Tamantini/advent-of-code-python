@@ -1,6 +1,13 @@
 from dataclasses import dataclass
-from models.assembly import UpdateRegisterInstruction
-from models.assembly import Hardware, Instruction, Processor, Computer, ImmutableProgram
+from models.number_theory import is_prime
+from models.assembly import (
+    Hardware,
+    Instruction,
+    Processor,
+    Computer,
+    ImmutableProgram,
+    UpdateRegisterInstruction,
+)
 
 
 @dataclass(frozen=True)
@@ -36,3 +43,16 @@ def count_multiply_instructions(instructions: list[Instruction]):
     computer = Computer(hardware=hardware)
     computer.run_program(program)
     return instruction_counter.count
+
+
+def optimized_coprocessor_code(initial_a: int, initial_b: int):
+    # Optimized assembly code by hand
+    c = b = initial_b
+    if initial_a != 0:
+        b = b * 100 + 100_000
+        c = b + 17_000
+    h = 0
+    for candidate in range(b, c + 1, 17):
+        if not is_prime(candidate):
+            h += 1
+    return h

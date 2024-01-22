@@ -28,6 +28,7 @@ from models.aoc_2017 import (
     FractalArt,
     GridCluster,
     count_multiply_instructions,
+    optimized_coprocessor_code,
 )
 
 
@@ -368,6 +369,10 @@ def aoc_2017_d23(file_name: str):
     print(
         f"AOC 2017 Day 23/Part 1: Number of multiply instructions: {num_multiply_instructions}"
     )
+    h_register = optimized_coprocessor_code(
+        initial_a=1, initial_b=instructions[0].source
+    )
+    print(f"AOC 2017 Day 23/Part 2: Value of register h: {h_register}")
 
 
 # AOC 2017 Day 24: Electromagnetic Moat
