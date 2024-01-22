@@ -8,6 +8,7 @@ from .instruction import (
     CopyInstruction,
     UpdateRegisterInstruction,
     AddInstruction,
+    SubtractInstruction,
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
     InputInstruction,

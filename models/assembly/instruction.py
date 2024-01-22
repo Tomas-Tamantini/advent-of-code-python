@@ -56,6 +56,13 @@ class AddInstruction(UpdateRegisterInstruction):
 
 
 @dataclass(frozen=True)
+class SubtractInstruction(UpdateRegisterInstruction):
+    @staticmethod
+    def _updated_value(value_source: int, value_destination: int) -> int:
+        return value_destination - value_source
+
+
+@dataclass(frozen=True)
 class _JumpInstruction:
     offset: Union[chr, int]
 
