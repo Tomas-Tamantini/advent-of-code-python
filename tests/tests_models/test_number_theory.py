@@ -5,6 +5,7 @@ from models.number_theory import (
     are_coprime,
     ChineseRemainder,
     solve_chinese_remainder_system,
+    is_prime,
 )
 
 
@@ -90,3 +91,22 @@ def test_chinese_remainder_system_runs_efficiently():
         ChineseRemainder(divisor=11, remainder=4),
     )
     assert solution == 3208583
+
+
+@pytest.mark.parametrize(
+    "n, expected",
+    [
+        (0, False),
+        (1, False),
+        (2, True),
+        (3, True),
+        (4, False),
+        (5, True),
+        (6, False),
+        (123_456_789, False),
+        (999_999_937, True),
+        (999_999_999_989, True),
+    ],
+)
+def test_can_check_number_for_primality_efficiently(n, expected):
+    assert is_prime(n) == expected
