@@ -81,3 +81,17 @@ def test_can_calculate_number_of_cells_that_are_on_after_n_iterations():
     assert fractal_art.num_cells_on_after_iterations(1) == 4
     assert fractal_art.num_cells_on_after_iterations(2) == 12
     assert fractal_art.num_cells_on_after_iterations(3) == 36
+
+
+def test_fractal_art_iterations_are_run_efficiently():
+    initial_pattern = _build_art_block([[0, 0], [0, 0]])
+    rules = {
+        _build_art_block([[0, 0], [0, 0]]): _build_art_block(
+            [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        ),
+        _build_art_block([[0, 0, 0], [0, 0, 0], [0, 0, 0]]): _build_art_block(
+            [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        ),
+    }
+    fractal_art = FractalArt(initial_pattern, rules)
+    assert fractal_art.num_cells_on_after_iterations(20) == 0

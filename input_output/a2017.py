@@ -331,6 +331,11 @@ def aoc_2017_d21(file_name: str):
     print(
         f"AOC 2017 Day 21/Part 1: Number of cells on after {num_iterations} iterations: {num_cells_on}"
     )
+    num_iterations = 18
+    num_cells_on = fractal_art.num_cells_on_after_iterations(num_iterations)
+    print(
+        f"AOC 2017 Day 21/Part 2: Number of cells on after {num_iterations} iterations: {num_cells_on}"
+    )
 
 
 # AOC 2017 Day 22: Sporifica Virus

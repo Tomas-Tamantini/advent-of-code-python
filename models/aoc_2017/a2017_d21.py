@@ -43,21 +43,65 @@ class FractalArt:
         self._initial_pattern = initial_pattern
         self._rules = rules
 
+    def _run_iteration(self, pattern: ArtBlock) -> ArtBlock:
+        size = 2 if pattern.size % 2 == 0 else 3
+        num_blocks_per_row = pattern.size // size
+        new_pattern_size = num_blocks_per_row * (size + 1)
+        new_pattern = np.zeros((new_pattern_size, new_pattern_size), dtype=int)
+        for i, block in enumerate(pattern.subdivide(size)):
+            new_pattern[
+                (i // num_blocks_per_row)
+                * (size + 1) : (i // num_blocks_per_row + 1)
+                * (size + 1),
+                (i % num_blocks_per_row)
+                * (size + 1) : (i % num_blocks_per_row + 1)
+                * (size + 1),
+            ] = self._rules[block]._pattern
+        return ArtBlock(new_pattern)
+
     def num_cells_on_after_iterations(self, num_iterations: int) -> int:
         pattern = self._initial_pattern
-        for _ in range(num_iterations):
-            size = 2 if pattern.size % 2 == 0 else 3
-            num_blocks_per_row = pattern.size // size
-            new_pattern_size = num_blocks_per_row * (size + 1)
-            new_pattern = np.zeros((new_pattern_size, new_pattern_size), dtype=int)
-            for i, block in enumerate(pattern.subdivide(size)):
-                new_pattern[
-                    (i // num_blocks_per_row)
-                    * (size + 1) : (i // num_blocks_per_row + 1)
-                    * (size + 1),
-                    (i % num_blocks_per_row)
-                    * (size + 1) : (i % num_blocks_per_row + 1)
-                    * (size + 1),
-                ] = self._rules[block]._pattern
-            pattern = ArtBlock(new_pattern)
-        return pattern.num_cells_on
+        while num_iterations > 0 and pattern.size % 2 == 0:
+            pattern = self._run_iteration(pattern)
+            num_iterations -= 1
+        if num_iterations <= 0:
+            return pattern.num_cells_on
+        else:
+            memoized_values: dict[ArtBlock, dict[int, int]] = {}
+            return sum(
+                self._recursive_num_cells_for_3x3_blocks(
+                    sub_block, num_iterations, memoized_values
+                )
+                for sub_block in pattern.subdivide(3)
+            )
+
+    def _recursive_num_cells_for_3x3_blocks(
+        self,
+        pattern_3x3: ArtBlock,
+        num_iterations: int,
+        memoized_values: dict[ArtBlock, dict[int, int]],
+    ) -> int:
+        if num_iterations == 0:
+            return pattern_3x3.num_cells_on
+        if (
+            pattern_3x3 in memoized_values
+            and num_iterations in memoized_values[pattern_3x3]
+        ):
+            return memoized_values[pattern_3x3][num_iterations]
+        new_pattern = pattern_3x3
+        for _ in range(min(3, num_iterations)):
+            new_pattern = self._run_iteration(new_pattern)
+
+        if num_iterations < 3:
+            result = new_pattern.num_cells_on
+        else:
+            result = sum(
+                self._recursive_num_cells_for_3x3_blocks(
+                    sub_block, num_iterations - 3, memoized_values
+                )
+                for sub_block in new_pattern.subdivide(3)
+            )
+        if pattern_3x3 not in memoized_values:
+            memoized_values[pattern_3x3] = {}
+        memoized_values[pattern_3x3][num_iterations] = result
+        return result
