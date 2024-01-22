@@ -24,9 +24,12 @@ class MultiStateLangtonsAnt:
         self._cells = cells
         self._rule = rule
 
+    def cell_state(self, position: Vector2D) -> CellState:
+        return self._cells.get(position, self._default_state)
+
     @property
     def current_cell(self) -> CellState:
-        return self._cells.get(self.position, self._default_state)
+        return self.cell_state(self.position)
 
     @property
     def position(self) -> Vector2D:

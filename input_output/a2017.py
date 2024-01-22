@@ -348,8 +348,16 @@ def aoc_2017_d22(file_name: str):
         carrier_direction=CardinalDirection.SOUTH,
         currently_infected=infected_positions,
     )
-    num_infections = cluster.total_number_of_infections_caused(10_000)
-    print(f"AOC 2017 Day 22/Part 1: Number of infections caused: {num_infections}")
+    num_infections_two_state = cluster.total_number_of_infections_caused(10_000)
+    print(
+        f"AOC 2017 Day 22/Part 1: Number of infections caused with two-state carrier: {num_infections_two_state}"
+    )
+    num_infections_four_state = cluster.total_number_of_infections_caused(
+        10_000_000, use_four_states=True, progress_bar=progress_bar
+    )
+    print(
+        f"AOC 2017 Day 22/Part 2: Number of infections caused with four-state carrier: {num_infections_four_state}"
+    )
 
 
 # AOC 2017 Day 23: Coprocessor Conflagration
