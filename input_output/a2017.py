@@ -1,6 +1,7 @@
 import numpy as np
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
+from models.vectors import CardinalDirection
 from models.aoc_2017 import (
     digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
@@ -25,6 +26,7 @@ from models.aoc_2017 import (
     PackageRouter,
     ParticleCollider,
     FractalArt,
+    GridCluster,
 )
 
 
@@ -340,8 +342,14 @@ def aoc_2017_d21(file_name: str):
 
 # AOC 2017 Day 22: Sporifica Virus
 def aoc_2017_d22(file_name: str):
-    print("AOC 2017 Day 22/Part 1: Not implemented")
-    print("AOC 2017 Day 22/Part 2: Not implemented")
+    infected_positions, central_position = parser.parse_grid_cluster(file_name)
+    cluster = GridCluster(
+        carrier_position=central_position,
+        carrier_direction=CardinalDirection.SOUTH,
+        currently_infected=infected_positions,
+    )
+    num_infections = cluster.total_number_of_infections_caused(10_000)
+    print(f"AOC 2017 Day 22/Part 1: Number of infections caused: {num_infections}")
 
 
 # AOC 2017 Day 23: Coprocessor Conflagration

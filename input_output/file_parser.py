@@ -2,7 +2,7 @@ from typing import Iterator, Protocol
 import re
 import numpy as np
 
-from models.vectors import CardinalDirection
+from models.vectors import CardinalDirection, Vector2D
 from models.assembly import (
     Instruction,
     CopyInstruction,
@@ -610,3 +610,15 @@ class FileParser:
             parts = line.strip().split(" => ")
             rules[self.parse_art_block(parts[0])] = self.parse_art_block(parts[1])
         return rules
+
+    def parse_grid_cluster(self, file_name: str) -> tuple[set[Vector2D], Vector2D]:
+        lines = list(self._file_reader.readlines(file_name))
+        width = len(lines[0].strip())
+        height = len(lines)
+        central_position = Vector2D(width // 2, height // 2)
+        cluster = set()
+        for y, line in enumerate(lines):
+            for x, char in enumerate(line.strip()):
+                if char == "#":
+                    cluster.add(Vector2D(x, y))
+        return cluster, central_position

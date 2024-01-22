@@ -1,7 +1,7 @@
 from typing import Iterator
 from unittest.mock import Mock
 from input_output.file_parser import FileParser
-from models.vectors import CardinalDirection
+from models.vectors import CardinalDirection, Vector2D
 from models.assembly import (
     CopyInstruction,
     InputInstruction,
@@ -528,3 +528,13 @@ def test_can_parse_art_block_rules():
         initial_pattern=FileParser.parse_art_block(".#./..#/###"), rules=rules
     )
     assert fractal_art.num_cells_on_after_iterations(2) == 12
+
+
+def test_can_parse_grid_cluster():
+    file_content = """..#
+                      #..
+                      ..."""
+    file_parser = mock_file_parser(file_content)
+    infected, central_position = file_parser.parse_grid_cluster("some_file")
+    assert infected == {Vector2D(2, 0), Vector2D(0, 1)}
+    assert central_position == Vector2D(1, 1)
