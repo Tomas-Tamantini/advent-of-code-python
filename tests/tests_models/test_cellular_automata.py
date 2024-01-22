@@ -3,9 +3,10 @@ from models.cellular_automata import (
     ElementaryAutomaton,
     GameOfLife,
     LangtonsAnt,
+    MultiStateLangtonsAnt,
     AntState,
 )
-from models.vectors import Vector2D, CardinalDirection
+from models.vectors import Vector2D, CardinalDirection, TurnDirection
 
 
 def test_rule_index_must_be_between_0_and_255():
@@ -113,3 +114,25 @@ def test_after_transitional_phase_ant_builds_highway_with_period_104():
         assert positions[i + 1].x == positions[i].x - 2
         assert positions[i + 1].y == positions[i].y - 2
         assert num_on_cells[i + 1] == num_on_cells[i] + 12
+
+
+def test_ant_that_always_turns_right_walks_in_a_circle():
+    initial_state = AntState(position=Vector2D(0, 0), direction=CardinalDirection.WEST)
+    cells = {
+        Vector2D(0, 0): 1,
+        Vector2D(10, 0): 1,
+        Vector2D(10, 10): 1,
+        Vector2D(0, 10): 1,
+    }
+    default_state = 0
+    rule = {
+        0: (0, TurnDirection.NO_TURN),
+        1: (2, TurnDirection.RIGHT),
+        2: (1, TurnDirection.RIGHT),
+    }
+    ant = MultiStateLangtonsAnt(initial_state, cells, default_state, rule)
+    for _ in range(40):
+        ant.walk()
+    assert ant.position == Vector2D(0, 0)
+    assert ant.direction == CardinalDirection.WEST
+    assert ant.current_cell == 2

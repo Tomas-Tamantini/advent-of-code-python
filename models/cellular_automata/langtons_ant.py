@@ -11,7 +11,7 @@ class AntState:
     direction: CardinalDirection
 
 
-class MultiCellStateLangtonsAnt:
+class MultiStateLangtonsAnt:
     def __init__(
         self,
         ant_state: AntState,
@@ -39,14 +39,14 @@ class MultiCellStateLangtonsAnt:
     def walk(self) -> None:
         new_state, turn_direction = self._rule[self.current_cell]
         if new_state == self._default_state:
-            self._cells.pop(self.position)
+            self._cells.pop(self.position, None)
         else:
             self._cells[self.position] = new_state
         new_direction = self._ant_state.direction.turn(turn_direction)
         self._ant_state = AntState(self.position.move(new_direction), new_direction)
 
 
-class LangtonsAnt(MultiCellStateLangtonsAnt):
+class LangtonsAnt(MultiStateLangtonsAnt):
     def __init__(
         self,
         ant_state: AntState,
