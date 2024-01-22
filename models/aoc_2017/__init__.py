@@ -36,4 +36,4 @@ from .a2017_d18 import (
     sent_values_in_two_way_communication,
 )
 from .a2017_d19 import PackageRouter
-from .a2017_d20 import Particle
+from .a2017_d20 import Particle, ParticleCollider

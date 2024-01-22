@@ -23,6 +23,7 @@ from models.aoc_2017 import (
     last_recovered_frequency,
     sent_values_in_two_way_communication,
     PackageRouter,
+    ParticleCollider,
 )
 
 
@@ -311,15 +312,12 @@ def aoc_2017_d19(file_name: str):
 # AOC 2017 Day 20: Particle Swarm
 def aoc_2017_d20(file_name: str):
     particles = list(parser.parse_particles(file_name))
-    particle_closest_to_origin = min(
-        particles,
-        key=lambda p: abs(p.acceleration[0])
-        + abs(p.acceleration[1])
-        + abs(p.acceleration[2]),
-    )
-    print(
-        f"AOC 2017 Day 20/Part 1: Particle closest to origin: {particle_closest_to_origin.id}"
-    )
+    collider = ParticleCollider(particles)
+    closest_to_origin = collider.particle_closest_to_origin_long_term()
+    print(f"AOC 2017 Day 20/Part 1: Particle closest to origin: {closest_to_origin.id}")
+    destroyed = collider.particles_destroyed_in_collisions()
+    num_remaining = len(particles) - len(destroyed)
+    print(f"AOC 2017 Day 20/Part 1: Particles remaining: {num_remaining}")
 
 
 # AOC 2017 Day 21: Fractal Art
