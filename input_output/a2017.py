@@ -24,6 +24,7 @@ from models.aoc_2017 import (
     sent_values_in_two_way_communication,
     PackageRouter,
     ParticleCollider,
+    FractalArt,
 )
 
 
@@ -322,8 +323,14 @@ def aoc_2017_d20(file_name: str):
 
 # AOC 2017 Day 21: Fractal Art
 def aoc_2017_d21(file_name: str):
-    print("AOC 2017 Day 21/Part 1: Not implemented")
-    print("AOC 2017 Day 21/Part 2: Not implemented")
+    inital_pattern = FileParser.parse_art_block(".#./..#/###")
+    rules = parser.parse_art_block_rules(file_name)
+    fractal_art = FractalArt(inital_pattern, rules)
+    num_iterations = 5
+    num_cells_on = fractal_art.num_cells_on_after_iterations(num_iterations)
+    print(
+        f"AOC 2017 Day 21/Part 1: Number of cells on after {num_iterations} iterations: {num_cells_on}"
+    )
 
 
 # AOC 2017 Day 22: Sporifica Virus

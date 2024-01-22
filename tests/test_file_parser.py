@@ -30,6 +30,7 @@ from models.aoc_2017 import (
     RemainderInstruction,
     RecoverLastFrequencyInstruction,
     Particle,
+    FractalArt,
 )
 
 
@@ -510,3 +511,20 @@ def test_can_parse_particles():
         Particle(0, (3, 0, 0), (2, 0, 0), (-1, 0, 0)),
         Particle(1, (4, 0, 0), (0, 0, 0), (-2, 0, 0)),
     ]
+
+
+def test_can_parse_art_block():
+    block = ".#./..#/###"
+    art_block = FileParser.parse_art_block(block)
+    assert art_block.num_cells_on == 5
+
+
+def test_can_parse_art_block_rules():
+    file_content = """../.# => ##./#../...
+                      .#./..#/### => #..#/..../..../#..#"""
+    file_parser = mock_file_parser(file_content)
+    rules = file_parser.parse_art_block_rules("some_file")
+    fractal_art = FractalArt(
+        initial_pattern=FileParser.parse_art_block(".#./..#/###"), rules=rules
+    )
+    assert fractal_art.num_cells_on_after_iterations(2) == 12

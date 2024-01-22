@@ -37,3 +37,4 @@ from .a2017_d18 import (
 )
 from .a2017_d19 import PackageRouter
 from .a2017_d20 import Particle, ParticleCollider
+from .a2017_d21 import ArtBlock, FractalArt

@@ -1,5 +1,6 @@
 from typing import Iterator, Protocol
 import re
+import numpy as np
 
 from models.vectors import CardinalDirection
 from models.assembly import (
@@ -72,6 +73,7 @@ from models.aoc_2017 import (
     RemainderInstruction,
     RecoverLastFrequencyInstruction,
     Particle,
+    ArtBlock,
 )
 
 
@@ -590,3 +592,21 @@ class FileParser:
                 map(int, parts[2].replace("a=<", "").replace(">", "").split(","))
             )
             yield Particle(particle_id, position, velocity, acceleration)
+
+    @staticmethod
+    def parse_art_block(block: str) -> ArtBlock:
+        return ArtBlock(
+            np.array(
+                [
+                    [1 if c == "#" else 0 for c in line.strip()]
+                    for line in block.split("/")
+                ]
+            )
+        )
+
+    def parse_art_block_rules(self, file_name: str) -> dict[ArtBlock, ArtBlock]:
+        rules = {}
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(" => ")
+            rules[self.parse_art_block(parts[0])] = self.parse_art_block(parts[1])
+        return rules
