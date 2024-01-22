@@ -1,26 +1,8 @@
 from dataclasses import dataclass
 from typing import Hashable
-from enum import Enum
-from models.vectors import Vector2D, CardinalDirection
+from models.vectors import Vector2D, CardinalDirection, TurnDirection
 
 CellState = Hashable
-
-
-class AntTurnDirection(Enum):  # TODO: Extract to models/vectors.py
-    LEFT = "L"
-    RIGHT = "R"
-    NO_TURN = "N"
-    U_TURN = "U"
-
-    def transform_direction(self, direction: CardinalDirection) -> CardinalDirection:
-        if self == AntTurnDirection.LEFT:
-            return direction.turn_left()
-        elif self == AntTurnDirection.RIGHT:
-            return direction.turn_right()
-        elif self == AntTurnDirection.NO_TURN:
-            return direction
-        else:
-            return direction.reverse()
 
 
 @dataclass(frozen=True)
@@ -35,7 +17,7 @@ class MultiCellStateLangtonsAnt:
         ant_state: AntState,
         cells: dict[Vector2D, CellState],
         default_state: CellState,
-        rule: dict[CellState, tuple[CellState, AntTurnDirection]],
+        rule: dict[CellState, tuple[CellState, TurnDirection]],
     ) -> None:
         self._ant_state = ant_state
         self._default_state = default_state
@@ -60,7 +42,7 @@ class MultiCellStateLangtonsAnt:
             self._cells.pop(self.position)
         else:
             self._cells[self.position] = new_state
-        new_direction = turn_direction.transform_direction(self._ant_state.direction)
+        new_direction = self._ant_state.direction.turn(turn_direction)
         self._ant_state = AntState(self.position.move(new_direction), new_direction)
 
 
@@ -73,8 +55,8 @@ class LangtonsAnt(MultiCellStateLangtonsAnt):
         default_state = 0
         cells = {square: 1 for square in initial_on_cells}
         rule = {
-            0: (1, AntTurnDirection.RIGHT),
-            1: (0, AntTurnDirection.LEFT),
+            0: (1, TurnDirection.RIGHT),
+            1: (0, TurnDirection.LEFT),
         }
         super().__init__(ant_state, cells, default_state, rule)
 

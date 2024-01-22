@@ -1,11 +1,28 @@
 from enum import Enum
 
 
+class TurnDirection(Enum):
+    LEFT = "L"
+    RIGHT = "R"
+    NO_TURN = "N"
+    U_TURN = "U"
+
+
 class CardinalDirection(Enum):
     NORTH = 0
     EAST = 1
     SOUTH = 2
     WEST = 3
+
+    def turn(self, turn_direction: TurnDirection) -> "CardinalDirection":
+        if turn_direction == TurnDirection.LEFT:
+            return self.turn_left()
+        elif turn_direction == TurnDirection.RIGHT:
+            return self.turn_right()
+        elif turn_direction == TurnDirection.U_TURN:
+            return self.reverse()
+        else:
+            return self
 
     def turn_left(self) -> "CardinalDirection":
         return CardinalDirection((self.value - 1) % 4)

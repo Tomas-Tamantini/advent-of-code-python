@@ -1,7 +1,7 @@
 from typing import Iterator
 from unittest.mock import Mock
 from input_output.file_parser import FileParser
-from models.vectors import CardinalDirection, Vector2D
+from models.vectors import CardinalDirection, Vector2D, TurnDirection
 from models.assembly import (
     CopyInstruction,
     InputInstruction,
@@ -12,7 +12,6 @@ from models.assembly import (
 )
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import (
-    TurnDirection,
     TurtleInstruction,
     ProgrammableScreen,
     FloorConfiguration,

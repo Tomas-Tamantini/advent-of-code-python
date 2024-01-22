@@ -1,4 +1,4 @@
-from models.vectors import CardinalDirection, Vector2D
+from models.vectors import CardinalDirection, Vector2D, TurnDirection
 
 
 def test_vector_moves_by_one_step_by_default():
@@ -44,3 +44,15 @@ def test_cardinal_directions_can_be_spun_around():
     assert CardinalDirection.EAST.turn_right() == CardinalDirection.SOUTH
     assert CardinalDirection.SOUTH.turn_right() == CardinalDirection.WEST
     assert CardinalDirection.WEST.turn_right() == CardinalDirection.NORTH
+
+    assert CardinalDirection.NORTH.reverse() == CardinalDirection.SOUTH
+    assert CardinalDirection.EAST.reverse() == CardinalDirection.WEST
+    assert CardinalDirection.SOUTH.reverse() == CardinalDirection.NORTH
+    assert CardinalDirection.WEST.reverse() == CardinalDirection.EAST
+
+    assert (
+        CardinalDirection.NORTH.turn(TurnDirection.NO_TURN) == CardinalDirection.NORTH
+    )
+    assert CardinalDirection.WEST.turn(TurnDirection.LEFT) == CardinalDirection.SOUTH
+    assert CardinalDirection.SOUTH.turn(TurnDirection.RIGHT) == CardinalDirection.WEST
+    assert CardinalDirection.EAST.turn(TurnDirection.U_TURN) == CardinalDirection.WEST

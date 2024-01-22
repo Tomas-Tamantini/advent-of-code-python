@@ -2,7 +2,7 @@ from typing import Iterator, Protocol
 import re
 import numpy as np
 
-from models.vectors import CardinalDirection, Vector2D
+from models.vectors import CardinalDirection, Vector2D, TurnDirection
 from models.assembly import (
     Instruction,
     CopyInstruction,
@@ -32,7 +32,6 @@ from models.aoc_2015 import (
     Molecule,
 )
 from models.aoc_2016 import (
-    TurnDirection,
     EncryptedRoom,
     TurtleInstruction,
     ProgrammableScreen,

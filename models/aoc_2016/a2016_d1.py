@@ -1,18 +1,6 @@
 from dataclasses import dataclass
-from models.vectors import CardinalDirection, Vector2D
-from enum import Enum
+from models.vectors import CardinalDirection, Vector2D, TurnDirection
 from typing import Iterator
-
-
-class TurnDirection(Enum):
-    LEFT = "L"
-    RIGHT = "R"
-
-    def transform_direction(self, direction: CardinalDirection) -> CardinalDirection:
-        if self == TurnDirection.LEFT:
-            return direction.turn_left()
-        else:
-            return direction.turn_right()
 
 
 @dataclass(frozen=True)
@@ -35,8 +23,8 @@ class Turtle:
         return self._direction
 
     def move(self, instruction: TurtleInstruction) -> None:
-        self._direction = instruction.turn.transform_direction(self._direction)
-        for step in range(instruction.steps):
+        self._direction = self._direction.turn(instruction.turn)
+        for _ in range(instruction.steps):
             self._path_history.append(self.position.move(self._direction))
 
     @property
