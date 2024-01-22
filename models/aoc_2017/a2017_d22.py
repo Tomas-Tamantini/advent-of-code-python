@@ -1,5 +1,5 @@
 from models.vectors import Vector2D, CardinalDirection
-from models.cellular_automata import LangtonsAnt
+from models.cellular_automata import LangtonsAnt, AntState
 
 
 class GridCluster:
@@ -16,8 +16,10 @@ class GridCluster:
     @property
     def _langtons_ant(self) -> LangtonsAnt:
         return LangtonsAnt(
-            ant_position=self._carrier_position,
-            ant_direction=self._carrier_direction,
+            ant_state=AntState(
+                position=self._carrier_position,
+                direction=self._carrier_direction,
+            ),
             initial_on_squares={p for p in self._currently_infected},
         )
 

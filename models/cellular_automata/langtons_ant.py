@@ -1,33 +1,39 @@
+from dataclasses import dataclass
 from models.vectors import Vector2D, CardinalDirection
+
+
+@dataclass(frozen=True)
+class AntState:
+    position: Vector2D
+    direction: CardinalDirection
 
 
 class LangtonsAnt:
     def __init__(
         self,
-        ant_position: Vector2D,
-        ant_direction: CardinalDirection,
+        ant_state: AntState,
         initial_on_squares: set[Vector2D],
     ) -> None:
-        self._ant_position = ant_position
-        self._ant_direction = ant_direction
+        self._ant_state = ant_state
         self._on_squares = initial_on_squares
 
     @property
     def position(self) -> Vector2D:
-        return self._ant_position
+        return self._ant_state.position
 
     @property
     def direction(self) -> CardinalDirection:
-        return self._ant_direction
+        return self._ant_state.direction
 
     @property
     def on_squares(self) -> set[Vector2D]:
         return self._on_squares
 
     def walk(self) -> None:
-        if self._ant_position in self._on_squares:
-            self._ant_direction = self._ant_direction.turn_left()
+        if self._ant_state.position in self._on_squares:
+            new_direction = self._ant_state.direction.turn_left()
         else:
-            self._ant_direction = self._ant_direction.turn_right()
-        self._on_squares ^= {self._ant_position}
-        self._ant_position = self._ant_position.move(self._ant_direction)
+            new_direction = self._ant_state.direction.turn_right()
+        self._on_squares ^= {self._ant_state.position}
+        new_position = self._ant_state.position.move(new_direction)
+        self._ant_state = AntState(new_position, new_direction)

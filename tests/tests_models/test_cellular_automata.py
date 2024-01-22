@@ -1,5 +1,10 @@
 import pytest
-from models.cellular_automata import ElementaryAutomaton, GameOfLife, LangtonsAnt
+from models.cellular_automata import (
+    ElementaryAutomaton,
+    GameOfLife,
+    LangtonsAnt,
+    AntState,
+)
 from models.vectors import Vector2D, CardinalDirection
 
 
@@ -74,9 +79,8 @@ def test_gof_cell_outside_grid_never_comes_alive():
 
 
 def test_at_an_off_square_ant_flips_square_then_turns_right_and_moves_forward():
-    initial_position = Vector2D(0, 0)
-    initial_direction = CardinalDirection.NORTH
-    ant = LangtonsAnt(initial_position, initial_direction, initial_on_squares=set())
+    initial_state = AntState(position=Vector2D(0, 0), direction=CardinalDirection.NORTH)
+    ant = LangtonsAnt(initial_state, initial_on_squares=set())
     ant.walk()
     assert ant.position == Vector2D(1, 0)
     assert ant.direction == CardinalDirection.EAST
@@ -84,11 +88,8 @@ def test_at_an_off_square_ant_flips_square_then_turns_right_and_moves_forward():
 
 
 def test_at_an_on_square_ant_flips_square_then_turns_left_and_moves_forward():
-    initial_position = Vector2D(0, 0)
-    initial_direction = CardinalDirection.NORTH
-    ant = LangtonsAnt(
-        initial_position, initial_direction, initial_on_squares={initial_position}
-    )
+    initial_state = AntState(position=Vector2D(0, 0), direction=CardinalDirection.NORTH)
+    ant = LangtonsAnt(initial_state, initial_on_squares={Vector2D(0, 0)})
     ant.walk()
     assert ant.position == Vector2D(-1, 0)
     assert ant.direction == CardinalDirection.WEST
@@ -96,9 +97,8 @@ def test_at_an_on_square_ant_flips_square_then_turns_left_and_moves_forward():
 
 
 def test_after_transitional_phase_ant_builds_highway_with_period_104():
-    initial_position = Vector2D(0, 0)
-    initial_direction = CardinalDirection.NORTH
-    ant = LangtonsAnt(initial_position, initial_direction, initial_on_squares=set())
+    initial_state = AntState(position=Vector2D(0, 0), direction=CardinalDirection.NORTH)
+    ant = LangtonsAnt(initial_state, initial_on_squares=set())
     positions = []
     directions = []
     num_on_cells = []
