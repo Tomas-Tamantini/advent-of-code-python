@@ -13,6 +13,9 @@ class CardinalDirection(Enum):
     def turn_right(self) -> "CardinalDirection":
         return CardinalDirection((self.value + 1) % 4)
 
+    def reverse(self) -> "CardinalDirection":
+        return CardinalDirection((self.value + 2) % 4)
+
     def offset(self) -> tuple[int, int]:
         if self == CardinalDirection.NORTH:
             return 0, 1

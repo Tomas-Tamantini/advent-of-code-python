@@ -20,14 +20,14 @@ class GridCluster:
                 position=self._carrier_position,
                 direction=self._carrier_direction,
             ),
-            initial_on_squares={p for p in self._currently_infected},
+            initial_on_cells={p for p in self._currently_infected},
         )
 
     def total_number_of_infections_caused(self, number_of_steps: int) -> int:
         total = 0
         ant = self._langtons_ant
         for _ in range(number_of_steps):
-            if ant.position not in ant.on_squares:
+            if ant.position not in ant.on_cells:
                 total += 1
             ant.walk()
         return total
