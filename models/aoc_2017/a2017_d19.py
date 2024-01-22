@@ -8,6 +8,16 @@ class PackageRouter:
         self._maze = maze
         self._width = len(self._maze[0])
         self._height = len(self._maze)
+        self._num_steps = 0
+        self._visited_letters = []
+
+    @property
+    def num_steps(self) -> int:
+        return self._num_steps
+
+    @property
+    def visited_letters(self) -> list[str]:
+        return self._visited_letters
 
     def _initial_state(self) -> tuple[Vector2D, CardinalDirection]:
         x = self._maze[0].index("|")
@@ -38,9 +48,12 @@ class PackageRouter:
                 if self._is_valid_position(new_pos.move(new_direction)):
                     yield new_pos, new_direction
 
-    def visited_letters(self) -> Iterator[str]:
+    def explore(self) -> None:
+        self._num_steps = 0
+        self._visited_letters = []
         initial_state = self._initial_state()
         for state, _ in explore_with_bfs(self, initial_state):
+            self._num_steps += 1
             pos, _ = state
-            if self._maze[pos.y][pos.x].isalpha():
-                yield self._maze[pos.y][pos.x]
+            if self._get_cell(pos).isalpha():
+                self._visited_letters.append(self._get_cell(pos))

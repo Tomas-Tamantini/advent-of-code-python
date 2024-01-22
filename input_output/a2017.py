@@ -303,8 +303,9 @@ def aoc_2017_d19(file_name: str):
     with open(file_name) as f:
         maze = [line for line in f.readlines()]
     router = PackageRouter(maze)
-    letters = list(router.visited_letters())
-    print(f"AOC 2017 Day 19/Part 1: Letters visited: {''.join(letters)}")
+    router.explore()
+    print(f"AOC 2017 Day 19/Part 1: Letters visited: {''.join(router.visited_letters)}")
+    print(f"AOC 2017 Day 19/Part 2: Number of routing steps: {router.num_steps}")
 
 
 # AOC 2017 Day 20: Particle Swarm
