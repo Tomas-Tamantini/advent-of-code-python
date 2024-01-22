@@ -9,6 +9,7 @@ from models.assembly import (
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
     AddInstruction,
+    SubtractInstruction,
 )
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import (
@@ -30,6 +31,7 @@ from models.aoc_2017 import (
     RecoverLastFrequencyInstruction,
     Particle,
     FractalArt,
+    SpyMultiplyInstruction,
 )
 
 
@@ -537,3 +539,16 @@ def test_can_parse_grid_cluster():
     infected, central_position = file_parser.parse_grid_cluster("some_file")
     assert infected == {Vector2D(2, 0), Vector2D(0, 1)}
     assert central_position == Vector2D(1, 1)
+
+
+def test_can_parse_duet_code_with_spy_multiply():
+    file_content = """mul a b
+                      jnz a -1
+                      sub b -6"""
+    file_parser = mock_file_parser(file_content)
+    instructions = list(file_parser.parse_duet_code("some_file", spy_multiply=True))
+    assert instructions == [
+        SpyMultiplyInstruction("b", "a"),
+        JumpNotZeroInstruction(-1, "a"),
+        SubtractInstruction(source=-6, destination="b"),
+    ]

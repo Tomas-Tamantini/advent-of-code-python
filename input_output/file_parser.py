@@ -11,6 +11,7 @@ from models.assembly import (
     JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
     AddInstruction,
+    SubtractInstruction,
 )
 from models.aoc_2015 import (
     XmasPresent,
@@ -73,6 +74,7 @@ from models.aoc_2017 import (
     RecoverLastFrequencyInstruction,
     Particle,
     ArtBlock,
+    SpyMultiplyInstruction,
 )
 
 
@@ -543,7 +545,7 @@ class FileParser:
             yield self._parse_string_transformer(instruction.strip())
 
     def _parse_duet_instruction(
-        self, instruction_str: str, parse_rcv_as_input: bool
+        self, instruction_str: str, parse_rcv_as_input: bool, spy_multiply: bool
     ) -> Instruction:
         raw_parts = instruction_str.split(" ")
         parts = []
@@ -558,8 +560,14 @@ class FileParser:
             return CopyInstruction(source=parts[1], destination=parts[0])
         elif "add" in instruction_str:
             return AddInstruction(source=parts[1], destination=parts[0])
+        elif "sub" in instruction_str:
+            return SubtractInstruction(source=parts[1], destination=parts[0])
         elif "mul" in instruction_str:
-            return MultiplyInstruction(source=parts[1], destination=parts[0])
+            return (
+                SpyMultiplyInstruction(source=parts[1], destination=parts[0])
+                if spy_multiply
+                else MultiplyInstruction(source=parts[1], destination=parts[0])
+            )
         elif "mod" in instruction_str:
             return RemainderInstruction(source=parts[1], destination=parts[0])
         elif "rcv" in instruction_str:
@@ -573,14 +581,24 @@ class FileParser:
                 value_to_compare=parts[0],
                 offset=parts[1],
             )
+        elif "jnz" in instruction_str:
+            return JumpNotZeroInstruction(
+                value_to_compare=parts[0],
+                offset=parts[1],
+            )
         else:
             raise ValueError(f"Unknown instruction: {instruction_str}")
 
     def parse_duet_code(
-        self, file_name, parse_rcv_as_input: bool = False
+        self,
+        file_name,
+        parse_rcv_as_input: bool = False,
+        spy_multiply: bool = False,
     ) -> Iterator[Instruction]:
         for line in self._file_reader.readlines(file_name):
-            yield self._parse_duet_instruction(line.strip(), parse_rcv_as_input)
+            yield self._parse_duet_instruction(
+                line.strip(), parse_rcv_as_input, spy_multiply
+            )
 
     def parse_particles(self, file_name) -> Iterator[Particle]:
         for particle_id, line in enumerate(self._file_reader.readlines(file_name)):

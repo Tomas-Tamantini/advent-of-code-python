@@ -39,3 +39,4 @@ from .a2017_d19 import PackageRouter
 from .a2017_d20 import Particle, ParticleCollider
 from .a2017_d21 import ArtBlock, FractalArt
 from .a2017_d22 import GridCluster
+from .a2017_d23 import SpyMultiplyInstruction, count_multiply_instructions

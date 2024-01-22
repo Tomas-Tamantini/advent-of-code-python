@@ -27,6 +27,7 @@ from models.aoc_2017 import (
     ParticleCollider,
     FractalArt,
     GridCluster,
+    count_multiply_instructions,
 )
 
 
@@ -362,8 +363,11 @@ def aoc_2017_d22(file_name: str):
 
 # AOC 2017 Day 23: Coprocessor Conflagration
 def aoc_2017_d23(file_name: str):
-    print("AOC 2017 Day 23/Part 1: Not implemented")
-    print("AOC 2017 Day 23/Part 2: Not implemented")
+    instructions = list(parser.parse_duet_code(file_name, spy_multiply=True))
+    num_multiply_instructions = count_multiply_instructions(instructions)
+    print(
+        f"AOC 2017 Day 23/Part 1: Number of multiply instructions: {num_multiply_instructions}"
+    )
 
 
 # AOC 2017 Day 24: Electromagnetic Moat
