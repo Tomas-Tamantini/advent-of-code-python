@@ -79,6 +79,7 @@ from models.aoc_2017 import (
     TuringState,
     TuringRule,
 )
+from models.aoc_2018 import FabricRectangle
 
 
 class FileReaderProtocol(Protocol):
@@ -671,3 +672,19 @@ class FileParser:
                 next_state_id, write_value, move
             )
         return initial_state, steps, transition_rules
+
+    @staticmethod
+    def _parse_fabric_rectangle(line: str) -> FabricRectangle:
+        parts = line.strip().split(" ")
+        rect_id = int(parts[0].replace("#", ""))
+        inches_from_left, inches_from_top = map(
+            int, parts[2].replace(":", "").split(",")
+        )
+        width, height = map(int, parts[3].split("x"))
+        return FabricRectangle(
+            rect_id, inches_from_left, inches_from_top, width, height
+        )
+
+    def parse_fabric_rectangles(self, file_name: str) -> Iterator[FabricRectangle]:
+        for line in self._file_reader.readlines(file_name):
+            yield self._parse_fabric_rectangle(line)

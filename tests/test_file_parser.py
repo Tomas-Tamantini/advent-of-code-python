@@ -36,6 +36,7 @@ from models.aoc_2017 import (
     TuringRule,
     TuringState,
 )
+from models.aoc_2018 import FabricRectangle
 
 
 class MockFileReader:
@@ -600,3 +601,16 @@ def test_can_parse_turing_machine_specs():
         TuringState("B", 0): TuringRule("A", write_value=1, move=-1),
         TuringState("B", 1): TuringRule("A", write_value=1, move=1),
     }
+
+
+def test_can_parse_fabric_rectangles():
+    file_content = """#1 @ 1,3: 2x4
+                      #213 @ 34,17: 13x29"""
+    file_parser = mock_file_parser(file_content)
+    rectangles = list(file_parser.parse_fabric_rectangles("some_file"))
+    assert rectangles == [
+        FabricRectangle(id=1, inches_from_left=1, inches_from_top=3, width=2, height=4),
+        FabricRectangle(
+            id=213, inches_from_left=34, inches_from_top=17, width=13, height=29
+        ),
+    ]

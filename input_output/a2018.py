@@ -1,11 +1,12 @@
+from itertools import combinations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
     differing_indices,
+    FabricArea,
 )
-from itertools import combinations
 
 parser = FileParser.default()
 progress_bar = ProgressBarConsole()
@@ -43,7 +44,13 @@ def aoc_2018_d2(file_name: str):
 
 # AOC 2018 Day 3: No Matter How You Slice It
 def aoc_2018_d3(file_name: str):
-    print("AOC 2018 Day 3/Part 1: Not Implemented")
+    rectangles = parser.parse_fabric_rectangles(file_name)
+    fabric_area = FabricArea()
+    fabric_area.distribute(list(rectangles))
+    conflicting_points = fabric_area.points_with_more_than_one_claim
+    print(
+        f"AOC 2018 Day 3/Part 1: Number of square inches with multiple claims: {len(conflicting_points)}"
+    )
 
 
 # AOC 2018 Day 4: Repose Record
