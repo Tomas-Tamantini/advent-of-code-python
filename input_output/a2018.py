@@ -3,8 +3,9 @@ from input_output.progress_bar import ProgressBarConsole
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
+    differing_indices,
 )
-
+from itertools import combinations
 
 parser = FileParser.default()
 progress_bar = ProgressBarConsole()
@@ -28,6 +29,16 @@ def aoc_2018_d2(file_name: str):
     exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)
     exactly_three = sum(contains_exactly_n_of_any_letter(id, 3) for id in ids)
     print(f"AOC 2018 Day 2/Part 1: Checksum of ids is {exactly_two * exactly_three}")
+    letters_in_common = ""
+    for i, j in combinations(range(len(ids)), 2):
+        differing = list(differing_indices(ids[i], ids[j]))
+        if len(differing) == 1:
+            letters_in_common = ids[i][: differing[0]] + ids[i][differing[0] + 1 :]
+            break
+
+    print(
+        f"AOC 2018 Day 2/Part 2: Letters in common between ids are {letters_in_common}"
+    )
 
 
 # AOC 2018 Day 3: No Matter How You Slice It
