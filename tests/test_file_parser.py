@@ -33,6 +33,8 @@ from models.aoc_2017 import (
     FractalArt,
     SpyMultiplyInstruction,
     BridgeComponent,
+    TuringRule,
+    TuringState,
 )
 
 
@@ -561,3 +563,40 @@ def test_can_parse_bridge_components():
     file_parser = mock_file_parser(file_content)
     components = list(file_parser.parse_bridge_components("some_file"))
     assert components == [BridgeComponent(0, 2), BridgeComponent(3, 1)]
+
+
+def test_can_parse_turing_machine_specs():
+    file_content = """Begin in state A.
+                      Perform a diagnostic checksum after 6 steps.
+ 
+                      In state A:
+                      If the current value is 0:
+                          - Write the value 1.
+                          - Move one slot to the right.
+                          - Continue with state B.
+                      If the current value is 1:
+                          - Write the value 0.
+                          - Move one slot to the left.
+                          - Continue with state B.
+
+                      In state B:
+                      If the current value is 0:
+                          - Write the value 1.
+                          - Move one slot to the left.
+                          - Continue with state A.
+                      If the current value is 1:
+                          - Write the value 1.
+                          - Move one slot to the right.
+                          - Continue with state A."""
+    file_parser = mock_file_parser(file_content)
+    initial_state, num_steps, transition_rules = file_parser.parse_turing_machine_specs(
+        "some_file"
+    )
+    assert initial_state == "A"
+    assert num_steps == 6
+    assert transition_rules == {
+        TuringState("A", 0): TuringRule("B", write_value=1, move=1),
+        TuringState("A", 1): TuringRule("B", write_value=0, move=-1),
+        TuringState("B", 0): TuringRule("A", write_value=1, move=-1),
+        TuringState("B", 1): TuringRule("A", write_value=1, move=1),
+    }

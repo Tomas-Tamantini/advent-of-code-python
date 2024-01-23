@@ -30,6 +30,7 @@ from models.aoc_2017 import (
     count_multiply_instructions,
     optimized_coprocessor_code,
     BridgeBuilder,
+    TuringMachine,
 )
 
 
@@ -390,4 +391,11 @@ def aoc_2017_d24(file_name: str):
 
 # AOC 2017 Day 25: The Halting Problem
 def aoc_2017_d25(file_name: str):
-    print("AOC 2017 Day 25: Not implemented")
+    initial_state, num_steps, transition_rules = parser.parse_turing_machine_specs(
+        file_name
+    )
+    machine = TuringMachine()
+    machine.run(transition_rules, initial_state, num_steps, progress_bar)
+    print(
+        f"AOC 2017 Day 25/Part 1: Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
+    )

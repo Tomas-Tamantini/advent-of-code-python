@@ -45,3 +45,4 @@ from .a2017_d23 import (
     optimized_coprocessor_code,
 )
 from .a2017_d24 import BridgeComponent, MagneticBridge, BridgeBuilder
+from .a2017_d25 import TuringMachine, TuringState, TuringRule
