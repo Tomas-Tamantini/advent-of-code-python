@@ -44,3 +44,4 @@ from .a2017_d23 import (
     count_multiply_instructions,
     optimized_coprocessor_code,
 )
+from .a2017_d24 import BridgeComponent, MagneticBridge, max_bridge_strength

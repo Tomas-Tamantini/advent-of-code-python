@@ -32,6 +32,7 @@ from models.aoc_2017 import (
     Particle,
     FractalArt,
     SpyMultiplyInstruction,
+    BridgeComponent,
 )
 
 
@@ -552,3 +553,11 @@ def test_can_parse_duet_code_with_spy_multiply():
         JumpNotZeroInstruction(-1, "a"),
         SubtractInstruction(source=-6, destination="b"),
     ]
+
+
+def test_can_parse_bridge_components():
+    file_content = """0/2
+                      3/1"""
+    file_parser = mock_file_parser(file_content)
+    components = list(file_parser.parse_bridge_components("some_file"))
+    assert components == [BridgeComponent(0, 2), BridgeComponent(3, 1)]

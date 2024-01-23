@@ -74,7 +74,7 @@ from models.aoc_2017 import (
     RecoverLastFrequencyInstruction,
     Particle,
     ArtBlock,
-    SpyMultiplyInstruction,
+    SpyMultiplyInstruction,BridgeComponent
 )
 
 
@@ -639,3 +639,7 @@ class FileParser:
                 if char == "#":
                     cluster.add(Vector2D(x, y))
         return cluster, central_position
+
+    def parse_bridge_components(self, file_name: str) -> Iterator[BridgeComponent]:
+        for line in self._file_reader.readlines(file_name):
+            yield BridgeComponent(*map(int, line.strip().split("/")))

@@ -29,6 +29,7 @@ from models.aoc_2017 import (
     GridCluster,
     count_multiply_instructions,
     optimized_coprocessor_code,
+    max_bridge_strength,
 )
 
 
@@ -377,8 +378,9 @@ def aoc_2017_d23(file_name: str):
 
 # AOC 2017 Day 24: Electromagnetic Moat
 def aoc_2017_d24(file_name: str):
-    print("AOC 2017 Day 24/Part 1: Not implemented")
-    print("AOC 2017 Day 24/Part 2: Not implemented")
+    components = list(parser.parse_bridge_components(file_name))
+    max_strength = max_bridge_strength(components)
+    print(f"AOC 2017 Day 24/Part 1: Maximum bridge strength: {max_strength}")
 
 
 # AOC 2017 Day 25: The Halting Problem
