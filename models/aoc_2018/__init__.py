@@ -1,0 +1,1 @@
+from .a2018_d1 import first_frequency_to_be_reached_twice

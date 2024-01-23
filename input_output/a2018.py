@@ -1,5 +1,7 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
+from models.aoc_2018 import first_frequency_to_be_reached_twice
+
 
 parser = FileParser.default()
 progress_bar = ProgressBarConsole()
@@ -7,7 +9,12 @@ progress_bar = ProgressBarConsole()
 
 # AOC 2018 Day 1: Chronal Calibration
 def aoc_2018_d1(file_name: str):
-    print("AOC 2018 Day 1/Part 1: Not Implemented")
+    with open(file_name) as file:
+        lines = file.readlines()
+    terms = [int(line) for line in lines]
+    print(f"AOC 2018 Day 1/Part 1: Frequency at the end of one cycle: {sum(terms)}")
+    first_duplicate_freq = first_frequency_to_be_reached_twice(terms)
+    print(f"AOC 2018 Day 1/Part 2: First duplicate frequency: {first_duplicate_freq}")
 
 
 # AOC 2018 Day 2: Inventory Management System
