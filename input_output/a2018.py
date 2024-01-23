@@ -1,6 +1,9 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
-from models.aoc_2018 import first_frequency_to_be_reached_twice
+from models.aoc_2018 import (
+    first_frequency_to_be_reached_twice,
+    contains_exactly_n_of_any_letter,
+)
 
 
 parser = FileParser.default()
@@ -19,7 +22,12 @@ def aoc_2018_d1(file_name: str):
 
 # AOC 2018 Day 2: Inventory Management System
 def aoc_2018_d2(file_name: str):
-    print("AOC 2018 Day 2/Part 1: Not Implemented")
+    with open(file_name) as file:
+        lines = file.readlines()
+    ids = [line.strip() for line in lines]
+    exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)
+    exactly_three = sum(contains_exactly_n_of_any_letter(id, 3) for id in ids)
+    print(f"AOC 2018 Day 2/Part 1: Checksum of ids is {exactly_two * exactly_three}")
 
 
 # AOC 2018 Day 3: No Matter How You Slice It
