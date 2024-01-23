@@ -51,6 +51,10 @@ def aoc_2018_d3(file_name: str):
     print(
         f"AOC 2018 Day 3/Part 1: Number of square inches with multiple claims: {len(conflicting_points)}"
     )
+    id_without_overlap = fabric_area.rectangle_without_overlap.id
+    print(
+        f"AOC 2018 Day 3/Part 2: Id of rectangle without overlap: {id_without_overlap}"
+    )
 
 
 # AOC 2018 Day 4: Repose Record

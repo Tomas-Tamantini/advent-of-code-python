@@ -42,3 +42,14 @@ def test_can_find_points_claimed_by_more_than_one_rectangle():
         (4, 4),
         (6, 6),
     }
+
+
+def test_can_find_rectangle_which_does_not_overlap_with_any_other():
+    rectangles = [
+        FabricRectangle(id=0, inches_from_left=1, inches_from_top=3, width=4, height=4),
+        FabricRectangle(id=1, inches_from_left=3, inches_from_top=1, width=4, height=4),
+        FabricRectangle(id=2, inches_from_left=5, inches_from_top=5, width=2, height=2),
+    ]
+    area = FabricArea()
+    area.distribute(rectangles)
+    assert area.rectangle_without_overlap.id == 2

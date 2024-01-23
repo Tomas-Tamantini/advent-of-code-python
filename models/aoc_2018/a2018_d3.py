@@ -31,19 +31,31 @@ class FabricRectangle:
 class FabricArea:
     def __init__(self) -> None:
         self._points_with_more_than_one_claim = set()
+        self._rectangle_without_overlap = None
 
     def distribute(self, rectangles: list[FabricRectangle]) -> None:
         sorted_rectangles = sorted(
             rectangles, key=lambda rectangle: rectangle.inches_from_top
         )
-        for i, rectangle_a in enumerate(sorted_rectangles):
-            for rectangle_b in sorted_rectangles[i + 1 :]:
+        overlaps_with_some = [False] * len(rectangles)
+        for i in range(len(sorted_rectangles)):
+            rectangle_a = sorted_rectangles[i]
+            for j in range(i + 1, len(sorted_rectangles)):
+                rectangle_b = sorted_rectangles[j]
                 if rectangle_a.end_inches_from_top < rectangle_b.inches_from_top:
                     break
-                self._points_with_more_than_one_claim.update(
-                    set(rectangle_a.intersection(rectangle_b))
-                )
+                intersection = set(rectangle_a.intersection(rectangle_b))
+                if intersection:
+                    self._points_with_more_than_one_claim.update(intersection)
+                    overlaps_with_some[i] = True
+                    overlaps_with_some[j] = True
+            if not overlaps_with_some[i]:
+                self._rectangle_without_overlap = rectangle_a
 
     @property
     def points_with_more_than_one_claim(self) -> set[tuple[int, int]]:
         return self._points_with_more_than_one_claim
+
+    @property
+    def rectangle_without_overlap(self) -> FabricRectangle:
+        return self._rectangle_without_overlap
