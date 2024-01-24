@@ -14,9 +14,6 @@ class CubicleMaze:
         self._is_wall = is_wall
         self._destination = destination
 
-    def is_final_state(self, position: Vector2D) -> bool:
-        return position == self._destination
-
     def neighbors(self, position: Vector2D):
         for new_position in position.adjacent_positions():
             if new_position.x < 0 or new_position.y < 0:
@@ -26,7 +23,11 @@ class CubicleMaze:
             yield new_position
 
     def length_shortest_path(self, initial_position: Vector2D) -> int:
-        return min_path_length_with_bfs(self, initial_position)
+        return min_path_length_with_bfs(
+            self,
+            initial_position,
+            is_final_state=lambda p: p == self._destination,
+        )
 
     def number_of_reachable_cubicles(
         self, initial_position: Vector2D, max_steps: int

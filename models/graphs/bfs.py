@@ -1,16 +1,20 @@
-from typing import Iterator, Hashable
+from typing import Iterator, Hashable, Callable
 from .graph import Graph
 
 
-def min_path_length_with_bfs(graph: Graph, initial_node: Hashable) -> int:
-    if graph.is_final_state(initial_node):
+def min_path_length_with_bfs(
+    graph: Graph,
+    initial_node: Hashable,
+    is_final_state: Callable[[Hashable], bool],
+) -> int:
+    if is_final_state(initial_node):
         return 0
     queue = [(initial_node, 0)]
     visited = {initial_node}
     while queue:
         node, distance = queue.pop(0)
         for neighbor in graph.neighbors(node):
-            if graph.is_final_state(neighbor):
+            if is_final_state(neighbor):
                 return distance + 1
             if neighbor not in visited:
                 visited.add(neighbor)
