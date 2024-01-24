@@ -101,6 +101,10 @@ def aoc_2018_d6(file_name: str):
     areas = voronoi.areas_after_expansion()
     largest_area = max(a for a in areas.values() if a != inf)
     print(f"AOC 2018 Day 6/Part 1: Largest Voronoi area: {largest_area}")
+    num_points = voronoi.num_points_whose_sum_of_distances_is_less_than(
+        10000, progress_bar
+    )
+    print(f"AOC 2018 Day 6/Part 2: Number of points: {num_points}")
 
 
 # AOC 2018 Day 7: The Sum of Its Parts

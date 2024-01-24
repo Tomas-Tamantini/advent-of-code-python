@@ -1,7 +1,8 @@
-from typing import Iterator
+from typing import Iterator, Optional
 from math import inf
 from collections import defaultdict
 from models.vectors import Vector2D, CardinalDirection
+from models.progress_bar_protocol import ProgressBar
 
 
 class ManhattanVoronoi:
@@ -29,11 +30,15 @@ class ManhattanVoronoi:
             if open_quadrants[self._seeds[i]]:
                 yield self._seeds[i]
 
-    def areas_after_expansion(self) -> dict[Vector2D, int]:
+    def _bounding_box(self) -> tuple[int, int, int, int]:
         min_x = min(s.x for s in self._seeds)
-        max_x = max(s.x for s in self._seeds)
         min_y = min(s.y for s in self._seeds)
+        max_x = max(s.x for s in self._seeds)
         max_y = max(s.y for s in self._seeds)
+        return min_x, min_y, max_x, max_y
+
+    def areas_after_expansion(self) -> dict[Vector2D, int]:
+        min_x, min_y, max_x, max_y = self._bounding_box()
         areas = defaultdict(int)
         for x in range(min_x, max_x + 1):
             for y in range(min_y, max_y + 1):
@@ -52,3 +57,24 @@ class ManhattanVoronoi:
             s: areas[s] if s not in self.seeds_that_extend_indefinetely() else inf
             for s in self._seeds
         }
+
+    def num_points_whose_sum_of_distances_is_less_than(
+        self, max_distance: int, progress_bar: Optional[ProgressBar] = None
+    ) -> int:
+        radius = max_distance // len(self._seeds)
+        min_x, min_y, max_x, max_y = self._bounding_box()
+        num_points = 0
+        num_steps = (max_x - min_x + 2 * radius + 1) * (max_y - min_y + 2 * radius + 1)
+        current_step = 0
+        for x in range(min_x - radius, max_x + radius + 1):
+            for y in range(min_y - radius, max_y + radius + 1):
+                if progress_bar is not None:
+                    current_step += 1
+                    progress_bar.update(current_step, num_steps)
+                if (
+                    sum(abs(seed.x - x) + abs(seed.y - y) for seed in self._seeds)
+                    < max_distance
+                ):
+                    num_points += 1
+
+        return num_points
