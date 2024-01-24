@@ -6,6 +6,7 @@ from models.aoc_2018 import (
     contains_exactly_n_of_any_letter,
     differing_indices,
     FabricArea,
+    polymer_reaction,
 )
 
 parser = FileParser.default()
@@ -79,7 +80,10 @@ def aoc_2018_d4(file_name: str):
 
 # AOC 2018 Day 5: Alchemical Reduction
 def aoc_2018_d5(file_name: str):
-    print("AOC 2018 Day 5/Part 1: Not Implemented")
+    with open(file_name) as file:
+        polymer = file.read().strip()
+    reacted_polymer = polymer_reaction(polymer)
+    print(f"AOC 2018 Day 5/Part 1: Length of reacted polymer: {len(reacted_polymer)}")
 
 
 # AOC 2018 Day 6: Chronal Coordinates
