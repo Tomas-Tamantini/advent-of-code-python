@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from collections import defaultdict
 
 
 @dataclass(frozen=True)
@@ -21,14 +22,16 @@ class Guard:
     def total_minutes_asleep(self) -> int:
         return sum(nap.duration_minutes for nap in self.naps)
 
-    def minute_most_likely_to_be_asleep(self) -> int:
-        most_likely = -1
-        max_count = -1
-        minutes = [0] * 60
+    def _num_times_asleep_by_minute(self) -> dict[int, int]:
+        minutes = defaultdict(int)
         for nap in self.naps:
             for minute in range(nap.start_inclusive.minute, nap.end_exclusive.minute):
                 minutes[minute] += 1
-                if minutes[minute] > max_count:
-                    max_count = minutes[minute]
-                    most_likely = minute
-        return most_likely
+        return minutes
+
+    def minute_most_likely_to_be_asleep(self) -> int:
+        minutes = self._num_times_asleep_by_minute()
+        return max(minutes, key=minutes.get)
+
+    def num_times_slept_on_minute(self, minute: int) -> int:
+        return self._num_times_asleep_by_minute()[minute]

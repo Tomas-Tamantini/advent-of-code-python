@@ -64,6 +64,17 @@ def aoc_2018_d4(file_name: str):
     minute_most_asleep = guard_most_asleep.minute_most_likely_to_be_asleep()
     product = guard_most_asleep.id * minute_most_asleep
     print(f"AOC 2018 Day 4/Part 1: Guard most asleep has product {product}")
+    guard_most_asleep_on_same_minute = max(
+        guards,
+        key=lambda g: g.num_times_slept_on_minute(g.minute_most_likely_to_be_asleep()),
+    )
+    minute_most_asleep_on_same_minute = (
+        guard_most_asleep_on_same_minute.minute_most_likely_to_be_asleep()
+    )
+    product = guard_most_asleep_on_same_minute.id * minute_most_asleep_on_same_minute
+    print(
+        f"AOC 2018 Day 4/Part 2: Guard most asleep on same minute has product {product}"
+    )
 
 
 # AOC 2018 Day 5: Alchemical Reduction
