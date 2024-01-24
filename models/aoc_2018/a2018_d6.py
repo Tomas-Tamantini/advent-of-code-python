@@ -30,28 +30,25 @@ class ManhattanVoronoi:
                 yield self._seeds[i]
 
     def areas_after_expansion(self) -> dict[Vector2D, int]:
-        occupied = set(self._seeds)
-        cells_to_expand = {s: s for s in self._seeds}
-        consolidated_cells = defaultdict(set)
-        finite_expansion_cells = set(self._seeds) - set(
-            self.seeds_that_extend_indefinetely()
-        )
-        while set(cells_to_expand.values()) & finite_expansion_cells:
-            new_cells_to_expand = dict()
-            for position, seed in cells_to_expand.items():
-                if seed is not None:
-                    consolidated_cells[seed].add(position)
-                for new_position in position.adjacent_positions():
-                    if new_position in occupied:
-                        continue
-                    if new_position not in new_cells_to_expand:
-                        new_cells_to_expand[new_position] = seed
-                    elif new_cells_to_expand[new_position] != seed:
-                        new_cells_to_expand[new_position] = None
-            cells_to_expand = new_cells_to_expand
-            for position in cells_to_expand:
-                occupied.add(position)
+        min_x = min(s.x for s in self._seeds)
+        max_x = max(s.x for s in self._seeds)
+        min_y = min(s.y for s in self._seeds)
+        max_y = max(s.y for s in self._seeds)
+        areas = defaultdict(int)
+        for x in range(min_x, max_x + 1):
+            for y in range(min_y, max_y + 1):
+                min_dist = inf
+                closest_seed = None
+                for seed in self._seeds:
+                    dist = abs(seed.x - x) + abs(seed.y - y)
+                    if dist < min_dist:
+                        min_dist = dist
+                        closest_seed = seed
+                    elif dist == min_dist:
+                        closest_seed = None
+                if closest_seed is not None:
+                    areas[closest_seed] += 1
         return {
-            s: len(consolidated_cells[s]) if s in finite_expansion_cells else inf
+            s: areas[s] if s not in self.seeds_that_extend_indefinetely() else inf
             for s in self._seeds
         }
