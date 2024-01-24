@@ -1,6 +1,8 @@
 from itertools import combinations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
+from math import inf
+from models.vectors import Vector2D
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
@@ -8,6 +10,7 @@ from models.aoc_2018 import (
     FabricArea,
     polymer_reaction,
     minimum_polymer_length,
+    ManhattanVoronoi,
 )
 
 parser = FileParser.default()
@@ -91,7 +94,13 @@ def aoc_2018_d5(file_name: str):
 
 # AOC 2018 Day 6: Chronal Coordinates
 def aoc_2018_d6(file_name: str):
-    print("AOC 2018 Day 6/Part 1: Not Implemented")
+    with open(file_name) as file:
+        lines = file.readlines()
+    coordinates = [Vector2D(*map(int, line.split(","))) for line in lines]
+    voronoi = ManhattanVoronoi(coordinates)
+    areas = voronoi.areas_after_expansion()
+    largest_area = max(a for a in areas.values() if a != inf)
+    print(f"AOC 2018 Day 6/Part 1: Largest Voronoi area: {largest_area}")
 
 
 # AOC 2018 Day 7: The Sum of Its Parts
