@@ -59,7 +59,11 @@ def aoc_2018_d3(file_name: str):
 
 # AOC 2018 Day 4: Repose Record
 def aoc_2018_d4(file_name: str):
-    print("AOC 2018 Day 4/Part 1: Not Implemented")
+    guards = list(parser.parse_guard_logs(file_name))
+    guard_most_asleep = max(guards, key=lambda g: g.total_minutes_asleep)
+    minute_most_asleep = guard_most_asleep.minute_most_likely_to_be_asleep()
+    product = guard_most_asleep.id * minute_most_asleep
+    print(f"AOC 2018 Day 4/Part 1: Guard most asleep has product {product}")
 
 
 # AOC 2018 Day 5: Alchemical Reduction

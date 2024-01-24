@@ -1,6 +1,8 @@
 from typing import Iterator, Protocol
 import re
 import numpy as np
+from datetime import datetime
+from collections import defaultdict
 
 from models.vectors import CardinalDirection, Vector2D, TurnDirection
 from models.assembly import (
@@ -79,7 +81,7 @@ from models.aoc_2017 import (
     TuringState,
     TuringRule,
 )
-from models.aoc_2018 import FabricRectangle
+from models.aoc_2018 import FabricRectangle, Guard, GuardNap
 
 
 class FileReaderProtocol(Protocol):
@@ -688,3 +690,26 @@ class FileParser:
     def parse_fabric_rectangles(self, file_name: str) -> Iterator[FabricRectangle]:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_fabric_rectangle(line)
+
+    def parse_guard_logs(self, file_name: str) -> Iterator[Guard]:
+        lines = [l.strip() for l in self._file_reader.readlines(file_name)]
+        sorted_lines = sorted(lines, key=lambda l: l[:18])
+        guard_logs = defaultdict(list)
+        guard_id = -1
+        for line in sorted_lines:
+            if not line:
+                continue
+            if "Guard" in line:
+                guard_id = int(line.split()[-3].replace("#", ""))
+            else:
+                event_time = datetime.strptime(
+                    line.split("]")[0] + "]", "[%Y-%m-%d %H:%M]"
+                )
+                guard_logs[guard_id].append(event_time)
+        for guard_id, nap_records in guard_logs.items():
+            naps = []
+            for i in range(0, len(nap_records), 2):
+                start = nap_records[i]
+                end = nap_records[i + 1]
+                naps.append(GuardNap(start, end))
+            yield Guard(guard_id, naps)
