@@ -2,8 +2,29 @@ import pytest
 from models.graphs import (
     min_path_length_with_bfs,
     explore_with_bfs,
+    topological_sorting,
     travelling_salesman,
+    MutableDirectedGraph,
 )
+
+
+def test_mutable_directed_graph_starts_empty():
+    graph = MutableDirectedGraph()
+    assert list(graph.nodes()) == []
+
+
+def test_can_add_node_to_mutable_directed_graph():
+    graph = MutableDirectedGraph()
+    graph.add_node("a")
+    assert list(graph.nodes()) == ["a"]
+
+
+def test_can_add_edge_to_mutable_directed_graph():
+    graph = MutableDirectedGraph()
+    graph.add_edge("a", "b")
+    assert set(graph.nodes()) == {"a", "b"}
+    assert list(graph.outgoing("a")) == ["b"]
+    assert list(graph.incoming("b")) == ["a"]
 
 
 class MockGraph:
@@ -100,3 +121,52 @@ def test_travelling_salesman_can_end_trip_before_returning_to_origin():
         )
         == 14
     )
+
+
+def test_topological_sorting_of_empty_graph_is_empty():
+    dag = MutableDirectedGraph()
+    assert list(topological_sorting(dag)) == []
+
+
+def test_topological_sorting_of_graph_with_single_node_contains_only_that_node():
+    dag = MutableDirectedGraph()
+    dag.add_node("a")
+    assert list(topological_sorting(dag)) == ["a"]
+
+
+def test_topological_sorting_returns_nodes_in_topological_order():
+    dag = MutableDirectedGraph()
+    dag.add_edge("b", "c")
+    dag.add_edge("a", "b")
+    dag.add_edge("b", "d")
+    assert "".join(topological_sorting(dag)) in ("abcd", "abdc")
+
+
+def test_topological_sorting_of_cyclical_graph_raises_error():
+    dag = MutableDirectedGraph()
+    dag.add_edge("a", "b")
+    dag.add_edge("b", "c")
+    dag.add_edge("c", "a")
+
+    with pytest.raises(ValueError):
+        list(topological_sorting(dag))
+
+    dag = MutableDirectedGraph()
+    dag.add_edge("a", "b")
+    dag.add_edge("b", "c")
+    dag.add_edge("c", "b")
+
+    with pytest.raises(ValueError):
+        list(topological_sorting(dag))
+
+
+def test_topological_sorting_can_receive_tie_breaker():
+    dag = MutableDirectedGraph()
+    dag.add_edge("C", "A")
+    dag.add_edge("C", "F")
+    dag.add_edge("A", "B")
+    dag.add_edge("A", "D")
+    dag.add_edge("B", "E")
+    dag.add_edge("D", "E")
+    dag.add_edge("F", "E")
+    assert "".join(topological_sorting(dag, tie_breaker=lambda a, b: a < b)) == "CABDFE"
