@@ -27,7 +27,7 @@ from models.aoc_2015 import (
     RightShiftGate,
     NotGate,
     AdirectedGraph,
-    DirectedGraph,
+    WeightedDirectedGraph,
     Reindeer,
     CookieProperties,
     AuntSue,
@@ -190,8 +190,8 @@ class FileParser:
             graph.add_edge(*nodes, distance)
         return graph
 
-    def parse_directed_graph(self, file_name: str) -> DirectedGraph:
-        graph = DirectedGraph()
+    def parse_directed_graph(self, file_name: str) -> WeightedDirectedGraph:
+        graph = WeightedDirectedGraph()
         for line in self._file_reader.readlines(file_name):
             sentence_parts = line.strip().split(" ")
             node_a = sentence_parts[0].strip()

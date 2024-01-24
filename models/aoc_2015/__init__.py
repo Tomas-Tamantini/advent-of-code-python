@@ -17,7 +17,7 @@ from .a2015_d8 import num_chars_in_memory, num_chars_encoded
 from .a2015_d9 import AdirectedGraph
 from .a2015_d10 import next_look_and_say
 from .a2015_d12 import sum_all_numbers_in_json
-from .a2015_d13 import DirectedGraph
+from .a2015_d13 import WeightedDirectedGraph
 from .a2015_d14 import Reindeer, ReindeerOlympics
 from .a2015_d15 import CookieProperties, CookieRecipe
 from .a2015_d16 import AuntSue, MatchType
