@@ -7,6 +7,7 @@ from models.aoc_2018 import (
     differing_indices,
     FabricArea,
     polymer_reaction,
+    minimum_polymer_length,
 )
 
 parser = FileParser.default()
@@ -84,6 +85,8 @@ def aoc_2018_d5(file_name: str):
         polymer = file.read().strip()
     reacted_polymer = polymer_reaction(polymer)
     print(f"AOC 2018 Day 5/Part 1: Length of reacted polymer: {len(reacted_polymer)}")
+    min_length = minimum_polymer_length(polymer)
+    print(f"AOC 2018 Day 5/Part 2: Minimum length of polymer: {min_length}")
 
 
 # AOC 2018 Day 6: Chronal Coordinates

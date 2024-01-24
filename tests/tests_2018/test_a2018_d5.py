@@ -1,4 +1,4 @@
-from models.aoc_2018 import polymer_reaction
+from models.aoc_2018 import polymer_reaction, minimum_polymer_length
 
 
 def test_units_of_different_types_do_not_react():
@@ -15,3 +15,7 @@ def test_units_of_the_same_type_and_opposite_polarity_react():
 
 def test_reactions_happen_in_cascade():
     assert polymer_reaction("dabAcCaCBAcCcaDA") == "dabCBAcaDA"
+
+
+def test_can_find_minimum_polymer_length():
+    assert minimum_polymer_length("dabAcCaCBAcCcaDA") == 4

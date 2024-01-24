@@ -15,3 +15,15 @@ def polymer_reaction(polymer: str) -> str:
         else:
             pointer += 1
     return current_polymer
+
+
+def minimum_polymer_length(polymer: str) -> int:
+    reduced_polymer = polymer_reaction(polymer)
+    return min(
+        len(
+            polymer_reaction(
+                reduced_polymer.replace(chr(i), "").replace(chr(i + 32), "")
+            )
+        )
+        for i in range(65, 91)
+    )
