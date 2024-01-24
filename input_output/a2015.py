@@ -208,7 +208,7 @@ def aoc_2015_d12(file_name: str):
 
 # AOC 2015 - Day 13: Knights of the Dinner Table
 def aoc_2015_d13(file_name: str):
-    graph = parser.parse_directed_graph(file_name)
+    graph = parser.parse_weighted_directed_graph(file_name)
     max_happiness = graph.both_ways_trip_max_cost()
     print(f"AOC 2015 - Day 13/Part 1: Maximum happiness without me is {max_happiness}")
     pre_existing_nodes = list(graph.nodes)

@@ -156,12 +156,12 @@ def test_can_parse_adirected_graph():
     assert graph.shortest_complete_itinerary_distance() == 200
 
 
-def test_can_parse_directed_graph():
+def test_can_parse_weighted_directed_graph():
     graph_str = """Alice would gain 54 happiness units by sitting next to Bob.
                    Bob would lose 7 happiness units by sitting next to Carol.
                    Carol would lose 62 happiness units by sitting next to Alice."""
     file_parser = mock_file_parser(graph_str)
-    graph = file_parser.parse_directed_graph("some_file_name")
+    graph = file_parser.parse_weighted_directed_graph("some_file_name")
     assert graph.round_trip_itinerary_min_cost() == -15
     assert graph.round_trip_itinerary_max_cost() == float("inf")
 
@@ -668,3 +668,14 @@ def test_can_parse_shuffled_guard_logs():
             end_exclusive=datetime(1518, 11, 5, 0, 55),
         ),
     ]
+
+
+def test_can_parse_directed_graph():
+    file_content = """Step C must be finished before step A can begin.
+                      Step C must be finished before step F can begin."""
+    file_parser = mock_file_parser(file_content)
+    graph = file_parser.parse_directed_graph("some_file")
+    assert len(list(graph.nodes())) == 3
+    assert set(graph.outgoing("C")) == {"A", "F"}
+    assert set(graph.incoming("A")) == {"C"}
+    assert set(graph.incoming("F")) == {"C"}

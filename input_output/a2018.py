@@ -3,6 +3,7 @@ from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from math import inf
 from models.vectors import Vector2D
+from models.graphs import topological_sorting
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
@@ -109,7 +110,9 @@ def aoc_2018_d6(file_name: str):
 
 # AOC 2018 Day 7: The Sum of Its Parts
 def aoc_2018_d7(file_name: str):
-    print("AOC 2018 Day 7/Part 1: Not Implemented")
+    graph = parser.parse_directed_graph(file_name)
+    order = "".join(topological_sorting(graph, tie_breaker=lambda a, b: a < b))
+    print(f"AOC 2018 Day 7/Part 1: Order of steps: {order}")
 
 
 # AOC 2018 Day 8: Memory Maneuver
