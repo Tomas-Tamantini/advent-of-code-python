@@ -6,3 +6,4 @@ from .a2018_d5 import polymer_reaction, minimum_polymer_length
 from .a2018_d6 import ManhattanVoronoi
 from .a2018_d7 import time_to_complete_jobs
 from .a2018_d8 import NavigationTreeNode, parse_list_into_navigation_tree
+from .a2018_d9 import CircularLinkedList, marble_game_score

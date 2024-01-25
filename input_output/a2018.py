@@ -14,6 +14,7 @@ from models.aoc_2018 import (
     ManhattanVoronoi,
     time_to_complete_jobs,
     parse_list_into_navigation_tree,
+    marble_game_score,
 )
 
 parser = FileParser.default()
@@ -134,7 +135,11 @@ def aoc_2018_d8(file_name: str):
 
 # AOC 2018 Day 9: Marble Mania
 def aoc_2018_d9(file_name: str):
-    print("AOC 2018 Day 9/Part 1: Not Implemented")
+    with open(file_name) as file:
+        line = file.read()
+    num_players, last_marble = map(int, [line.split()[0], line.split()[-2]])
+    scores = marble_game_score(num_players, last_marble)
+    print(f"AOC 2018 Day 9/Part 1: Winning score: {max(scores.values())}")
 
 
 # AOC 2018 Day 10: The Stars Align
