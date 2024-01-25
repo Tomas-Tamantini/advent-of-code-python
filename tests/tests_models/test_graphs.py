@@ -27,6 +27,16 @@ def test_can_add_edge_to_mutable_directed_graph():
     assert list(graph.incoming("b")) == ["a"]
 
 
+def test_can_remove_node_from_mutable_directed_graph():
+    graph = MutableDirectedGraph()
+    graph.add_edge("a", "b")
+    graph.add_edge("b", "c")
+    graph.remove_node("b")
+    assert list(graph.nodes()) == ["a", "c"]
+    assert list(graph.outgoing("a")) == []
+    assert list(graph.incoming("c")) == []
+
+
 class MockGraph:
     def neighbors(self, node):
         adjacencies = {

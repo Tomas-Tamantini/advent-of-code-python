@@ -27,6 +27,14 @@ class MutableDirectedGraph:
         if node not in self._incoming:
             self._incoming[node] = set()
 
+    def remove_node(self, node: Hashable) -> None:
+        for neighbor in self._incoming[node]:
+            self._outgoing[neighbor].remove(node)
+        for neighbor in self._outgoing[node]:
+            self._incoming[neighbor].remove(node)
+        del self._incoming[node]
+        del self._outgoing[node]
+
     def add_edge(self, source: Hashable, target: Hashable) -> None:
         self._incoming[target].add(source)
         self._outgoing[source].add(target)
