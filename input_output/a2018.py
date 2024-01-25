@@ -13,6 +13,7 @@ from models.aoc_2018 import (
     minimum_polymer_length,
     ManhattanVoronoi,
     time_to_complete_jobs,
+    parse_list_into_navigation_tree,
 )
 
 parser = FileParser.default()
@@ -124,7 +125,10 @@ def aoc_2018_d7(file_name: str):
 
 # AOC 2018 Day 8: Memory Maneuver
 def aoc_2018_d8(file_name: str):
-    print("AOC 2018 Day 8/Part 1: Not Implemented")
+    with open(file_name) as file:
+        numbers = list(map(int, file.read().split()))
+    root = parse_list_into_navigation_tree(numbers)
+    print(f"AOC 2018 Day 8/Part 1: Sum of metadata: {root.sum_of_metadata()}")
 
 
 # AOC 2018 Day 9: Marble Mania
