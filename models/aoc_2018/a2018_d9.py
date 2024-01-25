@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Optional
+from models.progress_bar_protocol import ProgressBar
 
 
 @dataclass
@@ -59,11 +61,17 @@ class CircularLinkedList:
         return self._element_at_head.value
 
 
-def marble_game_score(num_players: int, last_marble: int) -> dict[int, int]:
+def marble_game_score(
+    num_players: int,
+    last_marble: int,
+    progress_bar: Optional[ProgressBar] = None,
+) -> dict[int, int]:
     scores = {i: 0 for i in range(1, num_players + 1)}
     cll = CircularLinkedList()
     cll.add_at_head(0)
     for marble in range(1, last_marble + 1):
+        if progress_bar is not None:
+            progress_bar.update(marble, last_marble)
         if marble % 23 == 0:
             cll.rotate(steps=-7)
             player_idx = (marble - 1) % num_players + 1
