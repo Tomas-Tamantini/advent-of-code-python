@@ -4,3 +4,4 @@ from .a2018_d3 import FabricRectangle, FabricArea
 from .a2018_d4 import Guard, GuardNap
 from .a2018_d5 import polymer_reaction, minimum_polymer_length
 from .a2018_d6 import ManhattanVoronoi
+from .a2018_d7 import time_to_complete_jobs
