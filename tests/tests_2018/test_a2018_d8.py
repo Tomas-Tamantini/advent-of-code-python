@@ -22,6 +22,22 @@ def test_sum_of_metadata_is_done_recursively():
     assert node.sum_of_metadata() == 28
 
 
+def test_leaf_value_is_sum_of_metadata():
+    node = NavigationTreeNode(metadata=[1, 2, 3], children=[])
+    assert node.navigation_value() == 6
+
+
+def test_root_value_is_sum_of_values_of_children_with_indices_in_metadata_ignoring_indices_outside_range():
+    node = NavigationTreeNode(
+        metadata=[1, 2, 3, 1, 0],
+        children=[
+            NavigationTreeNode(metadata=[4, 5], children=[]),
+            NavigationTreeNode(metadata=[6, 7], children=[]),
+        ],
+    )
+    assert node.navigation_value() == 31
+
+
 def test_can_parse_single_node_tree():
     numbers = [0, 3, 1, 2, 3]
     root = parse_list_into_navigation_tree(numbers)

@@ -15,6 +15,16 @@ class NavigationTreeNode:
             child.sum_of_metadata() for child in self.children
         )
 
+    def navigation_value(self) -> int:
+        if self.is_leaf:
+            return sum(self.metadata)
+        else:
+            return sum(
+                self.children[m - 1].navigation_value()
+                for m in self.metadata
+                if 0 <= m - 1 < len(self.children)
+            )
+
 
 def parse_list_into_navigation_tree(numbers: list[int]) -> NavigationTreeNode:
     def parse_node(numbers: list[int]) -> tuple[NavigationTreeNode, list[int]]:

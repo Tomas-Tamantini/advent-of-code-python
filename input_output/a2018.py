@@ -129,6 +129,7 @@ def aoc_2018_d8(file_name: str):
         numbers = list(map(int, file.read().split()))
     root = parse_list_into_navigation_tree(numbers)
     print(f"AOC 2018 Day 8/Part 1: Sum of metadata: {root.sum_of_metadata()}")
+    print(f"AOC 2018 Day 8/Part 2: Value of root node: {root.navigation_value()}")
 
 
 # AOC 2018 Day 9: Marble Mania
