@@ -1,7 +1,7 @@
 from typing import Iterator, Optional
 from math import inf
 from collections import defaultdict
-from models.vectors import Vector2D, CardinalDirection
+from models.vectors import Vector2D, CardinalDirection, BoundingBox
 from models.progress_bar_protocol import ProgressBar
 
 
@@ -31,11 +31,13 @@ class ManhattanVoronoi:
                 yield self._seeds[i]
 
     def _bounding_box(self) -> tuple[int, int, int, int]:
-        min_x = min(s.x for s in self._seeds)
-        min_y = min(s.y for s in self._seeds)
-        max_x = max(s.x for s in self._seeds)
-        max_y = max(s.y for s in self._seeds)
-        return min_x, min_y, max_x, max_y
+        bounding_box = BoundingBox.from_points(self._seeds)
+        return (
+            bounding_box.bottom_left.x,
+            bounding_box.bottom_left.y,
+            bounding_box.top_right.x,
+            bounding_box.top_right.y,
+        )
 
     def areas_after_expansion(self) -> dict[Vector2D, int]:
         min_x, min_y, max_x, max_y = self._bounding_box()
