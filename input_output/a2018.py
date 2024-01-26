@@ -15,6 +15,7 @@ from models.aoc_2018 import (
     time_to_complete_jobs,
     parse_list_into_navigation_tree,
     marble_game_score,
+    MovingParticles,
 )
 
 parser = FileParser.default()
@@ -150,7 +151,13 @@ def aoc_2018_d9(file_name: str):
 
 # AOC 2018 Day 10: The Stars Align
 def aoc_2018_d10(file_name: str):
-    print("AOC 2018 Day 10/Part 1: Not Implemented")
+    particles = list(parser.parse_moving_particles(file_name))
+    moving_particles = MovingParticles(particles)
+    moments = moving_particles.moments_of_bounding_box_area_increase()
+    inflexion_point = next(moments) - 1
+    print("AOC 2018 Day 10/Part 1: Message:")
+    print(moving_particles.draw(inflexion_point))
+    print(f"AOC 2018 Day 10/Part 2: Time to reach message: {inflexion_point}")
 
 
 # AOC 2018 Day 11: Chronal Charge

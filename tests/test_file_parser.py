@@ -37,7 +37,7 @@ from models.aoc_2017 import (
     TuringRule,
     TuringState,
 )
-from models.aoc_2018 import FabricRectangle, GuardNap
+from models.aoc_2018 import FabricRectangle, GuardNap, MovingParticle
 
 
 class MockFileReader:
@@ -679,3 +679,15 @@ def test_can_parse_directed_graph():
     assert set(graph.outgoing("C")) == {"A", "F"}
     assert set(graph.incoming("A")) == {"C"}
     assert set(graph.incoming("F")) == {"C"}
+
+
+def test_can_parse_moving_particles():
+    file_content = """position=< 9,  1> velocity=< 0,  2>
+                      position=< 7,  0> velocity=<-1,  0>"""
+
+    file_parser = mock_file_parser(file_content)
+    particles = list(file_parser.parse_moving_particles("some_file"))
+    assert particles == [
+        MovingParticle(position=Vector2D(9, 1), velocity=Vector2D(0, 2)),
+        MovingParticle(position=Vector2D(7, 0), velocity=Vector2D(-1, 0)),
+    ]

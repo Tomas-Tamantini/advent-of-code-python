@@ -81,7 +81,7 @@ from models.aoc_2017 import (
     TuringState,
     TuringRule,
 )
-from models.aoc_2018 import FabricRectangle, Guard, GuardNap
+from models.aoc_2018 import FabricRectangle, Guard, GuardNap, MovingParticle
 
 
 class FileReaderProtocol(Protocol):
@@ -720,3 +720,16 @@ class FileParser:
             parts = line.strip().split(" ")
             graph.add_edge(parts[1], parts[-3])
         return graph
+
+    def parse_moving_particles(self, file_name) -> Iterator[MovingParticle]:
+        for line in self._file_reader.readlines(file_name):
+            stripped_line = (
+                line.strip()
+                .replace(">", "")
+                .replace("position=<", "")
+                .replace("velocity=<", ",")
+            )
+            coords = list(map(int, stripped_line.split(",")))
+            position = Vector2D(*coords[:2])
+            velocity = Vector2D(*coords[2:])
+            yield MovingParticle(position, velocity)
