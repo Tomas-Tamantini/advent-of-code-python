@@ -2,6 +2,18 @@ import pytest
 from models.vectors import CardinalDirection, Vector2D, TurnDirection, BoundingBox
 
 
+def test_vectors_can_be_added_together():
+    assert Vector2D(1, 2) + Vector2D(3, 4) == Vector2D(4, 6)
+
+
+def test_vectors_can_be_subtracted_from_each_other():
+    assert Vector2D(1, 2) - Vector2D(3, 4) == Vector2D(-2, -2)
+
+
+def test_vectors_can_be_multiplied_by_a_scalar():
+    assert Vector2D(1, 2) * 3 == 3 * Vector2D(1, 2) == Vector2D(3, 6)
+
+
 def test_vector_moves_by_one_step_by_default():
     assert Vector2D(0, 0).move(CardinalDirection.NORTH) == Vector2D(0, 1)
     assert Vector2D(0, 0).move(CardinalDirection.EAST) == Vector2D(1, 0)
