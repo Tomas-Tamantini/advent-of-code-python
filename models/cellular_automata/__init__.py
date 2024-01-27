@@ -1,3 +1,7 @@
-from .elementary_cellular_automata import ElementaryAutomaton
-from .game_of_life import GameOfLife
-from .langtons_ant import LangtonsAnt, AntState, MultiStateLangtonsAnt
+from .one_dimensional_automata import ElementaryAutomaton
+from .two_dimensional_automata import (
+    GameOfLife,
+    LangtonsAnt,
+    AntState,
+    MultiStateLangtonsAnt,
+)

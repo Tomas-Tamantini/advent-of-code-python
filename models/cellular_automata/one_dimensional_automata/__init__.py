@@ -1,0 +1,1 @@
+from .elementary_cellular_automata import ElementaryAutomaton
