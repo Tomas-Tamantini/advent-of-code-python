@@ -16,6 +16,7 @@ from models.aoc_2018 import (
     parse_list_into_navigation_tree,
     marble_game_score,
     MovingParticles,
+    FuelCells,
 )
 
 parser = FileParser.default()
@@ -162,7 +163,16 @@ def aoc_2018_d10(file_name: str):
 
 # AOC 2018 Day 11: Chronal Charge
 def aoc_2018_d11(file_name: str):
-    print("AOC 2018 Day 11/Part 1: Not Implemented")
+    with open(file_name) as file:
+        grid_serial_number = int(file.read())
+    cells = FuelCells(width=300, height=300, grid_serial_number=grid_serial_number)
+    x, y = cells.position_with_largest_total_power(region_width=3, region_height=3)
+    print(f"AOC 2018 Day 11/Part 1: Position with largest total power: {x+1},{y+1}")
+    square = cells.square_with_largest_total_power(progress_bar)
+    (x, y), s = square.coords_top_left, square.size
+    print(
+        f"AOC 2018 Day 11/Part 2: Position with largest total power and region size: {x+1},{y+1},{s}"
+    )
 
 
 # AOC 2018 Day 12: Subterranean Sustainability
