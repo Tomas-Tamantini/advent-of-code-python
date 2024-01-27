@@ -1,12 +1,42 @@
 import pytest
 from models.cellular_automata import (
     ElementaryAutomaton,
+    OneDimensionalBinaryCelullarAutomaton,
     GameOfLife,
     LangtonsAnt,
     MultiStateLangtonsAnt,
     AntState,
 )
 from models.vectors import Vector2D, CardinalDirection, TurnDirection
+
+
+def test_unidimensional_automaton_cannot_have_all_zeroes_turn_into_one_rule():
+    with pytest.raises(ValueError):
+        _ = OneDimensionalBinaryCelullarAutomaton(rules={(0, 0, 0): 1})
+
+
+def test_all_rules_for_unidimensional_automaton_must_have_same_length():
+    with pytest.raises(ValueError):
+        _ = OneDimensionalBinaryCelullarAutomaton(rules={(1, 1, 1): 0, (1,): 1})
+
+
+def test_all_rules_for_unidimensional_automaton_must_have_odd_length():
+    with pytest.raises(ValueError):
+        _ = OneDimensionalBinaryCelullarAutomaton(rules={(1, 1): 1})
+
+
+def test_one_dimensional_binary_automaton_follows_given_rules_assuming_zero_for_omitted_rules():
+    automaton = OneDimensionalBinaryCelullarAutomaton(
+        rules={(0, 0, 1): 1, (1, 0, 1): 1}
+    )
+    assert automaton.next_state({}) == set()
+    assert automaton.next_state({0}) == {-1}
+    assert automaton.next_state({1, 3}) == {0, 2}
+
+
+def test_one_dimensional_binary_automaton_can_have_radius_of_influence_larger_than_one():
+    automaton = OneDimensionalBinaryCelullarAutomaton(rules={(0, 0, 0, 0, 1): 1})
+    assert automaton.next_state({0}) == {-2}
 
 
 def test_elementary_automaton_rule_index_must_be_between_0_and_255():
@@ -19,18 +49,18 @@ def test_elementary_automaton_rule_index_must_be_between_0_and_255():
 
 def test_elementary_automaton_rule_zero_switches_off_all_cells():
     automaton = ElementaryAutomaton(rule=0)
-    current_state = "11111"
-    assert automaton.next_state(current_state) == "00000"
+    current_state = {1, 2, 3}
+    assert automaton.next_state(current_state) == set()
 
 
 def test_elementary_automaton_rule_110_produces_A117999_OEIS_sequence():
     automaton = ElementaryAutomaton(rule=110)
     expected_states = [
-        "000010000",
-        "000110000",
-        "001110000",
-        "011010000",
-        "111110000",
+        {4},
+        {3, 4},
+        {2, 3, 4},
+        {1, 2, 4},
+        {0, 1, 2, 3, 4},
     ]
     for i in range(1, len(expected_states)):
         assert automaton.next_state(expected_states[i - 1]) == expected_states[i]

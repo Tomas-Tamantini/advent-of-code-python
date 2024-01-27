@@ -1,1 +1,2 @@
 from .elementary_cellular_automata import ElementaryAutomaton
+from .binary_automata import OneDimensionalBinaryCelullarAutomaton
