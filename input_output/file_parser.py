@@ -81,7 +81,13 @@ from models.aoc_2017 import (
     TuringState,
     TuringRule,
 )
-from models.aoc_2018 import FabricRectangle, Guard, GuardNap, MovingParticle
+from models.aoc_2018 import (
+    FabricRectangle,
+    Guard,
+    GuardNap,
+    MovingParticle,
+    PlantAutomaton,
+)
 
 
 class FileReaderProtocol(Protocol):
@@ -733,3 +739,16 @@ class FileParser:
             position = Vector2D(*coords[:2])
             velocity = Vector2D(*coords[2:])
             yield MovingParticle(position, velocity)
+
+    def parse_plant_automaton(self, file_name) -> PlantAutomaton:
+        initial_state = set()
+        rules = dict()
+        for line in self._file_reader.readlines(file_name):
+            if "initial state" in line:
+                state_str = line.strip().split(":")[-1].strip()
+                initial_state = {i for i, c in enumerate(state_str) if c == "#"}
+            elif "=> #" in line:
+                parts = line.strip().split(" => ")
+                configuration = tuple(1 if c == "#" else 0 for c in parts[0])
+                rules[configuration] = 1
+        return PlantAutomaton(rules, initial_state)

@@ -177,7 +177,11 @@ def aoc_2018_d11(file_name: str):
 
 # AOC 2018 Day 12: Subterranean Sustainability
 def aoc_2018_d12(file_name: str):
-    print("AOC 2018 Day 12/Part 1: Not Implemented")
+    plant_automaton = parser.parse_plant_automaton(file_name)
+    plants_alive = plant_automaton.plants_alive(generation=20)
+    print(
+        f"AOC 2018 Day 12/Part 1: Sum of indices of plants alive: {sum(plants_alive)}"
+    )
 
 
 # AOC 2018 Day 13: Mine Cart Madness

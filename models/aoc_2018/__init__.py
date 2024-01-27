@@ -9,3 +9,4 @@ from .a2018_d8 import NavigationTreeNode, parse_list_into_navigation_tree
 from .a2018_d9 import marble_game_score
 from .a2018_d10 import MovingParticle, MovingParticles
 from .a2018_d11 import FuelCells
+from .a2018_d12 import PlantAutomaton
