@@ -28,3 +28,18 @@ class HotChocolateRecipeScores:
         yield self._scores[1]
         while True:
             yield from self._generate_next_scores()
+
+    def first_occurrence_of_subsequence(self, subsequence: tuple[int, ...]) -> int:
+        self._scores = self._scores[:2]
+        self._elf_indices = [0, 1]
+        subsequence_length = len(subsequence)
+        subsequence_index = 0
+        for index, score in enumerate(self.generate_scores()):
+            if score == subsequence[subsequence_index]:
+                subsequence_index += 1
+                if subsequence_index == subsequence_length:
+                    return index - subsequence_length + 1
+            else:
+                subsequence_index = 0
+                if score == subsequence[subsequence_index]:
+                    subsequence_index += 1
