@@ -2,7 +2,7 @@ from itertools import combinations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from math import inf
-from models.vectors import Vector2D
+from models.vectors import Vector2D, TurnDirection
 from models.graphs import topological_sorting
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
@@ -17,6 +17,7 @@ from models.aoc_2018 import (
     marble_game_score,
     MovingParticles,
     FuelCells,
+    MineCarts,
 )
 
 parser = FileParser.default()
@@ -202,7 +203,18 @@ def aoc_2018_d12(file_name: str):
 
 # AOC 2018 Day 13: Mine Cart Madness
 def aoc_2018_d13(file_name: str):
-    print("AOC 2018 Day 13/Part 1: Not Implemented")
+    with open(file_name) as file:
+        mine_layout = file.read()
+    intersection_sequence = [
+        TurnDirection.LEFT,
+        TurnDirection.NO_TURN,
+        TurnDirection.RIGHT,
+    ]
+    mine_carts = MineCarts(mine_layout, intersection_sequence)
+    first_collision = next(mine_carts.collisions())
+    print(
+        f"AOC 2018 Day 13/Part 1: Position of first collision: {first_collision.x},{first_collision.y}"
+    )
 
 
 # AOC 2018 Day 14: Chocolate Charts
