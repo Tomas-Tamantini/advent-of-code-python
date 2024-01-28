@@ -106,3 +106,16 @@ def test_cart_collisions_are_returned(layout, expected_collisions):
     collisions = mine.collisions()
     for collision in expected_collisions:
         assert next(collisions) == collision
+
+
+def test_crashed_carts_are_removed():
+    mine = MineCarts(
+        mine_layout="->->-<--<",
+        intersection_sequence=[
+            TurnDirection.LEFT,
+            TurnDirection.NO_TURN,
+            TurnDirection.RIGHT,
+        ],
+    )
+    collisions = mine.collisions()
+    assert list(collisions) == [Vector2D(4, 0), Vector2D(5, 0)]

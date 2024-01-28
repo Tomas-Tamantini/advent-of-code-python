@@ -5,14 +5,20 @@ from models.vectors import Vector2D, CardinalDirection, TurnDirection
 class _MineCart:
     def __init__(
         self,
+        id: int,
         position: Vector2D,
         direction: CardinalDirection,
         intersection_sequence: list[TurnDirection],
     ) -> None:
+        self._id = id
         self._position = position
         self._direction = direction
         self._intersection_sequence = intersection_sequence
         self._current_intersection_index = 0
+
+    @property
+    def id(self) -> int:
+        return self._id
 
     @property
     def position(self) -> Vector2D:
@@ -38,6 +44,10 @@ class _MineCart:
         )
         return turn
 
+    def __repr__(self) -> str:
+        id_as_letter = chr(ord("A") + self._id)
+        return f"{id_as_letter}: {self._position.x}"
+
 
 class MineCarts:
     def __init__(
@@ -49,6 +59,7 @@ class MineCarts:
             intersection_sequence = [TurnDirection.NO_TURN]
         self._rows = []
         self._carts = []
+        cart_id = 0
         for y, row in enumerate(mine_layout.split("\n")):
             self._rows.append([])
             for x, char in enumerate(row):
@@ -69,8 +80,11 @@ class MineCarts:
                     self._rows[y].append(char)
                 if direction:
                     self._carts.append(
-                        _MineCart(Vector2D(x, y), direction, intersection_sequence)
+                        _MineCart(
+                            cart_id, Vector2D(x, y), direction, intersection_sequence
+                        )
                     )
+                    cart_id += 1
 
     @property
     def cart_positions(self) -> Iterator[Vector2D]:
@@ -106,11 +120,21 @@ class MineCarts:
         )
 
     def collisions(self) -> Iterator[Vector2D]:
-        while True:
-            occupied_positions = set(self.cart_positions)
+        while len(self._carts) > 1:
+            carts_to_remove = set()
+            occupied_positions = {cart.position: cart.id for cart in self._carts}
             for cart in self._sorted_carts():
-                occupied_positions.remove(cart.position)
+                if cart.id in carts_to_remove:
+                    continue
+                occupied_positions.pop(cart.position, None)
                 self._move_cart(cart)
                 if cart.position in occupied_positions:
                     yield cart.position
-                occupied_positions.add(cart.position)
+                    carts_to_remove.add(cart.id)
+                    carts_to_remove.add(occupied_positions[cart.position])
+                    occupied_positions.pop(cart.position, None)
+                else:
+                    occupied_positions[cart.position] = cart.id
+            self._carts = [
+                cart for cart in self._carts if cart.id not in carts_to_remove
+            ]

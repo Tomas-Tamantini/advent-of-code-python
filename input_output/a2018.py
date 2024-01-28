@@ -211,9 +211,13 @@ def aoc_2018_d13(file_name: str):
         TurnDirection.RIGHT,
     ]
     mine_carts = MineCarts(mine_layout, intersection_sequence)
-    first_collision = next(mine_carts.collisions())
+    collisions = list(mine_carts.collisions())
     print(
-        f"AOC 2018 Day 13/Part 1: Position of first collision: {first_collision.x},{first_collision.y}"
+        f"AOC 2018 Day 13/Part 1: Position of first collision: {collisions[0].x},{collisions[0].y}"
+    )
+    last_position = list(mine_carts.cart_positions)[0]
+    print(
+        f"AOC 2018 Day 13/Part 2: Position of last cart: {last_position.x},{last_position.y}"
     )
 
 
