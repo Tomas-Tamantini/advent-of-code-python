@@ -47,6 +47,18 @@ def test_can_find_all_adjacent_positions_including_diagonal():
     }
 
 
+def test_cardinal_directions_are_vertical_or_horizontal():
+    assert CardinalDirection.NORTH.is_vertical
+    assert CardinalDirection.SOUTH.is_vertical
+    assert not CardinalDirection.EAST.is_vertical
+    assert not CardinalDirection.WEST.is_vertical
+
+    assert CardinalDirection.EAST.is_horizontal
+    assert CardinalDirection.WEST.is_horizontal
+    assert not CardinalDirection.NORTH.is_horizontal
+    assert not CardinalDirection.SOUTH.is_horizontal
+
+
 def test_cardinal_directions_can_be_spun_around():
     assert CardinalDirection.NORTH.turn_left() == CardinalDirection.WEST
     assert CardinalDirection.WEST.turn_left() == CardinalDirection.SOUTH
