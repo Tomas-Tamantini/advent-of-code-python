@@ -231,7 +231,9 @@ def aoc_2018_d14(file_name: str):
     first_scores = [next(score_generator) for _ in range(num_steps + 10)]
     last_ten_scores = "".join(map(str, first_scores[num_steps : num_steps + 10]))
     print(f"AOC 2018 Day 14/Part 1: Scores of next 10 recipes: {last_ten_scores}")
-    first_occurrence = recipe_scores.first_occurrence_of_subsequence((2, 9, 3, 8, 0, 1))
+    first_occurrence = recipe_scores.first_occurrence_of_subsequence(
+        tuple(map(int, str(num_steps))), progress_bar
+    )
     print(
         f"AOC 2018 Day 14/Part 2: Number of recipes to the left of the score sequence: {first_occurrence}"
     )

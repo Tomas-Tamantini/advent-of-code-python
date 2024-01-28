@@ -1,4 +1,5 @@
-from typing import Iterator
+from typing import Iterator, Optional
+from models.progress_bar_protocol import ProgressBar
 
 
 class HotChocolateRecipeScores:
@@ -29,12 +30,19 @@ class HotChocolateRecipeScores:
         while True:
             yield from self._generate_next_scores()
 
-    def first_occurrence_of_subsequence(self, subsequence: tuple[int, ...]) -> int:
+    def first_occurrence_of_subsequence(
+        self,
+        subsequence: tuple[int, ...],
+        progress_bar: Optional[ProgressBar] = None,
+    ) -> int:
         self._scores = self._scores[:2]
         self._elf_indices = [0, 1]
         subsequence_length = len(subsequence)
+        expected_num_steps = 10 ** (subsequence_length + 1)
         subsequence_index = 0
         for index, score in enumerate(self.generate_scores()):
+            if progress_bar is not None:
+                progress_bar.update(index, expected_num_steps)
             if score == subsequence[subsequence_index]:
                 subsequence_index += 1
                 if subsequence_index == subsequence_length:
