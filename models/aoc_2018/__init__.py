@@ -11,3 +11,4 @@ from .a2018_d10 import MovingParticle, MovingParticles
 from .a2018_d11 import FuelCells
 from .a2018_d12 import PlantAutomaton
 from .a2018_d13 import MineCarts
+from .a2018_d14 import HotChocolateRecipeScores

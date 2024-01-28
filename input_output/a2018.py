@@ -18,6 +18,7 @@ from models.aoc_2018 import (
     MovingParticles,
     FuelCells,
     MineCarts,
+    HotChocolateRecipeScores,
 )
 
 parser = FileParser.default()
@@ -223,7 +224,14 @@ def aoc_2018_d13(file_name: str):
 
 # AOC 2018 Day 14: Chocolate Charts
 def aoc_2018_d14(file_name: str):
-    print("AOC 2018 Day 14/Part 1: Not Implemented")
+    with open(file_name) as file:
+        num_steps = int(file.read())
+    score_generator = HotChocolateRecipeScores(
+        first_score=3, second_score=7
+    ).generate_scores()
+    first_scores = [next(score_generator) for _ in range(num_steps + 10)]
+    last_ten_scores = "".join(map(str, first_scores[num_steps : num_steps + 10]))
+    print(f"AOC 2018 Day 14/Part 1: Scores of next 10 recipes: {last_ten_scores}")
 
 
 # AOC 2018 Day 15: Beverage Bandits
