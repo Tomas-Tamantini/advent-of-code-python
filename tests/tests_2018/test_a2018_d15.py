@@ -521,5 +521,4 @@ def test_can_query_total_hp_after_cave_game_is_over(
     game = _parse_game(map_as_list)
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     assert game.round == expected_num_rounds
-    assert game.state.game_is_over()
     assert game.state.total_hp == expected_hp

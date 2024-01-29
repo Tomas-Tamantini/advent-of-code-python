@@ -28,6 +28,8 @@ class CaveGame:
             unit.unit_id for unit in self._state.units_in_reading_order()
         ]
         for unit_id in sorted_units_ids:
+            if self._state.game_is_over():
+                return
             try:
                 unit = self._state.get_unit_from_id(unit_id)
             except ValueError:
