@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Iterator
 
 
 class TurnDirection(Enum):
@@ -50,3 +51,10 @@ class CardinalDirection(Enum):
             return 0, -1
         else:
             return -1, 0
+
+    @staticmethod
+    def reading_order() -> Iterator["CardinalDirection"]:
+        yield CardinalDirection.NORTH
+        yield CardinalDirection.WEST
+        yield CardinalDirection.EAST
+        yield CardinalDirection.SOUTH
