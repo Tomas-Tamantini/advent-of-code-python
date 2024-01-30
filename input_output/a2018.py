@@ -20,9 +20,8 @@ from models.aoc_2018 import (
     MineCarts,
     HotChocolateRecipeScores,
     CaveGameBotAttackWeakest,
-    CaveGame,
-    CaveGameUnit,
-    CaveGameState,
+    build_cave_game,
+    CaveTeamSpec,
 )
 
 parser = FileParser.default()
@@ -245,29 +244,11 @@ def aoc_2018_d14(file_name: str):
 
 # AOC 2018 Day 15: Beverage Bandits
 def aoc_2018_d15(file_name: str):
-    cave_map, unit_positions = parser.parse_cave_game(file_name)
-    attack_power = 3
-    hit_points = 200
-    elves = [
-        CaveGameUnit(
-            unit_id=f"E{i}",
-            hit_points=hit_points,
-            attack_power=attack_power,
-            position=position,
-        )
-        for i, position in enumerate(unit_positions["elves"])
-    ]
-    goblins = [
-        CaveGameUnit(
-            unit_id=f"G{i}",
-            hit_points=hit_points,
-            attack_power=attack_power,
-            position=position,
-        )
-        for i, position in enumerate(unit_positions["goblins"])
-    ]
-    initial_state = CaveGameState(elves=tuple(elves), goblins=tuple(goblins))
-    game = CaveGame(cave_map, initial_state)
+    with open(file_name) as file:
+        map_with_units = file.read()
+    elf_specs = CaveTeamSpec(attack_power=3, hit_points=200)
+    goblin_specs = CaveTeamSpec(attack_power=3, hit_points=200)
+    game = build_cave_game(map_with_units, elf_specs, goblin_specs)
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     outcome = game.round * game.state.total_hp
     print(f"AOC 2018 Day 15/Part 1: Outcome of combat: {outcome}")

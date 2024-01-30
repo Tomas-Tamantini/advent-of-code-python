@@ -9,6 +9,8 @@ from models.aoc_2018.a2018_d15 import (
     AttackMove,
     CaveGameBotAttackWeakest,
     CaveGame,
+    CaveTeamSpec,
+    build_cave_game,
 )
 
 map_string = "\n".join(
@@ -384,44 +386,11 @@ def test_game_starts_at_round_zero():
     assert game.round == 0
 
 
-def _build_game(
-    map_as_list: list[str],
-    elves_positions: list[tuple[int, int]],
-    goblins_positions: list[tuple[int, int]],
-) -> CaveGame:
-    cave_map = CaveMap("\n".join(map_as_list))
-    elves = tuple(
-        _build_game_unit(position=Vector2D(x, y), unit_id=f"E{i+1}")
-        for i, (x, y) in enumerate(elves_positions)
-    )
-    goblins = tuple(
-        _build_game_unit(position=Vector2D(x, y), unit_id=f"G{i+1}")
-        for i, (x, y) in enumerate(goblins_positions)
-    )
-    return CaveGame(cave_map, CaveGameState(elves=elves, goblins=goblins))
-
-
-def _parse_game(map_as_list: list[str]) -> CaveGame:
-    map_rows = []
-    elves_positions = []
-    goblins_positions = []
-    for y, row in enumerate(map_as_list):
-        map_rows.append(row.replace("E", ".").replace("G", "."))
-        for x, char in enumerate(row):
-            if char == "E":
-                elves_positions.append((x, y))
-            elif char == "G":
-                goblins_positions.append((x, y))
-    return _build_game(
-        map_as_list=map_rows,
-        elves_positions=elves_positions,
-        goblins_positions=goblins_positions,
-    )
-
-
-def test_game_can_be_played_by_bots_until_it_is_over():
-    game = _parse_game(
-        map_as_list=[
+def test_can_build_game_from_string():
+    elf_team_spec = CaveTeamSpec(attack_power=2, hit_points=200)
+    goblin_team_spec = CaveTeamSpec(attack_power=3, hit_points=100)
+    map_str = "\n".join(
+        [
             "#######",
             "#.G...#",
             "#...EG#",
@@ -430,6 +399,61 @@ def test_game_can_be_played_by_bots_until_it_is_over():
             "#.....#",
             "#######",
         ]
+    )
+    game = build_cave_game(
+        map_with_units=map_str, elf_specs=elf_team_spec, goblin_specs=goblin_team_spec
+    )
+    assert game.state.elves == (
+        _build_game_unit(
+            unit_id="E1", position=Vector2D(4, 2), attack_power=2, hit_points=200
+        ),
+        _build_game_unit(
+            unit_id="E2", position=Vector2D(5, 4), attack_power=2, hit_points=200
+        ),
+    )
+    assert game.state.goblins == (
+        _build_game_unit(
+            unit_id="G1", position=Vector2D(2, 1), attack_power=3, hit_points=100
+        ),
+        _build_game_unit(
+            unit_id="G2", position=Vector2D(5, 2), attack_power=3, hit_points=100
+        ),
+        _build_game_unit(
+            unit_id="G3", position=Vector2D(5, 3), attack_power=3, hit_points=100
+        ),
+        _build_game_unit(
+            unit_id="G4", position=Vector2D(3, 4), attack_power=3, hit_points=100
+        ),
+    )
+    assert game._map.get_tile(0, 0) == CaveTile.WALL
+    assert game._map.get_tile(1, 1) == CaveTile.OPEN
+    assert game._map.get_tile(2, 1) == CaveTile.OPEN
+
+
+def test_game_from_str_assumes_hp_200_and_attack_power_3_by_default():
+    map_str = "EG"
+    game = build_cave_game(map_with_units=map_str)
+    assert game.state.elves == (
+        _build_game_unit(unit_id="E1", position=Vector2D(0, 0)),
+    )
+    assert game.state.goblins == (
+        _build_game_unit(unit_id="G1", position=Vector2D(1, 0)),
+    )
+
+
+def test_game_can_be_played_by_bots_until_it_is_over():
+    game = build_cave_game(
+        "\n".join(
+            [
+                "#######",
+                "#.G...#",
+                "#...EG#",
+                "#.#.#G#",
+                "#..G#E#",
+                "#.....#",
+                "#######",
+            ]
+        )
     )
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     assert game.round == 47
@@ -518,7 +542,7 @@ def test_game_can_be_played_by_bots_until_it_is_over():
 def test_can_query_total_hp_after_cave_game_is_over(
     map_as_list, expected_num_rounds, expected_hp
 ):
-    game = _parse_game(map_as_list)
+    game = build_cave_game("\n".join(map_as_list))
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     assert game.round == expected_num_rounds
     assert game.state.total_hp == expected_hp

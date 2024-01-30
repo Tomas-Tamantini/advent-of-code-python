@@ -87,7 +87,6 @@ from models.aoc_2018 import (
     GuardNap,
     MovingParticle,
     PlantAutomaton,
-    CaveMap,
 )
 
 
@@ -753,22 +752,3 @@ class FileParser:
                 configuration = tuple(1 if c == "#" else 0 for c in parts[0])
                 rules[configuration] = 1
         return PlantAutomaton(rules, initial_state)
-
-    def parse_cave_game(self, file_name) -> tuple[CaveMap, dict[str, list[Vector2D]]]:
-        rows = []
-        elf_starting_positions = []
-        goblin_starting_positions = []
-        for y, line in enumerate(self._file_reader.readlines(file_name)):
-            rows.append(line.strip().replace("E", ".").replace("G", "."))
-            for x, char in enumerate(line.strip()):
-                if char == "E":
-                    elf_starting_positions.append(Vector2D(x, y))
-                elif char == "G":
-                    goblin_starting_positions.append(Vector2D(x, y))
-        return (
-            CaveMap("\n".join(rows)),
-            {
-                "elves": elf_starting_positions,
-                "goblins": goblin_starting_positions,
-            },
-        )
