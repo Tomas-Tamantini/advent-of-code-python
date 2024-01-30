@@ -30,12 +30,7 @@ class _MineCart:
 
     def move(self, turn: TurnDirection) -> None:
         self._direction = self._direction.turn(turn)
-        mirrored_direction = (
-            self._direction
-            if self._direction.is_horizontal
-            else self._direction.reverse()
-        )
-        self._position = self._position.move(mirrored_direction)
+        self._position = self._position.move(self._direction, y_grows_down=True)
 
     def pop_next_intersection_turn(self) -> TurnDirection:
         turn = self._intersection_sequence[self._current_intersection_index]

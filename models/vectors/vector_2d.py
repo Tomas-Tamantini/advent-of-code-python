@@ -8,8 +8,15 @@ class Vector2D:
     x: int = 0
     y: int = 0
 
-    def move(self, direction: CardinalDirection, num_steps: int = 1) -> "Vector2D":
+    def move(
+        self,
+        direction: CardinalDirection,
+        num_steps: int = 1,
+        y_grows_down: bool = False,
+    ) -> "Vector2D":
         dx, dy = direction.offset()
+        if y_grows_down:
+            dy = -dy
         return Vector2D(self.x + dx * num_steps, self.y + dy * num_steps)
 
     def adjacent_positions(

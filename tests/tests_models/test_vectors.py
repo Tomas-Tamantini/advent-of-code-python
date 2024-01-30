@@ -25,6 +25,15 @@ def test_vector_can_move_specified_number_of_steps():
     assert Vector2D(10, 10).move(CardinalDirection.NORTH, 5) == Vector2D(10, 15)
 
 
+def test_vector_can_specify_direction_of_y_axis():
+    assert Vector2D(10, 10).move(
+        CardinalDirection.NORTH, y_grows_down=True
+    ) == Vector2D(10, 9)
+    assert Vector2D(10, 10).move(
+        CardinalDirection.SOUTH, y_grows_down=True
+    ) == Vector2D(10, 11)
+
+
 def test_can_find_all_adjacent_positions_not_including_diagonal_by_default():
     assert set(Vector2D(0, 0).adjacent_positions()) == {
         Vector2D(0, 1),

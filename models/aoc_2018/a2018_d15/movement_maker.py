@@ -39,10 +39,7 @@ class _Graph:
 
     def neighbors(self, node: _Node) -> Iterator[_Node]:
         for direction in CardinalDirection.reading_order():
-            mirrored_direction = (
-                direction if direction.is_horizontal else direction.reverse()
-            )
-            new_pos = node.position.move(mirrored_direction)
+            new_pos = node.position.move(direction, y_grows_down=True)
             if self.is_valid_position(new_pos):
                 yield _Node(new_pos, node, direction)
 

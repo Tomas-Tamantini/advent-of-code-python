@@ -11,10 +11,7 @@ class CaveGameUnit:
     position: Vector2D
 
     def _updated_position(self, direction: CardinalDirection) -> Vector2D:
-        mirrored_direction = (
-            direction if direction.is_horizontal else direction.reverse()
-        )
-        return self.position.move(mirrored_direction)
+        return self.position.move(direction, y_grows_down=True)
 
     @property
     def is_dead(self) -> bool:
