@@ -20,7 +20,7 @@ class CaveGameMove:
         return opponent_team
 
     def execute(self, unit: CaveGameUnit, state: CaveGameState) -> CaveGameState:
-        if unit in state.elves:
+        if state.unit_is_elf(unit):
             return CaveGameState(
                 elves=self._update_own_team(unit, state.elves),
                 goblins=self._update_opponent_team(unit, state.goblins),

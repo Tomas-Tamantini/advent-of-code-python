@@ -23,6 +23,9 @@ class CaveGameState:
                 return unit
         raise ValueError(f"Unknown unit id: {unit_id}")
 
+    def unit_is_elf(self, unit: CaveGameUnit) -> bool:
+        return unit.unit_id in {elf.unit_id for elf in self.elves}
+
     def _opponent_team(self, unit: CaveGameUnit) -> tuple[CaveGameUnit]:
         elf_ids = {elf.unit_id for elf in self.elves}
         return self.goblins if unit.unit_id in elf_ids else self.elves
