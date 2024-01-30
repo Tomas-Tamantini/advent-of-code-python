@@ -12,3 +12,10 @@ from .a2018_d11 import FuelCells
 from .a2018_d12 import PlantAutomaton
 from .a2018_d13 import MineCarts
 from .a2018_d14 import HotChocolateRecipeScores
+from .a2018_d15 import (
+    CaveMap,
+    CaveGameBotAttackWeakest,
+    CaveGame,
+    CaveGameUnit,
+    CaveGameState,
+)

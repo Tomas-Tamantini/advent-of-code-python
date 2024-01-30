@@ -734,3 +734,34 @@ def test_can_parse_plant_automaton():
         33,
         34,
     }
+
+
+def test_can_parse_cave_game():
+    file_content = "\n".join(
+        [
+            "#######",
+            "#.G...#",
+            "#...EG#",
+            "#.#.#G#",
+            "#..G#E#",
+            "#.....#",
+            "#######",
+        ]
+    )
+    file_parser = mock_file_parser(file_content)
+    cave_map, initial_units = file_parser.parse_cave_game("some_file")
+    assert cave_map.get_tile(0, 0) == "#"
+    assert cave_map.get_tile(1, 1) == "."
+    assert cave_map.get_tile(2, 1) == "."
+    assert initial_units == {
+        "elves": [
+            Vector2D(4, 2),
+            Vector2D(5, 4),
+        ],
+        "goblins": [
+            Vector2D(2, 1),
+            Vector2D(5, 2),
+            Vector2D(5, 3),
+            Vector2D(3, 4),
+        ],
+    }
