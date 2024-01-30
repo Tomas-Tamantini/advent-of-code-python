@@ -10,6 +10,20 @@ class CaveGame:
             raise ValueError("Duplicate unit ids")
         self._state = initial_units
         self._round = 0
+        self._initial_num_elves = len(self._state.elves)
+        self._initial_num_goblins = len(self._state.goblins)
+
+    @property
+    def cave_map(self) -> CaveMap:
+        return self._map
+
+    @property
+    def elf_casualties(self) -> int:
+        return self._initial_num_elves - len(self._state.elves)
+
+    @property
+    def goblin_casualties(self) -> int:
+        return self._initial_num_goblins - len(self._state.goblins)
 
     @property
     def state(self) -> CaveGameState:

@@ -9,6 +9,10 @@ class CaveGameState:
     elves: tuple[CaveGameUnit]
     goblins: tuple[CaveGameUnit]
 
+    def set_elf_attack_power(self, attack_power: int) -> "CaveGameState":
+        elves = tuple(elf.set_attack_power(attack_power) for elf in self.elves)
+        return CaveGameState(elves, self.goblins)
+
     @property
     def total_hp(self) -> int:
         return sum(unit.hit_points for unit in self.elves + self.goblins)

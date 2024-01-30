@@ -40,3 +40,11 @@ class CaveGameUnit:
     def adjacent_positions_in_reading_order(self) -> Iterator[Vector2D]:
         for direction in CardinalDirection.reading_order():
             yield self._updated_position(direction)
+
+    def set_attack_power(self, attack_power: int) -> "CaveGameUnit":
+        return CaveGameUnit(
+            unit_id=self.unit_id,
+            hit_points=self.hit_points,
+            attack_power=attack_power,
+            position=self.position,
+        )

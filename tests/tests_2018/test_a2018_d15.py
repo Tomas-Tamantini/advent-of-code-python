@@ -11,6 +11,7 @@ from models.aoc_2018.a2018_d15 import (
     CaveGame,
     CaveTeamSpec,
     build_cave_game,
+    optimal_game_for_elves,
 )
 
 map_string = "\n".join(
@@ -52,6 +53,12 @@ def _build_game_unit(
         attack_power=attack_power,
         position=position,
     )
+
+
+def test_can_set_unit_attack_power():
+    unit = _build_game_unit(attack_power=3)
+    new_unit = unit.set_attack_power(5)
+    assert new_unit.attack_power == 5
 
 
 def test_unit_can_take_damage():
@@ -183,6 +190,21 @@ def test_can_get_unit_from_id():
     )
     assert game_state.get_unit_from_id("Elf A") == elf_a
     assert game_state.get_unit_from_id("Elf B") == elf_b
+
+
+def test_can_set_whole_team_attack_power():
+    game_state = CaveGameState(
+        elves=(
+            _build_game_unit(unit_id="Elf A", attack_power=3),
+            _build_game_unit(unit_id="Elf B", attack_power=2),
+        ),
+        goblins=tuple(),
+    )
+    new_game_state = game_state.set_elf_attack_power(5)
+    assert new_game_state.elves == (
+        _build_game_unit(unit_id="Elf A", attack_power=5),
+        _build_game_unit(unit_id="Elf B", attack_power=5),
+    )
 
 
 def test_can_move_unit_from_some_team():
@@ -386,20 +408,70 @@ def test_game_starts_at_round_zero():
     assert game.round == 0
 
 
+example_maps = [
+    [
+        "#######",
+        "#.G...#",
+        "#...EG#",
+        "#.#.#G#",
+        "#..G#E#",
+        "#.....#",
+        "#######",
+    ],
+    [
+        "#######",
+        "#G..#E#",
+        "#E#E.E#",
+        "#G.##.#",
+        "#...#E#",
+        "#...E.#",
+        "#######",
+    ],
+    [
+        "#######",
+        "#E..EG#",
+        "#.#G.E#",
+        "#E.##E#",
+        "#G..#.#",
+        "#..E#.#",
+        "#######",
+    ],
+    [
+        "#######",
+        "#E.G#.#",
+        "#.#G..#",
+        "#G.#.G#",
+        "#G..#.#",
+        "#...E.#",
+        "#######",
+    ],
+    [
+        "#######",
+        "#.E...#",
+        "#.#..G#",
+        "#.###.#",
+        "#E#G#G#",
+        "#...#G#",
+        "#######",
+    ],
+    [
+        "#########",
+        "#G......#",
+        "#.E.#...#",
+        "#..##..G#",
+        "#...##..#",
+        "#...#...#",
+        "#.G...G.#",
+        "#.....G.#",
+        "#########",
+    ],
+]
+
+
 def test_can_build_game_from_string():
     elf_team_spec = CaveTeamSpec(attack_power=2, hit_points=200)
     goblin_team_spec = CaveTeamSpec(attack_power=3, hit_points=100)
-    map_str = "\n".join(
-        [
-            "#######",
-            "#.G...#",
-            "#...EG#",
-            "#.#.#G#",
-            "#..G#E#",
-            "#.....#",
-            "#######",
-        ]
-    )
+    map_str = "\n".join(example_maps[0])
     game = build_cave_game(
         map_with_units=map_str, elf_specs=elf_team_spec, goblin_specs=goblin_team_spec
     )
@@ -442,19 +514,7 @@ def test_game_from_str_assumes_hp_200_and_attack_power_3_by_default():
 
 
 def test_game_can_be_played_by_bots_until_it_is_over():
-    game = build_cave_game(
-        "\n".join(
-            [
-                "#######",
-                "#.G...#",
-                "#...EG#",
-                "#.#.#G#",
-                "#..G#E#",
-                "#.....#",
-                "#######",
-            ]
-        )
-    )
+    game = build_cave_game("\n".join(example_maps[0]))
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     assert game.round == 47
     assert game.state.game_is_over()
@@ -470,73 +530,11 @@ def test_game_can_be_played_by_bots_until_it_is_over():
 @pytest.mark.parametrize(
     "map_as_list, expected_num_rounds, expected_hp",
     [
-        (
-            [
-                "#######",
-                "#G..#E#",
-                "#E#E.E#",
-                "#G.##.#",
-                "#...#E#",
-                "#...E.#",
-                "#######",
-            ],
-            37,
-            982,
-        ),
-        (
-            [
-                "#######",
-                "#E..EG#",
-                "#.#G.E#",
-                "#E.##E#",
-                "#G..#.#",
-                "#..E#.#",
-                "#######",
-            ],
-            46,
-            859,
-        ),
-        (
-            [
-                "#######",
-                "#E.G#.#",
-                "#.#G..#",
-                "#G.#.G#",
-                "#G..#.#",
-                "#...E.#",
-                "#######",
-            ],
-            35,
-            793,
-        ),
-        (
-            [
-                "#######",
-                "#.E...#",
-                "#.#..G#",
-                "#.###.#",
-                "#E#G#G#",
-                "#...#G#",
-                "#######",
-            ],
-            54,
-            536,
-        ),
-        (
-            [
-                "#########",
-                "#G......#",
-                "#.E.#...#",
-                "#..##..G#",
-                "#...##..#",
-                "#...#...#",
-                "#.G...G.#",
-                "#.....G.#",
-                "#########",
-            ],
-            20,
-            937,
-        ),
+        (example_maps[1], 37, 982),
+        (example_maps[2], 46, 859),
+        (example_maps[3], 35, 793),
+        (example_maps[4], 54, 536),
+        (example_maps[5], 20, 937),
     ],
 )
 def test_can_query_total_hp_after_cave_game_is_over(
@@ -546,3 +544,31 @@ def test_can_query_total_hp_after_cave_game_is_over(
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     assert game.round == expected_num_rounds
     assert game.state.total_hp == expected_hp
+
+
+def test_can_calculate_number_of_casualties_throughout_game():
+    game = build_cave_game("\n".join(example_maps[2]))
+    assert game.elf_casualties == game.goblin_casualties == 0
+    game.play_until_over(bot=CaveGameBotAttackWeakest())
+    assert game.elf_casualties == 1
+    assert game.goblin_casualties == 3
+
+
+@pytest.mark.parametrize(
+    "map_as_list, expected_num_rounds, expected_hp, expected_attack_power",
+    [
+        (example_maps[0], 29, 172, 15),
+        (example_maps[2], 33, 948, 4),
+        (example_maps[3], 37, 94, 15),
+        (example_maps[4], 39, 166, 12),
+        (example_maps[5], 30, 38, 34),
+    ],
+)
+def test_can_find_smallest_attack_power_that_ensures_elf_victory_without_casualties(
+    map_as_list, expected_num_rounds, expected_hp, expected_attack_power
+):
+    game = build_cave_game("\n".join(map_as_list))
+    result = optimal_game_for_elves(game, bot=CaveGameBotAttackWeakest())
+    assert result.rounds == expected_num_rounds
+    assert result.hp_remaining == expected_hp
+    assert result.elf_attack_power == expected_attack_power

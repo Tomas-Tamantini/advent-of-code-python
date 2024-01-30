@@ -22,6 +22,7 @@ from models.aoc_2018 import (
     CaveGameBotAttackWeakest,
     build_cave_game,
     CaveTeamSpec,
+    optimal_game_for_elves,
 )
 
 parser = FileParser.default()
@@ -252,6 +253,12 @@ def aoc_2018_d15(file_name: str):
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     outcome = game.round * game.state.total_hp
     print(f"AOC 2018 Day 15/Part 1: Outcome of combat: {outcome}")
+    game = build_cave_game(map_with_units, elf_specs, goblin_specs)
+    results = optimal_game_for_elves(game, bot=CaveGameBotAttackWeakest())
+    outcome = results.rounds * results.hp_remaining
+    print(
+        f"AOC 2018 Day 15/Part 2: Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {outcome}"
+    )
 
 
 # AOC 2018 Day 16: Chronal Classification
