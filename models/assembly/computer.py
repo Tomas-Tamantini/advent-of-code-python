@@ -1,3 +1,4 @@
+from typing import Hashable
 from .processor import Processor
 from .hardware import Hardware
 from .program import Program
@@ -11,8 +12,8 @@ class Computer:
     def from_processor(cls, processor: Processor) -> "Computer":
         return cls(hardware=Hardware(processor=processor))
 
-    def get_register_value(self, register: chr) -> int:
-        return self._hardware.processor.get_value_or_immediate(register)
+    def get_register_value(self, register: Hashable) -> int:
+        return self._hardware.get_value_at_register(register)
 
     @property
     def _program_counter(self) -> int:

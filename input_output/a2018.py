@@ -4,7 +4,7 @@ from input_output.progress_bar import ProgressBarConsole
 from math import inf
 from models.vectors import Vector2D, TurnDirection
 from models.graphs import topological_sorting
-from models.assembly import Processor, ImmutableProgram, Hardware, Computer
+from models.assembly import Processor, ImmutableProgram, Computer
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
@@ -290,11 +290,9 @@ def aoc_2018_d16(file_name: str):
         file_name, op_codes_to_instructions
     )
     program = ImmutableProgram(list(instructions))
-    processor = Processor()
-    hardware = Hardware(processor)
-    computer = Computer(hardware)
+    computer = Computer.from_processor(Processor())
     computer.run_program(program)
-    value = processor.registers[0]  # TODO: Access directly from computer
+    value = computer.get_register_value(register=0)
     print(f"AOC 2018 Day 16/Part 2: Value of register 0: {value}")
 
 
