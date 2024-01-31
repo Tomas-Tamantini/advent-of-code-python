@@ -37,7 +37,7 @@ from models.aoc_2017 import (
     TuringRule,
     TuringState,
 )
-from models.aoc_2018 import FabricRectangle, GuardNap, MovingParticle, PlantAutomaton
+from models.aoc_2018 import FabricRectangle, GuardNap, MovingParticle, InstructionSample
 
 
 class MockFileReader:
@@ -734,3 +734,30 @@ def test_can_parse_plant_automaton():
         33,
         34,
     }
+
+
+def test_can_parse_instruction_samples():
+    file_content = """Before: [1, 2, 3, 4]
+                      123 1 2 3
+                      After:  [4, 3, 2, 1]
+
+                      Before: [10, 20, 30, 40]
+                      321 3 2 1
+                      After:  [40, 30, 20, 10]
+                      Line to ignore"""
+    file_parser = mock_file_parser(file_content)
+    samples = list(file_parser.parse_instruction_samples("some_file"))
+    assert samples == [
+        InstructionSample(
+            op_code=123,
+            instruction_values=(1, 2, 3),
+            registers_before=(1, 2, 3, 4),
+            registers_after=(4, 3, 2, 1),
+        ),
+        InstructionSample(
+            op_code=321,
+            instruction_values=(3, 2, 1),
+            registers_before=(10, 20, 30, 40),
+            registers_after=(40, 30, 20, 10),
+        ),
+    ]

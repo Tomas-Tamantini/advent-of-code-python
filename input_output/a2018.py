@@ -23,6 +23,8 @@ from models.aoc_2018 import (
     build_cave_game,
     CaveTeamSpec,
     optimal_game_for_elves,
+    ALL_THREE_VALUE_INSTRUCTIONS,
+    possible_instructions,
 )
 
 parser = FileParser.default()
@@ -263,7 +265,22 @@ def aoc_2018_d15(file_name: str):
 
 # AOC 2018 Day 16: Chronal Classification
 def aoc_2018_d16(file_name: str):
-    print("AOC 2018 Day 16/Part 1: Not Implemented")
+    samples = list(parser.parse_instruction_samples(file_name))
+    num_samples_with_three_or_more = sum(
+        len(
+            list(
+                possible_instructions(
+                    sample,
+                    candidates=ALL_THREE_VALUE_INSTRUCTIONS,
+                )
+            )
+        )
+        >= 3
+        for sample in samples
+    )
+    print(
+        f"AOC 2018 Day 16/Part 1: Number of samples with three or more possible instructions: {num_samples_with_three_or_more}"
+    )
 
 
 # AOC 2018 Day 17: Reservoir Research

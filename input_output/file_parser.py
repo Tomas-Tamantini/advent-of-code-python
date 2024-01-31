@@ -87,6 +87,7 @@ from models.aoc_2018 import (
     GuardNap,
     MovingParticle,
     PlantAutomaton,
+    InstructionSample,
 )
 
 
@@ -752,3 +753,22 @@ class FileParser:
                 configuration = tuple(1 if c == "#" else 0 for c in parts[0])
                 rules[configuration] = 1
         return PlantAutomaton(rules, initial_state)
+
+    def parse_instruction_samples(self, file_name) -> Iterator[InstructionSample]:
+        lines = list(self._file_reader.readlines(file_name))
+        for line_idx, line in enumerate(lines):
+            if "Before" in line:
+                lb = line.replace("[", "").replace("]", "").strip()
+                lv = lines[line_idx + 1].strip()
+                la = lines[line_idx + 2].replace("[", "").replace("]", "").strip()
+
+                instruction_values = list(map(int, lv.split()))
+                registers_before = tuple(map(int, lb.split(":")[1].split(",")))
+                registers_after = tuple(map(int, la.split(":")[1].split(",")))
+
+                yield InstructionSample(
+                    op_code=instruction_values[0],
+                    instruction_values=tuple(instruction_values[1:]),
+                    registers_before=registers_before,
+                    registers_after=registers_after,
+                )

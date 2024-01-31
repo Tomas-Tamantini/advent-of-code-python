@@ -18,3 +18,8 @@ from .a2018_d15 import (
     CaveTeamSpec,
     optimal_game_for_elves,
 )
+from .a2018_d16 import (
+    ALL_THREE_VALUE_INSTRUCTIONS,
+    possible_instructions,
+    InstructionSample,
+)
