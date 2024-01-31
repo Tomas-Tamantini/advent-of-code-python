@@ -50,7 +50,7 @@ class ToggleInstruction:
     offset: Union[chr, int]
 
     def execute(self, hardware: Hardware) -> None:
-        offset_value = hardware.processor.get_value(self.offset)
+        offset_value = hardware.processor.get_value_or_immediate(self.offset)
         instruction_idx = hardware.processor.program_counter + offset_value
         instruction = hardware.memory.get_at(instruction_idx)
         new_instruction = None

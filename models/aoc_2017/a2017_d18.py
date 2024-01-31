@@ -66,7 +66,7 @@ class RecoverLastFrequencyInstruction:
     source: Union[chr, int]
 
     def execute(self, hardware: Hardware) -> None:
-        if hardware.processor.get_value(self.source) != 0:
+        if hardware.processor.get_value_or_immediate(self.source) != 0:
             hardware.serial_output.write(-1)
         hardware.increment_program_counter()
 

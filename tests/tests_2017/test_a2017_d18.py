@@ -50,7 +50,7 @@ def test_remainder_instruction_updates_source_with_source_mod_destination():
     instruction = RemainderInstruction(source="a", destination="b")
     instruction.execute(hardware=Hardware(processor))
     assert processor.program_counter == 124
-    assert processor.get_value("b") == 3
+    assert processor.get_value_or_immediate("b") == 3
 
 
 def test_multiply_instruction_updates_destination_with_source_times_destination():
@@ -58,8 +58,8 @@ def test_multiply_instruction_updates_destination_with_source_times_destination(
     instruction = MultiplyInstruction(source="a", destination="b")
     instruction.execute(hardware=Hardware(processor))
     assert processor.program_counter == 124
-    assert processor.get_value("a") == 10
-    assert processor.get_value("b") == 130
+    assert processor.get_value_or_immediate("a") == 10
+    assert processor.get_value_or_immediate("b") == 130
 
 
 def test_program_keeps_track_of_last_recovered_frequency():

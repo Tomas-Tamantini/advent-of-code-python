@@ -30,13 +30,15 @@ def test_program_instructions_are_executed_until_end_of_program():
 
     class IncrementInstruction:
         def execute(self, hardware):
-            hardware.processor.registers["a"] += hardware.processor.get_value("b")
+            hardware.processor.registers[
+                "a"
+            ] += hardware.processor.get_value_or_immediate("b")
             hardware.increment_program_counter()
 
     class OutputInstruction:
         def execute(self, hardware):
             hardware.serial_output.write(hardware.processor.registers["a"])
-            if hardware.processor.get_value("a") >= 9:
+            if hardware.processor.get_value_or_immediate("a") >= 9:
                 hardware.increment_program_counter()
             else:
                 hardware.increment_program_counter(increment=-1)

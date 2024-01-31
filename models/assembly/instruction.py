@@ -17,7 +17,7 @@ class CopyInstruction:
     def execute(self, hardware: Hardware) -> None:
         if not isinstance(self.destination, int):
             hardware.set_value_at_register(
-                self.destination, hardware.processor.get_value(self.source)
+                self.destination, hardware.processor.get_value_or_immediate(self.source)
             )
         hardware.increment_program_counter()
 
@@ -28,10 +28,10 @@ class UpdateRegisterInstruction:
     destination: chr
 
     def _value_source(self, processor: Processor) -> int:
-        return processor.get_value(self.source)
+        return processor.get_value_or_immediate(self.source)
 
     def _value_destination(self, processor: Processor) -> int:
-        return processor.get_value(self.destination)
+        return processor.get_value_or_immediate(self.destination)
 
     @staticmethod
     def _updated_value(value_source: int, value_destination: int) -> int:
@@ -72,7 +72,7 @@ class _JumpInstruction:
     def execute(self, hardware: Hardware) -> None:
         if self._should_jump(hardware.processor):
             hardware.increment_program_counter(
-                hardware.processor.get_value(self.offset)
+                hardware.processor.get_value_or_immediate(self.offset)
             )
         else:
             hardware.increment_program_counter()
@@ -83,7 +83,7 @@ class JumpNotZeroInstruction(_JumpInstruction):
     value_to_compare: Union[chr, int]
 
     def _should_jump(self, processor: Processor) -> bool:
-        return processor.get_value(self.value_to_compare) != 0
+        return processor.get_value_or_immediate(self.value_to_compare) != 0
 
 
 @dataclass(frozen=True)
@@ -91,7 +91,7 @@ class JumpGreaterThanZeroInstruction(_JumpInstruction):
     value_to_compare: Union[chr, int]
 
     def _should_jump(self, processor: Processor) -> bool:
-        return processor.get_value(self.value_to_compare) > 0
+        return processor.get_value_or_immediate(self.value_to_compare) > 0
 
 
 @dataclass(frozen=True)
@@ -108,7 +108,9 @@ class OutInstruction:
     source: Union[chr, int]
 
     def execute(self, hardware: Hardware) -> None:
-        hardware.serial_output.write(hardware.processor.get_value(self.source))
+        hardware.serial_output.write(
+            hardware.processor.get_value_or_immediate(self.source)
+        )
         hardware.increment_program_counter()
 
 
