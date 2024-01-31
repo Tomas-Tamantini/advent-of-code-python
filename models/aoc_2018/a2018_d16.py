@@ -15,7 +15,7 @@ class RegisterOrImmediate:
             return self.value
 
 
-class _ThreeValueInstruction:
+class ThreeValueInstruction:
     def __init__(
         self,
         register_out: int,
@@ -41,9 +41,10 @@ class _ThreeValueInstruction:
             self._input_b.get_value(hardware),
         )
         hardware.set_value_at_register(self._register_out, result)
+        hardware.increment_program_counter()
 
 
-class AddRegisters(_ThreeValueInstruction):
+class AddRegisters(ThreeValueInstruction):
     def __init__(self, register_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -51,7 +52,7 @@ class AddRegisters(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class AddImmediate(_ThreeValueInstruction):
+class AddImmediate(ThreeValueInstruction):
     def __init__(self, register_a: int, value_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
@@ -59,7 +60,7 @@ class AddImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class MultiplyRegisters(_ThreeValueInstruction):
+class MultiplyRegisters(ThreeValueInstruction):
     def __init__(self, register_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -67,7 +68,7 @@ class MultiplyRegisters(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class MultiplyImmediate(_ThreeValueInstruction):
+class MultiplyImmediate(ThreeValueInstruction):
     def __init__(self, register_a: int, value_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
@@ -75,7 +76,7 @@ class MultiplyImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class BitwiseAndRegisters(_ThreeValueInstruction):
+class BitwiseAndRegisters(ThreeValueInstruction):
     def __init__(self, register_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -83,7 +84,7 @@ class BitwiseAndRegisters(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class BitwiseAndImmediate(_ThreeValueInstruction):
+class BitwiseAndImmediate(ThreeValueInstruction):
     def __init__(self, register_a: int, value_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
@@ -91,7 +92,7 @@ class BitwiseAndImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class BitwiseOrRegisters(_ThreeValueInstruction):
+class BitwiseOrRegisters(ThreeValueInstruction):
     def __init__(self, register_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -99,7 +100,7 @@ class BitwiseOrRegisters(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class BitwiseOrImmediate(_ThreeValueInstruction):
+class BitwiseOrImmediate(ThreeValueInstruction):
     def __init__(self, register_a: int, value_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
@@ -107,7 +108,7 @@ class BitwiseOrImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class AssignmentRegisters(_ThreeValueInstruction):
+class AssignmentRegisters(ThreeValueInstruction):
     def __init__(
         self, register_in: int, throwaway_value: int, register_out: int
     ) -> None:
@@ -117,7 +118,7 @@ class AssignmentRegisters(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class AssignmentImmediate(_ThreeValueInstruction):
+class AssignmentImmediate(ThreeValueInstruction):
     def __init__(self, value_in: int, throwaway_value: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(value_in, is_register=False)
         input_b = RegisterOrImmediate(throwaway_value, is_register=False)
@@ -125,7 +126,7 @@ class AssignmentImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class GreaterThanImmediateRegister(_ThreeValueInstruction):
+class GreaterThanImmediateRegister(ThreeValueInstruction):
     def __init__(self, value_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(value_a, is_register=False)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -133,7 +134,7 @@ class GreaterThanImmediateRegister(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class GreaterThanRegisterImmediate(_ThreeValueInstruction):
+class GreaterThanRegisterImmediate(ThreeValueInstruction):
     def __init__(self, register_a: int, value_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
@@ -141,7 +142,7 @@ class GreaterThanRegisterImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class GreaterThanRegisterRegister(_ThreeValueInstruction):
+class GreaterThanRegisterRegister(ThreeValueInstruction):
     def __init__(self, register_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -149,7 +150,7 @@ class GreaterThanRegisterRegister(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class EqualImmediateRegister(_ThreeValueInstruction):
+class EqualImmediateRegister(ThreeValueInstruction):
     def __init__(self, value_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(value_a, is_register=False)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -157,7 +158,7 @@ class EqualImmediateRegister(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class EqualRegisterImmediate(_ThreeValueInstruction):
+class EqualRegisterImmediate(ThreeValueInstruction):
     def __init__(self, register_a: int, value_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
@@ -165,7 +166,7 @@ class EqualRegisterImmediate(_ThreeValueInstruction):
         super().__init__(register_out, input_a, input_b, operation)
 
 
-class EqualRegisterRegister(_ThreeValueInstruction):
+class EqualRegisterRegister(ThreeValueInstruction):
     def __init__(self, register_a: int, register_b: int, register_out: int) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
@@ -182,7 +183,7 @@ class InstructionSample:
 
 
 def _instruction_matches_result(
-    instruction: _ThreeValueInstruction,
+    instruction: ThreeValueInstruction,
     instruction_sample: InstructionSample,
 ) -> bool:
     num_registers = len(instruction_sample.registers_before)
@@ -218,9 +219,63 @@ ALL_THREE_VALUE_INSTRUCTIONS = [
 
 def possible_instructions(
     instruction_sample: InstructionSample,
-    candidates: list[type[_ThreeValueInstruction]],
-) -> Iterator[type[_ThreeValueInstruction]]:
+    candidates: list[type[ThreeValueInstruction]],
+) -> Iterator[type[ThreeValueInstruction]]:
     for candidate in candidates:
         instruction = candidate(*instruction_sample.instruction_values)
         if _instruction_matches_result(instruction, instruction_sample):
             yield candidate
+
+
+def work_out_op_codes(
+    samples: list[InstructionSample],
+    candidates: list[type[ThreeValueInstruction]],
+) -> dict[int, type[ThreeValueInstruction]]:
+    op_code_to_possible_instructions = _op_code_to_possible_instructions(
+        samples, candidates
+    )
+    num_op_codes = len(op_code_to_possible_instructions)
+
+    op_code_to_instruction = dict()
+    while len(op_code_to_instruction) < num_op_codes:
+        _disambiguate_next_instruction(
+            op_code_to_possible_instructions,
+            op_code_to_instruction,
+        )
+
+    return op_code_to_instruction
+
+
+def _op_code_to_possible_instructions(
+    samples: list[InstructionSample],
+    candidates: list[type[ThreeValueInstruction]],
+) -> dict[int, list[type[ThreeValueInstruction]]]:
+    op_with_candidates = dict()
+    for sample in samples:
+        instruction_candidates = op_with_candidates.get(sample.op_code, candidates)
+        reduced_candidates = list(possible_instructions(sample, instruction_candidates))
+        op_with_candidates[sample.op_code] = reduced_candidates
+    return op_with_candidates
+
+
+def _disambiguate_next_instruction(
+    op_code_to_possible_instructions: dict[int, list[type[ThreeValueInstruction]]],
+    op_code_to_instruction: dict[int, type[ThreeValueInstruction]],
+) -> None:
+    instruction = None
+    for op_code, possible_candidates in op_code_to_possible_instructions.items():
+        if op_code in op_code_to_instruction or len(possible_candidates) > 1:
+            continue
+        if len(possible_candidates) == 0:
+            raise ValueError(f"No candidates for op code {op_code}")
+        instruction = possible_candidates[0]
+        break
+
+    if instruction is None:
+        raise ValueError("Cannot determine any more op codes")
+
+    op_code_to_instruction[op_code] = instruction
+    del op_code_to_possible_instructions[op_code]
+    for candidates in op_code_to_possible_instructions.values():
+        if instruction in candidates:
+            candidates.remove(instruction)

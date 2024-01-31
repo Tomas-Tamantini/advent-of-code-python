@@ -88,6 +88,7 @@ from models.aoc_2018 import (
     MovingParticle,
     PlantAutomaton,
     InstructionSample,
+    ThreeValueInstruction,
 )
 
 
@@ -772,3 +773,20 @@ class FileParser:
                     registers_before=registers_before,
                     registers_after=registers_after,
                 )
+
+    def parse_unknown_op_code_program(
+        self,
+        file_name,
+        op_code_to_instruction: dict[int, type[ThreeValueInstruction]],
+    ) -> Iterator[ThreeValueInstruction]:
+        instructions = []
+        for line in reversed(list(self._file_reader.readlines(file_name))):
+            if "After:" in line:
+                break
+            if not line.strip():
+                continue
+            values = list(map(int, line.strip().split()))
+            op_code = values[0]
+            instruction_type = op_code_to_instruction[op_code]
+            instructions.append(instruction_type(*values[1:]))
+        yield from reversed(instructions)

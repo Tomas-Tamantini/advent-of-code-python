@@ -761,3 +761,24 @@ def test_can_parse_instruction_samples():
             registers_after=(40, 30, 20, 10),
         ),
     ]
+
+
+def test_can_parse_unknown_op_code_program():
+    file_content = """After:  [40, 30, 20, 10]
+    
+                      14 1 2 3
+                      13 3 2 1"""
+    file_parser = mock_file_parser(file_content)
+    instruction_a_spy = Mock()
+    instruction_b_spy = Mock()
+    op_code_to_instruction = {
+        14: instruction_a_spy,
+        13: instruction_b_spy,
+    }
+    instructions = list(
+        file_parser.parse_unknown_op_code_program("some_file", op_code_to_instruction)
+    )
+    assert instructions == [
+        instruction_a_spy(1, 2, 3),
+        instruction_b_spy(3, 2, 1),
+    ]

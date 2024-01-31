@@ -4,6 +4,7 @@ from input_output.progress_bar import ProgressBarConsole
 from math import inf
 from models.vectors import Vector2D, TurnDirection
 from models.graphs import topological_sorting
+from models.assembly import Processor, ImmutableProgram, Hardware, Computer
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
@@ -25,6 +26,7 @@ from models.aoc_2018 import (
     optimal_game_for_elves,
     ALL_THREE_VALUE_INSTRUCTIONS,
     possible_instructions,
+    work_out_op_codes,
 )
 
 parser = FileParser.default()
@@ -281,6 +283,19 @@ def aoc_2018_d16(file_name: str):
     print(
         f"AOC 2018 Day 16/Part 1: Number of samples with three or more possible instructions: {num_samples_with_three_or_more}"
     )
+    op_codes_to_instructions = work_out_op_codes(
+        samples, candidates=ALL_THREE_VALUE_INSTRUCTIONS
+    )
+    instructions = parser.parse_unknown_op_code_program(
+        file_name, op_codes_to_instructions
+    )
+    program = ImmutableProgram(list(instructions))
+    processor = Processor()
+    hardware = Hardware(processor)
+    computer = Computer(hardware)
+    computer.run_program(program)
+    value = processor.registers[0]  # TODO: Access directly from computer
+    print(f"AOC 2018 Day 16/Part 2: Value of register 0: {value}")
 
 
 # AOC 2018 Day 17: Reservoir Research

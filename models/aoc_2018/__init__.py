@@ -22,4 +22,6 @@ from .a2018_d16 import (
     ALL_THREE_VALUE_INSTRUCTIONS,
     possible_instructions,
     InstructionSample,
+    work_out_op_codes,
+    ThreeValueInstruction,
 )
