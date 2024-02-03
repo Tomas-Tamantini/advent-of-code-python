@@ -17,6 +17,22 @@ class BoundingBox:
             raise ValueError("Invalid bounding box coordinates")
 
     @property
+    def min_x(self) -> int:
+        return self.bottom_left.x
+
+    @property
+    def max_x(self) -> int:
+        return self.top_right.x
+
+    @property
+    def min_y(self) -> int:
+        return self.bottom_left.y
+
+    @property
+    def max_y(self) -> int:
+        return self.top_right.y
+
+    @property
     def width(self) -> int:
         return self.top_right.x - self.bottom_left.x
 

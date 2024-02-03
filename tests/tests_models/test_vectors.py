@@ -107,6 +107,14 @@ def test_bounding_box_with_bottom_left_equal_to_top_right_has_all_dimensions_zer
     assert bounding_box.width == bounding_box.height == bounding_box.area == 0
 
 
+def test_bounding_box_has_min_and_max_x_and_y_properties():
+    bounding_box = BoundingBox(Vector2D(1, 2), Vector2D(4, 6))
+    assert bounding_box.min_x == 1
+    assert bounding_box.max_x == 4
+    assert bounding_box.min_y == 2
+    assert bounding_box.max_y == 6
+
+
 def test_bounding_box_dimensions_are_calculated_properly():
     bounding_box = BoundingBox(Vector2D(1, 2), Vector2D(4, 6))
     assert bounding_box.width == 3
