@@ -302,7 +302,6 @@ def aoc_2018_d17(file_name: str):
     clay_positions = set(parser.parse_position_ranges(file_name))
     spring_position = Vector2D(500, 0)
     water_spring = WaterSpring(spring_position, clay_positions)
-    print(water_spring)
     water_spring.flow()
     print(
         f"AOC 2018 Day 17/Part 1: Number of tiles with water: {water_spring.num_wet_tiles}"
