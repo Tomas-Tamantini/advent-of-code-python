@@ -27,6 +27,7 @@ from models.aoc_2018 import (
     ALL_THREE_VALUE_INSTRUCTIONS,
     possible_instructions,
     work_out_op_codes,
+    WaterSpring,
 )
 
 parser = FileParser.default()
@@ -298,7 +299,14 @@ def aoc_2018_d16(file_name: str):
 
 # AOC 2018 Day 17: Reservoir Research
 def aoc_2018_d17(file_name: str):
-    print("AOC 2018 Day 17/Part 1: Not Implemented")
+    clay_positions = set(parser.parse_position_ranges(file_name))
+    spring_position = Vector2D(500, 0)
+    water_spring = WaterSpring(spring_position, clay_positions)
+    print(water_spring)
+    water_spring.flow()
+    print(
+        f"AOC 2018 Day 17/Part 1: Number of tiles with water: {water_spring.num_wet_tiles}"
+    )
 
 
 # AOC 2018 Day 18: Settlers of The North Pole

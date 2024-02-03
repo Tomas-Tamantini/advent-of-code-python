@@ -782,3 +782,25 @@ def test_can_parse_unknown_op_code_program():
         instruction_a_spy(1, 2, 3),
         instruction_b_spy(3, 2, 1),
     ]
+
+
+def test_can_parse_position_ranges():
+    file_content = """x=495, y=2..4
+                      y=11..13, x=123
+                      x=3, y=4
+                      y=1..2, x=1001..1002"""
+    file_parser = mock_file_parser(file_content)
+    positions = set(file_parser.parse_position_ranges("some_file"))
+    assert positions == {
+        Vector2D(495, 2),
+        Vector2D(495, 3),
+        Vector2D(495, 4),
+        Vector2D(123, 11),
+        Vector2D(123, 12),
+        Vector2D(123, 13),
+        Vector2D(3, 4),
+        Vector2D(1001, 1),
+        Vector2D(1001, 2),
+        Vector2D(1002, 1),
+        Vector2D(1002, 2),
+    }

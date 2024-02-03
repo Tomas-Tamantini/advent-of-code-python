@@ -25,3 +25,4 @@ from .a2018_d16 import (
     work_out_op_codes,
     ThreeValueInstruction,
 )
+from .a2018_d17 import WaterSpring

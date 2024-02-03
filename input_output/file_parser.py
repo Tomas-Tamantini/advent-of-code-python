@@ -93,11 +93,9 @@ from models.aoc_2018 import (
 
 
 class FileReaderProtocol(Protocol):
-    def read(self, file_name: str) -> str:
-        ...
+    def read(self, file_name: str) -> str: ...
 
-    def readlines(self, file_name: str) -> Iterator[str]:
-        ...
+    def readlines(self, file_name: str) -> Iterator[str]: ...
 
 
 class FileReader:
@@ -790,3 +788,16 @@ class FileParser:
             instruction_type = op_code_to_instruction[op_code]
             instructions.append(instruction_type(*values[1:]))
         yield from reversed(instructions)
+
+    def parse_position_ranges(self, file_name: str) -> Iterator[Vector2D]:
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(",")
+            coords = dict()
+            for part in parts:
+                key, value = part.split("=")
+                min_coord = int(value.split("..")[0])
+                max_coord = int(value.split("..")[-1])
+                coords[key.strip()] = (min_coord, max_coord)
+            for x in range(coords["x"][0], coords["x"][1] + 1):
+                for y in range(coords["y"][0], coords["y"][1] + 1):
+                    yield Vector2D(x, y)
