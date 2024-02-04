@@ -226,4 +226,4 @@ def test_water_flow_is_calculated_efficiently():
         ]
     )
     spring.flow()
-    assert spring.num_wet_tiles == 0  # TODO: Determine expected value
+    assert spring.num_wet_tiles == 1684
