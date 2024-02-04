@@ -41,3 +41,4 @@ from .a2018_d15 import (
 from .a2018_d16 import possible_instructions, InstructionSample, work_out_op_codes
 from .a2018_d17 import WaterSpring
 from .a2018_d18 import LumberArea, AcreType
+from .a2018_d19 import optimized_sum_divisors_program

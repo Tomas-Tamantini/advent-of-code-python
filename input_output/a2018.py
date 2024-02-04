@@ -30,6 +30,7 @@ from models.aoc_2018 import (
     WaterSpring,
     LumberArea,
     AcreType,
+    optimized_sum_divisors_program,
 )
 
 parser = FileParser.default()
@@ -339,10 +340,20 @@ def aoc_2018_d19(file_name: str):
     instructions = list(parser.parse_three_value_instructions(file_name))
     program = ImmutableProgram(instructions)
     computer = Computer.from_processor(Processor())
-    print("AOC 2018 Day 19/Part 1: Be patient, it takes about 30s to run", end="\r")
-    computer.run_program(program)
+    print("AOC 2018 Day 19/Part 1: Takes about 30s to run", end="\r")
+    #  computer.run_program(program)
     value = computer.get_register_value(register=0)
-    print(f"AOC 2018 Day 19/Part 1: Value of register 0: {value}")
+    print(
+        f"AOC 2018 Day 19/Part 1: Value of register 0 at the end of the program: {value}"
+    )
+    # Part 2 was optimized by hand
+    result = optimized_sum_divisors_program(
+        a=instructions[21]._input_b.value,
+        b=instructions[23]._input_b.value,
+    )
+    print(
+        f"AOC 2018 Day 19/Part 2: Value of register 0 at the end of the program: {result}"
+    )
 
 
 # AOC 2018 Day 20: A Regular Map
