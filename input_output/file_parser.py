@@ -89,6 +89,7 @@ from models.aoc_2018 import (
     PlantAutomaton,
     InstructionSample,
     ThreeValueInstruction,
+    AcreType,
 )
 
 
@@ -801,3 +802,13 @@ class FileParser:
             for x in range(coords["x"][0], coords["x"][1] + 1):
                 for y in range(coords["y"][0], coords["y"][1] + 1):
                     yield Vector2D(x, y)
+
+    def parse_lumber_area(self, file_name: str) -> dict[Vector2D, AcreType]:
+        cells = {}
+        for y, line in enumerate(self._file_reader.readlines(file_name)):
+            for x, char in enumerate(line.strip()):
+                acre_type = AcreType(char)
+                if acre_type != AcreType.OPEN:
+                    cells[Vector2D(x, y)] = acre_type
+
+        return cells

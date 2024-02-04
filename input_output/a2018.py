@@ -28,6 +28,8 @@ from models.aoc_2018 import (
     possible_instructions,
     work_out_op_codes,
     WaterSpring,
+    LumberArea,
+    AcreType,
 )
 
 parser = FileParser.default()
@@ -313,7 +315,16 @@ def aoc_2018_d17(file_name: str):
 
 # AOC 2018 Day 18: Settlers of The North Pole
 def aoc_2018_d18(file_name: str):
-    print("AOC 2018 Day 18/Part 1: Not Implemented")
+    area = LumberArea(width=50, height=50)
+    cells = parser.parse_lumber_area(file_name)
+    num_steps = 10
+    for _ in range(num_steps):
+        cells = area.next_state(cells)
+    num_wooded = sum(c == AcreType.TREE for c in cells.values())
+    num_lumberyards = sum(c == AcreType.LUMBERYARD for c in cells.values())
+    print(
+        f"AOC 2018 Day 18/Part 1: Resource value after 10 minutes: {num_wooded * num_lumberyards}"
+    )
 
 
 # AOC 2018 Day 19: Go With The Flow

@@ -37,7 +37,13 @@ from models.aoc_2017 import (
     TuringRule,
     TuringState,
 )
-from models.aoc_2018 import FabricRectangle, GuardNap, MovingParticle, InstructionSample
+from models.aoc_2018 import (
+    FabricRectangle,
+    GuardNap,
+    MovingParticle,
+    InstructionSample,
+    AcreType,
+)
 
 
 class MockFileReader:
@@ -803,4 +809,19 @@ def test_can_parse_position_ranges():
         Vector2D(1001, 2),
         Vector2D(1002, 1),
         Vector2D(1002, 2),
+    }
+
+
+def test_can_parse_lumber_area():
+    file_content = """.#.|
+                      #..#
+                      ...|"""
+    file_parser = mock_file_parser(file_content)
+    cells = file_parser.parse_lumber_area("some_file")
+    assert cells == {
+        Vector2D(1, 0): AcreType.LUMBERYARD,
+        Vector2D(3, 0): AcreType.TREE,
+        Vector2D(0, 1): AcreType.LUMBERYARD,
+        Vector2D(3, 1): AcreType.LUMBERYARD,
+        Vector2D(3, 2): AcreType.TREE,
     }

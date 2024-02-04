@@ -26,3 +26,4 @@ from .a2018_d16 import (
     ThreeValueInstruction,
 )
 from .a2018_d17 import WaterSpring
+from .a2018_d18 import LumberArea, AcreType
