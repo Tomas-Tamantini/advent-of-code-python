@@ -199,11 +199,14 @@ class WaterSpring:
             if position.y > self._soil.max_y:
                 continue
             tile_grouping = self._soil.tile_grouping(position)
-            new_tile_type = self._new_type_of_tile(tile_grouping)
-            if new_tile_type:
-                self._soil.set_type(position, new_tile_type)
-                tile_grouping.transform_center(new_tile_type)
-                positions_to_visit.append(position)
+            while True:
+                new_tile_type = self._new_type_of_tile(tile_grouping)
+                if new_tile_type:
+                    self._soil.set_type(position, new_tile_type)
+                    tile_grouping.transform_center(new_tile_type)
+                else:
+                    break
+            tile_grouping.transform_center(self._soil.soil_type(position))
             for neighbor in set(self._neighbors_to_visit(tile_grouping)):
                 positions_to_visit.append(neighbor)
 
