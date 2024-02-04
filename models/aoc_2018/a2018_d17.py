@@ -112,6 +112,12 @@ class _Soil:
         )
 
     @property
+    def num_still_water_tiles(self) -> int:
+        return sum(
+            1 for tile in self._tiles.values() if tile == _SoilType.STANDING_WATER
+        )
+
+    @property
     def min_y(self) -> int:
         return self._bounding_box.min_y
 
@@ -184,6 +190,10 @@ class WaterSpring:
     @property
     def num_wet_tiles(self) -> int:
         return self._soil.num_wet_tiles
+
+    @property
+    def num_still_water_tiles(self) -> int:
+        return self._soil.num_still_water_tiles
 
     def flow(self) -> None:
         first_wet_position = Vector2D(

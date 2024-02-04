@@ -306,6 +306,9 @@ def aoc_2018_d17(file_name: str):
     print(
         f"AOC 2018 Day 17/Part 1: Number of tiles with water: {water_spring.num_wet_tiles}"
     )
+    print(
+        f"AOC 2018 Day 17/Part 2: Number of tiles with retained water: {water_spring.num_still_water_tiles}"
+    )
 
 
 # AOC 2018 Day 18: Settlers of The North Pole
