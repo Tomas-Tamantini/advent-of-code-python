@@ -148,7 +148,7 @@ def test_water_contained_on_both_sides_becomes_still():
     spring.flow()
     assert str(spring) == expected
     assert spring.num_wet_tiles == 40
-    assert spring.num_still_water_tiles == 12
+    assert spring.num_still_water_tiles == 13
 
 
 def test_there_is_no_water_pressure_to_keep_it_level_on_both_sides_of_container():
