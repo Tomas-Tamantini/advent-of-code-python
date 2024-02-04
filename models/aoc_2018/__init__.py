@@ -1,3 +1,7 @@
+from .three_value_instructions import (
+    ThreeValueInstruction,
+    ALL_THREE_VALUE_INSTRUCTIONS,
+)
 from .a2018_d1 import first_frequency_to_be_reached_twice
 from .a2018_d2 import contains_exactly_n_of_any_letter, differing_indices
 from .a2018_d3 import FabricRectangle, FabricArea
@@ -18,12 +22,6 @@ from .a2018_d15 import (
     CaveTeamSpec,
     optimal_game_for_elves,
 )
-from .a2018_d16 import (
-    ALL_THREE_VALUE_INSTRUCTIONS,
-    possible_instructions,
-    InstructionSample,
-    work_out_op_codes,
-    ThreeValueInstruction,
-)
+from .a2018_d16 import possible_instructions, InstructionSample, work_out_op_codes
 from .a2018_d17 import WaterSpring
 from .a2018_d18 import LumberArea, AcreType
