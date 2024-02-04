@@ -1,6 +1,22 @@
 from .three_value_instructions import (
     ThreeValueInstruction,
     ALL_THREE_VALUE_INSTRUCTIONS,
+    AddRegisters,
+    AddImmediate,
+    MultiplyRegisters,
+    MultiplyImmediate,
+    BitwiseAndRegisters,
+    BitwiseAndImmediate,
+    BitwiseOrRegisters,
+    BitwiseOrImmediate,
+    AssignmentRegisters,
+    AssignmentImmediate,
+    GreaterThanImmediateRegister,
+    GreaterThanRegisterImmediate,
+    GreaterThanRegisterRegister,
+    EqualImmediateRegister,
+    EqualRegisterImmediate,
+    EqualRegisterRegister,
 )
 from .a2018_d1 import first_frequency_to_be_reached_twice
 from .a2018_d2 import contains_exactly_n_of_any_letter, differing_indices

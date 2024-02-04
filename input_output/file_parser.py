@@ -90,6 +90,22 @@ from models.aoc_2018 import (
     InstructionSample,
     ThreeValueInstruction,
     AcreType,
+    AddRegisters,
+    AddImmediate,
+    MultiplyRegisters,
+    MultiplyImmediate,
+    BitwiseAndRegisters,
+    BitwiseAndImmediate,
+    BitwiseOrRegisters,
+    BitwiseOrImmediate,
+    AssignmentRegisters,
+    AssignmentImmediate,
+    GreaterThanImmediateRegister,
+    GreaterThanRegisterImmediate,
+    GreaterThanRegisterRegister,
+    EqualImmediateRegister,
+    EqualRegisterImmediate,
+    EqualRegisterRegister,
 )
 
 
@@ -812,3 +828,33 @@ class FileParser:
                     cells[Vector2D(x, y)] = acre_type
 
         return cells
+
+    def parse_three_value_instructions(
+        self, file_name: str
+    ) -> Iterator[ThreeValueInstruction]:
+        register_bound_to_pc = None
+        instruction_types = {
+            "addr": AddRegisters,
+            "addi": AddImmediate,
+            "mulr": MultiplyRegisters,
+            "muli": MultiplyImmediate,
+            "banr": BitwiseAndRegisters,
+            "bani": BitwiseAndImmediate,
+            "borr": BitwiseOrRegisters,
+            "bori": BitwiseOrImmediate,
+            "setr": AssignmentRegisters,
+            "seti": AssignmentImmediate,
+            "gtir": GreaterThanImmediateRegister,
+            "gtri": GreaterThanRegisterImmediate,
+            "gtrr": GreaterThanRegisterRegister,
+            "eqir": EqualImmediateRegister,
+            "eqri": EqualRegisterImmediate,
+            "eqrr": EqualRegisterRegister,
+        }
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split()
+            if "#ip" in parts:
+                register_bound_to_pc = int(parts[-1])
+            else:
+                instruction_type = instruction_types[parts[0]]
+                yield instruction_type(*map(int, parts[1:]), register_bound_to_pc)

@@ -191,3 +191,32 @@ def test_equal_register_register_sets_a_register_to_0_if_the_first_register_is_n
     instruction = EqualRegisterRegister(register_out=0, register_a=1, register_b=2)
     _execute_instruction(instruction, processor)
     assert processor.registers == {0: 0, 1: 12, 2: 7}
+
+
+@pytest.mark.parametrize("instruction", ALL_THREE_VALUE_INSTRUCTIONS)
+def test_can_bind_program_counter_to_register_which_loads_pc_value_at_begining_of_instruction(
+    instruction,
+):
+    processor = Processor(program_counter=123)
+    instruction_args = (1, 2, 3)
+    _execute_instruction(
+        instruction(*instruction_args, register_bound_to_pc=7), processor
+    )
+    assert processor.registers[7] == 123
+
+
+def test_can_bind_program_counter_to_register_which_overwrites_pc_at_end_of_instruction():
+    value_1 = 321
+    value_2 = 1_000
+    program_counter = 7
+    processor = Processor(
+        program_counter=program_counter, registers={1: value_1, 2: value_2}
+    )
+    instruction = AddRegisters(
+        register_a=1, register_b=2, register_out=1, register_bound_to_pc=1
+    )
+    expected_result = value_2 + program_counter
+
+    _execute_instruction(instruction, processor)
+    assert processor.registers[1] == expected_result
+    assert processor.program_counter == expected_result + 1
