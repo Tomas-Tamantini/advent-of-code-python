@@ -336,7 +336,13 @@ def aoc_2018_d18(file_name: str):
 
 # AOC 2018 Day 19: Go With The Flow
 def aoc_2018_d19(file_name: str):
-    print("AOC 2018 Day 19/Part 1: Not Implemented")
+    instructions = list(parser.parse_three_value_instructions(file_name))
+    program = ImmutableProgram(instructions)
+    computer = Computer.from_processor(Processor())
+    print("AOC 2018 Day 19/Part 1: Be patient, it takes about 30s to run", end="\r")
+    computer.run_program(program)
+    value = computer.get_register_value(register=0)
+    print(f"AOC 2018 Day 19/Part 1: Value of register 0: {value}")
 
 
 # AOC 2018 Day 20: A Regular Map
