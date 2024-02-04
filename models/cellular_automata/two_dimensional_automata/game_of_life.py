@@ -1,41 +1,26 @@
-from collections import defaultdict
-from typing import Iterator, Optional
+from typing import Hashable, Optional
+
+from models.vectors import Vector2D
+from .multi_state_automata import CellCluster, MultiState2DAutomaton
+
+DEAD, ALIVE = 0, 1
 
 
-class GameOfLife:
+class GameOfLife(MultiState2DAutomaton):
     def __init__(
-        self,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
+        self, width: Optional[int] = None, height: Optional[int] = None
     ) -> None:
-        self._width = width
-        self._height = height
+        default_cell_type = DEAD
+        super().__init__(default_cell_type, width, height)
 
-    def _is_within_bounds(self, x: int, y: int) -> bool:
-        if self._width is None or self._height is None:
-            return True
-        return 0 <= x < self._width and 0 <= y < self._height
+    def _apply_rule(self, cluster: CellCluster) -> Hashable:
+        if cluster.cell_type == DEAD and cluster.neighbors.count(ALIVE) == 3:
+            return 1
+        elif cluster.cell_type == ALIVE and 2 <= cluster.neighbors.count(ALIVE) <= 3:
+            return 1
+        return DEAD
 
-    def _neighbors(self, x: int, y: int) -> Iterator[tuple[int, int]]:
-        for dx in range(-1, 2):
-            for dy in range(-1, 2):
-                new_x, new_y = x + dx, y + dy
-                if (new_x, new_y) != (x, y) and self._is_within_bounds(new_x, new_y):
-                    yield new_x, new_y
-
-    def _num_live_neighbors(
-        self, live_cells: set[tuple[int, int]]
-    ) -> dict[tuple[int, int], int]:
-        num_live_neighbors: defaultdict[tuple[int, int], int] = defaultdict(int)
-        for cell in live_cells:
-            for neighbor in self._neighbors(*cell):
-                num_live_neighbors[neighbor] += 1
-        return num_live_neighbors
-
-    def next_state(self, live_cells: set[tuple[int, int]]) -> set[tuple[int, int]]:
-        next_live_cells = set()
-        for cell, num_neighbors in self._num_live_neighbors(live_cells).items():
-            if num_neighbors == 3 or (num_neighbors == 2 and cell in live_cells):
-                next_live_cells.add(cell)
-
-        return next_live_cells
+    def next_live_cells(self, live_cells: set[tuple[int, int]]) -> set[tuple[int, int]]:
+        cells = {Vector2D(x, y): 1 for x, y in live_cells}
+        next_gen = self.next_state(cells)
+        return {(pos.x, pos.y) for pos, cell in next_gen.items() if cell == 1}
