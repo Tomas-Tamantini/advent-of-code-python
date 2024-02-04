@@ -91,20 +91,22 @@ def _cells_from_str(s: str) -> dict[Vector2D:AcreType]:
     return cells
 
 
+SAMPLE_CELLS = _cells_from_str(
+    """.#.#...|#.
+       .....#|##|
+       .|..|...#.
+       ..|#.....#
+       #.#|||#|#|
+       ...#.||...
+       .|....|...
+       ||...#|.#|
+       |.||||..|.
+       ...#.|..|."""
+)
+
+
 def test_many_cells_are_updated_simultaneously():
-    cells = _cells_from_str(
-        """.#.#...|#.
-           .....#|##|
-           .|..|...#.
-           ..|#.....#
-           #.#|||#|#|
-           ...#.||...
-           .|....|...
-           ||...#|.#|
-           |.||||..|.
-           ...#.|..|."""
-    )
-    next_cells = LumberArea(10, 10).next_state(cells)
+    next_cells = LumberArea(10, 10).next_state(SAMPLE_CELLS)
     assert next_cells == _cells_from_str(
         """.......##.
            ......|###
@@ -116,4 +118,37 @@ def test_many_cells_are_updated_simultaneously():
            |||||.||.|
            ||||||||||
            ....||..|."""
+    )
+
+
+def test_can_step_multiple_generations():
+    next_cells = LumberArea(10, 10).multi_step(SAMPLE_CELLS, num_steps=10)
+    assert next_cells == _cells_from_str(
+        """.||##.....
+           ||###.....
+           ||##......
+           |##.....##
+           |##.....##
+           |##....##|
+           ||##.####|
+           ||#####|||
+           ||||#|||||
+           ||||||||||"""
+    )
+
+
+def test_stepping_multiple_generations_is_done_efficiently():
+
+    next_cells = LumberArea(10, 10).multi_step(SAMPLE_CELLS, num_steps=10_000_000_000)
+    assert next_cells == _cells_from_str(
+        """..........
+           ..........
+           ..........
+           ..........
+           ..........
+           ..........
+           ..........
+           ..........
+           ..........
+           .........."""
     )
