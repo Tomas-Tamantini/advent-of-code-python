@@ -4,8 +4,55 @@ from models.graphs import (
     explore_with_bfs,
     topological_sorting,
     travelling_salesman,
+    MutableUndirectedGraph,
     MutableDirectedGraph,
+    WeightedUnirectedGraph,
 )
+
+
+def test_mutable_undirected_graph_starts_empty():
+    graph = MutableUndirectedGraph()
+    assert list(graph.nodes()) == []
+
+
+def test_can_add_node_to_mutable_undirected_graph():
+    graph = MutableUndirectedGraph()
+    graph.add_node("a")
+    assert list(graph.nodes()) == ["a"]
+
+
+def test_can_add_edge_to_mutable_undirected_graph():
+    graph = MutableUndirectedGraph()
+    graph.add_edge("a", "b")
+    assert set(graph.nodes()) == {"a", "b"}
+    assert list(graph.neighbors("a")) == ["b"]
+    assert list(graph.neighbors("b")) == ["a"]
+
+
+def test_weighted_undirected_graph_starts_empty():
+    graph = WeightedUnirectedGraph()
+    assert list(graph.nodes()) == []
+
+
+def test_can_add_node_to_weighted_undirected_graph():
+    graph = WeightedUnirectedGraph()
+    graph.add_node("a")
+    assert list(graph.nodes()) == ["a"]
+
+
+def test_can_add_weighted_edge_to_weighted_undirected_graph():
+    graph = WeightedUnirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    assert set(graph.nodes()) == {"a", "b"}
+    assert list(graph.neighbors("a")) == ["b"]
+    assert list(graph.neighbors("b")) == ["a"]
+    assert graph.weight("a", "b") == 2
+
+
+def test_weight_between_non_adjacent_nodes_is_infinity():
+    graph = WeightedUnirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    assert graph.weight("a", "c") == float("inf")
 
 
 def test_mutable_directed_graph_starts_empty():

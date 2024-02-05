@@ -26,7 +26,7 @@ from models.aoc_2015 import (
     LeftShiftGate,
     RightShiftGate,
     NotGate,
-    AdirectedGraph,
+    CityRouter,
     WeightedDirectedGraph,
     Reindeer,
     CookieProperties,
@@ -204,8 +204,8 @@ class FileParser:
             circuit.add_gate(gate, output_wire)
         return circuit
 
-    def parse_adirected_graph(self, file_name: str) -> AdirectedGraph:
-        graph = AdirectedGraph()
+    def parse_adirected_graph(self, file_name: str) -> CityRouter:
+        graph = CityRouter()
         for line in self._file_reader.readlines(file_name):
             nodes_str, distance_str = line.split("=")
             nodes = [n.strip() for n in nodes_str.split("to")]

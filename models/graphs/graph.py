@@ -1,21 +1,60 @@
 from typing import Protocol, Hashable, Iterator
 from collections import defaultdict
+from math import inf
 
 
 class Graph(Protocol):
-    def neighbors(self, node: Hashable) -> Iterator[Hashable]:
-        ...
+    def neighbors(self, node: Hashable) -> Iterator[Hashable]: ...
 
 
 class DirectedGraph(Protocol):
+    def nodes(self) -> Iterator[Hashable]: ...
+
+    def incoming(self, node: Hashable) -> Iterator[Hashable]: ...
+
+    def outgoing(self, node: Hashable) -> Iterator[Hashable]: ...
+
+
+class MutableUndirectedGraph:
+    def __init__(self) -> None:
+        self._adjacencies = defaultdict(set)
+
+    def add_node(self, node: Hashable) -> None:
+        if node not in self._adjacencies:
+            self._adjacencies[node] = set()
+
+    def add_edge(self, node_a: Hashable, node_b: Hashable) -> None:
+        self._adjacencies[node_a].add(node_b)
+        self._adjacencies[node_b].add(node_a)
+
     def nodes(self) -> Iterator[Hashable]:
-        ...
+        yield from self._adjacencies.keys()
 
-    def incoming(self, node: Hashable) -> Iterator[Hashable]:
-        ...
+    def neighbors(self, node: Hashable) -> Iterator[Hashable]:
+        yield from self._adjacencies[node]
 
-    def outgoing(self, node: Hashable) -> Iterator[Hashable]:
-        ...
+
+class WeightedUnirectedGraph:
+
+    def __init__(self) -> None:
+        self._adjacencies = defaultdict(dict)
+
+    def add_node(self, node: Hashable) -> None:
+        if node not in self._adjacencies:
+            self._adjacencies[node] = dict()
+
+    def add_edge(self, node_a: Hashable, node_b: Hashable, weight: float) -> None:
+        self._adjacencies[node_a][node_b] = weight
+        self._adjacencies[node_b][node_a] = weight
+
+    def nodes(self) -> Iterator[Hashable]:
+        yield from self._adjacencies.keys()
+
+    def neighbors(self, node: Hashable) -> Iterator[Hashable]:
+        yield from self._adjacencies[node].keys()
+
+    def weight(self, node_a: Hashable, node_b: Hashable) -> float:
+        return self._adjacencies[node_a].get(node_b, inf)
 
 
 class MutableDirectedGraph:
