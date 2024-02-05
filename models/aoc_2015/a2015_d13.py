@@ -1,31 +1,12 @@
 from itertools import permutations
 from typing import Iterable
-from math import inf
+from models.graphs import WeightedDirectedGraph
 
 
-class SeatingArrangements:
-    def __init__(self) -> None:
-        self._adjacencies: dict[str, dict[str, int]] = dict()
-
-    def add_edge(self, node_a: str, node_b: str, cost: int) -> None:
-        if node_a not in self._adjacencies:
-            self._adjacencies[node_a] = dict()
-        self._adjacencies[node_a][node_b] = cost
-
-    @property
-    def nodes(self) -> Iterable[str]:
-        return self._adjacencies.keys()
-
-    def _cost(self, node_a: str, node_b: str) -> int:
-        if node_a not in self._adjacencies:
-            return inf
-        if node_b not in self._adjacencies[node_a]:
-            return inf
-        return self._adjacencies[node_a][node_b]
-
+class SeatingArrangements(WeightedDirectedGraph):
     def _round_trip_itinerary_cost(self, itinerary: list[str]):
         return sum(
-            self._cost(
+            self.weight(
                 itinerary[i],
                 itinerary[(i + 1) % len(itinerary)],
             )
@@ -33,7 +14,7 @@ class SeatingArrangements:
         )
 
     def _round_trips(self) -> Iterable[list[str]]:
-        nodes = list(self._adjacencies.keys())
+        nodes = list(self.nodes())
         for perm in permutations(nodes[1:]):
             yield [nodes[0]] + list(perm)
 

@@ -213,7 +213,7 @@ class FileParser:
             graph.add_edge(*nodes, distance)
         return graph
 
-    def parse_weighted_directed_graph(self, file_name: str) -> SeatingArrangements:
+    def parse_seating_arrangement(self, file_name: str) -> SeatingArrangements:
         graph = SeatingArrangements()
         for line in self._file_reader.readlines(file_name):
             sentence_parts = line.strip().split(" ")

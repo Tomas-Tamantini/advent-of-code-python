@@ -87,3 +87,30 @@ class MutableDirectedGraph:
 
     def outgoing(self, node: Hashable) -> Iterator[Hashable]:
         yield from self._outgoing[node]
+
+
+class WeightedDirectedGraph:
+    def __init__(self) -> None:
+        self._incoming = defaultdict(dict)
+        self._outgoing = defaultdict(dict)
+
+    def add_node(self, node: Hashable) -> None:
+        if node not in self._incoming:
+            self._incoming[node] = dict()
+
+    def add_edge(self, source: Hashable, target: Hashable, weight: float) -> None:
+        self._incoming[target][source] = weight
+        self._outgoing[source][target] = weight
+        self.add_node(source)
+
+    def nodes(self) -> Iterator[Hashable]:
+        yield from self._incoming.keys()
+
+    def incoming(self, node: Hashable) -> Iterator[Hashable]:
+        yield from self._incoming[node]
+
+    def outgoing(self, node: Hashable) -> Iterator[Hashable]:
+        yield from self._outgoing[node]
+
+    def weight(self, source: Hashable, target: Hashable) -> float:
+        return self._incoming[target].get(source, inf)

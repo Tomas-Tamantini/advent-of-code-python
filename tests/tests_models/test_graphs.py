@@ -7,6 +7,7 @@ from models.graphs import (
     MutableUndirectedGraph,
     MutableDirectedGraph,
     WeightedUndirectedGraph,
+    WeightedDirectedGraph,
 )
 
 
@@ -49,7 +50,7 @@ def test_can_add_weighted_edge_to_weighted_undirected_graph():
     assert graph.weight("a", "b") == 2
 
 
-def test_weight_between_non_adjacent_nodes_is_infinity():
+def test_weight_between_non_adjacent_nodes_in_undirected_graph_is_infinity():
     graph = WeightedUndirectedGraph()
     graph.add_edge("a", "b", weight=2)
     assert graph.weight("a", "c") == float("inf")
@@ -82,6 +83,35 @@ def test_can_remove_node_from_mutable_directed_graph():
     assert list(graph.nodes()) == ["a", "c"]
     assert list(graph.outgoing("a")) == []
     assert list(graph.incoming("c")) == []
+
+
+def test_weighted_directed_graph_starts_empty():
+    graph = WeightedDirectedGraph()
+    assert list(graph.nodes()) == []
+
+
+def test_can_add_node_to_weighted_directed_graph():
+    graph = WeightedDirectedGraph()
+    graph.add_node("a")
+    assert list(graph.nodes()) == ["a"]
+
+
+def test_can_add_weighted_edge_to_weighted_directed_graph():
+    graph = WeightedDirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    assert set(graph.nodes()) == {"a", "b"}
+    assert list(graph.outgoing("a")) == ["b"]
+    assert list(graph.incoming("b")) == ["a"]
+    assert list(graph.outgoing("b")) == []
+    assert list(graph.incoming("a")) == []
+    assert graph.weight("a", "b") == 2
+
+
+def test_weight_between_non_adjacent_nodes_in_directed_graph_is_infinity():
+    graph = WeightedDirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    assert set(graph.nodes()) == {"a", "b"}
+    assert graph.weight("b", "a") == float("inf")
 
 
 class MockGraph:
