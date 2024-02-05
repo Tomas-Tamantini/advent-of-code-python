@@ -3,7 +3,7 @@ import re
 import numpy as np
 from datetime import datetime
 from collections import defaultdict
-from models.graphs import MutableDirectedGraph
+from models.graphs import DirectedGraph
 from models.vectors import CardinalDirection, Vector2D, TurnDirection
 from models.assembly import (
     Instruction,
@@ -737,8 +737,8 @@ class FileParser:
                 naps.append(GuardNap(start, end))
             yield Guard(guard_id, naps)
 
-    def parse_directed_graph(self, file_name: str) -> MutableDirectedGraph:
-        graph = MutableDirectedGraph()
+    def parse_directed_graph(self, file_name: str) -> DirectedGraph:
+        graph = DirectedGraph()
         for line in self._file_reader.readlines(file_name):
             parts = line.strip().split(" ")
             graph.add_edge(parts[1], parts[-3])

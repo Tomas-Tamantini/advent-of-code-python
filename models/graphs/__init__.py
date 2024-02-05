@@ -1,6 +1,6 @@
 from .graph import (
-    MutableUndirectedGraph,
-    MutableDirectedGraph,
+    UndirectedGraph,
+    DirectedGraph,
     WeightedUndirectedGraph,
     WeightedDirectedGraph,
 )

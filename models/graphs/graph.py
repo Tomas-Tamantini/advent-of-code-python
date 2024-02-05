@@ -3,11 +3,11 @@ from collections import defaultdict
 from math import inf
 
 
-class Graph(Protocol):
+class GraphProtocol(Protocol):
     def neighbors(self, node: Hashable) -> Iterator[Hashable]: ...
 
 
-class DirectedGraph(Protocol):
+class DirectedGraphProtocol(Protocol):
     def nodes(self) -> Iterator[Hashable]: ...
 
     def incoming(self, node: Hashable) -> Iterator[Hashable]: ...
@@ -15,7 +15,7 @@ class DirectedGraph(Protocol):
     def outgoing(self, node: Hashable) -> Iterator[Hashable]: ...
 
 
-class MutableUndirectedGraph:
+class UndirectedGraph:
     def __init__(self) -> None:
         self._adjacencies = defaultdict(set)
 
@@ -57,7 +57,7 @@ class WeightedUndirectedGraph:
         return self._adjacencies[node_a].get(node_b, inf)
 
 
-class MutableDirectedGraph:
+class DirectedGraph:
     def __init__(self) -> None:
         self._incoming = defaultdict(set)
         self._outgoing = defaultdict(set)

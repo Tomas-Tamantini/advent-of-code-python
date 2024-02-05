@@ -1,7 +1,7 @@
 from queue import PriorityQueue
 from dataclasses import dataclass
 from enum import Enum
-from models.graphs import MutableDirectedGraph
+from models.graphs import DirectedGraph
 
 
 class _Event(Enum):
@@ -23,7 +23,7 @@ class _State:
 
 def _add_free_jobs_to_event_queue(
     time: int,
-    jobs_dag: MutableDirectedGraph,
+    jobs_dag: DirectedGraph,
     state: _State,
     event_queue: PriorityQueue,
 ) -> None:
@@ -41,7 +41,7 @@ def _take_next_free_job(job_durations, state, time, event_queue) -> None:
 
 def time_to_complete_jobs(
     num_workers: int,
-    jobs_dag: MutableDirectedGraph,
+    jobs_dag: DirectedGraph,
     job_durations: dict[str, int],
 ) -> int:
     state = _State(

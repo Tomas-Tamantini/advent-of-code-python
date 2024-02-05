@@ -1,9 +1,9 @@
 from typing import Iterator, Hashable, Callable
-from .graph import Graph
+from .graph import GraphProtocol
 
 
 def min_path_length_with_bfs(
-    graph: Graph,
+    graph: GraphProtocol,
     initial_node: Hashable,
     is_final_state: Callable[[Hashable], bool],
 ) -> int:
@@ -23,7 +23,7 @@ def min_path_length_with_bfs(
 
 
 def explore_with_bfs(
-    graph: Graph, initial_node: Hashable
+    graph: GraphProtocol, initial_node: Hashable
 ) -> Iterator[tuple[Hashable, int]]:
     queue = [(initial_node, 0)]
     visited = {initial_node}

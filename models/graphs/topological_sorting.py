@@ -1,5 +1,5 @@
 from typing import Iterator, Hashable, Optional, Callable
-from .graph import DirectedGraph
+from .graph import DirectedGraphProtocol
 
 
 class _PriorityQueue:
@@ -36,7 +36,7 @@ class _PriorityQueue:
 
 
 def topological_sorting(
-    dag: DirectedGraph,
+    dag: DirectedGraphProtocol,
     tie_breaker: Optional[Callable[[Hashable, Hashable], bool]] = None,
 ) -> Iterator[Hashable]:
     all_nodes = set(dag.nodes())

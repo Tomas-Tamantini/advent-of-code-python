@@ -4,26 +4,26 @@ from models.graphs import (
     explore_with_bfs,
     topological_sorting,
     travelling_salesman,
-    MutableUndirectedGraph,
-    MutableDirectedGraph,
+    UndirectedGraph,
+    DirectedGraph,
     WeightedUndirectedGraph,
     WeightedDirectedGraph,
 )
 
 
 def test_mutable_undirected_graph_starts_empty():
-    graph = MutableUndirectedGraph()
+    graph = UndirectedGraph()
     assert list(graph.nodes()) == []
 
 
 def test_can_add_node_to_mutable_undirected_graph():
-    graph = MutableUndirectedGraph()
+    graph = UndirectedGraph()
     graph.add_node("a")
     assert list(graph.nodes()) == ["a"]
 
 
 def test_can_add_edge_to_mutable_undirected_graph():
-    graph = MutableUndirectedGraph()
+    graph = UndirectedGraph()
     graph.add_edge("a", "b")
     assert set(graph.nodes()) == {"a", "b"}
     assert list(graph.neighbors("a")) == ["b"]
@@ -57,18 +57,18 @@ def test_weight_between_non_adjacent_nodes_in_undirected_graph_is_infinity():
 
 
 def test_mutable_directed_graph_starts_empty():
-    graph = MutableDirectedGraph()
+    graph = DirectedGraph()
     assert list(graph.nodes()) == []
 
 
 def test_can_add_node_to_mutable_directed_graph():
-    graph = MutableDirectedGraph()
+    graph = DirectedGraph()
     graph.add_node("a")
     assert list(graph.nodes()) == ["a"]
 
 
 def test_can_add_edge_to_mutable_directed_graph():
-    graph = MutableDirectedGraph()
+    graph = DirectedGraph()
     graph.add_edge("a", "b")
     assert set(graph.nodes()) == {"a", "b"}
     assert list(graph.outgoing("a")) == ["b"]
@@ -76,7 +76,7 @@ def test_can_add_edge_to_mutable_directed_graph():
 
 
 def test_can_remove_node_from_mutable_directed_graph():
-    graph = MutableDirectedGraph()
+    graph = DirectedGraph()
     graph.add_edge("a", "b")
     graph.add_edge("b", "c")
     graph.remove_node("b")
@@ -211,18 +211,18 @@ def test_travelling_salesman_can_end_trip_before_returning_to_origin():
 
 
 def test_topological_sorting_of_empty_graph_is_empty():
-    dag = MutableDirectedGraph()
+    dag = DirectedGraph()
     assert list(topological_sorting(dag)) == []
 
 
 def test_topological_sorting_of_graph_with_single_node_contains_only_that_node():
-    dag = MutableDirectedGraph()
+    dag = DirectedGraph()
     dag.add_node("a")
     assert list(topological_sorting(dag)) == ["a"]
 
 
 def test_topological_sorting_returns_nodes_in_topological_order():
-    dag = MutableDirectedGraph()
+    dag = DirectedGraph()
     dag.add_edge("b", "c")
     dag.add_edge("a", "b")
     dag.add_edge("b", "d")
@@ -230,7 +230,7 @@ def test_topological_sorting_returns_nodes_in_topological_order():
 
 
 def test_topological_sorting_of_cyclical_graph_raises_error():
-    dag = MutableDirectedGraph()
+    dag = DirectedGraph()
     dag.add_edge("a", "b")
     dag.add_edge("b", "c")
     dag.add_edge("c", "a")
@@ -238,7 +238,7 @@ def test_topological_sorting_of_cyclical_graph_raises_error():
     with pytest.raises(ValueError):
         list(topological_sorting(dag))
 
-    dag = MutableDirectedGraph()
+    dag = DirectedGraph()
     dag.add_edge("a", "b")
     dag.add_edge("b", "c")
     dag.add_edge("c", "b")
@@ -248,7 +248,7 @@ def test_topological_sorting_of_cyclical_graph_raises_error():
 
 
 def test_topological_sorting_can_receive_tie_breaker():
-    dag = MutableDirectedGraph()
+    dag = DirectedGraph()
     dag.add_edge("C", "A")
     dag.add_edge("C", "F")
     dag.add_edge("A", "B")
