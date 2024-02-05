@@ -32,6 +32,7 @@ from models.aoc_2018 import (
     AcreType,
     optimized_sum_divisors_program,
     build_lattice_graph,
+    optimized_chronal_conversion,
 )
 
 parser = FileParser.default()
@@ -378,7 +379,21 @@ def aoc_2018_d20(file_name: str):
 
 # AOC 2018 Day 21: Chronal Conversion
 def aoc_2018_d21(file_name: str):
-    print("AOC 2018 Day 21/Part 1: Not Implemented")
+    with open(file_name) as file:
+        lines = list(file.readlines())
+    input_number = int(lines[8].split()[1])
+    register_min = optimized_chronal_conversion(
+        input_number, exit_on_first_occurrence=True
+    )
+    print(
+        f"AOC 2018 Day 21/Part 1: Value of register 0 to halt program with min instructions: {register_min}"
+    )
+    register_max = optimized_chronal_conversion(
+        input_number, exit_on_first_occurrence=False
+    )
+    print(
+        f"AOC 2018 Day 21/Part 2: Value of register 0 to halt program with max instructions: {register_max}"
+    )
 
 
 # AOC 2018 Day 22: Mode Maze

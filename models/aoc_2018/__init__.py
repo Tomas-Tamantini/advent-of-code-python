@@ -43,3 +43,4 @@ from .a2018_d17 import WaterSpring
 from .a2018_d18 import LumberArea, AcreType
 from .a2018_d19 import optimized_sum_divisors_program
 from .a2018_d20 import build_lattice_graph
+from .a2018_d21 import optimized_chronal_conversion
