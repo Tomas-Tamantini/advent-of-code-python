@@ -6,7 +6,7 @@ from models.graphs import (
     travelling_salesman,
     MutableUndirectedGraph,
     MutableDirectedGraph,
-    WeightedUnirectedGraph,
+    WeightedUndirectedGraph,
 )
 
 
@@ -30,18 +30,18 @@ def test_can_add_edge_to_mutable_undirected_graph():
 
 
 def test_weighted_undirected_graph_starts_empty():
-    graph = WeightedUnirectedGraph()
+    graph = WeightedUndirectedGraph()
     assert list(graph.nodes()) == []
 
 
 def test_can_add_node_to_weighted_undirected_graph():
-    graph = WeightedUnirectedGraph()
+    graph = WeightedUndirectedGraph()
     graph.add_node("a")
     assert list(graph.nodes()) == ["a"]
 
 
 def test_can_add_weighted_edge_to_weighted_undirected_graph():
-    graph = WeightedUnirectedGraph()
+    graph = WeightedUndirectedGraph()
     graph.add_edge("a", "b", weight=2)
     assert set(graph.nodes()) == {"a", "b"}
     assert list(graph.neighbors("a")) == ["b"]
@@ -50,7 +50,7 @@ def test_can_add_weighted_edge_to_weighted_undirected_graph():
 
 
 def test_weight_between_non_adjacent_nodes_is_infinity():
-    graph = WeightedUnirectedGraph()
+    graph = WeightedUndirectedGraph()
     graph.add_edge("a", "b", weight=2)
     assert graph.weight("a", "c") == float("inf")
 

@@ -3,7 +3,7 @@ from typing import Iterable
 from math import inf
 
 
-class WeightedDirectedGraph:
+class SeatingArrangements:
     def __init__(self) -> None:
         self._adjacencies: dict[str, dict[str, int]] = dict()
 

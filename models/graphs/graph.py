@@ -34,7 +34,7 @@ class MutableUndirectedGraph:
         yield from self._adjacencies[node]
 
 
-class WeightedUnirectedGraph:
+class WeightedUndirectedGraph:
 
     def __init__(self) -> None:
         self._adjacencies = defaultdict(dict)

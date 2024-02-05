@@ -1,8 +1,8 @@
-from models.aoc_2015 import WeightedDirectedGraph
+from models.aoc_2015 import SeatingArrangements
 
 
 def test_graph_with_two_nodes_has_single_possible_itinerary_cost():
-    graph = WeightedDirectedGraph()
+    graph = SeatingArrangements()
     graph.add_edge("a", "b", 100)
     graph.add_edge("b", "a", 200)
     assert graph.round_trip_itinerary_min_cost() == 300
@@ -10,7 +10,7 @@ def test_graph_with_two_nodes_has_single_possible_itinerary_cost():
 
 
 def test_graph_finds_shortest_and_longest_possible_itinerary():
-    graph = WeightedDirectedGraph()
+    graph = SeatingArrangements()
     graph.add_edge("a", "b", 100)
     graph.add_edge("b", "c", 100)
     graph.add_edge("c", "a", 100)
@@ -23,7 +23,7 @@ def test_graph_finds_shortest_and_longest_possible_itinerary():
 
 
 def test_can_optimize_paths_going_both_ways():
-    graph = WeightedDirectedGraph()
+    graph = SeatingArrangements()
 
     graph.add_edge("a", "b", 54)
     graph.add_edge("a", "c", -79)
