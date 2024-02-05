@@ -42,3 +42,4 @@ from .a2018_d16 import possible_instructions, InstructionSample, work_out_op_cod
 from .a2018_d17 import WaterSpring
 from .a2018_d18 import LumberArea, AcreType
 from .a2018_d19 import optimized_sum_divisors_program
+from .a2018_d20 import build_lattice_graph

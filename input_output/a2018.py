@@ -3,7 +3,7 @@ from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from math import inf
 from models.vectors import Vector2D, TurnDirection
-from models.graphs import topological_sorting
+from models.graphs import topological_sorting, explore_with_bfs
 from models.assembly import Processor, ImmutableProgram, Computer
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
@@ -31,6 +31,7 @@ from models.aoc_2018 import (
     LumberArea,
     AcreType,
     optimized_sum_divisors_program,
+    build_lattice_graph,
 )
 
 parser = FileParser.default()
@@ -358,7 +359,21 @@ def aoc_2018_d19(file_name: str):
 
 # AOC 2018 Day 20: A Regular Map
 def aoc_2018_d20(file_name: str):
-    print("AOC 2018 Day 20/Part 1: Not Implemented")
+    with open(file_name) as file:
+        regex = file.read().strip()
+    graph = build_lattice_graph(regex)
+    starting_node = Vector2D(0, 0)
+    distances = {
+        node: distance for node, distance in explore_with_bfs(graph, starting_node)
+    }
+    max_distance = max(distances.values())
+    print(
+        f"AOC 2018 Day 20/Part 1: Maximum distance from starting node: {max_distance}"
+    )
+    num_rooms_at_least_1000 = sum(d >= 1000 for d in distances.values())
+    print(
+        f"AOC 2018 Day 20/Part 2: Number of rooms at least 1000 doors away: {num_rooms_at_least_1000}"
+    )
 
 
 # AOC 2018 Day 21: Chronal Conversion
