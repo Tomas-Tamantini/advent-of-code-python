@@ -46,7 +46,36 @@ def _split_options(options: str) -> Iterator[str]:
     yield current_option
 
 
-# TODO: Refactor to reduce cyclomatic complexity
+def _explore_path(
+    graph: UndirectedGraph,
+    paths_to_explore: list[_PathToExplore],
+    visited: set[_PathToExplore],
+) -> None:
+    path = paths_to_explore.pop()
+    visited.add(path)
+    current_position = path.starting_position
+    for character in path.regex:
+        direction = _str_to_direction.get(character)
+        if direction:
+            new_position = current_position.move(direction)
+            graph.add_edge(current_position, new_position)
+            current_position = new_position
+        elif character == "(":
+            closing_parenthesis_idx = _closing_parenthesis_index(
+                path.regex, path.regex.index(character)
+            )
+            for option in _split_options(
+                path.regex[path.regex.index(character) + 1 : closing_parenthesis_idx]
+            ):
+                new_path = _PathToExplore(
+                    option + path.regex[closing_parenthesis_idx + 1 :],
+                    current_position,
+                )
+                if new_path not in visited:
+                    paths_to_explore.append(new_path)
+            break
+
+
 def build_lattice_graph(regex: str) -> UndirectedGraph:
     starting_position = Vector2D(0, 0)
     graph = UndirectedGraph()
@@ -54,30 +83,6 @@ def build_lattice_graph(regex: str) -> UndirectedGraph:
     paths_to_explore = [_PathToExplore(regex[1:], starting_position)]
     visited: set[_PathToExplore] = set()
     while paths_to_explore:
-        path = paths_to_explore.pop()
-        visited.add(path)
-        current_position = path.starting_position
-        for character in path.regex:
-            direction = _str_to_direction.get(character)
-            if direction:
-                new_position = current_position.move(direction)
-                graph.add_edge(current_position, new_position)
-                current_position = new_position
-            elif character == "(":
-                closing_parenthesis_idx = _closing_parenthesis_index(
-                    path.regex, path.regex.index(character)
-                )
-                for option in _split_options(
-                    path.regex[
-                        path.regex.index(character) + 1 : closing_parenthesis_idx
-                    ]
-                ):
-                    new_path = _PathToExplore(
-                        option + path.regex[closing_parenthesis_idx + 1 :],
-                        current_position,
-                    )
-                    if new_path not in visited:
-                        paths_to_explore.append(new_path)
-                break
+        _explore_path(graph, paths_to_explore, visited)
 
     return graph
