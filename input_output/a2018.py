@@ -33,6 +33,7 @@ from models.aoc_2018 import (
     optimized_sum_divisors_program,
     build_lattice_graph,
     optimized_chronal_conversion,
+    RockyCave,
 )
 
 parser = FileParser.default()
@@ -398,7 +399,19 @@ def aoc_2018_d21(file_name: str):
 
 # AOC 2018 Day 22: Mode Maze
 def aoc_2018_d22(file_name: str):
-    print("AOC 2018 Day 22/Part 1: Not Implemented")
+    with open(file_name) as file:
+        lines = list(file.readlines())
+    depth = int(lines[0].split()[1])
+    target = Vector2D(*map(int, lines[1].split()[1].split(",")))
+    cave = RockyCave(
+        depth=depth,
+        target=target,
+        row_multiplier=16807,
+        col_multiplier=48271,
+        erosion_level_mod=20183,
+    )
+    risk_level = cave.risk_level()
+    print(f"AOC 2018 Day 22/Part 1: Risk level of cave: {risk_level}")
 
 
 # AOC 2018 Day 23: Experimental Emergency Teleportation
