@@ -34,6 +34,7 @@ from models.aoc_2018 import (
     build_lattice_graph,
     optimized_chronal_conversion,
     RockyCave,
+    CaveExplorer,
 )
 
 parser = FileParser.default()
@@ -344,7 +345,7 @@ def aoc_2018_d19(file_name: str):
     program = ImmutableProgram(instructions)
     computer = Computer.from_processor(Processor())
     print("AOC 2018 Day 19/Part 1: Takes about 30s to run", end="\r")
-    #  computer.run_program(program)
+    computer.run_program(program)
     value = computer.get_register_value(register=0)
     print(
         f"AOC 2018 Day 19/Part 1: Value of register 0 at the end of the program: {value}"
@@ -412,6 +413,9 @@ def aoc_2018_d22(file_name: str):
     )
     risk_level = cave.risk_level()
     print(f"AOC 2018 Day 22/Part 1: Risk level of cave: {risk_level}")
+    explorer = CaveExplorer(cave, time_to_move=1, time_to_switch_gear=7)
+    shortest_time = explorer.shortest_time_to_target()
+    print(f"AOC 2018 Day 22/Part 2: Shortest time to reach target: {shortest_time}")
 
 
 # AOC 2018 Day 23: Experimental Emergency Teleportation

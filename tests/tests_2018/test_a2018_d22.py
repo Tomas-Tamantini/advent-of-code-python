@@ -1,5 +1,5 @@
 from models.vectors import Vector2D, BoundingBox
-from models.aoc_2018.a2018_d22 import RockyCave
+from models.aoc_2018.a2018_d22 import RockyCave, CaveExplorer
 
 
 def test_rocky_cave_erosion_levels_are_calculated_properly():
@@ -30,3 +30,15 @@ def test_risk_level_is_calculated_properly():
         top_right=Vector2D(10, 10),
     )
     assert cave.risk_level(region) == 114
+
+
+def test_cave_explorer_finds_shortest_time_to_target():
+    cave = RockyCave(
+        depth=510,
+        target=Vector2D(10, 10),
+        row_multiplier=16807,
+        col_multiplier=48271,
+        erosion_level_mod=20183,
+    )
+    explorer = CaveExplorer(cave, time_to_move=1, time_to_switch_gear=7)
+    assert explorer.shortest_time_to_target() == 45
