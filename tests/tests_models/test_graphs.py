@@ -8,6 +8,7 @@ from models.graphs import (
     DirectedGraph,
     WeightedUndirectedGraph,
     WeightedDirectedGraph,
+    dijkstra,
 )
 
 
@@ -257,3 +258,44 @@ def test_topological_sorting_can_receive_tie_breaker():
     dag.add_edge("D", "E")
     dag.add_edge("F", "E")
     assert "".join(topological_sorting(dag, tie_breaker=lambda a, b: a < b)) == "CABDFE"
+
+
+def test_dijkstra_raises_value_error_if_no_path():
+    graph = WeightedUndirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    with pytest.raises(ValueError):
+        dijkstra("a", "c", graph)
+
+
+def test_dijkstra_returns_distance_zero_if_origin_equals_destination():
+    graph = WeightedUndirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    path, distance = dijkstra("a", "a", graph)
+    assert path == ["a"]
+    assert distance == 0
+
+
+def test_dijkstra_minimizes_distance():
+    graph = WeightedUndirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    graph.add_edge("a", "c", weight=10)
+    graph.add_edge("b", "d", weight=15)
+    graph.add_edge("c", "d", weight=5)
+    path, distance = dijkstra("a", "d", graph)
+    assert path == ["a", "c", "d"]
+    assert distance == 15
+
+
+def test_dijkstra_finds_optimal_distance_even_if_multiple_optimal_paths():
+    graph = WeightedUndirectedGraph()
+    graph.add_edge("a", "b", weight=3)
+    graph.add_edge("a", "d", weight=8)
+    graph.add_edge("b", "d", weight=5)
+    graph.add_edge("b", "e", weight=6)
+    graph.add_edge("d", "e", weight=3)
+    graph.add_edge("d", "f", weight=2)
+    graph.add_edge("e", "f", weight=1)
+    graph.add_edge("e", "c", weight=9)
+    graph.add_edge("f", "c", weight=3)
+    _, distance = dijkstra("a", "c", graph)
+    assert distance == 13
