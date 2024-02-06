@@ -15,6 +15,10 @@ class DirectedGraphProtocol(Protocol):
     def outgoing(self, node: Hashable) -> Iterator[Hashable]: ...
 
 
+class WeightedProtocol(Protocol):
+    def weight(self, node_a: Hashable, node_b: Hashable) -> float: ...
+
+
 class UndirectedGraph:
     def __init__(self) -> None:
         self._adjacencies = defaultdict(set)
@@ -112,5 +116,5 @@ class WeightedDirectedGraph:
     def outgoing(self, node: Hashable) -> Iterator[Hashable]:
         yield from self._outgoing[node]
 
-    def weight(self, source: Hashable, target: Hashable) -> float:
-        return self._incoming[target].get(source, inf)
+    def weight(self, node_a: Hashable, node_b: Hashable) -> float:
+        return self._incoming[node_b].get(node_a, inf)

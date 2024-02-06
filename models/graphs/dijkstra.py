@@ -1,11 +1,17 @@
-from .graph import WeightedUndirectedGraph
+from .graph import GraphProtocol, WeightedProtocol
 from heapq import heappop, heappush
-from typing import Hashable
+from typing import Hashable, Protocol
 from math import inf
 
 
+class _WeightedGraph(GraphProtocol, WeightedProtocol, Protocol):
+    pass
+
+
 def dijkstra(
-    origin: Hashable, destination: Hashable, graph: WeightedUndirectedGraph
+    origin: Hashable,
+    destination: Hashable,
+    graph: _WeightedGraph,
 ) -> tuple[list[Hashable], float]:
     distances = {origin: 0}
     previous = {origin: None}
