@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from .cardinal_directions import CardinalDirection
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Vector2D:
     x: int = 0
     y: int = 0
