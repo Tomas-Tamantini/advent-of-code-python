@@ -1,6 +1,12 @@
 from typing import Optional
-import numpy as np
-from models.vectors import Vector2D, BoundingBox
+from enum import Enum
+from models.vectors import Vector2D, CardinalDirection, BoundingBox
+
+
+class RegionType(int, Enum):
+    ROCKY = 0
+    WET = 1
+    NARROW = 2
 
 
 class RockyCave:
@@ -17,15 +23,11 @@ class RockyCave:
         self._row_multiplier = row_multiplier
         self._col_multiplier = col_multiplier
         self._erosion_level_mod = erosion_level_mod
-        self._erosion_levels = np.zeros((target.y + 1, target.x + 1), dtype=int)
-        self._calculate_erosion_levels()
+        self._erosion_levels: dict[Vector2D, int] = dict()
 
-    def _calculate_erosion_levels(self) -> None:
-        for y in range(self._erosion_levels.shape[0]):
-            for x in range(self._erosion_levels.shape[1]):
-                self._erosion_levels[y, x] = self._erosion_level(Vector2D(x, y))
-
-    def _erosion_level(self, pos: Vector2D) -> int:
+    def erosion_level(self, pos: Vector2D) -> int:
+        if pos in self._erosion_levels:
+            return self._erosion_levels[pos]
         if pos == Vector2D(0, 0) or pos == self._target:
             geo_index = 0
         elif pos.y == 0:
@@ -33,14 +35,15 @@ class RockyCave:
         elif pos.x == 0:
             geo_index = pos.y * self._col_multiplier
         else:
-            geo_index = (
-                self._erosion_levels[pos.y, pos.x - 1]
-                * self._erosion_levels[pos.y - 1, pos.x]
-            )
-        return (geo_index + self._depth) % self._erosion_level_mod
+            geo_index = self.erosion_level(
+                pos.move(CardinalDirection.WEST)
+            ) * self.erosion_level(pos.move(CardinalDirection.SOUTH))
+        level = (geo_index + self._depth) % self._erosion_level_mod
+        self._erosion_levels[pos] = level
+        return level
 
-    def erosion_level(self, pos: Vector2D) -> int:
-        return self._erosion_levels[pos.y, pos.x]
+    def region_type(self, pos: Vector2D) -> RegionType:
+        return RegionType(self.erosion_level(pos) % 3)
 
     def risk_level(self, region: Optional[BoundingBox] = None) -> int:
         if region is None:
@@ -48,10 +51,8 @@ class RockyCave:
                 bottom_left=Vector2D(0, 0),
                 top_right=self._target,
             )
-        return np.sum(
-            self._erosion_levels[
-                region.bottom_left.y : region.top_right.y + 1,
-                region.bottom_left.x : region.top_right.x + 1,
-            ]
-            % 3
+        return sum(
+            self.region_type(Vector2D(x, y))
+            for x in range(region.bottom_left.x, region.top_right.x + 1)
+            for y in range(region.bottom_left.y, region.top_right.y + 1)
         )
