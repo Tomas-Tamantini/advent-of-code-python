@@ -9,6 +9,7 @@ from models.graphs import (
     WeightedUndirectedGraph,
     WeightedDirectedGraph,
     dijkstra,
+    a_star,
 )
 
 
@@ -299,3 +300,65 @@ def test_dijkstra_finds_optimal_distance_even_if_multiple_optimal_paths():
     graph.add_edge("f", "c", weight=3)
     _, distance = dijkstra("a", "c", graph)
     assert distance == 13
+
+
+class _MockAStarGraph(WeightedUndirectedGraph):
+    def heuristic_potential(self, node) -> float:
+        # Taken from computerphile video https://www.youtube.com/watch?v=ySN5Wnu88nE
+        return {
+            "S": 10,
+            "A": 9,
+            "B": 7,
+            "C": 8,
+            "D": 8,
+            "E": 0,
+            "F": 6,
+            "G": 3,
+            "H": 6,
+            "I": 4,
+            "J": 4,
+            "K": 3,
+            "L": 6,
+        }[node]
+
+
+def test_a_star_raises_value_error_if_no_path():
+    graph = _MockAStarGraph()
+    graph.add_edge("A", "B", weight=2)
+    with pytest.raises(ValueError):
+        a_star("A", "C", graph)
+
+
+def test_a_star_returns_distance_zero_if_origin_equals_destination():
+    graph = _MockAStarGraph()
+    graph.add_edge("a", "b", weight=2)
+    path, distance = a_star("a", "a", graph)
+    assert path == ["a"]
+    assert distance == 0
+
+
+def test_a_star_returns_path_with_optimal_distance():
+    graph = _MockAStarGraph()
+    # Taken from computerphile video https://www.youtube.com/watch?v=ySN5Wnu88nE
+    graph.add_edge("S", "A", 7)
+    graph.add_edge("S", "B", 2)
+    graph.add_edge("S", "C", 3)
+    graph.add_edge("A", "B", 3)
+    graph.add_edge("A", "D", 4)
+    graph.add_edge("B", "D", 4)
+    graph.add_edge("B", "H", 1)
+    graph.add_edge("C", "L", 2)
+    graph.add_edge("L", "I", 4)
+    graph.add_edge("L", "J", 4)
+    graph.add_edge("I", "J", 6)
+    graph.add_edge("I", "K", 4)
+    graph.add_edge("J", "K", 4)
+    graph.add_edge("K", "E", 5)
+    graph.add_edge("D", "F", 5)
+    graph.add_edge("H", "F", 3)
+    graph.add_edge("H", "G", 2)
+    graph.add_edge("G", "E", 2)
+
+    path, distance = a_star("S", "E", graph)
+    assert path == ["S", "B", "H", "G", "E"]
+    assert distance == 7

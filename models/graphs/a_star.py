@@ -2,33 +2,35 @@ from typing import Hashable, Protocol
 from math import inf
 from dataclasses import dataclass, field
 from queue import PriorityQueue
-from .graph import GraphProtocol, WeightedProtocol
+from .dijkstra import WeightedProtocol
+from dataclasses import dataclass
 
 
-class WeightedGraph(GraphProtocol, WeightedProtocol, Protocol):
-    pass
+class AStarGraphProtocol(WeightedProtocol, Protocol):
+    def heuristic_potential(self, node: Hashable) -> float: ...
 
 
 @dataclass(frozen=True, order=True)
 class _PriorityItem:
     priority: float
+    actual_distance: float
     item: Hashable = field(compare=False)
 
 
-def dijkstra(
+def a_star(
     origin: Hashable,
     destination: Hashable,
-    graph: WeightedGraph,
+    graph: AStarGraphProtocol,
 ) -> tuple[list[Hashable], float]:
     distances = {origin: 0}
     previous = {origin: None}
     queue = PriorityQueue()
-    queue.put(_PriorityItem(0, origin))
+    queue.put(_PriorityItem(0, 0, origin))
 
     while not queue.empty():
         current = queue.get()
         current_node = current.item
-        current_distance = current.priority
+        current_distance = current.actual_distance
 
         if current_node == destination:
             path = []
@@ -42,6 +44,12 @@ def dijkstra(
             if distance < distances.get(neighbor, inf):
                 distances[neighbor] = distance
                 previous[neighbor] = current_node
-                queue.put(_PriorityItem(distance, neighbor))
+                queue.put(
+                    _PriorityItem(
+                        distance + graph.heuristic_potential(neighbor),
+                        distance,
+                        neighbor,
+                    )
+                )
 
     raise ValueError("No path found")
