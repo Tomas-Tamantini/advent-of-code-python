@@ -1,7 +1,7 @@
 from typing import Optional, Iterator
 from enum import Enum
 from models.vectors import Vector2D, CardinalDirection, BoundingBox
-from models.graphs import dijkstra
+from models.graphs import a_star
 from dataclasses import dataclass
 
 
@@ -114,11 +114,14 @@ class CaveExplorer:
             return self._time_to_move
         return self._time_to_switch_gear
 
+    def heuristic_potential(self, node: _ExplorerState) -> int:
+        dist = node.position - self._cave.target
+        return abs(dist.x) + abs(dist.y)
+
     def shortest_time_to_target(self) -> int:
-        # TODO: Use A* instead of Dijkstra
         initial_state = _ExplorerState(position=Vector2D(0, 0), gear=_Gear.TORCH)
         final_state = _ExplorerState(position=self._cave.target, gear=_Gear.TORCH)
-        _, distance = dijkstra(
+        _, distance = a_star(
             origin=initial_state,
             destination=final_state,
             graph=self,
