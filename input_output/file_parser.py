@@ -106,6 +106,7 @@ from models.aoc_2018 import (
     EqualImmediateRegister,
     EqualRegisterImmediate,
     EqualRegisterRegister,
+    TeleportNanobot,
 )
 
 
@@ -858,3 +859,16 @@ class FileParser:
             else:
                 instruction_type = instruction_types[parts[0]]
                 yield instruction_type(*map(int, parts[1:]), register_bound_to_pc)
+
+    def parse_nanobots(self, file_name: str) -> Iterator[TeleportNanobot]:
+        for line in self._file_reader.readlines(file_name):
+            numbers = tuple(
+                map(
+                    int,
+                    line.replace("pos=<", "")
+                    .replace(">", "")
+                    .replace("r=", "")
+                    .split(","),
+                )
+            )
+            yield TeleportNanobot(radius=numbers[-1], position=numbers[:3])

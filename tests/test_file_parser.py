@@ -59,6 +59,7 @@ from models.aoc_2018 import (
     EqualImmediateRegister,
     EqualRegisterImmediate,
     EqualRegisterRegister,
+    TeleportNanobot,
 )
 
 
@@ -887,3 +888,14 @@ def test_can_parse_three_value_instructions():
         assert instruction._input_b.value == 20
         assert instruction._register_out == 30
         assert instruction._register_bound_to_pc == 3
+
+
+def test_can_parse_nanobot():
+    file_content = """pos=<1,2,3>, r=4
+                      pos=<50,-60,70>, r=81"""
+    file_parser = mock_file_parser(file_content)
+    nanobots = list(file_parser.parse_nanobots("some_file"))
+    assert nanobots == [
+        TeleportNanobot(position=(1, 2, 3), radius=4),
+        TeleportNanobot(position=(50, -60, 70), radius=81),
+    ]

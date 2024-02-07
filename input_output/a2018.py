@@ -35,6 +35,7 @@ from models.aoc_2018 import (
     optimized_chronal_conversion,
     RockyCave,
     CaveExplorer,
+    TeleportNanobot,
 )
 
 parser = FileParser.default()
@@ -420,7 +421,12 @@ def aoc_2018_d22(file_name: str):
 
 # AOC 2018 Day 23: Experimental Emergency Teleportation
 def aoc_2018_d23(file_name: str):
-    print("AOC 2018 Day 23/Part 1: Not Implemented")
+    bots = list(parser.parse_nanobots(file_name))
+    strongest = max(bots, key=lambda b: b.radius)
+    num_in_range = sum(strongest.is_in_range(bot.position) for bot in bots)
+    print(
+        f"AOC 2018 Day 23/Part 1: Number of bots in range of strongest: {num_in_range}"
+    )
 
 
 # AOC 2018 Day 24: Immune System Simulator 20XX
