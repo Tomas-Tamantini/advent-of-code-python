@@ -45,4 +45,4 @@ from .a2018_d19 import optimized_sum_divisors_program
 from .a2018_d20 import build_lattice_graph
 from .a2018_d21 import optimized_chronal_conversion
 from .a2018_d22 import RockyCave, CaveExplorer
-from .a2018_d23 import TeleportNanobot
+from .a2018_d23 import TeleportNanobot, distance_of_position_with_strongest_signal

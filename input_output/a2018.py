@@ -35,7 +35,7 @@ from models.aoc_2018 import (
     optimized_chronal_conversion,
     RockyCave,
     CaveExplorer,
-    TeleportNanobot,
+    distance_of_position_with_strongest_signal,
 )
 
 parser = FileParser.default()
@@ -426,6 +426,10 @@ def aoc_2018_d23(file_name: str):
     num_in_range = sum(strongest.is_in_range(bot.position) for bot in bots)
     print(
         f"AOC 2018 Day 23/Part 1: Number of bots in range of strongest: {num_in_range}"
+    )
+    optimal_distance = distance_of_position_with_strongest_signal(bots)
+    print(
+        f"AOC 2018 Day 23/Part 2: Optimal distance from origin with most bots in range: {optimal_distance}"
     )
 
 
