@@ -1,11 +1,18 @@
 from .graph import GraphProtocol, WeightedProtocol
-from heapq import heappop, heappush
 from typing import Hashable, Protocol
 from math import inf
+from dataclasses import dataclass, field
+from queue import PriorityQueue
 
 
 class _WeightedGraph(GraphProtocol, WeightedProtocol, Protocol):
     pass
+
+
+@dataclass(frozen=True, order=True)
+class _PriorityItem:
+    priority: float
+    item: Hashable = field(compare=False)
 
 
 def dijkstra(
@@ -15,10 +22,13 @@ def dijkstra(
 ) -> tuple[list[Hashable], float]:
     distances = {origin: 0}
     previous = {origin: None}
-    heap = [(0, origin)]
+    queue = PriorityQueue()
+    queue.put(_PriorityItem(0, origin))
 
-    while heap:
-        current_distance, current_node = heappop(heap)
+    while not queue.empty():
+        current = queue.get()
+        current_node = current.item
+        current_distance = current.priority
 
         if current_node == destination:
             path = []
@@ -32,6 +42,6 @@ def dijkstra(
             if distance < distances.get(neighbor, inf):
                 distances[neighbor] = distance
                 previous[neighbor] = current_node
-                heappush(heap, (distance, neighbor))
+                queue.put(_PriorityItem(distance, neighbor))
 
     raise ValueError("No path found")
