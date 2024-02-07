@@ -47,7 +47,7 @@ class ManhattanVoronoi:
                 min_dist = inf
                 closest_seed = None
                 for seed in self._seeds:
-                    dist = abs(seed.x - x) + abs(seed.y - y)
+                    dist = seed.manhattan_distance(Vector2D(x, y))
                     if dist < min_dist:
                         min_dist = dist
                         closest_seed = seed
@@ -74,7 +74,7 @@ class ManhattanVoronoi:
                     current_step += 1
                     progress_bar.update(current_step, num_steps)
                 if (
-                    sum(abs(seed.x - x) + abs(seed.y - y) for seed in self._seeds)
+                    sum(seed.manhattan_distance(Vector2D(x, y)) for seed in self._seeds)
                     < max_distance
                 ):
                     num_points += 1

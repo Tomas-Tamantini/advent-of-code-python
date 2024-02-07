@@ -115,8 +115,7 @@ class CaveExplorer:
         return self._time_to_switch_gear
 
     def heuristic_potential(self, node: _ExplorerState) -> int:
-        dist = node.position - self._cave.target
-        return abs(dist.x) + abs(dist.y)
+        return node.position.manhattan_distance(self._cave.target)
 
     def shortest_time_to_target(self) -> int:
         initial_state = _ExplorerState(position=Vector2D(0, 0), gear=_Gear.TORCH)

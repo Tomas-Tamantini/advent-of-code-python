@@ -1,4 +1,5 @@
 import pytest
+from models.vectors import Vector2D
 from models.aoc_2017 import SquareSpiral
 
 
@@ -29,7 +30,7 @@ from models.aoc_2017 import SquareSpiral
     ],
 )
 def test_can_map_between_coordinates_and_spiral_indices(index, coordinates):
-    assert SquareSpiral.coordinates(index) == coordinates
+    assert SquareSpiral.coordinates(index) == Vector2D(*coordinates)
     assert SquareSpiral.spiral_index(*coordinates) == index
 
 

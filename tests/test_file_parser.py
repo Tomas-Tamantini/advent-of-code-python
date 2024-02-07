@@ -2,7 +2,7 @@ from typing import Iterator
 from unittest.mock import Mock
 from datetime import datetime
 from input_output.file_parser import FileParser
-from models.vectors import CardinalDirection, Vector2D, TurnDirection
+from models.vectors import CardinalDirection, Vector2D, TurnDirection, Vector3D
 from models.assembly import (
     CopyInstruction,
     InputInstruction,
@@ -537,8 +537,8 @@ def test_can_parse_particles():
     file_parser = mock_file_parser(file_content)
     particles = list(file_parser.parse_particles("some_file"))
     assert particles == [
-        Particle(0, (3, 0, 0), (2, 0, 0), (-1, 0, 0)),
-        Particle(1, (4, 0, 0), (0, 0, 0), (-2, 0, 0)),
+        Particle(0, Vector3D(3, 0, 0), Vector3D(2, 0, 0), Vector3D(-1, 0, 0)),
+        Particle(1, Vector3D(4, 0, 0), Vector3D(0, 0, 0), Vector3D(-2, 0, 0)),
     ]
 
 
@@ -896,6 +896,6 @@ def test_can_parse_nanobot():
     file_parser = mock_file_parser(file_content)
     nanobots = list(file_parser.parse_nanobots("some_file"))
     assert nanobots == [
-        TeleportNanobot(position=(1, 2, 3), radius=4),
-        TeleportNanobot(position=(50, -60, 70), radius=81),
+        TeleportNanobot(position=Vector3D(1, 2, 3), radius=4),
+        TeleportNanobot(position=Vector3D(50, -60, 70), radius=81),
     ]

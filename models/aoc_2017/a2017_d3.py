@@ -13,20 +13,20 @@ class SquareSpiral:
         return 2 * layer_idx
 
     @staticmethod
-    def coordinates(index: int) -> tuple[int, int]:
+    def coordinates(index: int) -> Vector2D:
         if index == 1:
-            return (0, 0)
+            return Vector2D(0, 0)
         layer_idx = floor((sqrt(index - 1) + 1) / 2)
         arm_length = SquareSpiral._arm_length(layer_idx)
         offset = index - SquareSpiral._layer_start(layer_idx)
         if offset < arm_length:
-            return (layer_idx, offset - layer_idx + 1)
+            return Vector2D(layer_idx, offset - layer_idx + 1)
         elif offset < 2 * arm_length:
-            return (layer_idx - (offset - arm_length + 1), layer_idx)
+            return Vector2D(layer_idx - (offset - arm_length + 1), layer_idx)
         elif offset < 3 * arm_length:
-            return (-layer_idx, layer_idx - (offset - 2 * arm_length + 1))
+            return Vector2D(-layer_idx, layer_idx - (offset - 2 * arm_length + 1))
         else:
-            return (-layer_idx + (offset - 3 * arm_length + 1), -layer_idx)
+            return Vector2D(-layer_idx + (offset - 3 * arm_length + 1), -layer_idx)
 
     @staticmethod
     def spiral_index(x: int, y: int) -> int:
@@ -51,7 +51,7 @@ class SquareSpiral:
         previous_terms = [1]
         index = 2
         while True:
-            pos = Vector2D(*SquareSpiral.coordinates(index))
+            pos = SquareSpiral.coordinates(index)
             current_term = 0
             for neighbor in pos.adjacent_positions(include_diagonals=True):
                 neighbor_index = SquareSpiral.spiral_index(neighbor.x, neighbor.y)

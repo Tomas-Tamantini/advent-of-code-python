@@ -1,18 +1,19 @@
 from dataclasses import dataclass
 from typing import Hashable, Optional
 from math import sqrt
+from models.vectors import Vector3D
 
 
 @dataclass(frozen=True)
 class Particle:
     id: Hashable
-    position: tuple[int, int, int]
-    velocity: tuple[int, int, int]
-    acceleration: tuple[int, int, int]
+    position: Vector3D
+    velocity: Vector3D
+    acceleration: Vector3D
 
     @property
     def manhattan_acceleration(self) -> int:
-        return sum(abs(a) for a in self.acceleration)
+        return self.acceleration.manhattan_size
 
     @staticmethod
     def _non_negative_integer_linear_roots(b: int, c: int) -> Optional[int]:

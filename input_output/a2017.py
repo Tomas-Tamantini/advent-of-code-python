@@ -73,7 +73,7 @@ def aoc_2017_d3(file_name: str):
     with open(file_name) as f:
         target = int(f.read().strip())
     target_coordinates = SquareSpiral.coordinates(target)
-    manhattan_distance = sum(abs(c) for c in target_coordinates)
+    manhattan_distance = target_coordinates.manhattan_size
     print(
         f"AOC 2017 Day 3/Part 1: Manhattan distance to {target}: {manhattan_distance}"
     )

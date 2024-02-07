@@ -1,5 +1,19 @@
 import pytest
-from models.vectors import CardinalDirection, Vector2D, TurnDirection, BoundingBox
+from models.vectors import (
+    CardinalDirection,
+    Vector2D,
+    TurnDirection,
+    BoundingBox,
+    Vector3D,
+)
+
+
+def test_can_get_manhattan_distance_for_vector_2d():
+    assert Vector2D(1, 2).manhattan_distance(Vector2D(4, -3)) == 8
+
+
+def test_can_get_manhattan_size_for_vector_2d():
+    assert Vector2D(1, -2).manhattan_size == 3
 
 
 def test_vectors_can_be_added_together():
@@ -136,3 +150,23 @@ def test_bounding_box_of_multiple_points_is_smallest_possible():
     ]
     bounding_box = BoundingBox.from_points(points)
     assert bounding_box == BoundingBox(Vector2D(100, 1000), Vector2D(200, 2000))
+
+
+def test_can_iterate_through_vector_3d_coordinates():
+    vector = Vector3D(x=1, y=2, z=3)
+    assert list(vector) == [1, 2, 3]
+
+
+def test_can_access_vector_3d_coordinates_by_index_and_name():
+    vector = Vector3D(x=1, y=2, z=3)
+    assert vector.x == vector[0] == 1
+    assert vector.y == vector[1] == 2
+    assert vector.z == vector[2] == 3
+
+
+def test_can_get_manhattan_distance_for_vector_3d():
+    assert Vector3D(1, 2, 3).manhattan_distance(Vector3D(4, -3, 2)) == 9
+
+
+def test_can_get_manhattan_size_for_vector_3d():
+    assert Vector3D(1, -2, 3).manhattan_size == 6

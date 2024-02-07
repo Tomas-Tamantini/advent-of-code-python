@@ -29,6 +29,13 @@ class Vector2D:
                 for dy in (-1, 1):
                     yield Vector2D(self.x + dx, self.y + dy)
 
+    def manhattan_distance(self, other: "Vector2D") -> int:
+        return abs(self.x - other.x) + abs(self.y - other.y)
+
+    @property
+    def manhattan_size(self) -> int:
+        return abs(self.x) + abs(self.y)
+
     def __add__(self, other: "Vector2D") -> "Vector2D":
         return Vector2D(self.x + other.x, self.y + other.y)
 

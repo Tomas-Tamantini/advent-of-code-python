@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime
 from collections import defaultdict
 from models.graphs import DirectedGraph
-from models.vectors import CardinalDirection, Vector2D, TurnDirection
+from models.vectors import CardinalDirection, Vector2D, TurnDirection, Vector3D
 from models.assembly import (
     Instruction,
     CopyInstruction,
@@ -633,10 +633,10 @@ class FileParser:
     def parse_particles(self, file_name) -> Iterator[Particle]:
         for particle_id, line in enumerate(self._file_reader.readlines(file_name)):
             parts = line.strip().split(">,")
-            position = tuple(map(int, parts[0].replace("p=<", "").split(",")))
-            velocity = tuple(map(int, parts[1].replace("v=<", "").split(",")))
-            acceleration = tuple(
-                map(int, parts[2].replace("a=<", "").replace(">", "").split(","))
+            position = Vector3D(*map(int, parts[0].replace("p=<", "").split(",")))
+            velocity = Vector3D(*map(int, parts[1].replace("v=<", "").split(",")))
+            acceleration = Vector3D(
+                *map(int, parts[2].replace("a=<", "").replace(">", "").split(","))
             )
             yield Particle(particle_id, position, velocity, acceleration)
 
@@ -871,4 +871,4 @@ class FileParser:
                     .split(","),
                 )
             )
-            yield TeleportNanobot(radius=numbers[-1], position=numbers[:3])
+            yield TeleportNanobot(radius=numbers[-1], position=Vector3D(*numbers[:3]))
