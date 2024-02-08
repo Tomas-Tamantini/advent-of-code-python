@@ -38,6 +38,7 @@ from models.aoc_2018 import (
     distance_of_position_with_strongest_signal,
     InfectionGame,
     optimal_boost_for_immune_system,
+    num_constellations,
 )
 
 parser = FileParser.default()
@@ -451,4 +452,8 @@ def aoc_2018_d24(file_name: str):
 
 # AOC 2018 Day 25: Four-Dimensional Adventure
 def aoc_2018_d25(file_name: str):
-    print("AOC 2018 Day 25/Part 1: Not Implemented")
+    with open(file_name) as file:
+        lines = file.readlines()
+    points = [tuple(map(int, line.split(","))) for line in lines]
+    result = num_constellations(max_distance=3, points=points)
+    print(f"AOC 2018 Day 25/Part 1: Number of constellations: {result}")

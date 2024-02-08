@@ -53,3 +53,4 @@ from .a2018_d24 import (
     InfectionGame,
     optimal_boost_for_immune_system,
 )
+from .a2018_d25 import num_constellations
