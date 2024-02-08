@@ -1,4 +1,4 @@
-from typing import Iterator, Hashable
+from typing import Hashable
 
 
 class DisjointSet:
