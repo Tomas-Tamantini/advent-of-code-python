@@ -36,6 +36,7 @@ from models.aoc_2018 import (
     RockyCave,
     CaveExplorer,
     distance_of_position_with_strongest_signal,
+    InfectionGame,
 )
 
 parser = FileParser.default()
@@ -435,7 +436,11 @@ def aoc_2018_d23(file_name: str):
 
 # AOC 2018 Day 24: Immune System Simulator 20XX
 def aoc_2018_d24(file_name: str):
-    print("AOC 2018 Day 24/Part 1: Not Implemented")
+    initial_game_state = parser.parse_infection_game(file_name)
+    game = InfectionGame(initial_game_state)
+    game.run_until_over()
+    num_units = game.state.total_num_units
+    print(f"AOC 2018 Day 24/Part 1: Number of units remaining: {num_units}")
 
 
 # AOC 2018 Day 25: Four-Dimensional Adventure

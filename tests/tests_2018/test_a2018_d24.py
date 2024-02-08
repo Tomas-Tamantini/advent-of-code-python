@@ -1,7 +1,7 @@
 import pytest
 from typing import Hashable, Optional
 from random import choice
-from models.aoc_2018.a2018_d24 import (
+from models.aoc_2018 import (
     AttackType,
     ArmyGroup,
     InfectionGameState,
