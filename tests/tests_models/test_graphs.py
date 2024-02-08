@@ -10,6 +10,7 @@ from models.graphs import (
     WeightedDirectedGraph,
     dijkstra,
     a_star,
+    DisjointSet,
 )
 
 
@@ -362,3 +363,38 @@ def test_a_star_returns_path_with_optimal_distance():
     path, distance = a_star("S", "E", graph)
     assert path == ["S", "B", "H", "G", "E"]
     assert distance == 7
+
+
+def test_disjoint_set_starts_empty():
+    disjoint_set = DisjointSet()
+    assert disjoint_set.num_sets == 0
+
+
+def test_can_make_set_in_disjoint_set():
+    disjoint_set = DisjointSet()
+    disjoint_set.make_set("a")
+    assert disjoint_set.num_sets == 1
+
+
+def test_can_merge_sets_in_disjoint_set():
+    disjoint_set = DisjointSet()
+    disjoint_set.make_set("a")
+    disjoint_set.make_set("b")
+    assert disjoint_set.num_sets == 2
+    disjoint_set.union("a", "b")
+    assert disjoint_set.num_sets == 1
+
+
+def test_finding_element_in_set_returns_root():
+    disjoint_set = DisjointSet()
+    disjoint_set.make_set("a")
+    disjoint_set.make_set("b")
+    disjoint_set.union("a", "b")
+    assert disjoint_set.find("a") == disjoint_set.find("b")
+
+
+def test_finding_element_which_does_not_exist_raises_key_error():
+    disjoint_set = DisjointSet()
+    disjoint_set.make_set("a")
+    with pytest.raises(KeyError):
+        disjoint_set.find("b")
