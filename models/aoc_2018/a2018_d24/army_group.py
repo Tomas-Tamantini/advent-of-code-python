@@ -42,3 +42,15 @@ class ArmyGroup:
             weaknesses=self.weaknesses,
             immunities=self.immunities,
         )
+
+    def boost_attack_power(self, boost: int) -> "ArmyGroup":
+        return ArmyGroup(
+            group_id=self.group_id,
+            num_units=self.num_units,
+            hit_points_per_unit=self.hit_points_per_unit,
+            attack_damage_per_unit=self.attack_damage_per_unit + boost,
+            initiative=self.initiative,
+            attack_type=self.attack_type,
+            weaknesses=self.weaknesses,
+            immunities=self.immunities,
+        )

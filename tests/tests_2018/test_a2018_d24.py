@@ -6,6 +6,7 @@ from models.aoc_2018 import (
     ArmyGroup,
     InfectionGameState,
     InfectionGame,
+    optimal_boost_for_immune_system,
 )
 
 
@@ -193,7 +194,7 @@ def test_playing_round_raises_exception_if_no_possible_moves():
 
 
 sample_game = InfectionGameState(
-    immune_system_armies=[
+    immune_system_armies=(
         _build_army_group(
             group_id="Immune 1",
             num_units=17,
@@ -213,8 +214,8 @@ sample_game = InfectionGameState(
             immunities=(AttackType.FIRE,),
             weaknesses=(AttackType.BLUDGEONING, AttackType.SLASHING),
         ),
-    ],
-    infection_armies=[
+    ),
+    infection_armies=(
         _build_army_group(
             group_id="Infection 1",
             num_units=801,
@@ -234,7 +235,7 @@ sample_game = InfectionGameState(
             weaknesses=(AttackType.FIRE,),
             immunities=(AttackType.RADIATION,),
         ),
-    ],
+    ),
 )
 
 
@@ -271,3 +272,25 @@ def test_can_run_infection_game_until_completion():
     game.run_until_over()
     assert game.state.is_over
     assert game.state.total_num_units == 5216
+
+
+def test_can_boost_attack_power_of_all_immune_system_armies():
+    new_state = sample_game.boost_immune_system_attack_power(1570)
+    assert new_state.immune_system_armies[0].attack_damage_per_unit == 6077
+    assert new_state.immune_system_armies[1].attack_damage_per_unit == 1595
+
+
+def test_can_determine_whether_immune_system_won_game():
+    game_loss = InfectionGame(sample_game)
+    game_loss.run_until_over()
+    assert not game_loss.immune_system_won
+
+    game_win = InfectionGame(sample_game.boost_immune_system_attack_power(1570))
+    game_win.run_until_over()
+    assert game_win.immune_system_won
+
+
+def test_can_find_optimal_boost_to_immune_system_to_ensure_its_victory():
+    boost, game_state = optimal_boost_for_immune_system(sample_game)
+    assert boost == 1570
+    assert game_state.total_num_units == 51

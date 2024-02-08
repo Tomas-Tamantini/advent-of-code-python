@@ -19,6 +19,14 @@ class InfectionGameState:
     def is_over(self) -> bool:
         return not self.infection_armies or not self.immune_system_armies
 
+    def boost_immune_system_attack_power(self, boost: int) -> "InfectionGameState":
+        return InfectionGameState(
+            infection_armies=self.infection_armies,
+            immune_system_armies=tuple(
+                group.boost_attack_power(boost) for group in self.immune_system_armies
+            ),
+        )
+
     @staticmethod
     def _choose_targets(
         attacking_groups: tuple[ArmyGroup, ...],
@@ -68,9 +76,6 @@ class InfectionGameState:
 
     def play_round(self) -> "InfectionGameState":
         targets = self.targets()
-        if not targets:
-            raise ValueError("Tie: No possible moves")
-
         all_groups = sorted(
             self.infection_armies + self.immune_system_armies,
             key=lambda group: -group.initiative,
@@ -107,7 +112,11 @@ class InfectionGameState:
             if group.group_id in new_groups
         )
 
-        return InfectionGameState(
+        state_after = InfectionGameState(
             infection_armies=new_infection_armies,
             immune_system_armies=new_immune_system_armies,
         )
+        if self.total_num_units == state_after.total_num_units:
+            raise ValueError("Tie: No change in total number of units")
+
+        return state_after

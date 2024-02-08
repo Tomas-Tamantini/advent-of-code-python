@@ -12,3 +12,9 @@ class InfectionGame:
     def run_until_over(self) -> None:
         while not self._state.is_over:
             self._state = self._state.play_round()
+
+    @property
+    def immune_system_won(self) -> bool:
+        return bool(self._state.immune_system_armies) and not bool(
+            self._state.infection_armies
+        )
