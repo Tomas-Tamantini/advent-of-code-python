@@ -52,7 +52,7 @@ class ToggleInstruction:
     def execute(self, hardware: Hardware) -> None:
         offset_value = hardware.processor.get_value_or_immediate(self.offset)
         instruction_idx = hardware.processor.program_counter + offset_value
-        instruction = hardware.memory.get_at(instruction_idx)
+        instruction = hardware.memory.read(instruction_idx)
         new_instruction = None
         if isinstance(instruction, IncrementInstruction):
             new_instruction = DecrementInstruction(instruction.register)
@@ -70,15 +70,15 @@ class ToggleInstruction:
                 offset=instruction.destination,
             )
         if new_instruction:
-            hardware.memory.update_at(instruction_idx, new_instruction)
+            hardware.memory.write(instruction_idx, new_instruction)
         hardware.increment_program_counter()
 
 
 class AssembunnyProgram(MutableProgram):
-    def get_at(self, index: int) -> int:
+    def read(self, index: int) -> int:
         return self.get_instruction(index)
 
-    def update_at(self, index: int, new_value: Instruction) -> None:
+    def write(self, index: int, new_value: Instruction) -> None:
         return self.update_instruction(index, new_value)
 
     def optimize(self) -> None:
