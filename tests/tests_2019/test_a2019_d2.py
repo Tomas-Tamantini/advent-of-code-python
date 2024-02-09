@@ -1,5 +1,8 @@
 import pytest
-from models.aoc_2019 import run_intcode_program_until_halt
+from models.aoc_2019 import (
+    run_intcode_program_until_halt,
+    noun_and_verb_for_given_output,
+)
 
 
 def test_running_intcode_program_leaves_initial_sequence_intact():
@@ -23,3 +26,10 @@ def test_running_intcode_program_leaves_initial_sequence_intact():
 )
 def test_running_intcode_program_yields_final_state(sequence, expected):
     assert run_intcode_program_until_halt(sequence) == expected
+
+
+def test_can_find_noun_and_verb_that_yield_desired_output():
+    sequence = [1, -1, -1, 3, 2, 3, 11, 0, 99, 30, 40, 50]
+    noun, verb = noun_and_verb_for_given_output(sequence, 3500)
+    assert noun == 10
+    assert verb == 9

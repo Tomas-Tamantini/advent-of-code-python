@@ -1,6 +1,10 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
-from models.aoc_2019 import fuel_requirement, run_intcode_program_until_halt
+from models.aoc_2019 import (
+    fuel_requirement,
+    run_intcode_program_until_halt,
+    noun_and_verb_for_given_output,
+)
 
 
 parser = FileParser.default()
@@ -28,11 +32,17 @@ def aoc_2019_d1(file_name: str):
 # AOC 2019 Day 2: 1202 Program Alarm
 def aoc_2019_d2(file_name: str):
     with open(file_name, "r") as file:
-        sequence = [int(code) for code in file.read().split(",")]
+        original_sequence = [int(code) for code in file.read().split(",")]
+    sequence = original_sequence[:]
     sequence[1] = 12
     sequence[2] = 2
     final_state = run_intcode_program_until_halt(sequence)
     print(f"AOC 2019 Day 2/Part 1: Value at position 0 is {final_state[0]}")
+    noun, verb = noun_and_verb_for_given_output(
+        original_sequence, desired_output=19690720, noun_range=100, verb_range=100
+    )
+    combined = 100 * noun + verb
+    print(f"AOC 2019 Day 2/Part 2: Noun and verb combined is {combined}")
 
 
 # AOC 2019 Day 3: Crossed Wires
