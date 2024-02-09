@@ -432,3 +432,32 @@ def aoc_2016_d25(file_name: str):
     program = parser.parse_assembunny_code(file_name)
     smallest_value = smallest_value_to_send_clock_signal(program)
     print(f"AOC 2016 - Day 25: Smallest value to send clock signal: {smallest_value}")
+
+
+ALL_2016_SOLUTIONS = (
+    aoc_2016_d1,
+    aoc_2016_d2,
+    aoc_2016_d3,
+    aoc_2016_d4,
+    aoc_2016_d5,
+    aoc_2016_d6,
+    aoc_2016_d7,
+    aoc_2016_d8,
+    aoc_2016_d9,
+    aoc_2016_d10,
+    aoc_2016_d11,
+    aoc_2016_d12,
+    aoc_2016_d13,
+    aoc_2016_d14,
+    aoc_2016_d15,
+    aoc_2016_d16,
+    aoc_2016_d17,
+    aoc_2016_d18,
+    aoc_2016_d19,
+    aoc_2016_d20,
+    aoc_2016_d21,
+    aoc_2016_d22,
+    aoc_2016_d23,
+    aoc_2016_d24,
+    aoc_2016_d25,
+)

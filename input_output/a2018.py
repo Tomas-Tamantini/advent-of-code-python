@@ -457,3 +457,32 @@ def aoc_2018_d25(file_name: str):
     points = [tuple(map(int, line.split(","))) for line in lines]
     result = num_constellations(max_distance=3, points=points)
     print(f"AOC 2018 Day 25/Part 1: Number of constellations: {result}")
+
+
+ALL_2018_SOLUTIONS = (
+    aoc_2018_d1,
+    aoc_2018_d2,
+    aoc_2018_d3,
+    aoc_2018_d4,
+    aoc_2018_d5,
+    aoc_2018_d6,
+    aoc_2018_d7,
+    aoc_2018_d8,
+    aoc_2018_d9,
+    aoc_2018_d10,
+    aoc_2018_d11,
+    aoc_2018_d12,
+    aoc_2018_d13,
+    aoc_2018_d14,
+    aoc_2018_d15,
+    aoc_2018_d16,
+    aoc_2018_d17,
+    aoc_2018_d18,
+    aoc_2018_d19,
+    aoc_2018_d20,
+    aoc_2018_d21,
+    aoc_2018_d22,
+    aoc_2018_d23,
+    aoc_2018_d24,
+    aoc_2018_d25,
+)
