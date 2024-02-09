@@ -2,6 +2,7 @@ from .a2015 import *
 from .a2016 import *
 from .a2017 import *
 from .a2018 import *
+from .a2019 import *
 
 
 def run_solutions(problems: dict[int, tuple[int, ...]]) -> None:
@@ -113,6 +114,33 @@ def run_solutions(problems: dict[int, tuple[int, ...]]) -> None:
             aoc_2018_d23,
             aoc_2018_d24,
             aoc_2018_d25,
+        ),
+        2019: (
+            aoc_2019_d1,
+            aoc_2019_d2,
+            aoc_2019_d3,
+            aoc_2019_d4,
+            aoc_2019_d5,
+            aoc_2019_d6,
+            aoc_2019_d7,
+            aoc_2019_d8,
+            aoc_2019_d9,
+            aoc_2019_d10,
+            aoc_2019_d11,
+            aoc_2019_d12,
+            aoc_2019_d13,
+            aoc_2019_d14,
+            aoc_2019_d15,
+            aoc_2019_d16,
+            aoc_2019_d17,
+            aoc_2019_d18,
+            aoc_2019_d19,
+            aoc_2019_d20,
+            aoc_2019_d21,
+            aoc_2019_d22,
+            aoc_2019_d23,
+            aoc_2019_d24,
+            aoc_2019_d25,
         ),
     }
     for year, days in problems.items():
