@@ -1,12 +1,28 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
+from models.aoc_2019 import fuel_requirement
+
 
 parser = FileParser.default()
 progress_bar = ProgressBarConsole()
 
 
 # AOC 2019 Day 1: The Tyranny of the Rocket Equation
-def aoc_2019_d1(file_name: str): ...
+def aoc_2019_d1(file_name: str):
+    with open(file_name, "r") as file:
+        masses = [int(line) for line in file]
+    fuel_ignoring_extra_mass = sum(
+        fuel_requirement(mass, consider_fuel_mass=False) for mass in masses
+    )
+    print(
+        f"AOC 2019 Day 1/Part 1: Fuel required ignoring its extra mass is {fuel_ignoring_extra_mass}"
+    )
+    fuel_including_extra_mass = sum(
+        fuel_requirement(mass, consider_fuel_mass=True) for mass in masses
+    )
+    print(
+        f"AOC 2019 Day 1/Part 2: Fuel required including its extra mass is {fuel_including_extra_mass}"
+    )
 
 
 # AOC 2019 Day 2: 1202 Program Alarm
