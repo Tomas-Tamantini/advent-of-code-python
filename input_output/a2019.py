@@ -1,6 +1,6 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
-from models.aoc_2019 import fuel_requirement
+from models.aoc_2019 import fuel_requirement, run_intcode_program_until_halt
 
 
 parser = FileParser.default()
@@ -26,7 +26,13 @@ def aoc_2019_d1(file_name: str):
 
 
 # AOC 2019 Day 2: 1202 Program Alarm
-def aoc_2019_d2(file_name: str): ...
+def aoc_2019_d2(file_name: str):
+    with open(file_name, "r") as file:
+        sequence = [int(code) for code in file.read().split(",")]
+    sequence[1] = 12
+    sequence[2] = 2
+    final_state = run_intcode_program_until_halt(sequence)
+    print(f"AOC 2019 Day 2/Part 1: Value at position 0 is {final_state[0]}")
 
 
 # AOC 2019 Day 3: Crossed Wires

@@ -7,6 +7,10 @@ class IntcodeProgram:
     def __init__(self, sequence: list[int]) -> None:
         self._sequence = sequence
 
+    @property
+    def sequence(self) -> list[int]:
+        return self._sequence
+
     def get_instruction(self, program_counter: int) -> Optional[Instruction]:
         if 0 <= program_counter < len(self._sequence):
             return parse_next_instruction(self._sequence[program_counter:])
