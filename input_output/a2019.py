@@ -60,6 +60,12 @@ def aoc_2019_d3(file_name: str):
     print(
         f"AOC 2019 Day 3/Part 1: Closest intersection distance to the central port is {closest.manhattan_size}"
     )
+    shortest = min(
+        wire_a.distance_to(point) + wire_b.distance_to(point) for point in intersections
+    )
+    print(
+        f"AOC 2019 Day 3/Part 2: Shortest combined distance to an intersection is {shortest}"
+    )
 
 
 # AOC 2019 Day 4: Secure Container

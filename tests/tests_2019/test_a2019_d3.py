@@ -60,6 +60,22 @@ def test_wire_segment_gets_appended_to_the_end_of_previous_wire_segment():
     assert wire.current_end == Vector2D(5, 3)
 
 
+def test_if_wire_does_not_reach_point_its_distance_is_infinity():
+    wire = TwistyWire()
+    wire.add_segment(CardinalDirection.EAST, 5)
+    wire.add_segment(CardinalDirection.NORTH, 3)
+    assert wire.distance_to(Vector2D(100, 100)) == float("inf")
+
+
+def test_if_wire_reaches_a_point_its_distance_is_first_time_it_reaches():
+    wire = TwistyWire()
+    wire.add_segment(CardinalDirection.EAST, 8)
+    wire.add_segment(CardinalDirection.NORTH, 5)
+    wire.add_segment(CardinalDirection.WEST, 5)
+    wire.add_segment(CardinalDirection.SOUTH, 3)
+    assert wire.distance_to(Vector2D(6, 5)) == 15
+
+
 def test_can_find_intersection_points_between_two_twisty_wires():
     wire_a = TwistyWire()
     wire_a.add_segment(CardinalDirection.EAST, 8)

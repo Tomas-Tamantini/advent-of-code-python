@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
+from math import inf
 from models.vectors import Vector2D, CardinalDirection, BoundingBox
 
 
@@ -12,6 +13,12 @@ class WireSegment:
     @property
     def ending_point(self) -> Vector2D:
         return self.starting_point.move(self.direction, num_steps=self.length)
+
+    def contains(self, point: Vector2D) -> bool:
+        return self._bounding_box.contains(point)
+
+    def distance_to(self, point: Vector2D) -> int:
+        return self.starting_point.manhattan_distance(point)
 
     @property
     def _bounding_box(self) -> BoundingBox:
@@ -43,3 +50,11 @@ class TwistyWire:
         for segment_a in self._segments:
             for segment_b in other._segments:
                 yield from segment_a.intersection_points(segment_b)
+
+    def distance_to(self, point: Vector2D) -> int:
+        distance = 0
+        for segment in self._segments:
+            if segment.contains(point):
+                return distance + segment.distance_to(point) + 1
+            distance += segment.length + 1
+        return inf
