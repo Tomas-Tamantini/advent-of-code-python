@@ -141,6 +141,16 @@ def test_bounding_box_of_zero_points_has_all_dimensions_zero():
     assert bounding_box.width == bounding_box.height == bounding_box.area == 0
 
 
+def test_can_check_whether_bounding_box_contains_a_point():
+    bounding_box = BoundingBox(Vector2D(1, 2), Vector2D(4, 6))
+    assert bounding_box.contains(Vector2D(1, 2))
+    assert bounding_box.contains(Vector2D(4, 6))
+    assert bounding_box.contains(Vector2D(2, 3))
+    assert not bounding_box.contains(Vector2D(0, 2))
+    assert not bounding_box.contains(Vector2D(1, 1))
+    assert not bounding_box.contains(Vector2D(4, 7))
+
+
 def test_bounding_box_of_multiple_points_is_smallest_possible():
     points = [
         Vector2D(100, 1000),
