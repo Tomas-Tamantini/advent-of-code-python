@@ -957,3 +957,18 @@ Infection:
             weaknesses=(AttackType.FIRE, AttackType.COLD),
         ),
     )
+
+
+def test_can_parse_directions():
+    file_content = """R8,U5
+                      U7,L6,D4"""
+    file_parser = mock_file_parser(file_content)
+    directions = list(file_parser.parse_directions("some_file"))
+    assert directions == [
+        [(CardinalDirection.EAST, 8), (CardinalDirection.NORTH, 5)],
+        [
+            (CardinalDirection.NORTH, 7),
+            (CardinalDirection.WEST, 6),
+            (CardinalDirection.SOUTH, 4),
+        ],
+    ]

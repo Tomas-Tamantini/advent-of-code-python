@@ -4,6 +4,7 @@ from models.aoc_2019 import (
     fuel_requirement,
     run_intcode_program_until_halt,
     noun_and_verb_for_given_output,
+    TwistyWire,
 )
 
 
@@ -46,7 +47,19 @@ def aoc_2019_d2(file_name: str):
 
 
 # AOC 2019 Day 3: Crossed Wires
-def aoc_2019_d3(file_name: str): ...
+def aoc_2019_d3(file_name: str):
+    wire_a = TwistyWire()
+    wire_b = TwistyWire()
+    instructions = list(parser.parse_directions(file_name))
+    for direction, length in instructions[0]:
+        wire_a.add_segment(direction, length)
+    for direction, length in instructions[1]:
+        wire_b.add_segment(direction, length)
+    intersections = set(wire_a.intersection_points(wire_b))
+    closest = min(intersections, key=lambda point: point.manhattan_size)
+    print(
+        f"AOC 2019 Day 3/Part 1: Closest intersection distance to the central port is {closest.manhattan_size}"
+    )
 
 
 # AOC 2019 Day 4: Secure Container

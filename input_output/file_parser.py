@@ -931,3 +931,12 @@ class FileParser:
             immune_system_armies=tuple(immune_system_armies),
             infection_armies=tuple(infection_armies),
         )
+
+    def parse_directions(
+        self, file_name: str
+    ) -> Iterator[list[tuple[CardinalDirection, int]]]:
+        for line in self._file_reader.readlines(file_name):
+            yield [
+                (self.parse_cardinal_direction(part.strip()[0]), int(part.strip()[1:]))
+                for part in line.strip().split(",")
+            ]
