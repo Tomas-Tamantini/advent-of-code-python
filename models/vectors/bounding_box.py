@@ -44,6 +44,15 @@ class BoundingBox:
     def area(self) -> int:
         return self.width * self.height
 
+    def intersection(self, other) -> "BoundingBox":
+        min_x = max(self.bottom_left.x, other.bottom_left.x)
+        max_x = min(self.top_right.x, other.top_right.x)
+        min_y = max(self.bottom_left.y, other.bottom_left.y)
+        max_y = min(self.top_right.y, other.top_right.y)
+        if min_x > max_x or min_y > max_y:
+            return None
+        return BoundingBox(Vector2D(min_x, min_y), Vector2D(max_x, max_y))
+
     @classmethod
     def from_points(cls, points: Iterable[Vector2D]) -> "BoundingBox":
         if not points:

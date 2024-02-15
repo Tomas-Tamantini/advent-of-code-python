@@ -152,6 +152,20 @@ def test_bounding_box_of_multiple_points_is_smallest_possible():
     assert bounding_box == BoundingBox(Vector2D(100, 1000), Vector2D(200, 2000))
 
 
+def test_intersection_of_two_bounding_boxes_which_do_not_intersect_is_empty():
+    box_a = BoundingBox(bottom_left=Vector2D(0, 0), top_right=Vector2D(10, 20))
+    box_b = BoundingBox(bottom_left=Vector2D(11, 21), top_right=Vector2D(30, 40))
+    assert box_a.intersection(box_b) is None
+
+
+def test_intersection_of_two_overlapping_bounding_boxes_is_their_common_area():
+    box_a = BoundingBox(bottom_left=Vector2D(0, 0), top_right=Vector2D(10, 20))
+    box_b = BoundingBox(bottom_left=Vector2D(5, 10), top_right=Vector2D(15, 18))
+    assert box_a.intersection(box_b) == BoundingBox(
+        bottom_left=Vector2D(5, 10), top_right=Vector2D(10, 18)
+    )
+
+
 def test_can_iterate_through_vector_3d_coordinates():
     vector = Vector3D(x=1, y=2, z=3)
     assert list(vector) == [1, 2, 3]
