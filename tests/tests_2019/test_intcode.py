@@ -8,6 +8,10 @@ from models.aoc_2019.intcode import (
     IntcodeMultiply,
     IntcodeInput,
     IntcodeOutput,
+    IntcodeJumpIfTrue,
+    IntcodeJumpIfFalse,
+    IntcodeLessThan,
+    IntcodeEquals,
 )
 
 
@@ -145,6 +149,112 @@ def test_intcode_output_increments_pc_by_two():
     assert hardware.processor.program_counter == 19
 
 
+def test_intcode_jump_if_true_jumps_if_input_is_nonzero():
+    instruction = IntcodeJumpIfTrue(
+        condition=MemoryOrImmediate(1, is_memory=True),
+        jump_address=MemoryOrImmediate(3, is_memory=True),
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50], program_counter=123)
+    instruction.execute(hardware)
+    assert hardware.processor.program_counter == 40
+
+
+def test_intcode_jump_if_true_does_not_jump_if_input_is_zero():
+    instruction = IntcodeJumpIfTrue(
+        condition=MemoryOrImmediate(0, is_memory=False),
+        jump_address=MemoryOrImmediate(3, is_memory=True),
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50], program_counter=123)
+    instruction.execute(hardware)
+    assert hardware.processor.program_counter == 126
+
+
+def test_intcode_jump_if_false_jumps_if_input_is_zero():
+    instruction = IntcodeJumpIfFalse(
+        condition=MemoryOrImmediate(1, is_memory=True),
+        jump_address=MemoryOrImmediate(3, is_memory=True),
+    )
+    hardware = _build_hardware([10, 0, 30, 40, 50], program_counter=123)
+    instruction.execute(hardware)
+    assert hardware.processor.program_counter == 40
+
+
+def test_intcode_jump_if_false_does_not_jump_if_input_is_nonzero():
+    instruction = IntcodeJumpIfFalse(
+        condition=MemoryOrImmediate(1, is_memory=False),
+        jump_address=MemoryOrImmediate(3, is_memory=True),
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50], program_counter=123)
+    instruction.execute(hardware)
+    assert hardware.processor.program_counter == 126
+
+
+def test_intcode_less_than_writes_one_to_output_if_input_a_is_less_than_input_b():
+    instruction = IntcodeLessThan(
+        input_a=MemoryOrImmediate(1, is_memory=True),
+        input_b=MemoryOrImmediate(2, is_memory=True),
+        output=3,
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50])
+    instruction.execute(hardware)
+    assert hardware.memory.read(address=3) == 1
+
+
+def test_intcode_less_than_writes_zero_to_output_if_input_a_is_not_less_than_input_b():
+    instruction = IntcodeLessThan(
+        input_a=MemoryOrImmediate(2, is_memory=True),
+        input_b=MemoryOrImmediate(1, is_memory=True),
+        output=3,
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50])
+    instruction.execute(hardware)
+    assert hardware.memory.read(address=3) == 0
+
+
+def test_intcode_less_than_increments_pc_by_four():
+    instruction = IntcodeLessThan(
+        input_a=MemoryOrImmediate(1, is_memory=True),
+        input_b=MemoryOrImmediate(2, is_memory=True),
+        output=3,
+    )
+    hardware = _build_hardware(program_counter=17)
+    instruction.execute(hardware)
+    assert hardware.processor.program_counter == 21
+
+
+def test_intcode_equals_writes_one_to_output_if_input_a_equals_input_b():
+    instruction = IntcodeEquals(
+        input_a=MemoryOrImmediate(30, is_memory=False),
+        input_b=MemoryOrImmediate(2, is_memory=True),
+        output=3,
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50])
+    instruction.execute(hardware)
+    assert hardware.memory.read(address=3) == 1
+
+
+def test_intcode_equals_writes_zero_to_output_if_input_a_does_not_equal_input_b():
+    instruction = IntcodeEquals(
+        input_a=MemoryOrImmediate(1, is_memory=True),
+        input_b=MemoryOrImmediate(2, is_memory=True),
+        output=3,
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50])
+    instruction.execute(hardware)
+    assert hardware.memory.read(address=3) == 0
+
+
+def test_intcode_equals_increments_pc_by_four():
+    instruction = IntcodeEquals(
+        input_a=MemoryOrImmediate(1, is_memory=True),
+        input_b=MemoryOrImmediate(2, is_memory=True),
+        output=3,
+    )
+    hardware = _build_hardware(program_counter=17)
+    instruction.execute(hardware)
+    assert hardware.processor.program_counter == 21
+
+
 def test_parameters_can_be_in_position_or_immediate_mode():
     instruction = parse_next_instruction([1002, 4, 3, 4])
     assert isinstance(instruction, IntcodeMultiply)
@@ -191,6 +301,44 @@ def test_op_code_4_parses_to_output_instruction():
     assert isinstance(instruction, IntcodeOutput)
     assert instruction.value.value == 1
     assert instruction.value.is_memory
+
+
+def test_op_code_5_parses_to_jump_if_true_instruction():
+    instruction = parse_next_instruction([5, 1, 2])
+    assert isinstance(instruction, IntcodeJumpIfTrue)
+    assert instruction.condition.value == 1
+    assert instruction.condition.is_memory
+    assert instruction.jump_address.value == 2
+    assert instruction.jump_address.is_memory
+
+
+def test_op_code_6_parses_to_jump_if_false_instruction():
+    instruction = parse_next_instruction([6, 1, 2])
+    assert isinstance(instruction, IntcodeJumpIfFalse)
+    assert instruction.condition.value == 1
+    assert instruction.condition.is_memory
+    assert instruction.jump_address.value == 2
+    assert instruction.jump_address.is_memory
+
+
+def test_op_code_7_parses_to_less_than_instruction():
+    instruction = parse_next_instruction([7, 1, 2, 3])
+    assert isinstance(instruction, IntcodeLessThan)
+    assert instruction.input_a.value == 1
+    assert instruction.input_a.is_memory
+    assert instruction.input_b.value == 2
+    assert instruction.input_b.is_memory
+    assert instruction.output == 3
+
+
+def test_op_code_8_parses_to_equals_instruction():
+    instruction = parse_next_instruction([8, 1, 2, 3])
+    assert isinstance(instruction, IntcodeEquals)
+    assert instruction.input_a.value == 1
+    assert instruction.input_a.is_memory
+    assert instruction.input_b.value == 2
+    assert instruction.input_b.is_memory
+    assert instruction.output == 3
 
 
 def test_intcode_program_get_instruction_returns_instruction_at_pc():

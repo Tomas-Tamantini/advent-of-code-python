@@ -7,6 +7,10 @@ from .instructions import (
     IntcodeMultiply,
     IntcodeInput,
     IntcodeOutput,
+    IntcodeJumpIfTrue,
+    IntcodeJumpIfFalse,
+    IntcodeLessThan,
+    IntcodeEquals,
 )
 
 
@@ -28,7 +32,7 @@ def _parse_parameter_modes(op_code: int) -> list[int]:
 
 def _build_parameters(sequence: list[int]) -> Iterator[MemoryOrImmediate]:
     op_code = _parse_op_code(sequence[0])
-    num_parameters = {1: 2, 2: 2, 4: 1}.get(op_code, 0)
+    num_parameters = {1: 2, 2: 2, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2}.get(op_code, 0)
     parameter_modes = _parse_parameter_modes(sequence[0])
     for i in range(num_parameters):
         is_memory = i >= len(parameter_modes) or parameter_modes[i] == 0
@@ -48,5 +52,13 @@ def parse_next_instruction(sequence: list[int]) -> Instruction:
         return IntcodeInput(output=sequence[1])
     elif op_code == 4:
         return IntcodeOutput(*parameters)
+    elif op_code == 5:
+        return IntcodeJumpIfTrue(*parameters)
+    elif op_code == 6:
+        return IntcodeJumpIfFalse(*parameters)
+    elif op_code == 7:
+        return IntcodeLessThan(*parameters, output=sequence[3])
+    elif op_code == 8:
+        return IntcodeEquals(*parameters, output=sequence[3])
     else:
         raise ValueError(f"Invalid opcode: {sequence[0]}")
