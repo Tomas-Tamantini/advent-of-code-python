@@ -24,12 +24,10 @@ class AirConditionerSerialOutput:
         self._output_values.append(value)
 
 
-def run_air_conditioner_program(
-    sequence: list[int],
-    serial_input: AirConditionerSerialInput,
-    serial_output: AirConditionerSerialOutput,
-) -> None:
+def run_air_conditioner_program(sequence: list[int], air_conditioner_id: int) -> int:
     program = IntcodeProgram(sequence[:])
+    serial_input = AirConditionerSerialInput(air_conditioner_id)
+    serial_output = AirConditionerSerialOutput()
     hardware = Hardware(
         processor=Processor(),
         memory=program,
@@ -38,3 +36,4 @@ def run_air_conditioner_program(
     )
     computer = Computer(hardware)
     computer.run_program(program)
+    return serial_output.peek()

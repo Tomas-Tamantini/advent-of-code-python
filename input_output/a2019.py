@@ -9,8 +9,6 @@ from models.aoc_2019 import (
     two_adjacent_digits_are_the_same,
     at_least_one_group_of_exactly_two_equal_digits,
     valid_passwords_in_range,
-    AirConditionerSerialInput,
-    AirConditionerSerialOutput,
     run_air_conditioner_program,
 )
 
@@ -93,13 +91,10 @@ def aoc_2019_d4(file_name: str):
 def aoc_2019_d5(file_name: str):
     with open(file_name, "r") as file:
         sequence = [int(code) for code in file.read().split(",")]
-    air_conditioner_id = 1
-    serial_input = AirConditionerSerialInput(air_conditioner_id)
-    serial_output = AirConditionerSerialOutput()
-    run_air_conditioner_program(sequence, serial_input, serial_output)
-    print(
-        f"AOC 2019 Day 5/Part 1: Diagnostic code for the air conditioner is {serial_output.peek()}"
-    )
+    output_1 = run_air_conditioner_program(sequence, air_conditioner_id=1)
+    print(f"AOC 2019 Day 5/Part 1: Diagnostic code for air conditioner 1 is {output_1}")
+    output_5 = run_air_conditioner_program(sequence, air_conditioner_id=5)
+    print(f"AOC 2019 Day 5/Part 2: Diagnostic code for air conditioner 5 is {output_5}")
 
 
 # AOC 2019 Day 6: Universal Orbit Map
