@@ -8,3 +8,4 @@ from .a2019_d4 import (
     valid_passwords_in_range,
 )
 from .a2019_d5 import run_air_conditioner_program
+from .a2019_d6 import CelestialBody

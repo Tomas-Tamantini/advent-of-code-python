@@ -98,7 +98,12 @@ def aoc_2019_d5(file_name: str):
 
 
 # AOC 2019 Day 6: Universal Orbit Map
-def aoc_2019_d6(file_name: str): ...
+def aoc_2019_d6(file_name: str):
+    center_of_mass = parser.parse_celestial_bodies(file_name)
+    total_orbits = center_of_mass.count_orbits()
+    print(
+        f"AOC 2019 Day 6/Part 1: Total number of direct and indirect orbits is {total_orbits}"
+    )
 
 
 # AOC 2019 Day 7: Amplification Circuit

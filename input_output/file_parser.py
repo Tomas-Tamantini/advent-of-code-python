@@ -111,6 +111,7 @@ from models.aoc_2018 import (
     ArmyGroup,
     InfectionGameState,
 )
+from models.aoc_2019 import CelestialBody
 
 
 class FileReaderProtocol(Protocol):
@@ -940,3 +941,16 @@ class FileParser:
                 (self.parse_cardinal_direction(part.strip()[0]), int(part.strip()[1:]))
                 for part in line.strip().split(",")
             ]
+
+    def parse_celestial_bodies(self, file_name: str) -> CelestialBody:
+        bodies = dict()
+        for line in self._file_reader.readlines(file_name):
+            parts = line.strip().split(")")
+            parent = parts[0]
+            child = parts[1]
+            if parent not in bodies:
+                bodies[parent] = CelestialBody(parent)
+            if child not in bodies:
+                bodies[child] = CelestialBody(child)
+            bodies[parent].add_satellite(bodies[child])
+        return bodies["COM"]
