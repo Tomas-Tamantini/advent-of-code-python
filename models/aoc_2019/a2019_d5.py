@@ -1,6 +1,5 @@
 from typing import Optional
-from models.assembly import Hardware, Computer, Processor
-from .intcode import IntcodeProgram
+from .intcode import IntcodeProgram, run_intcode_program
 
 
 class AirConditionerSerialInput:
@@ -28,12 +27,5 @@ def run_air_conditioner_program(sequence: list[int], air_conditioner_id: int) ->
     program = IntcodeProgram(sequence[:])
     serial_input = AirConditionerSerialInput(air_conditioner_id)
     serial_output = AirConditionerSerialOutput()
-    hardware = Hardware(
-        processor=Processor(),
-        memory=program,
-        serial_input=serial_input,
-        serial_output=serial_output,
-    )
-    computer = Computer(hardware)
-    computer.run_program(program)
+    run_intcode_program(program, serial_input=serial_input, serial_output=serial_output)
     return serial_output.peek()

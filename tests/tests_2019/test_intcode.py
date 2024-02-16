@@ -2,6 +2,7 @@ from models.assembly import Hardware, Processor
 from models.aoc_2019.intcode import (
     parse_next_instruction,
     IntcodeProgram,
+    run_intcode_program,
     MemoryOrImmediate,
     IntcodeHalt,
     IntcodeAdd,
@@ -366,3 +367,9 @@ def test_intcode_program_allows_reading_and_writing_values():
     assert program.read(address=6) == 11
     program.write(address=6, new_value=100)
     assert program.read(address=6) == 100
+
+
+def test_running_intcode_program_runs_it_until_halt():
+    program = IntcodeProgram(sequence=[1001, 0, 100, 2, 99])
+    run_intcode_program(program)
+    assert program.sequence == [1001, 0, 1101, 2, 99]
