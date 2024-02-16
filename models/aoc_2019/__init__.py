@@ -7,3 +7,8 @@ from .a2019_d4 import (
     at_least_one_group_of_exactly_two_equal_digits,
     valid_passwords_in_range,
 )
+from .a2019_d5 import (
+    AirConditionerSerialInput,
+    AirConditionerSerialOutput,
+    run_air_conditioner_program,
+)
