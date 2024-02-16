@@ -104,6 +104,10 @@ def aoc_2019_d6(file_name: str):
     print(
         f"AOC 2019 Day 6/Part 1: Total number of direct and indirect orbits is {total_orbits}"
     )
+    orbital_distance = center_of_mass.orbital_distance("YOU", "SAN") - 2
+    print(
+        f"AOC 2019 Day 6/Part 2: Minimum number of orbital transfers required is {orbital_distance}"
+    )
 
 
 # AOC 2019 Day 7: Amplification Circuit
