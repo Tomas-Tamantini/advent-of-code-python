@@ -145,6 +145,16 @@ def test_intcode_output_increments_pc_by_two():
     assert hardware.processor.program_counter == 19
 
 
+def test_parameters_can_be_in_position_or_immediate_mode():
+    instruction = parse_next_instruction([1002, 4, 3, 4])
+    assert isinstance(instruction, IntcodeMultiply)
+    assert instruction.input_a.value == 4
+    assert instruction.input_a.is_memory
+    assert instruction.input_b.value == 3
+    assert not instruction.input_b.is_memory
+    assert instruction.output == 4
+
+
 def test_op_code_99_parses_to_halt_instruction():
     instruction = parse_next_instruction([99, 1, 2, 3])
     assert isinstance(instruction, IntcodeHalt)
