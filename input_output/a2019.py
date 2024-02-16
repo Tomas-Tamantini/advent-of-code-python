@@ -5,6 +5,10 @@ from models.aoc_2019 import (
     run_intcode_program_until_halt,
     noun_and_verb_for_given_output,
     TwistyWire,
+    digits_are_increasing,
+    two_adjacent_digits_are_the_same,
+    at_least_one_group_of_exactly_two_equal_digits,
+    valid_passwords_in_range,
 )
 
 
@@ -69,7 +73,17 @@ def aoc_2019_d3(file_name: str):
 
 
 # AOC 2019 Day 4: Secure Container
-def aoc_2019_d4(file_name: str): ...
+def aoc_2019_d4(file_name: str):
+    with open(file_name, "r") as file:
+        lower_bound, upper_bound = map(int, file.read().split("-"))
+    criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
+    valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
+    print(f"AOC 2019 Day 4/Part 1: Number of valid passwords is {len(valid_passwords)}")
+    criteria.append(at_least_one_group_of_exactly_two_equal_digits)
+    valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
+    print(
+        f"AOC 2019 Day 4/Part 2: Number of valid passwords with the new criteria is {len(valid_passwords)}"
+    )
 
 
 # AOC 2019 Day 5: Sunny with a Chance of Asteroids
