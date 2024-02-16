@@ -44,3 +44,23 @@ class IntcodeMultiply:
         b = self.input_b.get_value(hardware)
         hardware.memory.write(self.output, a * b)
         hardware.increment_program_counter(increment=4)
+
+
+@dataclass(frozen=True)
+class IntcodeInput:
+    output: int
+
+    def execute(self, hardware: Hardware) -> None:
+        value = hardware.serial_input.read()
+        hardware.memory.write(self.output, value)
+        hardware.increment_program_counter(increment=2)
+
+
+@dataclass(frozen=True)
+class IntcodeOutput:
+    value: MemoryOrImmediate
+
+    def execute(self, hardware: Hardware) -> None:
+        value = self.value.get_value(hardware)
+        hardware.serial_output.write(value)
+        hardware.increment_program_counter(increment=2)

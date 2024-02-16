@@ -1,5 +1,12 @@
 from models.assembly import Instruction
-from .instructions import MemoryOrImmediate, IntcodeHalt, IntcodeAdd, IntcodeMultiply
+from .instructions import (
+    MemoryOrImmediate,
+    IntcodeHalt,
+    IntcodeAdd,
+    IntcodeMultiply,
+    IntcodeInput,
+    IntcodeOutput,
+)
 
 
 def parse_next_instruction(sequence: list[int]) -> Instruction:
@@ -28,6 +35,17 @@ def parse_next_instruction(sequence: list[int]) -> Instruction:
                 is_memory=True,
             ),
             output=sequence[3],
+        )
+    elif sequence[0] == 3:
+        return IntcodeInput(
+            output=sequence[1],
+        )
+    elif sequence[0] == 4:
+        return IntcodeOutput(
+            value=MemoryOrImmediate(
+                value=sequence[1],
+                is_memory=True,
+            ),
         )
     else:
         raise ValueError(f"Invalid opcode: {sequence[0]}")

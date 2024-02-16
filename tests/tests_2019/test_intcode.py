@@ -6,6 +6,8 @@ from models.aoc_2019.intcode import (
     IntcodeHalt,
     IntcodeAdd,
     IntcodeMultiply,
+    IntcodeInput,
+    IntcodeOutput,
 )
 
 
@@ -18,6 +20,22 @@ class _MockMemory:
 
     def write(self, address, value):
         self.memory[address] = value
+
+
+class _MockSerialInput:
+    def __init__(self, input_value: int = 123) -> None:
+        self._input_value = input_value
+
+    def read(self):
+        return self._input_value
+
+
+class _MockSerialOutput:
+    def __init__(self) -> None:
+        self.output_value = None
+
+    def write(self, value: int) -> None:
+        self.output_value = value
 
 
 def test_memory_or_immediate_get_value_returns_memory_value_or_immediate():
@@ -34,6 +52,8 @@ def _build_hardware(memory_values: list[int] = None, program_counter: int = 0):
     return Hardware(
         processor=Processor(program_counter=program_counter),
         memory=_MockMemory(memory=memory_values),
+        serial_input=_MockSerialInput(),
+        serial_output=_MockSerialOutput(),
     )
 
 
@@ -88,6 +108,43 @@ def test_intcode_halt_sets_pc_to_negative_one_to_halt():
     assert hardware.processor.program_counter == -1
 
 
+def test_intcode_input_reads_from_serial_input_and_writes_to_memory():
+
+    input_instruction = IntcodeInput(output=3)
+    hardware = Hardware(
+        processor=Processor(),
+        memory=_MockMemory([0] * 10),
+        serial_input=_MockSerialInput(123),
+    )
+    input_instruction.execute(hardware)
+    assert hardware.memory.read(address=3) == 123
+
+
+def test_intcode_input_increments_pc_by_two():
+    input_instruction = IntcodeInput(output=3)
+    hardware = _build_hardware(program_counter=17)
+    input_instruction.execute(hardware)
+    assert hardware.processor.program_counter == 19
+
+
+def test_intcode_output_reads_from_memory_and_writes_to_serial_output():
+    output_instruction = IntcodeOutput(value=MemoryOrImmediate(3, is_memory=True))
+    hardware = Hardware(
+        processor=Processor(),
+        memory=_MockMemory([0, 0, 0, 123]),
+        serial_output=_MockSerialOutput(),
+    )
+    output_instruction.execute(hardware)
+    assert hardware.serial_output.output_value == 123
+
+
+def test_intcode_output_increments_pc_by_two():
+    output_instruction = IntcodeOutput(value=MemoryOrImmediate(3, is_memory=True))
+    hardware = _build_hardware(program_counter=17)
+    output_instruction.execute(hardware)
+    assert hardware.processor.program_counter == 19
+
+
 def test_op_code_99_parses_to_halt_instruction():
     instruction = parse_next_instruction([99, 1, 2, 3])
     assert isinstance(instruction, IntcodeHalt)
@@ -111,6 +168,19 @@ def test_op_code_2_parses_to_multiply_instruction():
     assert instruction.input_b.value == 2
     assert instruction.input_b.is_memory
     assert instruction.output == 3
+
+
+def test_op_code_3_parses_to_input_instruction():
+    instruction = parse_next_instruction([3, 1])
+    assert isinstance(instruction, IntcodeInput)
+    assert instruction.output == 1
+
+
+def test_op_code_4_parses_to_output_instruction():
+    instruction = parse_next_instruction([4, 1])
+    assert isinstance(instruction, IntcodeOutput)
+    assert instruction.value.value == 1
+    assert instruction.value.is_memory
 
 
 def test_intcode_program_get_instruction_returns_instruction_at_pc():
