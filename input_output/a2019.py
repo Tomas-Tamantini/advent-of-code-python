@@ -1,3 +1,4 @@
+from itertools import permutations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.aoc_2019 import (
@@ -10,6 +11,7 @@ from models.aoc_2019 import (
     at_least_one_group_of_exactly_two_equal_digits,
     valid_passwords_in_range,
     run_air_conditioner_program,
+    Amplifiers,
 )
 
 
@@ -111,7 +113,18 @@ def aoc_2019_d6(file_name: str):
 
 
 # AOC 2019 Day 7: Amplification Circuit
-def aoc_2019_d7(file_name: str): ...
+def aoc_2019_d7(file_name: str):
+    with open(file_name, "r") as file:
+        program = [int(code) for code in file.read().split(",")]
+    amplifiers = Amplifiers(program)
+    input_signal = 0
+    max_signal = max(
+        amplifiers.run(phase_settings, input_signal)
+        for phase_settings in permutations(range(5))
+    )
+    print(
+        f"AOC 2019 Day 7/Part 1: Maximum signal that can be sent to the thrusters is {max_signal}"
+    )
 
 
 # AOC 2019 Day 8: Space Image Format
