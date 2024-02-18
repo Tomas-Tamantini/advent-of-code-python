@@ -40,3 +40,6 @@ class Amplifiers:
             )
             input_signal = serial_output.read()
         return input_signal
+
+    def run_with_feedback(self, phase_settings: list[int], input_signal: int) -> int:
+        raise NotImplementedError("Feedback mode not implemented yet")
