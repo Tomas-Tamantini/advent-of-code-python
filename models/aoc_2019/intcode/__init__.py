@@ -1,5 +1,6 @@
 from .instructions import (
-    MemoryOrImmediate,
+    ParameterMode,
+    IntcodeParameter,
     IntcodeHalt,
     IntcodeAdd,
     IntcodeMultiply,

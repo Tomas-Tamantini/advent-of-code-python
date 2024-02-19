@@ -1,7 +1,8 @@
 from typing import Iterator
 from models.assembly import Instruction
 from .instructions import (
-    MemoryOrImmediate,
+    ParameterMode,
+    IntcodeParameter,
     IntcodeHalt,
     IntcodeAdd,
     IntcodeMultiply,
@@ -22,43 +23,37 @@ def _parse_op_code(op_code: int) -> int:
         return int(op_code_str[-2:])
 
 
-def _parse_parameter_modes(op_code: int) -> list[int]:
+def _parse_parameter_modes(op_code: int) -> list[ParameterMode]:
     op_code_str = str(op_code)
     if len(op_code_str) <= 2:
         return []
     else:
-        return [int(digit) for digit in reversed(op_code_str[:-2])]
+        return [ParameterMode(int(digit)) for digit in reversed(op_code_str[:-2])]
 
 
-def _build_parameters(sequence: list[int]) -> Iterator[MemoryOrImmediate]:
-    op_code = _parse_op_code(sequence[0])
-    num_parameters = {1: 2, 2: 2, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2}.get(op_code, 0)
+def _build_parameters(
+    num_parameters: int, sequence: list[int]
+) -> Iterator[IntcodeParameter]:
     parameter_modes = _parse_parameter_modes(sequence[0])
     for i in range(num_parameters):
-        is_memory = i >= len(parameter_modes) or parameter_modes[i] == 0
-        yield MemoryOrImmediate(value=sequence[i + 1], is_memory=is_memory)
+        parameter_mode = (
+            parameter_modes[i] if i < len(parameter_modes) else ParameterMode.POSITION
+        )
+        yield IntcodeParameter(value=sequence[i + 1], parameter_mode=parameter_mode)
 
 
 def parse_next_instruction(sequence: list[int]) -> Instruction:
     op_code = _parse_op_code(sequence[0])
-    parameters = _build_parameters(sequence)
-    if op_code == 99:
-        return IntcodeHalt()
-    elif op_code == 1:
-        return IntcodeAdd(*parameters, output=sequence[3])
-    elif op_code == 2:
-        return IntcodeMultiply(*parameters, output=sequence[3])
-    elif op_code == 3:
-        return IntcodeInput(output=sequence[1])
-    elif op_code == 4:
-        return IntcodeOutput(*parameters)
-    elif op_code == 5:
-        return IntcodeJumpIfTrue(*parameters)
-    elif op_code == 6:
-        return IntcodeJumpIfFalse(*parameters)
-    elif op_code == 7:
-        return IntcodeLessThan(*parameters, output=sequence[3])
-    elif op_code == 8:
-        return IntcodeEquals(*parameters, output=sequence[3])
-    else:
-        raise ValueError(f"Invalid opcode: {sequence[0]}")
+    instruction, num_params = {
+        99: (IntcodeHalt, 0),
+        1: (IntcodeAdd, 3),
+        2: (IntcodeMultiply, 3),
+        3: (IntcodeInput, 1),
+        4: (IntcodeOutput, 1),
+        5: (IntcodeJumpIfTrue, 2),
+        6: (IntcodeJumpIfFalse, 2),
+        7: (IntcodeLessThan, 3),
+        8: (IntcodeEquals, 3),
+    }[op_code]
+    parameters = _build_parameters(num_params, sequence)
+    return instruction(*parameters)
