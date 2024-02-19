@@ -3,6 +3,13 @@ from unittest.mock import Mock
 from models.assembly import Computer, Processor, Program, Hardware, ImmutableProgram
 
 
+def test_hardware_can_have_custom_attributes():
+    hardware = Hardware(processor=Processor(), custom_attr=123)
+    assert hardware.custom_attr == 123
+    hardware.custom_attr = 456
+    assert hardware.custom_attr == 456
+
+
 def test_computer_can_be_initialized_from_processor():
     processor = Processor(registers={"a": 1, "b": 2})
     computer = Computer.from_processor(processor)
