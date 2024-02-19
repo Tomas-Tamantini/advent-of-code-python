@@ -12,6 +12,7 @@ from models.aoc_2019 import (
     valid_passwords_in_range,
     run_air_conditioner_program,
     Amplifiers,
+    LayeredImage,
 )
 
 
@@ -135,7 +136,17 @@ def aoc_2019_d7(file_name: str):
 
 
 # AOC 2019 Day 8: Space Image Format
-def aoc_2019_d8(file_name: str): ...
+def aoc_2019_d8(file_name: str):
+    with open(file_name, "r") as file:
+        data = file.read().strip()
+
+    image = LayeredImage(width=25, height=6, data=data)
+    layer_with_fewest_zeros = min(image.layers, key=lambda layer: layer.count_digit(0))
+    ones = layer_with_fewest_zeros.count_digit(1)
+    twos = layer_with_fewest_zeros.count_digit(2)
+    print(
+        f"AOC 2019 Day 8/Part 1: Number of 1 digits multiplied by the number of 2 digits is {ones * twos}"
+    )
 
 
 # AOC 2019 Day 9: Sensor Boost
