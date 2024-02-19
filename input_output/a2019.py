@@ -125,6 +125,13 @@ def aoc_2019_d7(file_name: str):
     print(
         f"AOC 2019 Day 7/Part 1: Maximum signal that can be sent to the thrusters is {max_signal}"
     )
+    max_signal_feedback = max(
+        amplifiers.run_with_feedback(phase_settings, input_signal)
+        for phase_settings in permutations(range(5, 10))
+    )
+    print(
+        f"AOC 2019 Day 7/Part 2: Maximum signal that can be sent to the thrusters with feedback is {max_signal_feedback}"
+    )
 
 
 # AOC 2019 Day 8: Space Image Format

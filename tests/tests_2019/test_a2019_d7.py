@@ -13,17 +13,26 @@ def test_amplifier_io_works_as_queue():
     assert amplifier_io.read() == 2
 
 
-def test_read_raises_empty_input_error_when_queue_is_empty():
+def test_amplifier_io_read_raises_empty_input_error_when_queue_is_empty():
     amplifier_io = AmplifierIO()
     with pytest.raises(AmplifierIO.EmptyInput):
         amplifier_io.read()
 
 
-def test_simple_write_raises_output_written():
+def test_amplifier_io_write_raises_output_written():
     amplifier_io = AmplifierIO()
     with pytest.raises(AmplifierIO.OutputWritten):
         amplifier_io.write(1)
     assert amplifier_io.read() == 1
+
+
+def test_amplifier_io_keeps_track_of_last_value_written():
+    amplifier_io = AmplifierIO()
+    amplifier_io.silent_write(1)
+    amplifier_io.silent_write(2)
+    _ = amplifier_io.read()
+    _ = amplifier_io.read()
+    assert amplifier_io.last_value_written == 2
 
 
 @pytest.mark.parametrize(
@@ -116,7 +125,6 @@ def test_amplifiers_produce_final_output_given_phase_settings_and_input_signal(
     assert final_output == expected_output
 
 
-@pytest.mark.skip("Feedback mode not implemented yet")
 @pytest.mark.parametrize(
     "instructions, phase_settings, expected_output",
     [
