@@ -16,6 +16,7 @@ def run_intcode_program(
         memory=program,
         serial_input=serial_input,
         serial_output=serial_output,
+        relative_base=0,
     )
     computer = Computer(hardware)
     computer.run_program(program)

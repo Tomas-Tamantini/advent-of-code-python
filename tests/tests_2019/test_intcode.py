@@ -1,5 +1,5 @@
 import pytest
-from models.assembly import Hardware, Processor
+from models.assembly import Hardware, Processor, SerialOutput, SerialInput
 from models.aoc_2019.intcode import (
     parse_next_instruction,
     ParameterMode,
@@ -40,10 +40,10 @@ class _MockSerialInput:
 
 class _MockSerialOutput:
     def __init__(self) -> None:
-        self.output_value = None
+        self.output_values = []
 
     def write(self, value: int) -> None:
-        self.output_value = value
+        self.output_values.append(value)
 
 
 def test_intcode_parameter_returns_value_from_immediate():
@@ -65,15 +65,23 @@ def test_intcode_parameter_returns_value_from_position_with_relative_base():
 
 
 def _build_hardware(
-    memory_values: list[int] = None, program_counter: int = 0, relative_base=0
+    memory_values: list[int] = None,
+    serial_input: SerialInput = None,
+    serial_output: SerialOutput = None,
+    program_counter: int = 0,
+    relative_base=0,
 ):
     if memory_values is None:
         memory_values = [0] * 10
+    if serial_input is None:
+        serial_input = _MockSerialInput()
+    if serial_output is None:
+        serial_output = _MockSerialOutput()
     return Hardware(
         processor=Processor(program_counter=program_counter),
         memory=_MockMemory(memory=memory_values),
-        serial_input=_MockSerialInput(),
-        serial_output=_MockSerialOutput(),
+        serial_input=serial_input,
+        serial_output=serial_output,
         relative_base=relative_base,
     )
 
@@ -162,7 +170,7 @@ def test_intcode_output_reads_from_memory_and_writes_to_serial_output():
         serial_output=_MockSerialOutput(),
     )
     output_instruction.execute(hardware)
-    assert hardware.serial_output.output_value == 123
+    assert hardware.serial_output.output_values[-1] == 123
 
 
 def test_intcode_output_increments_pc_by_two():
@@ -445,3 +453,25 @@ def test_running_intcode_program_runs_it_until_halt():
     program = IntcodeProgram(instructions=[1001, 0, 100, 2, 99])
     run_intcode_program(program)
     assert list(program.contiguous_instructions) == [1001, 0, 1101, 2, 99]
+
+
+@pytest.mark.parametrize(
+    "instructions, expected_output",
+    [
+        ([1102, 34915192, 34915192, 7, 4, 7, 99, 0], 1219070632396864),
+        ([104, 1125899906842624, 99], 1125899906842624),
+    ],
+)
+def test_intcode_program_can_handle_large_integers(instructions, expected_output):
+    output = _MockSerialOutput()
+    program = IntcodeProgram(instructions)
+    run_intcode_program(program, serial_output=output)
+    assert output.output_values[-1] == expected_output
+
+
+def test_test_intcode_program_has_quine():
+    quine = [109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99]
+    output = _MockSerialOutput()
+    program = IntcodeProgram(instructions=quine)
+    run_intcode_program(program, serial_output=output)
+    assert output.output_values == quine
