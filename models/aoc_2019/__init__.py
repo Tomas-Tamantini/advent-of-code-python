@@ -12,3 +12,4 @@ from .a2019_d6 import CelestialBody
 from .a2019_d7 import Amplifiers
 from .a2019_d8 import LayeredImage
 from .a2019_d10 import AsteroidBelt
+from .a2019_d11 import num_panels_painted_at_least_once

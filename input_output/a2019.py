@@ -15,6 +15,7 @@ from models.aoc_2019 import (
     Amplifiers,
     LayeredImage,
     AsteroidBelt,
+    num_panels_painted_at_least_once,
 )
 
 
@@ -179,7 +180,14 @@ def aoc_2019_d10(file_name: str):
 
 
 # AOC 2019 Day 11: Space Police
-def aoc_2019_d11(file_name: str): ...
+def aoc_2019_d11(file_name: str):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+
+    num_panels = num_panels_painted_at_least_once(instructions)
+    print(
+        f"AOC 2019 Day 11/Part 1: Number of panels painted at least once is {num_panels}"
+    )
 
 
 # AOC 2019 Day 12: The N-Body Problem
