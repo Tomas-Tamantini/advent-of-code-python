@@ -1,6 +1,7 @@
 from itertools import permutations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
+from models.vectors import Vector2D
 from models.aoc_2019 import (
     fuel_requirement,
     run_intcode_program_until_halt,
@@ -13,6 +14,7 @@ from models.aoc_2019 import (
     run_air_conditioner_program,
     Amplifiers,
     LayeredImage,
+    AsteroidBelt,
 )
 
 
@@ -161,7 +163,13 @@ def aoc_2019_d9(file_name: str):
 
 
 # AOC 2019 Day 10: Monitoring Station
-def aoc_2019_d10(file_name: str): ...
+def aoc_2019_d10(file_name: str):
+    _, asteroid_locations = parser.parse_game_of_life(file_name)
+    belt = AsteroidBelt({Vector2D(*p) for p in asteroid_locations})
+    _, others_visible = belt.asteroid_with_most_visibility()
+    print(
+        f"AOC 2019 Day 10/Part 1: Best location can see {others_visible} other asteroids"
+    )
 
 
 # AOC 2019 Day 11: Space Police

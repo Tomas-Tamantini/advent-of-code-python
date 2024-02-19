@@ -11,3 +11,4 @@ from .a2019_d5 import run_air_conditioner_program
 from .a2019_d6 import CelestialBody
 from .a2019_d7 import Amplifiers
 from .a2019_d8 import LayeredImage
+from .a2019_d10 import AsteroidBelt
