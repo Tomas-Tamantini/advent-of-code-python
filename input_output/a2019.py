@@ -115,8 +115,8 @@ def aoc_2019_d6(file_name: str):
 # AOC 2019 Day 7: Amplification Circuit
 def aoc_2019_d7(file_name: str):
     with open(file_name, "r") as file:
-        program = [int(code) for code in file.read().split(",")]
-    amplifiers = Amplifiers(program)
+        instructions = [int(code) for code in file.read().split(",")]
+    amplifiers = Amplifiers(instructions)
     input_signal = 0
     max_signal = max(
         amplifiers.run(phase_settings, input_signal)

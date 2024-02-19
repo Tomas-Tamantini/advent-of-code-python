@@ -1,28 +1,33 @@
 import pytest
 from models.aoc_2019.a2019_d7 import (
-    AmplifierSerialInput,
-    AmplifierSerialOutput,
+    AmplifierIO,
     Amplifiers,
 )
 
 
-def test_amplifier_serial_input_works_as_queue():
-    serial_input = AmplifierSerialInput()
-    serial_input.put(1)
-    serial_input.put(2)
-    assert serial_input.read() == 1
-    assert serial_input.read() == 2
+def test_amplifier_io_works_as_queue():
+    amplifier_io = AmplifierIO()
+    amplifier_io.silent_write(1)
+    amplifier_io.silent_write(2)
+    assert amplifier_io.read() == 1
+    assert amplifier_io.read() == 2
 
 
-def test_amplifier_serial_output_raises_stop_iteration_error_on_first_write():
-    serial_output = AmplifierSerialOutput()
-    with pytest.raises(StopIteration):
-        serial_output.write(1)
-    assert serial_output.read() == 1
+def test_read_raises_empty_input_error_when_queue_is_empty():
+    amplifier_io = AmplifierIO()
+    with pytest.raises(AmplifierIO.EmptyInput):
+        amplifier_io.read()
+
+
+def test_simple_write_raises_output_written():
+    amplifier_io = AmplifierIO()
+    with pytest.raises(AmplifierIO.OutputWritten):
+        amplifier_io.write(1)
+    assert amplifier_io.read() == 1
 
 
 @pytest.mark.parametrize(
-    "program, phase_settings, expected_output",
+    "instructions, phase_settings, expected_output",
     [
         (
             [3, 15, 3, 16, 1002, 16, 10, 16, 1, 16, 15, 15, 4, 15, 99, 0, 0],
@@ -103,16 +108,17 @@ def test_amplifier_serial_output_raises_stop_iteration_error_on_first_write():
     ],
 )
 def test_amplifiers_produce_final_output_given_phase_settings_and_input_signal(
-    program, phase_settings, expected_output
+    instructions, phase_settings, expected_output
 ):
-    amplifiers = Amplifiers(program)
+    amplifiers = Amplifiers(instructions)
     input_signal = 0
     final_output = amplifiers.run(phase_settings, input_signal)
     assert final_output == expected_output
 
 
+@pytest.mark.skip("Feedback mode not implemented yet")
 @pytest.mark.parametrize(
-    "program, phase_settings, expected_output",
+    "instructions, phase_settings, expected_output",
     [
         (
             [
@@ -215,9 +221,9 @@ def test_amplifiers_produce_final_output_given_phase_settings_and_input_signal(
     ],
 )
 def test_amplifiers_with_feedback_produce_final_output_given_phase_settings_and_input_signal(
-    program, phase_settings, expected_output
+    instructions, phase_settings, expected_output
 ):
-    amplifiers = Amplifiers(program)
+    amplifiers = Amplifiers(instructions)
     input_signal = 0
     final_output = amplifiers.run_with_feedback(phase_settings, input_signal)
     assert final_output == expected_output

@@ -1,45 +1,77 @@
-from .intcode import run_intcode_program, IntcodeProgram
+from models.assembly import Hardware, Processor, Computer
+from .intcode import IntcodeProgram
 
 
-class AmplifierSerialInput:
+class AmplifierIO:
+    class EmptyInput(Exception):
+        pass
+
+    class OutputWritten(Exception):
+        pass
+
     def __init__(self) -> None:
         self._values = []
 
-    def put(self, value: int) -> None:
+    def silent_write(self, value: int) -> None:
         self._values.append(value)
 
+    def write(self, value: int) -> None:
+        self._values.append(value)
+        raise AmplifierIO.OutputWritten("Output written")
+
     def read(self) -> int:
+        if not self._values:
+            raise AmplifierIO.EmptyInput("No input to read")
         return self._values.pop(0)
 
 
-class AmplifierSerialOutput:
-    def __init__(self) -> None:
-        self._value = None
+class _Amplifier:
+    def __init__(
+        self,
+        phase_setting: int,
+        input_pipe: AmplifierIO,
+        output_pipe: AmplifierIO,
+        instructions: list[int],
+    ) -> None:
+        self._input = input_pipe
+        self._output = output_pipe
+        self._input.silent_write(phase_setting)
+        self._program = IntcodeProgram(instructions.copy())
+        self._computer = Computer(
+            hardware=Hardware(
+                processor=Processor(),
+                memory=self._program,
+                serial_input=self._input,
+                serial_output=self._output,
+            )
+        )
 
-    def write(self, value: int) -> None:
-        self._value = value
-        raise StopIteration("Output written")
-
-    def read(self) -> int:
-        return self._value
+    def _run_until_first_output(self) -> None:
+        try:
+            self._computer.run_program(self._program)
+        except AmplifierIO.OutputWritten:
+            return
 
 
 class Amplifiers:
-    def __init__(self, program: list[int]) -> None:
-        self._program = program
+    def __init__(self, instructions: list[int]) -> None:
+        self._instructions = instructions
 
     def run(self, phase_settings: list[int], input_signal: int) -> int:
-        for phase_setting in phase_settings:
-            serial_input = AmplifierSerialInput()
-            serial_input.put(phase_setting)
-            serial_input.put(input_signal)
-            serial_output = AmplifierSerialOutput()
-            program = IntcodeProgram(self._program.copy())
-            run_intcode_program(
-                program, serial_input=serial_input, serial_output=serial_output
+        io_pipes = [AmplifierIO() for _ in range(len(phase_settings) + 1)]
+        amplifiers = [
+            _Amplifier(
+                phase_setting=phase_setting,
+                input_pipe=io_pipes[i],
+                output_pipe=io_pipes[i + 1],
+                instructions=self._instructions,
             )
-            input_signal = serial_output.read()
-        return input_signal
+            for i, phase_setting in enumerate(phase_settings)
+        ]
+        io_pipes[0].silent_write(input_signal)
+        for amplifier in amplifiers:
+            amplifier._run_until_first_output()
+        return io_pipes[-1].read()
 
     def run_with_feedback(self, phase_settings: list[int], input_signal: int) -> int:
         raise NotImplementedError("Feedback mode not implemented yet")
