@@ -30,6 +30,8 @@ def test_running_intcode_program_yields_final_state(instructions, expected):
 
 def test_can_find_noun_and_verb_that_yield_desired_output():
     instructions = [1, -1, -1, 3, 2, 3, 11, 0, 99, 30, 40, 50]
-    noun, verb = noun_and_verb_for_given_output(instructions, 3500)
+    noun, verb = noun_and_verb_for_given_output(
+        instructions, 3500, noun_range=15, verb_range=15
+    )
     assert noun == 10
     assert verb == 9

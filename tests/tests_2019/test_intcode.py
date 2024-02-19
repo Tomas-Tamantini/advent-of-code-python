@@ -1,3 +1,4 @@
+import pytest
 from models.assembly import Hardware, Processor
 from models.aoc_2019.intcode import (
     parse_next_instruction,
@@ -409,6 +410,11 @@ def test_intcode_program_get_instruction_returns_instruction_at_pc():
     assert isinstance(instruction, IntcodeHalt)
 
 
+def test_reading_instruction_at_negative_value_from_intcode_program_returns_none():
+    program = IntcodeProgram(instructions=[99])
+    assert program.get_instruction(program_counter=-1) is None
+
+
 def test_intcode_program_allows_reading_and_writing_values():
     program = IntcodeProgram(instructions=[1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
     assert program.read(address=6) == 11
@@ -416,7 +422,26 @@ def test_intcode_program_allows_reading_and_writing_values():
     assert program.read(address=6) == 100
 
 
+def test_reading_and_writing_intcode_program_values_with_negative_address_raises_index_error():
+    program = IntcodeProgram(instructions=[99])
+    with pytest.raises(IndexError):
+        program.read(address=-1)
+    with pytest.raises(IndexError):
+        program.write(address=-1, new_value=100)
+
+
+def test_reading_intcode_program_value_above_max_address_returns_zero():
+    program = IntcodeProgram(instructions=[99])
+    assert program.read(address=100) == 0
+
+
+def test_writing_intcode_program_can_be_done_at_any_positive_address():
+    program = IntcodeProgram(instructions=[99])
+    program.write(address=1_000_000, new_value=123)
+    assert program.read(address=1_000_000) == 123
+
+
 def test_running_intcode_program_runs_it_until_halt():
     program = IntcodeProgram(instructions=[1001, 0, 100, 2, 99])
     run_intcode_program(program)
-    assert program.instructions == [1001, 0, 1101, 2, 99]
+    assert list(program.contiguous_instructions) == [1001, 0, 1101, 2, 99]

@@ -4,7 +4,7 @@ from .intcode import IntcodeProgram, run_intcode_program
 def run_intcode_program_until_halt(instructions: list[int]) -> list[int]:
     program = IntcodeProgram(instructions[:])
     run_intcode_program(program)
-    return program.instructions
+    return list(program.contiguous_instructions)
 
 
 def noun_and_verb_for_given_output(

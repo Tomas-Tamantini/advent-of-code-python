@@ -57,5 +57,7 @@ def parse_next_instruction(instructions: list[int]) -> Instruction:
         8: (IntcodeEquals, 3),
         9: (IntcodeRelativeBaseOffset, 1),
     }[op_code]
+    if len(instructions) < num_params + 1:
+        raise ValueError("Not enough parameters to parse next instruction")
     parameters = _build_parameters(num_params, instructions)
     return instruction(*parameters)
