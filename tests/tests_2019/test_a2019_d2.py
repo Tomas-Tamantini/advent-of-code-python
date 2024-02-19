@@ -5,14 +5,14 @@ from models.aoc_2019 import (
 )
 
 
-def test_running_intcode_program_leaves_initial_sequence_intact():
-    sequence = [1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50]
-    _ = run_intcode_program_until_halt(sequence)
-    assert sequence == [1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50]
+def test_running_intcode_program_leaves_initial_instructions_intact():
+    instructions = [1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50]
+    _ = run_intcode_program_until_halt(instructions)
+    assert instructions == [1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50]
 
 
 @pytest.mark.parametrize(
-    "sequence, expected",
+    "instructions, expected",
     [
         ([1, 0, 0, 0, 99], [2, 0, 0, 0, 99]),
         ([2, 3, 0, 3, 99], [2, 3, 0, 6, 99]),
@@ -24,12 +24,12 @@ def test_running_intcode_program_leaves_initial_sequence_intact():
         ),
     ],
 )
-def test_running_intcode_program_yields_final_state(sequence, expected):
-    assert run_intcode_program_until_halt(sequence) == expected
+def test_running_intcode_program_yields_final_state(instructions, expected):
+    assert run_intcode_program_until_halt(instructions) == expected
 
 
 def test_can_find_noun_and_verb_that_yield_desired_output():
-    sequence = [1, -1, -1, 3, 2, 3, 11, 0, 99, 30, 40, 50]
-    noun, verb = noun_and_verb_for_given_output(sequence, 3500)
+    instructions = [1, -1, -1, 3, 2, 3, 11, 0, 99, 30, 40, 50]
+    noun, verb = noun_and_verb_for_given_output(instructions, 3500)
     assert noun == 10
     assert verb == 9

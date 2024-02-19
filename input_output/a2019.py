@@ -41,14 +41,14 @@ def aoc_2019_d1(file_name: str):
 # AOC 2019 Day 2: 1202 Program Alarm
 def aoc_2019_d2(file_name: str):
     with open(file_name, "r") as file:
-        original_sequence = [int(code) for code in file.read().split(",")]
-    sequence = original_sequence[:]
-    sequence[1] = 12
-    sequence[2] = 2
-    final_state = run_intcode_program_until_halt(sequence)
+        original_instructions = [int(code) for code in file.read().split(",")]
+    instructions = original_instructions[:]
+    instructions[1] = 12
+    instructions[2] = 2
+    final_state = run_intcode_program_until_halt(instructions)
     print(f"AOC 2019 Day 2/Part 1: Value at position 0 is {final_state[0]}")
     noun, verb = noun_and_verb_for_given_output(
-        original_sequence, desired_output=19690720, noun_range=100, verb_range=100
+        original_instructions, desired_output=19690720, noun_range=100, verb_range=100
     )
     combined = 100 * noun + verb
     print(f"AOC 2019 Day 2/Part 2: Noun and verb combined is {combined}")
@@ -93,10 +93,10 @@ def aoc_2019_d4(file_name: str):
 # AOC 2019 Day 5: Sunny with a Chance of Asteroids
 def aoc_2019_d5(file_name: str):
     with open(file_name, "r") as file:
-        sequence = [int(code) for code in file.read().split(",")]
-    output_1 = run_air_conditioner_program(sequence, air_conditioner_id=1)
+        instructions = [int(code) for code in file.read().split(",")]
+    output_1 = run_air_conditioner_program(instructions, air_conditioner_id=1)
     print(f"AOC 2019 Day 5/Part 1: Diagnostic code for air conditioner 1 is {output_1}")
-    output_5 = run_air_conditioner_program(sequence, air_conditioner_id=5)
+    output_5 = run_air_conditioner_program(instructions, air_conditioner_id=5)
     print(f"AOC 2019 Day 5/Part 2: Diagnostic code for air conditioner 5 is {output_5}")
 
 

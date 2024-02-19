@@ -25,7 +25,7 @@ def test_air_conditioner_serial_output_stores_written_values():
 
 
 def test_air_conditioner_program_writes_to_serial_output():
-    sequence = [3, 0, 4, 0, 99]
+    instructions = [3, 0, 4, 0, 99]
     air_conditioner_id = 123
-    output = run_air_conditioner_program(sequence, air_conditioner_id)
+    output = run_air_conditioner_program(instructions, air_conditioner_id)
     assert output == air_conditioner_id

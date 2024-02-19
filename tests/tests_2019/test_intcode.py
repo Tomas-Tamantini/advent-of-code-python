@@ -388,7 +388,7 @@ def test_op_code_9_parses_to_relative_base_offset_instruction():
 
 
 def test_intcode_program_get_instruction_returns_instruction_at_pc():
-    program = IntcodeProgram(sequence=[1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
+    program = IntcodeProgram(instructions=[1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
     instruction = program.get_instruction(program_counter=0)
     assert isinstance(instruction, IntcodeAdd)
     assert instruction.input_a.value == 9
@@ -410,13 +410,13 @@ def test_intcode_program_get_instruction_returns_instruction_at_pc():
 
 
 def test_intcode_program_allows_reading_and_writing_values():
-    program = IntcodeProgram(sequence=[1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
+    program = IntcodeProgram(instructions=[1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
     assert program.read(address=6) == 11
     program.write(address=6, new_value=100)
     assert program.read(address=6) == 100
 
 
 def test_running_intcode_program_runs_it_until_halt():
-    program = IntcodeProgram(sequence=[1001, 0, 100, 2, 99])
+    program = IntcodeProgram(instructions=[1001, 0, 100, 2, 99])
     run_intcode_program(program)
-    assert program.sequence == [1001, 0, 1101, 2, 99]
+    assert program.instructions == [1001, 0, 1101, 2, 99]

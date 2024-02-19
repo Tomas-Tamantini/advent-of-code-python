@@ -23,8 +23,10 @@ class AirConditionerSerialOutput:
         self._output_values.append(value)
 
 
-def run_air_conditioner_program(sequence: list[int], air_conditioner_id: int) -> int:
-    program = IntcodeProgram(sequence[:])
+def run_air_conditioner_program(
+    instructions: list[int], air_conditioner_id: int
+) -> int:
+    program = IntcodeProgram(instructions[:])
     serial_input = AirConditionerSerialInput(air_conditioner_id)
     serial_output = AirConditionerSerialOutput()
     run_intcode_program(program, serial_input=serial_input, serial_output=serial_output)

@@ -33,18 +33,18 @@ def _parse_parameter_modes(op_code: int) -> list[ParameterMode]:
 
 
 def _build_parameters(
-    num_parameters: int, sequence: list[int]
+    num_parameters: int, instructions: list[int]
 ) -> Iterator[IntcodeParameter]:
-    parameter_modes = _parse_parameter_modes(sequence[0])
+    parameter_modes = _parse_parameter_modes(instructions[0])
     for i in range(num_parameters):
         parameter_mode = (
             parameter_modes[i] if i < len(parameter_modes) else ParameterMode.POSITION
         )
-        yield IntcodeParameter(value=sequence[i + 1], parameter_mode=parameter_mode)
+        yield IntcodeParameter(value=instructions[i + 1], parameter_mode=parameter_mode)
 
 
-def parse_next_instruction(sequence: list[int]) -> Instruction:
-    op_code = _parse_op_code(sequence[0])
+def parse_next_instruction(instructions: list[int]) -> Instruction:
+    op_code = _parse_op_code(instructions[0])
     instruction, num_params = {
         99: (IntcodeHalt, 0),
         1: (IntcodeAdd, 3),
@@ -57,5 +57,5 @@ def parse_next_instruction(sequence: list[int]) -> Instruction:
         8: (IntcodeEquals, 3),
         9: (IntcodeRelativeBaseOffset, 1),
     }[op_code]
-    parameters = _build_parameters(num_params, sequence)
+    parameters = _build_parameters(num_params, instructions)
     return instruction(*parameters)
