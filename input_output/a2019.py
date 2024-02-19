@@ -147,6 +147,7 @@ def aoc_2019_d8(file_name: str):
     print(
         f"AOC 2019 Day 8/Part 1: Number of 1 digits multiplied by the number of 2 digits is {ones * twos}"
     )
+    print(f"AOC 2019 Day 8/Part 2: The message is\n{image.render()}")
 
 
 # AOC 2019 Day 9: Sensor Boost
