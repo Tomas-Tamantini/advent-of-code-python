@@ -151,7 +151,13 @@ def aoc_2019_d8(file_name: str):
 
 
 # AOC 2019 Day 9: Sensor Boost
-def aoc_2019_d9(file_name: str): ...
+def aoc_2019_d9(file_name: str):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    output = run_air_conditioner_program(instructions, air_conditioner_id=1)
+    print(f"AOC 2019 Day 9/Part 1: Output for the BOOST program is {output}")
+    output = run_air_conditioner_program(instructions, air_conditioner_id=2)
+    print(f"AOC 2019 Day 9/Part 2: Coordinates of the distress signal are {output}")
 
 
 # AOC 2019 Day 10: Monitoring Station
