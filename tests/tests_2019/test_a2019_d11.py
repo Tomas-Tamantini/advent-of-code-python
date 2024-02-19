@@ -3,7 +3,7 @@ from models.aoc_2019.a2019_d11 import (
     Hull,
     HullRobot,
     HullRobotIO,
-    num_panels_painted_at_least_once,
+    run_hull_painting_program,
 )
 
 
@@ -112,5 +112,15 @@ def test_hull_robot_io_second_ouput_1_means_turn_right():
 
 
 def test_can_count_panels_painted_for_given_program():
+    hull = Hull()
     instructions = [104, 1, 104, 0, 104, 0, 104, 1, 99]
-    assert num_panels_painted_at_least_once(instructions) == 2
+    run_hull_painting_program(instructions, hull)
+    assert hull.num_panels_painted_at_least_once == 2
+
+
+def test_can_render_hull_message():
+    hull = Hull()
+    hull.paint_panel(Vector2D(100, 200), paint_white=True)
+    hull.paint_panel(Vector2D(101, 200), paint_white=True)
+    hull.paint_panel(Vector2D(102, 201), paint_white=True)
+    assert hull.render() == "  #\n## \n"

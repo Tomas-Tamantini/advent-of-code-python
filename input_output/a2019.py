@@ -15,7 +15,8 @@ from models.aoc_2019 import (
     Amplifiers,
     LayeredImage,
     AsteroidBelt,
-    num_panels_painted_at_least_once,
+    Hull,
+    run_hull_painting_program,
 )
 
 
@@ -183,11 +184,15 @@ def aoc_2019_d10(file_name: str):
 def aoc_2019_d11(file_name: str):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
-
-    num_panels = num_panels_painted_at_least_once(instructions)
+    all_black_hull = Hull()
+    run_hull_painting_program(instructions, all_black_hull)
     print(
-        f"AOC 2019 Day 11/Part 1: Number of panels painted at least once is {num_panels}"
+        f"AOC 2019 Day 11/Part 1: Number of panels painted at least once is {all_black_hull.num_panels_painted_at_least_once}"
     )
+    single_white_hull = Hull()
+    single_white_hull.paint_panel(Vector2D(0, 0), paint_white=True)
+    run_hull_painting_program(instructions, single_white_hull)
+    print(f"AOC 2019 Day 11/Part 2: Hull message is\n{single_white_hull.render()}")
 
 
 # AOC 2019 Day 12: The N-Body Problem

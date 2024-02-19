@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.vectors import Vector2D, CardinalDirection, TurnDirection
+from models.vectors import Vector2D, CardinalDirection, TurnDirection, BoundingBox
 from .intcode import run_intcode_program, IntcodeProgram
 
 
@@ -25,6 +25,16 @@ class Hull:
             self._white_panels.add(position)
         else:
             self._white_panels.discard(position)
+
+    def render(self) -> str:
+        bounding_box = BoundingBox.from_points(self._white_panels)
+        result = ""
+        for y in reversed(range(bounding_box.min_y, bounding_box.max_y + 1)):
+            for x in range(bounding_box.min_x, bounding_box.max_x + 1):
+                position = Vector2D(x, y)
+                result += "#" if position in self._white_panels else " "
+            result += "\n"
+        return result
 
 
 @dataclass
@@ -58,10 +68,8 @@ class HullRobotIO:
         self._output_is_color = not self._output_is_color
 
 
-def num_panels_painted_at_least_once(instructions: list[int]) -> int:
+def run_hull_painting_program(instructions: list[int], hull: Hull) -> None:
     program = IntcodeProgram(instructions)
-    hull = Hull()
     robot = HullRobot(position=Vector2D(0, 0), direction=CardinalDirection.NORTH)
     io = HullRobotIO(hull, robot)
     run_intcode_program(program, serial_input=io, serial_output=io)
-    return hull.num_panels_painted_at_least_once
