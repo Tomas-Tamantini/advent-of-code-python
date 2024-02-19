@@ -133,3 +133,13 @@ class IntcodeEquals:
         write_value = 1 if a == b else 0
         hardware.memory.write(self.output.get_position(hardware), write_value)
         hardware.increment_program_counter(increment=4)
+
+
+@dataclass(frozen=True)
+class IntcodeRelativeBaseOffset:
+    offset: IntcodeParameter
+
+    def execute(self, hardware: Hardware) -> None:
+        offset = self.offset.get_value(hardware)
+        hardware.relative_base += offset
+        hardware.increment_program_counter(increment=2)

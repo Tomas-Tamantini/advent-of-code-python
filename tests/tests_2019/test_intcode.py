@@ -14,6 +14,7 @@ from models.aoc_2019.intcode import (
     IntcodeJumpIfFalse,
     IntcodeLessThan,
     IntcodeEquals,
+    IntcodeRelativeBaseOffset,
 )
 
 
@@ -278,6 +279,15 @@ def test_intcode_equals_increments_pc_by_four():
     assert hardware.processor.program_counter == 21
 
 
+def test_intcode_relative_base_offset_increments_relative_base_by_input_value():
+    instruction = IntcodeRelativeBaseOffset(
+        offset=IntcodeParameter(3, parameter_mode=ParameterMode.POSITION),
+    )
+    hardware = _build_hardware([10, 20, 30, 40, 50], relative_base=7)
+    instruction.execute(hardware)
+    assert hardware.relative_base == 47
+
+
 def test_parameters_can_be_in_position_or_immediate_or_relative_mode():
     instruction = parse_next_instruction([21002, 4, 3, 4])
     assert isinstance(instruction, IntcodeMultiply)
@@ -368,6 +378,13 @@ def test_op_code_8_parses_to_equals_instruction():
     assert instruction.input_b.parameter_mode == ParameterMode.POSITION
     assert instruction.output.value == 3
     assert instruction.output.parameter_mode == ParameterMode.POSITION
+
+
+def test_op_code_9_parses_to_relative_base_offset_instruction():
+    instruction = parse_next_instruction([9, 3])
+    assert isinstance(instruction, IntcodeRelativeBaseOffset)
+    assert instruction.offset.value == 3
+    assert instruction.offset.parameter_mode == ParameterMode.POSITION
 
 
 def test_intcode_program_get_instruction_returns_instruction_at_pc():

@@ -12,6 +12,7 @@ from .instructions import (
     IntcodeJumpIfFalse,
     IntcodeLessThan,
     IntcodeEquals,
+    IntcodeRelativeBaseOffset,
 )
 
 
@@ -54,6 +55,7 @@ def parse_next_instruction(sequence: list[int]) -> Instruction:
         6: (IntcodeJumpIfFalse, 2),
         7: (IntcodeLessThan, 3),
         8: (IntcodeEquals, 3),
+        9: (IntcodeRelativeBaseOffset, 1),
     }[op_code]
     parameters = _build_parameters(num_params, sequence)
     return instruction(*parameters)

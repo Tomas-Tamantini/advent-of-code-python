@@ -10,6 +10,7 @@ from .instructions import (
     IntcodeJumpIfFalse,
     IntcodeLessThan,
     IntcodeEquals,
+    IntcodeRelativeBaseOffset,
 )
 from .instruction_parser import parse_next_instruction
 from .program import IntcodeProgram
