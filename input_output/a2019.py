@@ -166,9 +166,15 @@ def aoc_2019_d9(file_name: str):
 def aoc_2019_d10(file_name: str):
     _, asteroid_locations = parser.parse_game_of_life(file_name)
     belt = AsteroidBelt({Vector2D(*p) for p in asteroid_locations})
-    _, others_visible = belt.asteroid_with_most_visibility()
+    most_visible, others_visible = belt.asteroid_with_most_visibility()
     print(
         f"AOC 2019 Day 10/Part 1: Best location can see {others_visible} other asteroids"
+    )
+    vaporized = list(belt.vaporize_asteroids_from(most_visible))
+    two_hundredth = vaporized[199]
+    product = two_hundredth.x * 100 + two_hundredth.y
+    print(
+        f"AOC 2019 Day 10/Part 2: 200th asteroid to be vaporized is at {two_hundredth.x}, {two_hundredth.y} - product: {product}"
     )
 
 

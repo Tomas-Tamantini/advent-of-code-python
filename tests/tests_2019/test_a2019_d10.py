@@ -49,3 +49,47 @@ def test_can_find_asteroid_with_most_visibility():
     best_location, others_visible = asteroid_belt.asteroid_with_most_visibility()
     assert best_location == Vector2D(3, 4)
     assert others_visible == 8
+
+
+def test_asteroids_are_vaporized_in_clockwise_order_starting_from_north():
+    asteroid_belt = AsteroidBelt(
+        asteroids={
+            Vector2D(0, 0),
+            Vector2D(1, 0),
+            Vector2D(-1, 0),
+            Vector2D(0, 1),
+            Vector2D(0, -1),
+        }
+    )
+    asteroids_shot = asteroid_belt.vaporize_asteroids_from(Vector2D(0, 0))
+    assert list(asteroids_shot) == [
+        Vector2D(0, -1),
+        Vector2D(1, 0),
+        Vector2D(0, 1),
+        Vector2D(-1, 0),
+    ]
+
+
+def test_asteroids_blocked_by_others_have_to_wait_full_rotation_before_being_vaporized():
+    asteroid_belt = AsteroidBelt(
+        asteroids={
+            Vector2D(0, 1),
+            Vector2D(0, 2),
+            Vector2D(0, 3),
+            Vector2D(0, 5),
+            Vector2D(1, 0),
+            Vector2D(1, 8),
+            Vector2D(2, 5),
+            Vector2D(2, 11),
+        }
+    )
+    asteroids_shot = asteroid_belt.vaporize_asteroids_from(Vector2D(0, 5))
+    assert list(asteroids_shot) == [
+        Vector2D(0, 3),
+        Vector2D(1, 0),
+        Vector2D(2, 5),
+        Vector2D(1, 8),
+        Vector2D(0, 2),
+        Vector2D(2, 11),
+        Vector2D(0, 1),
+    ]
