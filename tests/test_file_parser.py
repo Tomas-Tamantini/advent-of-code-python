@@ -63,6 +63,7 @@ from models.aoc_2018 import (
     AttackType,
     ArmyGroup,
 )
+from models.aoc_2019 import ChemicalReaction, ChemicalQuantity
 
 
 class MockFileReader:
@@ -991,3 +992,19 @@ def test_can_parse_celestial_bodies():
 
 def test_can_parse_vector_3d():
     assert FileParser.parse_vector_3d(" <x=-9, y=10, z=-1>") == Vector3D(-9, 10, -1)
+
+
+def test_can_parse_chemical_reactions():
+    file_content = """2 MPHSH, 3 NQNX => 3 FWHL
+                      144 ORE => 1 CXRVG"""
+    file_parser = mock_file_parser(file_content)
+    reactions = list(file_parser.parse_chemical_reactions("some_file"))
+    assert reactions == [
+        ChemicalReaction(
+            inputs=(ChemicalQuantity("MPHSH", 2), ChemicalQuantity("NQNX", 3)),
+            output=ChemicalQuantity("FWHL", 3),
+        ),
+        ChemicalReaction(
+            inputs=(ChemicalQuantity("ORE", 144),), output=ChemicalQuantity("CXRVG", 1)
+        ),
+    ]

@@ -15,3 +15,4 @@ from .a2019_d10 import AsteroidBelt
 from .a2019_d11 import run_hull_painting_program, Hull
 from .a2019_d12 import MoonOfJupiter, MoonSystem
 from .a2019_d13 import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
+from .a2019_d14 import ChemicalQuantity, ChemicalReaction, ChemicalReactions

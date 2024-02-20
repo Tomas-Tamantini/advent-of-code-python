@@ -111,7 +111,7 @@ from models.aoc_2018 import (
     ArmyGroup,
     InfectionGameState,
 )
-from models.aoc_2019 import CelestialBody
+from models.aoc_2019 import CelestialBody, ChemicalQuantity, ChemicalReaction
 
 
 class FileReaderProtocol(Protocol):
@@ -967,3 +967,21 @@ class FileParser:
             .split(",")
         )
         return Vector3D(*map(int, coordinates))
+
+    @staticmethod
+    def _parse_chemical_quantity(quantity_str: str) -> ChemicalQuantity:
+        quantity, chemical = quantity_str.split()
+        return ChemicalQuantity(chemical=chemical, quantity=int(quantity))
+
+    @staticmethod
+    def _parse_chemical_reaction(reaction_str: str) -> ChemicalReaction:
+        input_str, output_str = reaction_str.split(" => ")
+        output = FileParser._parse_chemical_quantity(output_str)
+        inputs = tuple(
+            FileParser._parse_chemical_quantity(q) for q in input_str.split(", ")
+        )
+        return ChemicalReaction(inputs, output)
+
+    def parse_chemical_reactions(self, file_name: str) -> Iterator[ChemicalReaction]:
+        for line in self._file_reader.readlines(file_name):
+            yield self._parse_chemical_reaction(line.strip())

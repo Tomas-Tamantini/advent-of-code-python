@@ -21,6 +21,8 @@ from models.aoc_2019 import (
     ArcadeGameScreen,
     run_intcode_arcade,
     ArcadeGameTile,
+    ChemicalReactions,
+    ChemicalQuantity,
 )
 
 
@@ -232,7 +234,14 @@ def aoc_2019_d13(file_name: str, animate: bool, **_):
 
 
 # AOC 2019 Day 14: Space Stoichiometry
-def aoc_2019_d14(file_name: str, **_): ...
+def aoc_2019_d14(file_name: str, parser: FileParser, **_):
+    reactions = ChemicalReactions(set(parser.parse_chemical_reactions(file_name)))
+    ore_required = reactions.min_raw_material_to_make_product(
+        raw_material="ORE", product=ChemicalQuantity(chemical="FUEL", quantity=1)
+    )
+    print(
+        f"AOC 2019 Day 14/Part 1: Minimum ore required to make 1 fuel is {ore_required}"
+    )
 
 
 # AOC 2019 Day 15: Oxygen System
