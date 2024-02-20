@@ -1,6 +1,5 @@
 from itertools import permutations
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
 from models.vectors import Vector2D
 from models.aoc_2019 import (
     fuel_requirement,
@@ -25,12 +24,8 @@ from models.aoc_2019 import (
 )
 
 
-parser = FileParser.default()
-progress_bar = ProgressBarConsole()
-
-
 # AOC 2019 Day 1: The Tyranny of the Rocket Equation
-def aoc_2019_d1(file_name: str):
+def aoc_2019_d1(file_name: str, **_):
     with open(file_name, "r") as file:
         masses = [int(line) for line in file]
     fuel_ignoring_extra_mass = sum(
@@ -48,7 +43,7 @@ def aoc_2019_d1(file_name: str):
 
 
 # AOC 2019 Day 2: 1202 Program Alarm
-def aoc_2019_d2(file_name: str):
+def aoc_2019_d2(file_name: str, **_):
     with open(file_name, "r") as file:
         original_instructions = [int(code) for code in file.read().split(",")]
     instructions = original_instructions[:]
@@ -64,7 +59,7 @@ def aoc_2019_d2(file_name: str):
 
 
 # AOC 2019 Day 3: Crossed Wires
-def aoc_2019_d3(file_name: str):
+def aoc_2019_d3(file_name: str, parser: FileParser, **_):
     wire_a = TwistyWire()
     wire_b = TwistyWire()
     instructions = list(parser.parse_directions(file_name))
@@ -86,7 +81,7 @@ def aoc_2019_d3(file_name: str):
 
 
 # AOC 2019 Day 4: Secure Container
-def aoc_2019_d4(file_name: str):
+def aoc_2019_d4(file_name: str, **_):
     with open(file_name, "r") as file:
         lower_bound, upper_bound = map(int, file.read().split("-"))
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
@@ -100,7 +95,7 @@ def aoc_2019_d4(file_name: str):
 
 
 # AOC 2019 Day 5: Sunny with a Chance of Asteroids
-def aoc_2019_d5(file_name: str):
+def aoc_2019_d5(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     output_1 = run_air_conditioner_program(instructions, air_conditioner_id=1)
@@ -110,7 +105,7 @@ def aoc_2019_d5(file_name: str):
 
 
 # AOC 2019 Day 6: Universal Orbit Map
-def aoc_2019_d6(file_name: str):
+def aoc_2019_d6(file_name: str, parser: FileParser, **_):
     center_of_mass = parser.parse_celestial_bodies(file_name)
     total_orbits = center_of_mass.count_orbits()
     print(
@@ -123,7 +118,7 @@ def aoc_2019_d6(file_name: str):
 
 
 # AOC 2019 Day 7: Amplification Circuit
-def aoc_2019_d7(file_name: str):
+def aoc_2019_d7(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     amplifiers = Amplifiers(instructions)
@@ -145,7 +140,7 @@ def aoc_2019_d7(file_name: str):
 
 
 # AOC 2019 Day 8: Space Image Format
-def aoc_2019_d8(file_name: str):
+def aoc_2019_d8(file_name: str, **_):
     with open(file_name, "r") as file:
         data = file.read().strip()
 
@@ -160,7 +155,7 @@ def aoc_2019_d8(file_name: str):
 
 
 # AOC 2019 Day 9: Sensor Boost
-def aoc_2019_d9(file_name: str):
+def aoc_2019_d9(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     output = run_air_conditioner_program(instructions, air_conditioner_id=1)
@@ -170,7 +165,7 @@ def aoc_2019_d9(file_name: str):
 
 
 # AOC 2019 Day 10: Monitoring Station
-def aoc_2019_d10(file_name: str):
+def aoc_2019_d10(file_name: str, parser: FileParser, **_):
     _, asteroid_locations = parser.parse_game_of_life(file_name)
     belt = AsteroidBelt({Vector2D(*p) for p in asteroid_locations})
     most_visible, others_visible = belt.asteroid_with_most_visibility()
@@ -186,7 +181,7 @@ def aoc_2019_d10(file_name: str):
 
 
 # AOC 2019 Day 11: Space Police
-def aoc_2019_d11(file_name: str):
+def aoc_2019_d11(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     all_black_hull = Hull()
@@ -201,7 +196,7 @@ def aoc_2019_d11(file_name: str):
 
 
 # AOC 2019 Day 12: The N-Body Problem
-def aoc_2019_d12(file_name: str):
+def aoc_2019_d12(file_name: str, parser: FileParser, **_):
     with open(file_name, "r") as file:
         positions = [parser.parse_vector_3d(line) for line in file]
     moons = [MoonOfJupiter(pos) for pos in positions]
@@ -216,7 +211,7 @@ def aoc_2019_d12(file_name: str):
 
 
 # AOC 2019 Day 13: Care Package
-def aoc_2019_d13(file_name: str, animate: bool):
+def aoc_2019_d13(file_name: str, animate: bool, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     screen = ArcadeGameScreen()
@@ -237,51 +232,51 @@ def aoc_2019_d13(file_name: str, animate: bool):
 
 
 # AOC 2019 Day 14: Space Stoichiometry
-def aoc_2019_d14(file_name: str): ...
+def aoc_2019_d14(file_name: str, **_): ...
 
 
 # AOC 2019 Day 15: Oxygen System
-def aoc_2019_d15(file_name: str): ...
+def aoc_2019_d15(file_name: str, **_): ...
 
 
 # AOC 2019 Day 16: Flawed Frequency Transmission
-def aoc_2019_d16(file_name: str): ...
+def aoc_2019_d16(file_name: str, **_): ...
 
 
 # AOC 2019 Day 17: Set and Forget
-def aoc_2019_d17(file_name: str): ...
+def aoc_2019_d17(file_name: str, **_): ...
 
 
 # AOC 2019 Day 18: Many-Worlds Interpretation
-def aoc_2019_d18(file_name: str): ...
+def aoc_2019_d18(file_name: str, **_): ...
 
 
 # AOC 2019 Day 19: Tractor Beam
-def aoc_2019_d19(file_name: str): ...
+def aoc_2019_d19(file_name: str, **_): ...
 
 
 # AOC 2019 Day 20: Donut Maze
-def aoc_2019_d20(file_name: str): ...
+def aoc_2019_d20(file_name: str, **_): ...
 
 
 # AOC 2019 Day 21: Springdroid Adventure
-def aoc_2019_d21(file_name: str): ...
+def aoc_2019_d21(file_name: str, **_): ...
 
 
 # AOC 2019 Day 22: Slam Shuffle
-def aoc_2019_d22(file_name: str): ...
+def aoc_2019_d22(file_name: str, **_): ...
 
 
 # AOC 2019 Day 23: Category Six
-def aoc_2019_d23(file_name: str): ...
+def aoc_2019_d23(file_name: str, **_): ...
 
 
 # AOC 2019 Day 24: Planet of Discord
-def aoc_2019_d24(file_name: str): ...
+def aoc_2019_d24(file_name: str, **_): ...
 
 
 # AOC 2019 Day 25: Cryostasis
-def aoc_2019_d25(file_name: str): ...
+def aoc_2019_d25(file_name: str, **_): ...
 
 
 ALL_2019_SOLUTIONS = (

@@ -1,3 +1,5 @@
+from .file_parser import FileParser
+from .progress_bar import ProgressBarConsole
 from .a2015 import ALL_2015_SOLUTIONS
 from .a2016 import ALL_2016_SOLUTIONS
 from .a2017 import ALL_2017_SOLUTIONS
@@ -18,7 +20,9 @@ def run_solutions(problems: dict[int, tuple[int, ...]], animate: bool) -> None:
             days = [i + 1 for i in range(len(solutions[year]))]
         for day in days:
             file_name = f"input_files/aoc_{year}/a{year}_d{day}.txt"
-            try:
-                solutions[year][day - 1](file_name, animate=animate)
-            except TypeError:
-                solutions[year][day - 1](file_name)
+            solutions[year][day - 1](
+                file_name,
+                parser=FileParser.default(),
+                progress_bar=ProgressBarConsole(),
+                animate=animate,
+            )

@@ -39,11 +39,9 @@ from models.aoc_2015 import (
     code_at,
 )
 
-parser = FileParser.default()
-
 
 # AOC 2015 - Day 1: Not Quite Lisp
-def aoc_2015_d1(file_name: str):
+def aoc_2015_d1(file_name: str, **_):
     with open(file_name, "r") as f:
         instructions = f.read()
 
@@ -57,7 +55,7 @@ def aoc_2015_d1(file_name: str):
 
 
 # AOC 2015 - Day 2: I Was Told There Would Be No Math
-def aoc_2015_d2(file_name: str):
+def aoc_2015_d2(file_name: str, parser: FileParser, **_):
     presents = list(parser.parse_xmas_presents(file_name))
     total_area = sum(present.area_required_to_wrap() for present in presents)
     print(
@@ -68,7 +66,7 @@ def aoc_2015_d2(file_name: str):
 
 
 # AOC 2015 - Day 3: Perfectly Spherical Houses in a Vacuum
-def aoc_2015_d3(file_name: str):
+def aoc_2015_d3(file_name: str, **_):
     with open(file_name, "r") as f:
         instructions = f.read()
 
@@ -82,7 +80,7 @@ def aoc_2015_d3(file_name: str):
 
 
 # AOC 2015 - Day 4: The Ideal Stocking Stuffer
-def aoc_2015_d4(file_name: str):
+def aoc_2015_d4(file_name: str, **_):
     with open(file_name, "r") as f:
         secret_key = f.read()
     print(
@@ -95,7 +93,7 @@ def aoc_2015_d4(file_name: str):
 
 
 # AOC 2015 - Day 5: Doesn't He Have Intern-Elves For This?
-def aoc_2015_d5(file_name: str):
+def aoc_2015_d5(file_name: str, **_):
     with open(file_name, "r") as f:
         strings = f.readlines()
     simple_classifier = StringClassifier(simple_ruleset)
@@ -115,7 +113,7 @@ def aoc_2015_d5(file_name: str):
 
 
 # AOC 2015 - Day 6: Probably a Fire Hazard
-def aoc_2015_d6(file_name: str):
+def aoc_2015_d6(file_name: str, **_):
     with open(file_name, "r") as f:
         lines = f.readlines()
 
@@ -132,7 +130,7 @@ def aoc_2015_d6(file_name: str):
 
 
 # AOC 2015 - Day 7: Some Assembly Required
-def aoc_2015_d7(file_name: str):
+def aoc_2015_d7(file_name: str, parser: FileParser, **_):
     circuit = parser.parse_logic_gates_circuit(file_name)
     a_value = circuit.get_value("a")
     print(f"AOC 2015 - Day 7/Part 1: Wire a has signal of {a_value}")
@@ -143,7 +141,7 @@ def aoc_2015_d7(file_name: str):
 
 
 # AOC 2015 - Day 8: Matchsticks
-def aoc_2015_d8(file_name: str):
+def aoc_2015_d8(file_name: str, **_):
     difference_orignal_memory = 0
     difference_encoded_original = 0
     with open(file_name, "r") as f:
@@ -163,7 +161,7 @@ def aoc_2015_d8(file_name: str):
 
 
 # AOC 2015 - Day 9: All in a Single Night
-def aoc_2015_d9(file_name: str):
+def aoc_2015_d9(file_name: str, parser: FileParser, **_):
     graph = parser.parse_adirected_graph(file_name)
     shortest_distance = graph.shortest_complete_itinerary_distance()
     print(
@@ -176,7 +174,7 @@ def aoc_2015_d9(file_name: str):
 
 
 # AOC 2015 - Day 10: Elves Look, Elves Say
-def aoc_2015_d10(file_name: str):
+def aoc_2015_d10(file_name: str, **_):
     with open(file_name, "r") as f:
         current_term = f.read().strip()
     current_digits = [int(d) for d in current_term]
@@ -189,13 +187,13 @@ def aoc_2015_d10(file_name: str):
 
 
 # AOC 2015 - Day 11: Corporate Policy
-def aoc_2015_d11(file_name: str):
+def aoc_2015_d11(file_name: str, **_):
     print("AOC 2015 - Day 11/Part 1: Done by hand - hepxxyzz")
     print("AOC 2015 - Day 11/Part 2: Done by hand - hepxcrrq")
 
 
 # AOC 2015 - Day 12: JSAbacusFramework.io
-def aoc_2015_d12(file_name: str):
+def aoc_2015_d12(file_name: str, **_):
     with open(file_name, "r") as f:
         json_str = f.read()
     json_sum = sum_all_numbers_in_json(json_str)
@@ -207,7 +205,7 @@ def aoc_2015_d12(file_name: str):
 
 
 # AOC 2015 - Day 13: Knights of the Dinner Table
-def aoc_2015_d13(file_name: str):
+def aoc_2015_d13(file_name: str, parser: FileParser, **_):
     graph = parser.parse_seating_arrangement(file_name)
     max_happiness = graph.both_ways_trip_max_cost()
     print(f"AOC 2015 - Day 13/Part 1: Maximum happiness without me is {max_happiness}")
@@ -220,7 +218,7 @@ def aoc_2015_d13(file_name: str):
 
 
 # AOC 2015 - Day 14: Reindeer Olympics
-def aoc_2015_d14(file_name: str):
+def aoc_2015_d14(file_name: str, **_):
     with open(file_name, "r") as f:
         lines = f.readlines()
     reindeers = [FileParser.parse_reindeer(l) for l in lines]
@@ -235,7 +233,7 @@ def aoc_2015_d14(file_name: str):
 
 
 # AOC 2015 - Day 15: Science for Hungry People
-def aoc_2015_d15(file_name: str):
+def aoc_2015_d15(file_name: str, **_):
     with open(file_name, "r") as f:
         lines = f.readlines()
     ingredients = [FileParser.parse_cookie_properties(l) for l in lines]
@@ -251,7 +249,7 @@ def aoc_2015_d15(file_name: str):
 
 
 # AOC 2015 - Day 16: Aunt Sue
-def aoc_2015_d16(file_name: str):
+def aoc_2015_d16(file_name: str, parser: FileParser, **_):
     aunts = parser.parse_aunt_sue_collection(file_name)
     measured_attributes = {
         "children": 3,
@@ -290,7 +288,7 @@ def aoc_2015_d16(file_name: str):
 
 
 # AOC 2015 - Day 17: No Such Thing as Too Much
-def aoc_2015_d17(file_name: str):
+def aoc_2015_d17(file_name: str, **_):
     with open(file_name, "r") as f:
         lines = f.readlines()
     capacities = [int(l) for l in lines]
@@ -306,7 +304,7 @@ def aoc_2015_d17(file_name: str):
 
 
 # AOC 2015 - Day 18: Like a GIF For Your Yard
-def aoc_2015_d18(file_name: str):
+def aoc_2015_d18(file_name: str, parser: FileParser, **_):
     game, initial_cells = parser.parse_game_of_life(file_name)
     num_steps = 100
     cells_default_game = initial_cells
@@ -326,7 +324,7 @@ def aoc_2015_d18(file_name: str):
 
 
 # AOC 2015 - Day 19: Medicine for Rudolph
-def aoc_2015_d19(file_name: str):
+def aoc_2015_d19(file_name: str, parser: FileParser, **_):
     molecule, replacements = parser.parse_molecule_replacements(file_name)
     new_molecules = set(molecules_after_one_replacement(molecule, replacements))
     print(
@@ -341,7 +339,7 @@ def aoc_2015_d19(file_name: str):
 
 
 # AOC 2015 - Day 20: Infinite Elves and Infinite Houses
-def aoc_2015_d20(file_name: str):
+def aoc_2015_d20(file_name: str, **_):
     with open(file_name, "r") as f:
         target_num_presents = int(f.read())
     first_house = first_house_to_receive_n_presents(
@@ -359,7 +357,7 @@ def aoc_2015_d20(file_name: str):
 
 
 # AOC 2015 - Day 21: RPG Simulator 20XX
-def aoc_2015_d21(file_name: str):
+def aoc_2015_d21(file_name: str, parser: FileParser, **_):
     my_hit_points = 100
     boss_kwargs = parser.parse_rpg_boss(file_name)
     boss = Fighter(**boss_kwargs)
@@ -411,7 +409,7 @@ def aoc_2015_d21(file_name: str):
 
 
 # AOC 2015 - Day 22: Wizard Simulator 20XX
-def aoc_2015_d22(file_name: str):
+def aoc_2015_d22(file_name: str, parser: FileParser, **_):
     wizard = Wizard(hit_points=50, mana=500)
     boss_kwargs = parser.parse_rpg_boss(file_name)
     boss = Boss(hit_points=boss_kwargs["hit_points"])
@@ -442,7 +440,7 @@ def aoc_2015_d22(file_name: str):
 
 
 # AOC 2015 - Day 23: Opening the Turing Lock
-def aoc_2015_d23(file_name: str):
+def aoc_2015_d23(file_name: str, **_):
     print(
         "AOC 2015 - Day 23/Part 1: Done by hand (it's just 3n+1 problem in disguise) - Num. steps to go from 20895 to 1: 255 "
     )
@@ -452,7 +450,7 @@ def aoc_2015_d23(file_name: str):
 
 
 # AOC 2015 - Day 24: It Hangs in the Balance
-def aoc_2015_d24(file_name: str):
+def aoc_2015_d24(file_name: str, **_):
     with open(file_name, "r") as f:
         lines = f.readlines()
     numbers = [int(l) for l in lines]
@@ -477,7 +475,7 @@ def aoc_2015_d24(file_name: str):
 
 
 # AOC 2015 - Day 25: Let It Snow
-def aoc_2015_d25(file_name: str):
+def aoc_2015_d25(file_name: str, parser: FileParser, **_):
     row_and_col = parser.parse_code_row_and_col(file_name)
     code = code_at(**row_and_col, first_code=20151125, multiplier=252533, mod=33554393)
     print(

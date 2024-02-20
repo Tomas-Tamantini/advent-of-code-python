@@ -30,12 +30,8 @@ from models.aoc_2016 import (
 )
 
 
-parser = FileParser.default()
-progress_bar = ProgressBarConsole()
-
-
 # AOC 2016 - Day 1: No Time for a Taxicab
-def aoc_2016_d1(file_name: str):
+def aoc_2016_d1(file_name: str, parser: FileParser, **_):
     instructions = parser.parse_turtle_instructions(file_name)
     turtle = Turtle(initial_direction=CardinalDirection.NORTH)
     for instruction in instructions:
@@ -53,7 +49,7 @@ def aoc_2016_d1(file_name: str):
 
 
 # AOC 2016 - Day 2: Bathroom Security
-def aoc_2016_d2(file_name: str):
+def aoc_2016_d2(file_name: str, **_):
     keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
     keypad_rhombus = Keypad(
         configuration="**1**\n*234*\n56789\n*ABC*\n**D**", initial_key="5"
@@ -76,7 +72,7 @@ def aoc_2016_d2(file_name: str):
 
 
 # AOC 2016 - Day 3: Squares With Three Sides
-def aoc_2016_d3(file_name: str):
+def aoc_2016_d3(file_name: str, parser: FileParser, **_):
     valid_triangles_horizontal = sum(
         is_valid_triangle(*sides)
         for sides in parser.parse_triangle_sides(file_name, read_horizontally=True)
@@ -95,7 +91,7 @@ def aoc_2016_d3(file_name: str):
 
 
 # AOC 2016 - Day 4: Security Through Obscurity
-def aoc_2016_d4(file_name: str):
+def aoc_2016_d4(file_name: str, **_):
     id_sum = 0
     id_storage = -1
     with open(file_name, "r") as f:
@@ -112,7 +108,7 @@ def aoc_2016_d4(file_name: str):
 
 
 # AOC 2016 - Day 5: How About a Nice Game of Chess?
-def aoc_2016_d5(file_name: str):
+def aoc_2016_d5(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name, "r") as f:
         door_id = f.read().strip()
     password_generator = PasswordGenerator(door_id, num_zeroes=5, password_length=8)
@@ -126,7 +122,7 @@ def aoc_2016_d5(file_name: str):
 
 
 # AOC 2016 - Day 6: Signals and Noise
-def aoc_2016_d6(file_name: str):
+def aoc_2016_d6(file_name: str, **_):
     with open(file_name, "r") as f:
         lines = f.readlines()
     message_reconstructor = MessageReconstructor(lines)
@@ -145,7 +141,7 @@ def aoc_2016_d6(file_name: str):
 
 
 # AOC 2016 - Day 7: Internet Protocol Version 7
-def aoc_2016_d7(file_name: str):
+def aoc_2016_d7(file_name: str, **_):
     num_ips_that_support_tls = 0
     num_ips_that_support_ssl = 0
     with open(file_name, "r") as f:
@@ -164,7 +160,7 @@ def aoc_2016_d7(file_name: str):
 
 
 # AOC 2016 - Day 8: Two-Factor Authentication
-def aoc_2016_d8(file_name: str):
+def aoc_2016_d8(file_name: str, parser: FileParser, **_):
     screen = ProgrammableScreen(width=50, height=6)
     parser.parse_programmable_screen_instructions(file_name, screen)
     print(
@@ -176,7 +172,7 @@ def aoc_2016_d8(file_name: str):
 
 
 # AOC 2016 - Day 9: Explosives in Cyberspace
-def aoc_2016_d9(file_name: str):
+def aoc_2016_d9(file_name: str, **_):
     with open(file_name, "r") as f:
         compressed_text = f.read().strip()
     decompressor = TextDecompressor(compressed_text)
@@ -189,7 +185,7 @@ def aoc_2016_d9(file_name: str):
 
 
 # AOC 2016 - Day 10: Balance Bots
-def aoc_2016_d10(file_name: str):
+def aoc_2016_d10(file_name: str, parser: FileParser, **_):
     factory = parser.parse_chip_factory(file_name)
     factory.run()
     bot_id = factory.robot_that_compared_chips(low_id=17, high_id=61)
@@ -200,7 +196,7 @@ def aoc_2016_d10(file_name: str):
 
 
 # AOC 2016 - Day 11: Radioisotope Thermoelectric Generators
-def aoc_2016_d11(file_name: str):
+def aoc_2016_d11(file_name: str, parser: FileParser, **_):
     floors = tuple(
         parser.parse_radioisotope_testing_facility_floor_configurations(file_name)
     )
@@ -224,7 +220,7 @@ def aoc_2016_d11(file_name: str):
 
 
 # AOC 2016 - Day 12: Leonardo's Monorail
-def aoc_2016_d12(file_name: str):
+def aoc_2016_d12(file_name: str, parser: FileParser, **_):
     program = parser.parse_assembunny_code(file_name)
     program.optimize()
     computer = Computer.from_processor(Processor())
@@ -242,7 +238,7 @@ def aoc_2016_d12(file_name: str):
 
 
 # AOC 2016 - Day 13: A Maze of Twisty Little Cubicles
-def aoc_2016_d13(file_name: str):
+def aoc_2016_d13(file_name: str, **_):
     with open(file_name, "r") as f:
         polynomial_offset = int(f.read().strip())
     maze = CubicleMaze(
@@ -262,7 +258,7 @@ def aoc_2016_d13(file_name: str):
 
 
 # AOC 2016 - Day 14: One-Time Pad
-def aoc_2016_d14(file_name: str):
+def aoc_2016_d14(file_name: str, **_):
     with open(file_name, "r") as f:
         salt = f.read().strip()
     one_hash_generator = KeyGenerator(
@@ -296,7 +292,7 @@ def aoc_2016_d14(file_name: str):
 
 
 # AOC 2016 - Day 15: Timing is Everything
-def aoc_2016_d15(file_name: str):
+def aoc_2016_d15(file_name: str, parser: FileParser, **_):
     disc_system = parser.parse_disc_system(file_name)
     time_without_extra_disc = disc_system.time_to_press_button()
     print(
@@ -310,7 +306,7 @@ def aoc_2016_d15(file_name: str):
 
 
 # AOC 2016 - Day 16: Dragon Checksum
-def aoc_2016_d16(file_name: str):
+def aoc_2016_d16(file_name: str, **_):
     with open(file_name, "r") as f:
         initial_state = f.read().strip()
     checksum_272 = DragonChecksum(disk_space=272).checksum(initial_state)
@@ -322,7 +318,7 @@ def aoc_2016_d16(file_name: str):
 
 
 # AOC 2016 - Day 17: Two Steps Forward
-def aoc_2016_d17(file_name: str):
+def aoc_2016_d17(file_name: str, **_):
     with open(file_name, "r") as f:
         passcode = f.read().strip()
     maze_structure = SecureRoomMaze(
@@ -343,7 +339,7 @@ def aoc_2016_d17(file_name: str):
 
 
 # AOC 2016 - Day 18: Like a Rogue
-def aoc_2016_d18(file_name: str):
+def aoc_2016_d18(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name, "r") as f:
         first_row = f.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)
@@ -353,7 +349,7 @@ def aoc_2016_d18(file_name: str):
 
 
 # AOC 2016 - Day 19: An Elephant Named Joseph
-def aoc_2016_d19(file_name: str):
+def aoc_2016_d19(file_name: str, **_):
     with open(file_name, "r") as f:
         num_elves = int(f.read().strip())
     winning_elf_take_left = josephus(num_elves)
@@ -367,7 +363,7 @@ def aoc_2016_d19(file_name: str):
 
 
 # AOC 2016 - Day 20: Firewall Rules
-def aoc_2016_d20(file_name: str):
+def aoc_2016_d20(file_name: str, **_):
     disjoint_intervals = DisjoinIntervals(0, 4_294_967_295)
     with open(file_name, "r") as f:
         for line in f.readlines():
@@ -380,7 +376,7 @@ def aoc_2016_d20(file_name: str):
 
 
 # AOC 2016 - Day 21: Scrambled Letters and Hash
-def aoc_2016_d21(file_name: str):
+def aoc_2016_d21(file_name: str, parser: FileParser, **_):
     scrambler = parser.parse_string_scrambler(file_name)
     password = scrambler.scramble("abcdefgh")
     print(f"AOC 2016 - Day 21/Part 1: Password after scrambling: {password}")
@@ -389,7 +385,7 @@ def aoc_2016_d21(file_name: str):
 
 
 # AOC 2016 - Day 22: Grid Computing
-def aoc_2016_d22(file_name: str):
+def aoc_2016_d22(file_name: str, parser: FileParser, **_):
     nodes = list(parser.parse_storage_nodes(file_name))
     viable_pairs = sum(
         node_a.makes_viable_pair(node_b) for node_a in nodes for node_b in nodes
@@ -399,7 +395,7 @@ def aoc_2016_d22(file_name: str):
 
 
 # AOC 2016 - Day 23: Safe Cracking
-def aoc_2016_d23(file_name: str):
+def aoc_2016_d23(file_name: str, parser: FileParser, **_):
     program = parser.parse_assembunny_code(file_name)
     a7 = run_self_referential_code(program, initial_value=7)
     print(f"AOC 2016 - Day 23/Part 1: Value in register a if a starts as 7: {a7}")
@@ -408,7 +404,7 @@ def aoc_2016_d23(file_name: str):
 
 
 # AOC 2016 - Day 24: Air Duct Spelunking
-def aoc_2016_d24(file_name: str):
+def aoc_2016_d24(file_name: str, **_):
     with open(file_name, "r") as f:
         blueprint = f.readlines()
 
@@ -428,7 +424,7 @@ def aoc_2016_d24(file_name: str):
 
 
 # AOC 2016 - Day 25: Clock Signal
-def aoc_2016_d25(file_name: str):
+def aoc_2016_d25(file_name: str, parser: FileParser, **_):
     program = parser.parse_assembunny_code(file_name)
     smallest_value = smallest_value_to_send_clock_signal(program)
     print(f"AOC 2016 - Day 25: Smallest value to send clock signal: {smallest_value}")
