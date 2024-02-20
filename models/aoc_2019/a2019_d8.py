@@ -43,7 +43,7 @@ class LayeredImage:
                     for layer in self._layers
                     if layer.get_pixel(x, y) != _Pixel.TRANSPARENT
                 )
-                result += " " if pixel == _Pixel.BLACK else "*"
+                result += " " if pixel == _Pixel.BLACK else "#"
             result += "\n"
 
         return result

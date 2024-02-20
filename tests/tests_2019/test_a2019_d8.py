@@ -27,4 +27,4 @@ def test_layered_image_build_layers_according_to_dimensions():
 
 def test_layered_image_can_be_rendered_considering_2s_as_transparent():
     image = LayeredImage(width=2, height=2, data="0222112222120000")
-    assert image.render() == " *\n* \n"
+    assert image.render() == " #\n# \n"
