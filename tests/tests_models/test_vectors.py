@@ -194,3 +194,11 @@ def test_can_get_manhattan_distance_for_vector_3d():
 
 def test_can_get_manhattan_size_for_vector_3d():
     assert Vector3D(1, -2, 3).manhattan_size == 6
+
+
+def test_can_add_vectors_3d_together():
+    assert Vector3D(1, 2, 3) + Vector3D(4, 5, 6) == Vector3D(5, 7, 9)
+
+
+def test_can_subtract_vectors_3d_from_each_other():
+    assert Vector3D(1, 2, 3) - Vector3D(3, 2, 1) == Vector3D(-2, 0, 2)

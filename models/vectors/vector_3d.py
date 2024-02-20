@@ -27,3 +27,9 @@ class Vector3D:
         yield self.x
         yield self.y
         yield self.z
+
+    def __add__(self, other: "Vector3D") -> "Vector3D":
+        return Vector3D(self.x + other.x, self.y + other.y, self.z + other.z)
+
+    def __sub__(self, other: "Vector3D") -> "Vector3D":
+        return Vector3D(self.x - other.x, self.y - other.y, self.z - other.z)
