@@ -1,3 +1,4 @@
+from time import sleep
 from enum import Enum
 from collections import defaultdict
 from .intcode import IntcodeProgram, run_intcode_program
@@ -11,13 +12,31 @@ class ArcadeGameTile(Enum):
     BALL = 4
 
 
-class ArcadeGameScreen:
+class ArcadeGameAnimation:
     def __init__(self) -> None:
+        self._is_first_frame = True
+
+    def animate(self, frame: str) -> None:
+        if self._is_first_frame:
+            self._is_first_frame = False
+            return
+        num_lines = frame.count("\n")
+        print(frame)
+        LINE_UP = "\033[1A"
+        LINE_CLEAR = "\x1b[2K"
+        sleep(0.01)
+        for _ in range(num_lines + 1):
+            print(LINE_UP, end=LINE_CLEAR)
+
+
+class ArcadeGameScreen:
+    def __init__(self, animate: bool = False) -> None:
         self._tiles = defaultdict(lambda: ArcadeGameTile.EMPTY)
         self._num_blocks = 0
         self._ball_x = -1
         self._paddle_x = -1
         self._current_score = 0
+        self._animation = ArcadeGameAnimation() if animate else None
 
     def reset_score(self, score: int) -> None:
         self._current_score = score
@@ -45,11 +64,34 @@ class ArcadeGameScreen:
         elif tile == ArcadeGameTile.BLOCK:
             self._num_blocks += 1
 
+        if self._animation and tile == ArcadeGameTile.BALL:
+            self._animation.animate(frame=self.render())
+
     def get_tile(self, x: int, y: int) -> ArcadeGameTile:
         return self._tiles[(x, y)]
 
     def count_tiles(self, tile: ArcadeGameTile) -> int:
         return sum(1 for t in self._tiles.values() if t == tile)
+
+    def render(self) -> str:
+        min_x = min(self._tiles, key=lambda t: t[0])[0]
+        max_x = max(self._tiles, key=lambda t: t[0])[0]
+        min_y = min(self._tiles, key=lambda t: t[1])[1]
+        max_y = max(self._tiles, key=lambda t: t[1])[1]
+        result = ""
+        tiles = {
+            ArcadeGameTile.EMPTY: " ",
+            ArcadeGameTile.WALL: "#",
+            ArcadeGameTile.BLOCK: "x",
+            ArcadeGameTile.PADDLE: "-",
+            ArcadeGameTile.BALL: "o",
+        }
+        for y in range(min_y, max_y + 1):
+            for x in range(min_x, max_x + 1):
+                result += tiles[self._tiles[(x, y)]]
+            result += "\n"
+        result += f"Score: {self._current_score}\n"
+        return "\n" + result
 
 
 class ArcadeGameInput:

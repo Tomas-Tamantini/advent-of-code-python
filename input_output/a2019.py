@@ -216,7 +216,7 @@ def aoc_2019_d12(file_name: str):
 
 
 # AOC 2019 Day 13: Care Package
-def aoc_2019_d13(file_name: str):
+def aoc_2019_d13(file_name: str, animate: bool):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     screen = ArcadeGameScreen()
@@ -225,9 +225,15 @@ def aoc_2019_d13(file_name: str):
     print(f"AOC 2019 Day 13/Part 1: Number of block tiles is {block_tiles}")
     new_instructions = instructions[:]
     new_instructions[0] = 2
-    screen = ArcadeGameScreen()
+    screen = ArcadeGameScreen(animate=animate)
+    animation_msg = (
+        "" if animate else " (SET FLAG --animate TO SEE COOL GAME ANIMATION)"
+    )
+    print(f"AOC 2019 Day 13/Part 2:{animation_msg} simulating game...", end="\r")
     run_intcode_arcade(new_instructions, screen)
-    print(f"AOC 2019 Day 13/Part 2: Final score is {screen.current_score}")
+    print(
+        f"AOC 2019 Day 13/Part 2:{animation_msg} Final score is {screen.current_score}"
+    )
 
 
 # AOC 2019 Day 14: Space Stoichiometry
