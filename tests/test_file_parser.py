@@ -987,3 +987,7 @@ def test_can_parse_celestial_bodies():
     assert com_children[1].name == "B"
     b_children = list(com_children[1].satellites)
     assert b_children[0].name == "C"
+
+
+def test_can_parse_vector_3d():
+    assert FileParser.parse_vector_3d(" <x=-9, y=10, z=-1>") == Vector3D(-9, 10, -1)

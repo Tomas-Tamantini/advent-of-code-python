@@ -954,3 +954,16 @@ class FileParser:
                 bodies[child] = CelestialBody(child)
             bodies[parent].add_satellite(bodies[child])
         return bodies["COM"]
+
+    @staticmethod
+    def parse_vector_3d(vector_str: str) -> Vector3D:
+        coordinates = (
+            vector_str.replace("<", "")
+            .replace(">", "")
+            .replace("=", "")
+            .replace("x", "")
+            .replace("y", "")
+            .replace("z", "")
+            .split(",")
+        )
+        return Vector3D(*map(int, coordinates))
