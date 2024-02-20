@@ -223,6 +223,11 @@ def aoc_2019_d13(file_name: str):
     run_intcode_arcade(instructions, screen)
     block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)
     print(f"AOC 2019 Day 13/Part 1: Number of block tiles is {block_tiles}")
+    new_instructions = instructions[:]
+    new_instructions[0] = 2
+    screen = ArcadeGameScreen()
+    run_intcode_arcade(new_instructions, screen)
+    print(f"AOC 2019 Day 13/Part 2: Final score is {screen.current_score}")
 
 
 # AOC 2019 Day 14: Space Stoichiometry
