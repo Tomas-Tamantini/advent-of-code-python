@@ -1,6 +1,8 @@
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Iterator, Hashable
+from collections import defaultdict
 from models.vectors import Vector3D
+from models.number_theory import lcm
 
 
 @dataclass
@@ -53,3 +55,21 @@ class MoonSystem:
     def multi_step(self, num_steps: int) -> None:
         for _ in range(num_steps):
             self.step()
+
+    def _state_by_axis(self, axis) -> Hashable:
+        return tuple((moon.position[axis], moon.velocity[axis]) for moon in self.moons)
+
+    def period(self) -> int:
+        period_by_axis = dict()
+        visited_states_by_axis = defaultdict(set)
+        step = 0
+        while len(period_by_axis) < 3:
+            for axis in (i for i in range(3) if i not in period_by_axis):
+                state = self._state_by_axis(axis)
+                if state in visited_states_by_axis[axis]:
+                    period_by_axis[axis] = step
+                visited_states_by_axis[axis].add(state)
+            self.step()
+            step += 1
+
+        return lcm(*period_by_axis.values())

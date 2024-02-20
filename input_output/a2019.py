@@ -208,6 +208,8 @@ def aoc_2019_d12(file_name: str):
         m.position.manhattan_size * m.velocity.manhattan_size for m in system.moons
     )
     print(f"AOC 2019 Day 12/Part 1: Total energy is {total_energy}")
+    period = system.period()
+    print(f"AOC 2019 Day 12/Part 2: System period is {period}")
 
 
 # AOC 2019 Day 13: Care Package

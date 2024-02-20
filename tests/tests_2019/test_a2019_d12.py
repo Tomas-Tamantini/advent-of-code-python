@@ -1,3 +1,4 @@
+import pytest
 from models.vectors import Vector3D
 from models.aoc_2019 import MoonOfJupiter, MoonSystem
 
@@ -57,3 +58,15 @@ def test_system_can_take_multiple_steps_at_once():
     assert system.moons[1].position == Vector3D(13, 16, -3)
     assert system.moons[2].position == Vector3D(-29, -11, -1)
     assert system.moons[3].position == Vector3D(16, -13, 23)
+
+
+@pytest.mark.parametrize(
+    "positions, period",
+    [
+        ([(-1, 0, 2), (2, -10, -7), (4, -8, 8), (3, 5, -1)], 2772),
+        ([(-8, -10, 0), (5, 5, 10), (2, -7, 3), (9, -8, -3)], 4686774924),
+    ],
+)
+def test_can_find_moon_system_period(positions, period):
+    system = MoonSystem(moons=[MoonOfJupiter(Vector3D(*pos)) for pos in positions])
+    assert system.period() == period
