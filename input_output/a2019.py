@@ -19,6 +19,9 @@ from models.aoc_2019 import (
     run_hull_painting_program,
     MoonOfJupiter,
     MoonSystem,
+    ArcadeGameScreen,
+    run_intcode_arcade,
+    ArcadeGameTile,
 )
 
 
@@ -213,7 +216,13 @@ def aoc_2019_d12(file_name: str):
 
 
 # AOC 2019 Day 13: Care Package
-def aoc_2019_d13(file_name: str): ...
+def aoc_2019_d13(file_name: str):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    screen = ArcadeGameScreen()
+    run_intcode_arcade(instructions, screen)
+    block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)
+    print(f"AOC 2019 Day 13/Part 1: Number of block tiles is {block_tiles}")
 
 
 # AOC 2019 Day 14: Space Stoichiometry
