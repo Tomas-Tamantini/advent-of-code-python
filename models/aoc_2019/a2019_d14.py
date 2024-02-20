@@ -67,3 +67,28 @@ class ChemicalReactions:
             for inp in reaction.inputs_required_to_produce_output(quantity):
                 required[inp.chemical] += inp.quantity
         return required[raw_material]
+
+    def max_product_that_can_be_produced(
+        self, raw_material: ChemicalQuantity, product: str
+    ) -> int:
+        low = 1
+        high = raw_material.quantity
+        while (
+            self.min_raw_material_to_make_product(
+                raw_material.chemical, ChemicalQuantity(product, high)
+            )
+            < raw_material.quantity
+        ):
+            high *= 10
+        while low < high:
+            mid = (low + high) // 2
+            if (
+                self.min_raw_material_to_make_product(
+                    raw_material.chemical, ChemicalQuantity(product, mid)
+                )
+                < raw_material.quantity
+            ):
+                low = mid + 1
+            else:
+                high = mid
+        return low - 1
