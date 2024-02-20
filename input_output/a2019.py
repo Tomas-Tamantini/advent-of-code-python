@@ -17,6 +17,8 @@ from models.aoc_2019 import (
     AsteroidBelt,
     Hull,
     run_hull_painting_program,
+    MoonOfJupiter,
+    MoonSystem,
 )
 
 
@@ -196,7 +198,16 @@ def aoc_2019_d11(file_name: str):
 
 
 # AOC 2019 Day 12: The N-Body Problem
-def aoc_2019_d12(file_name: str): ...
+def aoc_2019_d12(file_name: str):
+    with open(file_name, "r") as file:
+        positions = [parser.parse_vector_3d(line) for line in file]
+    moons = [MoonOfJupiter(pos) for pos in positions]
+    system = MoonSystem(moons)
+    system.multi_step(num_steps=1000)
+    total_energy = sum(
+        m.position.manhattan_size * m.velocity.manhattan_size for m in system.moons
+    )
+    print(f"AOC 2019 Day 12/Part 1: Total energy is {total_energy}")
 
 
 # AOC 2019 Day 13: Care Package

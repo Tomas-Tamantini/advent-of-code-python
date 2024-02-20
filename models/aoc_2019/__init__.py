@@ -13,3 +13,4 @@ from .a2019_d7 import Amplifiers
 from .a2019_d8 import LayeredImage
 from .a2019_d10 import AsteroidBelt
 from .a2019_d11 import run_hull_painting_program, Hull
+from .a2019_d12 import MoonOfJupiter, MoonSystem
