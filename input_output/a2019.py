@@ -23,6 +23,8 @@ from models.aoc_2019 import (
     ArcadeGameTile,
     ChemicalReactions,
     ChemicalQuantity,
+    DroidExploredArea,
+    repair_droid_explore_area,
 )
 
 
@@ -254,7 +256,15 @@ def aoc_2019_d14(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 Day 15: Oxygen System
-def aoc_2019_d15(file_name: str, **_): ...
+def aoc_2019_d15(file_name: str, **_):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    area = DroidExploredArea()
+    repair_droid_explore_area(area, instructions)
+    distance = area.distance_to_oxygen_system(starting_point=Vector2D(0, 0))
+    print(
+        f"AOC 2019 Day 15/Part 1: Fewest number of movement commands to reach the oxygen system is {distance}"
+    )
 
 
 # AOC 2019 Day 16: Flawed Frequency Transmission
