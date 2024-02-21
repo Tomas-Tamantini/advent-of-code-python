@@ -265,6 +265,8 @@ def aoc_2019_d15(file_name: str, **_):
     print(
         f"AOC 2019 Day 15/Part 1: Fewest number of movement commands to reach the oxygen system is {distance}"
     )
+    minutes = area.minutes_to_fill_with_oxygen()
+    print(f"AOC 2019 Day 15/Part 2: Minutes to fill the area with oxygen is {minutes}")
 
 
 # AOC 2019 Day 16: Flawed Frequency Transmission

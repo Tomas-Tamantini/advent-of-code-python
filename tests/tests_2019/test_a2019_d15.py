@@ -39,6 +39,20 @@ def test_explored_area_indicates_smallest_distance_to_oxygen_system():
     assert area.distance_to_oxygen_system(starting_point=Vector2D(0, 1)) == 4
 
 
+def test_explored_area_indicates_time_to_fill_with_oxygen():
+    area = DroidExploredArea()
+    for i in range(10):
+        for j in range(10):
+            cell_type = (
+                CellType.WALL
+                if i == 0 or j == 0 or i == 9 or j == 9
+                else CellType.EMPTY
+            )
+            area.set_cell(Vector2D(i, j), cell_type)
+    area.set_cell(Vector2D(1, 1), CellType.OXYGEN_SYSTEM)
+    assert area.minutes_to_fill_with_oxygen() == 14
+
+
 def test_repair_droid_can_move_in_some_direction():
     droid = RepairDroid(initial_position=Vector2D(123, 321))
     droid.move(CardinalDirection.NORTH)

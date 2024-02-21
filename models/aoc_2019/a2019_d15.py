@@ -1,7 +1,7 @@
 from typing import Iterator, Optional
 from enum import Enum
 from models.vectors import Vector2D, CardinalDirection
-from models.graphs import min_path_length_with_bfs
+from models.graphs import min_path_length_with_bfs, explore_with_bfs
 from .intcode import IntcodeProgram, run_intcode_program
 
 
@@ -48,6 +48,13 @@ class DroidExploredArea:
             initial_node=starting_point,
             is_final_state=lambda node: node == self._oxygen_system,
         )
+
+    def minutes_to_fill_with_oxygen(self) -> int:
+        for _, distance in explore_with_bfs(
+            graph=self, initial_node=self._oxygen_system
+        ):
+            minutes = distance
+        return minutes
 
 
 class RepairDroid:
