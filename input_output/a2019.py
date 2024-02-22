@@ -26,6 +26,8 @@ from models.aoc_2019 import (
     DroidExploredArea,
     repair_droid_explore_area,
     flawed_frequency_transmission,
+    ScaffoldMap,
+    run_scaffolding_program,
 )
 
 
@@ -292,7 +294,17 @@ def aoc_2019_d16(file_name: str, **_):
 
 
 # AOC 2019 Day 17: Set and Forget
-def aoc_2019_d17(file_name: str, **_): ...
+def aoc_2019_d17(file_name: str, **_):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    scaffold_map = ScaffoldMap()
+    run_scaffolding_program(scaffold_map, instructions)
+    alignment_parameters = sum(
+        pos.x * pos.y for pos in scaffold_map.scaffolding_intersections()
+    )
+    print(
+        f"AOC 2019 Day 17/Part 1: Sum of alignment parameters is {alignment_parameters}"
+    )
 
 
 # AOC 2019 Day 18: Many-Worlds Interpretation
