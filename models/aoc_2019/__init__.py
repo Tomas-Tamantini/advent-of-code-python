@@ -17,3 +17,4 @@ from .a2019_d12 import MoonOfJupiter, MoonSystem
 from .a2019_d13 import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
 from .a2019_d14 import ChemicalQuantity, ChemicalReaction, ChemicalReactions
 from .a2019_d15 import DroidExploredArea, repair_droid_explore_area
+from .a2019_d16 import flawed_frequency_transmission
