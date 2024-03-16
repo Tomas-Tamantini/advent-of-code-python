@@ -87,7 +87,7 @@ def test_can_find_path_through_scaffolding():
 
 @pytest.mark.skip("Not implemented")
 def test_path_through_scaffolding_can_be_compressed():
-    expected_main_routine = "A,B,A,C,A,B,C,A,B,C"
+    expected_main_routine = "A,B,C,B,A,C"
     expected_subroutines = {
         "A": "R,8,R,8",
         "B": "R,4,R,4,R,8",
