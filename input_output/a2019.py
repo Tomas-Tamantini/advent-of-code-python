@@ -28,6 +28,7 @@ from models.aoc_2019 import (
     flawed_frequency_transmission,
     ScaffoldMap,
     run_scaffolding_discovery_program,
+    run_scaffolding_exploration_program,
 )
 
 
@@ -304,6 +305,14 @@ def aoc_2019_d17(file_name: str, **_):
     )
     print(
         f"AOC 2019 Day 17/Part 1: Sum of alignment parameters is {alignment_parameters}"
+    )
+    compressed_path = scaffold_map.compressed_path_through_scaffolding(
+        num_subroutines=3
+    )
+    instructions[0] = 2
+    dust_collected = run_scaffolding_exploration_program(instructions, compressed_path)
+    print(
+        f"AOC 2019 Day 17/Part 2: Dust collected by the vacuum robot is {dust_collected}"
     )
 
 

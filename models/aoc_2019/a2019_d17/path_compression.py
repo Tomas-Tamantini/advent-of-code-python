@@ -9,6 +9,14 @@ class CompressedPath:
     main_routine: str
     subroutines: dict[str, str]
 
+    def subroutines_in_order(self) -> Iterator[str]:
+        accounted_for = set()
+        for instruction in self.main_routine.split(","):
+            if instruction in accounted_for:
+                continue
+            accounted_for.add(instruction)
+            yield self.subroutines[instruction]
+
     @property
     def max_length(self) -> int:
         return max(
