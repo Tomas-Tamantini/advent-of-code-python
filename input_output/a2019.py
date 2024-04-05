@@ -27,7 +27,7 @@ from models.aoc_2019 import (
     repair_droid_explore_area,
     flawed_frequency_transmission,
     ScaffoldMap,
-    run_scaffolding_program,
+    run_scaffolding_discovery_program,
 )
 
 
@@ -298,7 +298,7 @@ def aoc_2019_d17(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     scaffold_map = ScaffoldMap()
-    run_scaffolding_program(scaffold_map, instructions)
+    run_scaffolding_discovery_program(scaffold_map, instructions)
     alignment_parameters = sum(
         pos.x * pos.y for pos in scaffold_map.scaffolding_intersections()
     )

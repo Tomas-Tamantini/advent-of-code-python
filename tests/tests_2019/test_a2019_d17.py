@@ -1,9 +1,8 @@
-import pytest
 from models.vectors import Vector2D, TurnDirection, CardinalDirection
 from models.aoc_2019.a2019_d17 import (
     ScaffoldMap,
     CameraOutput,
-    run_scaffolding_program,
+    run_scaffolding_discovery_program,
     VacuumRobotInstruction,
 )
 
@@ -113,5 +112,5 @@ def test_camera_output_converts_value_to_ascii_and_builds_map():
 def test_can_run_scaffolding_program_to_build_map():
     instructions = [104, 35, 99]
     sm = ScaffoldMap()
-    run_scaffolding_program(sm, instructions)
+    run_scaffolding_discovery_program(sm, instructions)
     assert sm.render() == "#"
