@@ -5,7 +5,6 @@ from models.aoc_2019.a2019_d17 import (
     CameraOutput,
     run_scaffolding_program,
     VacuumRobotInstruction,
-    compress_vacuum_bot_path,
 )
 
 
@@ -47,53 +46,52 @@ def test_can_find_position_and_direction_of_vacuum_bot():
     assert sm.vacuum_robot.direction == CardinalDirection.NORTH
 
 
-_example_path = [
-    VacuumRobotInstruction(TurnDirection.RIGHT, 8),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 8),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 4),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 4),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 8),
-    VacuumRobotInstruction(TurnDirection.LEFT, 6),
-    VacuumRobotInstruction(TurnDirection.LEFT, 2),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 4),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 4),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 8),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 8),
-    VacuumRobotInstruction(TurnDirection.RIGHT, 8),
-    VacuumRobotInstruction(TurnDirection.LEFT, 6),
-    VacuumRobotInstruction(TurnDirection.LEFT, 2),
-]
+example_map = _build_scaffold(
+    """#######...#####
+       #.....#...#...#
+       #.....#...#...#
+       ......#...#...#
+       ......#...###.#
+       ......#.....#.#
+       ^########...#.#
+       ......#.#...#.#
+       ......#########
+       ........#...#..
+       ....#########..
+       ....#...#......
+       ....#...#......
+       ....#...#......
+       ....#####......"""
+)
 
 
 def test_can_find_path_through_scaffolding():
-    map_str = """#######...#####
-                 #.....#...#...#
-                 #.....#...#...#
-                 ......#...#...#
-                 ......#...###.#
-                 ......#.....#.#
-                 ^########...#.#
-                 ......#.#...#.#
-                 ......#########
-                 ........#...#..
-                 ....#########..
-                 ....#...#......
-                 ....#...#......
-                 ....#...#......
-                 ....#####......"""
-    sm = _build_scaffold(map_str)
-    assert list(sm.path_through_scaffolding()) == _example_path
+    assert list(example_map.path_through_scaffolding()) == [
+        VacuumRobotInstruction(TurnDirection.RIGHT, 8),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 8),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 4),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 4),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 8),
+        VacuumRobotInstruction(TurnDirection.LEFT, 6),
+        VacuumRobotInstruction(TurnDirection.LEFT, 2),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 4),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 4),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 8),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 8),
+        VacuumRobotInstruction(TurnDirection.RIGHT, 8),
+        VacuumRobotInstruction(TurnDirection.LEFT, 6),
+        VacuumRobotInstruction(TurnDirection.LEFT, 2),
+    ]
 
 
-@pytest.mark.skip("Not implemented")
 def test_path_through_scaffolding_can_be_compressed():
     expected_main_routine = "A,B,C,B,A,C"
     expected_subroutines = {
         "A": "R,8,R,8",
-        "B": "R,4,R,4,R,8",
-        "C": "L,6,L,2",
+        "B": "R,4,R,4",
+        "C": "R,8,L,6,L,2",
     }
-    compressed = compress_vacuum_bot_path(_example_path, num_subroutines=3)
+    compressed = example_map.compressed_path_through_scaffolding(num_subroutines=3)
     assert compressed.main_routine == expected_main_routine
     assert compressed.subroutines == expected_subroutines
 

@@ -8,7 +8,12 @@ class VacuumRobotInstruction:
     steps: int
 
     def __str__(self) -> str:
-        return f"{self.turn.value},{self.steps}"
+        if self.turn in (TurnDirection.RIGHT, TurnDirection.LEFT):
+            return f"{self.turn.value},{self.steps}"
+        elif self.turn == TurnDirection.U_TURN:
+            return f"R,R,{self.steps}"
+        else:
+            return f"{self.steps}"
 
 
 @dataclass(frozen=True)

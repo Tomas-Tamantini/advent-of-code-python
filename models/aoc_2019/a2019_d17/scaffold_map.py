@@ -1,6 +1,7 @@
 from typing import Iterator, Optional
 from models.vectors import Vector2D, TurnDirection, CardinalDirection
 from .vacuum_robot import VacuumRobot, VacuumRobotInstruction
+from .path_compression import CompressedPath, compress_vacuum_bot_path
 
 
 class ScaffoldMap:
@@ -58,30 +59,37 @@ class ScaffoldMap:
                 if self._is_intersection(position):
                     yield position
 
-    def _next_turn_direction(self) -> Optional[TurnDirection]:
+    def _next_turn_direction(self, robot: VacuumRobot) -> Optional[TurnDirection]:
         candidates = (TurnDirection.LEFT, TurnDirection.RIGHT, TurnDirection.NO_TURN)
         for turn_direction in candidates:
-            new_position = self._vacuum_robot.new_position(
+            new_position = robot.new_position(
                 VacuumRobotInstruction(turn_direction, steps=1)
             )
             if self._is_scaffold(new_position):
                 return turn_direction
 
-    def _next_bot_movement(self) -> Optional[VacuumRobotInstruction]:
-        turn_direction = self._next_turn_direction()
+    def _next_bot_movement(
+        self, robot: VacuumRobot
+    ) -> Optional[VacuumRobotInstruction]:
+        turn_direction = self._next_turn_direction(robot)
         if turn_direction is None:
             return None
         steps = 1
         while self._is_scaffold(
-            self._vacuum_robot.new_position(
-                VacuumRobotInstruction(turn_direction, steps + 1)
-            )
+            robot.new_position(VacuumRobotInstruction(turn_direction, steps + 1))
         ):
             steps += 1
 
         return VacuumRobotInstruction(turn_direction, steps)
 
     def path_through_scaffolding(self) -> Iterator[VacuumRobotInstruction]:
-        while (instruction := self._next_bot_movement()) is not None:
+        virtual_robot = self._vacuum_robot
+        while (instruction := self._next_bot_movement(virtual_robot)) is not None:
             yield instruction
-            self._vacuum_robot = self._vacuum_robot.move(instruction)
+            virtual_robot = virtual_robot.move(instruction)
+
+    def compressed_path_through_scaffolding(
+        self, num_subroutines: int
+    ) -> CompressedPath:
+        instructions = list(self.path_through_scaffolding())
+        return compress_vacuum_bot_path(instructions, num_subroutines)
