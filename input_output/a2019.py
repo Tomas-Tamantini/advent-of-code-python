@@ -320,7 +320,14 @@ def aoc_2019_d17(file_name: str, **_):
 def aoc_2019_d18(file_name: str, parser: FileParser, **_):
     maze = parser.parse_tunnel_maze(file_name)
     min_dist = maze.shortest_distance_to_all_keys()
-    print(f"AOC 2019 Day 18/Part 1: Minimum distance to collect all keys is {min_dist}")
+    print(
+        f"AOC 2019 Day 18/Part 1: Minimum distance to collect all keys with one robot is {min_dist}"
+    )
+    maze = parser.parse_tunnel_maze(file_name, split_entrance_four_ways=True)
+    min_dist = maze.shortest_distance_to_all_keys()
+    print(
+        f"AOC 2019 Day 18/Part 2: Minimum distance to collect all keys with four robots is {min_dist}"
+    )
 
 
 # AOC 2019 Day 19: Tractor Beam

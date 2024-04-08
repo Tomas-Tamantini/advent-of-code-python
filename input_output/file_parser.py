@@ -991,17 +991,42 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_chemical_reaction(line.strip())
 
-    def parse_tunnel_maze(self, file_name: str) -> TunnelMaze:
+    def _tunnel_entrance_position(self, lines: list[str]) -> Vector2D:
+        for y, line in enumerate(lines):
+            for x, char in enumerate(line):
+                if char == "@":
+                    return Vector2D(x, y)
+
+    def _tunnel_updated_characters(
+        self, lines: list[str], split_entrance_four_ways: bool
+    ) -> dict[Vector2D, chr]:
+        if not split_entrance_four_ways:
+            return dict()
+        entrance_position = self._tunnel_entrance_position(lines)
+        updated_chars = dict()
+        for dx in range(-1, 2):
+            for dy in range(-1, 2):
+                offset = Vector2D(dx, dy)
+                new_char = "@" if offset.manhattan_size == 2 else "#"
+                updated_chars[entrance_position + offset] = new_char
+        return updated_chars
+
+    def parse_tunnel_maze(
+        self, file_name: str, split_entrance_four_ways: bool = False
+    ) -> TunnelMaze:
         maze = TunnelMaze()
-        for y, line in enumerate(self._file_reader.readlines(file_name)):
+        lines = list(self._file_reader.readlines(file_name))
+        updated_chars = self._tunnel_updated_characters(lines, split_entrance_four_ways)
+        for y, line in enumerate(lines):
             for x, char in enumerate(line):
                 position = Vector2D(x, y)
-                if char == ".":
+                actual_char = updated_chars.get(position, char)
+                if actual_char == ".":
                     maze.add_open_passage(position)
-                if char == "@":
+                if actual_char == "@":
                     maze.add_entrance(position)
-                if char.islower():
+                if actual_char.islower():
                     maze.add_key(position, key_id=char)
-                if char.isupper():
-                    maze.add_door(position, corresponding_key_id=char.lower())
+                if actual_char.isupper():
+                    maze.add_door(position, corresponding_key_id=actual_char.lower())
         return maze
