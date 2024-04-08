@@ -999,7 +999,7 @@ class FileParser:
                 if char == ".":
                     maze.add_open_passage(position)
                 if char == "@":
-                    maze.set_entrance(position)
+                    maze.add_entrance(position)
                 if char.islower():
                     maze.add_key(position, key_id=char)
                 if char.isupper():

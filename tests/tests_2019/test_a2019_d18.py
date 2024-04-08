@@ -109,7 +109,7 @@ def _maze_from_string(maze_string: str) -> TunnelMaze:
             if char == ".":
                 maze.add_open_passage(position)
             if char == "@":
-                maze.set_entrance(position)
+                maze.add_entrance(position)
             if char.islower():
                 maze.add_key(position, key_id=char)
             if char.isupper():
@@ -128,7 +128,7 @@ def test_tunnel_maze_makes_doors_keys_and_entrance_irreducible():
 
 def test_tunnel_maze_initializes_explorer_at_entrance():
     maze = TunnelMaze()
-    maze.set_entrance(position=Vector2D(123, 456))
+    maze.add_entrance(position=Vector2D(123, 456))
     explorer = maze.initial_explorer()
     assert explorer.position == Vector2D(123, 456)
     assert explorer.collected_keys == set()
