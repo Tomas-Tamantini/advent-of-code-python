@@ -37,3 +37,6 @@ class TunnelMaze:
 
     def initial_explorer(self):
         return TunnelMazeExplorer(position=self._entrance)
+
+    def shortest_distance_to_all_keys(self) -> int:
+        return 0
