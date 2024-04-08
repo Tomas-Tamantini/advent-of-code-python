@@ -1,12 +1,14 @@
 from typing import Iterator
 from math import inf
 from models.vectors import Vector2D
+from models.graphs import dijkstra
 
 
 class TunnelMazeGraph:
 
     def __init__(self) -> None:
         self._adjacencies = dict()
+        self._forbidden_nodes = set()
 
     @property
     def num_nodes(self) -> int:
@@ -23,6 +25,11 @@ class TunnelMazeGraph:
 
     def weight(self, node_a: Vector2D, node_b: Vector2D) -> float:
         return self._adjacencies[node_a].get(node_b, inf)
+
+    def neighbors(self, node: Vector2D) -> Iterator[Vector2D]:
+        for neighbor in self._adjacencies[node]:
+            if neighbor not in self._forbidden_nodes:
+                yield neighbor
 
     def _remove_node(self, node: Vector2D) -> None:
         for neighbor in self._adjacencies[node]:
@@ -64,3 +71,12 @@ class TunnelMazeGraph:
             if next_two_neighbors is not None:
                 self._remove_node_and_tie_ends(next_two_neighbors)
                 self.reduce(irreducible_nodes)
+
+    def shortest_distance(
+        self, origin: Vector2D, destination: Vector2D, forbidden_nodes: set[Vector2D]
+    ) -> float:
+        self._forbidden_nodes = forbidden_nodes
+        try:
+            return dijkstra(origin, destination, self)[1]
+        except ValueError:
+            return inf

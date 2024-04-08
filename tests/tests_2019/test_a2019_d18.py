@@ -45,3 +45,30 @@ def test_reducing_tunnel_maze_graph_happens_recursively():
     graph.reduce(irreducible_nodes={Vector2D(0, 0), Vector2D(10, 0)})
     assert graph.num_nodes == 2
     assert graph.weight(Vector2D(0, 0), Vector2D(10, 0)) == 10
+
+
+def test_tunnel_maze_graph_finds_shortest_distance_between_two_nodes():
+    graph = TunnelMazeGraph()
+    for i in range(3):
+        for j in range(3):
+            graph.add_node(Vector2D(i, j))
+    graph.reduce(irreducible_nodes={Vector2D(0, 0)})
+    origin = Vector2D(0, 0)
+    destination = Vector2D(2, 1)
+    forbidden_nodes = set()
+    assert graph.shortest_distance(origin, destination, forbidden_nodes) == 3
+
+
+def test_tunnel_maze_graph_shortest_distance_between_two_nodes_takes_forbidden_nodes_into_account():
+    graph = TunnelMazeGraph()
+    for i in range(3):
+        for j in range(3):
+            graph.add_node(Vector2D(i, j))
+    graph.reduce(irreducible_nodes={Vector2D(0, 0)})
+    origin = Vector2D(0, 0)
+    destination = Vector2D(2, 1)
+    forbidden_nodes = {Vector2D(1, 0), Vector2D(1, 1)}
+    assert graph.shortest_distance(origin, destination, forbidden_nodes) == 5
+
+    forbidden_nodes.add(Vector2D(1, 2))
+    assert graph.shortest_distance(origin, destination, forbidden_nodes) == inf
