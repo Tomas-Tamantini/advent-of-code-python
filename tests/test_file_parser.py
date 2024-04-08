@@ -1008,3 +1008,14 @@ def test_can_parse_chemical_reactions():
             inputs=(ChemicalQuantity("ORE", 144),), output=ChemicalQuantity("CXRVG", 1)
         ),
     ]
+
+
+def test_can_parse_tunnel_maze():
+    file_content = """
+                   a.C
+                   .@.
+                   ..b
+                   """
+    file_parser = mock_file_parser(file_content)
+    maze = file_parser.parse_tunnel_maze("some_file")
+    assert maze.shortest_distance_to_all_keys() == 6

@@ -58,19 +58,21 @@ class TunnelMazeGraph:
                 yield node
 
     def reduce(self, irreducible_nodes: set[Vector2D]) -> None:
-        next_one_neighbor = next(
-            self._reducible_nodes_with_n_neighbors(1, irreducible_nodes), None
+        graph_changed = False
+        one_neighbors = list(
+            self._reducible_nodes_with_n_neighbors(1, irreducible_nodes)
         )
-        if next_one_neighbor is not None:
-            self._remove_node(next_one_neighbor)
+        for node in one_neighbors:
+            graph_changed = True
+            self._remove_node(node)
+        two_neighbors = list(
+            self._reducible_nodes_with_n_neighbors(2, irreducible_nodes)
+        )
+        for node in two_neighbors:
+            graph_changed = True
+            self._remove_node_and_tie_ends(node)
+        if graph_changed:
             self.reduce(irreducible_nodes)
-        else:
-            next_two_neighbors = next(
-                self._reducible_nodes_with_n_neighbors(2, irreducible_nodes), None
-            )
-            if next_two_neighbors is not None:
-                self._remove_node_and_tie_ends(next_two_neighbors)
-                self.reduce(irreducible_nodes)
 
     def shortest_distance(
         self, origin: Vector2D, destination: Vector2D, forbidden_nodes: set[Vector2D]

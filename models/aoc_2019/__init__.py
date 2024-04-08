@@ -23,3 +23,4 @@ from .a2019_d17 import (
     run_scaffolding_discovery_program,
     run_scaffolding_exploration_program,
 )
+from .a2019_d18 import TunnelMaze

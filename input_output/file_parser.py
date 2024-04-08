@@ -111,7 +111,12 @@ from models.aoc_2018 import (
     ArmyGroup,
     InfectionGameState,
 )
-from models.aoc_2019 import CelestialBody, ChemicalQuantity, ChemicalReaction
+from models.aoc_2019 import (
+    CelestialBody,
+    ChemicalQuantity,
+    ChemicalReaction,
+    TunnelMaze,
+)
 
 
 class FileReaderProtocol(Protocol):
@@ -985,3 +990,18 @@ class FileParser:
     def parse_chemical_reactions(self, file_name: str) -> Iterator[ChemicalReaction]:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_chemical_reaction(line.strip())
+
+    def parse_tunnel_maze(self, file_name: str) -> TunnelMaze:
+        maze = TunnelMaze()
+        for y, line in enumerate(self._file_reader.readlines(file_name)):
+            for x, char in enumerate(line):
+                position = Vector2D(x, y)
+                if char == ".":
+                    maze.add_open_passage(position)
+                if char == "@":
+                    maze.set_entrance(position)
+                if char.islower():
+                    maze.add_key(position, key_id=char)
+                if char.isupper():
+                    maze.add_door(position, corresponding_key_id=char.lower())
+        return maze

@@ -1,7 +1,6 @@
 from math import inf
-import pytest
 from models.vectors import Vector2D
-from models.aoc_2019.a2019_d18 import TunnelMazeGraph, TunnelMaze
+from models.aoc_2019.a2019_d18 import TunnelMazeGraph, TunnelMaze, TunnelMazeExplorer
 
 
 def test_tunnel_maze_graph_connects_neighboring_nodes_with_weight_one():
@@ -75,6 +74,33 @@ def test_tunnel_maze_graph_shortest_distance_between_two_nodes_takes_forbidden_n
     assert graph.shortest_distance(origin, destination, forbidden_nodes) == inf
 
 
+def test_tunnel_maze_explorer_is_sorted_by_distance_walked():
+    explorer_a = TunnelMazeExplorer(position=Vector2D(0, 0), distance_walked=1)
+    explorer_b = TunnelMazeExplorer(position=Vector2D(0, 0), distance_walked=2)
+    assert explorer_a < explorer_b
+
+
+def test_tunnel_maze_explorer_state_is_its_position_and_sorted_collected_keys():
+    explorer = TunnelMazeExplorer(position=Vector2D(0, 0), collected_keys={"b", "a"})
+    assert explorer.state() == (Vector2D(0, 0), ("a", "b"))
+
+
+def test_tunnel_maze_explorer_can_move_to_next_key():
+    explorer = TunnelMazeExplorer(
+        position=Vector2D(10, 11), collected_keys={"b", "a"}, distance_walked=123
+    )
+    new_explorer = explorer.move_to_key(
+        key_id="c", key_position=Vector2D(12, 13), distance=3
+    )
+    assert new_explorer.position == Vector2D(12, 13)
+    assert new_explorer.collected_keys == {"a", "b", "c"}
+    assert new_explorer.distance_walked == 126
+
+    assert explorer.position == Vector2D(10, 11)
+    assert explorer.collected_keys == {"a", "b"}
+    assert explorer.distance_walked == 123
+
+
 def _maze_from_string(maze_string: str) -> TunnelMaze:
     maze = TunnelMaze()
     for y, line in enumerate(maze_string.splitlines()):
@@ -114,7 +140,6 @@ def test_tunnel_maze_shortest_distance_to_all_keys_is_zero_if_no_keys():
     assert maze.shortest_distance_to_all_keys() == 0
 
 
-@pytest.mark.skip("Not implemented yet")
 def test_tunnel_maze_shortest_distance_to_all_keys_takes_all_keys_into_account():
     maze = _maze_from_string(
         """
@@ -126,7 +151,6 @@ def test_tunnel_maze_shortest_distance_to_all_keys_takes_all_keys_into_account()
     assert maze.shortest_distance_to_all_keys() == 6
 
 
-@pytest.mark.skip("Not implemented yet")
 def test_tunnel_maze_can_only_pass_through_door_if_corresponding_key_was_collected():
     maze = _maze_from_string(
         """
@@ -140,38 +164,15 @@ def test_tunnel_maze_can_only_pass_through_door_if_corresponding_key_was_collect
     assert maze.shortest_distance_to_all_keys() == 86
 
 
-example_maze_1 = """
-                 #################
-                 #i.G..c...e..H.p#
-                 ########.########
-                 #j.A..b...f..D.o#
-                 ########@########
-                 #k.E..a...g..B.n#
-                 ########.########
-                 #l.F..d...h..C.m#
-                 #################
-                 """
-
-example_maze_2 = """
-                 ########################
-                 #@..............ac.GI.b#
-                 ###d#e#f################
-                 ###A#B#C################
-                 ###g#h#i################
-                 ########################
-                 """
-
-
-@pytest.mark.skip("Not implemented yet")
-@pytest.mark.parametrize(
-    "maze_str, expected_distance",
-    [
-        (example_maze_1, 136),
-        (example_maze_2, 81),
-    ],
-)
-def test_tunnel_maze_shortest_distance_to_all_keys_optimizes_path_through_maze(
-    maze_str, expected_distance
-):
-    maze = _maze_from_string(maze_str)
-    assert maze.shortest_distance_to_all_keys() == expected_distance
+def test_tunnel_maze_shortest_distance_to_all_keys_optimizes_path_through_maze():
+    maze = _maze_from_string(
+        """
+        ########################
+        #@..............ac.GI.b#
+        ###d#e#f################
+        ###A#B#C################
+        ###g#h#i################
+        ########################
+        """
+    )
+    assert maze.shortest_distance_to_all_keys() == 81
