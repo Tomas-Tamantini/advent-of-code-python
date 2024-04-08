@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Optional
 from math import floor
 from dataclasses import dataclass
 from models.vectors import Vector2D, CardinalDirection
@@ -66,8 +66,8 @@ class BeamArea:
 
     def initial_guess_for_square_position(self, side_length: int) -> _Square:
         a, b = self._linear_approximation_coefficients()
-        x = floor(side_length * (1 + a) / (b - a))
-        y = floor(side_length * a * (1 + b) / (b - a))
+        x = floor((side_length - 1) * (1 + a) / (b - a))
+        y = floor((side_length - 1) * a * (1 + b) / (b - a))
         return _Square(Vector2D(x, y), side_length)
 
 
@@ -111,53 +111,54 @@ def run_beam_scanner(instructions: list[int], beam_area: BeamArea) -> None:
             beam_area.set_point_attracted_to_beam(coordinates)
 
 
+def _next_guess_for_closest_square(
+    current_guess: _Square, instructions: list[int]
+) -> Optional[_Square]:
+    top_left_is_inside_beam = _run_scammer_for_coordinates(
+        instructions, current_guess.top_left
+    )
+    if not top_left_is_inside_beam:
+        return current_guess.move(CardinalDirection.EAST)
+
+    bottom_right_is_inside_beam = _run_scammer_for_coordinates(
+        instructions, current_guess.bottom_right
+    )
+    if not bottom_right_is_inside_beam:
+        return current_guess.move(CardinalDirection.NORTH)
+
+    candidate = current_guess.move(CardinalDirection.WEST)
+    top_left_is_inside_beam = _run_scammer_for_coordinates(
+        instructions, candidate.top_left
+    )
+    if top_left_is_inside_beam:
+        return candidate
+
+    candidate = current_guess.move(CardinalDirection.SOUTH)
+    bottom_right_is_inside_beam = _run_scammer_for_coordinates(
+        instructions, candidate.bottom_right
+    )
+    if bottom_right_is_inside_beam:
+        return candidate
+
+    candidate = current_guess.move(CardinalDirection.WEST).move(CardinalDirection.SOUTH)
+    top_left_is_inside_beam = _run_scammer_for_coordinates(
+        instructions, candidate.top_left
+    )
+    bottom_right_is_inside_beam = _run_scammer_for_coordinates(
+        instructions, candidate.bottom_right
+    )
+    if top_left_is_inside_beam and bottom_right_is_inside_beam:
+        return candidate
+
+
 def square_closest_to_beam_source(
     side_length: int, instructions: list[int], scanned_area: BeamArea
 ) -> Vector2D:
     guess = scanned_area.initial_guess_for_square_position(side_length)
+    guess = guess.bring_closer_to_origin(0.9)
     while True:
-        # Take square further from the origin:
-        top_left_is_inside_beam = _run_scammer_for_coordinates(
-            instructions, guess.top_left
-        )
-        if not top_left_is_inside_beam:
-            guess = guess.move(CardinalDirection.EAST)
-            continue
-        bottom_right_is_inside_beam = _run_scammer_for_coordinates(
-            instructions, guess.bottom_right
-        )
-        if not bottom_right_is_inside_beam:
-            guess = guess.move(CardinalDirection.NORTH)
-            continue
-
-        # Bring square closer to the origin:
-        candidate_guess = guess.move(CardinalDirection.WEST)
-        top_left_is_inside_beam = _run_scammer_for_coordinates(
-            instructions, candidate_guess.top_left
-        )
-        if top_left_is_inside_beam:
-            guess = candidate_guess
-            continue
-
-        candidate_guess = guess.move(CardinalDirection.SOUTH)
-        bottom_right_is_inside_beam = _run_scammer_for_coordinates(
-            instructions, candidate_guess.bottom_right
-        )
-        if bottom_right_is_inside_beam:
-            guess = candidate_guess
-            continue
-
-        candidate_guess = guess.move(CardinalDirection.WEST).move(
-            CardinalDirection.SOUTH
-        )
-        top_left_is_inside_beam = _run_scammer_for_coordinates(
-            instructions, candidate_guess.top_left
-        )
-        bottom_right_is_inside_beam = _run_scammer_for_coordinates(
-            instructions, candidate_guess.bottom_right
-        )
-        if top_left_is_inside_beam and bottom_right_is_inside_beam:
-            guess = candidate_guess
-            continue
-
-        return guess.bottom_left
+        next_guess = _next_guess_for_closest_square(guess, instructions)
+        if next_guess:
+            guess = next_guess
+        else:
+            return guess.bottom_left

@@ -31,6 +31,7 @@ from models.aoc_2019 import (
     run_scaffolding_exploration_program,
     BeamArea,
     run_beam_scanner,
+    square_closest_to_beam_source,
 )
 
 
@@ -340,6 +341,13 @@ def aoc_2019_d19(file_name: str, **_):
     run_beam_scanner(instructions, area)
     print(
         f"AOC 2019 Day 19/Part 1: Number of points attracted to the beam is {area.num_points_attracted_to_beam}"
+    )
+    square_position = square_closest_to_beam_source(
+        side_length=100, instructions=instructions, scanned_area=area
+    )
+    answer = square_position.x * 10_000 + square_position.y
+    print(
+        f"AOC 2019 Day 19/Part 2: Position of the square closest to the beam source is at {answer}"
     )
 
 
