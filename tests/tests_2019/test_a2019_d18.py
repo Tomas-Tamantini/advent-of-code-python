@@ -1,6 +1,6 @@
 from math import inf
 from models.vectors import Vector2D
-from models.aoc_2019.a2019_d18 import TunnelMazeGraph
+from models.aoc_2019.a2019_d18 import TunnelMazeGraph, TunnelMaze
 
 
 def test_tunnel_maze_graph_connects_neighboring_nodes_with_weight_one():
@@ -72,3 +72,26 @@ def test_tunnel_maze_graph_shortest_distance_between_two_nodes_takes_forbidden_n
 
     forbidden_nodes.add(Vector2D(1, 2))
     assert graph.shortest_distance(origin, destination, forbidden_nodes) == inf
+
+
+def test_tunnel_maze_makes_doors_keys_and_entrance_irreducible():
+    maze = TunnelMaze()
+    maze.set_entrance(position=Vector2D(1, 0))
+    maze.add_key(position=Vector2D(4, 0), key_id="a")
+    maze.add_door(position=Vector2D(6, 0), corresponding_key_id="a")
+    for i in (0, 2, 3, 5, 7, 8):
+        maze.add_open_passage(Vector2D(i, 0))
+    graph = maze.reduced_graph()
+    assert graph.num_nodes == 3
+    assert graph.weight(Vector2D(1, 0), Vector2D(4, 0)) == 3
+    assert graph.weight(Vector2D(4, 0), Vector2D(6, 0)) == 2
+    assert graph.weight(Vector2D(1, 0), Vector2D(6, 0)) == inf
+
+
+def test_tunnel_maze_initializes_explorer_at_entrance():
+    maze = TunnelMaze()
+    maze.set_entrance(position=Vector2D(123, 456))
+    explorer = maze.initial_explorer()
+    assert explorer.position == Vector2D(123, 456)
+    assert explorer.collected_keys == set()
+    assert explorer.distance_walked == 0
