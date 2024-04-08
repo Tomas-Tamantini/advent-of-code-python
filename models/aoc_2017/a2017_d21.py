@@ -30,8 +30,8 @@ class ArtBlock:
         candidates = set()
         pattern = self._pattern
         for _ in range(4):
-            candidates.add(hash(pattern.tostring()))
-            candidates.add(hash(np.fliplr(pattern).tostring()))
+            candidates.add(hash(pattern.tobytes()))
+            candidates.add(hash(np.fliplr(pattern).tobytes()))
             pattern = np.rot90(pattern)
         return min(candidates)
 
