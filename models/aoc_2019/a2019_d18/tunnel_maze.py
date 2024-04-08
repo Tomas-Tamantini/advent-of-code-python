@@ -3,7 +3,7 @@ from math import inf
 from typing import Iterator
 from models.vectors import Vector2D
 from .tunnel_maze_graph import TunnelMazeGraph
-from .tunnel_maze_explorers import TunnelMazeExplorers
+from .tunnel_maze_explorers import TunnelMazeExplorers, ExplorerMove
 
 
 class TunnelMaze:
@@ -66,20 +66,21 @@ class TunnelMaze:
                 yield pos
         yield from self._locked_doors(explorer)
 
-    def _neighboring_keys(
+    def _available_moves(
         self, explorers: TunnelMazeExplorers
-    ) -> Iterator[tuple[str, Vector2D, int]]:
-        for key_id, key_position in self._keys.items():
-            if key_id not in explorers.collected_keys:
-                distance = self._graph.shortest_distance(
-                    explorers.positions[0],
-                    key_position,
-                    forbidden_nodes=set(
-                        self._forbidden_nodes(explorers, next_key=key_id)
-                    ),
-                )
-                if distance != inf:
-                    yield key_id, key_position, distance
+    ) -> Iterator[ExplorerMove]:
+        for explorer_idx, explorer_position in enumerate(explorers.positions):
+            for key_id, key_position in self._keys.items():
+                if key_id not in explorers.collected_keys:
+                    distance = self._graph.shortest_distance(
+                        explorer_position,
+                        key_position,
+                        forbidden_nodes=set(
+                            self._forbidden_nodes(explorers, next_key=key_id)
+                        ),
+                    )
+                    if distance != inf:
+                        yield ExplorerMove(explorer_idx, key_id, key_position, distance)
 
     def shortest_distance_to_all_keys(self) -> int:
         self._graph = self.reduced_graph()
@@ -97,7 +98,7 @@ class TunnelMaze:
             if self._collected_all_keys(explorers):
                 best_distance = explorers.distance_walked
                 continue
-            for key_id, key_position, distance in self._neighboring_keys(explorers):
-                new_explorer = explorers.move_to_key(key_id, key_position, distance)
+            for move in self._available_moves(explorers):
+                new_explorer = explorers.move_to_key(move)
                 queue.put(new_explorer)
         return best_distance

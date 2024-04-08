@@ -1,6 +1,11 @@
 from math import inf
 from models.vectors import Vector2D
-from models.aoc_2019.a2019_d18 import TunnelMazeGraph, TunnelMaze, TunnelMazeExplorers
+from models.aoc_2019.a2019_d18 import (
+    TunnelMazeGraph,
+    TunnelMaze,
+    TunnelMazeExplorers,
+    ExplorerMove,
+)
 
 
 def test_tunnel_maze_graph_connects_neighboring_nodes_with_weight_one():
@@ -87,12 +92,15 @@ def test_tunnel_maze_explorer_state_is_its_position_and_sorted_collected_keys():
 
 def test_tunnel_maze_explorer_can_move_to_next_key():
     explorer = TunnelMazeExplorers(
-        positions=(Vector2D(10, 11),), collected_keys={"b", "a"}, distance_walked=123
+        positions=(Vector2D(10, 11), Vector2D(100, 200)),
+        collected_keys={"b", "a"},
+        distance_walked=123,
     )
-    new_explorer = explorer.move_to_key(
-        key_id="c", key_position=Vector2D(12, 13), distance=3
+    move = ExplorerMove(
+        explorer_idx=1, key_id="c", key_position=Vector2D(12, 13), distance=3
     )
-    assert new_explorer.positions == (Vector2D(12, 13),)
+    new_explorer = explorer.move_to_key(move)
+    assert new_explorer.positions == (Vector2D(10, 11), Vector2D(12, 13))
     assert new_explorer.collected_keys == {"a", "b", "c"}
     assert new_explorer.distance_walked == 126
 
@@ -174,3 +182,20 @@ def test_tunnel_maze_shortest_distance_to_all_keys_optimizes_path_through_maze()
         """
     )
     assert maze.shortest_distance_to_all_keys() == 81
+
+
+def test_tunnel_maze_explorers_can_transfer_keys_to_one_another_without_moving():
+    maze = _maze_from_string(
+        """
+        #############
+        #g#f.D#..h#l#
+        #F###e#E###.#
+        #dCba@#@BcIJ#
+        #############
+        #nK.L@#@G...#
+        #M###N#H###.#
+        #o#m..#i#jk.#
+        #############
+        """
+    )
+    assert maze.shortest_distance_to_all_keys() == 72
