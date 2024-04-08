@@ -24,3 +24,4 @@ from .a2019_d17 import (
     run_scaffolding_exploration_program,
 )
 from .a2019_d18 import TunnelMaze
+from .a2019_d19 import run_beam_scanner, BeamArea

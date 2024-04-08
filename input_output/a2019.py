@@ -29,6 +29,8 @@ from models.aoc_2019 import (
     ScaffoldMap,
     run_scaffolding_discovery_program,
     run_scaffolding_exploration_program,
+    BeamArea,
+    run_beam_scanner,
 )
 
 
@@ -331,7 +333,14 @@ def aoc_2019_d18(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 Day 19: Tractor Beam
-def aoc_2019_d19(file_name: str, **_): ...
+def aoc_2019_d19(file_name: str, **_):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    area = BeamArea(width=50, height=50)
+    run_beam_scanner(instructions, area)
+    print(
+        f"AOC 2019 Day 19/Part 1: Number of points attracted to the beam is {area.num_points_attracted_to_beam}"
+    )
 
 
 # AOC 2019 Day 20: Donut Maze
