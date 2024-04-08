@@ -1,6 +1,6 @@
 from math import inf
 from models.vectors import Vector2D
-from models.aoc_2019.a2019_d18 import TunnelMazeGraph, TunnelMaze, TunnelMazeExplorer
+from models.aoc_2019.a2019_d18 import TunnelMazeGraph, TunnelMaze, TunnelMazeExplorers
 
 
 def test_tunnel_maze_graph_connects_neighboring_nodes_with_weight_one():
@@ -75,30 +75,26 @@ def test_tunnel_maze_graph_shortest_distance_between_two_nodes_takes_forbidden_n
 
 
 def test_tunnel_maze_explorer_is_sorted_by_distance_walked():
-    explorer_a = TunnelMazeExplorer(position=Vector2D(0, 0), distance_walked=1)
-    explorer_b = TunnelMazeExplorer(position=Vector2D(0, 0), distance_walked=2)
+    explorer_a = TunnelMazeExplorers(positions=Vector2D(0, 0), distance_walked=1)
+    explorer_b = TunnelMazeExplorers(positions=Vector2D(0, 0), distance_walked=2)
     assert explorer_a < explorer_b
 
 
 def test_tunnel_maze_explorer_state_is_its_position_and_sorted_collected_keys():
-    explorer = TunnelMazeExplorer(position=Vector2D(0, 0), collected_keys={"b", "a"})
+    explorer = TunnelMazeExplorers(positions=Vector2D(0, 0), collected_keys={"b", "a"})
     assert explorer.state() == (Vector2D(0, 0), ("a", "b"))
 
 
 def test_tunnel_maze_explorer_can_move_to_next_key():
-    explorer = TunnelMazeExplorer(
-        position=Vector2D(10, 11), collected_keys={"b", "a"}, distance_walked=123
+    explorer = TunnelMazeExplorers(
+        positions=(Vector2D(10, 11),), collected_keys={"b", "a"}, distance_walked=123
     )
     new_explorer = explorer.move_to_key(
         key_id="c", key_position=Vector2D(12, 13), distance=3
     )
-    assert new_explorer.position == Vector2D(12, 13)
+    assert new_explorer.positions == (Vector2D(12, 13),)
     assert new_explorer.collected_keys == {"a", "b", "c"}
     assert new_explorer.distance_walked == 126
-
-    assert explorer.position == Vector2D(10, 11)
-    assert explorer.collected_keys == {"a", "b"}
-    assert explorer.distance_walked == 123
 
 
 def _maze_from_string(maze_string: str) -> TunnelMaze:
@@ -126,13 +122,15 @@ def test_tunnel_maze_makes_doors_keys_and_entrance_irreducible():
     assert graph.weight(Vector2D(1, 0), Vector2D(6, 0)) == inf
 
 
-def test_tunnel_maze_initializes_explorer_at_entrance():
+def test_tunnel_maze_initializes_one_explorer_at_each_entrance():
     maze = TunnelMaze()
     maze.add_entrance(position=Vector2D(123, 456))
-    explorer = maze.initial_explorer()
-    assert explorer.position == Vector2D(123, 456)
-    assert explorer.collected_keys == set()
-    assert explorer.distance_walked == 0
+    maze.add_entrance(position=Vector2D(789, 101))
+    explorers = maze.initial_explorers()
+    assert len(explorers.positions) == 2
+    assert set(explorers.positions) == {Vector2D(123, 456), Vector2D(789, 101)}
+    assert explorers.collected_keys == set()
+    assert explorers.distance_walked == 0
 
 
 def test_tunnel_maze_shortest_distance_to_all_keys_is_zero_if_no_keys():

@@ -3,7 +3,7 @@ from math import inf
 from typing import Iterator
 from models.vectors import Vector2D
 from .tunnel_maze_graph import TunnelMazeGraph
-from .tunnel_maze_explorer import TunnelMazeExplorer
+from .tunnel_maze_explorers import TunnelMazeExplorers
 
 
 class TunnelMaze:
@@ -39,26 +39,27 @@ class TunnelMaze:
         self._graph.reduce(irreducible_nodes)
         return self._graph
 
-    def initial_explorer(self):
-        return TunnelMazeExplorer(position=next(iter(self._entrances)))
+    def initial_explorers(self) -> TunnelMazeExplorers:
+        positions = tuple(self._entrances)
+        return TunnelMazeExplorers(positions=positions)
 
-    def _collected_all_keys(self, explorer: TunnelMazeExplorer) -> bool:
+    def _collected_all_keys(self, explorer: TunnelMazeExplorers) -> bool:
         return len(explorer.collected_keys) == len(self._keys)
 
-    def _locked_doors(self, explorer: TunnelMazeExplorer) -> Iterator[Vector2D]:
+    def _locked_doors(self, explorer: TunnelMazeExplorers) -> Iterator[Vector2D]:
         for door_id, door_position in self._doors.items():
             if door_id not in explorer.collected_keys:
                 yield door_position
 
     def _uncollected_keys(
-        self, explorer: TunnelMazeExplorer
+        self, explorer: TunnelMazeExplorers
     ) -> Iterator[tuple[str, Vector2D]]:
         for key_id, key_position in self._keys.items():
             if key_id not in explorer.collected_keys:
                 yield key_id, key_position
 
     def _forbidden_nodes(
-        self, explorer: TunnelMazeExplorer, next_key: str
+        self, explorer: TunnelMazeExplorers, next_key: str
     ) -> Iterator[Vector2D]:
         for key_id, pos in self._uncollected_keys(explorer):
             if key_id != next_key:
@@ -66,15 +67,15 @@ class TunnelMaze:
         yield from self._locked_doors(explorer)
 
     def _neighboring_keys(
-        self, explorer: TunnelMazeExplorer
+        self, explorers: TunnelMazeExplorers
     ) -> Iterator[tuple[str, Vector2D, int]]:
         for key_id, key_position in self._keys.items():
-            if key_id not in explorer.collected_keys:
+            if key_id not in explorers.collected_keys:
                 distance = self._graph.shortest_distance(
-                    explorer.position,
+                    explorers.positions[0],
                     key_position,
                     forbidden_nodes=set(
-                        self._forbidden_nodes(explorer, next_key=key_id)
+                        self._forbidden_nodes(explorers, next_key=key_id)
                     ),
                 )
                 if distance != inf:
@@ -84,19 +85,19 @@ class TunnelMaze:
         self._graph = self.reduced_graph()
         best_distance = inf
         queue = PriorityQueue()
-        initial_explorer = self.initial_explorer()
-        queue.put(initial_explorer)
+        initial_explorers = self.initial_explorers()
+        queue.put(initial_explorers)
         visited_states = set()
         while not queue.empty():
-            explorer = queue.get()
-            state = explorer.state()
-            if state in visited_states or explorer.distance_walked >= best_distance:
+            explorers = queue.get()
+            state = explorers.state()
+            if state in visited_states or explorers.distance_walked >= best_distance:
                 continue
             visited_states.add(state)
-            if self._collected_all_keys(explorer):
-                best_distance = explorer.distance_walked
+            if self._collected_all_keys(explorers):
+                best_distance = explorers.distance_walked
                 continue
-            for key_id, key_position, distance in self._neighboring_keys(explorer):
-                new_explorer = explorer.move_to_key(key_id, key_position, distance)
+            for key_id, key_position, distance in self._neighboring_keys(explorers):
+                new_explorer = explorers.move_to_key(key_id, key_position, distance)
                 queue.put(new_explorer)
         return best_distance

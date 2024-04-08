@@ -3,8 +3,8 @@ from models.vectors import Vector2D
 
 
 @dataclass
-class TunnelMazeExplorer:
-    position: Vector2D
+class TunnelMazeExplorers:
+    positions: tuple[Vector2D, ...]
     collected_keys: set[str] = field(default_factory=set)
     distance_walked: int = 0
 
@@ -12,11 +12,13 @@ class TunnelMazeExplorer:
         return self.distance_walked < other.distance_walked
 
     def state(self):
-        return self.position, tuple(sorted(self.collected_keys))
+        return self.positions, tuple(sorted(self.collected_keys))
 
     def move_to_key(self, key_id: str, key_position: Vector2D, distance: int):
-        return TunnelMazeExplorer(
-            position=key_position,
+        new_positions = list(self.positions)
+        new_positions[0] = key_position
+        return TunnelMazeExplorers(
+            positions=tuple(new_positions),
             collected_keys=self.collected_keys.union({key_id}),
             distance_walked=self.distance_walked + distance,
         )
