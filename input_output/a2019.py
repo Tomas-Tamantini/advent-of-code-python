@@ -352,7 +352,12 @@ def aoc_2019_d19(file_name: str, **_):
 
 
 # AOC 2019 Day 20: Donut Maze
-def aoc_2019_d20(file_name: str, **_): ...
+def aoc_2019_d20(file_name: str, parser: FileParser, **_):
+    maze = parser.parse_portal_maze(file_name)
+    num_steps = maze.num_steps_to_solve()
+    print(
+        f"AOC 2019 Day 20/Part 1: Fewest number of steps to reach the exit is {num_steps}"
+    )
 
 
 # AOC 2019 Day 21: Springdroid Adventure

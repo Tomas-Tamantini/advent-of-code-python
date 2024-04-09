@@ -1032,3 +1032,30 @@ def test_tunnel_maze_can_have_entrance_split_in_four():
     file_parser = mock_file_parser(file_content)
     maze = file_parser.parse_tunnel_maze("some_file", split_entrance_four_ways=True)
     assert maze.shortest_distance_to_all_keys() == 8
+
+
+def test_can_parse_portal_maze():
+    file_content = """
+                           A           
+                           A           
+                    #######.#########  
+                    #######.........#  
+                    #######.#######.#  
+                    #######.#######.#  
+                    #######.#######.#  
+                    #####  B    ###.#  
+                  BC...##  C    ###.#  
+                    ##.##       ###.#  
+                    ##...DE  F  ###.#  
+                    #####    G  ###.#  
+                    #########.#####.#  
+                  DE..#######...###.#  
+                    #.#########.###.#  
+                  FG..#########.....#  
+                    ###########.#####  
+                               Z       
+                               Z       
+                   """
+    file_parser = mock_file_parser(file_content)
+    maze = file_parser.parse_portal_maze("some_file")
+    assert maze.num_steps_to_solve() == 23

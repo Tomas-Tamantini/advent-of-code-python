@@ -1,4 +1,4 @@
-from typing import Iterator, Protocol
+from typing import Iterator, Protocol, Optional
 import re
 import numpy as np
 from datetime import datetime
@@ -116,6 +116,7 @@ from models.aoc_2019 import (
     ChemicalQuantity,
     ChemicalReaction,
     TunnelMaze,
+    PortalMaze,
 )
 
 
@@ -991,18 +992,20 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_chemical_reaction(line.strip())
 
-    def _tunnel_entrance_position(self, lines: list[str]) -> Vector2D:
+    @staticmethod
+    def _tunnel_entrance_position(lines: list[str]) -> Vector2D:
         for y, line in enumerate(lines):
             for x, char in enumerate(line):
                 if char == "@":
                     return Vector2D(x, y)
 
+    @staticmethod
     def _tunnel_updated_characters(
-        self, lines: list[str], split_entrance_four_ways: bool
+        lines: list[str], split_entrance_four_ways: bool
     ) -> dict[Vector2D, chr]:
         if not split_entrance_four_ways:
             return dict()
-        entrance_position = self._tunnel_entrance_position(lines)
+        entrance_position = FileParser._tunnel_entrance_position(lines)
         updated_chars = dict()
         for dx in range(-1, 2):
             for dy in range(-1, 2):
@@ -1029,4 +1032,46 @@ class FileParser:
                     maze.add_key(position, key_id=char)
                 if actual_char.isupper():
                     maze.add_door(position, corresponding_key_id=actual_char.lower())
+        return maze
+
+    @staticmethod
+    def _portal_id(position: Vector2D, lines: list[str]) -> Optional[str]:
+        for direction in CardinalDirection:
+            neighbor_position = position.move(direction)
+            if neighbor_position.y < 0 or neighbor_position.y >= len(lines):
+                continue
+            neighbor_line = lines[neighbor_position.y]
+            if neighbor_position.x < 0 or neighbor_position.x >= len(neighbor_line):
+                continue
+            neighbor_char = neighbor_line[neighbor_position.x]
+            if not neighbor_char.isupper():
+                continue
+            other_char_position = neighbor_position.move(direction)
+            other_char = lines[other_char_position.y][other_char_position.x]
+            return (
+                neighbor_char + other_char
+                if direction in {CardinalDirection.NORTH, CardinalDirection.EAST}
+                else other_char + neighbor_char
+            )
+
+    def parse_portal_maze(self, file_name: str) -> PortalMaze:
+        portals = defaultdict(list)
+        maze = PortalMaze()
+        lines = list(self._file_reader.readlines(file_name))
+        for y, line in enumerate(lines):
+            for x, char in enumerate(line):
+                if char != ".":
+                    continue
+                position = Vector2D(x, y)
+                maze.add_node(position)
+                portal_id = self._portal_id(position, lines)
+                if portal_id == "AA":
+                    maze.set_entrance(position)
+                elif portal_id == "ZZ":
+                    maze.set_exit(position)
+                elif portal_id is not None:
+                    portals[portal_id].append(position)
+        for portal_id, positions in portals.items():
+            maze.add_portal(*positions)
+
         return maze
