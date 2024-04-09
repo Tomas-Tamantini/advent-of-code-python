@@ -1,4 +1,6 @@
 import pytest
+from math import inf
+from models.vectors import Vector2D
 from models.graphs import (
     min_path_length_with_bfs,
     explore_with_bfs,
@@ -11,6 +13,7 @@ from models.graphs import (
     dijkstra,
     a_star,
     DisjointSet,
+    GridMaze,
 )
 
 
@@ -398,3 +401,58 @@ def test_finding_element_which_does_not_exist_raises_key_error():
     disjoint_set.make_set("a")
     with pytest.raises(KeyError):
         disjoint_set.find("b")
+
+
+def test_grid_maze_connects_adjacent_cells_nodes_with_weight_one():
+    graph = GridMaze()
+    node_a = Vector2D(0, 0)
+    node_b = Vector2D(1, 0)
+    node_c = Vector2D(0, 1)
+    graph.add_node(node_a)
+    graph.add_node(node_b)
+    graph.add_node(node_c)
+    assert graph.weight(node_a, node_b) == 1
+    assert graph.weight(node_a, node_c) == 1
+    assert graph.weight(node_b, node_c) == inf
+
+
+def test_reducing_grid_maze_eliminates_nodes_with_one_or_two_neighbors():
+    graph = GridMaze()
+    for i in range(3):
+        for j in range(3):
+            graph.add_node(Vector2D(i, j))
+    assert graph.num_nodes == 9
+    assert graph.weight(Vector2D(0, 1), Vector2D(1, 0)) == inf
+    graph.reduce(irreducible_nodes=set())
+    assert graph.num_nodes == 5
+    assert graph.weight(Vector2D(0, 1), Vector2D(1, 0)) == 2
+
+
+def test_reducing_grid_maze_retains_irreducible_nodes():
+    graph = GridMaze()
+    for i in range(3):
+        for j in range(3):
+            graph.add_node(Vector2D(i, j))
+    graph.reduce(irreducible_nodes={Vector2D(0, 0)})
+    assert graph.num_nodes == 6
+    assert graph.weight(Vector2D(0, 1), Vector2D(1, 0)) == inf
+
+
+def test_reducing_grid_maze_happens_recursively():
+    graph = GridMaze()
+    for i in range(11):
+        graph.add_node(Vector2D(i, 0))
+    graph.reduce(irreducible_nodes={Vector2D(0, 0), Vector2D(10, 0)})
+    assert graph.num_nodes == 2
+    assert graph.weight(Vector2D(0, 0), Vector2D(10, 0)) == 10
+
+
+def test_grid_maze_finds_shortest_distance_between_two_nodes():
+    graph = GridMaze()
+    for i in range(3):
+        for j in range(3):
+            graph.add_node(Vector2D(i, j))
+    graph.reduce(irreducible_nodes={Vector2D(0, 0)})
+    origin = Vector2D(0, 0)
+    destination = Vector2D(2, 1)
+    assert graph.shortest_distance(origin, destination) == 3

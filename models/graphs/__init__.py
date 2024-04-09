@@ -10,3 +10,4 @@ from .travelling_salesman import travelling_salesman
 from .dijkstra import dijkstra
 from .a_star import a_star
 from .disjoint_set import DisjointSet
+from .maze import GridMaze
