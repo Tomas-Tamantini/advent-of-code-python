@@ -2,11 +2,11 @@ from typing import Hashable, Protocol
 from math import inf
 from dataclasses import dataclass, field
 from queue import PriorityQueue
-from .dijkstra import WeightedProtocol
+from .dijkstra import WeightedGraph
 from dataclasses import dataclass
 
 
-class AStarGraphProtocol(WeightedProtocol, Protocol):
+class AStarGraphProtocol(WeightedGraph, Protocol):
     def heuristic_potential(self, node: Hashable) -> float: ...
 
 
