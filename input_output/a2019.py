@@ -353,10 +353,15 @@ def aoc_2019_d19(file_name: str, **_):
 
 # AOC 2019 Day 20: Donut Maze
 def aoc_2019_d20(file_name: str, parser: FileParser, **_):
-    maze = parser.parse_portal_maze(file_name)
-    num_steps = maze.num_steps_to_solve()
+    portal_maze = parser.parse_portal_maze(file_name)
+    num_steps = portal_maze.num_steps_to_solve()
     print(
-        f"AOC 2019 Day 20/Part 1: Fewest number of steps to reach the exit is {num_steps}"
+        f"AOC 2019 Day 20/Part 1: Fewest number of steps to reach the exit in Donut Maze is {num_steps}"
+    )
+    recursive_maze = parser.parse_recursive_donut_maze(file_name)
+    num_steps = recursive_maze.num_steps_to_solve()
+    print(
+        f"AOC 2019 Day 20/Part 2: Fewest number of steps to reach the exit in Recursive Donut Maze is {num_steps}"
     )
 
 

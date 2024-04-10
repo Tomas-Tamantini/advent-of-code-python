@@ -117,6 +117,7 @@ from models.aoc_2019 import (
     ChemicalReaction,
     TunnelMaze,
     PortalMaze,
+    RecursiveDonutMaze,
 )
 
 
@@ -1054,24 +1055,69 @@ class FileParser:
                 else other_char + neighbor_char
             )
 
+    @staticmethod
+    def _open_passage_tiles(lines: list[str]) -> Iterator[Vector2D]:
+        for y, line in enumerate(lines):
+            for x, char in enumerate(line):
+                if char == ".":
+                    yield Vector2D(x, y)
+
     def parse_portal_maze(self, file_name: str) -> PortalMaze:
         portals = defaultdict(list)
         maze = PortalMaze()
         lines = list(self._file_reader.readlines(file_name))
-        for y, line in enumerate(lines):
-            for x, char in enumerate(line):
-                if char != ".":
-                    continue
-                position = Vector2D(x, y)
-                maze.add_node(position)
-                portal_id = self._portal_id(position, lines)
-                if portal_id == "AA":
-                    maze.set_entrance(position)
-                elif portal_id == "ZZ":
-                    maze.set_exit(position)
-                elif portal_id is not None:
-                    portals[portal_id].append(position)
-        for portal_id, positions in portals.items():
+        for position in self._open_passage_tiles(lines):
+            maze.add_node(position)
+            portal_id = self._portal_id(position, lines)
+            if portal_id == "AA":
+                maze.set_entrance(position)
+            elif portal_id == "ZZ":
+                maze.set_exit(position)
+            elif portal_id is not None:
+                portals[portal_id].append(position)
+        for positions in portals.values():
             maze.add_portal(*positions)
+
+        return maze
+
+    def _is_inner_edge_of_donut_maze(
+        self, position: Vector2D, lines: list[str]
+    ) -> bool:
+        for direction in CardinalDirection:
+            intersected_other_tile = False
+            new_position = position.move(direction)
+            while (0 <= new_position.y < len(lines)) and (
+                0 <= new_position.x < len(lines[new_position.y])
+            ):
+                character = lines[new_position.y][new_position.x]
+                if character in {"#", "."}:
+                    intersected_other_tile = True
+                    break
+                new_position = new_position.move(direction)
+            if not intersected_other_tile:
+                return False
+        return True
+
+    def parse_recursive_donut_maze(self, file_name: str) -> RecursiveDonutMaze:
+        portals = defaultdict(dict)
+        maze = RecursiveDonutMaze()
+        lines = list(self._file_reader.readlines(file_name))
+        for position in self._open_passage_tiles(lines):
+            maze.add_node(position)
+            portal_id = self._portal_id(position, lines)
+            if portal_id == "AA":
+                maze.set_entrance(position)
+            elif portal_id == "ZZ":
+                maze.set_exit(position)
+            elif portal_id is not None:
+                kwarg = (
+                    "step_up"
+                    if self._is_inner_edge_of_donut_maze(position, lines)
+                    else "step_down"
+                )
+                portals[portal_id][kwarg] = position
+
+        for positions in portals.values():
+            maze.add_portal(**positions)
 
         return maze
