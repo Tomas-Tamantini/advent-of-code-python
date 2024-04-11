@@ -30,5 +30,7 @@ from .a2019_d21 import (
     run_spring_droid_program,
     SpringScriptInstruction,
     SpringScriptInstructionType,
+    SpringDroidInput,
     SpringDroidOutput,
+    BeginDroidCommand,
 )

@@ -1,17 +1,28 @@
 from typing import Iterator
+from enum import Enum
 from .springscript_instruction import SpringScriptInstruction
 
 
+class BeginDroidCommand(str, Enum):
+    WALK = "WALK"
+    RUN = "RUN"
+
+
 class SpringDroidInput:
-    def __init__(self, instructions: list[SpringScriptInstruction]) -> None:
+    def __init__(
+        self,
+        instructions: list[SpringScriptInstruction],
+        begin_droid_command: BeginDroidCommand = BeginDroidCommand.WALK,
+    ) -> None:
         self._instructions = instructions
         self._generator = self._char_generator()
+        self._begin_droid_command = begin_droid_command
 
     def _char_generator(self) -> Iterator[chr]:
         for instruction in self._instructions:
             yield from str(instruction)
             yield "\n"
-        for c in "WALK":
+        for c in self._begin_droid_command:
             yield c
         yield "\n"
 

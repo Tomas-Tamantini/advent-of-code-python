@@ -35,7 +35,9 @@ from models.aoc_2019 import (
     run_spring_droid_program,
     SpringScriptInstruction,
     SpringScriptInstructionType,
+    SpringDroidInput,
     SpringDroidOutput,
+    BeginDroidCommand,
 )
 
 
@@ -380,10 +382,11 @@ def aoc_2019_d21(file_name: str, **_):
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "J"),
         SpringScriptInstruction(SpringScriptInstructionType.OR, "T", "J"),
     ]
-    droid_output = SpringDroidOutput()
-    run_spring_droid_program(
-        intcode_instructions, springscript_instructions, droid_output
+    droid_input = SpringDroidInput(
+        springscript_instructions, begin_droid_command=BeginDroidCommand.WALK
     )
+    droid_output = SpringDroidOutput()
+    run_spring_droid_program(intcode_instructions, droid_input, droid_output)
     try:
         hull_damage = droid_output.large_output()
         print(

@@ -4,6 +4,7 @@ from models.aoc_2019.a2019_d21 import (
     SpringScriptInstructionType,
     SpringDroidInput,
     SpringDroidOutput,
+    BeginDroidCommand,
     run_spring_droid_program,
 )
 
@@ -13,10 +14,16 @@ def test_springscript_instruction_can_be_converted_to_string():
     assert str(instruction) == "AND A B"
 
 
-def test_springdroid_input_with_no_instructions_inputs_walk_command_as_ascii():
-    spring_droid_input = SpringDroidInput(instructions=[])
-    values = [spring_droid_input.read() for _ in range(5)]
-    expected_values = [ord(c) for c in "WALK\n"]
+@pytest.mark.parametrize(
+    "command, command_str",
+    [(BeginDroidCommand.WALK, "WALK"), (BeginDroidCommand.RUN, "RUN")],
+)
+def test_springdroid_input_with_no_instructions_inputs_walk_or_run_command_as_ascii(
+    command, command_str
+):
+    spring_droid_input = SpringDroidInput(instructions=[], begin_droid_command=command)
+    values = [spring_droid_input.read() for _ in range(len(command_str) + 1)]
+    expected_values = [ord(c) for c in f"{command_str}\n"]
     assert values == expected_values
 
 
@@ -73,7 +80,8 @@ def test_running_springdroid_program_reads_springscript_inputs_and_writes_to_out
     springscript_instructions = [
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "B"),
     ]
-    output = SpringDroidOutput()
-    run_spring_droid_program(intcode_instructions, springscript_instructions, output)
-    assert output.render() == "N"  # First letter of NOT A B
-    assert output.large_output() == 123456
+    droid_input = SpringDroidInput(springscript_instructions)
+    droid_output = SpringDroidOutput()
+    run_spring_droid_program(intcode_instructions, droid_input, droid_output)
+    assert droid_output.render() == "N"  # First letter of NOT A B
+    assert droid_output.large_output() == 123456
