@@ -4,6 +4,7 @@ from models.aoc_2019.a2019_d21 import (
     SpringScriptInstructionType,
     SpringDroidInput,
     SpringDroidOutput,
+    run_spring_droid_program,
 )
 
 
@@ -65,3 +66,14 @@ def test_springdroid_output_stores_value_larger_than_ascii_range_separately():
 def test_springdroid_output_large_integer_must_be_stored_before_being_fetched():
     with pytest.raises(ValueError):
         _ = SpringDroidOutput().large_output()
+
+
+def test_running_springdroid_program_reads_springscript_inputs_and_writes_to_output():
+    intcode_instructions = [3, 567, 4, 567, 104, 123456, 99]
+    springscript_instructions = [
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "B"),
+    ]
+    output = SpringDroidOutput()
+    run_spring_droid_program(intcode_instructions, springscript_instructions, output)
+    assert output.render() == "N"  # First letter of NOT A B
+    assert output.large_output() == 123456

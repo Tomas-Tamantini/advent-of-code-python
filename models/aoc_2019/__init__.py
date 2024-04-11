@@ -26,3 +26,9 @@ from .a2019_d17 import (
 from .a2019_d18 import TunnelMaze
 from .a2019_d19 import run_beam_scanner, BeamArea, square_closest_to_beam_source
 from .a2019_d20 import PortalMaze, RecursiveDonutMaze
+from .a2019_d21 import (
+    run_spring_droid_program,
+    SpringScriptInstruction,
+    SpringScriptInstructionType,
+    SpringDroidOutput,
+)
