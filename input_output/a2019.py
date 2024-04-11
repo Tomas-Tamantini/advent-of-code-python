@@ -374,11 +374,17 @@ def aoc_2019_d21(file_name: str, **_):
     with open(file_name, "r") as file:
         intcode_instructions = [int(code) for code in file.read().split(",")]
     springscript_instructions = [
-        SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "J")
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "C", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.AND, "A", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.AND, "D", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.OR, "T", "J"),
     ]
     output = SpringDroidOutput()
     run_spring_droid_program(intcode_instructions, springscript_instructions, output)
-    print(output.render())
+    print(
+        f"AOC 2019 Day 21/Part 1: Hull damage from walking on the hull is {output.large_output()}"
+    )
 
 
 # AOC 2019 Day 22: Slam Shuffle
