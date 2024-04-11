@@ -32,6 +32,10 @@ from models.aoc_2019 import (
     BeamArea,
     run_beam_scanner,
     square_closest_to_beam_source,
+    run_spring_droid_program,
+    SpringScriptInstruction,
+    SpringScriptInstructionType,
+    SpringDroidOutput,
 )
 
 
@@ -366,7 +370,15 @@ def aoc_2019_d20(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 Day 21: Springdroid Adventure
-def aoc_2019_d21(file_name: str, **_): ...
+def aoc_2019_d21(file_name: str, **_):
+    with open(file_name, "r") as file:
+        intcode_instructions = [int(code) for code in file.read().split(",")]
+    springscript_instructions = [
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "J")
+    ]
+    output = SpringDroidOutput()
+    run_spring_droid_program(intcode_instructions, springscript_instructions, output)
+    print(output.render())
 
 
 # AOC 2019 Day 22: Slam Shuffle
