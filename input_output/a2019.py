@@ -380,11 +380,20 @@ def aoc_2019_d21(file_name: str, **_):
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "J"),
         SpringScriptInstruction(SpringScriptInstructionType.OR, "T", "J"),
     ]
-    output = SpringDroidOutput()
-    run_spring_droid_program(intcode_instructions, springscript_instructions, output)
-    print(
-        f"AOC 2019 Day 21/Part 1: Hull damage from walking on the hull is {output.large_output()}"
+    droid_output = SpringDroidOutput()
+    run_spring_droid_program(
+        intcode_instructions, springscript_instructions, droid_output
     )
+    try:
+        hull_damage = droid_output.large_output()
+        print(
+            f"AOC 2019 Day 21/Part 1: Hull damage from walking on the hull is {hull_damage}"
+        )
+    except ValueError:
+        print(droid_output.render())
+        print(
+            "AOC 2019 Day 21/Part 1: Spring bot fell into a hole. Try a different springscript."
+        )
 
 
 # AOC 2019 Day 22: Slam Shuffle
