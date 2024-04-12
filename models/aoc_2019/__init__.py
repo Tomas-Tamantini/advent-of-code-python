@@ -40,3 +40,4 @@ from .a2019_d22 import (
     DealWithIncrementShuffle,
     MultiTechniqueShuffle,
 )
+from .a2019_d23 import run_network, NetworkRouter

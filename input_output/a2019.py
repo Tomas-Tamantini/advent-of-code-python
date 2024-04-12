@@ -38,6 +38,8 @@ from models.aoc_2019 import (
     SpringDroidInput,
     SpringDroidOutput,
     BeginDroidCommand,
+    NetworkRouter,
+    run_network,
 )
 
 
@@ -441,7 +443,15 @@ def aoc_2019_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 Day 23: Category Six
-def aoc_2019_d23(file_name: str, **_): ...
+def aoc_2019_d23(file_name: str, **_):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    router = NetworkRouter(num_computers=50)
+    run_network(router, instructions)
+    lost_packets = router.lost_packets
+    print(
+        f"AOC 2019 Day 23/Part 1: Y value of the first packet sent to address 255 is {lost_packets[0].content.y}"
+    )
 
 
 # AOC 2019 Day 24: Planet of Discord

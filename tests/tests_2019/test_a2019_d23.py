@@ -5,6 +5,7 @@ from models.aoc_2019.a2019_d23 import (
     NetworkInput,
     NetworkRouter,
     NetworkOutput,
+    run_network,
 )
 
 
@@ -91,7 +92,7 @@ def test_network_router_stores_lost_package():
     package = NetworkPacket(destination_address=3, content=Vector2D(x=10, y=20))
     with pytest.raises(NetworkRouter.BadSendAddressError):
         router.send(package)
-    assert router.lost_packages == [package]
+    assert router.lost_packets == [package]
 
 
 def test_network_output_builds_packages_and_sends_them_to_router():
@@ -124,3 +125,35 @@ def test_network_output_builds_packages_and_sends_them_to_router():
 
     assert router.network_input(address=0).read() == 0
     assert router.network_input(address=0).read() == -1
+
+
+def test_network_computers_run_identical_intcode_program_until_bad_address_is_sent():
+    # Program: Each computer gets its address as input, then output packet to address + 1. Last one should crash network.
+    instructions = [
+        3,  # Save address at #100
+        100,
+        101,  # Save address + 1 at #101
+        1,
+        100,
+        101,
+        102,  # Save address*10 at #102
+        10,
+        100,
+        102,
+        102,  # Save address*20 at #103
+        20,
+        100,
+        103,
+        4,  # Output packet destination, x and y
+        101,
+        4,
+        102,
+        4,
+        103,
+        99,
+    ]
+    router = NetworkRouter(num_computers=3)
+    run_network(instructions=instructions, router=router)
+    assert router.lost_packets == [
+        NetworkPacket(destination_address=3, content=Vector2D(x=20, y=40))
+    ]
