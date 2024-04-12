@@ -397,6 +397,39 @@ def aoc_2019_d21(file_name: str, **_):
         print(
             "AOC 2019 Day 21/Part 1: Spring bot fell into a hole. Try a different springscript."
         )
+    # Program to try: A' + B'E' + B'F'I' + C'E'F' + C'F'I'
+    springscript_instructions = [
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "D", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "H", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.OR, "J", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "G", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.AND, "J", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "C", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.OR, "J", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "F", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.AND, "J", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "B", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.OR, "J", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "E", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.AND, "J", "T"),
+        SpringScriptInstruction(SpringScriptInstructionType.NOT, "A", "J"),
+        SpringScriptInstruction(SpringScriptInstructionType.OR, "T", "J"),
+    ]
+    droid_input = SpringDroidInput(
+        springscript_instructions, begin_droid_command=BeginDroidCommand.RUN
+    )
+    droid_output = SpringDroidOutput()
+    run_spring_droid_program(intcode_instructions, droid_input, droid_output)
+    try:
+        hull_damage = droid_output.large_output()
+        print(
+            f"AOC 2019 Day 21/Part 2: Hull damage from running on the hull is {hull_damage}"
+        )
+    except ValueError:
+        print(droid_output.render())
+        print(
+            "AOC 2019 Day 21/Part 2: Spring bot fell into a hole. Try a different springscript."
+        )
 
 
 # AOC 2019 Day 22: Slam Shuffle
