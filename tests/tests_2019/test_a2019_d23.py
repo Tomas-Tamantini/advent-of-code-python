@@ -1,6 +1,6 @@
 import pytest
 from models.vectors import Vector2D
-from models.aoc_2019.a2019_d23 import NetworkPacket, NetworkInput
+from models.aoc_2019.a2019_d23 import NetworkPacket, NetworkInput, NetworkRouter
 
 
 def test_network_input_first_informs_computer_address():
@@ -45,3 +45,45 @@ def test_network_input_enqueues_received_packets():
         network_input.read() == expected_value
         for expected_value in expected_read_values
     )
+
+
+def test_network_router_creates_one_input_for_each_computer():
+    router = NetworkRouter(num_computers=3)
+    assert router.network_input(address=0) is not None
+    assert router.network_input(address=1) is not None
+    assert router.network_input(address=2) is not None
+    with pytest.raises(IndexError):
+        router.network_input(address=3)
+
+
+def test_network_router_sends_packet_to_proper_address():
+    router = NetworkRouter(num_computers=3)
+    router.send(NetworkPacket(destination_address=1, content=Vector2D(x=10, y=20)))
+    router.send(NetworkPacket(destination_address=2, content=Vector2D(x=30, y=40)))
+    router.send(NetworkPacket(destination_address=1, content=Vector2D(x=50, y=60)))
+    assert router.network_input(address=0).read() == 0
+    assert router.network_input(address=0).read() == -1
+    assert router.network_input(address=1).read() == 1
+    assert router.network_input(address=1).read() == 10
+    assert router.network_input(address=1).read() == 20
+    assert router.network_input(address=1).read() == 50
+    assert router.network_input(address=1).read() == 60
+    assert router.network_input(address=1).read() == -1
+    assert router.network_input(address=2).read() == 2
+    assert router.network_input(address=2).read() == 30
+    assert router.network_input(address=2).read() == 40
+    assert router.network_input(address=2).read() == -1
+
+
+def test_network_router_raises_bad_send_address_error_if_invalid_packet_address():
+    router = NetworkRouter(num_computers=3)
+    with pytest.raises(NetworkRouter.BadSendAddressError):
+        router.send(NetworkPacket(destination_address=3, content=Vector2D(x=10, y=20)))
+
+
+def test_network_router_stores_lost_package():
+    router = NetworkRouter(num_computers=3)
+    package = NetworkPacket(destination_address=3, content=Vector2D(x=10, y=20))
+    with pytest.raises(NetworkRouter.BadSendAddressError):
+        router.send(package)
+    assert router.lost_packages == [package]
