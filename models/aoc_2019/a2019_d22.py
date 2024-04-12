@@ -3,15 +3,15 @@ from typing import Protocol
 
 class _Shuffle(Protocol):
     def new_card_position(
-        self, current_card_position: int, total_num_cards: int
+        self, position_before_shuffle: int, total_num_cards: int
     ) -> int: ...
 
 
 class DealIntoNewStackShuffle:
     def new_card_position(
-        self, current_card_position: int, total_num_cards: int
+        self, position_before_shuffle: int, total_num_cards: int
     ) -> int:
-        return total_num_cards - current_card_position - 1
+        return total_num_cards - position_before_shuffle - 1
 
 
 class CutCardsShuffle:
@@ -19,9 +19,9 @@ class CutCardsShuffle:
         self._num_cards_to_cut = num_cards_to_cut
 
     def new_card_position(
-        self, current_card_position: int, total_num_cards: int
+        self, position_before_shuffle: int, total_num_cards: int
     ) -> int:
-        return (current_card_position - self._num_cards_to_cut) % total_num_cards
+        return (position_before_shuffle - self._num_cards_to_cut) % total_num_cards
 
 
 class DealWithIncrementShuffle:
@@ -29,9 +29,9 @@ class DealWithIncrementShuffle:
         self._increment = increment
 
     def new_card_position(
-        self, current_card_position: int, total_num_cards: int
+        self, position_before_shuffle: int, total_num_cards: int
     ) -> int:
-        return (current_card_position * self._increment) % total_num_cards
+        return (position_before_shuffle * self._increment) % total_num_cards
 
 
 class MultiTechniqueShuffle:
@@ -39,10 +39,10 @@ class MultiTechniqueShuffle:
         self._techniques = techniques
 
     def new_card_position(
-        self, current_card_position: int, total_num_cards: int
+        self, position_before_shuffle: int, total_num_cards: int
     ) -> int:
         for technique in self._techniques:
-            current_card_position = technique.new_card_position(
-                current_card_position, total_num_cards
+            position_before_shuffle = technique.new_card_position(
+                position_before_shuffle, total_num_cards
             )
-        return current_card_position
+        return position_before_shuffle
