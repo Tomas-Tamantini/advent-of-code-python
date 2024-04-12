@@ -61,29 +61,35 @@ def test_multi_technique_shuffle_does_nothing_if_no_instructions():
     assert new_position == 7
 
 
+example_shuffle = MultiTechniqueShuffle(
+    techniques=[
+        DealIntoNewStackShuffle(),
+        CutCardsShuffle(num_cards_to_cut=-2),
+        DealWithIncrementShuffle(increment=7),
+        CutCardsShuffle(num_cards_to_cut=8),
+        CutCardsShuffle(num_cards_to_cut=-4),
+        DealWithIncrementShuffle(increment=7),
+        CutCardsShuffle(num_cards_to_cut=3),
+        DealWithIncrementShuffle(increment=9),
+        DealWithIncrementShuffle(increment=3),
+        CutCardsShuffle(num_cards_to_cut=-1),
+    ]
+)
+
+
 def test_multi_technique_shuffle_applies_shuffles_in_given_order():
     deck_size = 10
-    shuffle = MultiTechniqueShuffle(
-        techniques=[
-            DealIntoNewStackShuffle(),
-            CutCardsShuffle(num_cards_to_cut=-2),
-            DealWithIncrementShuffle(increment=7),
-            CutCardsShuffle(num_cards_to_cut=8),
-            CutCardsShuffle(num_cards_to_cut=-4),
-            DealWithIncrementShuffle(increment=7),
-            CutCardsShuffle(num_cards_to_cut=3),
-            DealWithIncrementShuffle(increment=9),
-            DealWithIncrementShuffle(increment=3),
-            CutCardsShuffle(num_cards_to_cut=-1),
-        ]
+    expected_positions = [7, 4, 1, 8, 5, 2, 9, 6, 3, 0]
+    assert all(
+        example_shuffle.new_card_position(i, deck_size) == expected_positions[i]
+        for i in range(deck_size)
     )
-    assert shuffle.new_card_position(0, deck_size) == 7
-    assert shuffle.new_card_position(1, deck_size) == 4
-    assert shuffle.new_card_position(2, deck_size) == 1
-    assert shuffle.new_card_position(3, deck_size) == 8
-    assert shuffle.new_card_position(4, deck_size) == 5
-    assert shuffle.new_card_position(5, deck_size) == 2
-    assert shuffle.new_card_position(6, deck_size) == 9
-    assert shuffle.new_card_position(7, deck_size) == 6
-    assert shuffle.new_card_position(8, deck_size) == 3
-    assert shuffle.new_card_position(9, deck_size) == 0
+
+
+def test_shuffle_can_be_reversed():
+    deck_size = 10
+    expected_positions = [9, 2, 5, 8, 1, 4, 7, 0, 3, 6]
+    assert all(
+        example_shuffle.original_card_position(i, deck_size) == expected_positions[i]
+        for i in range(deck_size)
+    )

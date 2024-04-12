@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from models.number_theory import modular_inverse
 
 
 @dataclass(frozen=True)
@@ -21,11 +22,34 @@ class _LinearShuffle:
     def linear_coefficients(self) -> _LinearCoefficients:
         return self._coefficients
 
-    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
+    def _inverse_coefficients(self, deck_size: int) -> _LinearCoefficients:
+        inv_a = modular_inverse(self._coefficients.first_degree, deck_size)
+        new_b = (-inv_a * self._coefficients.zeroth_degree) % deck_size
+        return _LinearCoefficients(inv_a, new_b)
+
+    @staticmethod
+    def _apply_coefficients(
+        coefficients: _LinearCoefficients,
+        position_before_shuffle: int,
+        deck_size: int,
+    ) -> int:
         return (
-            self._coefficients.first_degree * position_before_shuffle
-            + self._coefficients.zeroth_degree
+            coefficients.first_degree * position_before_shuffle
+            + coefficients.zeroth_degree
         ) % deck_size
+
+    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
+        return self._apply_coefficients(
+            self._coefficients, position_before_shuffle, deck_size
+        )
+
+    def original_card_position(
+        self, position_after_shuffle: int, deck_size: int
+    ) -> int:
+        inverse_coefficients = self._inverse_coefficients(deck_size)
+        return self._apply_coefficients(
+            inverse_coefficients, position_after_shuffle, deck_size
+        )
 
 
 class DealIntoNewStackShuffle(_LinearShuffle):
