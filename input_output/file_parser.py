@@ -1126,17 +1126,13 @@ class FileParser:
 
         return maze
 
-    def parse_multi_technique_shuffle(
-        self, file_name: str, deck_size: int
-    ) -> MultiTechniqueShuffle:
+    def parse_multi_technique_shuffle(self, file_name: str) -> MultiTechniqueShuffle:
         techniques = []
         for line in self._file_reader.readlines(file_name):
             if "deal into new stack" in line:
-                techniques.append(DealIntoNewStackShuffle(deck_size))
+                techniques.append(DealIntoNewStackShuffle())
             elif "cut" in line:
-                techniques.append(CutCardsShuffle(deck_size, int(line.split()[-1])))
+                techniques.append(CutCardsShuffle(int(line.split()[-1])))
             elif "deal with increment" in line:
-                techniques.append(
-                    DealWithIncrementShuffle(deck_size, int(line.split()[-1]))
-                )
+                techniques.append(DealWithIncrementShuffle(int(line.split()[-1])))
         return MultiTechniqueShuffle(techniques)

@@ -1120,5 +1120,5 @@ def test_can_parse_shuffle_techniques():
                    cut -1
                    """
     file_parser = mock_file_parser(file_content)
-    shuffle = file_parser.parse_multi_technique_shuffle("some_file", deck_size=10)
-    assert shuffle.new_card_position(position_before_shuffle=3) == 8
+    shuffle = file_parser.parse_multi_technique_shuffle("some_file")
+    assert shuffle.new_card_position(position_before_shuffle=3, deck_size=10) == 8

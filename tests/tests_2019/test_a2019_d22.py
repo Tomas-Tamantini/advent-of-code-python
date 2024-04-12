@@ -14,8 +14,8 @@ from models.aoc_2019 import (
 def test_dealing_into_new_stack_reverses_cards(
     position_before_shuffle, deck_size, expected_new_position
 ):
-    shuffle = DealIntoNewStackShuffle(deck_size)
-    new_position = shuffle.new_card_position(position_before_shuffle)
+    shuffle = DealIntoNewStackShuffle()
+    new_position = shuffle.new_card_position(position_before_shuffle, deck_size)
     assert new_position == expected_new_position
 
 
@@ -26,8 +26,8 @@ def test_dealing_into_new_stack_reverses_cards(
 def test_cutting_n_cards_sends_them_to_bottom(
     num_cards_to_cut, position_before_shuffle, deck_size, expected_new_position
 ):
-    shuffle = CutCardsShuffle(deck_size, num_cards_to_cut)
-    new_position = shuffle.new_card_position(position_before_shuffle)
+    shuffle = CutCardsShuffle(num_cards_to_cut)
+    new_position = shuffle.new_card_position(position_before_shuffle, deck_size)
     assert new_position == expected_new_position
 
 
@@ -38,8 +38,8 @@ def test_cutting_n_cards_sends_them_to_bottom(
 def test_cutting_negative_num_cards_sends_bottom_ones_to_the_top(
     num_cards_to_cut, position_before_shuffle, deck_size, expected_new_position
 ):
-    shuffle = CutCardsShuffle(deck_size, num_cards_to_cut)
-    new_position = shuffle.new_card_position(position_before_shuffle)
+    shuffle = CutCardsShuffle(num_cards_to_cut)
+    new_position = shuffle.new_card_position(position_before_shuffle, deck_size)
     assert new_position == expected_new_position
 
 
@@ -50,39 +50,40 @@ def test_cutting_negative_num_cards_sends_bottom_ones_to_the_top(
 def test_dealing_with_increment_spaces_cards_out_by_increment(
     increment, position_before_shuffle, deck_size, expected_new_position
 ):
-    shuffle = DealWithIncrementShuffle(deck_size, increment)
-    new_position = shuffle.new_card_position(position_before_shuffle)
+    shuffle = DealWithIncrementShuffle(increment)
+    new_position = shuffle.new_card_position(position_before_shuffle, deck_size)
     assert new_position == expected_new_position
 
 
 def test_multi_technique_shuffle_does_nothing_if_no_instructions():
     shuffle = MultiTechniqueShuffle(techniques=[])
-    new_position = shuffle.new_card_position(7)
+    new_position = shuffle.new_card_position(7, deck_size=123)
     assert new_position == 7
 
 
 def test_multi_technique_shuffle_applies_shuffles_in_given_order():
+    deck_size = 10
     shuffle = MultiTechniqueShuffle(
         techniques=[
-            DealIntoNewStackShuffle(deck_size=10),
-            CutCardsShuffle(deck_size=10, num_cards_to_cut=-2),
-            DealWithIncrementShuffle(deck_size=10, increment=7),
-            CutCardsShuffle(deck_size=10, num_cards_to_cut=8),
-            CutCardsShuffle(deck_size=10, num_cards_to_cut=-4),
-            DealWithIncrementShuffle(deck_size=10, increment=7),
-            CutCardsShuffle(deck_size=10, num_cards_to_cut=3),
-            DealWithIncrementShuffle(deck_size=10, increment=9),
-            DealWithIncrementShuffle(deck_size=10, increment=3),
-            CutCardsShuffle(deck_size=10, num_cards_to_cut=-1),
+            DealIntoNewStackShuffle(),
+            CutCardsShuffle(num_cards_to_cut=-2),
+            DealWithIncrementShuffle(increment=7),
+            CutCardsShuffle(num_cards_to_cut=8),
+            CutCardsShuffle(num_cards_to_cut=-4),
+            DealWithIncrementShuffle(increment=7),
+            CutCardsShuffle(num_cards_to_cut=3),
+            DealWithIncrementShuffle(increment=9),
+            DealWithIncrementShuffle(increment=3),
+            CutCardsShuffle(num_cards_to_cut=-1),
         ]
     )
-    assert shuffle.new_card_position(0) == 7
-    assert shuffle.new_card_position(1) == 4
-    assert shuffle.new_card_position(2) == 1
-    assert shuffle.new_card_position(3) == 8
-    assert shuffle.new_card_position(4) == 5
-    assert shuffle.new_card_position(5) == 2
-    assert shuffle.new_card_position(6) == 9
-    assert shuffle.new_card_position(7) == 6
-    assert shuffle.new_card_position(8) == 3
-    assert shuffle.new_card_position(9) == 0
+    assert shuffle.new_card_position(0, deck_size) == 7
+    assert shuffle.new_card_position(1, deck_size) == 4
+    assert shuffle.new_card_position(2, deck_size) == 1
+    assert shuffle.new_card_position(3, deck_size) == 8
+    assert shuffle.new_card_position(4, deck_size) == 5
+    assert shuffle.new_card_position(5, deck_size) == 2
+    assert shuffle.new_card_position(6, deck_size) == 9
+    assert shuffle.new_card_position(7, deck_size) == 6
+    assert shuffle.new_card_position(8, deck_size) == 3
+    assert shuffle.new_card_position(9, deck_size) == 0
