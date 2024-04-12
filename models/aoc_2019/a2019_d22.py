@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.number_theory import modular_inverse
+from models.number_theory import modular_inverse, are_coprime
 
 
 @dataclass(frozen=True)
@@ -12,6 +12,22 @@ class _LinearCoefficients:
             first_degree=self.first_degree * other.first_degree,
             zeroth_degree=other.first_degree * self.zeroth_degree + other.zeroth_degree,
         )
+
+    def _iterative_multi_compose(self, num_compositions: int) -> "_LinearCoefficients":
+        coefficients = _LinearCoefficients(1, 0)
+        for _ in range(num_compositions):
+            coefficients = coefficients.compose(self)
+        return coefficients
+
+    def multi_compose(self, num_compositions: int, mod: int) -> "_LinearCoefficients":
+        if not are_coprime(self.first_degree - 1, mod):
+            return self._iterative_multi_compose(num_compositions)
+        a_n = pow(self.first_degree, num_compositions, mod)
+        new_a = a_n
+        new_b = (
+            self.zeroth_degree * (a_n - 1) * modular_inverse(self.first_degree - 1, mod)
+        ) % mod
+        return _LinearCoefficients(new_a, new_b)
 
 
 class _LinearShuffle:
@@ -38,15 +54,20 @@ class _LinearShuffle:
             + coefficients.zeroth_degree
         ) % deck_size
 
-    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
+    def new_card_position(
+        self, position_before_shuffle: int, deck_size: int, num_shuffles: int = 1
+    ) -> int:
+        coefficients = self._coefficients.multi_compose(num_shuffles, mod=deck_size)
         return self._apply_coefficients(
-            self._coefficients, position_before_shuffle, deck_size
+            coefficients, position_before_shuffle, deck_size
         )
 
     def original_card_position(
-        self, position_after_shuffle: int, deck_size: int
+        self, position_after_shuffle: int, deck_size: int, num_shuffles: int = 1
     ) -> int:
-        inverse_coefficients = self._inverse_coefficients(deck_size)
+        inverse_coefficients = self._inverse_coefficients(deck_size).multi_compose(
+            num_shuffles, mod=deck_size
+        )
         return self._apply_coefficients(
             inverse_coefficients, position_after_shuffle, deck_size
         )

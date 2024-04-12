@@ -430,6 +430,14 @@ def aoc_2019_d22(file_name: str, parser: FileParser, **_):
         position_before_shuffle=2019, deck_size=10_007
     )
     print(f"AOC 2019 Day 22/Part 1: New position of card 2019 is {new_position}")
+    original_position = shuffle.original_card_position(
+        position_after_shuffle=2020,
+        deck_size=119315717514047,
+        num_shuffles=101741582076661,
+    )
+    print(
+        f"AOC 2019 Day 22/Part 2: Original position of card 2020 is {original_position}"
+    )
 
 
 # AOC 2019 Day 23: Category Six

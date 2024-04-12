@@ -93,3 +93,17 @@ def test_shuffle_can_be_reversed():
         example_shuffle.original_card_position(i, deck_size) == expected_positions[i]
         for i in range(deck_size)
     )
+
+
+def test_shuffle_can_be_done_multiple_times():
+    deck_size = 11
+    num_shuffles = 100
+    assert all(
+        example_shuffle.new_card_position(
+            example_shuffle.original_card_position(i, deck_size, num_shuffles),
+            deck_size,
+            num_shuffles,
+        )
+        == i
+        for i in range(deck_size)
+    )
