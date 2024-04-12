@@ -45,16 +45,9 @@ class DealWithIncrementShuffle(_LinearShuffle):
         super().__init__(coefficients)
 
 
-class MultiTechniqueShuffle:
+class MultiTechniqueShuffle(_LinearShuffle):
     def __init__(self, techniques: list[_LinearShuffle]) -> None:
-        self._linear_coefficients = _LinearCoefficients(1, 0)
+        coefficients = _LinearCoefficients(1, 0)
         for technique in techniques:
-            self._linear_coefficients = self._linear_coefficients.compose(
-                technique.linear_coefficients
-            )
-
-    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
-        return (
-            self._linear_coefficients.first_degree * position_before_shuffle
-            + self._linear_coefficients.zeroth_degree
-        ) % deck_size
+            coefficients = coefficients.compose(technique.linear_coefficients)
+        super().__init__(coefficients)
