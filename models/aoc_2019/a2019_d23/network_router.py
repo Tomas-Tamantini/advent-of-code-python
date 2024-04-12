@@ -7,7 +7,7 @@ class NetworkRouter:
         self._network_inputs = [
             NetworkInput(address=address) for address in range(num_computers)
         ]
-        self._lost_packages = []
+        self._lost_packets = []
 
     @property
     def num_computers(self) -> int:
@@ -17,7 +17,7 @@ class NetworkRouter:
         if packet.destination_address < 0 or packet.destination_address >= len(
             self._network_inputs
         ):
-            self._lost_packages.append(packet)
+            self._lost_packets.append(packet)
             raise self.BadSendAddressError("Destination address out of range")
         self._network_inputs[packet.destination_address].enqueue(packet)
 
@@ -27,8 +27,8 @@ class NetworkRouter:
         return self._network_inputs[address]
 
     @property
-    def lost_packages(self) -> list[NetworkPacket]:
-        return self._lost_packages
+    def lost_packets(self) -> list[NetworkPacket]:
+        return self._lost_packets
 
     class BadSendAddressError(Exception):
         pass
