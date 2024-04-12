@@ -425,10 +425,9 @@ def aoc_2019_d21(file_name: str, **_):
 
 # AOC 2019 Day 22: Slam Shuffle
 def aoc_2019_d22(file_name: str, parser: FileParser, **_):
-    shuffle = parser.parse_multi_technique_shuffle(file_name)
-    new_position = shuffle.new_card_position(
-        position_before_shuffle=2019, total_num_cards=10_007
-    )
+    deck_size = 10_007
+    shuffle = parser.parse_multi_technique_shuffle(file_name, deck_size)
+    new_position = shuffle.new_card_position(position_before_shuffle=2019)
     print(f"AOC 2019 Day 22/Part 1: New position of card 2019 is {new_position}")
 
 
