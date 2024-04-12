@@ -9,6 +9,10 @@ class NetworkRouter:
         ]
         self._lost_packages = []
 
+    @property
+    def num_computers(self) -> int:
+        return len(self._network_inputs)
+
     def send(self, packet: NetworkPacket) -> None:
         if packet.destination_address < 0 or packet.destination_address >= len(
             self._network_inputs
