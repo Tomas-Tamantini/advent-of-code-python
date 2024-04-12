@@ -1,6 +1,11 @@
 import pytest
 from models.vectors import Vector2D
-from models.aoc_2019.a2019_d23 import NetworkPacket, NetworkInput, NetworkRouter
+from models.aoc_2019.a2019_d23 import (
+    NetworkPacket,
+    NetworkInput,
+    NetworkRouter,
+    NetworkOutput,
+)
 
 
 def test_network_input_first_informs_computer_address():
@@ -87,3 +92,35 @@ def test_network_router_stores_lost_package():
     with pytest.raises(NetworkRouter.BadSendAddressError):
         router.send(package)
     assert router.lost_packages == [package]
+
+
+def test_network_output_builds_packages_and_sends_them_to_router():
+    router = NetworkRouter(num_computers=3)
+    network_output = NetworkOutput(router=router)
+
+    network_output.write(2)
+    network_output.write(10)
+    network_output.write(20)
+
+    network_output.write(1)
+    network_output.write(30)
+    network_output.write(40)
+
+    network_output.write(2)
+    network_output.write(50)
+    network_output.write(60)
+
+    assert router.network_input(address=2).read() == 2
+    assert router.network_input(address=2).read() == 10
+    assert router.network_input(address=2).read() == 20
+    assert router.network_input(address=2).read() == 50
+    assert router.network_input(address=2).read() == 60
+    assert router.network_input(address=2).read() == -1
+
+    assert router.network_input(address=1).read() == 1
+    assert router.network_input(address=1).read() == 30
+    assert router.network_input(address=1).read() == 40
+    assert router.network_input(address=1).read() == -1
+
+    assert router.network_input(address=0).read() == 0
+    assert router.network_input(address=0).read() == -1
