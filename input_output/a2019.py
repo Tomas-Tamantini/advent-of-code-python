@@ -424,7 +424,12 @@ def aoc_2019_d21(file_name: str, **_):
 
 
 # AOC 2019 Day 22: Slam Shuffle
-def aoc_2019_d22(file_name: str, **_): ...
+def aoc_2019_d22(file_name: str, parser: FileParser, **_):
+    shuffle = parser.parse_multi_technique_shuffle(file_name)
+    new_position = shuffle.new_card_position(
+        current_card_position=2019, total_num_cards=10_007
+    )
+    print(f"AOC 2019 Day 22/Part 1: New position of card 2019 is {new_position}")
 
 
 # AOC 2019 Day 23: Category Six

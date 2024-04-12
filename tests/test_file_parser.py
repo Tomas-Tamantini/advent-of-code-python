@@ -1104,3 +1104,21 @@ def test_can_parse_recursive_donut_maze():
     file_parser = mock_file_parser(file_content)
     maze = file_parser.parse_recursive_donut_maze("some_file")
     assert maze.num_steps_to_solve() == 396
+
+
+def test_can_parse_shuffle_techniques():
+    file_content = """
+                   deal into new stack
+                   cut -2
+                   deal with increment 7
+                   cut 8
+                   cut -4
+                   deal with increment 7
+                   cut 3
+                   deal with increment 9
+                   deal with increment 3
+                   cut -1
+                   """
+    file_parser = mock_file_parser(file_content)
+    shuffle = file_parser.parse_multi_technique_shuffle("some_file")
+    assert shuffle.new_card_position(current_card_position=3, total_num_cards=10) == 8
