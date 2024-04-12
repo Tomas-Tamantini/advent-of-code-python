@@ -6,6 +6,7 @@ from models.number_theory import (
     ChineseRemainder,
     solve_chinese_remainder_system,
     is_prime,
+    modular_inverse,
 )
 
 
@@ -110,3 +111,20 @@ def test_chinese_remainder_system_runs_efficiently():
 )
 def test_can_check_number_for_primality_efficiently(n, expected):
     assert is_prime(n) == expected
+
+
+@pytest.mark.parametrize(
+    "a, mod, inv_a",
+    [(3, 7, 5), (5, 7, 3), (3, 11, 4), (4, 11, 3), (7, 11, 8), (8, 11, 7)],
+)
+def test_modular_inverse_finds_inverse_of_a_modulo_n(a, mod, inv_a):
+    assert modular_inverse(a, mod) == inv_a
+
+
+@pytest.mark.parametrize(
+    "a, mod",
+    [(0, 2), (3, 39), (21, 45)],
+)
+def test_modular_inverse_raises_value_error_if_a_and_n_are_not_coprime(a, mod):
+    with pytest.raises(ValueError):
+        modular_inverse(a, mod)
