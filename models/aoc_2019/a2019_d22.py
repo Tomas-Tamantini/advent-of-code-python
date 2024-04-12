@@ -1,4 +1,3 @@
-from typing import Protocol
 from dataclasses import dataclass
 
 
@@ -14,46 +13,36 @@ class _LinearCoefficients:
         )
 
 
-class _LinearShuffle(Protocol):
-    def new_card_position(
-        self, position_before_shuffle: int, deck_size: int
-    ) -> int: ...
-
-    @property
-    def linear_coefficients(self) -> _LinearCoefficients: ...
-
-
-class DealIntoNewStackShuffle:
-    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
-        return deck_size - position_before_shuffle - 1
+class _LinearShuffle:
+    def __init__(self, coefficients: _LinearCoefficients) -> None:
+        self._coefficients = coefficients
 
     @property
     def linear_coefficients(self) -> _LinearCoefficients:
-        return _LinearCoefficients(-1, -1)
+        return self._coefficients
+
+    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
+        return (
+            self._coefficients.first_degree * position_before_shuffle
+            + self._coefficients.zeroth_degree
+        ) % deck_size
 
 
-class CutCardsShuffle:
+class DealIntoNewStackShuffle(_LinearShuffle):
+    def __init__(self) -> None:
+        super().__init__(_LinearCoefficients(-1, -1))
+
+
+class CutCardsShuffle(_LinearShuffle):
     def __init__(self, num_cards_to_cut: int) -> None:
-        self._num_cards_to_cut = num_cards_to_cut
-
-    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
-        return (position_before_shuffle - self._num_cards_to_cut) % deck_size
-
-    @property
-    def linear_coefficients(self) -> _LinearCoefficients:
-        return _LinearCoefficients(1, -self._num_cards_to_cut)
+        coefficients = _LinearCoefficients(1, -num_cards_to_cut)
+        super().__init__(coefficients)
 
 
-class DealWithIncrementShuffle:
+class DealWithIncrementShuffle(_LinearShuffle):
     def __init__(self, increment: int) -> None:
-        self._increment = increment
-
-    def new_card_position(self, position_before_shuffle: int, deck_size: int) -> int:
-        return (position_before_shuffle * self._increment) % deck_size
-
-    @property
-    def linear_coefficients(self) -> _LinearCoefficients:
-        return _LinearCoefficients(self._increment, 0)
+        coefficients = _LinearCoefficients(increment, 0)
+        super().__init__(coefficients)
 
 
 class MultiTechniqueShuffle:
