@@ -34,3 +34,9 @@ from .a2019_d21 import (
     SpringDroidOutput,
     BeginDroidCommand,
 )
+from .a2019_d22 import (
+    DealIntoNewStackShuffle,
+    CutCardsShuffle,
+    DealWithIncrementShuffle,
+    MultiTechniqueShuffle,
+)
