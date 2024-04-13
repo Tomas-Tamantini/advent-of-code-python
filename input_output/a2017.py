@@ -383,7 +383,7 @@ def aoc_2017_d24(file_name: str, parser: FileParser, **_):
     builder.build()
     print(f"AOC 2017 Day 24/Part 1: Maximum bridge strength: {builder.max_strength}")
     print(
-        f"AOC 2017 Day 24/Part 1: Maximum strength of longest bridge: {builder.max_strength_of_longest_bridge}"
+        f"AOC 2017 Day 24/Part 2: Maximum strength of longest bridge: {builder.max_strength_of_longest_bridge}"
     )
 
 
