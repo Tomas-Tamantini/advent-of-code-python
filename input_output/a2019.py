@@ -42,6 +42,7 @@ from models.aoc_2019 import (
     MonitorRepeatedYValuePackets,
     run_network,
     LostPackets,
+    BugsAutomaton,
 )
 
 
@@ -469,7 +470,15 @@ def aoc_2019_d23(file_name: str, **_):
 
 
 # AOC 2019 Day 24: Planet of Discord
-def aoc_2019_d24(file_name: str, **_): ...
+def aoc_2019_d24(file_name: str, parser: FileParser, **_):
+    _, live_cells = parser.parse_game_of_life(file_name)
+    cells_as_vectors = {Vector2D(*p) for p in live_cells}
+    automaton = BugsAutomaton(width=5, height=5)
+    repeated_state = automaton.first_pattern_to_appear_twice(cells_as_vectors)
+    rating = automaton.biodiversity_rating(repeated_state)
+    print(
+        f"AOC 2019 Day 24/Part 1: Biodiversity rating of the first repeated state is {rating}"
+    )
 
 
 # AOC 2019 Day 25: Cryostasis
