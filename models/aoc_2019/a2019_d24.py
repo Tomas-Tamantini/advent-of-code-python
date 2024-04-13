@@ -1,9 +1,21 @@
-from typing import Hashable
-
-from models.vectors import Vector2D
-from models.cellular_automata import CellCluster, MultiState2DAutomaton
+from typing import Hashable, Iterator
+from dataclasses import dataclass
+from models.vectors import Vector2D, CardinalDirection
+from models.cellular_automata import (
+    CellCluster,
+    MultiState2DAutomaton,
+    automaton_next_state,
+)
 
 DEAD, ALIVE = 0, 1
+
+
+def _bugs_automaton_rule(cluster: CellCluster) -> Hashable:
+    if cluster.cell_type == DEAD and 1 <= cluster.neighbors.count(ALIVE) <= 2:
+        return ALIVE
+    elif cluster.cell_type == ALIVE and cluster.neighbors.count(ALIVE) == 1:
+        return ALIVE
+    return DEAD
 
 
 class BugsAutomaton(MultiState2DAutomaton):
@@ -14,11 +26,7 @@ class BugsAutomaton(MultiState2DAutomaton):
         )
 
     def apply_rule(self, cluster: CellCluster) -> Hashable:
-        if cluster.cell_type == DEAD and 1 <= cluster.neighbors.count(ALIVE) <= 2:
-            return ALIVE
-        elif cluster.cell_type == ALIVE and cluster.neighbors.count(ALIVE) == 1:
-            return ALIVE
-        return DEAD
+        return _bugs_automaton_rule(cluster)
 
     def next_live_cells(self, live_cells: set[Vector2D]) -> set[Vector2D]:
         cells = {c: ALIVE for c in live_cells}
@@ -39,10 +47,69 @@ class BugsAutomaton(MultiState2DAutomaton):
             seen.add(frozenset(state))
             state = self.next_live_cells(state)
 
-    def render(self, live_cells: set[Vector2D]) -> str:
-        return "\n".join(
-            "".join(
-                "#" if Vector2D(x, y) in live_cells else "." for x in range(self._width)
-            )
-            for y in range(self._height)
-        )
+
+@dataclass(frozen=True)
+class RecursiveTile:
+    position: Vector2D
+    level: int
+
+
+class RecursiveBugsAutomaton:
+    def __init__(self, width: int, height: int) -> None:
+        self._height = height
+        self._width = width
+        self._center = Vector2D(width // 2, height // 2)
+
+    @property
+    def default_cell_type(self) -> int:
+        return DEAD
+
+    def is_within_bounds(self, cell: RecursiveTile) -> bool:
+        return True
+
+    def _is_center(self, position: Vector2D) -> bool:
+        return position == self._center
+
+    def _central_neighbors(
+        self, direction: CardinalDirection, level: int
+    ) -> Iterator[RecursiveTile]:
+        new_level = level - 1
+        if direction.is_horizontal:
+            x_coord = 0 if direction == CardinalDirection.EAST else self._width - 1
+            for i in range(self._height):
+                yield RecursiveTile(Vector2D(x_coord, i), new_level)
+        else:
+            y_coord = 0 if direction == CardinalDirection.NORTH else self._height - 1
+            for i in range(self._width):
+                yield RecursiveTile(Vector2D(i, y_coord), new_level)
+
+    def neighbors(self, cell: RecursiveTile) -> Iterator[RecursiveTile]:
+        for direction in CardinalDirection:
+            neighbor = cell.position.move(direction)
+            if neighbor.x < 0:
+                yield RecursiveTile(self._center - Vector2D(1, 0), cell.level + 1)
+            elif neighbor.y < 0:
+                yield RecursiveTile(self._center - Vector2D(0, 1), cell.level + 1)
+            elif neighbor.x >= self._width:
+                yield RecursiveTile(self._center + Vector2D(1, 0), cell.level + 1)
+            elif neighbor.y >= self._height:
+                yield RecursiveTile(self._center + Vector2D(0, 1), cell.level + 1)
+            elif neighbor == self._center:
+                yield from self._central_neighbors(direction, cell.level)
+            else:
+                yield RecursiveTile(neighbor, cell.level)
+
+    def apply_rule(self, cluster: CellCluster) -> int:
+        return _bugs_automaton_rule(cluster)
+
+    def advance(
+        self, initial_configuration_on_level_zero: set[Vector2D], num_steps: int
+    ) -> set[RecursiveTile]:
+        current_state = {
+            RecursiveTile(position, level=0): ALIVE
+            for position in initial_configuration_on_level_zero
+        }
+        for _ in range(num_steps):
+            current_state = automaton_next_state(self, current_state)
+        final_state = {cell for cell in current_state if current_state[cell] == ALIVE}
+        return final_state

@@ -46,4 +46,4 @@ from .a2019_d23 import (
     MonitorBadAddressPackets,
     MonitorRepeatedYValuePackets,
 )
-from .a2019_d24 import BugsAutomaton
+from .a2019_d24 import BugsAutomaton, RecursiveBugsAutomaton

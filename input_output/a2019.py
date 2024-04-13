@@ -43,6 +43,7 @@ from models.aoc_2019 import (
     run_network,
     LostPackets,
     BugsAutomaton,
+    RecursiveBugsAutomaton,
 )
 
 
@@ -473,11 +474,21 @@ def aoc_2019_d23(file_name: str, **_):
 def aoc_2019_d24(file_name: str, parser: FileParser, **_):
     _, live_cells = parser.parse_game_of_life(file_name)
     cells_as_vectors = {Vector2D(*p) for p in live_cells}
+
     automaton = BugsAutomaton(width=5, height=5)
     repeated_state = automaton.first_pattern_to_appear_twice(cells_as_vectors)
     rating = automaton.biodiversity_rating(repeated_state)
     print(
         f"AOC 2019 Day 24/Part 1: Biodiversity rating of the first repeated state is {rating}"
+    )
+
+    recursive_automaton = RecursiveBugsAutomaton(width=5, height=5)
+    final_state = recursive_automaton.advance(
+        initial_configuration_on_level_zero=cells_as_vectors, num_steps=200
+    )
+    num_bugs = len(final_state)
+    print(
+        f"AOC 2019 Day 24/Part 2: Number of bugs in recursive grid after 200 minutes is {num_bugs}"
     )
 
 
