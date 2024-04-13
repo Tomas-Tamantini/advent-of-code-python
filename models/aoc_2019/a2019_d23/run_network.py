@@ -34,7 +34,8 @@ def _computer_states(
 
 def run_network(router: NetworkRouter, instructions: list[int]) -> None:
     computers = list(_computer_states(router, instructions))
-    while True:
+    num_halted_computers = 0
+    while num_halted_computers < router.num_computers:
         for computer_state in computers:
             if computer_state.is_halted:
                 continue
@@ -42,5 +43,6 @@ def run_network(router: NetworkRouter, instructions: list[int]) -> None:
                 computer_state.computer.run_next_instruction(computer_state.program)
             except StopIteration:
                 computer_state.is_halted = True
+                num_halted_computers += 1
             except NetworkRouter.BadSendAddressError:
                 return
