@@ -7,6 +7,7 @@ class NetworkInput:
         self._address = address
         self._is_first_read = False
         self._queue = Queue()
+        self._last_read_was_from_empty_queue = False
 
     def enqueue(self, packet: NetworkPacket) -> None:
         if packet.destination_address != self._address:
@@ -18,5 +19,12 @@ class NetworkInput:
         if not self._is_first_read:
             self._is_first_read = True
             return self._address
+        elif self._queue.empty():
+            self._last_read_was_from_empty_queue = True
+            return -1
         else:
-            return self._queue.get() if not self._queue.empty() else -1
+            self._last_read_was_from_empty_queue = False
+            return self._queue.get()
+
+    def is_idle(self) -> bool:
+        return self._queue.empty() and self._last_read_was_from_empty_queue

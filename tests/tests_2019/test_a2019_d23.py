@@ -53,6 +53,28 @@ def test_network_input_enqueues_received_packets():
     )
 
 
+def test_network_input_is_not_idle_if_there_are_packets_to_read():
+    network_input = NetworkInput(address=0)
+    network_input.read()
+    network_input.enqueue(
+        NetworkPacket(destination_address=0, content=Vector2D(x=123, y=456))
+    )
+    assert not network_input.is_idle()
+
+
+def test_network_input_is_not_idle_if_last_read_was_not_from_empty_queue():
+    network_input = NetworkInput(address=0)
+    network_input.read()
+    assert not network_input.is_idle()
+
+
+def test_network_input_is_idle_if_queue_is_empty_and_last_read_was_from_empty_queue():
+    network_input = NetworkInput(address=0)
+    network_input.read()
+    network_input.read()
+    assert network_input.is_idle()
+
+
 def test_network_router_creates_one_input_for_each_computer():
     router = NetworkRouter(num_computers=3)
     assert router.network_input(address=0) is not None
