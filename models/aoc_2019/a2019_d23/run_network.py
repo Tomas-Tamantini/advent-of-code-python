@@ -4,6 +4,7 @@ from models.assembly import Hardware, Processor, Computer
 from models.aoc_2019.intcode import IntcodeProgram
 from .network_router import NetworkRouter
 from .network_output import NetworkOutput
+from .lost_packets import LostPackets
 
 
 @dataclass
@@ -32,10 +33,12 @@ def _computer_states(
         yield _ComputerState(computer, program)
 
 
-def run_network(router: NetworkRouter, instructions: list[int]) -> None:
+def run_network_until_bad_address(
+    num_computers: int, lost_packets_manager: LostPackets, instructions: list[int]
+) -> None:
+    router = NetworkRouter(num_computers, lost_packets_manager)
     computers = list(_computer_states(router, instructions))
-    num_halted_computers = 0
-    while num_halted_computers < router.num_computers:
+    while True:
         for computer_state in computers:
             if computer_state.is_halted:
                 continue
@@ -43,6 +46,25 @@ def run_network(router: NetworkRouter, instructions: list[int]) -> None:
                 computer_state.computer.run_next_instruction(computer_state.program)
             except StopIteration:
                 computer_state.is_halted = True
-                num_halted_computers += 1
-            except NetworkRouter.BadSendAddressError:
+            if lost_packets_manager.received_packet:
                 return
+
+
+def run_network_until_y_overflow(
+    num_computers: int, lost_packets_manager: LostPackets, instructions: list[int]
+) -> None:
+    router = NetworkRouter(num_computers, lost_packets_manager)
+    computers = list(_computer_states(router, instructions))
+    while True:
+        if router.is_idle():
+            try:
+                router.resend_lost_packet()
+            except OverflowError:
+                return
+        for computer_state in computers:
+            if computer_state.is_halted:
+                continue
+            try:
+                computer_state.computer.run_next_instruction(computer_state.program)
+            except StopIteration:
+                computer_state.is_halted = True
