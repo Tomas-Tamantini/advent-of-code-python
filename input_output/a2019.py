@@ -38,8 +38,9 @@ from models.aoc_2019 import (
     SpringDroidInput,
     SpringDroidOutput,
     BeginDroidCommand,
-    run_network_until_bad_address,
-    run_network_until_y_overflow,
+    MonitorBadAddressPackets,
+    MonitorRepeatedYValuePackets,
+    run_network,
     LostPackets,
 )
 
@@ -448,17 +449,19 @@ def aoc_2019_d23(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
     num_computers = 50
-    lost_packets_manager = LostPackets()
-    run_network_until_bad_address(num_computers, lost_packets_manager, instructions)
-    ans = lost_packets_manager.y_value_last_packet
+    lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())
+    run_network(num_computers, lost_packets_manager, instructions)
+    ans = lost_packets_manager.content_last_packet.y
     print(
         f"AOC 2019 Day 23/Part 1: Y value of the first packet sent to address 255 is {ans}"
     )
 
-    lost_packets_manager = LostPackets(max_repeated_y_sent=1)
+    lost_packets_manager = LostPackets(
+        monitor=MonitorRepeatedYValuePackets(max_repeated_y=1)
+    )
     print("Be patient, it takes ~1min to run", end="\r")
-    run_network_until_y_overflow(num_computers, lost_packets_manager, instructions)
-    ans = lost_packets_manager.y_value_last_packet
+    run_network(num_computers, lost_packets_manager, instructions)
+    ans = lost_packets_manager.content_last_packet.y
 
     print(
         f"AOC 2019 Day 23/Part 2: Y value of the first packet sent to address 255 after NAT repeats a packet is {ans}"

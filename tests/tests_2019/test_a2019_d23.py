@@ -1,13 +1,18 @@
 import pytest
+from unittest import mock
+from typing import Optional
 from models.vectors import Vector2D
 from models.aoc_2019.a2019_d23 import (
     NetworkPacket,
     NetworkInput,
     NetworkRouter,
     NetworkOutput,
-    run_network_until_y_overflow,
-    run_network_until_bad_address,
+    run_network,
     LostPackets,
+    PacketMonitor,
+    HaltNetworkError,
+    MonitorBadAddressPackets,
+    MonitorRepeatedYValuePackets,
 )
 
 
@@ -78,40 +83,79 @@ def test_network_input_is_idle_if_queue_is_empty_and_last_3_reads_were_from_empt
     assert network_input.is_idle()
 
 
+def _lost_packets(monitor: Optional[PacketMonitor] = None) -> LostPackets:
+    if not monitor:
+        monitor = mock.Mock()
+    return LostPackets(monitor)
+
+
 def test_lost_packets_manager_stores_last_packet_it_received():
-    lost_packets = LostPackets()
+    lost_packets = _lost_packets()
     content = Vector2D(x=123, y=456)
     packet = NetworkPacket(destination_address=7, content=content)
     lost_packets.store(packet)
-    assert lost_packets.last_packet().content == content
+    assert lost_packets.load_last_packet().content == content
 
 
 def test_lost_packets_manager_overwrites_destination_address_to_zero():
-    lost_packets = LostPackets()
+    lost_packets = _lost_packets()
     packet = NetworkPacket(destination_address=7, content=Vector2D(x=123, y=456))
     lost_packets.store(packet)
-    assert lost_packets.last_packet().destination_address == 0
+    assert lost_packets.load_last_packet().destination_address == 0
 
 
 def test_trying_to_fetch_lost_packet_when_none_was_stored_raises_error():
-    lost_packets = LostPackets()
+    lost_packets = _lost_packets()
     with pytest.raises(ValueError):
-        lost_packets.last_packet()
+        lost_packets.load_last_packet()
 
 
-def test_lost_packets_manager_raises_overflow_error_when_too_many_repeated_y_values_are_read():
-    lost_packets = LostPackets(max_repeated_y_sent=3)
-    lost_packets.store(
-        NetworkPacket(destination_address=0, content=Vector2D(x=10, y=20))
+def test_lost_packets_manager_informs_packets_stored_and_loaded_to_monitor():
+    mock_monitor = mock.Mock()
+    lost_packets = LostPackets(mock_monitor)
+    content = Vector2D(x=123, y=456)
+    packet = NetworkPacket(destination_address=7, content=content)
+    expected_packet = NetworkPacket(destination_address=0, content=content)
+    lost_packets.store(packet)
+    assert mock_monitor.on_store_lost_packet.call_count == 1
+    assert mock_monitor.on_store_lost_packet.call_args == mock.call(expected_packet)
+    loaded_packet = lost_packets.load_last_packet()
+    assert mock_monitor.on_load_lost_packet.call_count == 1
+    assert mock_monitor.on_load_lost_packet.call_args == mock.call(expected_packet)
+    assert loaded_packet == expected_packet
+
+
+def test_bad_address_monitor_raises_halt_error_when_packet_is_stored_in_lost_packets_manager():
+    monitor = MonitorBadAddressPackets()
+    with pytest.raises(HaltNetworkError):
+        monitor.on_store_lost_packet(
+            NetworkPacket(destination_address=7, content=Vector2D(0, 0))
+        )
+    with pytest.raises(HaltNetworkError):
+        monitor.on_load_lost_packet(
+            NetworkPacket(destination_address=7, content=Vector2D(0, 0))
+        )
+
+
+def test_repeated_y_value_monitor_raises_halt_error_when_too_many_repeated_y_values_are_read():
+    monitor = MonitorRepeatedYValuePackets(max_repeated_y=3)
+    monitor.on_load_lost_packet(
+        NetworkPacket(destination_address=0, content=Vector2D(0, 2))
     )
-    for _ in range(3):
-        lost_packets.last_packet()
-    with pytest.raises(OverflowError):
-        lost_packets.last_packet()
+    monitor.on_load_lost_packet(
+        NetworkPacket(destination_address=0, content=Vector2D(1, 2))
+    )
+    monitor.on_load_lost_packet(
+        NetworkPacket(destination_address=0, content=Vector2D(2, 2))
+    )
+    with pytest.raises(HaltNetworkError):
+        monitor.on_load_lost_packet(
+            NetworkPacket(destination_address=0, content=Vector2D(3, 2))
+        )
 
 
 def test_network_router_creates_one_input_for_each_computer():
-    router = NetworkRouter(num_computers=3, lost_packets_manager=LostPackets())
+    router = NetworkRouter(num_computers=3, lost_packets_manager=_lost_packets())
     assert router.network_input(address=0) is not None
     assert router.network_input(address=1) is not None
     assert router.network_input(address=2) is not None
@@ -120,7 +164,7 @@ def test_network_router_creates_one_input_for_each_computer():
 
 
 def test_network_router_sends_packet_to_proper_address():
-    router = NetworkRouter(num_computers=3, lost_packets_manager=LostPackets())
+    router = NetworkRouter(num_computers=3, lost_packets_manager=_lost_packets())
     router.send(NetworkPacket(destination_address=1, content=Vector2D(x=10, y=20)))
     router.send(NetworkPacket(destination_address=2, content=Vector2D(x=30, y=40)))
     router.send(NetworkPacket(destination_address=1, content=Vector2D(x=50, y=60)))
@@ -139,18 +183,18 @@ def test_network_router_sends_packet_to_proper_address():
 
 
 def test_network_router_stores_packet_with_bad_address_in_lost_packet_manager():
-    lost_packets = LostPackets()
+    lost_packets = _lost_packets()
     router = NetworkRouter(num_computers=3, lost_packets_manager=lost_packets)
     content = Vector2D(x=10, y=20)
     packet = NetworkPacket(destination_address=3, content=content)
     router.send(packet)
-    assert lost_packets.last_packet() == NetworkPacket(
+    assert lost_packets.load_last_packet() == NetworkPacket(
         destination_address=0, content=content
     )
 
 
 def test_network_sends_last_lost_packet_to_computer_zero():
-    router = NetworkRouter(num_computers=3, lost_packets_manager=LostPackets())
+    router = NetworkRouter(num_computers=3, lost_packets_manager=_lost_packets())
     content = Vector2D(x=10, y=20)
     packet = NetworkPacket(destination_address=3, content=content)
     router.send(packet)
@@ -162,7 +206,7 @@ def test_network_sends_last_lost_packet_to_computer_zero():
 
 
 def test_network_is_idle_if_all_inputs_are_idle():
-    router = NetworkRouter(num_computers=3, lost_packets_manager=LostPackets())
+    router = NetworkRouter(num_computers=3, lost_packets_manager=_lost_packets())
     assert not router.is_idle()
     for address in range(3):
         for _ in range(4):
@@ -171,7 +215,7 @@ def test_network_is_idle_if_all_inputs_are_idle():
 
 
 def test_network_output_builds_packets_and_sends_them_to_router():
-    router = NetworkRouter(num_computers=3, lost_packets_manager=LostPackets())
+    router = NetworkRouter(num_computers=3, lost_packets_manager=_lost_packets())
     network_output = NetworkOutput(router=router)
 
     network_output.write(2)
@@ -227,11 +271,11 @@ def test_network_computers_run_identical_intcode_program_until_bad_address():
         103,
         99,
     ]
-    lost_packets = LostPackets(max_repeated_y_sent=10)
-    run_network_until_bad_address(
+    lost_packets = LostPackets(monitor=MonitorBadAddressPackets())
+    run_network(
         num_computers=3, lost_packets_manager=lost_packets, instructions=instructions
     )
-    assert lost_packets.y_value_last_packet == 40
+    assert lost_packets.content_last_packet == Vector2D(x=20, y=40)
 
 
 def test_network_computers_run_identical_intcode_program_until_overflow_of_lost_packets_with_same_y_value():
@@ -259,8 +303,8 @@ def test_network_computers_run_identical_intcode_program_until_overflow_of_lost_
         103,
     ]
     instructions += [3, 1000] * 10 + [99]  # A few inputs to reach idle state
-    lost_packets = LostPackets(max_repeated_y_sent=1)
-    run_network_until_y_overflow(
+    lost_packets = LostPackets(monitor=MonitorRepeatedYValuePackets(max_repeated_y=1))
+    run_network(
         num_computers=3, lost_packets_manager=lost_packets, instructions=instructions
     )
-    assert lost_packets.y_value_last_packet == 40
+    assert lost_packets.content_last_packet == Vector2D(x=20, y=40)

@@ -31,4 +31,4 @@ class NetworkRouter:
         return all(input.is_idle() for input in self._network_inputs)
 
     def resend_lost_packet(self) -> None:
-        self.send(self._lost_packets_manager.last_packet())
+        self.send(self._lost_packets_manager.load_last_packet())

@@ -41,7 +41,8 @@ from .a2019_d22 import (
     MultiTechniqueShuffle,
 )
 from .a2019_d23 import (
-    run_network_until_y_overflow,
+    run_network,
     LostPackets,
-    run_network_until_bad_address,
+    MonitorBadAddressPackets,
+    MonitorRepeatedYValuePackets,
 )
