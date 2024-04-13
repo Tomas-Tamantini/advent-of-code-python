@@ -13,7 +13,7 @@ class BugsAutomaton(MultiState2DAutomaton):
             default_cell_type, width, height, consider_diagonal_neighbors=False
         )
 
-    def _apply_rule(self, cluster: CellCluster) -> Hashable:
+    def apply_rule(self, cluster: CellCluster) -> Hashable:
         if cluster.cell_type == DEAD and 1 <= cluster.neighbors.count(ALIVE) <= 2:
             return ALIVE
         elif cluster.cell_type == ALIVE and cluster.neighbors.count(ALIVE) == 1:

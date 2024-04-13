@@ -9,4 +9,5 @@ from .two_dimensional_automata import (
     LangtonsAnt,
     AntState,
     MultiStateLangtonsAnt,
+    automaton_next_state,
 )

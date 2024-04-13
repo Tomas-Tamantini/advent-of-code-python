@@ -13,7 +13,7 @@ class GameOfLife(MultiState2DAutomaton):
         default_cell_type = DEAD
         super().__init__(default_cell_type, width, height)
 
-    def _apply_rule(self, cluster: CellCluster) -> Hashable:
+    def apply_rule(self, cluster: CellCluster) -> Hashable:
         if cluster.cell_type == DEAD and cluster.neighbors.count(ALIVE) == 3:
             return ALIVE
         elif cluster.cell_type == ALIVE and 2 <= cluster.neighbors.count(ALIVE) <= 3:

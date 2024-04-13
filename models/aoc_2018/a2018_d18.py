@@ -16,7 +16,7 @@ class LumberArea(MultiState2DAutomaton):
         default_cell_type = AcreType.OPEN
         super().__init__(default_cell_type, width, height)
 
-    def _apply_rule(self, cluster: CellCluster) -> AcreType:
+    def apply_rule(self, cluster: CellCluster) -> AcreType:
         if (
             cluster.cell_type == AcreType.OPEN
             and cluster.neighbors.count(AcreType.TREE) >= 3
