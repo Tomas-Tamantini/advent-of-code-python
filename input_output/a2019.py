@@ -1,5 +1,6 @@
 from itertools import permutations
 from input_output.file_parser import FileParser
+from input_output.progress_bar import ProgressBarConsole
 from models.vectors import Vector2D
 from models.aoc_2019 import (
     fuel_requirement,
@@ -471,7 +472,9 @@ def aoc_2019_d23(file_name: str, **_):
 
 
 # AOC 2019 Day 24: Planet of Discord
-def aoc_2019_d24(file_name: str, parser: FileParser, **_):
+def aoc_2019_d24(
+    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
+):
     _, live_cells = parser.parse_game_of_life(file_name)
     cells_as_vectors = {Vector2D(*p) for p in live_cells}
 
@@ -484,7 +487,9 @@ def aoc_2019_d24(file_name: str, parser: FileParser, **_):
 
     recursive_automaton = RecursiveBugsAutomaton(width=5, height=5)
     final_state = recursive_automaton.advance(
-        initial_configuration_on_level_zero=cells_as_vectors, num_steps=200
+        initial_configuration_on_level_zero=cells_as_vectors,
+        num_steps=200,
+        progress_bar=progress_bar,
     )
     num_bugs = len(final_state)
     print(

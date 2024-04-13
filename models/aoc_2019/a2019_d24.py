@@ -1,4 +1,4 @@
-from typing import Hashable, Iterator
+from typing import Hashable, Iterator, Optional
 from dataclasses import dataclass
 from models.vectors import Vector2D, CardinalDirection
 from models.cellular_automata import (
@@ -6,6 +6,7 @@ from models.cellular_automata import (
     MultiState2DAutomaton,
     automaton_next_state,
 )
+from models.progress_bar_protocol import ProgressBar
 
 DEAD, ALIVE = 0, 1
 
@@ -103,13 +104,19 @@ class RecursiveBugsAutomaton:
         return _bugs_automaton_rule(cluster)
 
     def advance(
-        self, initial_configuration_on_level_zero: set[Vector2D], num_steps: int
+        self,
+        initial_configuration_on_level_zero: set[Vector2D],
+        num_steps: int,
+        progress_bar: Optional[ProgressBar] = None,
     ) -> set[RecursiveTile]:
         current_state = {
             RecursiveTile(position, level=0): ALIVE
             for position in initial_configuration_on_level_zero
         }
-        for _ in range(num_steps):
+        for current_step in range(num_steps):
+            if progress_bar is not None:
+                current_step += 1
+                progress_bar.update(current_step, num_steps)
             current_state = automaton_next_state(self, current_state)
         final_state = {cell for cell in current_state if current_state[cell] == ALIVE}
         return final_state
