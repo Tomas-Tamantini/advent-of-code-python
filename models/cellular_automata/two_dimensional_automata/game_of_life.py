@@ -15,12 +15,12 @@ class GameOfLife(MultiState2DAutomaton):
 
     def _apply_rule(self, cluster: CellCluster) -> Hashable:
         if cluster.cell_type == DEAD and cluster.neighbors.count(ALIVE) == 3:
-            return 1
+            return ALIVE
         elif cluster.cell_type == ALIVE and 2 <= cluster.neighbors.count(ALIVE) <= 3:
-            return 1
+            return ALIVE
         return DEAD
 
     def next_live_cells(self, live_cells: set[tuple[int, int]]) -> set[tuple[int, int]]:
-        cells = {Vector2D(x, y): 1 for x, y in live_cells}
+        cells = {Vector2D(x, y): ALIVE for x, y in live_cells}
         next_gen = self.next_state(cells)
-        return {(pos.x, pos.y) for pos, cell in next_gen.items() if cell == 1}
+        return {(pos.x, pos.y) for pos, cell in next_gen.items() if cell == ALIVE}
