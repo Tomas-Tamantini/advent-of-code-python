@@ -16,10 +16,12 @@ class MultiState2DAutomaton:
         default_cell_type: Hashable = 0,
         width: Optional[int] = None,
         height: Optional[int] = None,
+        consider_diagonal_neighbors: bool = True,
     ) -> None:
         self._default_cell_type = default_cell_type
         self._width = width
         self._height = height
+        self._consider_diagonal_neighbors = consider_diagonal_neighbors
 
     def _is_within_bounds(self, position: Vector2D) -> bool:
         if self._width is None or self._height is None:
@@ -27,7 +29,9 @@ class MultiState2DAutomaton:
         return 0 <= position.x < self._width and 0 <= position.y < self._height
 
     def _neighbors(self, position: Vector2D) -> Iterator[tuple[int, int]]:
-        for neighbor in position.adjacent_positions(include_diagonals=True):
+        for neighbor in position.adjacent_positions(
+            include_diagonals=self._consider_diagonal_neighbors
+        ):
             if self._is_within_bounds(neighbor):
                 yield neighbor
 
