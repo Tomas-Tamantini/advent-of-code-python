@@ -6,6 +6,7 @@ from models.aoc_2019.a2019_d23 import (
     NetworkRouter,
     NetworkOutput,
     run_network,
+    LostPackets,
 )
 
 
@@ -73,6 +74,27 @@ def test_network_input_is_idle_if_queue_is_empty_and_last_read_was_from_empty_qu
     network_input.read()
     network_input.read()
     assert network_input.is_idle()
+
+
+def test_lost_packets_manager_stores_last_packet_it_received():
+    lost_packets = LostPackets()
+    content = Vector2D(x=123, y=456)
+    packet = NetworkPacket(destination_address=7, content=content)
+    lost_packets.store(packet)
+    assert lost_packets.last_packet().content == content
+
+
+def test_lost_packets_managers_overwrites_destination_address_to_zero():
+    lost_packets = LostPackets()
+    packet = NetworkPacket(destination_address=7, content=Vector2D(x=123, y=456))
+    lost_packets.store(packet)
+    assert lost_packets.last_packet().destination_address == 0
+
+
+def test_trying_to_fetch_lost_packet_when_none_was_stored_raises_error():
+    lost_packets = LostPackets()
+    with pytest.raises(ValueError):
+        lost_packets.last_packet()
 
 
 def test_network_router_creates_one_input_for_each_computer():
