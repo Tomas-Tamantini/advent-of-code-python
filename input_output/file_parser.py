@@ -123,7 +123,11 @@ from models.aoc_2019 import (
     DealWithIncrementShuffle,
     MultiTechniqueShuffle,
 )
-from models.aoc_2020 import PasswordPolicy
+from models.aoc_2020 import (
+    PasswordPolicy,
+    RangePasswordPolicy,
+    PositionalPasswordPolicy,
+)
 
 
 class FileReaderProtocol(Protocol):
@@ -1139,19 +1143,24 @@ class FileParser:
         return MultiTechniqueShuffle(techniques)
 
     @staticmethod
-    def _parse_password_policy_and_password(line: str) -> tuple[PasswordPolicy, str]:
+    def _parse_password_policy_and_password(
+        line: str, use_range_policy: bool
+    ) -> tuple[PasswordPolicy, str]:
         parts = line.split(":")
         policy_parts = parts[0].split(" ")
-        min_occurrences, max_occurrences = map(int, policy_parts[0].split("-"))
+        num_a, num_b = map(int, policy_parts[0].split("-"))
         letter = policy_parts[1]
-        return (
-            PasswordPolicy(letter,min_occurrences, max_occurrences),
-            parts[1].strip(),
-        )
+        password = parts[1].strip()
+        if use_range_policy:
+            return RangePasswordPolicy(letter, num_a, num_b), password
+        else:
+            return PositionalPasswordPolicy(letter, num_a, num_b), password
 
     def parse_password_policies_and_passwords(
-        self, file_name: str
+        self, file_name: str, use_range_policy: bool
     ) -> Iterator[tuple[PasswordPolicy, str]]:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
-                yield self._parse_password_policy_and_password(line.strip())
+                yield self._parse_password_policy_and_password(
+                    line.strip(), use_range_policy
+                )

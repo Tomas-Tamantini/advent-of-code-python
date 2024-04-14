@@ -64,7 +64,7 @@ from models.aoc_2018 import (
     ArmyGroup,
 )
 from models.aoc_2019 import ChemicalReaction, ChemicalQuantity
-from models.aoc_2020 import PasswordPolicy
+from models.aoc_2020 import RangePasswordPolicy, PositionalPasswordPolicy
 
 
 class MockFileReader:
@@ -1125,16 +1125,57 @@ def test_can_parse_shuffle_techniques():
     assert shuffle.new_card_position(position_before_shuffle=3, deck_size=10) == 8
 
 
-def test_can_parse_pairs_of_password_policy_and_password():
+def test_can_parse_pairs_of_range_password_policy_and_password():
     file_content = """
                    1-3 a: abcde
                    1-3 b: cdefg
                    2-9 c: ccccccccc
                    """
     file_parser = mock_file_parser(file_content)
-    pairs = list(file_parser.parse_password_policies_and_passwords("some_file"))
+    pairs = list(
+        file_parser.parse_password_policies_and_passwords(
+            "some_file", use_range_policy=True
+        )
+    )
     assert pairs == [
-        (PasswordPolicy(letter="a", min_occurrences=1, max_occurrences=3), "abcde"),
-        (PasswordPolicy(letter="b", min_occurrences=1, max_occurrences=3), "cdefg"),
-        (PasswordPolicy(letter="c", min_occurrences=2, max_occurrences=9), "ccccccccc"),
+        (
+            RangePasswordPolicy(letter="a", min_occurrences=1, max_occurrences=3),
+            "abcde",
+        ),
+        (
+            RangePasswordPolicy(letter="b", min_occurrences=1, max_occurrences=3),
+            "cdefg",
+        ),
+        (
+            RangePasswordPolicy(letter="c", min_occurrences=2, max_occurrences=9),
+            "ccccccccc",
+        ),
+    ]
+
+
+def test_can_parse_pairs_of_positional_password_policy_and_password():
+    file_content = """
+                   1-3 a: abcde
+                   1-3 b: cdefg
+                   2-9 c: ccccccccc
+                   """
+    file_parser = mock_file_parser(file_content)
+    pairs = list(
+        file_parser.parse_password_policies_and_passwords(
+            "some_file", use_range_policy=False
+        )
+    )
+    assert pairs == [
+        (
+            PositionalPasswordPolicy(letter="a", first_position=1, second_position=3),
+            "abcde",
+        ),
+        (
+            PositionalPasswordPolicy(letter="b", first_position=1, second_position=3),
+            "cdefg",
+        ),
+        (
+            PositionalPasswordPolicy(letter="c", first_position=2, second_position=9),
+            "ccccccccc",
+        ),
     ]

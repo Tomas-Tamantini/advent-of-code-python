@@ -15,11 +15,27 @@ def aoc_2020_d1(file_name: str, **_):
 
 # AOC 2020: Day 2: Password Philosophy
 def aoc_2020_d2(file_name: str, parser: FileParser, **_):
-    num_valid_passwords = 0
-    for policy, password in parser.parse_password_policies_and_passwords(file_name):
-        if policy.is_valid(password):
-            num_valid_passwords += 1
-    print(f"AOC 2020 Day 2/Part 1: {num_valid_passwords} valid passwords")
+    num_valid_range_passwords = sum(
+        1
+        for policy, password in parser.parse_password_policies_and_passwords(
+            file_name, use_range_policy=True
+        )
+        if policy.is_valid(password)
+    )
+    print(
+        f"AOC 2020 Day 2/Part 1: {num_valid_range_passwords} valid passwords using range rule"
+    )
+
+    num_valid_positional_passwords = sum(
+        1
+        for policy, password in parser.parse_password_policies_and_passwords(
+            file_name, use_range_policy=False
+        )
+        if policy.is_valid(password)
+    )
+    print(
+        f"AOC 2020 Day 2/Part 2: {num_valid_positional_passwords} valid passwords using positional rule"
+    )
 
 
 # AOC 2020: Day 3: Toboggan Trajectory
