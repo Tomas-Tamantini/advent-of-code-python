@@ -5,6 +5,7 @@ from .a2016 import ALL_2016_SOLUTIONS
 from .a2017 import ALL_2017_SOLUTIONS
 from .a2018 import ALL_2018_SOLUTIONS
 from .a2019 import ALL_2019_SOLUTIONS
+from .a2020 import ALL_2020_SOLUTIONS
 
 
 def run_solutions(
@@ -16,6 +17,7 @@ def run_solutions(
         2017: ALL_2017_SOLUTIONS,
         2018: ALL_2018_SOLUTIONS,
         2019: ALL_2019_SOLUTIONS,
+        2020: ALL_2020_SOLUTIONS,
     }
     for year, days in problems.items():
         if len(days) == 0:
