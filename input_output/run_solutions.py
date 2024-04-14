@@ -7,7 +7,9 @@ from .a2018 import ALL_2018_SOLUTIONS
 from .a2019 import ALL_2019_SOLUTIONS
 
 
-def run_solutions(problems: dict[int, tuple[int, ...]], animate: bool) -> None:
+def run_solutions(
+    problems: dict[int, tuple[int, ...]], animate: bool, play: bool
+) -> None:
     solutions = {
         2015: ALL_2015_SOLUTIONS,
         2016: ALL_2016_SOLUTIONS,
@@ -25,4 +27,5 @@ def run_solutions(problems: dict[int, tuple[int, ...]], animate: bool) -> None:
                 parser=FileParser.default(),
                 progress_bar=ProgressBarConsole(),
                 animate=animate,
+                play=play,
             )
