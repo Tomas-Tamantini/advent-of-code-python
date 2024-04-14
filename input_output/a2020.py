@@ -81,8 +81,15 @@ def aoc_2020_d4(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 5: Binary Boarding
-def aoc_2020_d5(file_name: str, **_):
-    print("AOC 2020 Day 5: Not implemented yet")
+def aoc_2020_d5(file_name: str, parser: FileParser, **_):
+    seat_ids = sorted(parser.parse_plane_seat_ids(file_name))
+    max_id = seat_ids[-1]
+    print(f"AOC 2020 Day 5/Part 1: The highest seat ID is {max_id}")
+    for i, seat_id in enumerate(seat_ids):
+        if seat_ids[i + 1] - seat_id == 2:
+            missing_seat_id = seat_id + 1
+            break
+    print(f"AOC 2020 Day 5/Part 2: The missing seat ID is {missing_seat_id}")
 
 
 # AOC 2020: Day 6: Custom Customs

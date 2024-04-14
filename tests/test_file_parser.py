@@ -1214,3 +1214,14 @@ def test_parse_passport():
             "hgt": "179cm",
         },
     ]
+
+
+def test_parse_plane_seat_ids():
+    file_content = """
+                   BFFFBBFRRR
+                   FFFBBBFRRR
+                   BBFFBBFRLL
+                   """
+    file_parser = mock_file_parser(file_content)
+    seat_ids = list(file_parser.parse_plane_seat_ids("some_file"))
+    assert seat_ids == [567, 119, 820]

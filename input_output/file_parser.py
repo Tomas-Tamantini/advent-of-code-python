@@ -1179,3 +1179,11 @@ class FileParser:
                 passport = {}
         if passport:
             yield passport
+
+    def parse_plane_seat_ids(self, file_name: str) -> Iterator[int]:
+        for line in self._file_reader.readlines(file_name):
+            line = line.strip()
+            if line:
+                row = int(line[:7].replace("F", "0").replace("B", "1"), 2)
+                col = int(line[7:].replace("L", "0").replace("R", "1"), 2)
+                yield row * 8 + col
