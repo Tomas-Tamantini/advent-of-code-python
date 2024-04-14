@@ -1,6 +1,15 @@
+from models.aoc_2020 import subsets_that_sum_to
+
+
 # AOC 2020: Day 1: Report Repair
 def aoc_2020_d1(file_name: str, **_):
-    print("AOC 2020 Day 1: Not implemented yet")
+    with open(file_name) as file:
+        entries = [int(line) for line in file]
+    target_sum = 2020
+    a, b = next(subsets_that_sum_to(target_sum, subset_size=2, entries=entries))
+    print(f"AOC 2020 Day 1/Part 1: The two entries multiply to {a * b}")
+    a, b, c = next(subsets_that_sum_to(target_sum, subset_size=3, entries=entries))
+    print(f"AOC 2020 Day 1/Part 2: The three entries multiply to {a * b * c}")
 
 
 # AOC 2020: Day 2: Password Philosophy
