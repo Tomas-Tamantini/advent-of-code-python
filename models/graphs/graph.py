@@ -92,6 +92,9 @@ class DirectedGraph:
     def outgoing(self, node: Hashable) -> Iterator[Hashable]:
         yield from self._outgoing[node]
 
+    def neighbors(self, node: Hashable) -> Iterator[Hashable]:
+        yield from self.outgoing(node)
+
 
 class WeightedDirectedGraph:
     def __init__(self) -> None:
@@ -115,6 +118,9 @@ class WeightedDirectedGraph:
 
     def outgoing(self, node: Hashable) -> Iterator[Hashable]:
         yield from self._outgoing[node]
+
+    def neighbors(self, node: Hashable) -> Iterator[Hashable]:
+        yield from self.outgoing(node)
 
     def weight(self, node_a: Hashable, node_b: Hashable) -> float:
         return self._incoming[node_b].get(node_a, inf)

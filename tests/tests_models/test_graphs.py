@@ -91,6 +91,14 @@ def test_can_remove_node_from_mutable_directed_graph():
     assert list(graph.incoming("c")) == []
 
 
+def test_neighbors_in_directed_graph_are_from_outgoing_edges_only():
+    graph = DirectedGraph()
+    graph.add_edge("a", "b")
+    assert set(graph.nodes()) == {"a", "b"}
+    assert list(graph.neighbors("a")) == ["b"]
+    assert list(graph.neighbors("b")) == []
+
+
 def test_weighted_directed_graph_starts_empty():
     graph = WeightedDirectedGraph()
     assert list(graph.nodes()) == []
@@ -118,6 +126,14 @@ def test_weight_between_non_adjacent_nodes_in_directed_graph_is_infinity():
     graph.add_edge("a", "b", weight=2)
     assert set(graph.nodes()) == {"a", "b"}
     assert graph.weight("b", "a") == float("inf")
+
+
+def test_neighbors_in_weighted_directed_graph_are_from_outgoing_edges_only():
+    graph = WeightedDirectedGraph()
+    graph.add_edge("a", "b", weight=2)
+    assert set(graph.nodes()) == {"a", "b"}
+    assert list(graph.neighbors("a")) == ["b"]
+    assert list(graph.neighbors("b")) == []
 
 
 class MockGraph:
