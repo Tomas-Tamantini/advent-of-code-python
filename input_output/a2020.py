@@ -93,8 +93,17 @@ def aoc_2020_d5(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 6: Custom Customs
-def aoc_2020_d6(file_name: str, **_):
-    print("AOC 2020 Day 6: Not implemented yet")
+def aoc_2020_d6(file_name: str, parser: FileParser, **_):
+    groups = list(parser.parse_form_answers_by_groups(file_name))
+    union_yes = sum(len(group.questions_with_at_least_one_yes()) for group in groups)
+    print(f"AOC 2020 Day 6/Part 1: The sum of union 'yes' answers is {union_yes}")
+
+    intersection_yes = sum(
+        len(group.questions_everyone_answered_yes()) for group in groups
+    )
+    print(
+        f"AOC 2020 Day 6/Part 2: The sum of intersection 'yes' answers is {intersection_yes}"
+    )
 
 
 # AOC 2020: Day 7: Handy Haversacks

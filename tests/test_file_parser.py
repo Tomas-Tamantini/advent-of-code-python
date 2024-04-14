@@ -1225,3 +1225,31 @@ def test_parse_plane_seat_ids():
     file_parser = mock_file_parser(file_content)
     seat_ids = list(file_parser.parse_plane_seat_ids("some_file"))
     assert seat_ids == [567, 119, 820]
+
+
+def test_parse_form_answers_by_groups():
+    file_content = """
+                   abc
+
+                   a
+                   b
+                   c
+
+                   ab
+                   ac
+
+                   a
+                   a
+                   a
+                   a
+
+                   b
+                   """
+    file_parser = mock_file_parser(file_content)
+    groups = list(file_parser.parse_form_answers_by_groups("some_file"))
+    assert len(groups) == 5
+    assert groups[0].answers == [{"a", "b", "c"}]
+    assert groups[1].answers == [{"a"}, {"b"}, {"c"}]
+    assert groups[2].answers == [{"a", "b"}, {"a", "c"}]
+    assert groups[3].answers == [{"a"}, {"a"}, {"a"}, {"a"}]
+    assert groups[4].answers == [{"b"}]

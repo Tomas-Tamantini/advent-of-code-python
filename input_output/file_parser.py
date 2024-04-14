@@ -127,6 +127,7 @@ from models.aoc_2020 import (
     PasswordPolicy,
     RangePasswordPolicy,
     PositionalPasswordPolicy,
+    CustomsGroup,
 )
 
 
@@ -1187,3 +1188,15 @@ class FileParser:
                 row = int(line[:7].replace("F", "0").replace("B", "1"), 2)
                 col = int(line[7:].replace("L", "0").replace("R", "1"), 2)
                 yield row * 8 + col
+
+    def parse_form_answers_by_groups(self, file_name: str) -> Iterator[CustomsGroup]:
+        current_group = CustomsGroup()
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                current_group.add_individual_answers(set(line.strip()))
+            else:
+                if current_group.answers:
+                    yield current_group
+                current_group = CustomsGroup()
+        if current_group.answers:
+            yield current_group
