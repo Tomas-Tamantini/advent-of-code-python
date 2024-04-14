@@ -46,6 +46,9 @@ from models.aoc_2019 import (
     BugsAutomaton,
     RecursiveBugsAutomaton,
     run_droid_explore_program,
+    DroidAutomaticControl,
+    DroidCLIControl,
+    DroidInput,
 )
 
 
@@ -499,10 +502,18 @@ def aoc_2019_d24(
 
 
 # AOC 2019 Day 25: Cryostasis
-def aoc_2019_d25(file_name: str, **_):
+def aoc_2019_d25(file_name: str, play: bool, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
-    run_droid_explore_program(instructions)
+    if play:
+        control = DroidCLIControl(DroidInput())
+        play_msg = ""
+    else:
+        control = DroidAutomaticControl(DroidInput())
+        play_msg = " (SET FLAG --play TO PLAY THE GAME AND CONTROL THE DROID YOURSELF)"
+    print(f"AOC 2019 Day 25:{play_msg} droid looking for password...", end="\r")
+    run_droid_explore_program(instructions, control)
+    print(f"AOC 2019 Day 25:{play_msg} Airlock password is {control.airlock_password}")
 
 
 ALL_2019_SOLUTIONS = (

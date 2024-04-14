@@ -47,4 +47,9 @@ from .a2019_d23 import (
     MonitorRepeatedYValuePackets,
 )
 from .a2019_d24 import BugsAutomaton, RecursiveBugsAutomaton
-from .a2019_d25 import run_droid_explore_program
+from .a2019_d25 import (
+    run_droid_explore_program,
+    DroidInput,
+    DroidCLIControl,
+    DroidAutomaticControl,
+)
