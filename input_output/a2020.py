@@ -1,6 +1,11 @@
 from input_output.file_parser import FileParser
 from models.vectors import Vector2D
-from models.aoc_2020 import subsets_that_sum_to, CylindricalForest
+from models.aoc_2020 import (
+    subsets_that_sum_to,
+    CylindricalForest,
+    passport_is_valid,
+    PASSPORT_RULES,
+)
 
 
 # AOC 2020: Day 1: Report Repair
@@ -61,11 +66,18 @@ def aoc_2020_d3(file_name: str, parser: FileParser, **_):
 # AOC 2020: Day 4: Passport Processing
 def aoc_2020_d4(file_name: str, parser: FileParser, **_):
     passports = list(parser.parse_passports(file_name))
-    required_fields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
-    num_valid_passports = sum(
-        required_fields.issubset(passport.keys()) for passport in passports
+    required_fields = set(PASSPORT_RULES.keys())
+    passports_with_all_fields = [
+        passport for passport in passports if required_fields.issubset(passport.keys())
+    ]
+    print(
+        f"AOC 2020 Day 4/Part 1: {len(passports_with_all_fields)} passports with all fields"
     )
-    print(f"AOC 2020 Day 4/Part 1: {num_valid_passports} valid passports")
+
+    num_valid_passports = sum(
+        passport_is_valid(passport, PASSPORT_RULES) for passport in passports
+    )
+    print(f"AOC 2020 Day 4/Part 2: {num_valid_passports} valid passports")
 
 
 # AOC 2020: Day 5: Binary Boarding
