@@ -109,10 +109,13 @@ def aoc_2020_d6(file_name: str, parser: FileParser, **_):
 # AOC 2020: Day 7: Handy Haversacks
 def aoc_2020_d7(file_name: str, parser: FileParser, **_):
     rules = parser.parse_luggage_rules(file_name)
-    possible_colors = set(rules.possible_colors_of_outermost_bag("shiny gold"))
+    my_bag = "shiny gold"
+    possible_colors = set(rules.possible_colors_of_outermost_bag(my_bag))
     print(
         f"AOC 2020 Day 7/Part 1: {len(possible_colors)} possible outermost bag colors"
     )
+    num_inside = rules.number_of_bags_contained_inside(my_bag)
+    print(f"AOC 2020 Day 7/Part 2: {my_bag} contains {num_inside} bags")
 
 
 # AOC 2020: Day 8: Handheld Halting

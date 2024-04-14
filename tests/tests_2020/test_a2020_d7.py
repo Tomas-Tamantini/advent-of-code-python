@@ -20,3 +20,24 @@ def test_luggage_rules_restrict_color_of_outermost_bag():
         "dark orange",
         "light red",
     }
+
+
+def test_number_of_bags_contained_inside_given_one_is_counted_recursively():
+    rules = LuggageRules()
+    rules.add_rule(LuggageRule("shiny gold", {"dark red": 2}))
+    rules.add_rule(LuggageRule("dark red", {"dark orange": 2}))
+    rules.add_rule(LuggageRule("dark orange", {"dark yellow": 2}))
+    rules.add_rule(LuggageRule("dark yellow", {"dark green": 2}))
+    rules.add_rule(LuggageRule("dark green", {"dark blue": 2}))
+    rules.add_rule(LuggageRule("dark blue", {"dark violet": 2}))
+    rules.add_rule(LuggageRule("dark violet", {}))
+    assert rules.number_of_bags_contained_inside("shiny gold") == 126
+
+
+def test_number_of_bags_contained_inside_is_counted_efficiently():
+    rules = LuggageRules()
+    for i in range(100):
+        rules.add_rule(
+            LuggageRule(f"color_{i}", {f"color_{i+1}": 1, f"color_{i+2}": 1})
+        )
+    assert rules.number_of_bags_contained_inside("color_0") == 1854745384386157998350
