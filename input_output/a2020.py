@@ -1,5 +1,6 @@
 from input_output.file_parser import FileParser
-from models.aoc_2020 import subsets_that_sum_to
+from models.vectors import Vector2D
+from models.aoc_2020 import subsets_that_sum_to, CylindricalForest
 
 
 # AOC 2020: Day 1: Report Repair
@@ -39,8 +40,22 @@ def aoc_2020_d2(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 3: Toboggan Trajectory
-def aoc_2020_d3(file_name: str, **_):
-    print("AOC 2020 Day 3: Not implemented yet")
+def aoc_2020_d3(file_name: str, parser: FileParser, **_):
+    aux, trees = parser.parse_game_of_life(file_name)
+    forest = CylindricalForest(
+        width=aux.width, height=aux.height, trees={Vector2D(*t) for t in trees}
+    )
+    num_collisions = forest.number_of_collisions_with_trees(steps_right=3, steps_down=1)
+    print(f"AOC 2020 Day 3/Part 1: {num_collisions} collisions with trees")
+
+    slopes = ((1, 1), (3, 1), (5, 1), (7, 1), (1, 2))
+    product = 1
+    for steps_right, steps_down in slopes:
+        num_collisions = forest.number_of_collisions_with_trees(
+            steps_right=steps_right, steps_down=steps_down
+        )
+        product *= num_collisions
+    print(f"AOC 2020 Day 3/Part 2: Product of collisions: {product}")
 
 
 # AOC 2020: Day 4: Passport Processing
