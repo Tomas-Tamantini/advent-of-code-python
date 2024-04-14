@@ -64,6 +64,7 @@ from models.aoc_2018 import (
     ArmyGroup,
 )
 from models.aoc_2019 import ChemicalReaction, ChemicalQuantity
+from models.aoc_2020 import PasswordPolicy
 
 
 class MockFileReader:
@@ -1122,3 +1123,18 @@ def test_can_parse_shuffle_techniques():
     file_parser = mock_file_parser(file_content)
     shuffle = file_parser.parse_multi_technique_shuffle("some_file")
     assert shuffle.new_card_position(position_before_shuffle=3, deck_size=10) == 8
+
+
+def test_can_parse_pairs_of_password_policy_and_password():
+    file_content = """
+                   1-3 a: abcde
+                   1-3 b: cdefg
+                   2-9 c: ccccccccc
+                   """
+    file_parser = mock_file_parser(file_content)
+    pairs = list(file_parser.parse_password_policies_and_passwords("some_file"))
+    assert pairs == [
+        (PasswordPolicy(letter="a", min_occurrences=1, max_occurrences=3), "abcde"),
+        (PasswordPolicy(letter="b", min_occurrences=1, max_occurrences=3), "cdefg"),
+        (PasswordPolicy(letter="c", min_occurrences=2, max_occurrences=9), "ccccccccc"),
+    ]

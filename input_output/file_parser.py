@@ -123,6 +123,7 @@ from models.aoc_2019 import (
     DealWithIncrementShuffle,
     MultiTechniqueShuffle,
 )
+from models.aoc_2020 import PasswordPolicy
 
 
 class FileReaderProtocol(Protocol):
@@ -1136,3 +1137,21 @@ class FileParser:
             elif "deal with increment" in line:
                 techniques.append(DealWithIncrementShuffle(int(line.split()[-1])))
         return MultiTechniqueShuffle(techniques)
+
+    @staticmethod
+    def _parse_password_policy_and_password(line: str) -> tuple[PasswordPolicy, str]:
+        parts = line.split(":")
+        policy_parts = parts[0].split(" ")
+        min_occurrences, max_occurrences = map(int, policy_parts[0].split("-"))
+        letter = policy_parts[1]
+        return (
+            PasswordPolicy(letter,min_occurrences, max_occurrences),
+            parts[1].strip(),
+        )
+
+    def parse_password_policies_and_passwords(
+        self, file_name: str
+    ) -> Iterator[tuple[PasswordPolicy, str]]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_password_policy_and_password(line.strip())
