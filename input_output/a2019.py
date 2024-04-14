@@ -45,6 +45,7 @@ from models.aoc_2019 import (
     LostPackets,
     BugsAutomaton,
     RecursiveBugsAutomaton,
+    run_droid_explore_program,
 )
 
 
@@ -498,7 +499,10 @@ def aoc_2019_d24(
 
 
 # AOC 2019 Day 25: Cryostasis
-def aoc_2019_d25(file_name: str, **_): ...
+def aoc_2019_d25(file_name: str, **_):
+    with open(file_name, "r") as file:
+        instructions = [int(code) for code in file.read().split(",")]
+    run_droid_explore_program(instructions)
 
 
 ALL_2019_SOLUTIONS = (
