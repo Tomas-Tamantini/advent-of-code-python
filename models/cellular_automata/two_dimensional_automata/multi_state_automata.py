@@ -66,6 +66,14 @@ class MultiState2DAutomaton:
     def default_cell_type(self) -> Hashable:
         return self._default_cell_type
 
+    @property
+    def width(self) -> Optional[int]:
+        return self._width
+
+    @property
+    def height(self) -> Optional[int]:
+        return self._height
+
     def is_within_bounds(self, cell: Vector2D) -> bool:
         if self._width is None or self._height is None:
             return True
