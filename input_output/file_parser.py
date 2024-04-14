@@ -128,6 +128,8 @@ from models.aoc_2020 import (
     RangePasswordPolicy,
     PositionalPasswordPolicy,
     CustomsGroup,
+    LuggageRule,
+    LuggageRules,
 )
 
 
@@ -1200,3 +1202,30 @@ class FileParser:
                 current_group = CustomsGroup()
         if current_group.answers:
             yield current_group
+
+    def _parse_luggage_rule(self, rule: str) -> LuggageRule:
+        parts = rule.split("contain")
+        container_bag = parts[0].strip().replace("bags", "").replace("bag", "").strip()
+
+        contained_bags = dict()
+        for part in parts[1].split(","):
+            part = (
+                part.strip()
+                .replace("bags", "")
+                .replace("bag", "")
+                .replace(".", "")
+                .strip()
+            )
+            if "no other" in part:
+                continue
+            quantity, bag = part.split(" ", 1)
+            contained_bags[bag] = int(quantity)
+
+        return LuggageRule(bag=container_bag, contains=contained_bags)
+
+    def parse_luggage_rules(self, file_name: str) -> LuggageRules:
+        rules = LuggageRules()
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                rules.add_rule(self._parse_luggage_rule(line.strip()))
+        return rules

@@ -107,8 +107,12 @@ def aoc_2020_d6(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 7: Handy Haversacks
-def aoc_2020_d7(file_name: str, **_):
-    print("AOC 2020 Day 7: Not implemented yet")
+def aoc_2020_d7(file_name: str, parser: FileParser, **_):
+    rules = parser.parse_luggage_rules(file_name)
+    possible_colors = set(rules.possible_colors_of_outermost_bag("shiny gold"))
+    print(
+        f"AOC 2020 Day 7/Part 1: {len(possible_colors)} possible outermost bag colors"
+    )
 
 
 # AOC 2020: Day 8: Handheld Halting
