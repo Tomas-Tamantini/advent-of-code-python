@@ -1164,3 +1164,18 @@ class FileParser:
                 yield self._parse_password_policy_and_password(
                     line.strip(), use_range_policy
                 )
+
+    def parse_passports(self, file_name: str) -> Iterator[dict[str, str]]:
+        passport = {}
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                parts = line.strip().split()
+                for part in parts:
+                    key, value = part.split(":")
+                    passport[key] = value
+            else:
+                if passport:
+                    yield passport
+                passport = {}
+        if passport:
+            yield passport

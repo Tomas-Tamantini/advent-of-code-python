@@ -59,8 +59,13 @@ def aoc_2020_d3(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 4: Passport Processing
-def aoc_2020_d4(file_name: str, **_):
-    print("AOC 2020 Day 4: Not implemented yet")
+def aoc_2020_d4(file_name: str, parser: FileParser, **_):
+    passports = list(parser.parse_passports(file_name))
+    required_fields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
+    num_valid_passports = sum(
+        required_fields.issubset(passport.keys()) for passport in passports
+    )
+    print(f"AOC 2020 Day 4/Part 1: {num_valid_passports} valid passports")
 
 
 # AOC 2020: Day 5: Binary Boarding

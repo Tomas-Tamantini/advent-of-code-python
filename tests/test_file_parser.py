@@ -107,7 +107,7 @@ def mock_file_parser(file_content: str) -> FileParser:
     return FileParser(file_reader)
 
 
-def test_can_parse_and_give_light_grid_instructions():
+def test_parse_and_give_light_grid_instructions():
     mock_grid = MockLightGrid()
     instruction = "turn on 489,959 through 759,964"
     FileParser.parse_and_give_light_grid_instruction(instruction, mock_grid)
@@ -120,7 +120,7 @@ def test_can_parse_and_give_light_grid_instructions():
     assert mock_grid.toggle_args == LightGridRegion((427, 423), (929, 502))
 
 
-def test_can_parse_and_give_light_grid_instructions_in_elvish_tongue():
+def test_parse_and_give_light_grid_instructions_in_elvish_tongue():
     mock_grid_on_off = MockLightGrid()
     instruction = "turn on 489,959 through 759,964"
     FileParser.parse_and_give_light_grid_instruction(
@@ -149,7 +149,7 @@ def test_can_parse_and_give_light_grid_instructions_in_elvish_tongue():
     ]
 
 
-def test_can_parse_logic_gates_circuit():
+def test_parse_logic_gates_circuit():
     circuit_str = """123 -> x
                      456 -> y
                      x AND y -> d
@@ -174,7 +174,7 @@ def test_can_parse_logic_gates_circuit():
         assert circuit.get_value(wire) == value
 
 
-def test_can_parse_adirected_graph():
+def test_parse_adirected_graph():
     graph_str = """a to b = 100
                    a to c = 100
                    b to c = 150"""
@@ -183,7 +183,7 @@ def test_can_parse_adirected_graph():
     assert graph.shortest_complete_itinerary_distance() == 200
 
 
-def test_can_parse_seating_arrangements():
+def test_parse_seating_arrangements():
     graph_str = """Alice would gain 54 happiness units by sitting next to Bob.
                    Bob would lose 7 happiness units by sitting next to Carol.
                    Carol would lose 62 happiness units by sitting next to Alice."""
@@ -193,7 +193,7 @@ def test_can_parse_seating_arrangements():
     assert graph.round_trip_itinerary_max_cost() == float("inf")
 
 
-def test_can_parse_reindeer():
+def test_parse_reindeer():
     reindeer_str = (
         "Dancer can fly 27 km/s for 5 seconds, but then must rest for 132 seconds."
     )
@@ -203,7 +203,7 @@ def test_can_parse_reindeer():
     assert reindeer.rest_interval == 132
 
 
-def test_can_parse_cookie_properties():
+def test_parse_cookie_properties():
     properties_str = (
         "PeanutButter: capacity -1, durability 3, flavor 0, texture 2, calories 1"
     )
@@ -215,7 +215,7 @@ def test_can_parse_cookie_properties():
     assert ingredient_properties.calories == 1
 
 
-def test_can_parse_rpg_boss():
+def test_parse_rpg_boss():
     file_content = """Hit Points: 109
                       Damage: 8
                       Armor: 2"""
@@ -227,7 +227,7 @@ def test_can_parse_rpg_boss():
     assert boss.armor == 2
 
 
-def test_can_parse_aunt_sue_collection():
+def test_parse_aunt_sue_collection():
     file_content = """Sue 1: children: 1, cars: 8, vizslas: 7
                       Sue 2: akitas: 10, perfumes: 10, children: 5"""
     file_reader = MockFileReader(file_content)
@@ -240,7 +240,7 @@ def test_can_parse_aunt_sue_collection():
     assert aunts[1]._attributes == {"akitas": 10, "perfumes": 10, "children": 5}
 
 
-def test_can_parse_game_of_life():
+def test_parse_game_of_life():
     file_content = """#...
                       ..#.
                       .##."""
@@ -251,7 +251,7 @@ def test_can_parse_game_of_life():
     assert live_cells == {(0, 0), (1, 2), (2, 1), (2, 2)}
 
 
-def test_can_parse_molecule_replacements():
+def test_parse_molecule_replacements():
     file_content = """H => HO
                       H => OH
                       O => HH
@@ -266,14 +266,14 @@ def test_can_parse_molecule_replacements():
     assert molecule == Molecule(("H", "O", "H"))
 
 
-def test_can_parse_code_row_and_column():
+def test_parse_code_row_and_column():
     file_content = "To continue, please consult the code grid in the manual.  Enter the code at row 3010, column 3019."
     file_parser = mock_file_parser(file_content)
     row_and_col = file_parser.parse_code_row_and_col("some_file_name")
     assert row_and_col == {"row": 3010, "col": 3019}
 
 
-def test_can_parse_turtle_instructions():
+def test_parse_turtle_instructions():
     file_content = "R2, L3"
     file_parser = mock_file_parser(file_content)
     instructions = file_parser.parse_turtle_instructions("some_file_name")
@@ -283,14 +283,14 @@ def test_can_parse_turtle_instructions():
     ]
 
 
-def test_can_parse_cardinal_direction():
+def test_parse_cardinal_direction():
     assert FileParser.parse_cardinal_direction("U") == CardinalDirection.NORTH
     assert FileParser.parse_cardinal_direction("R") == CardinalDirection.EAST
     assert FileParser.parse_cardinal_direction("D") == CardinalDirection.SOUTH
     assert FileParser.parse_cardinal_direction("L") == CardinalDirection.WEST
 
 
-def test_can_parse_triangle_sides_vertically_or_horizontally():
+def test_parse_triangle_sides_vertically_or_horizontally():
     file_content = """101 301 501
                       102 302 502
                       103 303 503
@@ -324,7 +324,7 @@ def test_can_parse_triangle_sides_vertically_or_horizontally():
     ]
 
 
-def test_can_parse_encrypted_room():
+def test_parse_encrypted_room():
     room_str = "aaaaa-bbb-z-y-x-123[abxyz]"
     room = FileParser.parse_encrypted_room(room_str)
     assert room.room_name == "aaaaa-bbb-z-y-x"
@@ -332,7 +332,7 @@ def test_can_parse_encrypted_room():
     assert room.checksum == "abxyz"
 
 
-def test_can_parse_programmable_screen_instructions():
+def test_parse_programmable_screen_instructions():
     file_content = """rect 3x2
                       rotate column x=1 by 1
                       rotate row y=0 by 4"""
@@ -344,7 +344,7 @@ def test_can_parse_programmable_screen_instructions():
     assert screen_spy.rotate_row.call_args_list == [((0, 4),)]
 
 
-def test_can_parse_chip_factory():
+def test_parse_chip_factory():
     file_content = """value 5 goes to bot 2
                       bot 2 gives low to bot 1 and high to bot 0
                       value 3 goes to bot 1
@@ -357,7 +357,7 @@ def test_can_parse_chip_factory():
     assert factory.output_bins == {0: [5], 1: [2], 2: [3]}
 
 
-def test_can_parse_radioisotope_testing_facility_floor_configurations():
+def test_parse_radioisotope_testing_facility_floor_configurations():
     file_content = """The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.
                       The second floor contains a hydrogen generator.
                       The third floor contains a lithium generator.
@@ -376,7 +376,7 @@ def test_can_parse_radioisotope_testing_facility_floor_configurations():
     ]
 
 
-def test_can_parse_disc_system():
+def test_parse_disc_system():
     file_content = """Disc #1 has 5 positions; at time=0, it is at position 4.
                       Disc #2 has 2 positions; at time=0, it is at position 1."""
     file_parser = mock_file_parser(file_content)
@@ -384,7 +384,7 @@ def test_can_parse_disc_system():
     assert disc_system.time_to_press_button() == 5
 
 
-def test_can_parse_string_scrambler_functions():
+def test_parse_string_scrambler_functions():
     file_content = """swap position 4 with position 0
                       swap letter d with letter b
                       reverse positions 0 through 4
@@ -399,7 +399,7 @@ def test_can_parse_string_scrambler_functions():
     assert scrambler.scramble("abcde") == "decab"
 
 
-def test_can_parse_storage_nodes():
+def test_parse_storage_nodes():
     file_content = """root@ebhq-gridcenter# df -h
                       Filesystem              Size  Used  Avail  Use%
                       /dev/grid/node-x0-y0     92T   68T    24T   73%
@@ -410,7 +410,7 @@ def test_can_parse_storage_nodes():
     assert nodes[1].size, nodes[1].used == (88, 73)
 
 
-def test_can_parse_assembunny_code():
+def test_parse_assembunny_code():
     file_content = """cpy 41 a
                       inc b
                       dec c
@@ -429,7 +429,7 @@ def test_can_parse_assembunny_code():
     assert program.get_instruction(5) == OutInstruction("d")
 
 
-def test_can_parse_program_tree():
+def test_parse_program_tree():
     file_content = """pbga (66)
                       xhth (57)
                       ebii (61)
@@ -449,7 +449,7 @@ def test_can_parse_program_tree():
     assert root.total_weight() == 778
 
 
-def test_can_parse_conditional_increment_instructions():
+def test_parse_conditional_increment_instructions():
     file_content = """b inc 5 if a > 1
                       a inc 1 if b < 5
                       c dec -10 if a >= 1
@@ -472,7 +472,7 @@ def test_can_parse_conditional_increment_instructions():
     )
 
 
-def test_can_parse_program_graph():
+def test_parse_program_graph():
     file_content = """0 <-> 2
                       1 <-> 1
                       2 <-> 0, 3, 4
@@ -487,7 +487,7 @@ def test_can_parse_program_graph():
     assert graph.neighbors(2) == {0, 3, 4}
 
 
-def test_can_parse_layered_firewall():
+def test_parse_layered_firewall():
     file_content = """0: 3
                       1: 2
                       4: 4
@@ -497,14 +497,14 @@ def test_can_parse_layered_firewall():
     assert [l for l, _ in firewall.packet_collisions()] == [0, 6]
 
 
-def test_can_parse_string_transformers():
+def test_parse_string_transformers():
     file_content = "s1,x0/12, pb/X"
     file_parser = mock_file_parser(file_content)
     transformers = list(file_parser.parse_string_transformers("some_file"))
     assert transformers == [Spin(1), Exchange(0, 12), Partner("b", "X")]
 
 
-def test_can_parse_duet_code():
+def test_parse_duet_code():
     file_content = """set a 1
                       add a 2
                       mul a b
@@ -526,7 +526,7 @@ def test_can_parse_duet_code():
     assert instructions[7] == JumpGreaterThanZeroInstruction(-1, "a")
 
 
-def test_can_parse_duet_code_with_rcv_as_input_instruction():
+def test_parse_duet_code_with_rcv_as_input_instruction():
     file_content = "rcv a"
     file_parser = mock_file_parser(file_content)
     instructions = list(
@@ -535,7 +535,7 @@ def test_can_parse_duet_code_with_rcv_as_input_instruction():
     assert instructions == [InputInstruction("a")]
 
 
-def test_can_parse_particles():
+def test_parse_particles():
     file_content = """p=< 3,0,0>, v=< 2,0,0>, a=<-1,0,0>
                       p=< 4,0,0>, v=< 0,0,0>, a=<-2,0,0>"""
     file_parser = mock_file_parser(file_content)
@@ -546,13 +546,13 @@ def test_can_parse_particles():
     ]
 
 
-def test_can_parse_art_block():
+def test_parse_art_block():
     block = ".#./..#/###"
     art_block = FileParser.parse_art_block(block)
     assert art_block.num_cells_on == 5
 
 
-def test_can_parse_art_block_rules():
+def test_parse_art_block_rules():
     file_content = """../.# => ##./#../...
                       .#./..#/### => #..#/..../..../#..#"""
     file_parser = mock_file_parser(file_content)
@@ -563,7 +563,7 @@ def test_can_parse_art_block_rules():
     assert fractal_art.num_cells_on_after_iterations(2) == 12
 
 
-def test_can_parse_grid_cluster():
+def test_parse_grid_cluster():
     file_content = """..#
                       #..
                       ..."""
@@ -573,7 +573,7 @@ def test_can_parse_grid_cluster():
     assert central_position == Vector2D(1, 1)
 
 
-def test_can_parse_duet_code_with_spy_multiply():
+def test_parse_duet_code_with_spy_multiply():
     file_content = """mul a b
                       jnz a -1
                       sub b -6"""
@@ -586,7 +586,7 @@ def test_can_parse_duet_code_with_spy_multiply():
     ]
 
 
-def test_can_parse_bridge_components():
+def test_parse_bridge_components():
     file_content = """0/2
                       3/1"""
     file_parser = mock_file_parser(file_content)
@@ -594,7 +594,7 @@ def test_can_parse_bridge_components():
     assert components == [BridgeComponent(0, 2), BridgeComponent(3, 1)]
 
 
-def test_can_parse_turing_machine_specs():
+def test_parse_turing_machine_specs():
     file_content = """Begin in state A.
                       Perform a diagnostic checksum after 6 steps.
  
@@ -631,7 +631,7 @@ def test_can_parse_turing_machine_specs():
     }
 
 
-def test_can_parse_fabric_rectangles():
+def test_parse_fabric_rectangles():
     file_content = """#1 @ 1,3: 2x4
                       #213 @ 34,17: 13x29"""
     file_parser = mock_file_parser(file_content)
@@ -644,7 +644,7 @@ def test_can_parse_fabric_rectangles():
     ]
 
 
-def test_can_parse_shuffled_guard_logs():
+def test_parse_shuffled_guard_logs():
     file_content = """[1518-11-04 00:02] Guard #99 begins shift
                       [1518-11-01 00:05] falls asleep
                       [1518-11-01 00:25] wakes up
@@ -697,7 +697,7 @@ def test_can_parse_shuffled_guard_logs():
     ]
 
 
-def test_can_parse_directed_graph():
+def test_parse_directed_graph():
     file_content = """Step C must be finished before step A can begin.
                       Step C must be finished before step F can begin."""
     file_parser = mock_file_parser(file_content)
@@ -708,7 +708,7 @@ def test_can_parse_directed_graph():
     assert set(graph.incoming("F")) == {"C"}
 
 
-def test_can_parse_moving_particles():
+def test_parse_moving_particles():
     file_content = """position=< 9,  1> velocity=< 0,  2>
                       position=< 7,  0> velocity=<-1,  0>"""
 
@@ -720,7 +720,7 @@ def test_can_parse_moving_particles():
     ]
 
 
-def test_can_parse_plant_automaton():
+def test_parse_plant_automaton():
     file_content = """initial state: #..#.#..##......###...###
 
                       ...## => #
@@ -763,7 +763,7 @@ def test_can_parse_plant_automaton():
     }
 
 
-def test_can_parse_instruction_samples():
+def test_parse_instruction_samples():
     file_content = """Before: [1, 2, 3, 4]
                       123 1 2 3
                       After:  [4, 3, 2, 1]
@@ -790,7 +790,7 @@ def test_can_parse_instruction_samples():
     ]
 
 
-def test_can_parse_unknown_op_code_program():
+def test_parse_unknown_op_code_program():
     file_content = """After:  [40, 30, 20, 10]
     
                       14 1 2 3
@@ -811,7 +811,7 @@ def test_can_parse_unknown_op_code_program():
     ]
 
 
-def test_can_parse_position_ranges():
+def test_parse_position_ranges():
     file_content = """x=495, y=2..4
                       y=11..13, x=123
                       x=3, y=4
@@ -833,7 +833,7 @@ def test_can_parse_position_ranges():
     }
 
 
-def test_can_parse_lumber_area():
+def test_parse_lumber_area():
     file_content = """.#.|
                       #..#
                       ...|"""
@@ -848,7 +848,7 @@ def test_can_parse_lumber_area():
     }
 
 
-def test_can_parse_three_value_instructions():
+def test_parse_three_value_instructions():
     file_content = """#ip 3
                       addr 10 20 30
                       addi 10 20 30
@@ -894,7 +894,7 @@ def test_can_parse_three_value_instructions():
         assert instruction._register_bound_to_pc == 3
 
 
-def test_can_parse_nanobot():
+def test_parse_nanobot():
     file_content = """pos=<1,2,3>, r=4
                       pos=<50,-60,70>, r=81"""
     file_parser = mock_file_parser(file_content)
@@ -905,7 +905,7 @@ def test_can_parse_nanobot():
     ]
 
 
-def test_can_parse_infection_game():
+def test_parse_infection_game():
     file_content = """Immune System:
 17 units each with 5390 hit points (weak to radiation, bludgeoning) with an attack that does 4507 fire damage at initiative 2
 989 units each with 1274 hit points (immune to fire; weak to bludgeoning, slashing) with an attack that does 25 slashing damage at initiative 3
@@ -961,7 +961,7 @@ Infection:
     )
 
 
-def test_can_parse_directions():
+def test_parse_directions():
     file_content = """R8,U5
                       U7,L6,D4"""
     file_parser = mock_file_parser(file_content)
@@ -976,7 +976,7 @@ def test_can_parse_directions():
     ]
 
 
-def test_can_parse_celestial_bodies():
+def test_parse_celestial_bodies():
     file_content = """COM)A
                       B)C
                       COM)B"""
@@ -991,11 +991,11 @@ def test_can_parse_celestial_bodies():
     assert b_children[0].name == "C"
 
 
-def test_can_parse_vector_3d():
+def test_parse_vector_3d():
     assert FileParser.parse_vector_3d(" <x=-9, y=10, z=-1>") == Vector3D(-9, 10, -1)
 
 
-def test_can_parse_chemical_reactions():
+def test_parse_chemical_reactions():
     file_content = """2 MPHSH, 3 NQNX => 3 FWHL
                       144 ORE => 1 CXRVG"""
     file_parser = mock_file_parser(file_content)
@@ -1011,7 +1011,7 @@ def test_can_parse_chemical_reactions():
     ]
 
 
-def test_can_parse_tunnel_maze():
+def test_parse_tunnel_maze():
     file_content = """
                    a.C
                    .@.
@@ -1035,7 +1035,7 @@ def test_tunnel_maze_can_have_entrance_split_in_four():
     assert maze.shortest_distance_to_all_keys() == 8
 
 
-def test_can_parse_portal_maze():
+def test_parse_portal_maze():
     file_content = """
                            A           
                            A           
@@ -1062,7 +1062,7 @@ def test_can_parse_portal_maze():
     assert maze.num_steps_to_solve() == 23
 
 
-def test_can_parse_recursive_donut_maze():
+def test_parse_recursive_donut_maze():
     file_content = """
                        Z L X W       C                 
                        Z P Q B       K                 
@@ -1107,7 +1107,7 @@ def test_can_parse_recursive_donut_maze():
     assert maze.num_steps_to_solve() == 396
 
 
-def test_can_parse_shuffle_techniques():
+def test_parse_shuffle_techniques():
     file_content = """
                    deal into new stack
                    cut -2
@@ -1125,7 +1125,7 @@ def test_can_parse_shuffle_techniques():
     assert shuffle.new_card_position(position_before_shuffle=3, deck_size=10) == 8
 
 
-def test_can_parse_pairs_of_range_password_policy_and_password():
+def test_parse_pairs_of_range_password_policy_and_password():
     file_content = """
                    1-3 a: abcde
                    1-3 b: cdefg
@@ -1153,7 +1153,7 @@ def test_can_parse_pairs_of_range_password_policy_and_password():
     ]
 
 
-def test_can_parse_pairs_of_positional_password_policy_and_password():
+def test_parse_pairs_of_positional_password_policy_and_password():
     file_content = """
                    1-3 a: abcde
                    1-3 b: cdefg
@@ -1178,4 +1178,39 @@ def test_can_parse_pairs_of_positional_password_policy_and_password():
             PositionalPasswordPolicy(letter="c", first_position=2, second_position=9),
             "ccccccccc",
         ),
+    ]
+
+
+def test_parse_passport():
+    file_content = """
+                   ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+                   byr:1937 iyr:2017 cid:147 hgt:183cm
+
+                   hcl:#ae17e1 iyr:2013
+                   eyr:2024
+                   ecl:brn pid:760753108 byr:1931
+                   hgt:179cm
+                   """
+    file_parser = mock_file_parser(file_content)
+    passports = list(file_parser.parse_passports("some_file"))
+    assert passports == [
+        {
+            "ecl": "gry",
+            "pid": "860033327",
+            "eyr": "2020",
+            "hcl": "#fffffd",
+            "byr": "1937",
+            "iyr": "2017",
+            "cid": "147",
+            "hgt": "183cm",
+        },
+        {
+            "hcl": "#ae17e1",
+            "iyr": "2013",
+            "eyr": "2024",
+            "ecl": "brn",
+            "pid": "760753108",
+            "byr": "1931",
+            "hgt": "179cm",
+        },
     ]
