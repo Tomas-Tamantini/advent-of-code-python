@@ -68,6 +68,9 @@ from models.aoc_2020 import (
     PositionalPasswordPolicy,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
+    MoveShipInstruction,
+    MoveShipForwardInstruction,
+    TurnShipInstruction,
 )
 
 
@@ -1257,4 +1260,29 @@ def test_parse_game_console_instructions():
         JumpOrNoOpInstruction(offset=0, is_jump=False),
         IncrementGlobalAccumulatorInstruction(increment=-1),
         JumpOrNoOpInstruction(offset=4, is_jump=True),
+    ]
+
+
+def test_parse_navigation_instructions():
+    file_content = """
+                   F10
+                   N3
+                   F7
+                   R90
+                   R180
+                   R270
+                   R0
+                   L90
+                   """
+    file_parser = mock_file_parser(file_content)
+    instructions = list(file_parser.parse_navigation_instructions("some_file"))
+    assert instructions == [
+        MoveShipForwardInstruction(distance=10),
+        MoveShipInstruction(direction=CardinalDirection.NORTH, distance=3),
+        MoveShipForwardInstruction(distance=7),
+        TurnShipInstruction(turn_direction=TurnDirection.RIGHT),
+        TurnShipInstruction(turn_direction=TurnDirection.U_TURN),
+        TurnShipInstruction(turn_direction=TurnDirection.LEFT),
+        TurnShipInstruction(turn_direction=TurnDirection.NO_TURN),
+        TurnShipInstruction(turn_direction=TurnDirection.LEFT),
     ]

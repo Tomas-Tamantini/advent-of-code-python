@@ -132,7 +132,10 @@ from models.aoc_2020 import (
     LuggageRules,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
-    FerrySeat,
+    NavigationInstruction,
+    MoveShipForwardInstruction,
+    MoveShipInstruction,
+    TurnShipInstruction,
 )
 
 
@@ -1211,3 +1214,38 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_game_console_instruction(line.strip())
+
+    def _parse_navigation_instruction(self, instruction: str) -> NavigationInstruction:
+        action = instruction[0]
+        value = int(instruction[1:])
+        directions = {
+            "N": CardinalDirection.NORTH,
+            "S": CardinalDirection.SOUTH,
+            "E": CardinalDirection.EAST,
+            "W": CardinalDirection.WEST,
+        }
+        if action == "F":
+            return MoveShipForwardInstruction(value)
+        elif action in directions:
+            return MoveShipInstruction(directions[action], value)
+        elif action in ("L", "R"):
+            if value == 0:
+                turn = TurnDirection.NO_TURN
+            elif value == 90:
+                turn = TurnDirection.LEFT if action == "L" else TurnDirection.RIGHT
+            elif value == 180:
+                turn = TurnDirection.U_TURN
+            elif value == 270:
+                turn = TurnDirection.RIGHT if action == "L" else TurnDirection.LEFT
+            else:
+                raise ValueError(f"Invalid turn angle: {value}")
+            return TurnShipInstruction(turn)
+        else:
+            raise ValueError(f"Unknown navigation instruction: {instruction}")
+
+    def parse_navigation_instructions(
+        self, file_name: str
+    ) -> Iterator[NavigationInstruction]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_navigation_instruction(line.strip())

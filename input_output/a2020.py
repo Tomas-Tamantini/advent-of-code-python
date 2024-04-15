@@ -1,5 +1,6 @@
 from input_output.file_parser import FileParser
 from models.char_grid import CharacterGrid
+from models.vectors import Vector2D, CardinalDirection
 from models.aoc_2020 import (
     subsets_that_sum_to,
     CylindricalForest,
@@ -11,6 +12,7 @@ from models.aoc_2020 import (
     AdapterArray,
     FerrySeats,
     FerrySeat,
+    Ship,
 )
 
 
@@ -202,8 +204,13 @@ def aoc_2020_d11(file_name: str, **_):
 
 
 # AOC 2020: Day 12: Rain Risk
-def aoc_2020_d12(file_name: str, **_):
-    print("AOC 2020 Day 12: Not implemented yet")
+def aoc_2020_d12(file_name: str, parser: FileParser, **_):
+    instructions = parser.parse_navigation_instructions(file_name)
+    ship = Ship(position=Vector2D(0, 0), facing=CardinalDirection.EAST)
+    for instruction in instructions:
+        ship = instruction.execute(ship)
+    manhattan_distance = ship.position.manhattan_size
+    print(f"AOC 2020 Day 12/Part 1: Ship's manhattan distance: {manhattan_distance}")
 
 
 # AOC 2020: Day 13: Shuttle Search
