@@ -8,6 +8,7 @@ from models.aoc_2020 import (
     run_game_console,
     find_and_run_game_console_which_terminates,
     XMasEncoding,
+    AdapterArray,
 )
 
 
@@ -151,7 +152,18 @@ def aoc_2020_d9(file_name: str, **_):
 
 # AOC 2020: Day 10: Adapter Array
 def aoc_2020_d10(file_name: str, **_):
-    print("AOC 2020 Day 10: Not implemented yet")
+    with open(file_name) as file:
+        adapters = [int(line) for line in file]
+    array = AdapterArray(
+        outlet_joltage=0,
+        device_joltage=max(adapters) + 3,
+        max_joltage_difference=3,
+        adapter_ratings=adapters,
+    )
+    differences = array.joltage_differences_of_sorted_adapters()
+    num_1_diff = differences.count(1)
+    num_3_diff = differences.count(3)
+    print(f"AOC 2020 Day 10/Part 1: {num_1_diff * num_3_diff} joltage differences")
 
 
 # AOC 2020: Day 11: Seating System
