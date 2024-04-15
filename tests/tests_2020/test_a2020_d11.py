@@ -1,16 +1,17 @@
 import pytest
 from models.vectors import Vector2D
+from models.char_grid import CharacterGrid
 from models.aoc_2020 import FerrySeat, FerrySeats
 
 
 def test_empty_seat_in_ferry_without_occupied_neighbors_becomes_occupied():
-    seats = FerrySeats(width=3, height=3)
     current_state = {
         Vector2D(1, 1): FerrySeat.EMPTY,
         Vector2D(0, 0): FerrySeat.FLOOR,
         Vector2D(2, 2): FerrySeat.EMPTY,
         Vector2D(0, 1): FerrySeat.EMPTY,
     }
+    seats = FerrySeats(width=3, height=3, initial_configuration=dict())
     next_state = seats.next_state(current_state)
     assert next_state[Vector2D(1, 1)] == FerrySeat.OCCUPIED
 
@@ -19,7 +20,7 @@ def test_empty_seat_in_ferry_without_occupied_neighbors_becomes_occupied():
 def test_empty_seat_in_ferry_with_one_or_more_occupied_neighbors_remains_empty(
     num_neighbors,
 ):
-    seats = FerrySeats(width=3, height=3)
+    seats = FerrySeats(width=3, height=3, initial_configuration=dict())
     center = Vector2D(1, 1)
     current_state = {center: FerrySeat.EMPTY}
     neighbors = center.adjacent_positions(include_diagonals=True)
@@ -33,7 +34,7 @@ def test_empty_seat_in_ferry_with_one_or_more_occupied_neighbors_remains_empty(
 def test_occupied_seat_with_three_or_less_occupied_neighbors_remains_occupied(
     num_neighbors,
 ):
-    seats = FerrySeats(width=3, height=3)
+    seats = FerrySeats(width=3, height=3, initial_configuration=dict())
     center = Vector2D(1, 1)
     current_state = {center: FerrySeat.OCCUPIED}
     neighbors = center.adjacent_positions(include_diagonals=True)
@@ -47,7 +48,7 @@ def test_occupied_seat_with_three_or_less_occupied_neighbors_remains_occupied(
 def test_occupied_seat_with_for_or_more_occupied_neighbors_becomes_empty(
     num_neighbors,
 ):
-    seats = FerrySeats(width=3, height=3)
+    seats = FerrySeats(width=3, height=3, initial_configuration=dict())
     center = Vector2D(1, 1)
     current_state = {center: FerrySeat.OCCUPIED}
     neighbors = center.adjacent_positions(include_diagonals=True)
@@ -55,17 +56,6 @@ def test_occupied_seat_with_for_or_more_occupied_neighbors_becomes_empty(
         current_state[next(neighbors)] = FerrySeat.OCCUPIED
     next_state = seats.next_state(current_state)
     assert next_state[center] == FerrySeat.EMPTY
-
-
-def _state_from_str(state_str: str) -> tuple[int, int, dict[Vector2D, FerrySeat]]:
-    state = state_str.strip().split("\n")
-    width = len(state[0].strip())
-    height = len(state)
-    seats = {}
-    for y, row in enumerate(state):
-        for x, cell in enumerate(row.strip()):
-            seats[Vector2D(x, y)] = FerrySeat(cell)
-    return width, height, seats
 
 
 def test_ferry_seats_reach_steady_state():
@@ -81,7 +71,7 @@ def test_ferry_seats_reach_steady_state():
                 L.LLLLLL.L
                 L.LLLLL.LL
                 """
-    width, height, initial_state = _state_from_str(state_str)
-    seats = FerrySeats(width=width, height=height)
-    final_state = seats.steady_state(initial_state)
+    grid = CharacterGrid(state_str)
+    seats = FerrySeats.from_char_grid(grid)
+    final_state = seats.steady_state()
     assert list(final_state.values()).count(FerrySeat.OCCUPIED) == 37

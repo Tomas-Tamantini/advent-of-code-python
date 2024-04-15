@@ -173,8 +173,8 @@ def aoc_2020_d10(file_name: str, **_):
 # AOC 2020: Day 11: Seating System
 def aoc_2020_d11(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
-    ferry = FerrySeats(width=grid.width, height=grid.height)
-    final_state = ferry.steady_state(grid.tiles)
+    ferry = FerrySeats.from_char_grid(grid)
+    final_state = ferry.steady_state()
     num_occupied = list(final_state.values()).count(FerrySeat.OCCUPIED)
     print(f"AOC 2020 Day 11/Part 1: {num_occupied} occupied seats in steady state")
 
