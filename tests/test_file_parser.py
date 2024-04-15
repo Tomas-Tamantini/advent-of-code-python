@@ -11,6 +11,7 @@ from models.assembly import (
     JumpGreaterThanZeroInstruction,
     AddInstruction,
     SubtractInstruction,
+    NoOpInstruction,
 )
 from models.aoc_2015 import LightGridRegion, Molecule, Fighter
 from models.aoc_2016 import (
@@ -64,7 +65,12 @@ from models.aoc_2018 import (
     ArmyGroup,
 )
 from models.aoc_2019 import ChemicalReaction, ChemicalQuantity
-from models.aoc_2020 import RangePasswordPolicy, PositionalPasswordPolicy
+from models.aoc_2020 import (
+    RangePasswordPolicy,
+    PositionalPasswordPolicy,
+    IncrementGlobalAccumulatorInstruction,
+    UnconditionalJumpInstruction,
+)
 
 
 class MockFileReader:
@@ -1275,3 +1281,17 @@ def test_parse_luggage_rules():
         "dark orange",
         "light red",
     }
+
+
+def test_parse_game_console_instructions():
+    file_content = """
+                   nop +0
+                   acc -1
+                   jmp +4
+                   """
+    file_parser = mock_file_parser(file_content)
+    instructions = list(file_parser.parse_game_console_instructions("some_file"))
+    assert len(instructions) == 3
+    assert isinstance(instructions[0], NoOpInstruction)
+    assert instructions[1] == IncrementGlobalAccumulatorInstruction(increment=-1)
+    assert instructions[2] == UnconditionalJumpInstruction(offset=4)

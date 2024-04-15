@@ -5,6 +5,7 @@ from models.aoc_2020 import (
     CylindricalForest,
     passport_is_valid,
     PASSPORT_RULES,
+    run_game_console,
 )
 
 
@@ -119,8 +120,10 @@ def aoc_2020_d7(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 8: Handheld Halting
-def aoc_2020_d8(file_name: str, **_):
-    print("AOC 2020 Day 8: Not implemented yet")
+def aoc_2020_d8(file_name: str, parser: FileParser, **_):
+    instructions = list(parser.parse_game_console_instructions(file_name))
+    accumulator = run_game_console(instructions)
+    print(f"AOC 2020 Day 8/Part 1: The accumulator value is {accumulator}")
 
 
 # AOC 2020: Day 9: Encoding Error

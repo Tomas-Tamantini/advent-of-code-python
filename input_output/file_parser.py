@@ -14,6 +14,7 @@ from models.assembly import (
     JumpGreaterThanZeroInstruction,
     AddInstruction,
     SubtractInstruction,
+    NoOpInstruction,
 )
 from models.aoc_2015 import (
     XmasPresent,
@@ -130,6 +131,8 @@ from models.aoc_2020 import (
     CustomsGroup,
     LuggageRule,
     LuggageRules,
+    IncrementGlobalAccumulatorInstruction,
+    UnconditionalJumpInstruction,
 )
 
 
@@ -1229,3 +1232,21 @@ class FileParser:
             if line.strip():
                 rules.add_rule(self._parse_luggage_rule(line.strip()))
         return rules
+
+    def _parse_game_console_instruction(self, instruction: str) -> Instruction:
+        parts = instruction.split()
+        operation = parts[0].strip()
+        value = int(parts[1])
+        if operation == "nop":
+            return NoOpInstruction()
+        elif operation == "acc":
+            return IncrementGlobalAccumulatorInstruction(increment=value)
+        elif operation == "jmp":
+            return UnconditionalJumpInstruction(offset=value)
+        else:
+            raise ValueError(f"Unknown instruction: {instruction}")
+
+    def parse_game_console_instructions(self, file_name: str) -> Iterator[Instruction]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_game_console_instruction(line.strip())
