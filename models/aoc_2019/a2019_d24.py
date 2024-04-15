@@ -12,11 +12,12 @@ DEAD, ALIVE = 0, 1
 
 
 def _bugs_automaton_rule(cluster: CellCluster) -> Hashable:
-    if cluster.cell_type == DEAD and 1 <= cluster.neighbors.count(ALIVE) <= 2:
+    if (
+        cluster.cell_type == DEAD and 1 <= cluster.num_neighbors_by_type[ALIVE] <= 2
+    ) or (cluster.cell_type == ALIVE and cluster.num_neighbors_by_type[ALIVE] == 1):
         return ALIVE
-    elif cluster.cell_type == ALIVE and cluster.neighbors.count(ALIVE) == 1:
-        return ALIVE
-    return DEAD
+    else:
+        return DEAD
 
 
 class BugsAutomaton(MultiState2DAutomaton):

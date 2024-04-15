@@ -8,10 +8,10 @@ Cell = Hashable
 CellType = Hashable
 
 
-@dataclass(frozen=True)
+@dataclass
 class CellCluster:
     cell_type: CellType
-    neighbors: list[CellType]
+    num_neighbors_by_type: dict[CellType:int]
 
 
 class MultiStateAutomaton(Protocol):
@@ -29,12 +29,12 @@ def automaton_next_state(
     automaton: MultiStateAutomaton, cells: dict[Cell:CellType]
 ) -> dict[Cell:CellType]:
     all_cells = set()
-    neighbors = defaultdict(list)
+    num_neighbors_by_type = defaultdict(lambda: defaultdict(int))
     for cell, cell_type in cells.items():
         if automaton.is_within_bounds(cell):
             all_cells.add(cell)
             for neighbor in automaton.neighbors(cell):
-                neighbors[neighbor].append(cell_type)
+                num_neighbors_by_type[neighbor][cell_type] += 1
                 all_cells.add(neighbor)
 
     next_state = defaultdict(lambda: automaton.default_cell_type)
@@ -42,7 +42,7 @@ def automaton_next_state(
     for cell in all_cells:
         cluster = CellCluster(
             cell_type=cells.get(cell, automaton.default_cell_type),
-            neighbors=tuple(neighbors[cell]),
+            num_neighbors_by_type=num_neighbors_by_type[cell],
         )
         new_type = automaton.apply_rule(cluster)
         next_state[cell] = new_type

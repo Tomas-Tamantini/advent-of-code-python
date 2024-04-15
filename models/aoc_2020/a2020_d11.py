@@ -21,12 +21,12 @@ class FerrySeats(MultiState2DAutomaton):
     def apply_rule(self, cluster: CellCluster) -> FerrySeat:
         if (
             cluster.cell_type == FerrySeat.EMPTY
-            and cluster.neighbors.count(FerrySeat.OCCUPIED) == 0
+            and cluster.num_neighbors_by_type[FerrySeat.OCCUPIED] == 0
         ):
             return FerrySeat.OCCUPIED
         if (
             cluster.cell_type == FerrySeat.OCCUPIED
-            and cluster.neighbors.count(FerrySeat.OCCUPIED) >= 4
+            and cluster.num_neighbors_by_type[FerrySeat.OCCUPIED] >= 4
         ):
             return FerrySeat.EMPTY
         return cluster.cell_type
