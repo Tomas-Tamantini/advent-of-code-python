@@ -14,6 +14,12 @@ class CharacterGrid:
             for x, char in enumerate(line)
         }
 
+    @classmethod
+    def from_txt_file(cls, file_path: str) -> "CharacterGrid":
+        with open(file_path) as file:
+            content = file.read()
+        return cls(content)
+
     @property
     def width(self) -> int:
         return self._width

@@ -322,9 +322,7 @@ def aoc_2018_d17(file_name: str, parser: FileParser, **_):
 
 # AOC 2018 Day 18: Settlers of The North Pole
 def aoc_2018_d18(file_name: str, **_):
-    with open(file_name) as file:
-        content = file.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     area = LumberArea(width=grid.width, height=grid.height)
     cells = grid.tiles
     cells_after_10 = area.multi_step(cells, 10)

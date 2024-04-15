@@ -195,9 +195,7 @@ def aoc_2019_d9(file_name: str, **_):
 
 # AOC 2019 Day 10: Monitoring Station
 def aoc_2019_d10(file_name: str, **_):
-    with open(file_name, "r") as file:
-        content = file.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()
     print(
@@ -480,9 +478,7 @@ def aoc_2019_d23(file_name: str, **_):
 
 # AOC 2019 Day 24: Planet of Discord
 def aoc_2019_d24(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name, "r") as file:
-        content = file.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     live_cells = set(grid.positions_with_value("#"))
 
     automaton = BugsAutomaton(width=5, height=5)

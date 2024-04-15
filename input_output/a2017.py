@@ -343,9 +343,7 @@ def aoc_2017_d21(file_name: str, parser: FileParser, **_):
 
 # AOC 2017 Day 22: Sporifica Virus
 def aoc_2017_d22(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as f:
-        content = f.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     infected_positions = set(grid.positions_with_value("#"))
     cluster = GridCluster(
         carrier_position=grid.center,

@@ -307,9 +307,7 @@ def aoc_2015_d17(file_name: str, **_):
 
 # AOC 2015 - Day 18: Like a GIF For Your Yard
 def aoc_2015_d18(file_name: str, **_):
-    with open(file_name, "r") as f:
-        content = f.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     initial_cells = set(grid.positions_with_value("#"))
     game = GameOfLifeLights(grid.width, grid.height)
     num_steps = 100

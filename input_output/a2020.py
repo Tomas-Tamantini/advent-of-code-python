@@ -52,9 +52,7 @@ def aoc_2020_d2(file_name: str, parser: FileParser, **_):
 
 # AOC 2020: Day 3: Toboggan Trajectory
 def aoc_2020_d3(file_name: str, **_):
-    with open(file_name) as file:
-        content = file.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     forest = CylindricalForest(
         width=grid.width, height=grid.height, trees=set(grid.positions_with_value("#"))
     )
@@ -174,9 +172,7 @@ def aoc_2020_d10(file_name: str, **_):
 
 # AOC 2020: Day 11: Seating System
 def aoc_2020_d11(file_name: str, **_):
-    with open(file_name) as file:
-        content = file.read()
-    grid = CharacterGrid(content)
+    grid = CharacterGrid.from_txt_file(file_name)
     ferry = FerrySeats(width=grid.width, height=grid.height)
     final_state = ferry.steady_state(grid.tiles)
     num_occupied = list(final_state.values()).count(FerrySeat.OCCUPIED)
