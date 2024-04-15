@@ -9,6 +9,8 @@ from models.aoc_2020 import (
     find_and_run_game_console_which_terminates,
     XMasEncoding,
     AdapterArray,
+    FerrySeats,
+    FerrySeat,
 )
 
 
@@ -169,8 +171,12 @@ def aoc_2020_d10(file_name: str, **_):
 
 
 # AOC 2020: Day 11: Seating System
-def aoc_2020_d11(file_name: str, **_):
-    print("AOC 2020 Day 11: Not implemented yet")
+def aoc_2020_d11(file_name: str, parser: FileParser, **_):
+    width, height, seats = parser.parse_ferry_seats(file_name)
+    ferry = FerrySeats(width=width, height=height)
+    final_state = ferry.steady_state(seats)
+    num_occupied = list(final_state.values()).count(FerrySeat.OCCUPIED)
+    print(f"AOC 2020 Day 11/Part 1: {num_occupied} occupied seats in steady state")
 
 
 # AOC 2020: Day 12: Rain Risk

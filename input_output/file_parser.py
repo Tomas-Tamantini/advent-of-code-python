@@ -132,6 +132,7 @@ from models.aoc_2020 import (
     LuggageRules,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
+    FerrySeat,
 )
 
 
@@ -1249,3 +1250,16 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_game_console_instruction(line.strip())
+
+    def parse_ferry_seats(
+        self, file_name: str
+    ) -> tuple[int, int, dict[Vector2D, FerrySeat]]:
+        lines = list(self._file_reader.readlines(file_name))
+        non_empty_lines = [line.strip() for line in lines if line.strip()]
+        width = len(non_empty_lines[0])
+        height = len(non_empty_lines)
+        seats = {}
+        for y, line in enumerate(non_empty_lines):
+            for x, char in enumerate(line):
+                seats[Vector2D(x, y)] = FerrySeat(char)
+        return width, height, seats

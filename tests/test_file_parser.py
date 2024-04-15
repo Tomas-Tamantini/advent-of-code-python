@@ -69,6 +69,7 @@ from models.aoc_2020 import (
     PositionalPasswordPolicy,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
+    FerrySeat,
 )
 
 
@@ -1295,3 +1296,24 @@ def test_parse_game_console_instructions():
         IncrementGlobalAccumulatorInstruction(increment=-1),
         JumpOrNoOpInstruction(offset=4, is_jump=True),
     ]
+
+
+def test_parse_ferry_seats():
+    file_content = """
+                   #L.
+                   ...
+                   ..L
+                   ...
+                   """
+    file_parser = mock_file_parser(file_content)
+    width, height, seats = file_parser.parse_ferry_seats("some_file")
+    assert width == 3
+    assert height == 4
+    assert len(seats) == 12
+    expected = {
+        Vector2D(0, 0): FerrySeat.OCCUPIED,
+        Vector2D(1, 0): FerrySeat.EMPTY,
+        Vector2D(2, 2): FerrySeat.EMPTY,
+    }
+    for position, seat in seats.items():
+        assert seat == expected.get(position, FerrySeat.FLOOR)
