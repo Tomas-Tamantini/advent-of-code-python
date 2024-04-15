@@ -14,3 +14,10 @@ from .a2020_d8 import (
 from .a2020_d9 import XMasEncoding
 from .a2020_d10 import AdapterArray
 from .a2020_d11 import FerrySeat, FerrySeats
+from .a2020_d12 import (
+    Ship,
+    NavigationInstruction,
+    MoveShipInstruction,
+    MoveShipForwardInstruction,
+    TurnShipInstruction,
+)
