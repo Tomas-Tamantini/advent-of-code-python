@@ -1,6 +1,7 @@
 import numpy as np
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
+from models.char_grid import CharacterGrid
 from models.vectors import CardinalDirection
 from models.aoc_2017 import (
     digits_that_match_the_next,
@@ -341,12 +342,13 @@ def aoc_2017_d21(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 Day 22: Sporifica Virus
-def aoc_2017_d22(
-    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
-):
-    infected_positions, central_position = parser.parse_grid_cluster(file_name)
+def aoc_2017_d22(file_name: str, progress_bar: ProgressBarConsole, **_):
+    with open(file_name) as f:
+        content = f.read()
+    grid = CharacterGrid(content)
+    infected_positions = set(grid.positions_with_value("#"))
     cluster = GridCluster(
-        carrier_position=central_position,
+        carrier_position=grid.center,
         carrier_direction=CardinalDirection.SOUTH,
         currently_infected=infected_positions,
     )

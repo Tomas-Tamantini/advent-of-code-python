@@ -2,6 +2,7 @@ from itertools import combinations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from math import inf
+from models.char_grid import CharacterGrid
 from models.vectors import Vector2D, TurnDirection
 from models.graphs import topological_sorting, explore_with_bfs
 from models.assembly import Processor, ImmutableProgram, Computer
@@ -320,9 +321,12 @@ def aoc_2018_d17(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 Day 18: Settlers of The North Pole
-def aoc_2018_d18(file_name: str, parser: FileParser, **_):
-    area = LumberArea(width=50, height=50)
-    cells = parser.parse_lumber_area(file_name)
+def aoc_2018_d18(file_name: str, **_):
+    with open(file_name) as file:
+        content = file.read()
+    grid = CharacterGrid(content)
+    area = LumberArea(width=grid.width, height=grid.height)
+    cells = grid.tiles
     cells_after_10 = area.multi_step(cells, 10)
     num_wooded = sum(c == AcreType.TREE for c in cells_after_10.values())
     num_lumberyards = sum(c == AcreType.LUMBERYARD for c in cells_after_10.values())

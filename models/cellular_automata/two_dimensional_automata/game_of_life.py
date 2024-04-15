@@ -1,5 +1,4 @@
 from typing import Hashable, Optional
-
 from models.vectors import Vector2D
 from .multi_state_automata import CellCluster, MultiState2DAutomaton
 
@@ -24,7 +23,7 @@ class GameOfLife(MultiState2DAutomaton):
         else:
             return DEAD
 
-    def next_live_cells(self, live_cells: set[tuple[int, int]]) -> set[tuple[int, int]]:
-        cells = {Vector2D(x, y): ALIVE for x, y in live_cells}
+    def next_live_cells(self, live_cells: set[Vector2D]) -> set[Vector2D]:
+        cells = {pos: ALIVE for pos in live_cells}
         next_gen = self.next_state(cells)
-        return {(pos.x, pos.y) for pos, cell in next_gen.items() if cell == ALIVE}
+        return {pos for pos, cell in next_gen.items() if cell == ALIVE}

@@ -2,6 +2,7 @@ from itertools import permutations
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.vectors import Vector2D
+from models.char_grid import CharacterGrid
 from models.aoc_2019 import (
     fuel_requirement,
     run_intcode_program_until_halt,
@@ -193,9 +194,11 @@ def aoc_2019_d9(file_name: str, **_):
 
 
 # AOC 2019 Day 10: Monitoring Station
-def aoc_2019_d10(file_name: str, parser: FileParser, **_):
-    _, asteroid_locations = parser.parse_game_of_life(file_name)
-    belt = AsteroidBelt({Vector2D(*p) for p in asteroid_locations})
+def aoc_2019_d10(file_name: str, **_):
+    with open(file_name, "r") as file:
+        content = file.read()
+    grid = CharacterGrid(content)
+    belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()
     print(
         f"AOC 2019 Day 10/Part 1: Best location can see {others_visible} other asteroids"
@@ -476,14 +479,14 @@ def aoc_2019_d23(file_name: str, **_):
 
 
 # AOC 2019 Day 24: Planet of Discord
-def aoc_2019_d24(
-    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
-):
-    _, live_cells = parser.parse_game_of_life(file_name)
-    cells_as_vectors = {Vector2D(*p) for p in live_cells}
+def aoc_2019_d24(file_name: str, progress_bar: ProgressBarConsole, **_):
+    with open(file_name, "r") as file:
+        content = file.read()
+    grid = CharacterGrid(content)
+    live_cells = set(grid.positions_with_value("#"))
 
     automaton = BugsAutomaton(width=5, height=5)
-    repeated_state = automaton.first_pattern_to_appear_twice(cells_as_vectors)
+    repeated_state = automaton.first_pattern_to_appear_twice(live_cells)
     rating = automaton.biodiversity_rating(repeated_state)
     print(
         f"AOC 2019 Day 24/Part 1: Biodiversity rating of the first repeated state is {rating}"
@@ -491,7 +494,7 @@ def aoc_2019_d24(
 
     recursive_automaton = RecursiveBugsAutomaton(width=5, height=5)
     final_state = recursive_automaton.advance(
-        initial_configuration_on_level_zero=cells_as_vectors,
+        initial_configuration_on_level_zero=live_cells,
         num_steps=200,
         progress_bar=progress_bar,
     )

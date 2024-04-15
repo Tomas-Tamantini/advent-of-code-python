@@ -5,6 +5,7 @@ from datetime import datetime
 from collections import defaultdict
 from models.graphs import DirectedGraph
 from models.vectors import CardinalDirection, Vector2D, TurnDirection, Vector3D
+from models.char_grid import CharacterGrid
 from models.assembly import (
     Instruction,
     CopyInstruction,
@@ -31,7 +32,6 @@ from models.aoc_2015 import (
     Reindeer,
     CookieProperties,
     AuntSue,
-    GameOfLifeLights,
     Molecule,
 )
 from models.aoc_2016 import (
@@ -294,16 +294,6 @@ class FileParser:
                 key, value = attribute.split(":")
                 attributes[key.strip()] = int(value.strip())
             yield AuntSue(sue_id, attributes)
-
-    def parse_game_of_life(
-        self, file_name
-    ) -> tuple[GameOfLifeLights, set[tuple[int, int]]]:
-        live_cells = set()
-        for y, line in enumerate(self._file_reader.readlines(file_name)):
-            for x, char in enumerate(line.strip()):
-                if char == "#":
-                    live_cells.add((x, y))
-        return GameOfLifeLights(x + 1, y + 1), live_cells
 
     @staticmethod
     def _parse_molecule(molecule_str: str) -> Molecule:
@@ -684,18 +674,6 @@ class FileParser:
             rules[self.parse_art_block(parts[0])] = self.parse_art_block(parts[1])
         return rules
 
-    def parse_grid_cluster(self, file_name: str) -> tuple[set[Vector2D], Vector2D]:
-        lines = list(self._file_reader.readlines(file_name))
-        width = len(lines[0].strip())
-        height = len(lines)
-        central_position = Vector2D(width // 2, height // 2)
-        cluster = set()
-        for y, line in enumerate(lines):
-            for x, char in enumerate(line.strip()):
-                if char == "#":
-                    cluster.add(Vector2D(x, y))
-        return cluster, central_position
-
     def parse_bridge_components(self, file_name: str) -> Iterator[BridgeComponent]:
         for line in self._file_reader.readlines(file_name):
             yield BridgeComponent(*map(int, line.strip().split("/")))
@@ -845,16 +823,6 @@ class FileParser:
             for x in range(coords["x"][0], coords["x"][1] + 1):
                 for y in range(coords["y"][0], coords["y"][1] + 1):
                     yield Vector2D(x, y)
-
-    def parse_lumber_area(self, file_name: str) -> dict[Vector2D, AcreType]:
-        cells = {}
-        for y, line in enumerate(self._file_reader.readlines(file_name)):
-            for x, char in enumerate(line.strip()):
-                acre_type = AcreType(char)
-                if acre_type != AcreType.OPEN:
-                    cells[Vector2D(x, y)] = acre_type
-
-        return cells
 
     def parse_three_value_instructions(
         self, file_name: str
@@ -1009,19 +977,12 @@ class FileParser:
             yield self._parse_chemical_reaction(line.strip())
 
     @staticmethod
-    def _tunnel_entrance_position(lines: list[str]) -> Vector2D:
-        for y, line in enumerate(lines):
-            for x, char in enumerate(line):
-                if char == "@":
-                    return Vector2D(x, y)
-
-    @staticmethod
     def _tunnel_updated_characters(
-        lines: list[str], split_entrance_four_ways: bool
+        grid: CharacterGrid, split_entrance_four_ways: bool
     ) -> dict[Vector2D, chr]:
         if not split_entrance_four_ways:
             return dict()
-        entrance_position = FileParser._tunnel_entrance_position(lines)
+        entrance_position = next(grid.positions_with_value("@"))
         updated_chars = dict()
         for dx in range(-1, 2):
             for dy in range(-1, 2):
@@ -1033,21 +994,21 @@ class FileParser:
     def parse_tunnel_maze(
         self, file_name: str, split_entrance_four_ways: bool = False
     ) -> TunnelMaze:
+        content = self._file_reader.read(file_name)
+        grid = CharacterGrid(content)
         maze = TunnelMaze()
-        lines = list(self._file_reader.readlines(file_name))
-        updated_chars = self._tunnel_updated_characters(lines, split_entrance_four_ways)
-        for y, line in enumerate(lines):
-            for x, char in enumerate(line):
-                position = Vector2D(x, y)
-                actual_char = updated_chars.get(position, char)
-                if actual_char == ".":
-                    maze.add_open_passage(position)
-                if actual_char == "@":
-                    maze.add_entrance(position)
-                if actual_char.islower():
-                    maze.add_key(position, key_id=char)
-                if actual_char.isupper():
-                    maze.add_door(position, corresponding_key_id=actual_char.lower())
+        updated_chars = self._tunnel_updated_characters(grid, split_entrance_four_ways)
+        for position in grid.positions():
+            original_char = grid.tiles[position]
+            actual_char = updated_chars.get(position, original_char)
+            if actual_char == ".":
+                maze.add_open_passage(position)
+            if actual_char == "@":
+                maze.add_entrance(position)
+            if actual_char.islower():
+                maze.add_key(position, key_id=original_char)
+            if actual_char.isupper():
+                maze.add_door(position, corresponding_key_id=actual_char.lower())
         return maze
 
     @staticmethod
@@ -1250,16 +1211,3 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_game_console_instruction(line.strip())
-
-    def parse_ferry_seats(
-        self, file_name: str
-    ) -> tuple[int, int, dict[Vector2D, FerrySeat]]:
-        lines = list(self._file_reader.readlines(file_name))
-        non_empty_lines = [line.strip() for line in lines if line.strip()]
-        width = len(non_empty_lines[0])
-        height = len(non_empty_lines)
-        seats = {}
-        for y, line in enumerate(non_empty_lines):
-            for x, char in enumerate(line):
-                seats[Vector2D(x, y)] = FerrySeat(char)
-        return width, height, seats

@@ -1,5 +1,5 @@
 from input_output.file_parser import FileParser
-from models.vectors import Vector2D
+from models.char_grid import CharacterGrid
 from models.aoc_2020 import (
     subsets_that_sum_to,
     CylindricalForest,
@@ -51,10 +51,12 @@ def aoc_2020_d2(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 3: Toboggan Trajectory
-def aoc_2020_d3(file_name: str, parser: FileParser, **_):
-    aux, trees = parser.parse_game_of_life(file_name)
+def aoc_2020_d3(file_name: str, **_):
+    with open(file_name) as file:
+        content = file.read()
+    grid = CharacterGrid(content)
     forest = CylindricalForest(
-        width=aux.width, height=aux.height, trees={Vector2D(*t) for t in trees}
+        width=grid.width, height=grid.height, trees=set(grid.positions_with_value("#"))
     )
     num_collisions = forest.number_of_collisions_with_trees(steps_right=3, steps_down=1)
     print(f"AOC 2020 Day 3/Part 1: {num_collisions} collisions with trees")
@@ -171,10 +173,12 @@ def aoc_2020_d10(file_name: str, **_):
 
 
 # AOC 2020: Day 11: Seating System
-def aoc_2020_d11(file_name: str, parser: FileParser, **_):
-    width, height, seats = parser.parse_ferry_seats(file_name)
-    ferry = FerrySeats(width=width, height=height)
-    final_state = ferry.steady_state(seats)
+def aoc_2020_d11(file_name: str, **_):
+    with open(file_name) as file:
+        content = file.read()
+    grid = CharacterGrid(content)
+    ferry = FerrySeats(width=grid.width, height=grid.height)
+    final_state = ferry.steady_state(grid.tiles)
     num_occupied = list(final_state.values()).count(FerrySeat.OCCUPIED)
     print(f"AOC 2020 Day 11/Part 1: {num_occupied} occupied seats in steady state")
 

@@ -1,5 +1,6 @@
 from input_output.file_parser import FileParser
 from math import prod
+from models.char_grid import CharacterGrid
 from models.aoc_2015 import (
     final_floor,
     first_basement,
@@ -14,6 +15,7 @@ from models.aoc_2015 import (
     ReindeerOlympics,
     CookieRecipe,
     eggnog_partition,
+    GameOfLifeLights,
     ItemAssortment,
     RpgItem,
     Fighter,
@@ -304,8 +306,12 @@ def aoc_2015_d17(file_name: str, **_):
 
 
 # AOC 2015 - Day 18: Like a GIF For Your Yard
-def aoc_2015_d18(file_name: str, parser: FileParser, **_):
-    game, initial_cells = parser.parse_game_of_life(file_name)
+def aoc_2015_d18(file_name: str, **_):
+    with open(file_name, "r") as f:
+        content = f.read()
+    grid = CharacterGrid(content)
+    initial_cells = set(grid.positions_with_value("#"))
+    game = GameOfLifeLights(grid.width, grid.height)
     num_steps = 100
     cells_default_game = initial_cells
     cells_corners_always_on_game = initial_cells

@@ -42,7 +42,6 @@ from models.aoc_2018 import (
     GuardNap,
     MovingParticle,
     InstructionSample,
-    AcreType,
     AddRegisters,
     AddImmediate,
     MultiplyRegisters,
@@ -69,7 +68,6 @@ from models.aoc_2020 import (
     PositionalPasswordPolicy,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
-    FerrySeat,
 )
 
 
@@ -244,17 +242,6 @@ def test_parse_aunt_sue_collection():
     assert aunts[0]._attributes == {"children": 1, "cars": 8, "vizslas": 7}
     assert aunts[1].id == 2
     assert aunts[1]._attributes == {"akitas": 10, "perfumes": 10, "children": 5}
-
-
-def test_parse_game_of_life():
-    file_content = """#...
-                      ..#.
-                      .##."""
-    file_parser = mock_file_parser(file_content)
-    game, live_cells = file_parser.parse_game_of_life("some_file_name")
-    assert game._width == 4
-    assert game._height == 3
-    assert live_cells == {(0, 0), (1, 2), (2, 1), (2, 2)}
 
 
 def test_parse_molecule_replacements():
@@ -569,16 +556,6 @@ def test_parse_art_block_rules():
     assert fractal_art.num_cells_on_after_iterations(2) == 12
 
 
-def test_parse_grid_cluster():
-    file_content = """..#
-                      #..
-                      ..."""
-    file_parser = mock_file_parser(file_content)
-    infected, central_position = file_parser.parse_grid_cluster("some_file")
-    assert infected == {Vector2D(2, 0), Vector2D(0, 1)}
-    assert central_position == Vector2D(1, 1)
-
-
 def test_parse_duet_code_with_spy_multiply():
     file_content = """mul a b
                       jnz a -1
@@ -836,21 +813,6 @@ def test_parse_position_ranges():
         Vector2D(1001, 2),
         Vector2D(1002, 1),
         Vector2D(1002, 2),
-    }
-
-
-def test_parse_lumber_area():
-    file_content = """.#.|
-                      #..#
-                      ...|"""
-    file_parser = mock_file_parser(file_content)
-    cells = file_parser.parse_lumber_area("some_file")
-    assert cells == {
-        Vector2D(1, 0): AcreType.LUMBERYARD,
-        Vector2D(3, 0): AcreType.TREE,
-        Vector2D(0, 1): AcreType.LUMBERYARD,
-        Vector2D(3, 1): AcreType.LUMBERYARD,
-        Vector2D(3, 2): AcreType.TREE,
     }
 
 
@@ -1296,24 +1258,3 @@ def test_parse_game_console_instructions():
         IncrementGlobalAccumulatorInstruction(increment=-1),
         JumpOrNoOpInstruction(offset=4, is_jump=True),
     ]
-
-
-def test_parse_ferry_seats():
-    file_content = """
-                   #L.
-                   ...
-                   ..L
-                   ...
-                   """
-    file_parser = mock_file_parser(file_content)
-    width, height, seats = file_parser.parse_ferry_seats("some_file")
-    assert width == 3
-    assert height == 4
-    assert len(seats) == 12
-    expected = {
-        Vector2D(0, 0): FerrySeat.OCCUPIED,
-        Vector2D(1, 0): FerrySeat.EMPTY,
-        Vector2D(2, 2): FerrySeat.EMPTY,
-    }
-    for position, seat in seats.items():
-        assert seat == expected.get(position, FerrySeat.FLOOR)
