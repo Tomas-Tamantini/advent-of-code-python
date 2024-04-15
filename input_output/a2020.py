@@ -164,6 +164,8 @@ def aoc_2020_d10(file_name: str, **_):
     num_1_diff = differences.count(1)
     num_3_diff = differences.count(3)
     print(f"AOC 2020 Day 10/Part 1: {num_1_diff * num_3_diff} joltage differences")
+    num_arrangements = array.number_of_arrangements()
+    print(f"AOC 2020 Day 10/Part 2: {num_arrangements} arrangements")
 
 
 # AOC 2020: Day 11: Seating System
