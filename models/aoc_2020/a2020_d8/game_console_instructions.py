@@ -8,6 +8,7 @@ class IncrementGlobalAccumulatorInstruction:
 
     def execute(self, hardware: Hardware) -> None:
         hardware.global_accumulator += self.increment
+        hardware.increment_program_counter(1)
 
 
 @dataclass(frozen=True)
