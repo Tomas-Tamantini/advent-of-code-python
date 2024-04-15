@@ -7,6 +7,7 @@ from models.aoc_2020 import (
     PASSPORT_RULES,
     run_game_console,
     find_and_run_game_console_which_terminates,
+    XMasEncoding,
 )
 
 
@@ -133,7 +134,19 @@ def aoc_2020_d8(file_name: str, parser: FileParser, **_):
 
 # AOC 2020: Day 9: Encoding Error
 def aoc_2020_d9(file_name: str, **_):
-    print("AOC 2020 Day 9: Not implemented yet")
+    with open(file_name) as file:
+        numbers = [int(line) for line in file]
+    encoding = XMasEncoding(preamble_length=25)
+    invalid_number = next(encoding.invalid_numbers(numbers))
+    print(f"AOC 2020 Day 9/Part 1: The first invalid number is {invalid_number}")
+    contiguous_numbers = next(
+        encoding.contiguous_numbers_which_sum_to_target(numbers, target=invalid_number)
+    )
+    min_num, max_num = min(contiguous_numbers), max(contiguous_numbers)
+    result = min_num + max_num
+    print(
+        f"AOC 2020 Day 9/Part 2: The sum of min and max contiguous numbers is {result}"
+    )
 
 
 # AOC 2020: Day 10: Adapter Array

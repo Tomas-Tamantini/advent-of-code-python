@@ -11,3 +11,4 @@ from .a2020_d8 import (
     run_game_console,
     find_and_run_game_console_which_terminates,
 )
+from .a2020_d9 import XMasEncoding
