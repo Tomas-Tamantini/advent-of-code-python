@@ -6,7 +6,8 @@ from .a2020_d6 import CustomsGroup
 from .a2020_d7 import LuggageRule, LuggageRules
 from .a2020_d8 import (
     IncrementGlobalAccumulatorInstruction,
-    UnconditionalJumpInstruction,
+    JumpOrNoOpInstruction,
     GameConsoleProgram,
     run_game_console,
+    find_and_run_game_console_which_terminates,
 )

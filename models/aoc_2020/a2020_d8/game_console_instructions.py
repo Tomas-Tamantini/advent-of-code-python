@@ -12,8 +12,15 @@ class IncrementGlobalAccumulatorInstruction:
 
 
 @dataclass(frozen=True)
-class UnconditionalJumpInstruction:
+class JumpOrNoOpInstruction:
     offset: int
+    is_jump: bool = True
 
     def execute(self, hardware: Hardware) -> None:
-        hardware.increment_program_counter(self.offset)
+        if self.is_jump:
+            hardware.increment_program_counter(self.offset)
+        else:
+            hardware.increment_program_counter(1)
+
+    def toggle(self) -> "JumpOrNoOpInstruction":
+        return JumpOrNoOpInstruction(offset=self.offset, is_jump=not self.is_jump)

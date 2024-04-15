@@ -14,7 +14,6 @@ from models.assembly import (
     JumpGreaterThanZeroInstruction,
     AddInstruction,
     SubtractInstruction,
-    NoOpInstruction,
 )
 from models.aoc_2015 import (
     XmasPresent,
@@ -132,7 +131,7 @@ from models.aoc_2020 import (
     LuggageRule,
     LuggageRules,
     IncrementGlobalAccumulatorInstruction,
-    UnconditionalJumpInstruction,
+    JumpOrNoOpInstruction,
 )
 
 
@@ -1238,11 +1237,11 @@ class FileParser:
         operation = parts[0].strip()
         value = int(parts[1])
         if operation == "nop":
-            return NoOpInstruction()
+            return JumpOrNoOpInstruction(offset=value, is_jump=False)
         elif operation == "acc":
             return IncrementGlobalAccumulatorInstruction(increment=value)
         elif operation == "jmp":
-            return UnconditionalJumpInstruction(offset=value)
+            return JumpOrNoOpInstruction(offset=value, is_jump=True)
         else:
             raise ValueError(f"Unknown instruction: {instruction}")
 
