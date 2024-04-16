@@ -1,7 +1,7 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
-from models.vectors import Vector2D, Vector3D, CardinalDirection
+from models.vectors import Vector2D, VectorNDimensional, CardinalDirection
 from models.aoc_2020 import (
     subsets_that_sum_to,
     CylindricalForest,
@@ -322,12 +322,25 @@ def aoc_2020_d16(file_name: str, parser: FileParser, **_):
 # AOC 2020: Day 17: Conway Cubes
 def aoc_2020_d17(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
-    active_cubes = {Vector3D(pos.x, pos.y, 0) for pos in grid.positions_with_value("#")}
-    state = active_cubes
+    active_cubes_3d = {
+        VectorNDimensional(pos.x, pos.y, 0) for pos in grid.positions_with_value("#")
+    }
     automaton = HyperGameOfLife()
     for _ in range(6):
-        state = automaton.next_state(state)
-    print(f"AOC 2020 Day 17/Part 1: Number of active cubes is {len(state)}")
+        active_cubes_3d = automaton.next_state(active_cubes_3d)
+    print(
+        f"AOC 2020 Day 17/Part 1: Number of active 3D cubes is {len(active_cubes_3d)}"
+    )
+
+    active_cubes_4d = {
+        VectorNDimensional(pos.x, pos.y, 0, 0) for pos in grid.positions_with_value("#")
+    }
+    automaton = HyperGameOfLife()
+    for _ in range(6):
+        active_cubes_4d = automaton.next_state(active_cubes_4d)
+    print(
+        f"AOC 2020 Day 17/Part 2: Number of active 4D hypercubes is {len(active_cubes_4d)}"
+    )
 
 
 # AOC 2020: Day 18: Operation Order
