@@ -24,4 +24,7 @@ from .a2020_d12 import (
     MoveWaypointInstruction,
     RotateWaypointInstruction,
 )
-from .a2020_d13 import BusSchedule
+from .a2020_d13 import (
+    BusSchedule,
+    earliest_timestamp_to_match_wait_time_and_index_in_list,
+)

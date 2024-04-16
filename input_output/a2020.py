@@ -13,6 +13,7 @@ from models.aoc_2020 import (
     FerrySeats,
     FerrySeat,
     Ship,
+    earliest_timestamp_to_match_wait_time_and_index_in_list,
 )
 
 
@@ -240,6 +241,12 @@ def aoc_2020_d13(file_name: str, parser: FileParser, **_):
     )
     print(
         f"AOC 2020 Day 13/Part 1: Bus ID {bus_id} multiplied by wait time {wait_time} is {bus_id * wait_time}"
+    )
+    earliest_timestamp = earliest_timestamp_to_match_wait_time_and_index_in_list(
+        bus_schedules
+    )
+    print(
+        f"AOC 2020 Day 13/Part 2: Earliest timestamp to match bus schedules is {earliest_timestamp}"
     )
 
 
