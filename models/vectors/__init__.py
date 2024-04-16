@@ -1,4 +1,5 @@
 from .cardinal_directions import CardinalDirection, TurnDirection
 from .vector_2d import Vector2D
 from .vector_3d import Vector3D
+from .vector_n_dimensional import VectorNDimensional
 from .bounding_box import BoundingBox

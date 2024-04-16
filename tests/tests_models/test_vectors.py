@@ -5,6 +5,7 @@ from models.vectors import (
     TurnDirection,
     BoundingBox,
     Vector3D,
+    VectorNDimensional,
 )
 
 
@@ -206,3 +207,20 @@ def test_can_subtract_vectors_3d_from_each_other():
 
 def test_3d_vector_has_26_adjacent_positions():
     assert len(list(Vector3D(0, 0, 0).adjacent_positions())) == 26
+
+
+def test_n_dimensional_vector_can_be_compared_for_equality():
+    assert VectorNDimensional(1, 2, 3) == VectorNDimensional(1, 2, 3)
+    assert VectorNDimensional(1, 2, 3) != VectorNDimensional(1, 2, 4)
+    assert VectorNDimensional(1, 2, 3) != VectorNDimensional(1, 2, 3, 4)
+    assert hash(VectorNDimensional(1, 2, 3)) == hash(VectorNDimensional(1, 2, 3))
+
+
+def test_can_add_two_n_dimensional_vectors():
+    a = VectorNDimensional(1, 2, 3, 4)
+    b = VectorNDimensional(5, 6, 7, 8)
+    assert a + b == VectorNDimensional(6, 8, 10, 12)
+
+
+def test_4d_vector_has_80_adjacent_positions():
+    assert len(list(VectorNDimensional(1, 2, 3, 4).adjacent_positions())) == 80
