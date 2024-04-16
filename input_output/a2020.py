@@ -227,8 +227,20 @@ def aoc_2020_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 13: Shuttle Search
-def aoc_2020_d13(file_name: str, **_):
-    print("AOC 2020 Day 13: Not implemented yet")
+def aoc_2020_d13(file_name: str, parser: FileParser, **_):
+    bus_schedules, timestap = parser.parse_bus_schedules_and_current_timestamp(
+        file_name
+    )
+    wait_time, bus_id = min(
+        (
+            bus.wait_time(timestap),
+            bus.bus_id,
+        )
+        for bus in bus_schedules
+    )
+    print(
+        f"AOC 2020 Day 13/Part 1: Bus ID {bus_id} multiplied by wait time {wait_time} is {bus_id * wait_time}"
+    )
 
 
 # AOC 2020: Day 14: Docking Data

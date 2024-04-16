@@ -24,3 +24,4 @@ from .a2020_d12 import (
     MoveWaypointInstruction,
     RotateWaypointInstruction,
 )
+from .a2020_d13 import BusSchedule

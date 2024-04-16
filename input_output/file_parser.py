@@ -139,6 +139,7 @@ from models.aoc_2020 import (
     MoveTowardsWaypointInstruction,
     MoveWaypointInstruction,
     RotateWaypointInstruction,
+    BusSchedule,
 )
 
 
@@ -1268,3 +1269,15 @@ class FileParser:
                 yield self._parse_navigation_instruction(
                     line.strip(), relative_to_waypoint
                 )
+
+    def parse_bus_schedules_and_current_timestamp(
+        self, file_name: str
+    ) -> tuple[list[BusSchedule], int]:
+        lines = list(self._file_reader.readlines(file_name))
+        current_timestamp = int(lines[0].strip())
+        bus_schedules = [
+            BusSchedule(index_in_list=i, bus_id=int(bus_id))
+            for i, bus_id in enumerate(lines[1].strip().split(","))
+            if bus_id != "x"
+        ]
+        return bus_schedules, current_timestamp

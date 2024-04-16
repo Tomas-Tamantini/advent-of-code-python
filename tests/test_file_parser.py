@@ -74,6 +74,7 @@ from models.aoc_2020 import (
     MoveTowardsWaypointInstruction,
     MoveWaypointInstruction,
     RotateWaypointInstruction,
+    BusSchedule,
 )
 
 
@@ -1317,4 +1318,21 @@ def test_parse_navigation_instructions_for_waypoint():
         RotateWaypointInstruction(turn_direction=TurnDirection.LEFT),
         RotateWaypointInstruction(turn_direction=TurnDirection.NO_TURN),
         RotateWaypointInstruction(turn_direction=TurnDirection.LEFT),
+    ]
+
+
+def test_parse_bus_schedules_and_current_timestamp():
+    file_content = """939
+                      7,13,x,x,59,x,31,19"""
+    file_parser = mock_file_parser(file_content)
+    bus_schedules, current_timestamp = (
+        file_parser.parse_bus_schedules_and_current_timestamp("some_file")
+    )
+    assert current_timestamp == 939
+    assert bus_schedules == [
+        BusSchedule(index_in_list=0, bus_id=7),
+        BusSchedule(index_in_list=1, bus_id=13),
+        BusSchedule(index_in_list=4, bus_id=59),
+        BusSchedule(index_in_list=6, bus_id=31),
+        BusSchedule(index_in_list=7, bus_id=19),
     ]
