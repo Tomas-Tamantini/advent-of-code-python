@@ -34,29 +34,66 @@ def test_ticket_field_is_valid_if_it_is_contained_in_any_interval_of_given_valid
     assert field_validator.is_valid(7)
 
 
+ticket_validator = TicketValidator(
+    field_validators=(
+        TicketFieldValidator(
+            field_name="row",
+            intervals=(RangeInterval(1, 3), RangeInterval(5, 7)),
+        ),
+        TicketFieldValidator(
+            field_name="seat",
+            intervals=(RangeInterval(10, 20),),
+        ),
+    )
+)
+
+
 def test_ticket_field_is_invalid_if_it_is_not_validated_by_any_validator():
-    field_a_validator = TicketFieldValidator(
-        field_name="row",
-        intervals=(RangeInterval(1, 3), RangeInterval(5, 7)),
-    )
-    field_b_validator = TicketFieldValidator(
-        field_name="seat", intervals=(RangeInterval(10, 20),)
-    )
-    ticket_validator = TicketValidator(
-        field_validators=(field_a_validator, field_b_validator)
-    )
     assert not ticket_validator.is_valid_field(0)
 
 
 def test_ticket_field_is_valid_if_it_is_validated_by_any_validator():
-    field_a_validator = TicketFieldValidator(
-        field_name="row",
-        intervals=(RangeInterval(1, 3), RangeInterval(5, 7)),
-    )
-    field_b_validator = TicketFieldValidator(
-        field_name="seat", intervals=(RangeInterval(10, 20),)
-    )
-    ticket_validator = TicketValidator(
-        field_validators=(field_a_validator, field_b_validator)
-    )
     assert ticket_validator.is_valid_field(15)
+
+
+def test_ticket_is_not_valid_if_some_of_its_fields_is_invalid():
+    ticket = (1, 100)
+    assert not ticket_validator.is_valid_ticket(ticket)
+
+
+def test_ticket_is_valid_if_all_of_its_fields_is_valid():
+    ticket = (15, 1)
+    assert ticket_validator.is_valid_ticket(ticket)
+
+
+def test_ticket_validator_can_deduce_and_map_fields_to_positions_given_enough_tickets_ignoring_invalid_tickets():
+    validator = TicketValidator(
+        field_validators=(
+            TicketFieldValidator(
+                field_name="class",
+                intervals=(RangeInterval(0, 1), RangeInterval(4, 19)),
+            ),
+            TicketFieldValidator(
+                field_name="row",
+                intervals=(RangeInterval(0, 5), RangeInterval(8, 19)),
+            ),
+            TicketFieldValidator(
+                field_name="seat",
+                intervals=(RangeInterval(0, 13), RangeInterval(16, 19)),
+            ),
+        )
+    )
+
+    tickets = [
+        (11, 12, 13),
+        (3, 9, 18),
+        (15, 1, 5),
+        (1000, 2000, 3000),  # Invalid ticket
+        (5, 14, 9),
+    ]
+
+    assert validator.map_fields_to_positions(tickets) == {
+        "class": 1,
+        "row": 0,
+        "seat": 2,
+    }

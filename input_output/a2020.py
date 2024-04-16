@@ -305,6 +305,18 @@ def aoc_2020_d16(file_name: str, parser: FileParser, **_):
     )
     print(f"AOC 2020 Day 16/Part 1: The scanning error rate is {scanning_error_rate}")
 
+    my_ticket = parsed_ticket_validator.my_ticket
+    fields_to_positions = validator.map_fields_to_positions(
+        [my_ticket] + nearby_tickets
+    )
+    product = 1
+    for field_name, position in fields_to_positions.items():
+        if field_name.startswith("departure"):
+            product *= my_ticket[position]
+    print(
+        f"AOC 2020 Day 16/Part 2: Product of 'departure' fields on my ticket is {product}"
+    )
+
 
 # AOC 2020: Day 17: Conway Cubes
 def aoc_2020_d17(file_name: str, **_):
