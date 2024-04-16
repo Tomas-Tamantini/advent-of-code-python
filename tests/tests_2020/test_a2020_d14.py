@@ -16,11 +16,18 @@ def test_bitmask_overwrites_bits_in_value():
 
 
 def test_bitmask_memory_starts_empty():
-    memory = BitmaskMemory(mask)
+    memory = BitmaskMemory()
     assert memory.sum_values() == 0
 
 
-def test_bitmask_memory_transforms_values_before_storing_them():
+def test_bitmask_memory_stores_values_in_memory():
+    memory = BitmaskMemory()
+    memory.store(address=3, value=123)
+    memory.store(address=7, value=321)
+    assert memory.sum_values() == 444
+
+
+def test_bitmask_memory_transforms_values_before_storing_them_if_given_mask():
     memory = BitmaskMemory(mask)
     memory.store(address=6, value=11)
     memory.store(address=7, value=101)

@@ -22,7 +22,8 @@ class BitmaskMemory:
         self._mask = mask
 
     def store(self, address: int, value: int) -> None:
-        self._stored_values[address] = self._mask.apply(value)
+        transformed_value = value if self._mask is None else self._mask.apply(value)
+        self._stored_values[address] = transformed_value
 
     def sum_values(self) -> int:
         return sum(self._stored_values.values())
