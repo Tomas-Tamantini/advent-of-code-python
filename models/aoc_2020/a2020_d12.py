@@ -5,8 +5,9 @@ from models.vectors import Vector2D, CardinalDirection, TurnDirection
 
 @dataclass(frozen=True)
 class Ship:
-    position: Vector2D
-    facing: CardinalDirection
+    position: Vector2D = Vector2D(0, 0)
+    facing: CardinalDirection = CardinalDirection.EAST
+    waypoint: Vector2D = Vector2D(10, 1)
 
 
 class NavigationInstruction(Protocol):
@@ -42,4 +43,48 @@ class TurnShipInstruction:
     def execute(self, ship: Ship) -> Ship:
         return Ship(
             position=ship.position, facing=ship.facing.turn(self.turn_direction)
+        )
+
+
+@dataclass(frozen=True)
+class MoveWaypointInstruction:
+    direction: CardinalDirection
+    distance: int
+
+    def execute(self, ship: Ship) -> Ship:
+        return Ship(
+            position=ship.position,
+            facing=ship.facing,
+            waypoint=ship.waypoint.move(self.direction, self.distance),
+        )
+
+
+@dataclass(frozen=True)
+class MoveTowardsWaypointInstruction:
+    times: int
+
+    def execute(self, ship: Ship) -> Ship:
+        return Ship(
+            position=ship.waypoint * self.times + ship.position,
+            facing=ship.facing,
+            waypoint=ship.waypoint,
+        )
+
+
+@dataclass(frozen=True)
+class RotateWaypointInstruction:
+    turn_direction: TurnDirection
+
+    def execute(self, ship: Ship) -> Ship:
+        x, y = ship.waypoint.x, ship.waypoint.y
+        if self.turn_direction == TurnDirection.RIGHT:
+            x, y = y, -x
+        elif self.turn_direction == TurnDirection.LEFT:
+            x, y = -y, x
+        elif self.turn_direction == TurnDirection.U_TURN:
+            x, y = -x, -y
+        return Ship(
+            position=ship.position,
+            facing=ship.facing,
+            waypoint=Vector2D(x, y),
         )

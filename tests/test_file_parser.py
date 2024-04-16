@@ -71,6 +71,9 @@ from models.aoc_2020 import (
     MoveShipInstruction,
     MoveShipForwardInstruction,
     TurnShipInstruction,
+    MoveTowardsWaypointInstruction,
+    MoveWaypointInstruction,
+    RotateWaypointInstruction,
 )
 
 
@@ -1285,4 +1288,33 @@ def test_parse_navigation_instructions():
         TurnShipInstruction(turn_direction=TurnDirection.LEFT),
         TurnShipInstruction(turn_direction=TurnDirection.NO_TURN),
         TurnShipInstruction(turn_direction=TurnDirection.LEFT),
+    ]
+
+
+def test_parse_navigation_instructions_for_waypoint():
+    file_content = """
+                   F10
+                   N3
+                   F7
+                   R90
+                   R180
+                   R270
+                   R0
+                   L90
+                   """
+    file_parser = mock_file_parser(file_content)
+    instructions = list(
+        file_parser.parse_navigation_instructions(
+            "some_file", relative_to_waypoint=True
+        )
+    )
+    assert instructions == [
+        MoveTowardsWaypointInstruction(times=10),
+        MoveWaypointInstruction(direction=CardinalDirection.NORTH, distance=3),
+        MoveTowardsWaypointInstruction(times=7),
+        RotateWaypointInstruction(turn_direction=TurnDirection.RIGHT),
+        RotateWaypointInstruction(turn_direction=TurnDirection.U_TURN),
+        RotateWaypointInstruction(turn_direction=TurnDirection.LEFT),
+        RotateWaypointInstruction(turn_direction=TurnDirection.NO_TURN),
+        RotateWaypointInstruction(turn_direction=TurnDirection.LEFT),
     ]

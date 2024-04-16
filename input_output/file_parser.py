@@ -136,6 +136,9 @@ from models.aoc_2020 import (
     MoveShipForwardInstruction,
     MoveShipInstruction,
     TurnShipInstruction,
+    MoveTowardsWaypointInstruction,
+    MoveWaypointInstruction,
+    RotateWaypointInstruction,
 )
 
 
@@ -1215,7 +1218,9 @@ class FileParser:
             if line.strip():
                 yield self._parse_game_console_instruction(line.strip())
 
-    def _parse_navigation_instruction(self, instruction: str) -> NavigationInstruction:
+    def _parse_navigation_instruction(
+        self, instruction: str, relative_to_waypoint: bool
+    ) -> NavigationInstruction:
         action = instruction[0]
         value = int(instruction[1:])
         directions = {
@@ -1225,9 +1230,17 @@ class FileParser:
             "W": CardinalDirection.WEST,
         }
         if action == "F":
-            return MoveShipForwardInstruction(value)
+            return (
+                MoveTowardsWaypointInstruction(value)
+                if relative_to_waypoint
+                else MoveShipForwardInstruction(value)
+            )
         elif action in directions:
-            return MoveShipInstruction(directions[action], value)
+            return (
+                MoveWaypointInstruction(directions[action], value)
+                if relative_to_waypoint
+                else MoveShipInstruction(directions[action], value)
+            )
         elif action in ("L", "R"):
             if value == 0:
                 turn = TurnDirection.NO_TURN
@@ -1239,13 +1252,19 @@ class FileParser:
                 turn = TurnDirection.RIGHT if action == "L" else TurnDirection.LEFT
             else:
                 raise ValueError(f"Invalid turn angle: {value}")
-            return TurnShipInstruction(turn)
+            return (
+                RotateWaypointInstruction(turn)
+                if relative_to_waypoint
+                else TurnShipInstruction(turn)
+            )
         else:
             raise ValueError(f"Unknown navigation instruction: {instruction}")
 
     def parse_navigation_instructions(
-        self, file_name: str
+        self, file_name: str, relative_to_waypoint: bool = False
     ) -> Iterator[NavigationInstruction]:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
-                yield self._parse_navigation_instruction(line.strip())
+                yield self._parse_navigation_instruction(
+                    line.strip(), relative_to_waypoint
+                )

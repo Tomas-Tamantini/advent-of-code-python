@@ -20,4 +20,7 @@ from .a2020_d12 import (
     MoveShipInstruction,
     MoveShipForwardInstruction,
     TurnShipInstruction,
+    MoveTowardsWaypointInstruction,
+    MoveWaypointInstruction,
+    RotateWaypointInstruction,
 )
