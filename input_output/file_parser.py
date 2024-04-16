@@ -1,4 +1,5 @@
 from typing import Iterator, Protocol, Optional
+from dataclasses import dataclass
 import re
 import numpy as np
 from datetime import datetime
@@ -89,7 +90,6 @@ from models.aoc_2018 import (
     PlantAutomaton,
     InstructionSample,
     ThreeValueInstruction,
-    AcreType,
     AddRegisters,
     AddImmediate,
     MultiplyRegisters,
@@ -143,6 +143,9 @@ from models.aoc_2020 import (
     BitmaskInstruction,
     SetMaskInstruction,
     WriteToMemoryInstruction,
+    TicketValidator,
+    TicketFieldValidator,
+    RangeInterval,
 )
 
 
@@ -160,6 +163,13 @@ class FileReader:
     def readlines(self, file_name: str) -> Iterator[str]:
         with open(file_name, "r") as f:
             yield from f.readlines()
+
+
+@dataclass
+class _ParsedTicketValidator:
+    validator: TicketValidator
+    my_ticket: tuple[int]
+    nearby_tickets: list[tuple[int]]
 
 
 class FileParser:
@@ -1304,3 +1314,45 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_bitmask_instruction(line.strip(), is_address_mask)
+
+    @staticmethod
+    def _parse_ticket_field_validator(line: str) -> TicketFieldValidator:
+        parts = line.split(": ")
+        field_name = parts[0]
+        ranges = []
+        for part in parts[1].split(" or "):
+            min_value, max_value = map(int, part.split("-"))
+            ranges.append(RangeInterval(min_value, max_value))
+        return TicketFieldValidator(field_name, tuple(ranges))
+
+    def parse_ticket_validator_and_ticket_values(
+        self, file_name: str
+    ) -> _ParsedTicketValidator:
+        document_section = 0
+        field_validators = []
+        my_ticket = None
+        nearby_tickets = []
+
+        lines = list(self._file_reader.readlines(file_name))
+
+        for line in lines:
+            if not line.strip():
+                continue
+            if "your ticket" in line:
+                document_section += 1
+            elif "nearby tickets" in line:
+                document_section += 1
+            elif document_section == 0:
+                field_validators.append(
+                    self._parse_ticket_field_validator(line.strip())
+                )
+            elif document_section == 1:
+                my_ticket = tuple(map(int, line.strip().split(",")))
+            elif document_section == 2:
+                nearby_tickets.append(tuple(map(int, line.strip().split(","))))
+            else:
+                raise ValueError(f"Unknown document section: {document_section}")
+
+        return _ParsedTicketValidator(
+            TicketValidator(tuple(field_validators)), my_ticket, nearby_tickets
+        )

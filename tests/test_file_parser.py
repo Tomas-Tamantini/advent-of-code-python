@@ -78,6 +78,9 @@ from models.aoc_2020 import (
     BusSchedule,
     SetMaskInstruction,
     WriteToMemoryInstruction,
+    TicketValidator,
+    TicketFieldValidator,
+    RangeInterval,
 )
 
 
@@ -1359,3 +1362,44 @@ def test_parse_bitmask_instructions_for_values(is_address_mask):
         SetMaskInstruction("1X0", is_address_mask),
         WriteToMemoryInstruction(address=7, value=456),
     ]
+
+
+def test_parse_ticket_validator_and_ticket_values():
+    file_content = """
+                   class: 1-3 or 5-7
+                   row: 6-11 or 33-44
+                   seat: 13-40 or 45-50
+                   
+                   your ticket:
+                   7,1,14
+                   
+                   nearby tickets:
+                   7,3,47
+                   40,4,50
+                   55,2,20
+                   38,6,12
+                   """
+    file_parser = mock_file_parser(file_content)
+    parsed = file_parser.parse_ticket_validator_and_ticket_values("some_file")
+    assert parsed.my_ticket == (7, 1, 14)
+    assert parsed.nearby_tickets == [
+        (7, 3, 47),
+        (40, 4, 50),
+        (55, 2, 20),
+        (38, 6, 12),
+    ]
+    assert parsed.validator == TicketValidator(
+        field_validators=(
+            TicketFieldValidator(
+                field_name="class", intervals=(RangeInterval(1, 3), RangeInterval(5, 7))
+            ),
+            TicketFieldValidator(
+                field_name="row",
+                intervals=(RangeInterval(6, 11), RangeInterval(33, 44)),
+            ),
+            TicketFieldValidator(
+                field_name="seat",
+                intervals=(RangeInterval(13, 40), RangeInterval(45, 50)),
+            ),
+        )
+    )

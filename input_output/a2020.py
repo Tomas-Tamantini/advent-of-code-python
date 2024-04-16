@@ -293,8 +293,17 @@ def aoc_2020_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2020: Day 16: Ticket Translation
-def aoc_2020_d16(file_name: str, **_):
-    print("AOC 2020 Day 16: Not implemented yet")
+def aoc_2020_d16(file_name: str, parser: FileParser, **_):
+    parsed_ticket_validator = parser.parse_ticket_validator_and_ticket_values(file_name)
+    validator = parsed_ticket_validator.validator
+    nearby_tickets = parsed_ticket_validator.nearby_tickets
+    scanning_error_rate = sum(
+        value
+        for ticket in nearby_tickets
+        for value in ticket
+        if not validator.is_valid_field(value)
+    )
+    print(f"AOC 2020 Day 16/Part 1: The scanning error rate is {scanning_error_rate}")
 
 
 # AOC 2020: Day 17: Conway Cubes
