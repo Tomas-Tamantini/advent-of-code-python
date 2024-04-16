@@ -75,6 +75,8 @@ from models.aoc_2020 import (
     MoveWaypointInstruction,
     RotateWaypointInstruction,
     BusSchedule,
+    SetMaskInstruction,
+    WriteToMemoryInstruction,
 )
 
 
@@ -1335,4 +1337,21 @@ def test_parse_bus_schedules_and_current_timestamp():
         BusSchedule(index_in_list=4, bus_id=59),
         BusSchedule(index_in_list=6, bus_id=31),
         BusSchedule(index_in_list=7, bus_id=19),
+    ]
+
+
+def test_parse_bitmask_instructions():
+    file_content = """
+                   mask = XXX
+                   mem[8] = 123
+                   mask = 1X0
+                   mem[7] = 456
+                   """
+    file_parser = mock_file_parser(file_content)
+    instructions = list(file_parser.parse_bitmask_instructions("some_file"))
+    assert instructions == [
+        SetMaskInstruction("XXX"),
+        WriteToMemoryInstruction(address=8, value=123),
+        SetMaskInstruction("1X0"),
+        WriteToMemoryInstruction(address=7, value=456),
     ]

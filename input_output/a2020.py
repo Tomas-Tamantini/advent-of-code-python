@@ -14,6 +14,7 @@ from models.aoc_2020 import (
     FerrySeat,
     Ship,
     earliest_timestamp_to_match_wait_time_and_index_in_list,
+    BitmaskMemory,
 )
 
 
@@ -251,8 +252,12 @@ def aoc_2020_d13(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 14: Docking Data
-def aoc_2020_d14(file_name: str, **_):
-    print("AOC 2020 Day 14: Not implemented yet")
+def aoc_2020_d14(file_name: str, parser: FileParser, **_):
+    instructions = list(parser.parse_bitmask_instructions(file_name))
+    memory = BitmaskMemory()
+    for instruction in instructions:
+        instruction.execute(memory)
+    print(f"AOC 2020 Day 14/Part 1: Sum of values in memory is {memory.sum_values()}")
 
 
 # AOC 2020: Day 15: Rambunctious Recitation
