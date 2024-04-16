@@ -1,3 +1,4 @@
+import pytest
 from typing import Iterator
 from unittest.mock import Mock
 from datetime import datetime
@@ -1340,7 +1341,8 @@ def test_parse_bus_schedules_and_current_timestamp():
     ]
 
 
-def test_parse_bitmask_instructions():
+@pytest.mark.parametrize("is_address_mask", [True, False])
+def test_parse_bitmask_instructions_for_values(is_address_mask):
     file_content = """
                    mask = XXX
                    mem[8] = 123
@@ -1348,10 +1350,12 @@ def test_parse_bitmask_instructions():
                    mem[7] = 456
                    """
     file_parser = mock_file_parser(file_content)
-    instructions = list(file_parser.parse_bitmask_instructions("some_file"))
+    instructions = list(
+        file_parser.parse_bitmask_instructions("some_file", is_address_mask)
+    )
     assert instructions == [
-        SetMaskInstruction("XXX"),
+        SetMaskInstruction("XXX", is_address_mask),
         WriteToMemoryInstruction(address=8, value=123),
-        SetMaskInstruction("1X0"),
+        SetMaskInstruction("1X0", is_address_mask),
         WriteToMemoryInstruction(address=7, value=456),
     ]

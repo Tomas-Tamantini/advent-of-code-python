@@ -30,6 +30,7 @@ from .a2020_d13 import (
 )
 from .a2020_d14 import (
     Bitmask,
+    FloatingBitmask,
     BitmaskMemory,
     BitmaskInstruction,
     SetMaskInstruction,

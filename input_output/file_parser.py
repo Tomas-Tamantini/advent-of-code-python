@@ -1286,10 +1286,12 @@ class FileParser:
         return bus_schedules, current_timestamp
 
     @staticmethod
-    def _parse_bitmask_instruction(instruction: str) -> BitmaskInstruction:
+    def _parse_bitmask_instruction(
+        instruction: str, is_address_mask: bool
+    ) -> BitmaskInstruction:
         parts = instruction.split(" = ")
         if "mask" in parts[0]:
-            return SetMaskInstruction(parts[1])
+            return SetMaskInstruction(parts[1], is_address_mask)
         else:
             return WriteToMemoryInstruction(
                 address=int(parts[0].replace("mem[", "").replace("]", "")),
@@ -1297,8 +1299,8 @@ class FileParser:
             )
 
     def parse_bitmask_instructions(
-        self, file_name: str
+        self, file_name: str, is_address_mask: bool
     ) -> Iterator[BitmaskInstruction]:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
-                yield self._parse_bitmask_instruction(line.strip())
+                yield self._parse_bitmask_instruction(line.strip(), is_address_mask)

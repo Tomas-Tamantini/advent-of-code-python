@@ -253,11 +253,25 @@ def aoc_2020_d13(file_name: str, parser: FileParser, **_):
 
 # AOC 2020: Day 14: Docking Data
 def aoc_2020_d14(file_name: str, parser: FileParser, **_):
-    instructions = list(parser.parse_bitmask_instructions(file_name))
+    values_instructions = list(
+        parser.parse_bitmask_instructions(file_name, is_address_mask=False)
+    )
     memory = BitmaskMemory()
-    for instruction in instructions:
+    for instruction in values_instructions:
         instruction.execute(memory)
-    print(f"AOC 2020 Day 14/Part 1: Sum of values in memory is {memory.sum_values()}")
+    print(
+        f"AOC 2020 Day 14/Part 1: Sum of values in memory after applying mask to values is {memory.sum_values()}"
+    )
+
+    address_instructions = list(
+        parser.parse_bitmask_instructions(file_name, is_address_mask=True)
+    )
+    memory = BitmaskMemory()
+    for instruction in address_instructions:
+        instruction.execute(memory)
+    print(
+        f"AOC 2020 Day 14/Part 2: Sum of values in memory after applying mask to addresses is {memory.sum_values()}"
+    )
 
 
 # AOC 2020: Day 15: Rambunctious Recitation
