@@ -1,6 +1,6 @@
 from typing import Hashable, Optional
 from models.vectors import Vector2D
-from .multi_state_automata import CellCluster, MultiState2DAutomaton
+from .multi_state_2d_automata import CellCluster, MultiState2DAutomaton
 
 DEAD, ALIVE = 0, 1
 
