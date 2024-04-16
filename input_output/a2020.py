@@ -1,4 +1,5 @@
 from input_output.file_parser import FileParser
+from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
 from models.vectors import Vector2D, CardinalDirection
 from models.aoc_2020 import (
@@ -276,12 +277,19 @@ def aoc_2020_d14(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 15: Rambunctious Recitation
-def aoc_2020_d15(file_name: str, **_):
+def aoc_2020_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         starting_numbers = [int(number) for number in file.read().split(",")]
     generator = memory_game_numbers(starting_numbers)
     numbers = [next(generator) for _ in range(2020)]
     print(f"AOC 2020 Day 15/Part 1: The 2020th number spoken is {numbers[-1]}")
+    generator = memory_game_numbers(starting_numbers)
+    number = -1
+    num_terms = 30_000_000
+    for i in range(num_terms):
+        progress_bar.update(i, num_terms)
+        number = next(generator)
+    print(f"AOC 2020 Day 15/Part 2: The {num_terms}th number spoken is {number}")
 
 
 # AOC 2020: Day 16: Ticket Translation
