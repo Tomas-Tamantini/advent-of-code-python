@@ -37,3 +37,4 @@ from .a2020_d14 import (
     WriteToMemoryInstruction,
 )
 from .a2020_d15 import memory_game_numbers
+from .a2020_d16 import RangeInterval, TicketFieldValidator, TicketValidator
