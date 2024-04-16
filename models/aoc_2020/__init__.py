@@ -36,3 +36,4 @@ from .a2020_d14 import (
     SetMaskInstruction,
     WriteToMemoryInstruction,
 )
+from .a2020_d15 import memory_game_numbers

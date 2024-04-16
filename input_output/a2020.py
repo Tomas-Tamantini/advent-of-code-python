@@ -15,6 +15,7 @@ from models.aoc_2020 import (
     Ship,
     earliest_timestamp_to_match_wait_time_and_index_in_list,
     BitmaskMemory,
+    memory_game_numbers,
 )
 
 
@@ -276,7 +277,11 @@ def aoc_2020_d14(file_name: str, parser: FileParser, **_):
 
 # AOC 2020: Day 15: Rambunctious Recitation
 def aoc_2020_d15(file_name: str, **_):
-    print("AOC 2020 Day 15: Not implemented yet")
+    with open(file_name) as file:
+        starting_numbers = [int(number) for number in file.read().split(",")]
+    generator = memory_game_numbers(starting_numbers)
+    numbers = [next(generator) for _ in range(2020)]
+    print(f"AOC 2020 Day 15/Part 1: The 2020th number spoken is {numbers[-1]}")
 
 
 # AOC 2020: Day 16: Ticket Translation
