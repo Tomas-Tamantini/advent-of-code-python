@@ -4,7 +4,7 @@ from input_output import run_solutions
 
 def main(animate: bool, play: bool) -> None:
     solutions_to_run = {
-        2020: (13,),
+        2020: (),
     }
 
     run_solutions(solutions_to_run, animate, play)
