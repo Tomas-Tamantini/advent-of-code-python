@@ -202,3 +202,7 @@ def test_can_add_vectors_3d_together():
 
 def test_can_subtract_vectors_3d_from_each_other():
     assert Vector3D(1, 2, 3) - Vector3D(3, 2, 1) == Vector3D(-2, 0, 2)
+
+
+def test_3d_vector_has_26_adjacent_positions():
+    assert len(list(Vector3D(0, 0, 0).adjacent_positions())) == 26
