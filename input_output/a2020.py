@@ -17,7 +17,7 @@ from models.aoc_2020 import (
     earliest_timestamp_to_match_wait_time_and_index_in_list,
     BitmaskMemory,
     memory_game_numbers,
-    CellularAutomaton3D,
+    HyperGameOfLife,
 )
 
 
@@ -324,7 +324,7 @@ def aoc_2020_d17(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     active_cubes = {Vector3D(pos.x, pos.y, 0) for pos in grid.positions_with_value("#")}
     state = active_cubes
-    automaton = CellularAutomaton3D()
+    automaton = HyperGameOfLife()
     for _ in range(6):
         state = automaton.next_state(state)
     print(f"AOC 2020 Day 17/Part 1: Number of active cubes is {len(state)}")
