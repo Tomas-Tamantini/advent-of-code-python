@@ -133,3 +133,12 @@ def test_context_free_grammar_can_have_recursive_rules():
     assert not grammar.matches(tuple("bababa"))
     assert not grammar.matches(tuple("aaabbb"))
     assert not grammar.matches(tuple("aaaabbb"))
+
+
+def test_context_free_grammar_can_have_self_referencing_rules():
+    grammar = ContextFreeGrammar(starting_symbol="A")
+    grammar.add_rule("A", ("a", "A", "b"))
+    grammar.add_rule("A", ("c",))
+    assert grammar.matches(tuple("c"))
+    assert grammar.matches(tuple("acb"))
+    assert grammar.matches(tuple("aacbb"))

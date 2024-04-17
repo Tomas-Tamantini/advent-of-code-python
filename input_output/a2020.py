@@ -373,6 +373,13 @@ def aoc_2020_d19(file_name: str, parser: FileParser, **_):
     num_matching = sum(1 for word in words if cfg.matches(tuple(word)))
     print(f"AOC 2020 Day 19/Part 1: Number of valid messages is {num_matching}")
 
+    cfg.add_rule(8, (42, 8))
+    cfg.add_rule(11, (42, 11, 31))
+    num_matching = sum(1 for word in words if cfg.matches(tuple(word)))
+    print(
+        f"AOC 2020 Day 19/Part 2: Number of valid messages with loops is {num_matching}"
+    )
+
 
 # AOC 2020: Day 20: Jurassic Jigsaw
 def aoc_2020_d20(file_name: str, **_):
