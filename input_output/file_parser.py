@@ -1,4 +1,4 @@
-from typing import Iterator, Protocol, Optional
+from typing import Iterator, Protocol, Optional, Hashable
 from dataclasses import dataclass
 import re
 import numpy as np
@@ -16,6 +16,7 @@ from models.assembly import (
     JumpGreaterThanZeroInstruction,
     AddInstruction,
     SubtractInstruction,
+    ContextFreeGrammar,
 )
 from models.aoc_2015 import (
     XmasPresent,
@@ -1356,3 +1357,25 @@ class FileParser:
         return _ParsedTicketValidator(
             TicketValidator(tuple(field_validators)), my_ticket, nearby_tickets
         )
+
+    def parse_context_free_grammar_and_words(
+        self, file_name: str, starting_symbol: Hashable
+    ) -> tuple[ContextFreeGrammar, list[str]]:
+        cfg = ContextFreeGrammar(starting_symbol)
+        words = []
+        lines = list(self._file_reader.readlines(file_name))
+        for line in lines:
+            if ":" in line:
+                parts = line.split(":")
+                symbol = int(parts[0])
+                for production in parts[1].split("|"):
+                    if '"' in production:
+                        terminal = production.strip().replace('"', "")
+                        cfg.add_rule(symbol, production=(terminal,))
+                    else:
+                        cfg.add_rule(
+                            symbol, production=tuple(map(int, production.split()))
+                        )
+            elif line.strip():
+                words.append(line.strip())
+        return cfg, words

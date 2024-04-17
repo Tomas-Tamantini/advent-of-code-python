@@ -366,8 +366,12 @@ def aoc_2020_d18(file_name: str, **_):
 
 
 # AOC 2020: Day 19: Monster Messages
-def aoc_2020_d19(file_name: str, **_):
-    print("AOC 2020 Day 19: Not implemented yet")
+def aoc_2020_d19(file_name: str, parser: FileParser, **_):
+    cfg, words = parser.parse_context_free_grammar_and_words(
+        file_name, starting_symbol=0
+    )
+    num_matching = sum(1 for word in words if cfg.matches(tuple(word)))
+    print(f"AOC 2020 Day 19/Part 1: Number of valid messages is {num_matching}")
 
 
 # AOC 2020: Day 20: Jurassic Jigsaw

@@ -1403,3 +1403,27 @@ def test_parse_ticket_validator_and_ticket_values():
             ),
         )
     )
+
+
+def test_parse_context_free_grammar_and_words():
+    file_content = """
+                   0: 4 1 5
+                   1: 2 3 | 3 2
+                   2: 4 4 | 5 5
+                   3: 4 5 | 5 4
+                   4: "a"
+                   5: "b"
+ 
+                   ababbb
+                   bababa
+                   abbbab
+                   aaabbb
+                   aaaabbb
+                   """
+    file_parser = mock_file_parser(file_content)
+    cfg, words = file_parser.parse_context_free_grammar_and_words(
+        "some_file", starting_symbol=0
+    )
+    assert words == ["ababbb", "bababa", "abbbab", "aaabbb", "aaaabbb"]
+    assert cfg.matches(tuple("ababbb"))
+    assert not cfg.matches(tuple("aaabbb"))
