@@ -16,3 +16,4 @@ from .instruction import (
 )
 from .program import Program, ImmutableProgram, MutableProgram
 from .computer import Computer
+from .context_free_grammar import ContextFreeGrammar

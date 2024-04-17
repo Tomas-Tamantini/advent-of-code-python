@@ -1,6 +1,13 @@
 import pytest
 from unittest.mock import Mock
-from models.assembly import Computer, Processor, Program, Hardware, ImmutableProgram
+from models.assembly import (
+    Computer,
+    Processor,
+    Program,
+    Hardware,
+    ImmutableProgram,
+    ContextFreeGrammar,
+)
 
 
 def test_hardware_can_have_custom_attributes():
@@ -76,3 +83,53 @@ def test_can_execute_instructions_one_by_one():
     assert computer._program_counter == 2
     with pytest.raises(StopIteration):
         computer.run_next_instruction(program)
+
+
+def test_context_free_grammar_with_single_rule_matches_single_token():
+    grammar = ContextFreeGrammar(starting_symbol="S")
+    grammar.add_rule(symbol="S", production=("a",))
+    assert grammar.matches(("a",))
+    assert not grammar.matches(("b",))
+
+
+def test_adding_rules_to_the_same_symbol_results_in_union_in_context_free_grammar():
+    grammar = ContextFreeGrammar(starting_symbol="S")
+    grammar.add_rule("S", ("a",))
+    grammar.add_rule("S", ("b",))
+    assert grammar.matches(("a",))
+    assert grammar.matches(("b",))
+    assert not grammar.matches(("c",))
+    assert not grammar.matches(("a", "b"))
+
+
+def test_context_free_grammar_can_have_recursive_rules():
+    grammar = ContextFreeGrammar(starting_symbol=0)
+    grammar.add_rule(0, (1, 2))
+    grammar.add_rule(1, ("a",))
+    grammar.add_rule(2, (1, 3))
+    grammar.add_rule(2, (3, 1))
+    grammar.add_rule(3, ("b",))
+    assert grammar.matches(tuple("aab"))
+    assert grammar.matches(tuple("aba"))
+    assert not grammar.matches(tuple("aaa"))
+    assert not grammar.matches(tuple("bbb"))
+    assert not grammar.matches(tuple("abb"))
+    assert not grammar.matches(tuple("bab"))
+
+    grammar = ContextFreeGrammar(starting_symbol=0)
+    grammar.add_rule(0, (4, 1, 5))
+    grammar.add_rule(1, (2, 3))
+    grammar.add_rule(1, (3, 2))
+    grammar.add_rule(2, (4, 4))
+    grammar.add_rule(2, (5, 5))
+    grammar.add_rule(3, (4, 5))
+    grammar.add_rule(3, (5, 4))
+    grammar.add_rule(4, ("a",))
+    grammar.add_rule(5, ("b",))
+    assert grammar.matches(tuple("aaaabb"))
+    assert grammar.matches(tuple("abbabb"))
+    assert grammar.matches(tuple("aabaab"))
+    assert grammar.matches(tuple("ababbb"))
+    assert not grammar.matches(tuple("bababa"))
+    assert not grammar.matches(tuple("aaabbb"))
+    assert not grammar.matches(tuple("aaaabbb"))
