@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Callable
 
 
 def _rightmost_operator_idx(operation: str) -> Optional[int]:
@@ -8,32 +8,61 @@ def _rightmost_operator_idx(operation: str) -> Optional[int]:
     return None
 
 
-def _evaluate_operation_without_parentheses(operation: str) -> int:
-    if not operation.strip():
-        return 0
-    if (last_operator_idx := _rightmost_operator_idx(operation)) is None:
-        return int(operation)
-    last_operator = operation[last_operator_idx]
-    left = operation[:last_operator_idx]
-    right = operation[last_operator_idx + 2 :]
+def _evaluate_expression_without_parentheses_left_precedence(expression: str) -> int:
+    if (last_operator_idx := _rightmost_operator_idx(expression)) is None:
+        return int(expression)
+    last_operator = expression[last_operator_idx]
+    left = expression[:last_operator_idx]
+    right = expression[last_operator_idx + 2 :]
     if last_operator == "+":
-        return evaluate_operation_left_precedence(
+        return evaluate_expression_left_precedence(
             left
-        ) + evaluate_operation_left_precedence(right)
+        ) + evaluate_expression_left_precedence(right)
     if last_operator == "*":
-        return evaluate_operation_left_precedence(
+        return evaluate_expression_left_precedence(
             left
-        ) * evaluate_operation_left_precedence(right)
+        ) * evaluate_expression_left_precedence(right)
 
 
-def evaluate_operation_left_precedence(operation: str) -> int:
+def _evaluate_expression_without_parentheses_addition_precedence(
+    expression: str,
+) -> int:
+    if "*" in expression:
+        left, right = expression.split("*", 1)
+        return evaluate_expression_addition_precedence(
+            left
+        ) * evaluate_expression_addition_precedence(right)
+    if "+" in expression:
+        left, right = expression.split("+", 1)
+        return evaluate_expression_addition_precedence(
+            left
+        ) + evaluate_expression_addition_precedence(right)
+
+    return int(expression)
+
+
+def _evaluate_expression(expression: str, evaluator: Callable[[str], int]) -> int:
+    if not expression.strip():
+        return 0
     stack = []
-    for char in operation:
+    for char in expression:
         if char != ")":
             stack.append(char)
         else:
             sub_operation = ""
             while (previous_char := stack.pop()) != "(":
                 sub_operation = previous_char + sub_operation
-            stack.append(str(evaluate_operation_left_precedence(sub_operation)))
-    return _evaluate_operation_without_parentheses("".join(stack))
+            stack.append(str(evaluator(sub_operation)))
+    return evaluator("".join(stack))
+
+
+def evaluate_expression_left_precedence(expression: str) -> int:
+    return _evaluate_expression(
+        expression, _evaluate_expression_without_parentheses_left_precedence
+    )
+
+
+def evaluate_expression_addition_precedence(expression: str) -> int:
+    return _evaluate_expression(
+        expression, _evaluate_expression_without_parentheses_addition_precedence
+    )

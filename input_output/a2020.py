@@ -18,7 +18,8 @@ from models.aoc_2020 import (
     BitmaskMemory,
     memory_game_numbers,
     HyperGameOfLife,
-    evaluate_operation_left_precedence,
+    evaluate_expression_left_precedence,
+    evaluate_expression_addition_precedence,
 )
 
 
@@ -347,11 +348,21 @@ def aoc_2020_d17(file_name: str, **_):
 # AOC 2020: Day 18: Operation Order
 def aoc_2020_d18(file_name: str, **_):
     with open(file_name) as file:
-        operations = [line.strip() for line in file]
-    sum_results = sum(
-        evaluate_operation_left_precedence(operation) for operation in operations
+        expressions = [line.strip() for line in file]
+    sum_results_left_precedence = sum(
+        evaluate_expression_left_precedence(expression) for expression in expressions
     )
-    print(f"AOC 2020 Day 18/Part 1: Sum of results is {sum_results}")
+    print(
+        f"AOC 2020 Day 18/Part 1: Sum of results using left precedence is {sum_results_left_precedence}"
+    )
+
+    sum_results_addition_precedence = sum(
+        evaluate_expression_addition_precedence(expression)
+        for expression in expressions
+    )
+    print(
+        f"AOC 2020 Day 18/Part 2: Sum of results using addition precedence is {sum_results_addition_precedence}"
+    )
 
 
 # AOC 2020: Day 19: Monster Messages

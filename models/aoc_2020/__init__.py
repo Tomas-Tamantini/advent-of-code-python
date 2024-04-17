@@ -39,4 +39,7 @@ from .a2020_d14 import (
 from .a2020_d15 import memory_game_numbers
 from .a2020_d16 import RangeInterval, TicketFieldValidator, TicketValidator
 from .a2020_d17 import HyperGameOfLife
-from .a2020_d18 import evaluate_operation_left_precedence
+from .a2020_d18 import (
+    evaluate_expression_left_precedence,
+    evaluate_expression_addition_precedence,
+)
