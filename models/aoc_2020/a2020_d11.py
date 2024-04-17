@@ -23,6 +23,7 @@ class FerrySeats:
         self._height = height
         self._occupied_neighbors_tolerance = occupied_neighbors_tolerance
         self._consider_only_adjacent_neighbors = consider_only_adjacent_neighbors
+        self._stored_neighbors = dict()
         self._initial_configuration = {
             pos: seat_type
             for pos, seat_type in initial_configuration.items()
@@ -44,7 +45,7 @@ class FerrySeats:
                     continue
                 yield Vector2D(dx, dy)
 
-    def closest_neighbor(
+    def _closest_neighbor(
         self, position: Vector2D, search_direction: Vector2D
     ) -> Optional[Vector2D]:
         step_size = 1
@@ -61,10 +62,15 @@ class FerrySeats:
                 step_size += 1
 
     def neighbors(self, cell: Vector2D) -> Iterator[Vector2D]:
-        for offset in self._direction_offset():
-            neighbor = self.closest_neighbor(cell, offset)
-            if neighbor is not None:
-                yield neighbor
+        if cell in self._stored_neighbors:
+            yield from self._stored_neighbors[cell]
+        else:
+            self._stored_neighbors[cell] = set()
+            for offset in self._direction_offset():
+                neighbor = self._closest_neighbor(cell, offset)
+                if neighbor is not None:
+                    self._stored_neighbors[cell].add(neighbor)
+                    yield neighbor
 
     def apply_rule(self, cluster: CellCluster) -> FerrySeat:
         if (
