@@ -1,6 +1,6 @@
-import pytest
 from random import shuffle, seed
 from typing import Hashable
+import numpy as np
 from models.vectors import Vector2D, CardinalDirection
 from models.aoc_2020.a2020_d20 import (
     JigsawPieceOrientation,
@@ -16,46 +16,14 @@ def test_there_are_eight_possible_jigsaw_piece_orientations():
     assert len(orientations) == 8
 
 
-@pytest.mark.parametrize(
-    "num_quarter_turns, is_flipped, new_position, expected_original_position",
-    [
-        (0, False, Vector2D(2, 2), Vector2D(2, 2)),
-        (0, False, Vector2D(0, 0), Vector2D(0, 0)),
-        (0, False, Vector2D(3, 4), Vector2D(3, 4)),
-        (1, False, Vector2D(2, 2), Vector2D(2, 2)),
-        (1, False, Vector2D(0, 0), Vector2D(0, 4)),
-        (1, False, Vector2D(3, 4), Vector2D(4, 1)),
-        (2, False, Vector2D(2, 2), Vector2D(2, 2)),
-        (2, False, Vector2D(0, 0), Vector2D(4, 4)),
-        (2, False, Vector2D(3, 4), Vector2D(1, 0)),
-        (3, False, Vector2D(2, 2), Vector2D(2, 2)),
-        (3, False, Vector2D(0, 0), Vector2D(4, 0)),
-        (3, False, Vector2D(3, 4), Vector2D(0, 3)),
-        (0, True, Vector2D(2, 2), Vector2D(2, 2)),
-        (0, True, Vector2D(0, 0), Vector2D(4, 0)),
-        (0, True, Vector2D(3, 4), Vector2D(1, 4)),
-        (1, True, Vector2D(2, 2), Vector2D(2, 2)),
-        (1, True, Vector2D(0, 0), Vector2D(4, 4)),
-        (1, True, Vector2D(3, 4), Vector2D(0, 1)),
-        (2, True, Vector2D(2, 2), Vector2D(2, 2)),
-        (2, True, Vector2D(0, 0), Vector2D(0, 4)),
-        (2, True, Vector2D(3, 4), Vector2D(3, 0)),
-        (3, True, Vector2D(2, 2), Vector2D(2, 2)),
-        (3, True, Vector2D(0, 0), Vector2D(0, 0)),
-        (3, True, Vector2D(3, 4), Vector2D(4, 3)),
-    ],
-)
-def test_jigsaw_piece_orientation_transforms_position(
-    num_quarter_turns, is_flipped, new_position, expected_original_position
-):
-    center = (2, 2)
-    orientation = JigsawPieceOrientation(num_quarter_turns, is_flipped)
-    assert (
-        orientation.original_position(
-            new_position=new_position, center_of_rotation=center
-        )
-        == expected_original_position
-    )
+def test_jigsaw_piece_orientation_transforms_matrix():
+    matrix = np.array([[1, 2], [3, 4]])
+    orientation = JigsawPieceOrientation(num_quarter_turns=1, is_flipped=False)
+    new_matrix = orientation.transform(matrix)
+    assert np.array_equal(new_matrix, np.array([[3, 1], [4, 2]]))
+    orientation = JigsawPieceOrientation(num_quarter_turns=3, is_flipped=True)
+    new_matrix = orientation.transform(matrix)
+    assert np.array_equal(new_matrix, np.array([[1, 3], [2, 4]]))
 
 
 class _MockPiece:
@@ -77,8 +45,8 @@ class _MockPiece:
     def piece_id(self) -> Hashable:
         return self._piece_id
 
-    def reorient(self, orientation: JigsawPieceOrientation) -> None:
-        pass
+    def reorient(self, orientation: JigsawPieceOrientation) -> "_MockPiece":
+        return self
 
     def can_place_other(
         self, other: JigsawPiece, relative_placement: CardinalDirection
@@ -149,14 +117,14 @@ def test_solved_jigsaw_iterates_through_border_pieces():
 
 
 def test_jigsaw_piece_binary_image_can_be_constructed_from_and_converted_to_string():
-    piece = JigsawPieceBinaryImage(piece_id=0, image_rows=["#..", "#.#"])
+    piece = JigsawPieceBinaryImage.from_string(piece_id=0, image_rows=["#..", "#.#"])
     assert piece.width == 3
     assert piece.height == 2
     assert piece.render() == "#..\n#.#"
 
 
 def test_jigsaw_piece_binary_image_can_be_reoriented():
-    piece = JigsawPieceBinaryImage(
+    piece = JigsawPieceBinaryImage.from_string(
         piece_id=0,
         image_rows=[
             "#..",
@@ -211,13 +179,15 @@ def test_jigsaw_piece_binary_image_can_be_reoriented():
     expected_idx = 0
     for flipped in (False, True):
         for num_quarter_turns in range(4):
-            piece.reorient(JigsawPieceOrientation(num_quarter_turns, flipped))
-            assert piece.render() == "\n".join(expected_renders[expected_idx])
+            new_piece = piece.reorient(
+                JigsawPieceOrientation(num_quarter_turns, flipped)
+            )
+            assert new_piece.render() == "\n".join(expected_renders[expected_idx])
             expected_idx += 1
 
 
 def test_jigsaw_pieces_binary_image_do_not_fit_if_different_bits_along_edges():
-    piece_a = JigsawPieceBinaryImage(
+    piece_a = JigsawPieceBinaryImage.from_string(
         piece_id=0,
         image_rows=[
             "#..",
@@ -225,7 +195,7 @@ def test_jigsaw_pieces_binary_image_do_not_fit_if_different_bits_along_edges():
             ".#.",
         ],
     )
-    piece_b = JigsawPieceBinaryImage(
+    piece_b = JigsawPieceBinaryImage.from_string(
         piece_id=1,
         image_rows=[
             ".#.",
@@ -238,7 +208,7 @@ def test_jigsaw_pieces_binary_image_do_not_fit_if_different_bits_along_edges():
 
 
 def test_jigsaw_pieces_binary_image_fit_if_same_bits_along_edges():
-    piece_a = JigsawPieceBinaryImage(
+    piece_a = JigsawPieceBinaryImage.from_string(
         piece_id=0,
         image_rows=[
             "#..",
@@ -246,7 +216,7 @@ def test_jigsaw_pieces_binary_image_fit_if_same_bits_along_edges():
             ".#.",
         ],
     )
-    piece_b = JigsawPieceBinaryImage(
+    piece_b = JigsawPieceBinaryImage.from_string(
         piece_id=1,
         image_rows=[
             ".#.",
@@ -256,13 +226,15 @@ def test_jigsaw_pieces_binary_image_fit_if_same_bits_along_edges():
     )
     assert piece_a.can_place_other(piece_b, CardinalDirection.SOUTH)
     assert piece_a.can_place_other(piece_b, CardinalDirection.EAST)
-    piece_b.reorient(JigsawPieceOrientation(num_quarter_turns=2, is_flipped=True))
-    assert piece_a.can_place_other(piece_b, CardinalDirection.WEST)
+    new_b = piece_b.reorient(
+        JigsawPieceOrientation(num_quarter_turns=2, is_flipped=True)
+    )
+    assert piece_a.can_place_other(new_b, CardinalDirection.WEST)
 
 
 def test_solve_jigsaw_with_binary_image_pieces():
     pieces = [
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=2311,
             image_rows=[
                 "..##.#..#.",
@@ -277,7 +249,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "..###..###",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=1951,
             image_rows=[
                 "#.##...##.",
@@ -292,7 +264,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "#...##.#..",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=1171,
             image_rows=[
                 "####...##.",
@@ -307,7 +279,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 ".....##...",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=1427,
             image_rows=[
                 "###.##.#..",
@@ -322,7 +294,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "..##.#..#.",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=1489,
             image_rows=[
                 "##.#.#....",
@@ -337,7 +309,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "###.##.#..",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=2473,
             image_rows=[
                 "#....####.",
@@ -352,7 +324,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "..###.#.#.",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=2971,
             image_rows=[
                 "..#.#....#",
@@ -367,7 +339,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "...#.#.#.#",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=2729,
             image_rows=[
                 "...#.#.#.#",
@@ -382,7 +354,7 @@ def test_solve_jigsaw_with_binary_image_pieces():
                 "#.##...##.",
             ],
         ),
-        JigsawPieceBinaryImage(
+        JigsawPieceBinaryImage.from_string(
             piece_id=3079,
             image_rows=[
                 "#.#.#####.",

@@ -24,7 +24,7 @@ class _JigsawBounds:
 class _JigsawSolver:
     def __init__(self) -> None:
         self._placed_pieces = dict()
-        self._remaining_pieces = set()
+        self._remaining_pieces = dict()
         self._empty_positions = set()
         self._bounds = _JigsawBounds(min_x=-inf, max_x=inf, min_y=-inf, max_y=inf)
 
@@ -53,15 +53,15 @@ class _JigsawSolver:
         return True
 
     def _next_piece_to_place(self, empty_position: Vector2D) -> Optional[JigsawPiece]:
-        for piece in self._remaining_pieces:
+        for piece in self._remaining_pieces.values():
             for orientation in JigsawPieceOrientation.all_possible_orientations():
-                piece.reorient(orientation)
-                if self._piece_fits(piece, empty_position):
-                    return piece
+                reoriented = piece.reorient(orientation)
+                if self._piece_fits(reoriented, empty_position):
+                    return reoriented
 
     def _place_piece(self, piece: JigsawPiece, position: Vector2D) -> None:
         self._placed_pieces[position] = piece
-        self._remaining_pieces.remove(piece)
+        del self._remaining_pieces[piece.piece_id]
         for adjacent_position in position.adjacent_positions():
             if adjacent_position not in self._placed_pieces:
                 self._empty_positions.add(adjacent_position)
@@ -75,7 +75,7 @@ class _JigsawSolver:
 
     def solve(self, pieces: list[JigsawPiece]) -> SolvedJigsaw:
         self._empty_positions.add(Vector2D(0, 0))
-        self._remaining_pieces = set(pieces)
+        self._remaining_pieces = {piece.piece_id: piece for piece in pieces}
 
         while self._remaining_pieces:
             next_position = self._empty_positions.pop()

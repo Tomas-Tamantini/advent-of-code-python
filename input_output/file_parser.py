@@ -1391,10 +1391,10 @@ class FileParser:
                 continue
             if "Tile" in stripped_line:
                 if current_id != -1:
-                    yield JigsawPieceBinaryImage(current_id, current_rows)
+                    yield JigsawPieceBinaryImage.from_string(current_id, current_rows)
                 current_id = int(stripped_line.split(" ")[1].replace(":", ""))
                 current_rows = []
             else:
                 current_rows.append(stripped_line)
         if current_id != -1:
-            yield JigsawPieceBinaryImage(current_id, current_rows)
+            yield JigsawPieceBinaryImage.from_string(current_id, current_rows)
