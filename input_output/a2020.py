@@ -20,6 +20,7 @@ from models.aoc_2020 import (
     HyperGameOfLife,
     evaluate_expression_left_precedence,
     evaluate_expression_addition_precedence,
+    solve_jigsaw,
 )
 
 
@@ -382,8 +383,14 @@ def aoc_2020_d19(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 20: Jurassic Jigsaw
-def aoc_2020_d20(file_name: str, **_):
-    print("AOC 2020 Day 20: Not implemented yet")
+def aoc_2020_d20(file_name: str, parser: FileParser, **_):
+    pieces = list(parser.parse_jigsaw_pieces(file_name))
+    solved_jigsaw = solve_jigsaw(pieces)
+    border_pieces = list(solved_jigsaw.border_pieces())
+    product = 1
+    for piece in border_pieces:
+        product *= piece.piece_id
+    print(f"AOC 2020 Day 20/Part 1: Product of corner pieces is {product}")
 
 
 # AOC 2020: Day 21: Allergen Assessment

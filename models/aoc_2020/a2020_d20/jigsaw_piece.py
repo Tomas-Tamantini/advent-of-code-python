@@ -38,8 +38,8 @@ class JigsawPieceBinaryImage:
         return self._image.shape[0]
 
     @property
-    def _center_of_rotation(self) -> Vector2D:
-        return Vector2D(self.width // 2, self.height // 2)
+    def _center_of_rotation(self) -> tuple[float, float]:
+        return ((self.width - 1) / 2, (self.height - 1) / 2)
 
     def _value_at(self, position: Vector2D) -> bool:
         pos_in_img = self._orientation.original_position(

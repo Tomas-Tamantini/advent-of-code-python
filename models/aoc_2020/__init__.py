@@ -43,3 +43,4 @@ from .a2020_d18 import (
     evaluate_expression_left_precedence,
     evaluate_expression_addition_precedence,
 )
+from .a2020_d20 import JigsawPieceBinaryImage, solve_jigsaw

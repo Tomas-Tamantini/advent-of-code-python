@@ -44,20 +44,20 @@ class _JigsawSolver:
             self._bounds.max_x = out_of_bounds_position.x - 1
 
     def _piece_fits(self, piece: JigsawPiece, position: Vector2D) -> bool:
-        for orientation in JigsawPieceOrientation.all_possible_orientations():
-            piece.reorient(orientation)
-            for direction in CardinalDirection:
-                adjacent_position = position.move(direction)
-                if adjacent_position in self._placed_pieces:
-                    neighboring_piece = self._placed_pieces[adjacent_position]
-                    if not piece.can_place_other(neighboring_piece, direction):
-                        return False
+        for direction in CardinalDirection:
+            adjacent_position = position.move(direction)
+            if adjacent_position in self._placed_pieces:
+                neighboring_piece = self._placed_pieces[adjacent_position]
+                if not piece.can_place_other(neighboring_piece, direction):
+                    return False
         return True
 
     def _next_piece_to_place(self, empty_position: Vector2D) -> Optional[JigsawPiece]:
         for piece in self._remaining_pieces:
-            if self._piece_fits(piece, empty_position):
-                return piece
+            for orientation in JigsawPieceOrientation.all_possible_orientations():
+                piece.reorient(orientation)
+                if self._piece_fits(piece, empty_position):
+                    return piece
 
     def _place_piece(self, piece: JigsawPiece, position: Vector2D) -> None:
         self._placed_pieces[position] = piece

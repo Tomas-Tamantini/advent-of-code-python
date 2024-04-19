@@ -48,7 +48,7 @@ def test_there_are_eight_possible_jigsaw_piece_orientations():
 def test_jigsaw_piece_orientation_transforms_position(
     num_quarter_turns, is_flipped, new_position, expected_original_position
 ):
-    center = Vector2D(2, 2)
+    center = (2, 2)
     orientation = JigsawPieceOrientation(num_quarter_turns, is_flipped)
     assert (
         orientation.original_position(
@@ -258,3 +258,146 @@ def test_jigsaw_pieces_binary_image_fit_if_same_bits_along_edges():
     assert piece_a.can_place_other(piece_b, CardinalDirection.EAST)
     piece_b.reorient(JigsawPieceOrientation(num_quarter_turns=2, is_flipped=True))
     assert piece_a.can_place_other(piece_b, CardinalDirection.WEST)
+
+
+def test_solve_jigsaw_with_binary_image_pieces():
+    pieces = [
+        JigsawPieceBinaryImage(
+            piece_id=2311,
+            image_rows=[
+                "..##.#..#.",
+                "##..#.....",
+                "#...##..#.",
+                "####.#...#",
+                "##.##.###.",
+                "##...#.###",
+                ".#.#.#..##",
+                "..#....#..",
+                "###...#.#.",
+                "..###..###",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=1951,
+            image_rows=[
+                "#.##...##.",
+                "#.####...#",
+                ".....#..##",
+                "#...######",
+                ".##.#....#",
+                ".###.#####",
+                "###.##.##.",
+                ".###....#.",
+                "..#.#..#.#",
+                "#...##.#..",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=1171,
+            image_rows=[
+                "####...##.",
+                "#..##.#..#",
+                "##.#..#.#.",
+                ".###.####.",
+                "..###.####",
+                ".##....##.",
+                ".#...####.",
+                "#.##.####.",
+                "####..#...",
+                ".....##...",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=1427,
+            image_rows=[
+                "###.##.#..",
+                ".#..#.##..",
+                ".#.##.#..#",
+                "#.#.#.##.#",
+                "....#...##",
+                "...##..##.",
+                "...#.#####",
+                ".#.####.#.",
+                "..#..###.#",
+                "..##.#..#.",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=1489,
+            image_rows=[
+                "##.#.#....",
+                "..##...#..",
+                ".##..##...",
+                "..#...#...",
+                "#####...#.",
+                "#..#.#.#.#",
+                "...#.#.#..",
+                "##.#...##.",
+                "..##.##.##",
+                "###.##.#..",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=2473,
+            image_rows=[
+                "#....####.",
+                "#..#.##...",
+                "#.##..#...",
+                "######.#.#",
+                ".#...#.#.#",
+                ".#########",
+                ".###.#..#.",
+                "########.#",
+                "##...##.#.",
+                "..###.#.#.",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=2971,
+            image_rows=[
+                "..#.#....#",
+                "#...###...",
+                "#.#.###...",
+                "##.##..#..",
+                ".#####..##",
+                ".#..####.#",
+                "#..#.#..#.",
+                "..####.###",
+                "..#.#.###.",
+                "...#.#.#.#",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=2729,
+            image_rows=[
+                "...#.#.#.#",
+                "####.#....",
+                "..#.#.....",
+                "....#..#.#",
+                ".##..##.#.",
+                ".#.####...",
+                "####.#.#..",
+                "##.####...",
+                "##..#.##..",
+                "#.##...##.",
+            ],
+        ),
+        JigsawPieceBinaryImage(
+            piece_id=3079,
+            image_rows=[
+                "#.#.#####.",
+                ".#..######",
+                "..#.......",
+                "######....",
+                "####.#..#.",
+                ".#...#.##.",
+                "#.#####.##",
+                "..#.###...",
+                "..#.......",
+                "..#.###...",
+            ],
+        ),
+    ]
+    solution = solve_jigsaw(pieces)
+    border_ids = {piece.piece_id for piece in solution.border_pieces()}
+    assert border_ids == {1951, 3079, 2971, 1171}

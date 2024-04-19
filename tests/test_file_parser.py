@@ -1427,3 +1427,21 @@ def test_parse_context_free_grammar_and_words():
     assert words == ["ababbb", "bababa", "abbbab", "aaabbb", "aaaabbb"]
     assert cfg.matches(tuple("ababbb"))
     assert not cfg.matches(tuple("aaabbb"))
+
+
+def test_parse_jigsaw_pieces():
+    file_content = """
+                   Tile 2311:                   
+                   .#.
+                   ...
+                   
+                   Tile 1951:
+                   ..#
+                   ###
+                   """
+    file_parser = mock_file_parser(file_content)
+    pieces = list(file_parser.parse_jigsaw_pieces("some_file"))
+    assert pieces[0].piece_id == 2311
+    assert pieces[0].render() == ".#.\n..."
+    assert pieces[1].piece_id == 1951
+    assert pieces[1].render() == "..#\n###"
