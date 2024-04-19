@@ -130,6 +130,12 @@ def test_bounding_box_has_min_and_max_x_and_y_properties():
     assert bounding_box.max_y == 6
 
 
+def test_bounding_box_has_top_left_and_bottom_right_properties():
+    bounding_box = BoundingBox(bottom_left=Vector2D(1, 2), top_right=Vector2D(4, 6))
+    assert bounding_box.top_left == Vector2D(1, 6)
+    assert bounding_box.bottom_right == Vector2D(4, 2)
+
+
 def test_bounding_box_dimensions_are_calculated_properly():
     bounding_box = BoundingBox(Vector2D(1, 2), Vector2D(4, 6))
     assert bounding_box.width == 3
