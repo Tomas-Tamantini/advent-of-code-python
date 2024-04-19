@@ -1,7 +1,7 @@
 from random import shuffle, seed
 from typing import Hashable
 from models.vectors import Vector2D, CardinalDirection
-from models.aoc_2020.a2020_d20 import JigsawPieceOrientation, JigsawSolver, JigsawPiece
+from models.aoc_2020.a2020_d20 import JigsawPieceOrientation, solve_jigsaw, JigsawPiece
 
 
 def test_there_are_eight_possible_jigsaw_piece_orientations():
@@ -40,14 +40,14 @@ class _MockPiece:
 
 
 def test_jigsaw_with_zero_pieces_returns_empty_solution():
-    solution = JigsawSolver().solve_jigsaw(pieces=[])
-    assert solution == dict()
+    solution = solve_jigsaw(pieces=[])
+    assert solution.placed_pieces == dict()
 
 
 def test_jigsaw_with_one_piece_returns_solution_with_piece_in_origin():
     piece = _MockPiece()
-    solution = JigsawSolver().solve_jigsaw(pieces=[piece])
-    assert solution == {Vector2D(0, 0): piece}
+    solution = solve_jigsaw(pieces=[piece])
+    assert solution.placed_pieces == {Vector2D(0, 0): piece}
 
 
 def test_jigsaw_with_multiple_pieces_them_assembles_solution_assuming_maximum_of_one_match_per_edge():
@@ -58,8 +58,10 @@ def test_jigsaw_with_multiple_pieces_them_assembles_solution_assuming_maximum_of
     ]
     seed(0)
     shuffle(pieces)
-    solution = JigsawSolver().solve_jigsaw(pieces)
-    solution_ids = {position: piece.piece_id for position, piece in solution.items()}
+    solution = solve_jigsaw(pieces)
+    solution_ids = {
+        position: piece.piece_id for position, piece in solution.placed_pieces.items()
+    }
     assert solution_ids == {
         Vector2D(0, 0): "A",
         Vector2D(1, 0): "B",

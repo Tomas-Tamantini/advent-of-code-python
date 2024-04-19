@@ -1,9 +1,10 @@
 from typing import Optional
 from math import inf
 from dataclasses import dataclass
-from models.vectors import Vector2D, BoundingBox, CardinalDirection
+from models.vectors import Vector2D, CardinalDirection
 from .jigsaw_piece_orientation import JigsawPieceOrientation
 from .jigsaw_piece import JigsawPiece
+from .solved_jigsaw import SolvedJigsaw
 
 
 @dataclass
@@ -20,14 +21,8 @@ class _JigsawBounds:
         )
 
 
-class JigsawSolver:
+class _JigsawSolver:
     def __init__(self) -> None:
-        self._placed_pieces = dict()
-        self._remaining_pieces = set()
-        self._empty_positions = set()
-        self._bounds = _JigsawBounds(min_x=-inf, max_x=inf, min_y=-inf, max_y=inf)
-
-    def _reset(self):
         self._placed_pieces = dict()
         self._remaining_pieces = set()
         self._empty_positions = set()
@@ -64,14 +59,6 @@ class JigsawSolver:
             if self._piece_fits(piece, empty_position):
                 return piece
 
-    def _shift_back_to_origin(self) -> None:
-        bounding_box = BoundingBox.from_points(self._placed_pieces.keys())
-        new_placed_pieces = {
-            position - bounding_box.bottom_left: piece
-            for position, piece in self._placed_pieces.items()
-        }
-        self._placed_pieces = new_placed_pieces
-
     def _place_piece(self, piece: JigsawPiece, position: Vector2D) -> None:
         self._placed_pieces[position] = piece
         self._remaining_pieces.remove(piece)
@@ -86,9 +73,7 @@ class JigsawSolver:
         else:
             self._place_piece(next_piece, position)
 
-    def solve_jigsaw(self, pieces: list[JigsawPiece]) -> dict[Vector2D, JigsawPiece]:
-        self._reset()
-        
+    def solve(self, pieces: list[JigsawPiece]) -> SolvedJigsaw:
         self._empty_positions.add(Vector2D(0, 0))
         self._remaining_pieces = set(pieces)
 
@@ -97,5 +82,8 @@ class JigsawSolver:
             if self._bounds.contains(next_position):
                 self._try_fill_position(next_position)
 
-        self._shift_back_to_origin()
-        return self._placed_pieces
+        return SolvedJigsaw(self._placed_pieces)
+
+
+def solve_jigsaw(pieces: list[JigsawPiece]) -> SolvedJigsaw:
+    return _JigsawSolver().solve(pieces)
