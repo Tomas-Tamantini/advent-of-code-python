@@ -1,0 +1,76 @@
+from random import shuffle, seed
+from typing import Hashable
+from models.vectors import Vector2D, CardinalDirection
+from models.aoc_2020.a2020_d20 import JigsawPieceOrientation, JigsawSolver, JigsawPiece
+
+
+def test_there_are_eight_possible_jigsaw_piece_orientations():
+    orientations = set(JigsawPieceOrientation.all_possible_orientations())
+    assert len(orientations) == 8
+
+
+class _MockPiece:
+    def __init__(self, piece_id: str = "A", expected_solve_config: str = "") -> None:
+        self._piece_id = piece_id
+        self._expected_solve_config = expected_solve_config
+
+    @property
+    def _expected_position(self) -> Vector2D:
+        lines = self._expected_solve_config.split("\n")
+        for row, line in enumerate(lines):
+            if self._piece_id in line:
+                return Vector2D(line.index(self._piece_id), row)
+
+    def __repr__(self) -> str:
+        return self._piece_id
+
+    @property
+    def piece_id(self) -> Hashable:
+        return self._piece_id
+
+    def reorient(self, orientation: JigsawPieceOrientation) -> None:
+        pass
+
+    def can_place_other(
+        self, other: JigsawPiece, relative_placement: CardinalDirection
+    ) -> bool:
+        my_pos = self._expected_position
+        other_pos = my_pos.move(relative_placement)
+        return other_pos == other._expected_position
+
+
+def test_jigsaw_with_zero_pieces_returns_empty_solution():
+    solution = JigsawSolver().solve_jigsaw(pieces=[])
+    assert solution == dict()
+
+
+def test_jigsaw_with_one_piece_returns_solution_with_piece_in_origin():
+    piece = _MockPiece()
+    solution = JigsawSolver().solve_jigsaw(pieces=[piece])
+    assert solution == {Vector2D(0, 0): piece}
+
+
+def test_jigsaw_with_multiple_pieces_them_assembles_solution_assuming_maximum_of_one_match_per_edge():
+    expected_solution = "ABCD\nEFGH\nIJKL"
+    pieces = [
+        _MockPiece(piece_id=c, expected_solve_config=expected_solution)
+        for c in "ABCDEFGHIJKL"
+    ]
+    seed(0)
+    shuffle(pieces)
+    solution = JigsawSolver().solve_jigsaw(pieces)
+    solution_ids = {position: piece.piece_id for position, piece in solution.items()}
+    assert solution_ids == {
+        Vector2D(0, 0): "A",
+        Vector2D(1, 0): "B",
+        Vector2D(2, 0): "C",
+        Vector2D(3, 0): "D",
+        Vector2D(0, 1): "E",
+        Vector2D(1, 1): "F",
+        Vector2D(2, 1): "G",
+        Vector2D(3, 1): "H",
+        Vector2D(0, 2): "I",
+        Vector2D(1, 2): "J",
+        Vector2D(2, 2): "K",
+        Vector2D(3, 2): "L",
+    }
