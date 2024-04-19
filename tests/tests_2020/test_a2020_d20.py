@@ -1,3 +1,4 @@
+import pytest
 from random import shuffle, seed
 from typing import Hashable
 from models.vectors import Vector2D, CardinalDirection
@@ -5,6 +6,7 @@ from models.aoc_2020.a2020_d20 import (
     JigsawPieceOrientation,
     solve_jigsaw,
     JigsawPiece,
+    JigsawPieceBinaryImage,
     SolvedJigsaw,
 )
 
@@ -12,6 +14,48 @@ from models.aoc_2020.a2020_d20 import (
 def test_there_are_eight_possible_jigsaw_piece_orientations():
     orientations = set(JigsawPieceOrientation.all_possible_orientations())
     assert len(orientations) == 8
+
+
+@pytest.mark.parametrize(
+    "num_quarter_turns, is_flipped, new_position, expected_original_position",
+    [
+        (0, False, Vector2D(2, 2), Vector2D(2, 2)),
+        (0, False, Vector2D(0, 0), Vector2D(0, 0)),
+        (0, False, Vector2D(3, 4), Vector2D(3, 4)),
+        (1, False, Vector2D(2, 2), Vector2D(2, 2)),
+        (1, False, Vector2D(0, 0), Vector2D(0, 4)),
+        (1, False, Vector2D(3, 4), Vector2D(4, 1)),
+        (2, False, Vector2D(2, 2), Vector2D(2, 2)),
+        (2, False, Vector2D(0, 0), Vector2D(4, 4)),
+        (2, False, Vector2D(3, 4), Vector2D(1, 0)),
+        (3, False, Vector2D(2, 2), Vector2D(2, 2)),
+        (3, False, Vector2D(0, 0), Vector2D(4, 0)),
+        (3, False, Vector2D(3, 4), Vector2D(0, 3)),
+        (0, True, Vector2D(2, 2), Vector2D(2, 2)),
+        (0, True, Vector2D(0, 0), Vector2D(4, 0)),
+        (0, True, Vector2D(3, 4), Vector2D(1, 4)),
+        (1, True, Vector2D(2, 2), Vector2D(2, 2)),
+        (1, True, Vector2D(0, 0), Vector2D(4, 4)),
+        (1, True, Vector2D(3, 4), Vector2D(0, 1)),
+        (2, True, Vector2D(2, 2), Vector2D(2, 2)),
+        (2, True, Vector2D(0, 0), Vector2D(0, 4)),
+        (2, True, Vector2D(3, 4), Vector2D(3, 0)),
+        (3, True, Vector2D(2, 2), Vector2D(2, 2)),
+        (3, True, Vector2D(0, 0), Vector2D(0, 0)),
+        (3, True, Vector2D(3, 4), Vector2D(4, 3)),
+    ],
+)
+def test_jigsaw_piece_orientation_transforms_position(
+    num_quarter_turns, is_flipped, new_position, expected_original_position
+):
+    center = Vector2D(2, 2)
+    orientation = JigsawPieceOrientation(num_quarter_turns, is_flipped)
+    assert (
+        orientation.original_position(
+            new_position=new_position, center_of_rotation=center
+        )
+        == expected_original_position
+    )
 
 
 class _MockPiece:
@@ -102,3 +146,71 @@ def test_solved_jigsaw_iterates_through_border_pieces():
     border_pieces = list(jigsaw.border_pieces())
     assert len(border_pieces) == 4
     assert {piece.piece_id for piece in border_pieces} == {"A", "D", "I", "L"}
+
+
+def test_jigsaw_piece_binary_image_can_be_constructed_from_and_converted_to_string():
+    piece = JigsawPieceBinaryImage(piece_id=0, image=["#..", "#.#"])
+    assert piece.width == 3
+    assert piece.height == 2
+    assert piece.render() == "#..\n#.#"
+
+
+def test_jigsaw_piece_binary_image_can_be_reoriented():
+    piece = JigsawPieceBinaryImage(
+        piece_id=0,
+        image=[
+            "#..",
+            "###",
+            ".#.",
+        ],
+    )
+
+    expected_renders = [
+        [
+            "#..",
+            "###",
+            ".#.",
+        ],
+        [
+            ".##",
+            "##.",
+            ".#.",
+        ],
+        [
+            ".#.",
+            "###",
+            "..#",
+        ],
+        [
+            ".#.",
+            ".##",
+            "##.",
+        ],
+        [
+            "..#",
+            "###",
+            ".#.",
+        ],
+        [
+            ".#.",
+            "##.",
+            ".##",
+        ],
+        [
+            ".#.",
+            "###",
+            "#..",
+        ],
+        [
+            "##.",
+            ".##",
+            ".#.",
+        ],
+    ]
+
+    expected_idx = 0
+    for flipped in (False, True):
+        for num_quarter_turns in range(4):
+            piece.reorient(JigsawPieceOrientation(num_quarter_turns, flipped))
+            assert piece.render() == "\n".join(expected_renders[expected_idx])
+            expected_idx += 1
