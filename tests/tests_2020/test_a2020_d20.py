@@ -1,7 +1,12 @@
 from random import shuffle, seed
 from typing import Hashable
 from models.vectors import Vector2D, CardinalDirection
-from models.aoc_2020.a2020_d20 import JigsawPieceOrientation, solve_jigsaw, JigsawPiece
+from models.aoc_2020.a2020_d20 import (
+    JigsawPieceOrientation,
+    solve_jigsaw,
+    JigsawPiece,
+    SolvedJigsaw,
+)
 
 
 def test_there_are_eight_possible_jigsaw_piece_orientations():
@@ -76,3 +81,24 @@ def test_jigsaw_with_multiple_pieces_them_assembles_solution_assuming_maximum_of
         Vector2D(2, 2): "K",
         Vector2D(3, 2): "L",
     }
+
+
+def test_solved_jigsaw_iterates_through_border_pieces():
+    placed_pieces = {
+        Vector2D(0, 0): _MockPiece(piece_id="A"),
+        Vector2D(1, 0): _MockPiece(piece_id="B"),
+        Vector2D(2, 0): _MockPiece(piece_id="C"),
+        Vector2D(3, 0): _MockPiece(piece_id="D"),
+        Vector2D(0, 1): _MockPiece(piece_id="E"),
+        Vector2D(1, 1): _MockPiece(piece_id="F"),
+        Vector2D(2, 1): _MockPiece(piece_id="G"),
+        Vector2D(3, 1): _MockPiece(piece_id="H"),
+        Vector2D(0, 2): _MockPiece(piece_id="I"),
+        Vector2D(1, 2): _MockPiece(piece_id="J"),
+        Vector2D(2, 2): _MockPiece(piece_id="K"),
+        Vector2D(3, 2): _MockPiece(piece_id="L"),
+    }
+    jigsaw = SolvedJigsaw(placed_pieces)
+    border_pieces = list(jigsaw.border_pieces())
+    assert len(border_pieces) == 4
+    assert {piece.piece_id for piece in border_pieces} == {"A", "D", "I", "L"}
