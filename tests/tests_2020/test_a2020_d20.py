@@ -149,7 +149,7 @@ def test_solved_jigsaw_iterates_through_border_pieces():
 
 
 def test_jigsaw_piece_binary_image_can_be_constructed_from_and_converted_to_string():
-    piece = JigsawPieceBinaryImage(piece_id=0, image=["#..", "#.#"])
+    piece = JigsawPieceBinaryImage(piece_id=0, image_rows=["#..", "#.#"])
     assert piece.width == 3
     assert piece.height == 2
     assert piece.render() == "#..\n#.#"
@@ -158,7 +158,7 @@ def test_jigsaw_piece_binary_image_can_be_constructed_from_and_converted_to_stri
 def test_jigsaw_piece_binary_image_can_be_reoriented():
     piece = JigsawPieceBinaryImage(
         piece_id=0,
-        image=[
+        image_rows=[
             "#..",
             "###",
             ".#.",
@@ -214,3 +214,47 @@ def test_jigsaw_piece_binary_image_can_be_reoriented():
             piece.reorient(JigsawPieceOrientation(num_quarter_turns, flipped))
             assert piece.render() == "\n".join(expected_renders[expected_idx])
             expected_idx += 1
+
+
+def test_jigsaw_pieces_binary_image_do_not_fit_if_different_bits_along_edges():
+    piece_a = JigsawPieceBinaryImage(
+        piece_id=0,
+        image_rows=[
+            "#..",
+            "###",
+            ".#.",
+        ],
+    )
+    piece_b = JigsawPieceBinaryImage(
+        piece_id=1,
+        image_rows=[
+            ".#.",
+            "###",
+            "..#",
+        ],
+    )
+    assert not piece_a.can_place_other(piece_b, CardinalDirection.NORTH)
+    assert not piece_a.can_place_other(piece_b, CardinalDirection.WEST)
+
+
+def test_jigsaw_pieces_binary_image_fit_if_same_bits_along_edges():
+    piece_a = JigsawPieceBinaryImage(
+        piece_id=0,
+        image_rows=[
+            "#..",
+            "###",
+            ".#.",
+        ],
+    )
+    piece_b = JigsawPieceBinaryImage(
+        piece_id=1,
+        image_rows=[
+            ".#.",
+            "###",
+            "..#",
+        ],
+    )
+    assert piece_a.can_place_other(piece_b, CardinalDirection.SOUTH)
+    assert piece_a.can_place_other(piece_b, CardinalDirection.EAST)
+    piece_b.reorient(JigsawPieceOrientation(num_quarter_turns=2, is_flipped=True))
+    assert piece_a.can_place_other(piece_b, CardinalDirection.WEST)
