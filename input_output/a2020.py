@@ -422,6 +422,13 @@ def aoc_2020_d21(file_name: str, parser: FileParser, **_):
     print(
         f"AOC 2020 Day 21/Part 1: Number of times non-allergen ingredients appear is {num_times}"
     )
+    matches: dict[str, str] = foods.ingredients_with_allergens()
+    canonical_dangerous_ingredients = ",".join(
+        ingredient for ingredient in sorted(matches.keys(), key=matches.get)
+    )
+    print(
+        f"AOC 2020 Day 21/Part 2: Canonical dangerous ingredient list is {canonical_dangerous_ingredients}"
+    )
 
 
 # AOC 2020: Day 22: Crab Combat

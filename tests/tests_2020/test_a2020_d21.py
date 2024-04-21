@@ -28,3 +28,22 @@ def test_foods_deduce_which_ingredients_cannot_have_allergens():
         ]
     )
     assert foods.ingredients_without_allergens() == {"kfcds", "nhms", "sbzzf", "trh"}
+
+
+def test_foods_deduce_which_ingredients_must_have_allergens():
+    foods = Foods(
+        [
+            Food(
+                ingredients={"mxmxvkd", "kfcds", "sqjhc", "nhms"},
+                allergens={"dairy", "fish"},
+            ),
+            Food(ingredients={"trh", "fvjkl", "sbzzf", "mxmxvkd"}, allergens={"dairy"}),
+            Food(ingredients={"sqjhc", "fvjkl"}, allergens={"soy"}),
+            Food(ingredients={"sqjhc", "mxmxvkd", "sbzzf"}, allergens={"fish"}),
+        ]
+    )
+    assert foods.ingredients_with_allergens() == {
+        "mxmxvkd": "dairy",
+        "sqjhc": "fish",
+        "fvjkl": "soy",
+    }

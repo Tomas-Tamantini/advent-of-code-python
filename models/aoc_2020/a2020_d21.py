@@ -74,10 +74,19 @@ class _MatchMatrix:
             ):
                 yield ingredient
 
+    def ingredients_with_allergens(self) -> dict[str, str]:
+        matches = dict()
+        for ingredient, row_idx in self._ingredient_indices.items():
+            for allergen, col_idx in self._allergen_indices.items():
+                if self._values[row_idx, col_idx] == _MatchStatus.MATCHES:
+                    matches[ingredient] = allergen
+        return matches
+
 
 class Foods:
     def __init__(self, foods: list[Food]) -> None:
         self._foods = foods
+        self._match_matrix = self._build_match_matrix()
 
     def num_times_ingredient_appears(self, ingredient: str) -> int:
         return sum(ingredient in food.ingredients for food in self._foods)
@@ -90,13 +99,19 @@ class Foods:
     def _all_allergens(self) -> set[str]:
         return set(allergen for food in self._foods for allergen in food.allergens)
 
-    def ingredients_without_allergens(self) -> set[str]:
+    def _build_match_matrix(self) -> _MatchMatrix:
         all_ingredients = self._all_ingredients()
-        match_matrix = _MatchMatrix(
+        matrix = _MatchMatrix(
             ingredients=self._all_ingredients(), allergens=self._all_allergens()
         )
         for food in self._foods:
             for ingredient in all_ingredients - food.ingredients:
                 for allergen in food.allergens:
-                    match_matrix.set_does_not_match(ingredient, allergen)
-        return set(match_matrix.ingredients_without_allergens())
+                    matrix.set_does_not_match(ingredient, allergen)
+        return matrix
+
+    def ingredients_without_allergens(self) -> set[str]:
+        return set(self._match_matrix.ingredients_without_allergens())
+
+    def ingredients_with_allergens(self) -> dict[str, str]:
+        return self._match_matrix.ingredients_with_allergens()
