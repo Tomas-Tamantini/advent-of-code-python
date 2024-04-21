@@ -21,6 +21,7 @@ from models.aoc_2020 import (
     evaluate_expression_left_precedence,
     evaluate_expression_addition_precedence,
     solve_jigsaw,
+    Foods,
 )
 
 
@@ -412,8 +413,15 @@ def aoc_2020_d20(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 21: Allergen Assessment
-def aoc_2020_d21(file_name: str, **_):
-    print("AOC 2020 Day 21: Not implemented yet")
+def aoc_2020_d21(file_name: str, parser: FileParser, **_):
+    foods = Foods(list(parser.parse_foods(file_name)))
+    num_times = sum(
+        foods.num_times_ingredient_appears(ingredient)
+        for ingredient in foods.ingredients_without_allergens()
+    )
+    print(
+        f"AOC 2020 Day 21/Part 1: Number of times non-allergen ingredients appear is {num_times}"
+    )
 
 
 # AOC 2020: Day 22: Crab Combat

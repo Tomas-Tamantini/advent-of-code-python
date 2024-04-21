@@ -1445,3 +1445,17 @@ def test_parse_jigsaw_pieces():
     assert pieces[0].render() == ".#.\n..."
     assert pieces[1].piece_id == 1951
     assert pieces[1].render() == "..#\n###"
+
+
+def test_parse_foods():
+    file_content = """
+                   mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
+                   trh fvjkl sbzzf mxmxvkd (contains dairy)
+                   """
+    file_parser = mock_file_parser(file_content)
+    foods = list(file_parser.parse_foods("some_file"))
+    assert len(foods) == 2
+    assert foods[0].ingredients == {"mxmxvkd", "kfcds", "sqjhc", "nhms"}
+    assert foods[0].allergens == {"dairy", "fish"}
+    assert foods[1].ingredients == {"trh", "fvjkl", "sbzzf", "mxmxvkd"}
+    assert foods[1].allergens == {"dairy"}

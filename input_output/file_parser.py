@@ -148,6 +148,7 @@ from models.aoc_2020 import (
     TicketFieldValidator,
     RangeInterval,
     JigsawPieceBinaryImage,
+    Food,
 )
 
 
@@ -1398,3 +1399,14 @@ class FileParser:
                 current_rows.append(stripped_line)
         if current_id != -1:
             yield JigsawPieceBinaryImage.from_string(current_id, current_rows)
+
+    def _parse_food(self, line: str) -> Food:
+        parts = line.split(" (contains ")
+        ingredients = parts[0].split()
+        allergens = parts[1].replace(")", "").split(", ")
+        return Food(set(ingredients), set(allergens))
+
+    def parse_foods(self, file_name: str) -> Iterator[Food]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_food(line.strip())
