@@ -1,4 +1,5 @@
 from typing import Iterator
+import numpy as np
 from models.vectors import Vector2D, BoundingBox
 from .jigsaw_piece import JigsawPiece
 
@@ -30,3 +31,21 @@ class SolvedJigsaw:
         yield self._placed_pieces[box.top_right]
         yield self._placed_pieces[box.bottom_left]
         yield self._placed_pieces[box.bottom_right]
+
+    def render_as_matrix(self) -> np.array:
+        if not self._placed_pieces:
+            return np.array([[]])
+        sample_piece = next(iter(self._placed_pieces.values()))
+        sample_piece_matrix = sample_piece.render_without_border_details()
+        piece_width, piece_height = sample_piece_matrix.shape
+        box = self._bounding_box()
+        width = (box.width + 1) * piece_width
+        height = (box.height + 1) * piece_height
+        matrix = np.zeros((height, width), dtype=bool)
+        for position, piece in self._placed_pieces.items():
+            x = position.x * piece_width
+            y = position.y * piece_height
+            matrix[y : y + piece_height, x : x + piece_width] = (
+                piece.render_without_border_details()
+            )
+        return matrix

@@ -1,6 +1,7 @@
 from random import shuffle, seed
 from typing import Hashable
 import numpy as np
+from unittest.mock import Mock
 from models.vectors import Vector2D, CardinalDirection
 from models.aoc_2020.a2020_d20 import (
     JigsawPieceOrientation,
@@ -232,6 +233,22 @@ def test_jigsaw_pieces_binary_image_fit_if_same_bits_along_edges():
     assert piece_a.can_place_other(new_b, CardinalDirection.WEST)
 
 
+def test_jigsaw_piece_binary_image_can_ignore_borders():
+    piece = JigsawPieceBinaryImage.from_string(
+        piece_id=0,
+        image_rows=[
+            "####",
+            "##.#",
+            "#.##",
+            "####",
+        ],
+    )
+    assert np.array_equal(
+        piece.render_without_border_details(),
+        np.array([[True, False], [False, True]]),
+    )
+
+
 def test_solve_jigsaw_with_binary_image_pieces():
     pieces = [
         JigsawPieceBinaryImage.from_string(
@@ -373,3 +390,39 @@ def test_solve_jigsaw_with_binary_image_pieces():
     solution = solve_jigsaw(pieces)
     border_ids = {piece.piece_id for piece in solution.border_pieces()}
     assert border_ids == {1951, 3079, 2971, 1171}
+
+
+def test_assembled_jigsaw_can_be_rendered_as_numpy_matrix():
+    details = [
+        [[True, True], [True, True]],
+        [[False, False], [False, False]],
+        [[True, False], [False, True]],
+        [[False, True], [True, False]],
+    ]
+    pieces = []
+    for detail in details:
+        piece = Mock()
+        piece.width = 2
+        piece.height = 2
+        piece.render_without_border_details.return_value = np.array(detail)
+        pieces.append(piece)
+
+    placed_pieces = {
+        Vector2D(0, 0): pieces[0],
+        Vector2D(1, 0): pieces[1],
+        Vector2D(0, 1): pieces[2],
+        Vector2D(1, 1): pieces[3],
+    }
+    jigsaw = SolvedJigsaw(placed_pieces)
+    matrix = jigsaw.render_as_matrix()
+    assert np.array_equal(
+        matrix,
+        np.array(
+            [
+                [True, True, False, False],
+                [True, True, False, False],
+                [True, False, False, True],
+                [False, True, True, False],
+            ]
+        ),
+    )

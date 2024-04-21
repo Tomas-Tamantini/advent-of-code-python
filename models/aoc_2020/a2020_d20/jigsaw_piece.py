@@ -14,6 +14,8 @@ class JigsawPiece(Protocol):
         self, other: "JigsawPiece", relative_placement: CardinalDirection
     ) -> bool: ...
 
+    def render_without_border_details(self) -> np.array: ...
+
 
 class JigsawPieceBinaryImage:
     def __init__(self, piece_id: int, image: np.array) -> None:
@@ -61,3 +63,6 @@ class JigsawPieceBinaryImage:
         self_edge = self._bits_along_edge(relative_placement)
         other_edge = other._bits_along_edge(relative_placement.reverse())
         return np.array_equal(self_edge, other_edge)
+
+    def render_without_border_details(self) -> np.array:
+        return self._image[1:-1, 1:-1]
