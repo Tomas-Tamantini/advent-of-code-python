@@ -56,16 +56,17 @@ class _MatchMatrix:
         self._values[row_idx_new_match, col_idx] = _MatchStatus.MATCHES
         for other_col_idx in range(self._num_cols):
             if other_col_idx != col_idx:
-                self._values[row_idx_new_match, other_col_idx] = (
-                    _MatchStatus.DOES_NOT_MATCH
-                )
-                self._reduce(other_col_idx)
+                self._set_does_not_match_by_indices(row_idx_new_match, other_col_idx)
+
+    def _set_does_not_match_by_indices(self, row_idx: int, col_idx: int) -> None:
+        if self._values[row_idx, col_idx] == _MatchStatus.UNKNOWN:
+            self._values[row_idx, col_idx] = _MatchStatus.DOES_NOT_MATCH
+            self._reduce(col_idx)
 
     def set_does_not_match(self, ingredient: str, allergen: str) -> None:
         row_idx = self._ingredient_indices[ingredient]
         col_idx = self._allergen_indices[allergen]
-        self._values[row_idx, col_idx] = _MatchStatus.DOES_NOT_MATCH
-        self._reduce(col_idx)
+        self._set_does_not_match_by_indices(row_idx, col_idx)
 
     def ingredients_without_allergens(self) -> Iterator[str]:
         for ingredient, idx in self._ingredient_indices.items():
