@@ -1410,3 +1410,19 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_food(line.strip())
+
+    def parse_crab_combat_cards(self, file_name: str) -> tuple[list[int], list[int]]:
+        cards_a = []
+        cards_b = []
+        reading_player_b = False
+        for line in self._file_reader.readlines(file_name):
+            if "Player 1" in line:
+                reading_player_b = False
+            elif "Player 2" in line:
+                reading_player_b = True
+            elif line.strip():
+                if reading_player_b:
+                    cards_b.append(int(line.strip()))
+                else:
+                    cards_a.append(int(line.strip()))
+        return cards_a, cards_b

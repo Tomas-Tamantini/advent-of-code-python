@@ -22,6 +22,7 @@ from models.aoc_2020 import (
     evaluate_expression_addition_precedence,
     solve_jigsaw,
     Foods,
+    CrabCombat,
 )
 
 
@@ -432,8 +433,12 @@ def aoc_2020_d21(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 22: Crab Combat
-def aoc_2020_d22(file_name: str, **_):
-    print("AOC 2020 Day 22: Not implemented yet")
+def aoc_2020_d22(file_name: str, parser: FileParser, **_):
+    cards_a, cards_b = parser.parse_crab_combat_cards(file_name)
+    combat = CrabCombat(cards_a, cards_b)
+    combat.play_game()
+    winning_score = combat.winning_score()
+    print(f"AOC 2020 Day 22/Part 1: Winning player's score is {winning_score}")
 
 
 # AOC 2020: Day 23: Crab Cups

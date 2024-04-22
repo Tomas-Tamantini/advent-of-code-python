@@ -1459,3 +1459,25 @@ def test_parse_foods():
     assert foods[0].allergens == {"dairy", "fish"}
     assert foods[1].ingredients == {"trh", "fvjkl", "sbzzf", "mxmxvkd"}
     assert foods[1].allergens == {"dairy"}
+
+
+def test_parse_crab_combat_cards():
+    file_content = """
+                   Player 1:
+                   9
+                   2
+                   6
+                   3
+                   1
+                   
+                   Player 2:
+                   5
+                   8
+                   4
+                   7
+                   10
+                   """
+    file_parser = mock_file_parser(file_content)
+    cards_a, cards_b = file_parser.parse_crab_combat_cards("some_file")
+    assert cards_a == [9, 2, 6, 3, 1]
+    assert cards_b == [5, 8, 4, 7, 10]
