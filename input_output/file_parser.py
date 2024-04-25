@@ -5,7 +5,13 @@ import numpy as np
 from datetime import datetime
 from collections import defaultdict
 from models.graphs import DirectedGraph
-from models.vectors import CardinalDirection, Vector2D, TurnDirection, Vector3D
+from models.vectors import (
+    CardinalDirection,
+    Vector2D,
+    TurnDirection,
+    Vector3D,
+    HexagonalDirection,
+)
 from models.char_grid import CharacterGrid
 from models.assembly import (
     Instruction,
@@ -1426,3 +1432,34 @@ class FileParser:
                 else:
                     cards_a.append(int(line.strip()))
         return cards_a, cards_b
+
+    def _parse_rotated_hexagonal_directions_without_delimiters(
+        self, line: str
+    ) -> Iterator[HexagonalDirection]:
+        coord_map = {
+            "se": HexagonalDirection.SOUTHEAST,
+            "sw": HexagonalDirection.SOUTH,
+            "nw": HexagonalDirection.NORTHWEST,
+            "ne": HexagonalDirection.NORTH,
+            "e": HexagonalDirection.NORTHEAST,
+            "w": HexagonalDirection.SOUTHWEST,
+        }
+        current_idx = 0
+        while current_idx < len(line):
+            if line[current_idx] in coord_map:
+                yield coord_map[line[current_idx]]
+                current_idx += 1
+            else:
+                yield coord_map[line[current_idx : current_idx + 2]]
+                current_idx += 2
+
+    def parse_rotated_hexagonal_directions(
+        self, file_name: str
+    ) -> Iterator[list[HexagonalDirection]]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield list(
+                    self._parse_rotated_hexagonal_directions_without_delimiters(
+                        line.strip()
+                    )
+                )

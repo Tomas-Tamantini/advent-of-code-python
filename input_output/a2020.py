@@ -1,7 +1,12 @@
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
-from models.vectors import Vector2D, VectorNDimensional, CardinalDirection
+from models.vectors import (
+    Vector2D,
+    VectorNDimensional,
+    CardinalDirection,
+    CanonicalHexagonalCoordinates,
+)
 from models.aoc_2020 import (
     subsets_that_sum_to,
     CylindricalForest,
@@ -471,8 +476,17 @@ def aoc_2020_d23(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2020: Day 24: Lobby Layout
-def aoc_2020_d24(file_name: str, **_):
-    print("AOC 2020 Day 24: Not implemented yet")
+def aoc_2020_d24(file_name: str, parser: FileParser, **_):
+    black_tiles = set()
+    for directions in parser.parse_rotated_hexagonal_directions(file_name):
+        pos = CanonicalHexagonalCoordinates(0, 0)
+        for direction in directions:
+            pos = pos.move(direction)
+        if pos in black_tiles:
+            black_tiles.remove(pos)
+        else:
+            black_tiles.add(pos)
+    print(f"AOC 2020 Day 24/Part 1: Number of black tiles is {len(black_tiles)}")
 
 
 # AOC 2020: Day 25: Combo Breaker

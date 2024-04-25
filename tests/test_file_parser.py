@@ -3,7 +3,13 @@ from typing import Iterator
 from unittest.mock import Mock
 from datetime import datetime
 from input_output.file_parser import FileParser
-from models.vectors import CardinalDirection, Vector2D, TurnDirection, Vector3D
+from models.vectors import (
+    CardinalDirection,
+    Vector2D,
+    TurnDirection,
+    Vector3D,
+    HexagonalDirection,
+)
 from models.assembly import (
     CopyInstruction,
     InputInstruction,
@@ -1481,3 +1487,27 @@ def test_parse_crab_combat_cards():
     cards_a, cards_b = file_parser.parse_crab_combat_cards("some_file")
     assert cards_a == [9, 2, 6, 3, 1]
     assert cards_b == [5, 8, 4, 7, 10]
+
+
+def test_parse_rotated_hexagonal_directions_without_delimeters():
+    file_content = """
+                   esenee
+                   nwwswee
+                   """
+    file_parser = mock_file_parser(file_content)
+    directions = list(file_parser.parse_rotated_hexagonal_directions("some_file"))
+    assert directions == [
+        [
+            HexagonalDirection.NORTHEAST,
+            HexagonalDirection.SOUTHEAST,
+            HexagonalDirection.NORTH,
+            HexagonalDirection.NORTHEAST,
+        ],
+        [
+            HexagonalDirection.NORTHWEST,
+            HexagonalDirection.SOUTHWEST,
+            HexagonalDirection.SOUTH,
+            HexagonalDirection.NORTHEAST,
+            HexagonalDirection.NORTHEAST,
+        ],
+    ]
