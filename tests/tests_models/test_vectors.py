@@ -6,6 +6,8 @@ from models.vectors import (
     BoundingBox,
     Vector3D,
     VectorNDimensional,
+    HexagonalDirection,
+    CanonicalHexagonalCoordinates,
 )
 
 
@@ -230,3 +232,29 @@ def test_can_add_two_n_dimensional_vectors():
 
 def test_4d_vector_has_80_adjacent_positions():
     assert len(list(VectorNDimensional(1, 2, 3, 4).adjacent_positions())) == 80
+
+
+def test_shortest_number_of_steps_in_hexagonal_coordinates_is_sum_of_coordinates_if_both_have_same_sign():
+    assert CanonicalHexagonalCoordinates(1, 2).num_steps_away_from_origin() == 3
+    assert CanonicalHexagonalCoordinates(-123, -321).num_steps_away_from_origin() == 444
+
+
+def test_shortest_number_of_steps_in_hexagonal_coordinates_is_max_of_coordinates_if_they_have_opposite_signs():
+    assert CanonicalHexagonalCoordinates(1, -2).num_steps_away_from_origin() == 2
+    assert CanonicalHexagonalCoordinates(-123, 321).num_steps_away_from_origin() == 321
+
+
+def test_can_move_along_hexagonal_coordinates():
+    pos = CanonicalHexagonalCoordinates(num_steps_north=3, num_steps_northeast=7)
+    pos = pos.move(direction=HexagonalDirection.NORTH, num_steps=-2)
+    assert pos == CanonicalHexagonalCoordinates(1, 7)
+    pos = pos.move(direction=HexagonalDirection.SOUTH, num_steps=-3)
+    assert pos == CanonicalHexagonalCoordinates(4, 7)
+    pos = pos.move(direction=HexagonalDirection.NORTHEAST, num_steps=1)
+    assert pos == CanonicalHexagonalCoordinates(4, 8)
+    pos = pos.move(direction=HexagonalDirection.SOUTHWEST, num_steps=3)
+    assert pos == CanonicalHexagonalCoordinates(4, 5)
+    pos = pos.move(direction=HexagonalDirection.NORTHWEST, num_steps=2)
+    assert pos == CanonicalHexagonalCoordinates(6, 3)
+    pos = pos.move(direction=HexagonalDirection.SOUTHEAST, num_steps=-1)
+    assert pos == CanonicalHexagonalCoordinates(7, 2)

@@ -2,7 +2,11 @@ import numpy as np
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
-from models.vectors import CardinalDirection
+from models.vectors import (
+    CardinalDirection,
+    HexagonalDirection,
+    CanonicalHexagonalCoordinates,
+)
 from models.aoc_2017 import (
     digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
@@ -15,8 +19,6 @@ from models.aoc_2017 import (
     maximum_value_at_registers,
     StreamHandler,
     KnotHash,
-    HexDirection,
-    num_hex_steps_away,
     DiskGrid,
     SequenceMatchFinder,
     SequenceGenerator,
@@ -193,8 +195,12 @@ def aoc_2017_d10(file_name: str, **_):
 # AOC 2017 Day 11: Hex Ed
 def aoc_2017_d11(file_name: str, **_):
     with open(file_name) as f:
-        directions = [HexDirection(d) for d in f.read().strip().split(",")]
-    steps_away = list(num_hex_steps_away(directions))
+        directions = [HexagonalDirection(d) for d in f.read().strip().split(",")]
+    pos = CanonicalHexagonalCoordinates(0, 0)
+    steps_away = []
+    for direction in directions:
+        pos = pos.move(direction)
+        steps_away.append(pos.num_steps_away_from_origin())
     print(f"AOC 2017 Day 11/Part 1: He ended up {steps_away[-1]} steps away")
     print(f"AOC 2017 Day 11/Part 2: He was at most {max(steps_away)} steps away")
 
