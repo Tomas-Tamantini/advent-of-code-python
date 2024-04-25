@@ -234,6 +234,16 @@ def test_4d_vector_has_80_adjacent_positions():
     assert len(list(VectorNDimensional(1, 2, 3, 4).adjacent_positions())) == 80
 
 
+def test_hexagonal_coordinates_are_hashable_and_equality_comparable():
+    pos1 = CanonicalHexagonalCoordinates(1, 2)
+    pos2 = CanonicalHexagonalCoordinates(1, 2)
+    pos3 = CanonicalHexagonalCoordinates(2, 1)
+    assert pos1 == pos2
+    assert hash(pos1) == hash(pos2)
+    assert pos1 != pos3
+    assert hash(pos1) != hash(pos3)
+
+
 def test_shortest_number_of_steps_in_hexagonal_coordinates_is_sum_of_coordinates_if_both_have_same_sign():
     assert CanonicalHexagonalCoordinates(1, 2).num_steps_away_from_origin() == 3
     assert CanonicalHexagonalCoordinates(-123, -321).num_steps_away_from_origin() == 444
