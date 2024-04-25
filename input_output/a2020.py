@@ -451,7 +451,7 @@ def aoc_2020_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 23: Crab Cups
-def aoc_2020_d23(file_name: str, **_):
+def aoc_2020_d23(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         cups = [int(char) for char in file.read().strip()]
     result = crab_cups(cups, num_moves=100)
@@ -460,6 +460,14 @@ def aoc_2020_d23(file_name: str, **_):
         str(num) for num in result[one_index + 1 :] + result[:one_index]
     )
     print(f"AOC 2020 Day 23/Part 1: Cup labels after cup 1 are {result_str}")
+    cups += list(range(max(cups) + 1, 1_000_001))
+    result = crab_cups(cups, num_moves=10_000_000, progress_bar=progress_bar)
+    one_index = result.index(1)
+    result = result[one_index + 1 : one_index + 3]
+    result_product = result[0] * result[1]
+    print(
+        f"AOC 2020 Day 23/Part 2: Product of two cups after cup 1 is {result_product}"
+    )
 
 
 # AOC 2020: Day 24: Lobby Layout
