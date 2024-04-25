@@ -23,6 +23,7 @@ from models.aoc_2020 import (
     solve_jigsaw,
     Foods,
     CrabCombat,
+    crab_cups,
 )
 
 
@@ -451,7 +452,14 @@ def aoc_2020_d22(file_name: str, parser: FileParser, **_):
 
 # AOC 2020: Day 23: Crab Cups
 def aoc_2020_d23(file_name: str, **_):
-    print("AOC 2020 Day 23: Not implemented yet")
+    with open(file_name) as file:
+        cups = [int(char) for char in file.read().strip()]
+    result = crab_cups(cups, num_moves=100)
+    one_index = result.index(1)
+    result_str = "".join(
+        str(num) for num in result[one_index + 1 :] + result[:one_index]
+    )
+    print(f"AOC 2020 Day 23/Part 1: Cup labels after cup 1 are {result_str}")
 
 
 # AOC 2020: Day 24: Lobby Layout
