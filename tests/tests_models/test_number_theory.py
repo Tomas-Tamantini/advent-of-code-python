@@ -7,6 +7,7 @@ from models.number_theory import (
     solve_chinese_remainder_system,
     is_prime,
     modular_inverse,
+    modular_logarithm,
 )
 
 
@@ -128,3 +129,16 @@ def test_modular_inverse_finds_inverse_of_a_modulo_n(a, mod, inv_a):
 def test_modular_inverse_raises_value_error_if_a_and_n_are_not_coprime(a, mod):
     with pytest.raises(ValueError):
         modular_inverse(a, mod)
+
+
+@pytest.mark.parametrize(
+    "number, base, mod, power",
+    [
+        (13, 3, 17, 4),
+        (5764801, 7, 20201227, 8),
+    ],
+)
+def test_modular_logarithm_finds_first_power_that_raises_the_base_to_the_number_in_some_modular_group(
+    number, base, mod, power
+):
+    assert modular_logarithm(number, base, mod) == power
