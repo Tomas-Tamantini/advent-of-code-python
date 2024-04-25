@@ -51,7 +51,7 @@ def test_vector_can_specify_direction_of_y_axis():
     ) == Vector2D(10, 11)
 
 
-def test_can_find_all_adjacent_positions_not_including_diagonal_by_default():
+def test_vector_has_two_adjacent_positions_not_including_diagonal_by_default():
     assert set(Vector2D(0, 0).adjacent_positions()) == {
         Vector2D(0, 1),
         Vector2D(1, 0),
@@ -60,7 +60,7 @@ def test_can_find_all_adjacent_positions_not_including_diagonal_by_default():
     }
 
 
-def test_can_find_all_adjacent_positions_including_diagonal():
+def test_vector_has_eight_adjacent_positions_including_diagonal():
     assert set(Vector2D(0, 0).adjacent_positions(include_diagonals=True)) == {
         Vector2D(0, 1),
         Vector2D(1, 0),
@@ -268,3 +268,14 @@ def test_can_move_along_hexagonal_coordinates():
     assert pos == CanonicalHexagonalCoordinates(6, 3)
     pos = pos.move(direction=HexagonalDirection.SOUTHEAST, num_steps=-1)
     assert pos == CanonicalHexagonalCoordinates(7, 2)
+
+
+def test_hexagonal_coordinate_has_six_adjacent_positions():
+    assert set(CanonicalHexagonalCoordinates(0, 0).adjacent_positions()) == {
+        CanonicalHexagonalCoordinates(0, 1),
+        CanonicalHexagonalCoordinates(1, 0),
+        CanonicalHexagonalCoordinates(0, -1),
+        CanonicalHexagonalCoordinates(-1, 0),
+        CanonicalHexagonalCoordinates(1, -1),
+        CanonicalHexagonalCoordinates(-1, 1),
+    }

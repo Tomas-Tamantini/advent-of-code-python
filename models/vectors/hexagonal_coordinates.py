@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Iterator, Self
 from enum import Enum
 from dataclasses import dataclass
 
@@ -47,3 +47,7 @@ class CanonicalHexagonalCoordinates:
             num_steps_north=self.num_steps_north + north_offset,
             num_steps_northeast=self.num_steps_northeast + northeast_offset,
         )
+
+    def adjacent_positions(self) -> Iterator[Self]:
+        for direction in HexagonalDirection:
+            yield self.move(direction)
