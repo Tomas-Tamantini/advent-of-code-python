@@ -29,6 +29,7 @@ from models.aoc_2020 import (
     Foods,
     CrabCombat,
     crab_cups,
+    HexagonalAutomaton,
 )
 
 
@@ -487,6 +488,12 @@ def aoc_2020_d24(file_name: str, parser: FileParser, **_):
         else:
             black_tiles.add(pos)
     print(f"AOC 2020 Day 24/Part 1: Number of black tiles is {len(black_tiles)}")
+    automaton = HexagonalAutomaton()
+    for _ in range(100):
+        black_tiles = automaton.next_state(black_tiles)
+    print(
+        f"AOC 2020 Day 24/Part 1: Number of black tiles after 100 days is {len(black_tiles)}"
+    )
 
 
 # AOC 2020: Day 25: Combo Breaker

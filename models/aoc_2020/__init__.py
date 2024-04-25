@@ -47,3 +47,4 @@ from .a2020_d20 import JigsawPieceBinaryImage, solve_jigsaw
 from .a2020_d21 import Food, Foods
 from .a2020_d22 import CrabCombat
 from .a2020_d23 import crab_cups
+from .a2020_d24 import HexagonalAutomaton
