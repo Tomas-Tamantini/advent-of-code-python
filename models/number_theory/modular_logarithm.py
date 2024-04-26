@@ -1,16 +1,15 @@
-from typing import Optional
-from models.progress_bar_protocol import ProgressBar
+from math import sqrt, ceil
 
 
-def modular_logarithm(
-    number: int,
-    base: int,
-    mod: int,
-    progress_bar: Optional[ProgressBar] = None,
-) -> int:
-    for i in range(mod + 1):
-        if progress_bar:
-            progress_bar.update(i, mod + 1)
-        if pow(base, i, mod) == number:
-            return i
-    raise ValueError(f"Cannot raise {base} to any power to make {number} mod {mod}")
+def modular_logarithm(number: int, base: int, mod: int) -> int:
+    # Baby-step giant-step algorithm
+    m = ceil(sqrt(mod)) + 1
+    table = {pow(base, i, mod): i for i in range(m)}
+    base_inv_m = pow(base, mod - m - 1, mod)
+    for j in range(m):
+        y = (number * pow(base_inv_m, j, mod)) % mod
+        if y in table:
+            return j * m + table[y]
+    raise ValueError(
+        f"Could not find a solution for {number} in base {base} modulo {mod}"
+    )

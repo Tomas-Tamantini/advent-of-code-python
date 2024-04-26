@@ -498,19 +498,13 @@ def aoc_2020_d24(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020: Day 25: Combo Breaker
-def aoc_2020_d25(file_name: str, progress_bar: ProgressBarConsole, **_):
+def aoc_2020_d25(file_name: str, **_):
     with open(file_name) as file:
         public_keys = [int(line.strip()) for line in file]
     subject_number = 7
     mod = 20201227
-    progress_bar.set_message("Calculating card loop size")
-    loop_size_card = modular_logarithm(
-        public_keys[0], subject_number, mod, progress_bar
-    )
-    progress_bar.set_message("Calculating door loop size")
-    loop_size_door = modular_logarithm(
-        public_keys[1], subject_number, mod, progress_bar
-    )
+    loop_size_card = modular_logarithm(public_keys[0], subject_number, mod)
+    loop_size_door = modular_logarithm(public_keys[1], subject_number, mod)
     encryption_key = pow(subject_number, loop_size_card * loop_size_door, mod)
     print(f"AOC 2020 Day 25: Encryption key is {encryption_key}")
 
