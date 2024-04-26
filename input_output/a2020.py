@@ -34,7 +34,7 @@ from models.aoc_2020 import (
 )
 
 
-# AOC 2020: Day 1: Report Repair
+# AOC 2020 - Day 1: Report Repair
 def aoc_2020_d1(file_name: str, **_):
     with open(file_name) as file:
         entries = [int(line) for line in file]
@@ -45,7 +45,7 @@ def aoc_2020_d1(file_name: str, **_):
     print(f"AOC 2020 Day 1/Part 2: The three entries multiply to {a * b * c}")
 
 
-# AOC 2020: Day 2: Password Philosophy
+# AOC 2020 - Day 2: Password Philosophy
 def aoc_2020_d2(file_name: str, parser: FileParser, **_):
     num_valid_range_passwords = sum(
         1
@@ -70,7 +70,7 @@ def aoc_2020_d2(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 3: Toboggan Trajectory
+# AOC 2020 - Day 3: Toboggan Trajectory
 def aoc_2020_d3(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     forest = CylindricalForest(
@@ -89,7 +89,7 @@ def aoc_2020_d3(file_name: str, **_):
     print(f"AOC 2020 Day 3/Part 2: Product of collisions: {product}")
 
 
-# AOC 2020: Day 4: Passport Processing
+# AOC 2020 - Day 4: Passport Processing
 def aoc_2020_d4(file_name: str, parser: FileParser, **_):
     passports = list(parser.parse_passports(file_name))
     required_fields = set(PASSPORT_RULES.keys())
@@ -106,7 +106,7 @@ def aoc_2020_d4(file_name: str, parser: FileParser, **_):
     print(f"AOC 2020 Day 4/Part 2: {num_valid_passports} valid passports")
 
 
-# AOC 2020: Day 5: Binary Boarding
+# AOC 2020 - Day 5: Binary Boarding
 def aoc_2020_d5(file_name: str, parser: FileParser, **_):
     seat_ids = sorted(parser.parse_plane_seat_ids(file_name))
     max_id = seat_ids[-1]
@@ -118,7 +118,7 @@ def aoc_2020_d5(file_name: str, parser: FileParser, **_):
     print(f"AOC 2020 Day 5/Part 2: The missing seat ID is {missing_seat_id}")
 
 
-# AOC 2020: Day 6: Custom Customs
+# AOC 2020 - Day 6: Custom Customs
 def aoc_2020_d6(file_name: str, parser: FileParser, **_):
     groups = list(parser.parse_form_answers_by_groups(file_name))
     union_yes = sum(len(group.questions_with_at_least_one_yes()) for group in groups)
@@ -132,7 +132,7 @@ def aoc_2020_d6(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 7: Handy Haversacks
+# AOC 2020 - Day 7: Handy Haversacks
 def aoc_2020_d7(file_name: str, parser: FileParser, **_):
     rules = parser.parse_luggage_rules(file_name)
     my_bag = "shiny gold"
@@ -144,7 +144,7 @@ def aoc_2020_d7(file_name: str, parser: FileParser, **_):
     print(f"AOC 2020 Day 7/Part 2: {my_bag} contains {num_inside} bags")
 
 
-# AOC 2020: Day 8: Handheld Halting
+# AOC 2020 - Day 8: Handheld Halting
 def aoc_2020_d8(file_name: str, parser: FileParser, **_):
     instructions = list(parser.parse_game_console_instructions(file_name))
     accumulator = run_game_console(instructions)
@@ -155,7 +155,7 @@ def aoc_2020_d8(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 9: Encoding Error
+# AOC 2020 - Day 9: Encoding Error
 def aoc_2020_d9(file_name: str, **_):
     with open(file_name) as file:
         numbers = [int(line) for line in file]
@@ -172,7 +172,7 @@ def aoc_2020_d9(file_name: str, **_):
     )
 
 
-# AOC 2020: Day 10: Adapter Array
+# AOC 2020 - Day 10: Adapter Array
 def aoc_2020_d10(file_name: str, **_):
     with open(file_name) as file:
         adapters = [int(line) for line in file]
@@ -190,7 +190,7 @@ def aoc_2020_d10(file_name: str, **_):
     print(f"AOC 2020 Day 10/Part 2: {num_arrangements} arrangements")
 
 
-# AOC 2020: Day 11: Seating System
+# AOC 2020 - Day 11: Seating System
 def aoc_2020_d11(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
 
@@ -221,7 +221,7 @@ def aoc_2020_d11(file_name: str, **_):
     )
 
 
-# AOC 2020: Day 12: Rain Risk
+# AOC 2020 - Day 12: Rain Risk
 def aoc_2020_d12(file_name: str, parser: FileParser, **_):
     ship_instructions = parser.parse_navigation_instructions(file_name)
     ship = Ship(position=Vector2D(0, 0), facing=CardinalDirection.EAST)
@@ -244,7 +244,7 @@ def aoc_2020_d12(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 13: Shuttle Search
+# AOC 2020 - Day 13: Shuttle Search
 def aoc_2020_d13(file_name: str, parser: FileParser, **_):
     bus_schedules, timestap = parser.parse_bus_schedules_and_current_timestamp(
         file_name
@@ -267,7 +267,7 @@ def aoc_2020_d13(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 14: Docking Data
+# AOC 2020 - Day 14: Docking Data
 def aoc_2020_d14(file_name: str, parser: FileParser, **_):
     values_instructions = list(
         parser.parse_bitmask_instructions(file_name, is_address_mask=False)
@@ -290,7 +290,7 @@ def aoc_2020_d14(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 15: Rambunctious Recitation
+# AOC 2020 - Day 15: Rambunctious Recitation
 def aoc_2020_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         starting_numbers = [int(number) for number in file.read().split(",")]
@@ -306,7 +306,7 @@ def aoc_2020_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
     print(f"AOC 2020 Day 15/Part 2: The {num_terms}th number spoken is {number}")
 
 
-# AOC 2020: Day 16: Ticket Translation
+# AOC 2020 - Day 16: Ticket Translation
 def aoc_2020_d16(file_name: str, parser: FileParser, **_):
     parsed_ticket_validator = parser.parse_ticket_validator_and_ticket_values(file_name)
     validator = parsed_ticket_validator.validator
@@ -332,7 +332,7 @@ def aoc_2020_d16(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 17: Conway Cubes
+# AOC 2020 - Day 17: Conway Cubes
 def aoc_2020_d17(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     active_cubes_3d = {
@@ -356,7 +356,7 @@ def aoc_2020_d17(file_name: str, **_):
     )
 
 
-# AOC 2020: Day 18: Operation Order
+# AOC 2020 - Day 18: Operation Order
 def aoc_2020_d18(file_name: str, **_):
     with open(file_name) as file:
         expressions = [line.strip() for line in file]
@@ -376,7 +376,7 @@ def aoc_2020_d18(file_name: str, **_):
     )
 
 
-# AOC 2020: Day 19: Monster Messages
+# AOC 2020 - Day 19: Monster Messages
 def aoc_2020_d19(file_name: str, parser: FileParser, **_):
     cfg, words = parser.parse_context_free_grammar_and_words(
         file_name, starting_symbol=0
@@ -392,7 +392,7 @@ def aoc_2020_d19(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 20: Jurassic Jigsaw
+# AOC 2020 - Day 20: Jurassic Jigsaw
 def aoc_2020_d20(file_name: str, parser: FileParser, **_):
     pieces = list(parser.parse_jigsaw_pieces(file_name))
     solved_jigsaw = solve_jigsaw(pieces)
@@ -421,7 +421,7 @@ def aoc_2020_d20(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 21: Allergen Assessment
+# AOC 2020 - Day 21: Allergen Assessment
 def aoc_2020_d21(file_name: str, parser: FileParser, **_):
     foods = Foods(list(parser.parse_foods(file_name)))
     num_times = sum(
@@ -440,7 +440,7 @@ def aoc_2020_d21(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 22: Crab Combat
+# AOC 2020 - Day 22: Crab Combat
 def aoc_2020_d22(file_name: str, parser: FileParser, **_):
     cards_a, cards_b = parser.parse_crab_combat_cards(file_name)
     combat = CrabCombat(cards_a, cards_b, play_recursive=False)
@@ -457,7 +457,7 @@ def aoc_2020_d22(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 23: Crab Cups
+# AOC 2020 - Day 23: Crab Cups
 def aoc_2020_d23(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         cups = [int(char) for char in file.read().strip()]
@@ -477,7 +477,7 @@ def aoc_2020_d23(file_name: str, progress_bar: ProgressBarConsole, **_):
     )
 
 
-# AOC 2020: Day 24: Lobby Layout
+# AOC 2020 - Day 24: Lobby Layout
 def aoc_2020_d24(file_name: str, parser: FileParser, **_):
     black_tiles = set()
     for directions in parser.parse_rotated_hexagonal_directions(file_name):
@@ -497,7 +497,7 @@ def aoc_2020_d24(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2020: Day 25: Combo Breaker
+# AOC 2020 - Day 25: Combo Breaker
 def aoc_2020_d25(file_name: str, **_):
     with open(file_name) as file:
         public_keys = [int(line.strip()) for line in file]

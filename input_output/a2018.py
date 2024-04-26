@@ -43,7 +43,7 @@ from models.aoc_2018 import (
 )
 
 
-# AOC 2018 Day 1: Chronal Calibration
+# AOC 2018 - Day 1: Chronal Calibration
 def aoc_2018_d1(file_name: str, **_):
     with open(file_name) as file:
         lines = file.readlines()
@@ -53,7 +53,7 @@ def aoc_2018_d1(file_name: str, **_):
     print(f"AOC 2018 Day 1/Part 2: First duplicate frequency: {first_duplicate_freq}")
 
 
-# AOC 2018 Day 2: Inventory Management System
+# AOC 2018 - Day 2: Inventory Management System
 def aoc_2018_d2(file_name: str, **_):
     with open(file_name) as file:
         lines = file.readlines()
@@ -73,7 +73,7 @@ def aoc_2018_d2(file_name: str, **_):
     )
 
 
-# AOC 2018 Day 3: No Matter How You Slice It
+# AOC 2018 - Day 3: No Matter How You Slice It
 def aoc_2018_d3(file_name: str, parser: FileParser, **_):
     rectangles = parser.parse_fabric_rectangles(file_name)
     fabric_area = FabricArea()
@@ -88,7 +88,7 @@ def aoc_2018_d3(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 4: Repose Record
+# AOC 2018 - Day 4: Repose Record
 def aoc_2018_d4(file_name: str, parser: FileParser, **_):
     guards = list(parser.parse_guard_logs(file_name))
     guard_most_asleep = max(guards, key=lambda g: g.total_minutes_asleep)
@@ -108,7 +108,7 @@ def aoc_2018_d4(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 5: Alchemical Reduction
+# AOC 2018 - Day 5: Alchemical Reduction
 def aoc_2018_d5(file_name: str, **_):
     with open(file_name) as file:
         polymer = file.read().strip()
@@ -118,7 +118,7 @@ def aoc_2018_d5(file_name: str, **_):
     print(f"AOC 2018 Day 5/Part 2: Minimum length of polymer: {min_length}")
 
 
-# AOC 2018 Day 6: Chronal Coordinates
+# AOC 2018 - Day 6: Chronal Coordinates
 def aoc_2018_d6(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         lines = file.readlines()
@@ -133,7 +133,7 @@ def aoc_2018_d6(file_name: str, progress_bar: ProgressBarConsole, **_):
     print(f"AOC 2018 Day 6/Part 2: Number of points: {num_points}")
 
 
-# AOC 2018 Day 7: The Sum of Its Parts
+# AOC 2018 - Day 7: The Sum of Its Parts
 def aoc_2018_d7(file_name: str, parser: FileParser, **_):
     graph = parser.parse_directed_graph(file_name)
     order = "".join(topological_sorting(graph, tie_breaker=lambda a, b: a < b))
@@ -146,7 +146,7 @@ def aoc_2018_d7(file_name: str, parser: FileParser, **_):
     print(f"AOC 2018 Day 7/Part 2: Time to complete jobs: {time}")
 
 
-# AOC 2018 Day 8: Memory Maneuver
+# AOC 2018 - Day 8: Memory Maneuver
 def aoc_2018_d8(file_name: str, **_):
     with open(file_name) as file:
         numbers = list(map(int, file.read().split()))
@@ -155,7 +155,7 @@ def aoc_2018_d8(file_name: str, **_):
     print(f"AOC 2018 Day 8/Part 2: Value of root node: {root.navigation_value()}")
 
 
-# AOC 2018 Day 9: Marble Mania
+# AOC 2018 - Day 9: Marble Mania
 def aoc_2018_d9(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         line = file.read()
@@ -170,7 +170,7 @@ def aoc_2018_d9(file_name: str, progress_bar: ProgressBarConsole, **_):
     )
 
 
-# AOC 2018 Day 10: The Stars Align
+# AOC 2018 - Day 10: The Stars Align
 def aoc_2018_d10(file_name: str, parser: FileParser, **_):
     particles = list(parser.parse_moving_particles(file_name))
     moving_particles = MovingParticles(particles)
@@ -181,7 +181,7 @@ def aoc_2018_d10(file_name: str, parser: FileParser, **_):
     print(f"AOC 2018 Day 10/Part 2: Time to reach message: {inflexion_point}")
 
 
-# AOC 2018 Day 11: Chronal Charge
+# AOC 2018 - Day 11: Chronal Charge
 def aoc_2018_d11(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         grid_serial_number = int(file.read())
@@ -195,7 +195,7 @@ def aoc_2018_d11(file_name: str, progress_bar: ProgressBarConsole, **_):
     )
 
 
-# AOC 2018 Day 12: Subterranean Sustainability
+# AOC 2018 - Day 12: Subterranean Sustainability
 def aoc_2018_d12(file_name: str, parser: FileParser, **_):
     plant_automaton = parser.parse_plant_automaton(file_name)
     plants_alive = plant_automaton.plants_alive(generation=20)
@@ -220,7 +220,7 @@ def aoc_2018_d12(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 13: Mine Cart Madness
+# AOC 2018 - Day 13: Mine Cart Madness
 def aoc_2018_d13(file_name: str, **_):
     with open(file_name) as file:
         mine_layout = file.read()
@@ -240,7 +240,7 @@ def aoc_2018_d13(file_name: str, **_):
     )
 
 
-# AOC 2018 Day 14: Chocolate Charts
+# AOC 2018 - Day 14: Chocolate Charts
 def aoc_2018_d14(file_name: str, progress_bar: ProgressBarConsole, **_):
     with open(file_name) as file:
         num_steps = int(file.read())
@@ -257,7 +257,7 @@ def aoc_2018_d14(file_name: str, progress_bar: ProgressBarConsole, **_):
     )
 
 
-# AOC 2018 Day 15: Beverage Bandits
+# AOC 2018 - Day 15: Beverage Bandits
 def aoc_2018_d15(file_name: str, **_):
     with open(file_name) as file:
         map_with_units = file.read()
@@ -275,7 +275,7 @@ def aoc_2018_d15(file_name: str, **_):
     )
 
 
-# AOC 2018 Day 16: Chronal Classification
+# AOC 2018 - Day 16: Chronal Classification
 def aoc_2018_d16(file_name: str, parser: FileParser, **_):
     samples = list(parser.parse_instruction_samples(file_name))
     num_samples_with_three_or_more = sum(
@@ -306,7 +306,7 @@ def aoc_2018_d16(file_name: str, parser: FileParser, **_):
     print(f"AOC 2018 Day 16/Part 2: Value of register 0: {value}")
 
 
-# AOC 2018 Day 17: Reservoir Research
+# AOC 2018 - Day 17: Reservoir Research
 def aoc_2018_d17(file_name: str, parser: FileParser, **_):
     clay_positions = set(parser.parse_position_ranges(file_name))
     spring_position = Vector2D(500, 0)
@@ -320,7 +320,7 @@ def aoc_2018_d17(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 18: Settlers of The North Pole
+# AOC 2018 - Day 18: Settlers of The North Pole
 def aoc_2018_d18(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     area = LumberArea(width=grid.width, height=grid.height)
@@ -342,7 +342,7 @@ def aoc_2018_d18(file_name: str, **_):
     )
 
 
-# AOC 2018 Day 19: Go With The Flow
+# AOC 2018 - Day 19: Go With The Flow
 def aoc_2018_d19(file_name: str, parser: FileParser, **_):
     instructions = list(parser.parse_three_value_instructions(file_name))
     program = ImmutableProgram(instructions)
@@ -363,7 +363,7 @@ def aoc_2018_d19(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 20: A Regular Map
+# AOC 2018 - Day 20: A Regular Map
 def aoc_2018_d20(file_name: str, **_):
     with open(file_name) as file:
         regex = file.read().strip()
@@ -382,7 +382,7 @@ def aoc_2018_d20(file_name: str, **_):
     )
 
 
-# AOC 2018 Day 21: Chronal Conversion
+# AOC 2018 - Day 21: Chronal Conversion
 def aoc_2018_d21(file_name: str, **_):
     with open(file_name) as file:
         lines = list(file.readlines())
@@ -401,7 +401,7 @@ def aoc_2018_d21(file_name: str, **_):
     )
 
 
-# AOC 2018 Day 22: Mode Maze
+# AOC 2018 - Day 22: Mode Maze
 def aoc_2018_d22(file_name: str, **_):
     with open(file_name) as file:
         lines = list(file.readlines())
@@ -421,7 +421,7 @@ def aoc_2018_d22(file_name: str, **_):
     print(f"AOC 2018 Day 22/Part 2: Shortest time to reach target: {shortest_time}")
 
 
-# AOC 2018 Day 23: Experimental Emergency Teleportation
+# AOC 2018 - Day 23: Experimental Emergency Teleportation
 def aoc_2018_d23(file_name: str, parser: FileParser, **_):
     bots = list(parser.parse_nanobots(file_name))
     strongest = max(bots, key=lambda b: b.radius)
@@ -435,7 +435,7 @@ def aoc_2018_d23(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 24: Immune System Simulator 20XX
+# AOC 2018 - Day 24: Immune System Simulator 20XX
 def aoc_2018_d24(file_name: str, parser: FileParser, **_):
     initial_game_state = parser.parse_infection_game(file_name)
     game = InfectionGame(initial_game_state)
@@ -449,7 +449,7 @@ def aoc_2018_d24(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2018 Day 25: Four-Dimensional Adventure
+# AOC 2018 - Day 25: Four-Dimensional Adventure
 def aoc_2018_d25(file_name: str, **_):
     with open(file_name) as file:
         lines = file.readlines()

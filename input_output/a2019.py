@@ -53,7 +53,7 @@ from models.aoc_2019 import (
 )
 
 
-# AOC 2019 Day 1: The Tyranny of the Rocket Equation
+# AOC 2019 - Day 1: The Tyranny of the Rocket Equation
 def aoc_2019_d1(file_name: str, **_):
     with open(file_name, "r") as file:
         masses = [int(line) for line in file]
@@ -71,7 +71,7 @@ def aoc_2019_d1(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 2: 1202 Program Alarm
+# AOC 2019 - Day 2: 1202 Program Alarm
 def aoc_2019_d2(file_name: str, **_):
     with open(file_name, "r") as file:
         original_instructions = [int(code) for code in file.read().split(",")]
@@ -87,7 +87,7 @@ def aoc_2019_d2(file_name: str, **_):
     print(f"AOC 2019 Day 2/Part 2: Noun and verb combined is {combined}")
 
 
-# AOC 2019 Day 3: Crossed Wires
+# AOC 2019 - Day 3: Crossed Wires
 def aoc_2019_d3(file_name: str, parser: FileParser, **_):
     wire_a = TwistyWire()
     wire_b = TwistyWire()
@@ -109,7 +109,7 @@ def aoc_2019_d3(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2019 Day 4: Secure Container
+# AOC 2019 - Day 4: Secure Container
 def aoc_2019_d4(file_name: str, **_):
     with open(file_name, "r") as file:
         lower_bound, upper_bound = map(int, file.read().split("-"))
@@ -123,7 +123,7 @@ def aoc_2019_d4(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 5: Sunny with a Chance of Asteroids
+# AOC 2019 - Day 5: Sunny with a Chance of Asteroids
 def aoc_2019_d5(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -133,7 +133,7 @@ def aoc_2019_d5(file_name: str, **_):
     print(f"AOC 2019 Day 5/Part 2: Diagnostic code for air conditioner 5 is {output_5}")
 
 
-# AOC 2019 Day 6: Universal Orbit Map
+# AOC 2019 - Day 6: Universal Orbit Map
 def aoc_2019_d6(file_name: str, parser: FileParser, **_):
     center_of_mass = parser.parse_celestial_bodies(file_name)
     total_orbits = center_of_mass.count_orbits()
@@ -146,7 +146,7 @@ def aoc_2019_d6(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2019 Day 7: Amplification Circuit
+# AOC 2019 - Day 7: Amplification Circuit
 def aoc_2019_d7(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -168,7 +168,7 @@ def aoc_2019_d7(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 8: Space Image Format
+# AOC 2019 - Day 8: Space Image Format
 def aoc_2019_d8(file_name: str, **_):
     with open(file_name, "r") as file:
         data = file.read().strip()
@@ -183,7 +183,7 @@ def aoc_2019_d8(file_name: str, **_):
     print(f"AOC 2019 Day 8/Part 2: The message is\n{image.render()}")
 
 
-# AOC 2019 Day 9: Sensor Boost
+# AOC 2019 - Day 9: Sensor Boost
 def aoc_2019_d9(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -193,7 +193,7 @@ def aoc_2019_d9(file_name: str, **_):
     print(f"AOC 2019 Day 9/Part 2: Coordinates of the distress signal are {output}")
 
 
-# AOC 2019 Day 10: Monitoring Station
+# AOC 2019 - Day 10: Monitoring Station
 def aoc_2019_d10(file_name: str, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
@@ -209,7 +209,7 @@ def aoc_2019_d10(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 11: Space Police
+# AOC 2019 - Day 11: Space Police
 def aoc_2019_d11(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -224,7 +224,7 @@ def aoc_2019_d11(file_name: str, **_):
     print(f"AOC 2019 Day 11/Part 2: Hull message is\n{single_white_hull.render()}")
 
 
-# AOC 2019 Day 12: The N-Body Problem
+# AOC 2019 - Day 12: The N-Body Problem
 def aoc_2019_d12(file_name: str, parser: FileParser, **_):
     with open(file_name, "r") as file:
         positions = [parser.parse_vector_3d(line) for line in file]
@@ -239,7 +239,7 @@ def aoc_2019_d12(file_name: str, parser: FileParser, **_):
     print(f"AOC 2019 Day 12/Part 2: System period is {period}")
 
 
-# AOC 2019 Day 13: Care Package
+# AOC 2019 - Day 13: Care Package
 def aoc_2019_d13(file_name: str, animate: bool, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -260,7 +260,7 @@ def aoc_2019_d13(file_name: str, animate: bool, **_):
     )
 
 
-# AOC 2019 Day 14: Space Stoichiometry
+# AOC 2019 - Day 14: Space Stoichiometry
 def aoc_2019_d14(file_name: str, parser: FileParser, **_):
     reactions = ChemicalReactions(set(parser.parse_chemical_reactions(file_name)))
     raw_material = "ORE"
@@ -280,7 +280,7 @@ def aoc_2019_d14(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2019 Day 15: Oxygen System
+# AOC 2019 - Day 15: Oxygen System
 def aoc_2019_d15(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -294,7 +294,7 @@ def aoc_2019_d15(file_name: str, **_):
     print(f"AOC 2019 Day 15/Part 2: Minutes to fill the area with oxygen is {minutes}")
 
 
-# AOC 2019 Day 16: Flawed Frequency Transmission
+# AOC 2019 - Day 16: Flawed Frequency Transmission
 def aoc_2019_d16(file_name: str, **_):
     with open(file_name, "r") as file:
         signal = list(map(int, file.read().strip()))
@@ -315,7 +315,7 @@ def aoc_2019_d16(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 17: Set and Forget
+# AOC 2019 - Day 17: Set and Forget
 def aoc_2019_d17(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -337,7 +337,7 @@ def aoc_2019_d17(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 18: Many-Worlds Interpretation
+# AOC 2019 - Day 18: Many-Worlds Interpretation
 def aoc_2019_d18(file_name: str, parser: FileParser, **_):
     maze = parser.parse_tunnel_maze(file_name)
     min_dist = maze.shortest_distance_to_all_keys()
@@ -351,7 +351,7 @@ def aoc_2019_d18(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2019 Day 19: Tractor Beam
+# AOC 2019 - Day 19: Tractor Beam
 def aoc_2019_d19(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -369,7 +369,7 @@ def aoc_2019_d19(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 20: Donut Maze
+# AOC 2019 - Day 20: Donut Maze
 def aoc_2019_d20(file_name: str, parser: FileParser, **_):
     portal_maze = parser.parse_portal_maze(file_name)
     num_steps = portal_maze.num_steps_to_solve()
@@ -383,7 +383,7 @@ def aoc_2019_d20(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2019 Day 21: Springdroid Adventure
+# AOC 2019 - Day 21: Springdroid Adventure
 def aoc_2019_d21(file_name: str, **_):
     with open(file_name, "r") as file:
         intcode_instructions = [int(code) for code in file.read().split(",")]
@@ -435,7 +435,7 @@ def aoc_2019_d21(file_name: str, **_):
         )
 
 
-# AOC 2019 Day 22: Slam Shuffle
+# AOC 2019 - Day 22: Slam Shuffle
 def aoc_2019_d22(file_name: str, parser: FileParser, **_):
     shuffle = parser.parse_multi_technique_shuffle(file_name)
     new_position = shuffle.new_card_position(
@@ -452,7 +452,7 @@ def aoc_2019_d22(file_name: str, parser: FileParser, **_):
     )
 
 
-# AOC 2019 Day 23: Category Six
+# AOC 2019 - Day 23: Category Six
 def aoc_2019_d23(file_name: str, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
@@ -476,7 +476,7 @@ def aoc_2019_d23(file_name: str, **_):
     )
 
 
-# AOC 2019 Day 24: Planet of Discord
+# AOC 2019 - Day 24: Planet of Discord
 def aoc_2019_d24(file_name: str, progress_bar: ProgressBarConsole, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     live_cells = set(grid.positions_with_value("#"))
@@ -500,7 +500,7 @@ def aoc_2019_d24(file_name: str, progress_bar: ProgressBarConsole, **_):
     )
 
 
-# AOC 2019 Day 25: Cryostasis
+# AOC 2019 - Day 25: Cryostasis
 def aoc_2019_d25(file_name: str, play: bool, **_):
     with open(file_name, "r") as file:
         instructions = [int(code) for code in file.read().split(",")]
