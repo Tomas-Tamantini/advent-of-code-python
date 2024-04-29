@@ -1,7 +1,7 @@
 from enum import Enum
 from copy import deepcopy
 from typing import Hashable
-from models.cellular_automata import MultiState2DAutomaton, CellCluster
+from models.cellular_automata import MultiState2DAutomaton, MultiStateCellVicinity
 from models.vectors import Vector2D
 
 
@@ -16,23 +16,23 @@ class LumberArea(MultiState2DAutomaton):
         default_cell_type = AcreType.OPEN
         super().__init__(default_cell_type, width, height)
 
-    def apply_rule(self, cluster: CellCluster) -> AcreType:
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> AcreType:
         if (
-            cluster.center_cell_type == AcreType.OPEN
-            and cluster.num_neighbors_by_type(AcreType.TREE) >= 3
+            vicinity.center_cell_type == AcreType.OPEN
+            and vicinity.num_neighbors_by_type(AcreType.TREE) >= 3
         ):
             return AcreType.TREE
         elif (
-            cluster.center_cell_type == AcreType.TREE
-            and cluster.num_neighbors_by_type(AcreType.LUMBERYARD) >= 3
+            vicinity.center_cell_type == AcreType.TREE
+            and vicinity.num_neighbors_by_type(AcreType.LUMBERYARD) >= 3
         ):
             return AcreType.LUMBERYARD
-        elif cluster.center_cell_type == AcreType.LUMBERYARD and (
-            not cluster.has_at_least_one_neighbor_of_type(AcreType.TREE)
-            or not cluster.has_at_least_one_neighbor_of_type(AcreType.LUMBERYARD)
+        elif vicinity.center_cell_type == AcreType.LUMBERYARD and (
+            not vicinity.has_at_least_one_neighbor_of_type(AcreType.TREE)
+            or not vicinity.has_at_least_one_neighbor_of_type(AcreType.LUMBERYARD)
         ):
             return AcreType.OPEN
-        return cluster.center_cell_type
+        return vicinity.center_cell_type
 
     def _cells_to_hashable(self, cells: dict[Vector2D, AcreType]) -> Hashable:
         return "\n".join(

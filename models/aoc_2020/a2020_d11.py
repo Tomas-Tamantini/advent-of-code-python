@@ -1,6 +1,9 @@
 from enum import Enum
 from typing import Iterator, Optional
-from models.cellular_automata import CellCluster, automaton_next_state
+from models.cellular_automata import (
+    MultiStateCellVicinity,
+    multi_state_automaton_next_state,
+)
 from models.vectors import Vector2D
 
 
@@ -72,22 +75,22 @@ class FerrySeats:
                     self._stored_neighbors[cell].add(neighbor)
                     yield neighbor
 
-    def apply_rule(self, cluster: CellCluster) -> FerrySeat:
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> FerrySeat:
         if (
-            cluster.center_cell_type == FerrySeat.EMPTY
-            and cluster.num_neighbors_by_type(FerrySeat.OCCUPIED) == 0
+            vicinity.center_cell_type == FerrySeat.EMPTY
+            and vicinity.num_neighbors_by_type(FerrySeat.OCCUPIED) == 0
         ):
             return FerrySeat.OCCUPIED
         if (
-            cluster.center_cell_type == FerrySeat.OCCUPIED
-            and cluster.num_neighbors_by_type(FerrySeat.OCCUPIED)
+            vicinity.center_cell_type == FerrySeat.OCCUPIED
+            and vicinity.num_neighbors_by_type(FerrySeat.OCCUPIED)
             > self._occupied_neighbors_tolerance
         ):
             return FerrySeat.EMPTY
-        return cluster.center_cell_type
+        return vicinity.center_cell_type
 
     def next_state(self, cells: dict[Vector2D:FerrySeat]) -> dict[Vector2D:FerrySeat]:
-        return automaton_next_state(self, cells)
+        return multi_state_automaton_next_state(self, cells)
 
     def steady_state(self) -> dict[Vector2D, FerrySeat]:
         previous_state = None

@@ -3,8 +3,8 @@ from models.vectors import Vector2D
 from models.cellular_automata.multi_state_automata import (
     Cell,
     CellType,
-    CellCluster,
-    automaton_next_state,
+    MultiStateCellVicinity,
+    multi_state_automaton_next_state,
 )
 
 
@@ -45,8 +45,8 @@ class MultiState2DAutomaton:
             if self.is_within_bounds(neighbor):
                 yield neighbor
 
-    def apply_rule(self, cluster: CellCluster) -> CellType:
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> CellType:
         raise NotImplementedError("Must be implemented by subclass")
 
     def next_state(self, cells: dict[Vector2D:Hashable]) -> dict[Vector2D:Hashable]:
-        return automaton_next_state(self, cells)
+        return multi_state_automaton_next_state(self, cells)

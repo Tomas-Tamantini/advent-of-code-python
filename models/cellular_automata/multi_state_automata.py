@@ -8,7 +8,7 @@ CellType = Hashable
 
 
 @dataclass
-class CellCluster:
+class MultiStateCellVicinity:
     center_cell_type: CellType
     neighbors: dict[Cell:CellType]
 
@@ -31,10 +31,10 @@ class MultiStateAutomaton(Protocol):
 
     def neighbors(self, cell: Cell) -> Iterator[Cell]: ...
 
-    def apply_rule(self, cluster: CellCluster) -> CellType: ...
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> CellType: ...
 
 
-def automaton_next_state(
+def multi_state_automaton_next_state(
     automaton: MultiStateAutomaton, cells: dict[Cell:CellType]
 ) -> dict[Cell:CellType]:
     all_cells = set()
@@ -49,11 +49,11 @@ def automaton_next_state(
     next_state = defaultdict(lambda: automaton.default_cell_type)
 
     for cell in all_cells:
-        cluster = CellCluster(
+        vicinity = MultiStateCellVicinity(
             center_cell_type=cells.get(cell, automaton.default_cell_type),
             neighbors=neighbors_by_cell[cell],
         )
-        new_type = automaton.apply_rule(cluster)
+        new_type = automaton.apply_rule(vicinity)
         if new_type != automaton.default_cell_type:
             next_state[cell] = new_type
     return next_state

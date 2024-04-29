@@ -1,4 +1,7 @@
-from .multi_state_automata import CellCluster, automaton_next_state
+from .multi_state_automata import (
+    MultiStateCellVicinity,
+    multi_state_automaton_next_state,
+)
 from .one_dimensional_automata import (
     ElementaryAutomaton,
     OneDimensionalBinaryCelullarAutomaton,

@@ -2,21 +2,22 @@ from typing import Hashable, Iterator, Optional
 from dataclasses import dataclass
 from models.vectors import Vector2D, CardinalDirection
 from models.cellular_automata import (
-    CellCluster,
+    MultiStateCellVicinity,
     MultiState2DAutomaton,
-    automaton_next_state,
+    multi_state_automaton_next_state,
 )
 from models.progress_bar_protocol import ProgressBar
 
 DEAD, ALIVE = 0, 1
 
 
-def _bugs_automaton_rule(cluster: CellCluster) -> Hashable:
+def _bugs_automaton_rule(vicinity: MultiStateCellVicinity) -> Hashable:
     if (
-        cluster.center_cell_type == DEAD
-        and 1 <= cluster.num_neighbors_by_type(ALIVE) <= 2
+        vicinity.center_cell_type == DEAD
+        and 1 <= vicinity.num_neighbors_by_type(ALIVE) <= 2
     ) or (
-        cluster.center_cell_type == ALIVE and cluster.num_neighbors_by_type(ALIVE) == 1
+        vicinity.center_cell_type == ALIVE
+        and vicinity.num_neighbors_by_type(ALIVE) == 1
     ):
         return ALIVE
     else:
@@ -30,8 +31,8 @@ class BugsAutomaton(MultiState2DAutomaton):
             default_cell_type, width, height, consider_diagonal_neighbors=False
         )
 
-    def apply_rule(self, cluster: CellCluster) -> Hashable:
-        return _bugs_automaton_rule(cluster)
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> Hashable:
+        return _bugs_automaton_rule(vicinity)
 
     def next_live_cells(self, live_cells: set[Vector2D]) -> set[Vector2D]:
         cells = {c: ALIVE for c in live_cells}
@@ -104,8 +105,8 @@ class RecursiveBugsAutomaton:
             else:
                 yield RecursiveTile(neighbor, cell.level)
 
-    def apply_rule(self, cluster: CellCluster) -> int:
-        return _bugs_automaton_rule(cluster)
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> int:
+        return _bugs_automaton_rule(vicinity)
 
     def advance(
         self,
@@ -121,6 +122,6 @@ class RecursiveBugsAutomaton:
             if progress_bar is not None:
                 current_step += 1
                 progress_bar.update(current_step, num_steps)
-            current_state = automaton_next_state(self, current_state)
+            current_state = multi_state_automaton_next_state(self, current_state)
         final_state = {cell for cell in current_state if current_state[cell] == ALIVE}
         return final_state

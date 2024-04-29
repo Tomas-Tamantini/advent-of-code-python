@@ -1,6 +1,10 @@
 from typing import Iterator
 from models.vectors import VectorNDimensional
-from models.cellular_automata import CellCluster, automaton_next_state, GameOfLife
+from models.cellular_automata import (
+    MultiStateCellVicinity,
+    multi_state_automaton_next_state,
+    GameOfLife,
+)
 
 
 class HyperGameOfLife:
@@ -14,12 +18,12 @@ class HyperGameOfLife:
     def neighbors(self, cell: VectorNDimensional) -> Iterator[VectorNDimensional]:
         yield from cell.adjacent_positions()
 
-    def apply_rule(self, cluster: CellCluster) -> int:
-        return GameOfLife().apply_rule(cluster)
+    def apply_rule(self, vicinity: MultiStateCellVicinity) -> int:
+        return GameOfLife().apply_rule(vicinity)
 
     def next_state(
         self, active_cells: set[VectorNDimensional]
     ) -> set[VectorNDimensional]:
         cells = {cell: 1 for cell in active_cells}
-        next_cells = automaton_next_state(self, cells)
+        next_cells = multi_state_automaton_next_state(self, cells)
         return {cell for cell, cell_type in next_cells.items() if cell_type == 1}
