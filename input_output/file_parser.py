@@ -156,6 +156,12 @@ from models.aoc_2020 import (
     JigsawPieceBinaryImage,
     Food,
 )
+from models.aoc_2021 import (
+    SubmarineNavigationInstruction,
+    MoveSubmarineInstruction,
+    IncrementAimInstruction,
+    MoveSubmarineWithAimInstruction,
+)
 
 
 class FileReaderProtocol(Protocol):
@@ -409,14 +415,16 @@ class FileParser:
                 )
                 screen.rotate_column(column, offset)
 
-    def _parse_input_assignment(self, line: str) -> ChipAssignment:
+    @staticmethod
+    def _parse_input_assignment(line: str) -> ChipAssignment:
         parts = line.strip().split(" ")
         return ChipAssignment(
             chip_id=int(parts[1]),
             instruction=RobotInstruction(destination_id=int(parts[-1])),
         )
 
-    def _parse_robot_program(self, line: str) -> tuple[int, RobotProgramming]:
+    @staticmethod
+    def _parse_robot_program(line: str) -> tuple[int, RobotProgramming]:
         parts = line.strip().split(" ")
         robot_id = int(parts[1])
         destination_low = int(parts[-6])
@@ -447,7 +455,8 @@ class FileParser:
                 robot_programs[robot_id] = robot_program
         return ChipFactory(input_assignments, robot_programs)
 
-    def _parse_floor_configuration(self, line: str) -> FloorConfiguration:
+    @staticmethod
+    def _parse_floor_configuration(line: str) -> FloorConfiguration:
         parts = line.strip().split(" ")
         microchips = []
         generators = []
@@ -464,7 +473,8 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             yield self._parse_floor_configuration(line)
 
-    def _parse_spinning_disc(self, line: str) -> SpinningDisc:
+    @staticmethod
+    def _parse_spinning_disc(line: str) -> SpinningDisc:
         parts = line.strip().split(" ")
         num_positions = int(parts[3])
         position_at_time_zero = int(parts[-1].replace(".", ""))
@@ -477,7 +487,8 @@ class FileParser:
         ]
         return DiscSystem(discs)
 
-    def _parse_string_scrambler_function(self, line: str) -> StringScrambler:
+    @staticmethod
+    def _parse_string_scrambler_function(line: str) -> StringScrambler:
         parts = line.strip().split(" ")
         if "swap position" in line:
             return PositionSwapScrambler(
@@ -509,7 +520,8 @@ class FileParser:
         ]
         return MultiStepScrambler(scramblers)
 
-    def _parse_storage_node(self, line: str) -> StorageNode:
+    @staticmethod
+    def _parse_storage_node(line: str) -> StorageNode:
         parts = line.strip().split()
         return StorageNode(
             id=parts[0].replace("/dev/grid/node-", ""),
@@ -522,7 +534,8 @@ class FileParser:
             if "node" in line:
                 yield self._parse_storage_node(line)
 
-    def _parse_assembunny_instruction(self, line: str):
+    @staticmethod
+    def _parse_assembunny_instruction(line: str):
         raw_parts = line.strip().split(" ")
         parts = []
         for part in raw_parts[1:]:
@@ -1241,8 +1254,9 @@ class FileParser:
             if line.strip():
                 yield self._parse_game_console_instruction(line.strip())
 
+    @staticmethod
     def _parse_navigation_instruction(
-        self, instruction: str, relative_to_waypoint: bool
+        instruction: str, relative_to_waypoint: bool
     ) -> NavigationInstruction:
         action = instruction[0]
         value = int(instruction[1:])
@@ -1406,7 +1420,8 @@ class FileParser:
         if current_id != -1:
             yield JigsawPieceBinaryImage.from_string(current_id, current_rows)
 
-    def _parse_food(self, line: str) -> Food:
+    @staticmethod
+    def _parse_food(line: str) -> Food:
         parts = line.split(" (contains ")
         ingredients = parts[0].split()
         allergens = parts[1].replace(")", "").split(", ")
@@ -1433,8 +1448,9 @@ class FileParser:
                     cards_a.append(int(line.strip()))
         return cards_a, cards_b
 
+    @staticmethod
     def _parse_rotated_hexagonal_directions_without_delimiters(
-        self, line: str
+        line: str,
     ) -> Iterator[HexagonalDirection]:
         coord_map = {
             "se": HexagonalDirection.SOUTHEAST,
@@ -1463,3 +1479,44 @@ class FileParser:
                         line.strip()
                     )
                 )
+
+    @staticmethod
+    def _parse_navigation_instruction_for_submarine_without_aim(
+        line: str,
+    ) -> SubmarineNavigationInstruction:
+        directions = {
+            "forward": CardinalDirection.EAST,
+            "up": CardinalDirection.NORTH,
+            "down": CardinalDirection.SOUTH,
+        }
+        parts = line.split()
+        return MoveSubmarineInstruction(directions[parts[0]], int(parts[1]))
+
+    @staticmethod
+    def _parse_navigation_instruction_for_submarine_with_aim(
+        line: str,
+    ) -> SubmarineNavigationInstruction:
+        instruction, amount = line.split()
+        amount = int(amount)
+        if "down" in instruction:
+            return IncrementAimInstruction(amount)
+        elif "up" in instruction:
+            return IncrementAimInstruction(-amount)
+        elif "forward" in instruction:
+            return MoveSubmarineWithAimInstruction(amount)
+        else:
+            raise ValueError(f"Unknown submarine navigation instruction: {line}")
+
+    def parse_submarine_navigation_instructions(
+        self, file_name: str, submarine_has_aim: bool
+    ) -> Iterator[SubmarineNavigationInstruction]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                if submarine_has_aim:
+                    yield self._parse_navigation_instruction_for_submarine_with_aim(
+                        line.strip()
+                    )
+                else:
+                    yield self._parse_navigation_instruction_for_submarine_without_aim(
+                        line.strip()
+                    )

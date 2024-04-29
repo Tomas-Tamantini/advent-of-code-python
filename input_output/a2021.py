@@ -1,4 +1,5 @@
-from models.aoc_2021 import num_increases, window_sum
+from input_output.file_parser import FileParser
+from models.aoc_2021 import num_increases, window_sum, Submarine
 
 
 # AOC 2021 - Day 1: Sonar Sweep
@@ -16,7 +17,33 @@ def aoc_2021_d1(file_name: str, **_):
 
 
 # AOC 2021 - Day 2: Dive!
-def aoc_2021_d2(file_name: str, **_): ...
+def aoc_2021_d2(file_name: str, parser: FileParser, **_):
+    submarine = Submarine()
+    instructions_without_aim = list(
+        parser.parse_submarine_navigation_instructions(
+            file_name, submarine_has_aim=False
+        )
+    )
+    for instruction in instructions_without_aim:
+        submarine = instruction.execute(submarine)
+    product = submarine.position.x * submarine.position.y
+    print(
+        f"AOC 2021 Day 2/Part 1: The product of the final position without aim is {product}"
+    )
+
+    submarine = Submarine()
+    instructions_with_aim = list(
+        parser.parse_submarine_navigation_instructions(
+            file_name, submarine_has_aim=True
+        )
+    )
+    for instruction in instructions_with_aim:
+        submarine = instruction.execute(submarine)
+
+    product = submarine.position.x * submarine.position.y
+    print(
+        f"AOC 2021 Day 2/Part 2: The product of the final position with aim is {product}"
+    )
 
 
 # AOC 2021 - Day 3: Binary Diagnostic
