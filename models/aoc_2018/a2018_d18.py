@@ -1,7 +1,11 @@
 from enum import Enum
 from copy import deepcopy
 from typing import Hashable
-from models.cellular_automata import MultiState2DAutomaton, MultiStateCellVicinity
+from models.cellular_automata import (
+    Bounded2DAutomaton,
+    MultiStateCellVicinity,
+    multi_state_automaton_next_state,
+)
 from models.vectors import Vector2D
 
 
@@ -11,10 +15,13 @@ class AcreType(str, Enum):
     LUMBERYARD = "#"
 
 
-class LumberArea(MultiState2DAutomaton):
+class LumberArea(Bounded2DAutomaton):
     def __init__(self, width: int, height: int) -> None:
-        default_cell_type = AcreType.OPEN
-        super().__init__(default_cell_type, width, height)
+        super().__init__(width, height)
+
+    @property
+    def default_cell_type(self) -> AcreType:
+        return AcreType.OPEN
 
     def apply_rule(self, vicinity: MultiStateCellVicinity) -> AcreType:
         if (
@@ -41,6 +48,9 @@ class LumberArea(MultiState2DAutomaton):
             )
             for y in range(self._height)
         )
+
+    def next_state(self, cells: dict[Vector2D:Hashable]) -> dict[Vector2D:Hashable]:
+        return multi_state_automaton_next_state(self, cells)
 
     def multi_step(
         self, cells: dict[Vector2D, AcreType], num_steps: int

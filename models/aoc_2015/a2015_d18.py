@@ -18,5 +18,5 @@ class GameOfLifeLights(GameOfLife):
         self, live_cells: set[Vector2D], always_on_cells: set[Vector2D]
     ) -> set[Vector2D]:
         actual_live_cells = live_cells | always_on_cells
-        next_live_cells = self.next_live_cells(actual_live_cells)
+        next_live_cells = self.next_state(actual_live_cells)
         return next_live_cells | always_on_cells

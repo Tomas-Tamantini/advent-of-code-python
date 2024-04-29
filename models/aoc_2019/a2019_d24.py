@@ -1,43 +1,29 @@
-from typing import Hashable, Iterator, Optional
+from typing import Iterator, Optional
 from dataclasses import dataclass
 from models.vectors import Vector2D, CardinalDirection
 from models.cellular_automata import (
-    MultiStateCellVicinity,
-    MultiState2DAutomaton,
-    multi_state_automaton_next_state,
+    Bounded2DAutomaton,
+    TwoStateCellVicinity,
+    two_state_automaton_next_state,
 )
 from models.progress_bar_protocol import ProgressBar
 
-DEAD, ALIVE = 0, 1
+
+def _bugs_automaton_rule(vicinity: TwoStateCellVicinity) -> bool:
+    return (
+        not vicinity.center_cell_is_alive and 1 <= vicinity.num_alive_neighbors() <= 2
+    ) or (vicinity.center_cell_is_alive and vicinity.num_alive_neighbors() == 1)
 
 
-def _bugs_automaton_rule(vicinity: MultiStateCellVicinity) -> Hashable:
-    if (
-        vicinity.center_cell_type == DEAD
-        and 1 <= vicinity.num_neighbors_by_type(ALIVE) <= 2
-    ) or (
-        vicinity.center_cell_type == ALIVE
-        and vicinity.num_neighbors_by_type(ALIVE) == 1
-    ):
-        return ALIVE
-    else:
-        return DEAD
-
-
-class BugsAutomaton(MultiState2DAutomaton):
+class BugsAutomaton(Bounded2DAutomaton):
     def __init__(self, width: int, height: int) -> None:
-        default_cell_type = DEAD
-        super().__init__(
-            default_cell_type, width, height, consider_diagonal_neighbors=False
-        )
+        super().__init__(width, height, consider_diagonal_neighbors=False)
 
-    def apply_rule(self, vicinity: MultiStateCellVicinity) -> Hashable:
+    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
         return _bugs_automaton_rule(vicinity)
 
-    def next_live_cells(self, live_cells: set[Vector2D]) -> set[Vector2D]:
-        cells = {c: ALIVE for c in live_cells}
-        next_gen = self.next_state(cells)
-        return {pos for pos, cell in next_gen.items() if cell == ALIVE}
+    def next_state(self, live_cells: set[Vector2D]) -> set[Vector2D]:
+        return two_state_automaton_next_state(self, live_cells)
 
     def biodiversity_rating(self, live_cells: set[Vector2D]) -> int:
         return sum(2 ** (c.y * self._width + c.x) for c in live_cells)
@@ -51,7 +37,7 @@ class BugsAutomaton(MultiState2DAutomaton):
             if frozenset(state) in seen:
                 return state
             seen.add(frozenset(state))
-            state = self.next_live_cells(state)
+            state = self.next_state(state)
 
 
 @dataclass(frozen=True)
@@ -65,10 +51,6 @@ class RecursiveBugsAutomaton:
         self._height = height
         self._width = width
         self._center = Vector2D(width // 2, height // 2)
-
-    @property
-    def default_cell_type(self) -> int:
-        return DEAD
 
     def is_within_bounds(self, cell: RecursiveTile) -> bool:
         return True
@@ -105,7 +87,7 @@ class RecursiveBugsAutomaton:
             else:
                 yield RecursiveTile(neighbor, cell.level)
 
-    def apply_rule(self, vicinity: MultiStateCellVicinity) -> int:
+    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
         return _bugs_automaton_rule(vicinity)
 
     def advance(
@@ -115,13 +97,12 @@ class RecursiveBugsAutomaton:
         progress_bar: Optional[ProgressBar] = None,
     ) -> set[RecursiveTile]:
         current_state = {
-            RecursiveTile(position, level=0): ALIVE
+            RecursiveTile(position, level=0)
             for position in initial_configuration_on_level_zero
         }
         for current_step in range(num_steps):
             if progress_bar is not None:
                 current_step += 1
                 progress_bar.update(current_step, num_steps)
-            current_state = multi_state_automaton_next_state(self, current_state)
-        final_state = {cell for cell in current_state if current_state[cell] == ALIVE}
-        return final_state
+            current_state = two_state_automaton_next_state(self, current_state)
+        return current_state

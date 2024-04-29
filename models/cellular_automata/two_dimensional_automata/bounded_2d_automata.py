@@ -1,29 +1,18 @@
-from typing import Iterator, Hashable, Optional
+from typing import Iterator, Optional
 from models.vectors import Vector2D
-from models.cellular_automata.multi_state_automata import (
-    Cell,
-    CellType,
-    MultiStateCellVicinity,
-    multi_state_automaton_next_state,
-)
+from models.cellular_automata.multi_state_automata import Cell
 
 
-class MultiState2DAutomaton:
+class Bounded2DAutomaton:
     def __init__(
         self,
-        default_cell_type: Hashable = 0,
         width: Optional[int] = None,
         height: Optional[int] = None,
         consider_diagonal_neighbors: bool = True,
     ) -> None:
-        self._default_cell_type = default_cell_type
         self._width = width
         self._height = height
         self._consider_diagonal_neighbors = consider_diagonal_neighbors
-
-    @property
-    def default_cell_type(self) -> Hashable:
-        return self._default_cell_type
 
     @property
     def width(self) -> Optional[int]:
@@ -44,9 +33,3 @@ class MultiState2DAutomaton:
         ):
             if self.is_within_bounds(neighbor):
                 yield neighbor
-
-    def apply_rule(self, vicinity: MultiStateCellVicinity) -> CellType:
-        raise NotImplementedError("Must be implemented by subclass")
-
-    def next_state(self, cells: dict[Vector2D:Hashable]) -> dict[Vector2D:Hashable]:
-        return multi_state_automaton_next_state(self, cells)

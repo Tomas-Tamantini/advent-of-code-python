@@ -10,7 +10,7 @@ from models.aoc_2019.a2019_d24 import (
 def test_bug_with_no_neighbor_dies():
     automaton = BugsAutomaton(width=3, height=3)
     bug = Vector2D(1, 1)
-    next_cells = automaton.next_live_cells({bug})
+    next_cells = automaton.next_state({bug})
     assert bug not in next_cells
 
 
@@ -22,7 +22,7 @@ def test_bug_with_two_or_more_neighbors_dies(num_neighbors):
     neighbors = bug.adjacent_positions(include_diagonals=False)
     for _ in range(num_neighbors):
         live_cells.add(next(neighbors))
-    next_cells = automaton.next_live_cells(live_cells)
+    next_cells = automaton.next_state(live_cells)
     assert bug not in next_cells
 
 
@@ -30,14 +30,14 @@ def test_bug_with_one_neighbor_survives():
     automaton = BugsAutomaton(width=3, height=3)
     bug = Vector2D(1, 1)
     neighbor = Vector2D(2, 1)
-    next_cells = automaton.next_live_cells({bug, neighbor})
+    next_cells = automaton.next_state({bug, neighbor})
     assert bug in next_cells
 
 
 def test_empty_space_remains_empty_if_no_neighboring_bugs():
     automaton = BugsAutomaton(width=3, height=3)
     center = Vector2D(1, 1)
-    next_cells = automaton.next_live_cells({})
+    next_cells = automaton.next_state({})
     assert center not in next_cells
 
 
@@ -49,7 +49,7 @@ def test_empty_space_remains_empty_if_three_or_more_bugs_adjacent(num_neighbors)
     neighbors = center.adjacent_positions(include_diagonals=False)
     for _ in range(num_neighbors):
         live_cells.add(next(neighbors))
-    next_cells = automaton.next_live_cells(live_cells)
+    next_cells = automaton.next_state(live_cells)
     assert center not in next_cells
 
 
@@ -61,7 +61,7 @@ def test_empty_space_becomes_infested_if_one_or_two_bugs_adjacent(num_neighbors)
     neighbors = center.adjacent_positions(include_diagonals=False)
     for _ in range(num_neighbors):
         live_cells.add(next(neighbors))
-    next_cells = automaton.next_live_cells(live_cells)
+    next_cells = automaton.next_state(live_cells)
     assert center in next_cells
 
 

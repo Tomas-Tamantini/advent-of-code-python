@@ -1,30 +1,24 @@
 from typing import Hashable, Optional
 from models.vectors import Vector2D
-from .multi_state_2d_automata import MultiStateCellVicinity, MultiState2DAutomaton
+from models.cellular_automata.two_state_automata import (
+    two_state_automaton_next_state,
+    TwoStateCellVicinity,
+)
+from .bounded_2d_automata import Bounded2DAutomaton
 
-DEAD, ALIVE = 0, 1
 
-
-class GameOfLife(MultiState2DAutomaton):
+class GameOfLife(Bounded2DAutomaton):
     def __init__(
         self, width: Optional[int] = None, height: Optional[int] = None
     ) -> None:
-        default_cell_type = DEAD
-        super().__init__(default_cell_type, width, height)
+        super().__init__(width, height)
 
-    def apply_rule(self, vicinity: MultiStateCellVicinity) -> Hashable:
-        if (
-            vicinity.center_cell_type == DEAD
-            and vicinity.num_neighbors_by_type(ALIVE) == 3
+    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
+        return (
+            not vicinity.center_cell_is_alive and vicinity.num_alive_neighbors() == 3
         ) or (
-            vicinity.center_cell_type == ALIVE
-            and 2 <= vicinity.num_neighbors_by_type(ALIVE) <= 3
-        ):
-            return ALIVE
-        else:
-            return DEAD
+            vicinity.center_cell_is_alive and 2 <= vicinity.num_alive_neighbors() <= 3
+        )
 
-    def next_live_cells(self, live_cells: set[Vector2D]) -> set[Vector2D]:
-        cells = {pos: ALIVE for pos in live_cells}
-        next_gen = self.next_state(cells)
-        return {pos for pos, cell in next_gen.items() if cell == ALIVE}
+    def next_state(self, live_cells: set[Vector2D]) -> set[Vector2D]:
+        return two_state_automaton_next_state(self, live_cells)
