@@ -6,6 +6,7 @@ from .multi_state_automata import Cell
 
 @dataclass
 class TwoStateCellVicinity:
+    center_cell: Cell
     center_cell_is_alive: bool
     alive_neighbors: set[Cell]
 
@@ -32,13 +33,15 @@ def two_state_automaton_next_state(
         if automaton.is_within_bounds(cell):
             all_cells.add(cell)
             for neighbor in automaton.neighbors(cell):
-                neighbors_by_cell[neighbor].add(cell)
-                all_cells.add(neighbor)
+                if automaton.is_within_bounds(neighbor):
+                    neighbors_by_cell[neighbor].add(cell)
+                    all_cells.add(neighbor)
 
     next_state = set()
 
     for cell in all_cells:
         vicinity = TwoStateCellVicinity(
+            center_cell=cell,
             center_cell_is_alive=cell in alive_cells,
             alive_neighbors=neighbors_by_cell[cell],
         )
