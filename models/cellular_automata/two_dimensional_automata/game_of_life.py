@@ -1,4 +1,4 @@
-from typing import Hashable, Optional
+from typing import Optional
 from models.vectors import Vector2D
 from models.cellular_automata.two_state_automata import (
     two_state_automaton_next_state,
