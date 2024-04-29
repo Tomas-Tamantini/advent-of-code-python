@@ -493,7 +493,7 @@ def aoc_2020_d24(file_name: str, parser: FileParser, **_):
     for _ in range(100):
         black_tiles = automaton.next_state(black_tiles)
     print(
-        f"AOC 2020 Day 24/Part 1: Number of black tiles after 100 days is {len(black_tiles)}"
+        f"AOC 2020 Day 24/Part 2: Number of black tiles after 100 days is {len(black_tiles)}"
     )
 
 
