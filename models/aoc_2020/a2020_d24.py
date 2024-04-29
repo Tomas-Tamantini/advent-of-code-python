@@ -21,10 +21,11 @@ class HexagonalAutomaton:
 
     def apply_rule(self, cluster: CellCluster) -> int:
         if (
-            cluster.cell_type == WHITE and cluster.num_neighbors_by_type[BLACK] == 2
+            cluster.center_cell_type == WHITE
+            and cluster.num_neighbors_by_type(BLACK) == 2
         ) or (
-            cluster.cell_type == BLACK
-            and 1 <= cluster.num_neighbors_by_type[BLACK] <= 2
+            cluster.center_cell_type == BLACK
+            and 1 <= cluster.num_neighbors_by_type(BLACK) <= 2
         ):
             return BLACK
         else:

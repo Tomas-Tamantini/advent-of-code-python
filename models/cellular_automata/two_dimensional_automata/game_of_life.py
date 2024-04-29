@@ -14,10 +14,11 @@ class GameOfLife(MultiState2DAutomaton):
 
     def apply_rule(self, cluster: CellCluster) -> Hashable:
         if (
-            cluster.cell_type == DEAD and cluster.num_neighbors_by_type[ALIVE] == 3
+            cluster.center_cell_type == DEAD
+            and cluster.num_neighbors_by_type(ALIVE) == 3
         ) or (
-            cluster.cell_type == ALIVE
-            and 2 <= cluster.num_neighbors_by_type[ALIVE] <= 3
+            cluster.center_cell_type == ALIVE
+            and 2 <= cluster.num_neighbors_by_type(ALIVE) <= 3
         ):
             return ALIVE
         else:

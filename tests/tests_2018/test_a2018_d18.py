@@ -87,7 +87,9 @@ def _cells_from_str(s: str) -> dict[Vector2D:AcreType]:
     cells = {}
     for y, row in enumerate(s.splitlines()):
         for x, char in enumerate(row.strip()):
-            cells[Vector2D(x, y)] = AcreType(char)
+            acre = AcreType(char)
+            if acre != AcreType.OPEN:
+                cells[Vector2D(x, y)] = acre
     return cells
 
 

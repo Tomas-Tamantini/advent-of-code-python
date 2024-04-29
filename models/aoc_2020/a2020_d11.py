@@ -74,17 +74,17 @@ class FerrySeats:
 
     def apply_rule(self, cluster: CellCluster) -> FerrySeat:
         if (
-            cluster.cell_type == FerrySeat.EMPTY
-            and cluster.num_neighbors_by_type[FerrySeat.OCCUPIED] == 0
+            cluster.center_cell_type == FerrySeat.EMPTY
+            and cluster.num_neighbors_by_type(FerrySeat.OCCUPIED) == 0
         ):
             return FerrySeat.OCCUPIED
         if (
-            cluster.cell_type == FerrySeat.OCCUPIED
-            and cluster.num_neighbors_by_type[FerrySeat.OCCUPIED]
+            cluster.center_cell_type == FerrySeat.OCCUPIED
+            and cluster.num_neighbors_by_type(FerrySeat.OCCUPIED)
             > self._occupied_neighbors_tolerance
         ):
             return FerrySeat.EMPTY
-        return cluster.cell_type
+        return cluster.center_cell_type
 
     def next_state(self, cells: dict[Vector2D:FerrySeat]) -> dict[Vector2D:FerrySeat]:
         return automaton_next_state(self, cells)

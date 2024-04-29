@@ -18,21 +18,21 @@ class LumberArea(MultiState2DAutomaton):
 
     def apply_rule(self, cluster: CellCluster) -> AcreType:
         if (
-            cluster.cell_type == AcreType.OPEN
-            and cluster.num_neighbors_by_type[AcreType.TREE] >= 3
+            cluster.center_cell_type == AcreType.OPEN
+            and cluster.num_neighbors_by_type(AcreType.TREE) >= 3
         ):
             return AcreType.TREE
         elif (
-            cluster.cell_type == AcreType.TREE
-            and cluster.num_neighbors_by_type[AcreType.LUMBERYARD] >= 3
+            cluster.center_cell_type == AcreType.TREE
+            and cluster.num_neighbors_by_type(AcreType.LUMBERYARD) >= 3
         ):
             return AcreType.LUMBERYARD
-        elif cluster.cell_type == AcreType.LUMBERYARD and (
-            AcreType.TREE not in cluster.num_neighbors_by_type
-            or AcreType.LUMBERYARD not in cluster.num_neighbors_by_type
+        elif cluster.center_cell_type == AcreType.LUMBERYARD and (
+            not cluster.has_at_least_one_neighbor_of_type(AcreType.TREE)
+            or not cluster.has_at_least_one_neighbor_of_type(AcreType.LUMBERYARD)
         ):
             return AcreType.OPEN
-        return cluster.cell_type
+        return cluster.center_cell_type
 
     def _cells_to_hashable(self, cells: dict[Vector2D, AcreType]) -> Hashable:
         return "\n".join(
