@@ -1544,3 +1544,25 @@ def test_parse_navigation_instructions_for_submarine_with_aim():
     assert instructions[0].increment == -13
     assert instructions[1].distance == 10
     assert instructions[2].increment == 7
+
+
+def test_parse_bingo_game_and_numbers_to_draw():
+    file_content = """
+                   7,4,9,15
+
+                   22 13 17
+                   8  2  23
+                   21 9  14
+
+                   10 1  3
+                   12 7  19
+                   5  16 2 
+                   """
+    file_parser = mock_file_parser(file_content)
+    game, numbers_to_draw = file_parser.parse_bingo_game_and_numbers_to_draw(
+        "some_file"
+    )
+    assert numbers_to_draw == [7, 4, 9, 15]
+    assert len(game.boards) == 2
+    assert game.boards[0].num_rows == 3
+    assert game.boards[0].num_columns == 3

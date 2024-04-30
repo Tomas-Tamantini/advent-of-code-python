@@ -7,3 +7,4 @@ from .a2021_d2 import (
     MoveSubmarineWithAimInstruction,
 )
 from .a2021_d3 import BitFrequency
+from .a2021_d4 import BingoBoard, BingoGame

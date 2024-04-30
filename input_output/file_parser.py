@@ -161,6 +161,8 @@ from models.aoc_2021 import (
     MoveSubmarineInstruction,
     IncrementAimInstruction,
     MoveSubmarineWithAimInstruction,
+    BingoBoard,
+    BingoGame,
 )
 
 
@@ -1520,3 +1522,23 @@ class FileParser:
                     yield self._parse_navigation_instruction_for_submarine_without_aim(
                         line.strip()
                     )
+
+    def parse_bingo_game_and_numbers_to_draw(
+        self, file_name: str
+    ) -> tuple[BingoGame, list[int]]:
+        lines = list(self._file_reader.readlines(file_name))
+        tables = []
+        numbers_to_draw = []
+        current_table = []
+        for line in lines:
+            if "," in line:
+                numbers_to_draw = list(map(int, line.strip().split(",")))
+            elif line.strip():
+                current_table.append(list(map(int, line.strip().split())))
+            elif current_table:
+                tables.append(current_table)
+                current_table = []
+        if current_table:
+            tables.append(current_table)
+        boards = (BingoBoard(np.array(board, dtype=np.int32)) for board in tables)
+        return BingoGame(tuple(boards)), numbers_to_draw
