@@ -8,3 +8,4 @@ from .a2021_d2 import (
 )
 from .a2021_d3 import BitFrequency
 from .a2021_d4 import BingoBoard, BingoGame
+from .a2021_d5 import LineSegment

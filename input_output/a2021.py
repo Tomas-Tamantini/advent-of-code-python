@@ -80,18 +80,26 @@ def aoc_2021_d4(file_name: str, parser: FileParser, **_):
         elif game.all_boards_won():
             product_last_winner = number * sum(game.winners[-1].unmarked_numbers())
             break
-
     print(
         f"AOC 2021 Day 4/Part 1: The product for the first bingo winner is {product_first_winner}"
     )
-
     print(
         f"AOC 2021 Day 4/Part 2: The product for the last bingo winner is {product_last_winner}"
     )
 
 
 # AOC 2021 - Day 5: Hydrothermal Venture
-def aoc_2021_d5(file_name: str, **_): ...
+def aoc_2021_d5(file_name: str, parser: FileParser, **_):
+    segments = list(parser.parse_line_segments(file_name))
+    intersections = set()
+    for i, segment in enumerate(segments):
+        if not segment.is_horizontal and not segment.is_vertical:
+            continue
+        for other_segment in segments[i + 1 :]:
+            if not other_segment.is_horizontal and not other_segment.is_vertical:
+                continue
+            intersections.update(segment.intersection(other_segment))
+    print(f"AOC 2021 Day 5/Part 1: The number of intersections is {len(intersections)}")
 
 
 # AOC 2021 - Day 6: Lanternfish

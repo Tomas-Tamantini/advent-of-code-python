@@ -163,6 +163,7 @@ from models.aoc_2021 import (
     MoveSubmarineWithAimInstruction,
     BingoBoard,
     BingoGame,
+    LineSegment,
 )
 
 
@@ -1542,3 +1543,15 @@ class FileParser:
             tables.append(current_table)
         boards = (BingoBoard(np.array(board, dtype=np.int32)) for board in tables)
         return BingoGame(tuple(boards)), numbers_to_draw
+
+    @staticmethod
+    def _parse_line_segment(line: str) -> LineSegment:
+        parts = line.split("->")
+        start = Vector2D(*map(int, parts[0].split(",")))
+        end = Vector2D(*map(int, parts[1].split(",")))
+        return LineSegment(start, end)
+
+    def parse_line_segments(self, file_name: str) -> Iterator[LineSegment]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_line_segment(line.strip())

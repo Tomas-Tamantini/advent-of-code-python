@@ -88,6 +88,7 @@ from models.aoc_2020 import (
     TicketFieldValidator,
     RangeInterval,
 )
+from models.aoc_2021 import LineSegment
 
 
 class MockFileReader:
@@ -1566,3 +1567,14 @@ def test_parse_bingo_game_and_numbers_to_draw():
     assert len(game.boards) == 2
     assert game.boards[0].num_rows == 3
     assert game.boards[0].num_columns == 3
+
+
+def test_parse_line_segments():
+    file_content = """0,9 -> 5,9
+                      8,0 -> 0,8"""
+    file_parser = mock_file_parser(file_content)
+    segments = list(file_parser.parse_line_segments("some_file"))
+    assert segments == [
+        LineSegment(start=Vector2D(0, 9), end=Vector2D(5, 9)),
+        LineSegment(start=Vector2D(8, 0), end=Vector2D(0, 8)),
+    ]
