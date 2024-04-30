@@ -150,6 +150,24 @@ def test_bounding_box_of_zero_points_has_all_dimensions_zero():
     assert bounding_box.width == bounding_box.height == bounding_box.area == 0
 
 
+def test_can_iterate_through_all_points_in_bounding_box():
+    bounding_box = BoundingBox(bottom_left=Vector2D(1, 2), top_right=Vector2D(3, 5))
+    assert set(bounding_box.all_points_contained()) == {
+        Vector2D(1, 2),
+        Vector2D(2, 2),
+        Vector2D(3, 2),
+        Vector2D(1, 3),
+        Vector2D(2, 3),
+        Vector2D(3, 3),
+        Vector2D(1, 4),
+        Vector2D(2, 4),
+        Vector2D(3, 4),
+        Vector2D(1, 5),
+        Vector2D(2, 5),
+        Vector2D(3, 5),
+    }
+
+
 def test_can_check_whether_bounding_box_contains_a_point():
     bounding_box = BoundingBox(Vector2D(1, 2), Vector2D(4, 6))
     assert bounding_box.contains(Vector2D(1, 2))

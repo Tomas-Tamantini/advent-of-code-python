@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Iterator
 from dataclasses import dataclass
 from math import inf
 from .vector_2d import Vector2D
@@ -57,6 +57,11 @@ class BoundingBox:
             self.bottom_left.x <= point.x <= self.top_right.x
             and self.bottom_left.y <= point.y <= self.top_right.y
         )
+
+    def all_points_contained(self) -> Iterator[Vector2D]:
+        for x in range(self.min_x, self.max_x + 1):
+            for y in range(self.min_y, self.max_y + 1):
+                yield Vector2D(x, y)
 
     def intersection(self, other) -> "BoundingBox":
         min_x = max(self.bottom_left.x, other.bottom_left.x)
