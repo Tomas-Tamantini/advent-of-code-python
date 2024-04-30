@@ -36,6 +36,9 @@ class Vector2D:
     def manhattan_size(self) -> int:
         return abs(self.x) + abs(self.y)
 
+    def vector_product_2d(self, other: "Vector2D") -> int:
+        return self.x * other.y - self.y * other.x
+
     def __add__(self, other: "Vector2D") -> "Vector2D":
         return Vector2D(self.x + other.x, self.y + other.y)
 

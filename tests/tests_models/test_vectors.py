@@ -31,6 +31,10 @@ def test_vectors_can_be_multiplied_by_a_scalar():
     assert Vector2D(1, 2) * 3 == 3 * Vector2D(1, 2) == Vector2D(3, 6)
 
 
+def test_vector_product_of_two_d_vectors_yields_int():
+    assert Vector2D(1, 2).vector_product_2d(Vector2D(3, 4)) == -2
+
+
 def test_vector_moves_by_one_step_by_default():
     assert Vector2D(0, 0).move(CardinalDirection.NORTH) == Vector2D(0, 1)
     assert Vector2D(0, 0).move(CardinalDirection.EAST) == Vector2D(1, 0)
