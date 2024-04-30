@@ -59,7 +59,7 @@ def test_bingo_board_is_not_winner_if_diagonal_is_marked():
     assert not board.is_winner()
 
 
-def test_bingo_game_is_played_until_some_winner():
+def test_bingo_game_keeps_track_of_whether_there_is_some_winner():
     board_a = BingoBoard(
         np.array(
             [
@@ -84,8 +84,40 @@ def test_bingo_game_is_played_until_some_winner():
     )
     board_c = BingoBoard(table)
     game = BingoGame((board_a, board_b, board_c))
-    assert not game.is_over()
+    assert not game.some_winner()
     for number in [7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24]:
         game.draw_number(number)
-    assert game.is_over()
-    assert list(game.winners()) == [board_c]
+    assert game.some_winner()
+    assert game.winners == [board_c]
+
+
+def test_bingo_game_keeps_track_of_whether_every_board_won_and_stores_them_in_the_order_which_they_won():
+    board_a = BingoBoard(
+        np.array(
+            [
+                [22, 13, 17, 11, 0],
+                [8, 2, 23, 4, 24],
+                [21, 9, 14, 16, 7],
+                [6, 10, 3, 18, 5],
+                [1, 12, 20, 15, 19],
+            ]
+        )
+    )
+    board_b = BingoBoard(
+        np.array(
+            [
+                [3, 15, 0, 2, 22],
+                [9, 18, 13, 17, 5],
+                [19, 8, 7, 25, 23],
+                [20, 11, 10, 24, 4],
+                [14, 21, 16, 12, 6],
+            ]
+        )
+    )
+    board_c = BingoBoard(table)
+    game = BingoGame((board_a, board_b, board_c))
+    assert not game.all_boards_won()
+    for number in [7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24, 10, 16, 13]:
+        game.draw_number(number)
+    assert game.all_boards_won()
+    assert game.winners == [board_c, board_a, board_b]

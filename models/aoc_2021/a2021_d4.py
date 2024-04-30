@@ -55,20 +55,29 @@ class BingoBoard:
 
 class BingoGame:
     def __init__(self, boards: tuple[BingoBoard]) -> None:
-        self._boards = boards
+        self._boards_still_in_game = list(boards)
+        self._winners = list()
 
     @property
     def boards(self) -> tuple[BingoBoard]:
-        return self._boards
+        return tuple(self._boards_still_in_game + self._winners)
 
-    def winners(self) -> Iterator[BingoBoard]:
-        for board in self._boards:
-            if board.is_winner():
-                yield board
+    @property
+    def winners(self) -> list[BingoBoard]:
+        return self._winners
 
-    def is_over(self) -> bool:
-        return any(self.winners())
+    def some_winner(self) -> bool:
+        return any(self._winners)
+
+    def all_boards_won(self) -> bool:
+        return len(self._boards_still_in_game) == 0
 
     def draw_number(self, number: int) -> None:
-        for board in self._boards:
+        boards_to_remove = []
+        for board in self._boards_still_in_game:
             board.mark_number(number)
+            if board.is_winner():
+                boards_to_remove.append(board)
+        for board in boards_to_remove:
+            self._boards_still_in_game.remove(board)
+            self._winners.append(board)
