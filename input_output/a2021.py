@@ -1,6 +1,13 @@
 from collections import defaultdict
 from input_output.file_parser import FileParser
-from models.aoc_2021 import num_increases, window_sum, Submarine, BitFrequency
+from models.aoc_2021 import (
+    num_increases,
+    window_sum,
+    Submarine,
+    BitFrequency,
+    LanternFish,
+    lantern_fish_population_after_n_days,
+)
 
 
 # AOC 2021 - Day 1: Sonar Sweep
@@ -113,7 +120,20 @@ def aoc_2021_d5(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 6: Lanternfish
-def aoc_2021_d6(file_name: str, **_): ...
+def aoc_2021_d6(file_name: str, **_):
+    with open(file_name) as file:
+        days_until_reproduction = [int(day) for day in file.read().split(",")]
+    fish_school = [
+        LanternFish(days_until_reproduction=days) for days in days_until_reproduction
+    ]
+    pop_80 = lantern_fish_population_after_n_days(fish_school, days=80)
+    print(
+        f"AOC 2021 Day 6/Part 1: The population of lanternfish after 80 days is {pop_80}"
+    )
+    pop_256 = lantern_fish_population_after_n_days(fish_school, days=256)
+    print(
+        f"AOC 2021 Day 6/Part 2: The population of lanternfish after 256 days is {pop_256}"
+    )
 
 
 # AOC 2021 - Day 7: The Treachery of Whales
