@@ -7,6 +7,7 @@ from models.aoc_2021 import (
     BitFrequency,
     LanternFish,
     lantern_fish_population_after_n_days,
+    median,
 )
 
 
@@ -137,7 +138,12 @@ def aoc_2021_d6(file_name: str, **_):
 
 
 # AOC 2021 - Day 7: The Treachery of Whales
-def aoc_2021_d7(file_name: str, **_): ...
+def aoc_2021_d7(file_name: str, **_):
+    with open(file_name) as file:
+        numbers = list(map(int, file.read().split(",")))
+    median_number = median(numbers)
+    fuel_required = sum(abs(number - median_number) for number in numbers)
+    print(f"AOC 2021 Day 7/Part 1: The total fuel required is {fuel_required}")
 
 
 # AOC 2021 - Day 8: Seven Segment Search
