@@ -1,5 +1,5 @@
 from input_output.file_parser import FileParser
-from models.aoc_2021 import num_increases, window_sum, Submarine
+from models.aoc_2021 import num_increases, window_sum, Submarine, BitFrequency
 
 
 # AOC 2021 - Day 1: Sonar Sweep
@@ -47,7 +47,16 @@ def aoc_2021_d2(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 3: Binary Diagnostic
-def aoc_2021_d3(file_name: str, **_): ...
+def aoc_2021_d3(file_name: str, **_):
+    with open(file_name) as file:
+        binary_strings = [line.strip() for line in file]
+    frequency = BitFrequency(binary_strings)
+    most_frequent = frequency.most_frequent_bits_in_each_position()
+    least_frequent = frequency.least_frequent_bits_in_each_position()
+    product = int(most_frequent, 2) * int(least_frequent, 2)
+    print(
+        f"AOC 2021 Day 3/Part 1: The product of the most and least frequent bits is {product}"
+    )
 
 
 # AOC 2021 - Day 4: Giant Squid

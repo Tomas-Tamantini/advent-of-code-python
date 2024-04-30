@@ -6,3 +6,4 @@ from .a2021_d2 import (
     IncrementAimInstruction,
     MoveSubmarineWithAimInstruction,
 )
+from .a2021_d3 import BitFrequency
