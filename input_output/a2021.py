@@ -7,7 +7,8 @@ from models.aoc_2021 import (
     BitFrequency,
     LanternFish,
     lantern_fish_population_after_n_days,
-    median,
+    optimal_linear_fuel_consumption,
+    optimal_triangular_fuel_consumption,
 )
 
 
@@ -140,10 +141,17 @@ def aoc_2021_d6(file_name: str, **_):
 # AOC 2021 - Day 7: The Treachery of Whales
 def aoc_2021_d7(file_name: str, **_):
     with open(file_name) as file:
-        numbers = list(map(int, file.read().split(",")))
-    median_number = median(numbers)
-    fuel_required = sum(abs(number - median_number) for number in numbers)
-    print(f"AOC 2021 Day 7/Part 1: The total fuel required is {fuel_required}")
+        positions = list(map(int, file.read().split(",")))
+
+    optimal_linear = optimal_linear_fuel_consumption(positions)
+    print(
+        f"AOC 2021 Day 7/Part 1: The total fuel required with linear consumption is {optimal_linear}"
+    )
+
+    optimal_triangular = optimal_triangular_fuel_consumption(positions)
+    print(
+        f"AOC 2021 Day 7/Part 2: The total fuel required with triangular consumption is {optimal_triangular}"
+    )
 
 
 # AOC 2021 - Day 8: Seven Segment Search
