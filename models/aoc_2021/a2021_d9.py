@@ -21,3 +21,23 @@ class SmokeBasin:
         for position, height in self._heightmap.items():
             if self._is_local_minimum(position):
                 yield position, height
+
+    def _flood(self, position: Vector2D) -> set[Vector2D]:
+        stack = [position]
+        flooded = set()
+        while stack:
+            current = stack.pop()
+            flooded.add(current)
+            for neighbor in self._neighbors(current):
+                if neighbor not in flooded and self._heightmap[neighbor] != 9:
+                    stack.append(neighbor)
+        return flooded
+
+    def areas(self) -> Iterator[set[Vector2D]]:
+        visited = set()
+        for position, height in self._heightmap.items():
+            if position in visited or height == 9:
+                continue
+            area = self._flood(position)
+            visited.update(area)
+            yield area

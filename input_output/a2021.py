@@ -179,6 +179,11 @@ def aoc_2021_d9(file_name: str, **_):
     risk_level = sum(height + 1 for _, height in basin.local_minima())
     print(f"AOC 2021 Day 9/Part 1: The risk value of the smoke basin is {risk_level}")
 
+    area_sizes = [len(area) for area in basin.areas()]
+    three_largest_areas = sorted(area_sizes, reverse=True)[:3]
+    product = three_largest_areas[0] * three_largest_areas[1] * three_largest_areas[2]
+    print(f"AOC 2021 Day 9/Part 2: The product of the three largest areas is {product}")
+
 
 # AOC 2021 - Day 10: Syntax Scoring
 def aoc_2021_d10(file_name: str, **_): ...

@@ -26,3 +26,11 @@ def test_smoke_basin_local_minima_are_points_strictly_lower_than_all_four_neighb
         (Vector2D(2, 2), 5),
         (Vector2D(6, 4), 5),
     }
+
+
+def test_smoke_basin_can_be_divided_into_areas_limited_by_nines():
+    basin = _example_basin()
+    areas = list(basin.areas())
+    assert len(areas) == 4
+    area_sizes = [len(area) for area in areas]
+    assert sorted(area_sizes) == [3, 9, 9, 14]
