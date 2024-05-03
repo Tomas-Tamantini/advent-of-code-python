@@ -88,7 +88,7 @@ from models.aoc_2020 import (
     TicketFieldValidator,
     RangeInterval,
 )
-from models.aoc_2021 import LineSegment
+from models.aoc_2021 import LineSegment, ShuffledSevenDigitDisplay
 
 
 class MockFileReader:
@@ -1577,4 +1577,22 @@ def test_parse_line_segments():
     assert segments == [
         LineSegment(start=Vector2D(0, 9), end=Vector2D(5, 9)),
         LineSegment(start=Vector2D(8, 0), end=Vector2D(0, 8)),
+    ]
+
+
+def test_parse_shuffled_seven_digit_displays():
+    file_content = """
+                   cefbd dcg dcfgbae | cebdg egcfda
+                   aefgc bcdgef bf bfaecd | gefac fgaec bdaf"""
+    file_parser = mock_file_parser(file_content)
+    displays = list(file_parser.parse_shuffled_seven_digit_displays("some_file"))
+    assert displays == [
+        ShuffledSevenDigitDisplay(
+            unique_patterns=("cefbd", "dcg", "dcfgbae"),
+            four_digit_output=("cebdg", "egcfda"),
+        ),
+        ShuffledSevenDigitDisplay(
+            unique_patterns=("aefgc", "bcdgef", "bf", "bfaecd"),
+            four_digit_output=("gefac", "fgaec", "bdaf"),
+        ),
     ]

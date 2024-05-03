@@ -155,7 +155,17 @@ def aoc_2021_d7(file_name: str, **_):
 
 
 # AOC 2021 - Day 8: Seven Segment Search
-def aoc_2021_d8(file_name: str, **_): ...
+def aoc_2021_d8(file_name: str, parser: FileParser, **_):
+    displays = list(parser.parse_shuffled_seven_digit_displays(file_name))
+    decoded_digits = [display.decode() for display in displays]
+    num_matches = sum(
+        1 for digits in decoded_digits for digit in digits if digit in "1478"
+    )
+    print(
+        f"AOC 2021 Day 8/Part 1: The number of 1, 4, 7, 8 in the decoded digits is {num_matches}"
+    )
+    total_sum = sum(int(digits) for digits in decoded_digits)
+    print(f"AOC 2021 Day 8/Part 2: The total sum of all decoded digits is {total_sum}")
 
 
 # AOC 2021 - Day 9: Smoke Basin

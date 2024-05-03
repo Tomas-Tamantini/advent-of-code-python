@@ -164,6 +164,7 @@ from models.aoc_2021 import (
     BingoBoard,
     BingoGame,
     LineSegment,
+    ShuffledSevenDigitDisplay,
 )
 
 
@@ -1555,3 +1556,17 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_line_segment(line.strip())
+
+    @staticmethod
+    def _parse_shuffled_seven_digit_display(line: str) -> ShuffledSevenDigitDisplay:
+        parts = line.split("|")
+        unique_patterns = tuple(x.strip() for x in parts[0].split())
+        four_digit_output = tuple(x.strip() for x in parts[1].split())
+        return ShuffledSevenDigitDisplay(unique_patterns, four_digit_output)
+
+    def parse_shuffled_seven_digit_displays(
+        self, file_name: str
+    ) -> Iterator[ShuffledSevenDigitDisplay]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_shuffled_seven_digit_display(line.strip())

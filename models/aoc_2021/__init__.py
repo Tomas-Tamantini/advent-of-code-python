@@ -14,3 +14,4 @@ from .a2021_d7 import (
     optimal_linear_fuel_consumption,
     optimal_triangular_fuel_consumption,
 )
+from .a2021_d8 import ShuffledSevenDigitDisplay
