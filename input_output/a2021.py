@@ -242,6 +242,23 @@ def aoc_2021_d11(file_name: str, **_):
         f"AOC 2021 Day 11/Part 1: The number of flashes after 100 steps is {octopuses.num_flashes}"
     )
 
+    octopuses = OctopusesFlashes(
+        energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
+    )
+    num_octopuses = len(octopuses.energy_levels)
+    num_flashes = 0
+    current_step = 0
+    while True:
+        current_step += 1
+        octopuses.step()
+        new_flashes = octopuses.num_flashes - num_flashes
+        if new_flashes == num_octopuses:
+            break
+        num_flashes += new_flashes
+    print(
+        f"AOC 2021 Day 11/Part 2: The number of steps until all octopuses flash is {current_step}"
+    )
+
 
 # AOC 2021 - Day 12: Passage Pathing
 def aoc_2021_d12(file_name: str, **_): ...
