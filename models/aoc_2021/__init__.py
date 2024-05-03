@@ -17,3 +17,4 @@ from .a2021_d7 import (
 from .a2021_d8 import ShuffledSevenDigitDisplay
 from .a2021_d9 import SmokeBasin
 from .a2021_d10 import mismatching_brackets, missing_brackets
+from .a2021_d11 import OctopusesFlashes

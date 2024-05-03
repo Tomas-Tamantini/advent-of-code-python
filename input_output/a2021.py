@@ -14,6 +14,7 @@ from models.aoc_2021 import (
     SmokeBasin,
     mismatching_brackets,
     missing_brackets,
+    OctopusesFlashes,
 )
 
 
@@ -231,7 +232,15 @@ def aoc_2021_d10(file_name: str, **_):
 
 
 # AOC 2021 - Day 11: Dumbo Octopus
-def aoc_2021_d11(file_name: str, **_): ...
+def aoc_2021_d11(file_name: str, **_):
+    grid = CharacterGrid.from_txt_file(file_name)
+    octopuses = OctopusesFlashes(
+        energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
+    )
+    octopuses.multi_step(num_steps=100)
+    print(
+        f"AOC 2021 Day 11/Part 1: The number of flashes after 100 steps is {octopuses.num_flashes}"
+    )
 
 
 # AOC 2021 - Day 12: Passage Pathing
