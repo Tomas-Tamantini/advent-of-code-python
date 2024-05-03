@@ -1,5 +1,6 @@
 from collections import defaultdict
 from input_output.file_parser import FileParser
+from models.char_grid import CharacterGrid
 from models.aoc_2021 import (
     num_increases,
     window_sum,
@@ -9,6 +10,7 @@ from models.aoc_2021 import (
     lantern_fish_population_after_n_days,
     optimal_linear_fuel_consumption,
     optimal_triangular_fuel_consumption,
+    SmokeBasin,
 )
 
 
@@ -169,7 +171,13 @@ def aoc_2021_d8(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 9: Smoke Basin
-def aoc_2021_d9(file_name: str, **_): ...
+def aoc_2021_d9(file_name: str, **_):
+    grid = CharacterGrid.from_txt_file(file_name)
+    basin = SmokeBasin(
+        heightmap={pos: int(height) for pos, height in grid.tiles.items()}
+    )
+    risk_level = sum(height + 1 for _, height in basin.local_minima())
+    print(f"AOC 2021 Day 9/Part 1: The risk value of the smoke basin is {risk_level}")
 
 
 # AOC 2021 - Day 10: Syntax Scoring
