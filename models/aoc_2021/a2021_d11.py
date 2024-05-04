@@ -9,6 +9,7 @@ class OctopusesFlashes:
         self._energy_levels = energy_levels
         self._num_flashes = 0
         self._flash_threshold = flash_threshold
+        self._all_octopuses_flashed_last_step = False
 
     @property
     def num_flashes(self) -> int:
@@ -18,12 +19,21 @@ class OctopusesFlashes:
     def energy_levels(self) -> dict[Vector2D:int]:
         return self._energy_levels
 
+    @property
+    def all_octopuses_flashed_last_step(self) -> bool:
+        return self._all_octopuses_flashed_last_step
+
+    @property
+    def num_octopuses(self) -> int:
+        return len(self._energy_levels)
+
     def _neighbors(self, position: Vector2D) -> Iterator[Vector2D]:
         for neighbor in position.adjacent_positions(include_diagonals=True):
             if neighbor in self._energy_levels:
                 yield neighbor
 
     def step(self) -> None:
+        old_num_flashes = self._num_flashes
         flashing_octopuses = set()
 
         for pos in self._energy_levels:
@@ -32,6 +42,11 @@ class OctopusesFlashes:
                 flashing_octopuses.add(pos)
 
         self._flash(flashing_octopuses)
+
+        num_flashes_this_step = self._num_flashes - old_num_flashes
+        self._all_octopuses_flashed_last_step = (
+            num_flashes_this_step == self.num_octopuses
+        )
 
     def _flash(self, flashing_octopuses: set[Vector2D]) -> None:
         flashed_octopuses = set()

@@ -245,16 +245,10 @@ def aoc_2021_d11(file_name: str, **_):
     octopuses = OctopusesFlashes(
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
     )
-    num_octopuses = len(octopuses.energy_levels)
-    num_flashes = 0
     current_step = 0
-    while True:
+    while not octopuses.all_octopuses_flashed_last_step:
         current_step += 1
         octopuses.step()
-        new_flashes = octopuses.num_flashes - num_flashes
-        if new_flashes == num_octopuses:
-            break
-        num_flashes += new_flashes
     print(
         f"AOC 2021 Day 11/Part 2: The number of steps until all octopuses flash is {current_step}"
     )

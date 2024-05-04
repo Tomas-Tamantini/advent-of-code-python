@@ -49,3 +49,19 @@ def test_octopus_flashes_are_counted_over_many_steps():
     )
     octopuses.multi_step(num_steps=100)
     assert octopuses.num_flashes == 1656
+
+
+def test_octopus_can_all_flashes_at_the_same_time():
+    grid = CharacterGrid(
+        """767
+           686
+           767"""
+    )
+    octopuses = OctopusesFlashes(
+        energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
+    )
+    assert not octopuses.all_octopuses_flashed_last_step
+    octopuses.step()
+    assert not octopuses.all_octopuses_flashed_last_step
+    octopuses.step()
+    assert octopuses.all_octopuses_flashed_last_step
