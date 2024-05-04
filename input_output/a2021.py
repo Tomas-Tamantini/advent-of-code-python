@@ -270,6 +270,10 @@ def aoc_2021_d12(file_name: str, parser: FileParser, **_):
     print(
         f"AOC 2021 Day 12/Part 1: The number of paths from start to end is {len(paths)}"
     )
+    paths = list(explorer.all_paths(may_visit_one_small_cave_twice=True))
+    print(
+        f"AOC 2021 Day 12/Part 2: The number of paths from start to end with one small cave visited twice is {len(paths)}"
+    )
 
 
 # AOC 2021 - Day 13: Transparent Origami
