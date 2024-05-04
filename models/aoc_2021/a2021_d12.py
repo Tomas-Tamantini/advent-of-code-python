@@ -10,8 +10,15 @@ class UnderwaterCave:
 
 
 class UnderwaterCaveExplorer:
-    def __init__(self, connections: dict[UnderwaterCave, set[UnderwaterCave]]) -> None:
+    def __init__(
+        self,
+        connections: dict[UnderwaterCave, set[UnderwaterCave]],
+        start_cave_name: str,
+        end_cave_name: str,
+    ) -> None:
         self._connections = self._complete_connections(connections)
+        self._start_cave = self._get_cave_by_name(start_cave_name)
+        self._end_cave = self._get_cave_by_name(end_cave_name)
 
     @staticmethod
     def _complete_connections(
@@ -31,36 +38,19 @@ class UnderwaterCaveExplorer:
             return None
 
     def _explore_paths(
-        self,
-        current_path: list[UnderwaterCave],
-        visited: set[UnderwaterCave],
-        end_cave: UnderwaterCave,
+        self, current_path: list[UnderwaterCave]
     ) -> Iterator[list[UnderwaterCave]]:
-        if current_path[-1] == end_cave:
+        if current_path[-1] == self._end_cave:
             yield current_path
         else:
             for neighbor in self._connections[current_path[-1]]:
-                if neighbor not in visited:
-                    if neighbor.is_small:
-                        new_visited = visited.copy()
-                        new_visited.add(neighbor)
-                    else:
-                        new_visited = visited
+                if not neighbor.is_small or neighbor not in current_path:
                     yield from self._explore_paths(
-                        current_path=current_path + [neighbor],
-                        visited=new_visited,
-                        end_cave=end_cave,
+                        current_path=current_path + [neighbor]
                     )
 
-    def all_paths(
-        self, start_cave_name: str, end_cave_name: str
-    ) -> Iterator[list[UnderwaterCave]]:
-        start_cave = self._get_cave_by_name(start_cave_name)
-        end_cave = self._get_cave_by_name(end_cave_name)
-        if start_cave is None or end_cave is None:
+    def all_paths(self) -> Iterator[list[UnderwaterCave]]:
+        if self._start_cave is None or self._end_cave is None:
             return
-        current_path = [start_cave]
-        visited = {start_cave}
-        yield from self._explore_paths(
-            current_path=current_path, visited=visited, end_cave=end_cave
-        )
+        current_path = [self._start_cave]
+        yield from self._explore_paths(current_path=current_path)
