@@ -18,6 +18,7 @@ from models.aoc_2021 import (
     missing_brackets,
     OctopusesFlashes,
     UnderwaterCaveExplorer,
+    PolymerExtension,
 )
 
 
@@ -298,7 +299,19 @@ def aoc_2021_d13(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 14: Extended Polymerization
-def aoc_2021_d14(file_name: str, **_): ...
+def aoc_2021_d14(file_name: str, parser: FileParser, **_):
+    polymer, rules = parser.parse_polymer_and_polymer_extension_rules(file_name)
+    extension = PolymerExtension(rules)
+    extended = extension.extend_multiple_times(polymer, num_times=10)
+    character_count = {
+        character: extended.count(character) for character in set(extended)
+    }
+    most_common_count = max(character_count.values())
+    least_common_count = min(character_count.values())
+    difference = most_common_count - least_common_count
+    print(
+        f"AOC 2021 Day 14/Part 1: The difference between the most and least common characters is {difference}"
+    )
 
 
 # AOC 2021 - Day 15: Chiton

@@ -1609,3 +1609,19 @@ class FileParser:
                 else:
                     positions.append(Vector2D(*map(int, line.strip().split(","))))
         return positions, instructions
+
+    def parse_polymer_and_polymer_extension_rules(
+        self, file_name: str
+    ) -> tuple[str, dict[str, str]]:
+        polymer = ""
+        rules = dict()
+
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                if "->" in line:
+                    parts = line.strip().split("->")
+                    rules[parts[0].strip()] = parts[1].strip()
+                else:
+                    polymer = line.strip()
+
+        return polymer, rules

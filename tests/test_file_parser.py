@@ -1638,3 +1638,17 @@ def test_parse_positions_and_fold_instructions():
         FoldInstruction(is_horizontal_fold=True, line=7),
         FoldInstruction(is_horizontal_fold=False, line=5),
     ]
+
+
+def test_parse_polymer_and_polymer_extension_rules():
+    file_content = """NNCB
+
+                      CH -> B
+                      HH -> N"""
+    file_parser = mock_file_parser(file_content)
+    polymer, rules = file_parser.parse_polymer_and_polymer_extension_rules("some_file")
+    assert polymer == "NNCB"
+    assert rules == {
+        "CH": "B",
+        "HH": "N",
+    }
