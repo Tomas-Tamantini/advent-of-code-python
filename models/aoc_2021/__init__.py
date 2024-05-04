@@ -21,3 +21,4 @@ from .a2021_d11 import OctopusesFlashes
 from .a2021_d12 import UnderwaterCave, UnderwaterCaveExplorer
 from .a2021_d13 import FoldInstruction
 from .a2021_d14 import PolymerExtension
+from .a2021_d15 import UnderwaterCaveMaze
