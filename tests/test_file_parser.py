@@ -88,7 +88,12 @@ from models.aoc_2020 import (
     TicketFieldValidator,
     RangeInterval,
 )
-from models.aoc_2021 import LineSegment, ShuffledSevenDigitDisplay, UnderwaterCave
+from models.aoc_2021 import (
+    LineSegment,
+    ShuffledSevenDigitDisplay,
+    UnderwaterCave,
+    FoldInstruction,
+)
 
 
 class MockFileReader:
@@ -1613,3 +1618,23 @@ def test_parse_underwater_cave_connections():
         UnderwaterCave(name="A", is_small=False),
         UnderwaterCave(name="b", is_small=True),
     }
+
+
+def test_parse_positions_and_fold_instructions():
+    file_content = """
+                   2,14
+                   8,10
+                   9,0
+
+                   fold along y=7
+                   fold along x=5
+                   """
+    file_parser = mock_file_parser(file_content)
+    positions, instructions = file_parser.parse_positions_and_fold_instructions(
+        "some_file"
+    )
+    assert positions == [Vector2D(2, 14), Vector2D(8, 10), Vector2D(9, 0)]
+    assert instructions == [
+        FoldInstruction(is_horizontal_fold=True, line=7),
+        FoldInstruction(is_horizontal_fold=False, line=5),
+    ]

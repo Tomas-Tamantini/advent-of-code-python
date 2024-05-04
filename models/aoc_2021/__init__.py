@@ -19,3 +19,4 @@ from .a2021_d9 import SmokeBasin
 from .a2021_d10 import mismatching_brackets, missing_brackets
 from .a2021_d11 import OctopusesFlashes
 from .a2021_d12 import UnderwaterCave, UnderwaterCaveExplorer
+from .a2021_d13 import FoldInstruction

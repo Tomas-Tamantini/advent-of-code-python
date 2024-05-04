@@ -166,6 +166,7 @@ from models.aoc_2021 import (
     LineSegment,
     ShuffledSevenDigitDisplay,
     UnderwaterCave,
+    FoldInstruction,
 )
 
 
@@ -1589,3 +1590,22 @@ class FileParser:
                 connections[cave_a].add(cave_b)
 
         return connections
+
+    @staticmethod
+    def _parse_fold_instruction(line: str) -> FoldInstruction:
+        is_horizontal = "y" in line
+        index = int(line.split("=")[1])
+        return FoldInstruction(is_horizontal, index)
+
+    def parse_positions_and_fold_instructions(
+        self, file_name: str
+    ) -> tuple[list[Vector2D], list[FoldInstruction]]:
+        positions = []
+        instructions = []
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                if "fold" in line:
+                    instructions.append(self._parse_fold_instruction(line.strip()))
+                else:
+                    positions.append(Vector2D(*map(int, line.strip().split(","))))
+        return positions, instructions

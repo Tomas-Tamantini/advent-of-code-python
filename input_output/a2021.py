@@ -3,6 +3,7 @@ from collections import defaultdict
 from input_output.animation import render_frame
 from input_output.file_parser import FileParser
 from models.char_grid import CharacterGrid
+from models.vectors import BoundingBox
 from models.aoc_2021 import (
     num_increases,
     window_sum,
@@ -277,7 +278,23 @@ def aoc_2021_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 13: Transparent Origami
-def aoc_2021_d13(file_name: str, **_): ...
+def aoc_2021_d13(file_name: str, parser: FileParser, **_):
+    positions, instructions = parser.parse_positions_and_fold_instructions(file_name)
+    visible_dots = instructions[0].apply(set(positions))
+    num_visible_dots = len(visible_dots)
+    print(
+        f"AOC 2021 Day 14/Part 1: The number of visible dots after the first fold is {num_visible_dots}"
+    )
+
+    for remaining_instructions in instructions[1:]:
+        visible_dots = remaining_instructions.apply(visible_dots)
+
+    bounding_box = BoundingBox.from_points(visible_dots)
+    matrix = [[" "] * (bounding_box.width + 1) for _ in range(bounding_box.height + 1)]
+    for dot in visible_dots:
+        matrix[dot.y][dot.x] = "#"
+    code = "\n".join("".join(row) for row in matrix)
+    print(f"AOC 2021 Day 14/Part 2: The code after all folds is\n{code}")
 
 
 # AOC 2021 - Day 14: Extended Polymerization
