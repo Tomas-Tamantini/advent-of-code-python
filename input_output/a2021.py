@@ -16,6 +16,7 @@ from models.aoc_2021 import (
     mismatching_brackets,
     missing_brackets,
     OctopusesFlashes,
+    UnderwaterCaveExplorer,
 )
 
 
@@ -260,7 +261,13 @@ def aoc_2021_d11(file_name: str, animate: bool, **_):
 
 
 # AOC 2021 - Day 12: Passage Pathing
-def aoc_2021_d12(file_name: str, **_): ...
+def aoc_2021_d12(file_name: str, parser: FileParser, **_):
+    connections = parser.parse_underwater_cave_connections(file_name)
+    explorer = UnderwaterCaveExplorer(connections)
+    paths = list(explorer.all_paths(start_cave_name="start", end_cave_name="end"))
+    print(
+        f"AOC 2021 Day 12/Part 1: The number of paths from start to end is {len(paths)}"
+    )
 
 
 # AOC 2021 - Day 13: Transparent Origami

@@ -88,7 +88,7 @@ from models.aoc_2020 import (
     TicketFieldValidator,
     RangeInterval,
 )
-from models.aoc_2021 import LineSegment, ShuffledSevenDigitDisplay
+from models.aoc_2021 import LineSegment, ShuffledSevenDigitDisplay, UnderwaterCave
 
 
 class MockFileReader:
@@ -1596,3 +1596,20 @@ def test_parse_shuffled_seven_digit_displays():
             four_digit_output=("gefac", "fgaec", "bdaf"),
         ),
     ]
+
+
+def test_parse_underwater_cave_connections():
+    file_content = """start-A
+                      start-b
+                      A-c
+                      A-b
+                      b-d
+                      A-end
+                      b-end"""
+    file_parser = mock_file_parser(file_content)
+    connections = file_parser.parse_underwater_cave_connections("some_file")
+    start = UnderwaterCave(name="start", is_small=True)
+    assert connections[start] == {
+        UnderwaterCave(name="A", is_small=False),
+        UnderwaterCave(name="b", is_small=True),
+    }

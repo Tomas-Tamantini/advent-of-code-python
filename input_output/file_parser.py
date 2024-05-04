@@ -165,6 +165,7 @@ from models.aoc_2021 import (
     BingoGame,
     LineSegment,
     ShuffledSevenDigitDisplay,
+    UnderwaterCave,
 )
 
 
@@ -1570,3 +1571,21 @@ class FileParser:
         for line in self._file_reader.readlines(file_name):
             if line.strip():
                 yield self._parse_shuffled_seven_digit_display(line.strip())
+
+    @staticmethod
+    def _parse_underwater_caves(line: str) -> tuple[UnderwaterCave, UnderwaterCave]:
+        return tuple(
+            UnderwaterCave(name, is_small=name.islower())
+            for name in [p.strip() for p in line.split("-")]
+        )
+
+    def parse_underwater_cave_connections(
+        self, file_name: str
+    ) -> dict[UnderwaterCave, set[UnderwaterCave]]:
+        connections = defaultdict(set)
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                cave_a, cave_b = self._parse_underwater_caves(line.strip())
+                connections[cave_a].add(cave_b)
+
+        return connections
