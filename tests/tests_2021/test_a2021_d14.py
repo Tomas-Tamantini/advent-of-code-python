@@ -22,7 +22,7 @@ def test_polymer_extension_rules_are_applied_to_all_pairs():
     assert polymer_extension.extend(polymer) == "acadb"
 
 
-def test_polymer_can_be_extended_multiple_steps():
+def test_polymer_extended_multiple_steps_yields_character_count_efficiently():
     polymer = "NNCB"
     rules = {
         "CH": "B",
@@ -43,5 +43,13 @@ def test_polymer_can_be_extended_multiple_steps():
         "CN": "C",
     }
     polymer_extension = PolymerExtension(rules)
-    extended = polymer_extension.extend_multiple_times(polymer, num_times=4)
-    assert extended == "NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB"
+    char_count = polymer_extension.character_count_after_multiple_extensions(
+        polymer, num_times=4
+    )
+    assert char_count == {"N": 11, "B": 23, "C": 10, "H": 5}
+
+    char_count = polymer_extension.character_count_after_multiple_extensions(
+        polymer, num_times=40
+    )
+    assert char_count["B"] == 2192039569602
+    assert char_count["H"] == 3849876073

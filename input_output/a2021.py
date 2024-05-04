@@ -302,15 +302,19 @@ def aoc_2021_d13(file_name: str, parser: FileParser, **_):
 def aoc_2021_d14(file_name: str, parser: FileParser, **_):
     polymer, rules = parser.parse_polymer_and_polymer_extension_rules(file_name)
     extension = PolymerExtension(rules)
-    extended = extension.extend_multiple_times(polymer, num_times=10)
-    character_count = {
-        character: extended.count(character) for character in set(extended)
-    }
-    most_common_count = max(character_count.values())
-    least_common_count = min(character_count.values())
-    difference = most_common_count - least_common_count
+    character_count = extension.character_count_after_multiple_extensions(
+        polymer, num_times=10
+    )
+    difference = max(character_count.values()) - min(character_count.values())
     print(
-        f"AOC 2021 Day 14/Part 1: The difference between the most and least common characters is {difference}"
+        f"AOC 2021 Day 14/Part 1: The difference between the most and least common characters is after 10 steps {difference}"
+    )
+    character_count = extension.character_count_after_multiple_extensions(
+        polymer, num_times=40
+    )
+    difference = max(character_count.values()) - min(character_count.values())
+    print(
+        f"AOC 2021 Day 14/Part 2: The difference between the most and least common characters is after 40 steps {difference}"
     )
 
 
