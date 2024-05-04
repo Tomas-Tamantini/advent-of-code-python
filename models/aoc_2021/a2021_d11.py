@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.vectors import Vector2D
+from models.vectors import Vector2D, BoundingBox
 
 
 class OctopusesFlashes:
@@ -64,3 +64,17 @@ class OctopusesFlashes:
     def multi_step(self, num_steps: int) -> None:
         for _ in range(num_steps):
             self.step()
+
+    def render(self) -> str:
+        bounding_box = BoundingBox.from_points(self._energy_levels.keys())
+        min_x, max_x = bounding_box.min_x, bounding_box.max_x
+        min_y, max_y = bounding_box.min_y, bounding_box.max_y
+        rows = []
+        for y in range(min_y, max_y + 1):
+            current_row = ""
+            for x in range(min_x, max_x + 1):
+                pos = Vector2D(x, y)
+                energy_level = self._energy_levels.get(pos, 0)
+                current_row += str(energy_level)
+            rows.append(current_row)
+        return "\n".join(rows)

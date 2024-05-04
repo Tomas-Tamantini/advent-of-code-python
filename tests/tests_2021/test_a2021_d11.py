@@ -65,3 +65,15 @@ def test_octopus_can_all_flashes_at_the_same_time():
     assert not octopuses.all_octopuses_flashed_last_step
     octopuses.step()
     assert octopuses.all_octopuses_flashed_last_step
+
+
+def test_octopuses_flashes_can_be_rendered():
+    grid = CharacterGrid(
+        """767
+           686
+           767"""
+    )
+    octopuses = OctopusesFlashes(
+        energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
+    )
+    assert octopuses.render() == "767\n686\n767"

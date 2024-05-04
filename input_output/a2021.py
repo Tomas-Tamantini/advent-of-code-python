@@ -1,5 +1,6 @@
 from typing import Iterable
 from collections import defaultdict
+from input_output.animation import render_frame
 from input_output.file_parser import FileParser
 from models.char_grid import CharacterGrid
 from models.aoc_2021 import (
@@ -232,7 +233,7 @@ def aoc_2021_d10(file_name: str, **_):
 
 
 # AOC 2021 - Day 11: Dumbo Octopus
-def aoc_2021_d11(file_name: str, **_):
+def aoc_2021_d11(file_name: str, animate: bool, **_):
     grid = CharacterGrid.from_txt_file(file_name)
     octopuses = OctopusesFlashes(
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
@@ -249,8 +250,12 @@ def aoc_2021_d11(file_name: str, **_):
     while not octopuses.all_octopuses_flashed_last_step:
         current_step += 1
         octopuses.step()
+        if animate:
+            frame = octopuses.render() + f"\nStep: {current_step}"
+            render_frame(frame, sleep_seconds=0.05)
+    animation_msg = "" if animate else " (SET FLAG --animate TO SEE COOL ANIMATION)"
     print(
-        f"AOC 2021 Day 11/Part 2: The number of steps until all octopuses flash is {current_step}"
+        f"AOC 2021 Day 11/Part 2:{animation_msg} The number of steps until all octopuses flash is {current_step}"
     )
 
 
