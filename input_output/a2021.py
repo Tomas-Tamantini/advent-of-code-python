@@ -20,6 +20,7 @@ from models.aoc_2021 import (
     UnderwaterCaveExplorer,
     PolymerExtension,
     UnderwaterCaveMaze,
+    PacketParser,
 )
 
 
@@ -346,7 +347,11 @@ def aoc_2021_d15(file_name: str, **_):
 
 
 # AOC 2021 - Day 16: Packet Decoder
-def aoc_2021_d16(file_name: str, **_): ...
+def aoc_2021_d16(file_name: str, **_):
+    with open(file_name) as file:
+        packet_as_hex = file.read().strip()
+    packet = PacketParser().parse_packet(packet_as_hex)
+    print(f"AOC 2021 Day 16/Part 1: The sum of all versions is { packet.version_sum()}")
 
 
 # AOC 2021 - Day 17: Trick Shot
