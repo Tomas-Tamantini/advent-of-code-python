@@ -1,52 +1,11 @@
-from typing import Protocol, Iterator, Optional
-from dataclasses import dataclass
+from typing import Iterator
 from enum import Enum
+from .packets import Packet, LiteralPacket, RecursivePacket
 
 
 class LengthType(Enum):
     TOTAL_LENGTH_IN_BITS = 0
     NUM_SUBPACKETS = 1
-
-
-class Packet(Protocol):
-    @property
-    def version_number(self) -> int: ...
-
-    @property
-    def type_id(self) -> int: ...
-
-    def value(self) -> int: ...
-
-    def version_sum(self) -> int: ...
-
-
-@dataclass(frozen=True)
-class LiteralPacket:
-    version_number: int
-    type_id: int
-    literal_value: int
-
-    def value(self) -> int:
-        return self.literal_value
-
-    def version_sum(self) -> int:
-        return self.version_number
-
-
-@dataclass(frozen=True)
-class RecursivePacket:
-    version_number: int
-    type_id: int
-    length_type: LengthType
-    subpackets: tuple[Packet, ...]
-
-    def value(self) -> int:
-        raise NotImplementedError()
-
-    def version_sum(self) -> int:
-        return self.version_number + sum(
-            packet.version_sum() for packet in self.subpackets
-        )
 
 
 class PacketParser:
@@ -101,7 +60,6 @@ class PacketParser:
         if type_id == 4:
             return LiteralPacket(
                 version_number,
-                type_id,
                 literal_value=self._literal_value(),
             )
         else:
@@ -109,8 +67,6 @@ class PacketParser:
             subpackets = self._subpackets(length_type=length_type)
             return RecursivePacket(
                 version_number,
-                type_id,
-                length_type,
                 subpackets=tuple(subpackets),
             )
 
