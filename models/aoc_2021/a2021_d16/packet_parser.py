@@ -1,11 +1,23 @@
 from typing import Iterator
 from enum import Enum
+from math import prod
 from .packets import Packet, LiteralPacket, RecursivePacket
 
 
 class LengthType(Enum):
     TOTAL_LENGTH_IN_BITS = 0
     NUM_SUBPACKETS = 1
+
+
+_OPERATIONS = {
+    0: sum,
+    1: prod,
+    2: min,
+    3: max,
+    5: lambda numbers: int(numbers[0] > numbers[1]),
+    6: lambda numbers: int(numbers[0] < numbers[1]),
+    7: lambda numbers: int(numbers[0] == numbers[1]),
+}
 
 
 class PacketParser:
@@ -68,6 +80,7 @@ class PacketParser:
             return RecursivePacket(
                 version_number,
                 subpackets=tuple(subpackets),
+                operation=_OPERATIONS[type_id],
             )
 
     def parse_packet(self, packet_as_hex: str) -> Packet:

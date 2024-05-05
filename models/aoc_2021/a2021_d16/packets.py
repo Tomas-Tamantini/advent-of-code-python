@@ -1,4 +1,4 @@
-from typing import Protocol
+from typing import Protocol, Callable
 from dataclasses import dataclass
 
 
@@ -27,9 +27,10 @@ class LiteralPacket:
 class RecursivePacket:
     version_number: int
     subpackets: tuple[Packet, ...]
+    operation: Callable[[tuple[int]], int]
 
     def evaluate(self) -> int:
-        raise NotImplementedError()
+        return self.operation(tuple(packet.evaluate() for packet in self.subpackets))
 
     def version_sum(self) -> int:
         return self.version_number + sum(
