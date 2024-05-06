@@ -23,3 +23,4 @@ from .a2021_d13 import FoldInstruction
 from .a2021_d14 import PolymerExtension
 from .a2021_d15 import UnderwaterCaveMaze
 from .a2021_d16 import PacketParser
+from .a2021_d17 import UnderwaterProjectile

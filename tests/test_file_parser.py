@@ -9,6 +9,7 @@ from models.vectors import (
     TurnDirection,
     Vector3D,
     HexagonalDirection,
+    BoundingBox,
 )
 from models.assembly import (
     CopyInstruction,
@@ -1652,3 +1653,12 @@ def test_parse_polymer_and_polymer_extension_rules():
         "CH": "B",
         "HH": "N",
     }
+
+
+def test_parse_bounding_box():
+    file_content = "target area: x=244..303, y=-91..-54"
+    file_parser = mock_file_parser(file_content)
+    bounding_box = file_parser.parse_bounding_box("some_file")
+    assert bounding_box == BoundingBox(
+        bottom_left=Vector2D(244, -91), top_right=Vector2D(303, -54)
+    )

@@ -21,6 +21,7 @@ from models.aoc_2021 import (
     PolymerExtension,
     UnderwaterCaveMaze,
     PacketParser,
+    UnderwaterProjectile,
 )
 
 
@@ -358,7 +359,17 @@ def aoc_2021_d16(file_name: str, **_):
 
 
 # AOC 2021 - Day 17: Trick Shot
-def aoc_2021_d17(file_name: str, **_): ...
+def aoc_2021_d17(file_name: str, parser: FileParser, **_):
+    target = parser.parse_bounding_box(file_name)
+    all_velocities = list(UnderwaterProjectile.velocities_to_reach_target(target))
+    max_y_velocity = max(velocity.y for velocity in all_velocities)
+    max_height = UnderwaterProjectile.maximum_height(max_y_velocity)
+    print(
+        f"AOC 2021 Day 17/Part 1: The maximum height of the projectile is {max_height}"
+    )
+    print(
+        f"AOC 2021 Day 17/Part 2: The number of different velocities to reach the target is {len(all_velocities)}"
+    )
 
 
 # AOC 2021 - Day 18: Snailfish

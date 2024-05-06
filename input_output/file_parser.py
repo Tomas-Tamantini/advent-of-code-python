@@ -11,6 +11,7 @@ from models.vectors import (
     TurnDirection,
     Vector3D,
     HexagonalDirection,
+    BoundingBox,
 )
 from models.char_grid import CharacterGrid
 from models.assembly import (
@@ -1625,3 +1626,15 @@ class FileParser:
                     polymer = line.strip()
 
         return polymer, rules
+
+    def parse_bounding_box(self, file_name: str) -> BoundingBox:
+        """target area: x=244..303, y=-91..-54"""
+        line = self._file_reader.read(file_name).strip()
+        parts = line.split(",")
+        x_parts = parts[0].split("=")[-1]
+        y_parts = parts[1].split("=")[-1]
+        x_min, x_max = map(int, x_parts.split(".."))
+        y_min, y_max = map(int, y_parts.split(".."))
+        return BoundingBox(
+            bottom_left=Vector2D(x_min, y_min), top_right=Vector2D(x_max, y_max)
+        )
