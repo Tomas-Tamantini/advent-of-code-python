@@ -309,14 +309,14 @@ def aoc_2021_d14(file_name: str, parser: FileParser, **_):
     )
     difference = max(character_count.values()) - min(character_count.values())
     print(
-        f"AOC 2021 Day 14/Part 1: The difference between the most and least common characters is after 10 steps {difference}"
+        f"AOC 2021 Day 14/Part 1: The difference between the most and least common characters after 10 steps is {difference}"
     )
     character_count = extension.character_count_after_multiple_extensions(
         polymer, num_times=40
     )
     difference = max(character_count.values()) - min(character_count.values())
     print(
-        f"AOC 2021 Day 14/Part 2: The difference between the most and least common characters is after 40 steps {difference}"
+        f"AOC 2021 Day 14/Part 2: The difference between the most and least common characters after 40 steps is {difference}"
     )
 
 
