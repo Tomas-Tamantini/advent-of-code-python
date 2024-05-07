@@ -23,6 +23,13 @@ class Vector3D:
                         continue
                     yield Vector3D(self.x + dx, self.y + dy, self.z + dz)
 
+    def vector_product(self, other: "Vector3D") -> "Vector3D":
+        return Vector3D(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x,
+        )
+
     def __getitem__(self, item):
         if item == 0:
             return self.x
@@ -42,3 +49,12 @@ class Vector3D:
 
     def __sub__(self, other: "Vector3D") -> "Vector3D":
         return Vector3D(self.x - other.x, self.y - other.y, self.z - other.z)
+
+    def __neg__(self) -> "Vector3D":
+        return Vector3D(-self.x, -self.y, -self.z)
+
+    def __mul__(self, scalar: int) -> "Vector3D":
+        return Vector3D(self.x * scalar, self.y * scalar, self.z * scalar)
+
+    def __rmul__(self, scalar: int) -> "Vector3D":
+        return self.__mul__(scalar)

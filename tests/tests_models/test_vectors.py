@@ -235,8 +235,39 @@ def test_can_subtract_vectors_3d_from_each_other():
     assert Vector3D(1, 2, 3) - Vector3D(3, 2, 1) == Vector3D(-2, 0, 2)
 
 
+def test_3d_vector_can_be_negated():
+    assert -Vector3D(1, 2, 3) == Vector3D(-1, -2, -3)
+
+
+def test_3d_vector_can_be_multiplied_by_a_scalar():
+    assert Vector3D(1, 2, 3) * 3 == 3 * Vector3D(1, 2, 3) == Vector3D(3, 6, 9)
+
+
 def test_3d_vector_has_26_adjacent_positions():
     assert len(list(Vector3D(0, 0, 0).adjacent_positions())) == 26
+
+
+def test_vector_product_of_3d_vectors_is_anti_commutative():
+    vec_a = Vector3D(1, 2, 3)
+    vec_b = Vector3D(4, 5, 6)
+    assert vec_a.vector_product(vec_b) == Vector3D(-3, 6, -3)
+    assert vec_b.vector_product(vec_a) == Vector3D(3, -6, 3)
+
+
+def test_3d_vectors_can_be_sorted_lexicographically():
+    assert sorted(
+        [
+            Vector3D(1, 2, 3),
+            Vector3D(2, 1, 3),
+            Vector3D(1, 2, 4),
+            Vector3D(1, 3, 3),
+        ]
+    ) == [
+        Vector3D(1, 2, 3),
+        Vector3D(1, 2, 4),
+        Vector3D(1, 3, 3),
+        Vector3D(2, 1, 3),
+    ]
 
 
 def test_n_dimensional_vector_can_be_compared_for_equality():
