@@ -25,3 +25,4 @@ from .a2021_d15 import UnderwaterCaveMaze
 from .a2021_d16 import PacketParser
 from .a2021_d17 import UnderwaterProjectile
 from .a2021_d18 import SnailFishTree
+from .a2021_d19 import Orientation
