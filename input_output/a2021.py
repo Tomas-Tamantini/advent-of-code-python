@@ -22,6 +22,7 @@ from models.aoc_2021 import (
     UnderwaterCaveMaze,
     PacketParser,
     UnderwaterProjectile,
+    SnailFishTree,
 )
 
 
@@ -373,7 +374,16 @@ def aoc_2021_d17(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 18: Snailfish
-def aoc_2021_d18(file_name: str, **_): ...
+def aoc_2021_d18(file_name: str, **_):
+    with open(file_name) as file:
+        lines = file.readlines()
+    lists = [eval(line.strip()) for line in lines]
+    acc = SnailFishTree.from_list(lists[0])
+    for lst in lists[1:]:
+        acc = acc + SnailFishTree.from_list(lst)
+    print(
+        f"AOC 2021 Day 18/Part 1: The magnitude of the snailfish is {acc.magnitude()}"
+    )
 
 
 # AOC 2021 - Day 19: Beacon Scanner
