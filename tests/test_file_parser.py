@@ -1697,3 +1697,15 @@ def test_parse_underwater_scanners():
             ),
         ),
     ]
+
+
+def test_parse_trench_rules_and_trench_map():
+    file_content = """..#.#......#..#
+
+                      #..#.
+                      #....
+                      """
+    file_parser = mock_file_parser(file_content)
+    trench_rule, trench_map = file_parser.parse_trench_rules_and_trench_map("some_file")
+    assert trench_rule == {2, 4, 11, 14}
+    assert trench_map == {Vector2D(0, 0), Vector2D(3, 0), Vector2D(0, 1)}

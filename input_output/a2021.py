@@ -25,6 +25,7 @@ from models.aoc_2021 import (
     UnderwaterProjectile,
     SnailFishTree,
     pinpoint_scanners,
+    TrenchMapAutomaton,
 )
 
 
@@ -424,7 +425,15 @@ def aoc_2021_d19(
 
 
 # AOC 2021 - Day 20: Trench Map
-def aoc_2021_d20(file_name: str, **_): ...
+def aoc_2021_d20(file_name: str, parser: FileParser, **_):
+    live_cell_configurations, lit_pixels = parser.parse_trench_rules_and_trench_map(
+        file_name
+    )
+    automaton = TrenchMapAutomaton(live_cell_configurations)
+    new_lit_pixels = automaton.multi_step(lit_pixels, num_steps=2)
+    print(
+        f"AOC 2021 Day 20/Part 1: The number of lit pixels after two steps is {len(new_lit_pixels)}"
+    )
 
 
 # AOC 2021 - Day 21: Dirac Dice

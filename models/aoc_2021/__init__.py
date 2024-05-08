@@ -30,3 +30,4 @@ from .a2021_d19 import (
     UnderwaterScanner,
     pinpoint_scanners,
 )
+from .a2021_d20 import TrenchMapAutomaton
