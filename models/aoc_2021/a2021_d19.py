@@ -1,31 +1,88 @@
-from models.vectors import Vector3D
 from dataclasses import dataclass
-
-grid_axes = (Vector3D(1, 0, 0), Vector3D(0, 1, 0), Vector3D(0, 0, 1))
+from typing import Iterator, Optional
+from collections import defaultdict
+from models.vectors import Vector3D, Orientation
 
 
 @dataclass(frozen=True)
-class Orientation:
-    x_prime: Vector3D
-    y_prime: Vector3D
+class UnderwaterScanner:
+    scanner_id: int
+    visible_beacons_relative_coordinates: tuple[Vector3D]
 
-    @property
-    def z_prime(self) -> Vector3D:
-        return self.x_prime.vector_product(self.y_prime)
 
-    def to_absolute_coordinates(self, relative_coordinates: Vector3D) -> Vector3D:
-        return (
-            relative_coordinates.x * self.x_prime
-            + relative_coordinates.y * self.y_prime
-            + relative_coordinates.z * self.z_prime
+@dataclass(frozen=True)
+class PinpointedScanner:
+    scanner_id: int
+    visible_beacons_relative_coordinates: tuple[Vector3D]
+    position: Vector3D
+    orientation: Orientation
+
+    def visible_beacons_absolute_coordinates(self) -> Iterator[Vector3D]:
+        for beacon in self.visible_beacons_relative_coordinates:
+            yield self.position + self.orientation.to_absolute_coordinates(beacon)
+
+    def _most_common_offset(
+        self, other: UnderwaterScanner, orientation: Orientation
+    ) -> tuple[Vector3D, int]:
+        offset_count = defaultdict(int)
+        for my_beacon in self.visible_beacons_absolute_coordinates():
+            for other_beacon in other.visible_beacons_relative_coordinates:
+                transformed_other_beacon = orientation.to_absolute_coordinates(
+                    other_beacon
+                )
+                offset_count[my_beacon - transformed_other_beacon] += 1
+        most_common_offset = max(offset_count, key=offset_count.get)
+        return most_common_offset, offset_count[most_common_offset]
+
+    def pinpoint(
+        self, other: UnderwaterScanner, min_num_matching_beacons: int
+    ) -> Optional["PinpointedScanner"]:
+        for orientation in Orientation.all_orientations_aligned_with_grid_axes():
+            most_common_offset, offset_count = self._most_common_offset(
+                other, orientation
+            )
+            if offset_count >= min_num_matching_beacons:
+                return PinpointedScanner(
+                    scanner_id=other.scanner_id,
+                    position=most_common_offset,
+                    orientation=orientation,
+                    visible_beacons_relative_coordinates=other.visible_beacons_relative_coordinates,
+                )
+
+
+def pinpoint_scanners(
+    scanners: list[UnderwaterScanner], min_num_matching_beacons: int
+) -> list[PinpointedScanner]:
+    if not scanners:
+        return []
+    reference_scanner = scanners[0]
+    reference_scanner = PinpointedScanner(
+        scanner_id=reference_scanner.scanner_id,
+        visible_beacons_relative_coordinates=reference_scanner.visible_beacons_relative_coordinates,
+        position=Vector3D(0, 0, 0),
+        orientation=Orientation(x_prime=Vector3D(1, 0, 0), y_prime=Vector3D(0, 1, 0)),
+    )
+    pinpointed_scanners = [reference_scanner]
+    remaining_scanners = scanners[1:]
+    while remaining_scanners:
+        new_pinpointed, scanner_to_remove = _pinpoint_new_scanner(
+            min_num_matching_beacons, pinpointed_scanners, remaining_scanners
         )
+        pinpointed_scanners.append(new_pinpointed)
+        remaining_scanners.remove(scanner_to_remove)
 
-    @classmethod
-    def all_orientations_aligned_with_grid_axes(cls):
-        for x_prime in grid_axes:
-            for y_prime in grid_axes:
-                if x_prime != y_prime:
-                    yield cls(x_prime, y_prime)
-                    yield cls(x_prime, -y_prime)
-                    yield cls(-x_prime, y_prime)
-                    yield cls(-x_prime, -y_prime)
+    return pinpointed_scanners
+
+
+def _pinpoint_new_scanner(
+    min_num_matching_beacons: int,
+    pinpointed_scanners: list[PinpointedScanner],
+    remaining_scanners: list[UnderwaterScanner],
+) -> tuple[PinpointedScanner, UnderwaterScanner]:
+    for remaining_scanner in remaining_scanners:
+        for pinpointed_scanner in pinpointed_scanners:
+            new_pinpointed = pinpointed_scanner.pinpoint(
+                remaining_scanner, min_num_matching_beacons
+            )
+            if new_pinpointed is not None:
+                return new_pinpointed, remaining_scanner
