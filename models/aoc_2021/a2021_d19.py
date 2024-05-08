@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Iterator, Optional
 from collections import defaultdict
 from models.vectors import Vector3D, Orientation
+from models.progress_bar_protocol import ProgressBar
 
 
 @dataclass(frozen=True)
@@ -51,7 +52,9 @@ class PinpointedScanner:
 
 
 def pinpoint_scanners(
-    scanners: list[UnderwaterScanner], min_num_matching_beacons: int
+    scanners: list[UnderwaterScanner],
+    min_num_matching_beacons: int,
+    progress_bar: Optional[ProgressBar] = None,
 ) -> list[PinpointedScanner]:
     if not scanners:
         return []
@@ -65,6 +68,8 @@ def pinpoint_scanners(
     pinpointed_scanners = [reference_scanner]
     remaining_scanners = scanners[1:]
     while remaining_scanners:
+        if progress_bar:
+            progress_bar.update(len(scanners) - len(remaining_scanners), len(scanners))
         new_pinpointed, scanner_to_remove = _pinpoint_new_scanner(
             min_num_matching_beacons, pinpointed_scanners, remaining_scanners
         )

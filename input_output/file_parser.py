@@ -168,6 +168,7 @@ from models.aoc_2021 import (
     ShuffledSevenDigitDisplay,
     UnderwaterCave,
     FoldInstruction,
+    UnderwaterScanner,
 )
 
 
@@ -1638,3 +1639,22 @@ class FileParser:
         return BoundingBox(
             bottom_left=Vector2D(x_min, y_min), top_right=Vector2D(x_max, y_max)
         )
+
+    def parse_underwater_scanners(self, file_name: str) -> Iterator[UnderwaterScanner]:
+        current_positions = []
+        current_scanner_id = -1
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                if "scanner" in line:
+                    if current_positions:
+                        yield UnderwaterScanner(
+                            current_scanner_id, tuple(current_positions)
+                        )
+                    current_scanner_id = int(line.strip().split()[2])
+                    current_positions = []
+                else:
+                    current_positions.append(
+                        Vector3D(*map(int, line.strip().split(",")))
+                    )
+        if current_positions:
+            yield UnderwaterScanner(current_scanner_id, tuple(current_positions))

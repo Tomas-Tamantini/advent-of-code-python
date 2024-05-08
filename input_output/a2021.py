@@ -2,6 +2,7 @@ from typing import Iterable
 from collections import defaultdict
 from input_output.animation import render_frame
 from input_output.file_parser import FileParser
+from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
 from models.vectors import Vector2D, BoundingBox
 from models.aoc_2021 import (
@@ -23,6 +24,7 @@ from models.aoc_2021 import (
     PacketParser,
     UnderwaterProjectile,
     SnailFishTree,
+    pinpoint_scanners,
 )
 
 
@@ -400,7 +402,25 @@ def aoc_2021_d18(file_name: str, **_):
 
 
 # AOC 2021 - Day 19: Beacon Scanner
-def aoc_2021_d19(file_name: str, **_): ...
+def aoc_2021_d19(
+    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
+):
+    scanners = list(parser.parse_underwater_scanners(file_name))
+    pinpointed = pinpoint_scanners(
+        scanners, min_num_matching_beacons=12, progress_bar=progress_bar
+    )
+    all_beacons = set()
+    for scanner in pinpointed:
+        all_beacons.update(scanner.visible_beacons_absolute_coordinates())
+    print(f"AOC 2021 Day 19/Part 1: The number of beacons is {len(all_beacons)}")
+    max_distance = max(
+        scanner_a.position.manhattan_distance(scanner_b.position)
+        for scanner_a in pinpointed
+        for scanner_b in pinpointed
+    )
+    print(
+        f"AOC 2021 Day 19/Part 2: The maximum distance between any two scanners is {max_distance}"
+    )
 
 
 # AOC 2021 - Day 20: Trench Map
