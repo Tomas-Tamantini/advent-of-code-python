@@ -151,7 +151,7 @@ def test_all_underwater_scanners_in_a_list_are_pinpointed_by_finding_matching_be
     scanners = [
         UnderwaterScanner(
             scanner_id=0,
-            visible_beacons_relative_coordinates=[
+            visible_beacons_relative_coordinates=(
                 Vector3D(404, -588, -901),
                 Vector3D(528, -643, 409),
                 Vector3D(-838, 591, 734),
@@ -177,11 +177,11 @@ def test_all_underwater_scanners_in_a_list_are_pinpointed_by_finding_matching_be
                 Vector3D(443, 580, 662),
                 Vector3D(-789, 900, -551),
                 Vector3D(459, -707, 401),
-            ],
+            ),
         ),
         UnderwaterScanner(
             scanner_id=1,
-            visible_beacons_relative_coordinates=[
+            visible_beacons_relative_coordinates=(
                 Vector3D(686, 422, 578),
                 Vector3D(605, 423, 415),
                 Vector3D(515, 917, -361),
@@ -207,11 +207,11 @@ def test_all_underwater_scanners_in_a_list_are_pinpointed_by_finding_matching_be
                 Vector3D(807, -499, -711),
                 Vector3D(755, -354, -619),
                 Vector3D(553, 889, -390),
-            ],
+            ),
         ),
         UnderwaterScanner(
             scanner_id=2,
-            visible_beacons_relative_coordinates=[
+            visible_beacons_relative_coordinates=(
                 Vector3D(649, 640, 665),
                 Vector3D(682, -795, 504),
                 Vector3D(-784, 533, -524),
@@ -238,11 +238,11 @@ def test_all_underwater_scanners_in_a_list_are_pinpointed_by_finding_matching_be
                 Vector3D(673, -379, -804),
                 Vector3D(-742, -814, -386),
                 Vector3D(577, -820, 562),
-            ],
+            ),
         ),
         UnderwaterScanner(
             scanner_id=3,
-            visible_beacons_relative_coordinates=[
+            visible_beacons_relative_coordinates=(
                 Vector3D(-589, 542, 597),
                 Vector3D(605, -692, 669),
                 Vector3D(-500, 565, -823),
@@ -268,11 +268,11 @@ def test_all_underwater_scanners_in_a_list_are_pinpointed_by_finding_matching_be
                 Vector3D(-868, -804, 481),
                 Vector3D(614, -800, 639),
                 Vector3D(595, 780, -596),
-            ],
+            ),
         ),
         UnderwaterScanner(
             scanner_id=4,
-            visible_beacons_relative_coordinates=[
+            visible_beacons_relative_coordinates=(
                 Vector3D(727, 592, 562),
                 Vector3D(-293, -554, 779),
                 Vector3D(441, 611, -461),
@@ -299,7 +299,7 @@ def test_all_underwater_scanners_in_a_list_are_pinpointed_by_finding_matching_be
                 Vector3D(891, -625, 532),
                 Vector3D(-652, -548, -490),
                 Vector3D(30, -46, -14),
-            ],
+            ),
         ),
     ]
     pinpointed = pinpoint_scanners(scanners, min_num_matching_beacons=12)
