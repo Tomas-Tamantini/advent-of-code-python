@@ -67,11 +67,12 @@ def pinpoint_scanners(
     )
     pinpointed_scanners = [reference_scanner]
     remaining_scanners = scanners[1:]
+    bad_pairs = set()
     while remaining_scanners:
         if progress_bar:
             progress_bar.update(len(scanners) - len(remaining_scanners), len(scanners))
         new_pinpointed, scanner_to_remove = _pinpoint_new_scanner(
-            min_num_matching_beacons, pinpointed_scanners, remaining_scanners
+            min_num_matching_beacons, pinpointed_scanners, remaining_scanners, bad_pairs
         )
         pinpointed_scanners.append(new_pinpointed)
         remaining_scanners.remove(scanner_to_remove)
@@ -83,11 +84,16 @@ def _pinpoint_new_scanner(
     min_num_matching_beacons: int,
     pinpointed_scanners: list[PinpointedScanner],
     remaining_scanners: list[UnderwaterScanner],
+    bad_pairs: set[tuple[PinpointedScanner, UnderwaterScanner]],
 ) -> tuple[PinpointedScanner, UnderwaterScanner]:
     for remaining_scanner in remaining_scanners:
         for pinpointed_scanner in pinpointed_scanners:
+            if (pinpointed_scanner, remaining_scanner) in bad_pairs:
+                continue
             new_pinpointed = pinpointed_scanner.pinpoint(
                 remaining_scanner, min_num_matching_beacons
             )
-            if new_pinpointed is not None:
+            if new_pinpointed is None:
+                bad_pairs.add((pinpointed_scanner, remaining_scanner))
+            else:
                 return new_pinpointed, remaining_scanner
