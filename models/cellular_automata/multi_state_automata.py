@@ -9,6 +9,7 @@ CellType = Hashable
 
 @dataclass
 class MultiStateCellVicinity:
+    center_cell: Cell
     center_cell_type: CellType
     neighbors: dict[Cell:CellType]
 
@@ -50,6 +51,7 @@ def multi_state_automaton_next_state(
 
     for cell in all_cells:
         vicinity = MultiStateCellVicinity(
+            center_cell=cell,
             center_cell_type=cells.get(cell, automaton.default_cell_type),
             neighbors=neighbors_by_cell[cell],
         )
