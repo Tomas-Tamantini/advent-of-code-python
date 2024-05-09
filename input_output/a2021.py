@@ -430,7 +430,7 @@ def aoc_2021_d20(file_name: str, parser: FileParser, **_):
         file_name
     )
     automaton = TrenchMapAutomaton(lit_cell_configurations)
-    num_lit = automaton.num_lit_cells_after(num_steps=2, initial_state=lit_cells)
+    num_lit = automaton.num_lit_cells_after(num_steps=2, initial_lit_cells=lit_cells)
     print(
         f"AOC 2021 Day 20/Part 1: The number of lit cells after two steps is {num_lit}"
     )
