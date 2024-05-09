@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Optional
 from math import inf
 from enum import Enum
 from models.vectors import Vector2D
@@ -6,6 +6,7 @@ from models.cellular_automata import (
     multi_state_automaton_next_state,
     MultiStateCellVicinity,
 )
+from models.progress_bar_protocol import ProgressBar
 
 
 class _CellType(int, Enum):
@@ -71,7 +72,10 @@ class TrenchMapAutomaton:
         )
 
     def num_lit_cells_after(
-        self, num_steps: int, initial_lit_cells: set[Vector2D]
+        self,
+        num_steps: int,
+        initial_lit_cells: set[Vector2D],
+        progress_bar: Optional[ProgressBar] = None,
     ) -> int:
         if self._lit_is_the_default_type(num_steps):
             return inf
@@ -80,5 +84,7 @@ class TrenchMapAutomaton:
         for _ in range(num_steps):
             state = self.next_state(state)
             self._iteration += 1
+            if progress_bar:
+                progress_bar.update(self._iteration, num_steps)
         lit_cells = {c for c, status in state.items() if status == _CellType.LIT}
         return len(lit_cells)

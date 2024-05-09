@@ -425,7 +425,9 @@ def aoc_2021_d19(
 
 
 # AOC 2021 - Day 20: Trench Map
-def aoc_2021_d20(file_name: str, parser: FileParser, **_):
+def aoc_2021_d20(
+    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
+):
     lit_cell_configurations, lit_cells = parser.parse_trench_rules_and_trench_map(
         file_name
     )
@@ -433,6 +435,12 @@ def aoc_2021_d20(file_name: str, parser: FileParser, **_):
     num_lit = automaton.num_lit_cells_after(num_steps=2, initial_lit_cells=lit_cells)
     print(
         f"AOC 2021 Day 20/Part 1: The number of lit cells after two steps is {num_lit}"
+    )
+    num_lit = automaton.num_lit_cells_after(
+        num_steps=50, initial_lit_cells=lit_cells, progress_bar=progress_bar
+    )
+    print(
+        f"AOC 2021 Day 20/Part 2: The number of lit cells after 50 steps is {num_lit}"
     )
 
 
