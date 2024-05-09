@@ -7,8 +7,8 @@ from models.cellular_automata import (
 
 
 class TrenchMapAutomaton:
-    def __init__(self, live_cell_configurations: set[int]) -> None:
-        self._live_cell_configurations = live_cell_configurations
+    def __init__(self, lit_cell_configurations: set[int]) -> None:
+        self._live_cell_configurations = lit_cell_configurations
 
     def is_within_bounds(self, cell: Vector2D) -> bool:
         return True
@@ -35,8 +35,8 @@ class TrenchMapAutomaton:
     def next_state(self, live_cells: set[Vector2D]) -> set[Vector2D]:
         return two_state_automaton_next_state(self, live_cells)
 
-    def multi_step(self, initial_state: set[Vector2D], num_steps: int) -> set[Vector2D]:
+    def num_lit_cells_after(self, num_steps: int, initial_state: set[Vector2D]) -> int:
         state = initial_state
         for _ in range(num_steps):
             state = self.next_state(state)
-        return state
+        return len(state)

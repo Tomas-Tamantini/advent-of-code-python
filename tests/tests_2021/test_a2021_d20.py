@@ -4,14 +4,14 @@ from models.aoc_2021 import TrenchMapAutomaton
 
 def test_trench_map_automaton_with_empty_rule_set_returns_empty_set():
     automaton = TrenchMapAutomaton(
-        live_cell_configurations=set(),
+        lit_cell_configurations=set(),
     )
     assert automaton.next_state({Vector2D(1, 2), Vector2D(2, 3)}) == set()
 
 
 def test_trench_map_automaton_considers_9_cells_surrounding_given_cell_and_turn_to_binary_number():
     automaton = TrenchMapAutomaton(
-        live_cell_configurations={0b000_010_000, 0b000_000_001},
+        lit_cell_configurations={0b000_010_000, 0b000_000_001},
     )
     assert automaton.next_state({Vector2D(10, 20)}) == {
         Vector2D(10, 20),
@@ -43,7 +43,5 @@ def test_trench_map_automaton_can_run_multiple_steps():
         Vector2D(4, 4),
     }
     automaton = TrenchMapAutomaton(live_cell_configurations)
-    state_after_one_step = automaton.multi_step(initial_state, 1)
-    assert len(state_after_one_step) == 24
-    state_after_two_steps = automaton.multi_step(initial_state, 2)
-    assert len(state_after_two_steps) == 35
+    assert automaton.num_lit_cells_after(num_steps=1, initial_state=initial_state) == 24
+    assert automaton.num_lit_cells_after(num_steps=2, initial_state=initial_state) == 35
