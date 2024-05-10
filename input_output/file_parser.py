@@ -1674,3 +1674,7 @@ class FileParser:
                     trench_map.update(Vector2D(i, current_row) for i in active_columns)
                     current_row += 1
         return trench_rules, trench_map
+
+    def parse_players_starting_positions(self, file_name: str) -> tuple[int, int]:
+        lines = list(self._file_reader.readlines(file_name))
+        return tuple(int(line.strip().split()[-1]) for line in lines)

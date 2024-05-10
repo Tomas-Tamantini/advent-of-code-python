@@ -26,6 +26,8 @@ from models.aoc_2021 import (
     SnailFishTree,
     pinpoint_scanners,
     TrenchMapAutomaton,
+    play_deterministic_dirac_dice,
+    DiracDiceStartingConfiguration,
 )
 
 
@@ -445,7 +447,16 @@ def aoc_2021_d20(
 
 
 # AOC 2021 - Day 21: Dirac Dice
-def aoc_2021_d21(file_name: str, **_): ...
+def aoc_2021_d21(file_name: str, parser: FileParser, **_):
+    starting_spaces = parser.parse_players_starting_positions(file_name)
+    starting_configuration = DiracDiceStartingConfiguration(
+        board_size=10, goal_score=1000, starting_spaces=starting_spaces
+    )
+    final_state = play_deterministic_dirac_dice(starting_configuration)
+    result = final_state.worst_score * final_state.num_dice_rolls
+    print(
+        f"AOC 2021 Day 21/Part 1: The product of the worst score and number of dice rolls is {result}"
+    )
 
 
 # AOC 2021 - Day 22: Reactor Reboot
