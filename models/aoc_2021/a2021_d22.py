@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator, Optional, Iterable
+from math import prod
 from models.vectors import Vector3D
 
 
@@ -9,42 +10,20 @@ class Cuboid:
     range_end: Vector3D
 
     def volume(self) -> int:
-        return (
-            (self.range_end.x - self.range_start.x + 1)
-            * (self.range_end.y - self.range_start.y + 1)
-            * (self.range_end.z - self.range_start.z + 1)
-        )
+        return prod(self.range_end[i] - self.range_start[i] + 1 for i in range(3))
 
     def all_coords_are_between(self, min_val: int, max_val: int) -> bool:
         return all(
             min_val <= coord <= max_val
-            for coord in (
-                self.range_start.x,
-                self.range_start.y,
-                self.range_start.z,
-                self.range_end.x,
-                self.range_end.y,
-                self.range_end.z,
-            )
+            for coord in (*self.range_start, *self.range_end)
         )
 
     def intersect(self, other: "Cuboid") -> Optional["Cuboid"]:
-        new_min_x = max(self.range_start.x, other.range_start.x)
-        new_max_x = min(self.range_end.x, other.range_end.x)
-        if new_min_x > new_max_x:
+        new_min = [max(self.range_start[i], other.range_start[i]) for i in range(3)]
+        new_max = [min(self.range_end[i], other.range_end[i]) for i in range(3)]
+        if any(new_min[i] > new_max[i] for i in range(3)):
             return None
-        new_min_y = max(self.range_start.y, other.range_start.y)
-        new_max_y = min(self.range_end.y, other.range_end.y)
-        if new_min_y > new_max_y:
-            return None
-        new_min_z = max(self.range_start.z, other.range_start.z)
-        new_max_z = min(self.range_end.z, other.range_end.z)
-        if new_min_z > new_max_z:
-            return None
-        return Cuboid(
-            range_start=Vector3D(new_min_x, new_min_y, new_min_z),
-            range_end=Vector3D(new_max_x, new_max_y, new_max_z),
-        )
+        return Cuboid(range_start=Vector3D(*new_min), range_end=Vector3D(*new_max))
 
 
 @dataclass(frozen=True)
