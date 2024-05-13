@@ -1740,13 +1740,13 @@ def test_parse_cuboid_instructions():
                 range_start=Vector3D(-48, -18, -26),
                 range_end=Vector3D(-3, 36, 28),
             ),
-            turn_on=True,
+            is_turn_on=True,
         ),
         CuboidInstruction(
             cuboid=Cuboid(
                 range_start=Vector3D(-22, -42, -29),
                 range_end=Vector3D(-11, -27, -14),
             ),
-            turn_on=False,
+            is_turn_on=False,
         ),
     ]

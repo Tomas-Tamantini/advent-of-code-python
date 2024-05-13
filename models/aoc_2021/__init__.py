@@ -36,4 +36,4 @@ from .a2021_d21 import (
     play_deterministic_dirac_dice,
     QuantumDiracGame,
 )
-from .a2021_d22 import Cuboid, CuboidInstruction
+from .a2021_d22 import Cuboid, CuboidInstruction, num_reactor_cells_on

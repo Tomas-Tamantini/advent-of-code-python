@@ -1686,9 +1686,8 @@ class FileParser:
         x_min, x_max = map(int, parts[1].split(".."))
         y_min, y_max = map(int, parts[2].split(".."))
         z_min, z_max = map(int, parts[3].split(".."))
-        turn_on = "on" in line
         return CuboidInstruction(
-            turn_on=turn_on,
+            is_turn_on="on" in line,
             cuboid=Cuboid(
                 range_start=Vector3D(x_min, y_min, z_min),
                 range_end=Vector3D(x_max, y_max, z_max),

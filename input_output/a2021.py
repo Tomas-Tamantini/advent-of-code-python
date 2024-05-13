@@ -29,6 +29,7 @@ from models.aoc_2021 import (
     play_deterministic_dirac_dice,
     DiracDiceStartingConfiguration,
     QuantumDiracGame,
+    num_reactor_cells_on,
 )
 
 
@@ -470,16 +471,18 @@ def aoc_2021_d21(file_name: str, parser: FileParser, **_):
 
 # AOC 2021 - Day 22: Reactor Reboot
 def aoc_2021_d22(file_name: str, parser: FileParser, **_):
-    instructions = parser.parse_cuboid_instructions(file_name)
-    on_cells = set()
-    for instruction in instructions:
-        if instruction.cuboid.all_coords_between(-50, 50):
-            new_cells = set(instruction.cuboid.cells_within())
-            if instruction.turn_on:
-                on_cells.update(new_cells)
-            else:
-                on_cells.difference_update(new_cells)
-    print(f"AOC 2021 Day 22/Part 1: The number of cells turned on is {len(on_cells)}")
+    instructions = list(parser.parse_cuboid_instructions(file_name))
+    small_instructions = [
+        instruction
+        for instruction in instructions
+        if instruction.cuboid.all_coords_are_between(-50, 50)
+    ]
+    print(
+        f"AOC 2021 Day 22/Part 1: The number of cells turned on in smaller volume is {num_reactor_cells_on(small_instructions)}"
+    )
+    print(
+        f"AOC 2021 Day 22/Part 2: The number of cells turned on in entire volume is {num_reactor_cells_on(instructions)}"
+    )
 
 
 # AOC 2021 - Day 23: Amphipod
