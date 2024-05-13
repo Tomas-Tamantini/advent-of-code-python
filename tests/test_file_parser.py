@@ -110,6 +110,13 @@ class MockFileReader:
     def readlines(self, _: str) -> Iterator[str]:
         yield from self._content.split("\n")
 
+    def read_stripped_lines(
+        self, file_name: str, keep_empty_lines: bool = False
+    ) -> Iterator[str]:
+        for line in self.readlines(file_name):
+            if line.strip() or keep_empty_lines:
+                yield line.strip()
+
 
 class MockLightGrid:
     def __init__(self) -> None:
