@@ -95,6 +95,8 @@ from models.aoc_2021 import (
     UnderwaterCave,
     FoldInstruction,
     UnderwaterScanner,
+    Cuboid,
+    CuboidInstruction,
 )
 
 
@@ -1717,3 +1719,27 @@ def test_parse_players_starting_positions():
     file_parser = mock_file_parser(file_content)
     positions = file_parser.parse_players_starting_positions("some_file")
     assert positions == (1, 3)
+
+
+def test_parse_cuboid_instructions():
+    file_content = """
+                   on x=-48..-3,y=-18..36,z=-26..28
+                   off x=-22..-11,y=-42..-27,z=-29..-14"""
+    file_parser = mock_file_parser(file_content)
+    instructions = list(file_parser.parse_cuboid_instructions("some_file"))
+    assert instructions == [
+        CuboidInstruction(
+            cuboid=Cuboid(
+                range_start=Vector3D(-48, -18, -26),
+                range_end=Vector3D(-3, 36, 28),
+            ),
+            turn_on=True,
+        ),
+        CuboidInstruction(
+            cuboid=Cuboid(
+                range_start=Vector3D(-22, -42, -29),
+                range_end=Vector3D(-11, -27, -14),
+            ),
+            turn_on=False,
+        ),
+    ]

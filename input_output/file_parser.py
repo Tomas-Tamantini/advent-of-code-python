@@ -169,6 +169,8 @@ from models.aoc_2021 import (
     UnderwaterCave,
     FoldInstruction,
     UnderwaterScanner,
+    Cuboid,
+    CuboidInstruction,
 )
 
 
@@ -1678,3 +1680,31 @@ class FileParser:
     def parse_players_starting_positions(self, file_name: str) -> tuple[int, int]:
         lines = list(self._file_reader.readlines(file_name))
         return tuple(int(line.strip().split()[-1]) for line in lines)
+
+    @staticmethod
+    def _parse_cuboid_instruction(line: str) -> CuboidInstruction:
+        parts = (
+            line.replace("x", "")
+            .replace("y", "")
+            .replace("z", "")
+            .replace(",", "")
+            .replace("on", "")
+            .replace("off", "")
+            .split("=")
+        )
+        x_min, x_max = map(int, parts[1].split(".."))
+        y_min, y_max = map(int, parts[2].split(".."))
+        z_min, z_max = map(int, parts[3].split(".."))
+        turn_on = "on" in line
+        return CuboidInstruction(
+            turn_on=turn_on,
+            cuboid=Cuboid(
+                range_start=Vector3D(x_min, y_min, z_min),
+                range_end=Vector3D(x_max, y_max, z_max),
+            ),
+        )
+
+    def parse_cuboid_instructions(self, file_name: str) -> Iterator[CuboidInstruction]:
+        for line in self._file_reader.readlines(file_name):
+            if line.strip():
+                yield self._parse_cuboid_instruction(line.strip())
