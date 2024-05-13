@@ -31,4 +31,8 @@ from .a2021_d19 import (
     pinpoint_scanners,
 )
 from .a2021_d20 import TrenchMapAutomaton
-from .a2021_d21 import play_deterministic_dirac_dice, DiracDiceStartingConfiguration
+from .a2021_d21 import (
+    DiracDiceStartingConfiguration,
+    play_deterministic_dirac_dice,
+    QuantumDiracGame,
+)

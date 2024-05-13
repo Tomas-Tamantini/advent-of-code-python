@@ -2,6 +2,7 @@ from models.aoc_2021.a2021_d21 import (
     play_deterministic_dirac_dice,
     DeterministicDiracGameResult,
     DiracDiceStartingConfiguration,
+    QuantumDiracGame,
 )
 
 
@@ -31,3 +32,12 @@ def test_deterministic_dirac_game_result_is_calculated_efficiently():
     assert result == DeterministicDiracGameResult(
         total_turns=363636364, scores=(909090912, 1000000007)
     )
+
+
+def test_quantum_dirac_game_returns_aggregate_of_all_possible_results():
+    starting_configuration = DiracDiceStartingConfiguration(
+        board_size=10, goal_score=5, starting_spaces=(4, 8)
+    )
+    game = QuantumDiracGame(starting_configuration)
+    assert game.num_wins(first_player_win=True) == 7907
+    assert game.num_wins(first_player_win=False) == 2728

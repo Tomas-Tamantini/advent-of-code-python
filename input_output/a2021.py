@@ -28,6 +28,7 @@ from models.aoc_2021 import (
     TrenchMapAutomaton,
     play_deterministic_dirac_dice,
     DiracDiceStartingConfiguration,
+    QuantumDiracGame,
 )
 
 
@@ -456,6 +457,14 @@ def aoc_2021_d21(file_name: str, parser: FileParser, **_):
     result = final_state.worst_score * final_state.num_dice_rolls
     print(
         f"AOC 2021 Day 21/Part 1: The product of the worst score and number of dice rolls is {result}"
+    )
+    starting_configuration = DiracDiceStartingConfiguration(
+        board_size=10, goal_score=21, starting_spaces=starting_spaces
+    )
+    quantum_game = QuantumDiracGame(starting_configuration)
+    num_wins = quantum_game.num_wins(first_player_win=True)
+    print(
+        f"AOC 2021 Day 21/Part 2: The number of wins for the first player is {num_wins}"
     )
 
 
