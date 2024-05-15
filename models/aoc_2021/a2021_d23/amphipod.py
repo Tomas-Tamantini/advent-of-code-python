@@ -16,3 +16,9 @@ class Amphipod:
 @dataclass(frozen=True)
 class AmphipodArrangement:
     amphipods: tuple[Amphipod, ...]
+
+    def energy_to_move(self, other: "AmphipodArrangement") -> int:
+        return sum(
+            amph_a.energy_to_move(amph_b.position)
+            for amph_a, amph_b in zip(self.amphipods, other.amphipods)
+        )
