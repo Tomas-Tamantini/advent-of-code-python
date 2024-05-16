@@ -1,3 +1,5 @@
+# TODO: Refactor tests and implementation
+
 from dataclasses import dataclass
 from .amphipod_burrow import BurrowPosition
 
@@ -11,6 +13,14 @@ class Amphipod:
 
     def energy_to_move(self, new_position: BurrowPosition) -> int:
         return self.energy_spent_per_step * self.position.distance(new_position)
+
+    def move(self, new_position: BurrowPosition) -> "Amphipod":
+        return Amphipod(
+            new_position,
+            self.desired_room_index,
+            self.energy_spent_per_step,
+            self.num_moves + 1,
+        )
 
 
 @dataclass(frozen=True)
