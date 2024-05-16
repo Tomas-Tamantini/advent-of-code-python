@@ -30,6 +30,7 @@ from models.aoc_2021 import (
     DiracDiceStartingConfiguration,
     QuantumDiracGame,
     num_reactor_cells_on,
+    AmphipodSorter,
 )
 
 
@@ -486,7 +487,18 @@ def aoc_2021_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 23: Amphipod
-def aoc_2021_d23(file_name: str, **_): ...
+def aoc_2021_d23(file_name: str, parser: FileParser, **_):
+    burrow = parser.parse_amphipod_burrow(file_name)
+    min_energy = AmphipodSorter().min_energy_to_sort(burrow)
+    print(
+        f"AOC 2021 Day 23/Part 1: The minimum energy to sort the burrow is {min_energy}"
+    )
+    insertions = ("DD", "BC", "AB", "CA")
+    extended_burrow = parser.parse_amphipod_burrow(file_name, *insertions)
+    min_energy = AmphipodSorter().min_energy_to_sort(extended_burrow)
+    print(
+        f"AOC 2021 Day 23/Part 2: The minimum energy to sort the extended burrow is {min_energy}"
+    )
 
 
 # AOC 2021 - Day 24: Arithmetic Logic Unit

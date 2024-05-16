@@ -37,3 +37,10 @@ from .a2021_d21 import (
     QuantumDiracGame,
 )
 from .a2021_d22 import Cuboid, CuboidInstruction, num_reactor_cells_on
+from .a2021_d23 import (
+    Amphipod,
+    AmphipodRoom,
+    AmphipodHallway,
+    AmphipodBurrow,
+    AmphipodSorter,
+)
