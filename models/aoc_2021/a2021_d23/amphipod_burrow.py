@@ -1,120 +1,70 @@
-# TODO: Refactor tests and implementation
-
-from typing import Iterator, Optional
 from dataclasses import dataclass
-from enum import Enum
-
-
-class RoomPositioning(int, Enum):
-    HALLWAY = 0
-    FRONT_OF_ROOM = 1
-    BACK_OF_ROOM = 2
-
-
-@dataclass(frozen=True)
-class BurrowPosition:
-    position_in_hallway: int
-    room_positioning: RoomPositioning
-
-    def distance(self, other: "BurrowPosition") -> int:
-        if self.position_in_hallway == other.position_in_hallway:
-            return abs(self.room_positioning - other.room_positioning)
-        else:
-            return (
-                abs(self.position_in_hallway - other.position_in_hallway)
-                + self.room_positioning
-                + other.room_positioning
-            )
+from typing import Iterator
+from .amphipod import Amphipod
+from .amphipod_room import AmphipodRoom
+from .amphipod_hallway import AmphipodHallway
 
 
 @dataclass(frozen=True)
 class AmphipodBurrow:
-    hallway_length: int
-    room_positions_in_hallway: tuple[int, ...]
+    hallway: AmphipodHallway
+    rooms: tuple[AmphipodRoom, ...]
 
-    def reachable_room_position(
-        self,
-        amphipod,
-        other_amphipods: set,
-    ) -> Optional[BurrowPosition]:
-        occupied_positions = {amphipod.position for amphipod in other_amphipods}
-        min_i, max_i = self._reachable_range(amphipod.position, occupied_positions)
-        room_position = self.room_positions_in_hallway[amphipod.desired_room_index]
-        front_position = BurrowPosition(
-            position_in_hallway=room_position,
-            room_positioning=RoomPositioning.FRONT_OF_ROOM,
-        )
-        if (
-            room_position < min_i
-            or room_position > max_i
-            or (front_position in occupied_positions)
-        ):
-            return None
-        back_position = BurrowPosition(
-            position_in_hallway=room_position,
-            room_positioning=RoomPositioning.BACK_OF_ROOM,
-        )
-        amphipod_in_back_of_room = None
-        for other_amphipod in other_amphipods:
-            if other_amphipod.position == back_position:
-                amphipod_in_back_of_room = other_amphipod
-                break
-        if amphipod_in_back_of_room is None:
-            return back_position
-        elif amphipod_in_back_of_room.desired_room_index == amphipod.desired_room_index:
-            return front_position
+    def _all_amphipods(self) -> Iterator[Amphipod]:
+        yield from self.hallway.all_amphipods()
+        for room in self.rooms:
+            yield from room.amphipods_back_to_front
 
-    def reachable_hallway_positions(
-        self, current_position: BurrowPosition, occupied_positions: set[BurrowPosition]
-    ) -> Iterator[BurrowPosition]:
-        if self._is_blocked_by_amphipod_in_front(current_position, occupied_positions):
-            return
-        min_i, max_i = self._reachable_range(current_position, occupied_positions)
-        for i in range(min_i, max_i + 1):
-            if i not in self.room_positions_in_hallway:
-                yield BurrowPosition(
-                    position_in_hallway=i, room_positioning=RoomPositioning.HALLWAY
-                )
-
-    def is_in_proper_room(self, amphipod) -> bool:
-        return amphipod.position.room_positioning != RoomPositioning.HALLWAY and (
-            amphipod.position.position_in_hallway
-            == self.room_positions_in_hallway[amphipod.desired_room_index]
-        )
-
-    def _reachable_range(
-        self, current_position: BurrowPosition, occupied_positions: set[BurrowPosition]
-    ) -> tuple[int, int]:
-        occupied_hallway_indices = {
-            p.position_in_hallway
-            for p in occupied_positions
-            if p.room_positioning == RoomPositioning.HALLWAY and p != current_position
+    def terminal_state(self) -> "AmphipodBurrow":
+        new_hallway = self.hallway.emptied()
+        energy_per_step = {
+            amphipod.desired_room_index: amphipod.energy_spent_per_step
+            for amphipod in self._all_amphipods()
         }
-        min_range = max(
-            (
-                i + 1
-                for i in occupied_hallway_indices
-                if i <= current_position.position_in_hallway
-            ),
-            default=0,
+        new_rooms = tuple(
+            room.filled(energy_per_step.get(room.index, 0)) for room in self.rooms
         )
-        max_range = min(
-            (
-                i - 1
-                for i in occupied_hallway_indices
-                if i >= current_position.position_in_hallway
-            ),
-            default=self.hallway_length - 1,
-        )
-        return min_range, max_range
+        return AmphipodBurrow(new_hallway, new_rooms)
 
-    def _is_blocked_by_amphipod_in_front(
-        self, current_position: BurrowPosition, occupied_positions: set[BurrowPosition]
-    ):
-        return current_position.room_positioning == RoomPositioning.BACK_OF_ROOM and (
-            BurrowPosition(
-                position_in_hallway=current_position.position_in_hallway,
-                room_positioning=RoomPositioning.FRONT_OF_ROOM,
-            )
-            in occupied_positions
+    def _update_burrow(
+        self,
+        new_hallway: AmphipodHallway,
+        new_room: AmphipodRoom,
+        room_index_in_tuple: int,
+    ) -> "AmphipodBurrow":
+        new_rooms = (
+            self.rooms[:room_index_in_tuple]
+            + (new_room,)
+            + self.rooms[room_index_in_tuple + 1 :]
         )
+        return AmphipodBurrow(new_hallway, new_rooms)
+
+    def weighted_neighbors(self) -> Iterator[tuple["AmphipodBurrow", int]]:
+        room_positions = {room.position_in_hallway for room in self.rooms}
+        for i, room in enumerate(self.rooms):
+            if room.can_pop():
+                for position in self.hallway.positions_reachable_from(
+                    room.position_in_hallway, room_positions
+                ):
+                    amphipod = room.peek()
+                    num_steps = room.num_steps_to_leave + room.horizontal_distance(
+                        position
+                    )
+                    energy = num_steps * amphipod.energy_spent_per_step
+                    new_room = room.pop()
+                    new_hallway = self.hallway.insert_at(position, amphipod)
+                    new_burrow = self._update_burrow(new_hallway, new_room, i)
+                    yield new_burrow, energy
+            elif room.can_push():
+                for (
+                    hallway_position,
+                    amphipod,
+                ) in self.hallway.amphipods_that_can_move_to_room(room):
+                    num_steps = room.num_steps_to_enter + room.horizontal_distance(
+                        hallway_position
+                    )
+                    energy = num_steps * amphipod.energy_spent_per_step
+                    new_room = room.push(amphipod)
+                    new_hallway = self.hallway.remove_at(hallway_position)
+                    new_burrow = self._update_burrow(new_hallway, new_room, i)
+                    yield new_burrow, energy
