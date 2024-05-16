@@ -8,16 +8,25 @@ from .amphipod_room import AmphipodRoom
 class AmphipodHallway:
     positions: tuple[Optional[Amphipod], ...]
 
-    def _reachable_range_from(self, position: int) -> tuple[int, int]:
-        min_range, max_range = 0, len(self.positions) - 1
+    def _rightmost_occupied_position_to_the_left(self, position: int) -> Optional[int]:
         for i in range(position, -1, -1):
             if self.positions[i] is not None:
-                min_range = i + 1
-                break
+                return i
+
+    def _leftmost_occupied_position_to_the_right(self, position: int) -> Optional[int]:
         for i in range(position, len(self.positions)):
             if self.positions[i] is not None:
-                max_range = i - 1
-                break
+                return i
+
+    def _reachable_range_from(self, position: int) -> tuple[int, int]:
+        rightmost_to_left = self._rightmost_occupied_position_to_the_left(position)
+        min_range = rightmost_to_left + 1 if rightmost_to_left is not None else 0
+        leftmost_to_right = self._leftmost_occupied_position_to_the_right(position)
+        max_range = (
+            leftmost_to_right - 1
+            if leftmost_to_right is not None
+            else len(self.positions) - 1
+        )
         return min_range, max_range
 
     def positions_reachable_from(
@@ -41,17 +50,13 @@ class AmphipodHallway:
     def amphipods_that_can_move_to_room(
         self, room: AmphipodRoom
     ) -> Iterator[tuple[int, Amphipod]]:
-        for i in range(room.position_in_hallway, -1, -1):
-            if self.positions[i] is not None:
-                if self.positions[i].desired_room_index == room.index:
-                    yield i, self.positions[i]
-                break
-
-        for i in range(room.position_in_hallway, len(self.positions)):
-            if self.positions[i] is not None:
-                if self.positions[i].desired_room_index == room.index:
-                    yield i, self.positions[i]
-                break
+        candidate_positions = (
+            self._rightmost_occupied_position_to_the_left(room.position_in_hallway),
+            self._leftmost_occupied_position_to_the_right(room.position_in_hallway),
+        )
+        for i in candidate_positions:
+            if i is not None and self.positions[i].desired_room_index == room.index:
+                yield i, self.positions[i]
 
     def emptied(self) -> "AmphipodHallway":
         return AmphipodHallway(tuple([None for _ in self.positions]))
