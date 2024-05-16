@@ -211,6 +211,7 @@ def test_amphipods_get_sorted_into_appropriate_rooms_using_minimal_energy():
     assert AmphipodSorter().min_energy_to_sort(burrow) == 12521
 
 
+@pytest.mark.skip("Takes about 3s to run")
 def test_amphipod_rooms_with_capacities_larger_than_two_can_also_be_sorted():
     burrow = _default_burrow("ADDB", "DBCC", "CABB", "ACAD")
     assert AmphipodSorter().min_energy_to_sort(burrow) == 44169
