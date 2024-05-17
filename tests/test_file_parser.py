@@ -1,8 +1,8 @@
 import pytest
-from typing import Iterator
 from unittest.mock import Mock
 from datetime import datetime
 from input_output.file_parser import FileParser
+from models.common.input_reader import InputFromString
 from models.vectors import (
     CardinalDirection,
     Vector2D,
@@ -102,24 +102,6 @@ from models.aoc_2021 import (
 )
 
 
-class MockFileReader:
-    def __init__(self, file_content: str) -> None:
-        self._content = file_content
-
-    def read(self, _: str) -> str:
-        return self._content
-
-    def readlines(self, _: str) -> Iterator[str]:
-        yield from self._content.split("\n")
-
-    def read_stripped_lines(
-        self, file_name: str, keep_empty_lines: bool = False
-    ) -> Iterator[str]:
-        for line in self.readlines(file_name):
-            if line.strip() or keep_empty_lines:
-                yield line.strip()
-
-
 class MockLightGrid:
     def __init__(self) -> None:
         self.turn_on_args = None
@@ -142,11 +124,6 @@ class MockLightGrid:
 
     def decrease_brightness(self, region: LightGridRegion, decrease: int) -> None:
         self.decrease_brightness_args = [region, decrease]
-
-
-def mock_file_parser(file_content: str) -> FileParser:
-    file_reader = MockFileReader(file_content)
-    return FileParser(file_reader)
 
 
 def test_parse_and_give_light_grid_instructions():
@@ -200,8 +177,7 @@ def test_parse_logic_gates_circuit():
                      y RSHIFT 2 -> g
                      NOT x -> h
                      NOT y -> i"""
-    file_parser = mock_file_parser(circuit_str)
-    circuit = file_parser.parse_logic_gates_circuit("some_file_name")
+    circuit = FileParser().parse_logic_gates_circuit(InputFromString(circuit_str))
     expected_values = {
         "x": 123,
         "y": 456,
@@ -220,8 +196,7 @@ def test_parse_adirected_graph():
     graph_str = """a to b = 100
                    a to c = 100
                    b to c = 150"""
-    file_parser = mock_file_parser(graph_str)
-    graph = file_parser.parse_adirected_graph("some_file_name")
+    graph = FileParser().parse_adirected_graph(InputFromString(graph_str))
     assert graph.shortest_complete_itinerary_distance() == 200
 
 
@@ -229,8 +204,7 @@ def test_parse_seating_arrangements():
     graph_str = """Alice would gain 54 happiness units by sitting next to Bob.
                    Bob would lose 7 happiness units by sitting next to Carol.
                    Carol would lose 62 happiness units by sitting next to Alice."""
-    file_parser = mock_file_parser(graph_str)
-    graph = file_parser.parse_seating_arrangement("some_file_name")
+    graph = FileParser().parse_seating_arrangement(InputFromString(graph_str))
     assert graph.round_trip_itinerary_min_cost() == -15
     assert graph.round_trip_itinerary_max_cost() == float("inf")
 
@@ -261,8 +235,7 @@ def test_parse_rpg_boss():
     file_content = """Hit Points: 109
                       Damage: 8
                       Armor: 2"""
-    file_parser = mock_file_parser(file_content)
-    boss_kwargs = file_parser.parse_rpg_boss("some_file_name")
+    boss_kwargs = FileParser().parse_rpg_boss(InputFromString(file_content))
     boss = Fighter(**boss_kwargs)
     assert boss.hit_points == 109
     assert boss.damage == 8
@@ -272,9 +245,7 @@ def test_parse_rpg_boss():
 def test_parse_aunt_sue_collection():
     file_content = """Sue 1: children: 1, cars: 8, vizslas: 7
                       Sue 2: akitas: 10, perfumes: 10, children: 5"""
-    file_reader = MockFileReader(file_content)
-    file_parser = FileParser(file_reader)
-    aunts = list(file_parser.parse_aunt_sue_collection("some_file_name"))
+    aunts = list(FileParser().parse_aunt_sue_collection(InputFromString(file_content)))
     assert len(aunts) == 2
     assert aunts[0].id == 1
     assert aunts[0]._attributes == {"children": 1, "cars": 8, "vizslas": 7}
@@ -288,8 +259,9 @@ def test_parse_molecule_replacements():
                       O => HH
                       
                       HOH"""
-    file_parser = mock_file_parser(file_content)
-    molecule, replacements = file_parser.parse_molecule_replacements("some_file_name")
+    molecule, replacements = FileParser().parse_molecule_replacements(
+        InputFromString(file_content)
+    )
     assert replacements == {
         "H": (Molecule(("H", "O")), Molecule(("O", "H"))),
         "O": (Molecule(("H", "H")),),
@@ -299,15 +271,13 @@ def test_parse_molecule_replacements():
 
 def test_parse_code_row_and_column():
     file_content = "To continue, please consult the code grid in the manual.  Enter the code at row 3010, column 3019."
-    file_parser = mock_file_parser(file_content)
-    row_and_col = file_parser.parse_code_row_and_col("some_file_name")
+    row_and_col = FileParser().parse_code_row_and_col(InputFromString(file_content))
     assert row_and_col == {"row": 3010, "col": 3019}
 
 
 def test_parse_turtle_instructions():
     file_content = "R2, L3"
-    file_parser = mock_file_parser(file_content)
-    instructions = file_parser.parse_turtle_instructions("some_file_name")
+    instructions = FileParser().parse_turtle_instructions(InputFromString(file_content))
     assert list(instructions) == [
         TurtleInstruction(TurnDirection.RIGHT, 2),
         TurtleInstruction(TurnDirection.LEFT, 3),
@@ -328,12 +298,15 @@ def test_parse_triangle_sides_vertically_or_horizontally():
                       201 401 601
                       202 402 602
                       203 403 603"""
-    file_parser = mock_file_parser(file_content)
     sides_horizontal = list(
-        file_parser.parse_triangle_sides("some_file", read_horizontally=True)
+        FileParser().parse_triangle_sides(
+            InputFromString(file_content), read_horizontally=True
+        )
     )
     sides_vertical = list(
-        file_parser.parse_triangle_sides("some_file", read_horizontally=False)
+        FileParser().parse_triangle_sides(
+            InputFromString(file_content), read_horizontally=False
+        )
     )
 
     assert sides_horizontal == [
@@ -367,9 +340,10 @@ def test_parse_programmable_screen_instructions():
     file_content = """rect 3x2
                       rotate column x=1 by 1
                       rotate row y=0 by 4"""
-    file_parser = mock_file_parser(file_content)
     screen_spy = Mock(ProgrammableScreen)
-    file_parser.parse_programmable_screen_instructions("some_file", screen_spy)
+    FileParser().parse_programmable_screen_instructions(
+        InputFromString(file_content), screen_spy
+    )
     assert screen_spy.rect.call_args_list == [((3, 2),)]
     assert screen_spy.rotate_column.call_args_list == [((1, 1),)]
     assert screen_spy.rotate_row.call_args_list == [((0, 4),)]
@@ -382,8 +356,7 @@ def test_parse_chip_factory():
                       bot 1 gives low to output 1 and high to bot 0
                       bot 0 gives low to output 2 and high to output 0
                       value 2 goes to bot 2"""
-    file_parser = mock_file_parser(file_content)
-    factory = file_parser.parse_chip_factory("some_file")
+    factory = FileParser().parse_chip_factory(InputFromString(file_content))
     factory.run()
     assert factory.output_bins == {0: [5], 1: [2], 2: [3]}
 
@@ -393,10 +366,9 @@ def test_parse_radioisotope_testing_facility_floor_configurations():
                       The second floor contains a hydrogen generator.
                       The third floor contains a lithium generator.
                       The fourth floor contains nothing relevant."""
-    file_parser = mock_file_parser(file_content)
     floors = list(
-        file_parser.parse_radioisotope_testing_facility_floor_configurations(
-            "some_file"
+        FileParser().parse_radioisotope_testing_facility_floor_configurations(
+            InputFromString(file_content)
         )
     )
     assert floors == [
@@ -410,8 +382,7 @@ def test_parse_radioisotope_testing_facility_floor_configurations():
 def test_parse_disc_system():
     file_content = """Disc #1 has 5 positions; at time=0, it is at position 4.
                       Disc #2 has 2 positions; at time=0, it is at position 1."""
-    file_parser = mock_file_parser(file_content)
-    disc_system = file_parser.parse_disc_system("some_file")
+    disc_system = FileParser().parse_disc_system(InputFromString(file_content))
     assert disc_system.time_to_press_button() == 5
 
 
@@ -425,8 +396,7 @@ def test_parse_string_scrambler_functions():
                       move position 3 to position 0
                       rotate based on position of letter b
                       rotate based on position of letter d"""
-    file_parser = mock_file_parser(file_content)
-    scrambler = file_parser.parse_string_scrambler("some_file")
+    scrambler = FileParser().parse_string_scrambler(InputFromString(file_content))
     assert scrambler.scramble("abcde") == "decab"
 
 
@@ -435,8 +405,7 @@ def test_parse_storage_nodes():
                       Filesystem              Size  Used  Avail  Use%
                       /dev/grid/node-x0-y0     92T   68T    24T   73%
                       /dev/grid/node-x0-y1     88T   73T    15T   82%"""
-    file_parser = mock_file_parser(file_content)
-    nodes = list(file_parser.parse_storage_nodes("some_file"))
+    nodes = list(FileParser().parse_storage_nodes(InputFromString(file_content)))
     assert nodes[0].size, nodes[0].used == (92, 68)
     assert nodes[1].size, nodes[1].used == (88, 73)
 
@@ -448,8 +417,7 @@ def test_parse_assembunny_code():
                       jnz a 2
                       tgl c
                       out d"""
-    file_parser = mock_file_parser(file_content)
-    program = file_parser.parse_assembunny_code("some_file")
+    program = FileParser().parse_assembunny_code(InputFromString(file_content))
     assert program.get_instruction(0) == CopyInstruction(41, "a")
     assert program.get_instruction(1) == IncrementInstruction("b")
     assert program.get_instruction(2) == DecrementInstruction("c")
@@ -474,8 +442,7 @@ def test_parse_program_tree():
                       ugml (68) -> gyxo, ebii, jptl
                       gyxo (61)
                       cntj (57)"""
-    file_parser = mock_file_parser(file_content)
-    root = file_parser.parse_program_tree("some_file")
+    root = FileParser().parse_program_tree(InputFromString(file_content))
     assert root.name == "tknk"
     assert root.total_weight() == 778
 
@@ -485,9 +452,10 @@ def test_parse_conditional_increment_instructions():
                       a inc 1 if b < 5
                       c dec -10 if a >= 1
                       c inc -20 if c == 10"""
-    file_parser = mock_file_parser(file_content)
     instructions = list(
-        file_parser.parse_conditional_increment_instructions("some_file")
+        FileParser().parse_conditional_increment_instructions(
+            InputFromString(file_content)
+        )
     )
     assert instructions[0] == ConditionalIncrementInstruction(
         "b", 5, "a", 1, ComparisonOperator.GREATER_THAN
@@ -511,8 +479,7 @@ def test_parse_program_graph():
                       4 <-> 2, 3, 6
                       5 <-> 6
                       6 <-> 4, 5"""
-    file_parser = mock_file_parser(file_content)
-    graph = file_parser.parse_program_graph("some_file")
+    graph = FileParser().parse_program_graph(InputFromString(file_content))
     assert graph.num_nodes == 7
     assert graph.neighbors(1) == {1}
     assert graph.neighbors(2) == {0, 3, 4}
@@ -523,15 +490,15 @@ def test_parse_layered_firewall():
                       1: 2
                       4: 4
                       6: 4"""
-    file_parser = mock_file_parser(file_content)
-    firewall = file_parser.parse_layered_firewall("some_file")
+    firewall = FileParser().parse_layered_firewall(InputFromString(file_content))
     assert [l for l, _ in firewall.packet_collisions()] == [0, 6]
 
 
 def test_parse_string_transformers():
     file_content = "s1,x0/12, pb/X"
-    file_parser = mock_file_parser(file_content)
-    transformers = list(file_parser.parse_string_transformers("some_file"))
+    transformers = list(
+        FileParser().parse_string_transformers(InputFromString(file_content))
+    )
     assert transformers == [Spin(1), Exchange(0, 12), Partner("b", "X")]
 
 
@@ -544,8 +511,7 @@ def test_parse_duet_code():
                       set a 0
                       rcv a
                       jgz a -1"""
-    file_parser = mock_file_parser(file_content)
-    instructions = list(file_parser.parse_duet_code("some_file"))
+    instructions = list(FileParser().parse_duet_code(InputFromString(file_content)))
     assert len(instructions) == 8
     assert instructions[0] == CopyInstruction(1, "a")
     assert instructions[1] == AddInstruction(2, "a")
@@ -559,9 +525,10 @@ def test_parse_duet_code():
 
 def test_parse_duet_code_with_rcv_as_input_instruction():
     file_content = "rcv a"
-    file_parser = mock_file_parser(file_content)
     instructions = list(
-        file_parser.parse_duet_code("some_file", parse_rcv_as_input=True)
+        FileParser().parse_duet_code(
+            InputFromString(file_content), parse_rcv_as_input=True
+        )
     )
     assert instructions == [InputInstruction("a")]
 
@@ -569,8 +536,7 @@ def test_parse_duet_code_with_rcv_as_input_instruction():
 def test_parse_particles():
     file_content = """p=< 3,0,0>, v=< 2,0,0>, a=<-1,0,0>
                       p=< 4,0,0>, v=< 0,0,0>, a=<-2,0,0>"""
-    file_parser = mock_file_parser(file_content)
-    particles = list(file_parser.parse_particles("some_file"))
+    particles = list(FileParser().parse_particles(InputFromString(file_content)))
     assert particles == [
         Particle(0, Vector3D(3, 0, 0), Vector3D(2, 0, 0), Vector3D(-1, 0, 0)),
         Particle(1, Vector3D(4, 0, 0), Vector3D(0, 0, 0), Vector3D(-2, 0, 0)),
@@ -586,8 +552,7 @@ def test_parse_art_block():
 def test_parse_art_block_rules():
     file_content = """../.# => ##./#../...
                       .#./..#/### => #..#/..../..../#..#"""
-    file_parser = mock_file_parser(file_content)
-    rules = file_parser.parse_art_block_rules("some_file")
+    rules = FileParser().parse_art_block_rules(InputFromString(file_content))
     fractal_art = FractalArt(
         initial_pattern=FileParser.parse_art_block(".#./..#/###"), rules=rules
     )
@@ -598,8 +563,9 @@ def test_parse_duet_code_with_spy_multiply():
     file_content = """mul a b
                       jnz a -1
                       sub b -6"""
-    file_parser = mock_file_parser(file_content)
-    instructions = list(file_parser.parse_duet_code("some_file", spy_multiply=True))
+    instructions = list(
+        FileParser().parse_duet_code(InputFromString(file_content), spy_multiply=True)
+    )
     assert instructions == [
         SpyMultiplyInstruction("b", "a"),
         JumpNotZeroInstruction(-1, "a"),
@@ -610,8 +576,9 @@ def test_parse_duet_code_with_spy_multiply():
 def test_parse_bridge_components():
     file_content = """0/2
                       3/1"""
-    file_parser = mock_file_parser(file_content)
-    components = list(file_parser.parse_bridge_components("some_file"))
+    components = list(
+        FileParser().parse_bridge_components(InputFromString(file_content))
+    )
     assert components == [BridgeComponent(0, 2), BridgeComponent(3, 1)]
 
 
@@ -638,9 +605,8 @@ def test_parse_turing_machine_specs():
                           - Write the value 1.
                           - Move one slot to the right.
                           - Continue with state A."""
-    file_parser = mock_file_parser(file_content)
-    initial_state, num_steps, transition_rules = file_parser.parse_turing_machine_specs(
-        "some_file"
+    initial_state, num_steps, transition_rules = (
+        FileParser().parse_turing_machine_specs(InputFromString(file_content))
     )
     assert initial_state == "A"
     assert num_steps == 6
@@ -655,8 +621,9 @@ def test_parse_turing_machine_specs():
 def test_parse_fabric_rectangles():
     file_content = """#1 @ 1,3: 2x4
                       #213 @ 34,17: 13x29"""
-    file_parser = mock_file_parser(file_content)
-    rectangles = list(file_parser.parse_fabric_rectangles("some_file"))
+    rectangles = list(
+        FileParser().parse_fabric_rectangles(InputFromString(file_content))
+    )
     assert rectangles == [
         FabricRectangle(id=1, inches_from_left=1, inches_from_top=3, width=2, height=4),
         FabricRectangle(
@@ -683,8 +650,7 @@ def test_parse_shuffled_guard_logs():
                       [1518-11-04 00:36] falls asleep
                       [1518-11-04 00:46] wakes up
                       [1518-11-05 00:55] wakes up"""
-    file_parser = mock_file_parser(file_content)
-    guards = list(file_parser.parse_guard_logs(file_content))
+    guards = list(FileParser().parse_guard_logs(InputFromString(file_content)))
     assert len(guards) == 2
     assert guards[0].id == 10
     assert guards[0].naps == [
@@ -721,8 +687,7 @@ def test_parse_shuffled_guard_logs():
 def test_parse_directed_graph():
     file_content = """Step C must be finished before step A can begin.
                       Step C must be finished before step F can begin."""
-    file_parser = mock_file_parser(file_content)
-    graph = file_parser.parse_directed_graph("some_file")
+    graph = FileParser().parse_directed_graph(InputFromString(file_content))
     assert len(list(graph.nodes())) == 3
     assert set(graph.outgoing("C")) == {"A", "F"}
     assert set(graph.incoming("A")) == {"C"}
@@ -733,8 +698,7 @@ def test_parse_moving_particles():
     file_content = """position=< 9,  1> velocity=< 0,  2>
                       position=< 7,  0> velocity=<-1,  0>"""
 
-    file_parser = mock_file_parser(file_content)
-    particles = list(file_parser.parse_moving_particles("some_file"))
+    particles = list(FileParser().parse_moving_particles(InputFromString(file_content)))
     assert particles == [
         MovingParticle(position=Vector2D(9, 1), velocity=Vector2D(0, 2)),
         MovingParticle(position=Vector2D(7, 0), velocity=Vector2D(-1, 0)),
@@ -758,8 +722,7 @@ def test_parse_plant_automaton():
                       ###.. => #
                       ###.# => #
                       ####. => #"""
-    file_parser = mock_file_parser(file_content)
-    automaton = file_parser.parse_plant_automaton("some_file")
+    automaton = FileParser().parse_plant_automaton(InputFromString(file_content))
     assert automaton.plants_alive(0) == {0, 3, 5, 8, 9, 16, 17, 18, 22, 23, 24}
     assert automaton.plants_alive(20) == {
         -2,
@@ -793,8 +756,9 @@ def test_parse_instruction_samples():
                       321 3 2 1
                       After:  [40, 30, 20, 10]
                       Line to ignore"""
-    file_parser = mock_file_parser(file_content)
-    samples = list(file_parser.parse_instruction_samples("some_file"))
+    samples = list(
+        FileParser().parse_instruction_samples(InputFromString(file_content))
+    )
     assert samples == [
         InstructionSample(
             op_code=123,
@@ -816,7 +780,6 @@ def test_parse_unknown_op_code_program():
     
                       14 1 2 3
                       13 3 2 1"""
-    file_parser = mock_file_parser(file_content)
     instruction_a_spy = Mock()
     instruction_b_spy = Mock()
     op_code_to_instruction = {
@@ -824,7 +787,9 @@ def test_parse_unknown_op_code_program():
         13: instruction_b_spy,
     }
     instructions = list(
-        file_parser.parse_unknown_op_code_program("some_file", op_code_to_instruction)
+        FileParser().parse_unknown_op_code_program(
+            InputFromString(file_content), op_code_to_instruction
+        )
     )
     assert instructions == [
         instruction_a_spy(1, 2, 3),
@@ -837,8 +802,7 @@ def test_parse_position_ranges():
                       y=11..13, x=123
                       x=3, y=4
                       y=1..2, x=1001..1002"""
-    file_parser = mock_file_parser(file_content)
-    positions = set(file_parser.parse_position_ranges("some_file"))
+    positions = set(FileParser().parse_position_ranges(InputFromString(file_content)))
     assert positions == {
         Vector2D(495, 2),
         Vector2D(495, 3),
@@ -891,7 +855,7 @@ def test_parse_three_value_instructions():
         EqualRegisterRegister,
     ]
     for i, instruction in enumerate(
-        mock_file_parser(file_content).parse_three_value_instructions("some_file")
+        FileParser().parse_three_value_instructions(InputFromString(file_content))
     ):
         assert isinstance(instruction, expected_types[i])
         assert instruction._input_a.value == 10
@@ -903,8 +867,7 @@ def test_parse_three_value_instructions():
 def test_parse_nanobot():
     file_content = """pos=<1,2,3>, r=4
                       pos=<50,-60,70>, r=81"""
-    file_parser = mock_file_parser(file_content)
-    nanobots = list(file_parser.parse_nanobots("some_file"))
+    nanobots = list(FileParser().parse_nanobots(InputFromString(file_content)))
     assert nanobots == [
         TeleportNanobot(position=Vector3D(1, 2, 3), radius=4),
         TeleportNanobot(position=Vector3D(50, -60, 70), radius=81),
@@ -919,8 +882,7 @@ def test_parse_infection_game():
 Infection:
 801 units each with 4706 hit points (weak to radiation) with an attack that does 116 bludgeoning damage at initiative 1
 4485 units each with 2961 hit points (immune to radiation; weak to fire, cold) with an attack that does 12 slashing damage at initiative 4"""
-    file_parser = mock_file_parser(file_content)
-    game_state = file_parser.parse_infection_game("some_file")
+    game_state = FileParser().parse_infection_game(InputFromString(file_content))
     assert game_state.immune_system_armies == (
         ArmyGroup(
             group_id=1,
@@ -970,8 +932,7 @@ Infection:
 def test_parse_directions():
     file_content = """R8,U5
                       U7,L6,D4"""
-    file_parser = mock_file_parser(file_content)
-    directions = list(file_parser.parse_directions("some_file"))
+    directions = list(FileParser().parse_directions(InputFromString(file_content)))
     assert directions == [
         [(CardinalDirection.EAST, 8), (CardinalDirection.NORTH, 5)],
         [
@@ -986,8 +947,7 @@ def test_parse_celestial_bodies():
     file_content = """COM)A
                       B)C
                       COM)B"""
-    file_parser = mock_file_parser(file_content)
-    com = file_parser.parse_celestial_bodies("some_file")
+    com = FileParser().parse_celestial_bodies(InputFromString(file_content))
     assert com.name == "COM"
     com_children = list(com.satellites)
     assert com_children[0].name == "A"
@@ -1004,8 +964,9 @@ def test_parse_vector_3d():
 def test_parse_chemical_reactions():
     file_content = """2 MPHSH, 3 NQNX => 3 FWHL
                       144 ORE => 1 CXRVG"""
-    file_parser = mock_file_parser(file_content)
-    reactions = list(file_parser.parse_chemical_reactions("some_file"))
+    reactions = list(
+        FileParser().parse_chemical_reactions(InputFromString(file_content))
+    )
     assert reactions == [
         ChemicalReaction(
             inputs=(ChemicalQuantity("MPHSH", 2), ChemicalQuantity("NQNX", 3)),
@@ -1023,8 +984,7 @@ def test_parse_tunnel_maze():
                    .@.
                    ..b
                    """
-    file_parser = mock_file_parser(file_content)
-    maze = file_parser.parse_tunnel_maze("some_file")
+    maze = FileParser().parse_tunnel_maze(InputFromString(file_content))
     assert maze.shortest_distance_to_all_keys() == 6
 
 
@@ -1036,8 +996,9 @@ def test_tunnel_maze_can_have_entrance_split_in_four():
                    .....
                    b...d
                    """
-    file_parser = mock_file_parser(file_content)
-    maze = file_parser.parse_tunnel_maze("some_file", split_entrance_four_ways=True)
+    maze = FileParser().parse_tunnel_maze(
+        InputFromString(file_content), split_entrance_four_ways=True
+    )
     assert maze.shortest_distance_to_all_keys() == 8
 
 
@@ -1063,8 +1024,7 @@ def test_parse_portal_maze():
                                Z       
                                Z       
                    """
-    file_parser = mock_file_parser(file_content)
-    maze = file_parser.parse_portal_maze("some_file")
+    maze = FileParser().parse_portal_maze(InputFromString(file_content))
     assert maze.num_steps_to_solve() == 23
 
 
@@ -1108,8 +1068,7 @@ def test_parse_recursive_donut_maze():
                          A O F   N                     
                          A A D   M                        
     """
-    file_parser = mock_file_parser(file_content)
-    maze = file_parser.parse_recursive_donut_maze("some_file")
+    maze = FileParser().parse_recursive_donut_maze(InputFromString(file_content))
     assert maze.num_steps_to_solve() == 396
 
 
@@ -1126,8 +1085,7 @@ def test_parse_shuffle_techniques():
                    deal with increment 3
                    cut -1
                    """
-    file_parser = mock_file_parser(file_content)
-    shuffle = file_parser.parse_multi_technique_shuffle("some_file")
+    shuffle = FileParser().parse_multi_technique_shuffle(InputFromString(file_content))
     assert shuffle.new_card_position(position_before_shuffle=3, deck_size=10) == 8
 
 
@@ -1137,10 +1095,9 @@ def test_parse_pairs_of_range_password_policy_and_password():
                    1-3 b: cdefg
                    2-9 c: ccccccccc
                    """
-    file_parser = mock_file_parser(file_content)
     pairs = list(
-        file_parser.parse_password_policies_and_passwords(
-            "some_file", use_range_policy=True
+        FileParser().parse_password_policies_and_passwords(
+            InputFromString(file_content), use_range_policy=True
         )
     )
     assert pairs == [
@@ -1165,10 +1122,9 @@ def test_parse_pairs_of_positional_password_policy_and_password():
                    1-3 b: cdefg
                    2-9 c: ccccccccc
                    """
-    file_parser = mock_file_parser(file_content)
     pairs = list(
-        file_parser.parse_password_policies_and_passwords(
-            "some_file", use_range_policy=False
+        FileParser().parse_password_policies_and_passwords(
+            InputFromString(file_content), use_range_policy=False
         )
     )
     assert pairs == [
@@ -1197,8 +1153,7 @@ def test_parse_passport():
                    ecl:brn pid:760753108 byr:1931
                    hgt:179cm
                    """
-    file_parser = mock_file_parser(file_content)
-    passports = list(file_parser.parse_passports("some_file"))
+    passports = list(FileParser().parse_passports(InputFromString(file_content)))
     assert passports == [
         {
             "ecl": "gry",
@@ -1228,8 +1183,7 @@ def test_parse_plane_seat_ids():
                    FFFBBBFRRR
                    BBFFBBFRLL
                    """
-    file_parser = mock_file_parser(file_content)
-    seat_ids = list(file_parser.parse_plane_seat_ids("some_file"))
+    seat_ids = list(FileParser().parse_plane_seat_ids(InputFromString(file_content)))
     assert seat_ids == [567, 119, 820]
 
 
@@ -1251,8 +1205,9 @@ def test_parse_form_answers_by_groups():
 
                    b
                    """
-    file_parser = mock_file_parser(file_content)
-    groups = list(file_parser.parse_form_answers_by_groups("some_file"))
+    groups = list(
+        FileParser().parse_form_answers_by_groups(InputFromString(file_content))
+    )
     assert len(groups) == 5
     assert groups[0].answers == [{"a", "b", "c"}]
     assert groups[1].answers == [{"a"}, {"b"}, {"c"}]
@@ -1273,8 +1228,7 @@ def test_parse_luggage_rules():
                    faded blue bags contain no other bags.
                    dotted black bags contain no other bags.
                    """
-    file_parser = mock_file_parser(file_content)
-    rules = file_parser.parse_luggage_rules("some_file")
+    rules = FileParser().parse_luggage_rules(InputFromString(file_content))
     assert set(rules.possible_colors_of_outermost_bag("shiny gold")) == {
         "bright white",
         "muted yellow",
@@ -1289,8 +1243,9 @@ def test_parse_game_console_instructions():
                    acc -1
                    jmp +4
                    """
-    file_parser = mock_file_parser(file_content)
-    instructions = list(file_parser.parse_game_console_instructions("some_file"))
+    instructions = list(
+        FileParser().parse_game_console_instructions(InputFromString(file_content))
+    )
     assert instructions == [
         JumpOrNoOpInstruction(offset=0, is_jump=False),
         IncrementGlobalAccumulatorInstruction(increment=-1),
@@ -1309,8 +1264,9 @@ def test_parse_navigation_instructions():
                    R0
                    L90
                    """
-    file_parser = mock_file_parser(file_content)
-    instructions = list(file_parser.parse_navigation_instructions("some_file"))
+    instructions = list(
+        FileParser().parse_navigation_instructions(InputFromString(file_content))
+    )
     assert instructions == [
         MoveShipForwardInstruction(distance=10),
         MoveShipInstruction(direction=CardinalDirection.NORTH, distance=3),
@@ -1334,10 +1290,9 @@ def test_parse_navigation_instructions_for_waypoint():
                    R0
                    L90
                    """
-    file_parser = mock_file_parser(file_content)
     instructions = list(
-        file_parser.parse_navigation_instructions(
-            "some_file", relative_to_waypoint=True
+        FileParser().parse_navigation_instructions(
+            InputFromString(file_content), relative_to_waypoint=True
         )
     )
     assert instructions == [
@@ -1355,9 +1310,11 @@ def test_parse_navigation_instructions_for_waypoint():
 def test_parse_bus_schedules_and_current_timestamp():
     file_content = """939
                       7,13,x,x,59,x,31,19"""
-    file_parser = mock_file_parser(file_content)
-    bus_schedules, current_timestamp = (
-        file_parser.parse_bus_schedules_and_current_timestamp("some_file")
+    (
+        bus_schedules,
+        current_timestamp,
+    ) = FileParser().parse_bus_schedules_and_current_timestamp(
+        InputFromString(file_content)
     )
     assert current_timestamp == 939
     assert bus_schedules == [
@@ -1377,9 +1334,10 @@ def test_parse_bitmask_instructions_for_values(is_address_mask):
                    mask = 1X0
                    mem[7] = 456
                    """
-    file_parser = mock_file_parser(file_content)
     instructions = list(
-        file_parser.parse_bitmask_instructions("some_file", is_address_mask)
+        FileParser().parse_bitmask_instructions(
+            InputFromString(file_content), is_address_mask
+        )
     )
     assert instructions == [
         SetMaskInstruction("XXX", is_address_mask),
@@ -1404,8 +1362,9 @@ def test_parse_ticket_validator_and_ticket_values():
                    55,2,20
                    38,6,12
                    """
-    file_parser = mock_file_parser(file_content)
-    parsed = file_parser.parse_ticket_validator_and_ticket_values("some_file")
+    parsed = FileParser().parse_ticket_validator_and_ticket_values(
+        InputFromString(file_content)
+    )
     assert parsed.my_ticket == (7, 1, 14)
     assert parsed.nearby_tickets == [
         (7, 3, 47),
@@ -1445,9 +1404,8 @@ def test_parse_context_free_grammar_and_words():
                    aaabbb
                    aaaabbb
                    """
-    file_parser = mock_file_parser(file_content)
-    cfg, words = file_parser.parse_context_free_grammar_and_words(
-        "some_file", starting_symbol=0
+    cfg, words = FileParser().parse_context_free_grammar_and_words(
+        InputFromString(file_content), starting_symbol=0
     )
     assert words == ["ababbb", "bababa", "abbbab", "aaabbb", "aaaabbb"]
     assert cfg.matches(tuple("ababbb"))
@@ -1464,8 +1422,7 @@ def test_parse_jigsaw_pieces():
                    ..#
                    ###
                    """
-    file_parser = mock_file_parser(file_content)
-    pieces = list(file_parser.parse_jigsaw_pieces("some_file"))
+    pieces = list(FileParser().parse_jigsaw_pieces(InputFromString(file_content)))
     assert pieces[0].piece_id == 2311
     assert pieces[0].render() == ".#.\n..."
     assert pieces[1].piece_id == 1951
@@ -1477,8 +1434,7 @@ def test_parse_foods():
                    mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
                    trh fvjkl sbzzf mxmxvkd (contains dairy)
                    """
-    file_parser = mock_file_parser(file_content)
-    foods = list(file_parser.parse_foods("some_file"))
+    foods = list(FileParser().parse_foods(InputFromString(file_content)))
     assert len(foods) == 2
     assert foods[0].ingredients == {"mxmxvkd", "kfcds", "sqjhc", "nhms"}
     assert foods[0].allergens == {"dairy", "fish"}
@@ -1502,8 +1458,9 @@ def test_parse_crab_combat_cards():
                    7
                    10
                    """
-    file_parser = mock_file_parser(file_content)
-    cards_a, cards_b = file_parser.parse_crab_combat_cards("some_file")
+    cards_a, cards_b = FileParser().parse_crab_combat_cards(
+        InputFromString(file_content)
+    )
     assert cards_a == [9, 2, 6, 3, 1]
     assert cards_b == [5, 8, 4, 7, 10]
 
@@ -1513,8 +1470,9 @@ def test_parse_rotated_hexagonal_directions_without_delimeters():
                    esenee
                    nwwswee
                    """
-    file_parser = mock_file_parser(file_content)
-    directions = list(file_parser.parse_rotated_hexagonal_directions("some_file"))
+    directions = list(
+        FileParser().parse_rotated_hexagonal_directions(InputFromString(file_content))
+    )
     assert directions == [
         [
             HexagonalDirection.NORTHEAST,
@@ -1537,10 +1495,9 @@ def test_parse_navigation_instructions_for_submarine_without_aim():
                    forward 10
                    up 3
                    down 7"""
-    file_parser = mock_file_parser(file_content)
     instructions = list(
-        file_parser.parse_submarine_navigation_instructions(
-            "some_file", submarine_has_aim=False
+        FileParser().parse_submarine_navigation_instructions(
+            InputFromString(file_content), submarine_has_aim=False
         )
     )
     assert len(instructions) == 3
@@ -1553,10 +1510,9 @@ def test_parse_navigation_instructions_for_submarine_with_aim():
                    up 13
                    forward 10
                    down 7"""
-    file_parser = mock_file_parser(file_content)
     instructions = list(
-        file_parser.parse_submarine_navigation_instructions(
-            "some_file", submarine_has_aim=True
+        FileParser().parse_submarine_navigation_instructions(
+            InputFromString(file_content), submarine_has_aim=True
         )
     )
     assert len(instructions) == 3
@@ -1577,9 +1533,8 @@ def test_parse_bingo_game_and_numbers_to_draw():
                    12 7  19
                    5  16 2 
                    """
-    file_parser = mock_file_parser(file_content)
-    game, numbers_to_draw = file_parser.parse_bingo_game_and_numbers_to_draw(
-        "some_file"
+    game, numbers_to_draw = FileParser().parse_bingo_game_and_numbers_to_draw(
+        InputFromString(file_content)
     )
     assert numbers_to_draw == [7, 4, 9, 15]
     assert len(game.boards) == 2
@@ -1590,8 +1545,7 @@ def test_parse_bingo_game_and_numbers_to_draw():
 def test_parse_line_segments():
     file_content = """0,9 -> 5,9
                       8,0 -> 0,8"""
-    file_parser = mock_file_parser(file_content)
-    segments = list(file_parser.parse_line_segments("some_file"))
+    segments = list(FileParser().parse_line_segments(InputFromString(file_content)))
     assert segments == [
         LineSegment(start=Vector2D(0, 9), end=Vector2D(5, 9)),
         LineSegment(start=Vector2D(8, 0), end=Vector2D(0, 8)),
@@ -1602,8 +1556,9 @@ def test_parse_shuffled_seven_digit_displays():
     file_content = """
                    cefbd dcg dcfgbae | cebdg egcfda
                    aefgc bcdgef bf bfaecd | gefac fgaec bdaf"""
-    file_parser = mock_file_parser(file_content)
-    displays = list(file_parser.parse_shuffled_seven_digit_displays("some_file"))
+    displays = list(
+        FileParser().parse_shuffled_seven_digit_displays(InputFromString(file_content))
+    )
     assert displays == [
         ShuffledSevenDigitDisplay(
             unique_patterns=("cefbd", "dcg", "dcfgbae"),
@@ -1624,8 +1579,9 @@ def test_parse_underwater_cave_connections():
                       b-d
                       A-end
                       b-end"""
-    file_parser = mock_file_parser(file_content)
-    connections = file_parser.parse_underwater_cave_connections("some_file")
+    connections = FileParser().parse_underwater_cave_connections(
+        InputFromString(file_content)
+    )
     start = UnderwaterCave(name="start", is_small=True)
     assert connections[start] == {
         UnderwaterCave(name="A", is_small=False),
@@ -1642,9 +1598,8 @@ def test_parse_positions_and_fold_instructions():
                    fold along y=7
                    fold along x=5
                    """
-    file_parser = mock_file_parser(file_content)
-    positions, instructions = file_parser.parse_positions_and_fold_instructions(
-        "some_file"
+    positions, instructions = FileParser().parse_positions_and_fold_instructions(
+        InputFromString(file_content)
     )
     assert positions == [Vector2D(2, 14), Vector2D(8, 10), Vector2D(9, 0)]
     assert instructions == [
@@ -1658,8 +1613,9 @@ def test_parse_polymer_and_polymer_extension_rules():
 
                       CH -> B
                       HH -> N"""
-    file_parser = mock_file_parser(file_content)
-    polymer, rules = file_parser.parse_polymer_and_polymer_extension_rules("some_file")
+    polymer, rules = FileParser().parse_polymer_and_polymer_extension_rules(
+        InputFromString(file_content)
+    )
     assert polymer == "NNCB"
     assert rules == {
         "CH": "B",
@@ -1669,8 +1625,7 @@ def test_parse_polymer_and_polymer_extension_rules():
 
 def test_parse_bounding_box():
     file_content = "target area: x=244..303, y=-91..-54"
-    file_parser = mock_file_parser(file_content)
-    bounding_box = file_parser.parse_bounding_box("some_file")
+    bounding_box = FileParser().parse_bounding_box(InputFromString(file_content))
     assert bounding_box == BoundingBox(
         bottom_left=Vector2D(244, -91), top_right=Vector2D(303, -54)
     )
@@ -1688,8 +1643,9 @@ def test_parse_underwater_scanners():
                    -5,0, -2
                    -2,1, -3
                    """
-    file_parser = mock_file_parser(file_content)
-    scanners = list(file_parser.parse_underwater_scanners("some_file"))
+    scanners = list(
+        FileParser().parse_underwater_scanners(InputFromString(file_content))
+    )
     assert scanners == [
         UnderwaterScanner(
             scanner_id=0,
@@ -1716,8 +1672,9 @@ def test_parse_trench_rules_and_trench_map():
                       #..#.
                       #....
                       """
-    file_parser = mock_file_parser(file_content)
-    trench_rule, trench_map = file_parser.parse_trench_rules_and_trench_map("some_file")
+    trench_rule, trench_map = FileParser().parse_trench_rules_and_trench_map(
+        InputFromString(file_content)
+    )
     assert trench_rule == {2, 4, 11, 14}
     assert trench_map == {Vector2D(0, 0), Vector2D(3, 0), Vector2D(0, 1)}
 
@@ -1725,8 +1682,9 @@ def test_parse_trench_rules_and_trench_map():
 def test_parse_players_starting_positions():
     file_content = """Player 1 starting position: 1
                       Player 2 starting position: 3"""
-    file_parser = mock_file_parser(file_content)
-    positions = file_parser.parse_players_starting_positions("some_file")
+    positions = FileParser().parse_players_starting_positions(
+        InputFromString(file_content)
+    )
     assert positions == (1, 3)
 
 
@@ -1734,8 +1692,9 @@ def test_parse_cuboid_instructions():
     file_content = """
                    on x=-48..-3,y=-18..36,z=-26..28
                    off x=-22..-11,y=-42..-27,z=-29..-14"""
-    file_parser = mock_file_parser(file_content)
-    instructions = list(file_parser.parse_cuboid_instructions("some_file"))
+    instructions = list(
+        FileParser().parse_cuboid_instructions(InputFromString(file_content))
+    )
     assert instructions == [
         CuboidInstruction(
             cuboid=Cuboid(
@@ -1761,8 +1720,7 @@ def test_parse_amphipod_burrow():
                    ###B#C#B#D###
                      #A#D#C#A#
                      #########"""
-    file_parser = mock_file_parser(file_content)
-    burrow = file_parser.parse_amphipod_burrow("some_file")
+    burrow = FileParser().parse_amphipod_burrow(InputFromString(file_content))
     assert burrow.hallway.positions == tuple(None for _ in range(11))
     assert burrow.rooms == (
         AmphipodRoom(
@@ -1811,9 +1769,10 @@ def test_parse_amphipod_burrow_with_insertions():
                    ###B#C#B#D###
                      #A#D#C#A#
                      #########"""
-    file_parser = mock_file_parser(file_content)
     insertions = ("DD", "BC", "AB", "AC")
-    burrow = file_parser.parse_amphipod_burrow("some_file", *insertions)
+    burrow = FileParser().parse_amphipod_burrow(
+        InputFromString(file_content), *insertions
+    )
     assert all(room.capacity == 4 for room in burrow.rooms)
     assert burrow.hallway.positions == tuple(None for _ in range(11))
     assert burrow.rooms[1] == AmphipodRoom(

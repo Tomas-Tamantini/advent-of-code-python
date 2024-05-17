@@ -4,6 +4,7 @@ import re
 import numpy as np
 from datetime import datetime
 from collections import defaultdict
+from models.common.input_reader import InputReader
 from models.graphs import DirectedGraph
 from models.vectors import (
     CardinalDirection,
@@ -178,33 +179,6 @@ from models.aoc_2021 import (
 )
 
 
-class FileReaderProtocol(Protocol):
-    def read(self, file_name: str) -> str: ...
-
-    def readlines(self, file_name: str) -> Iterator[str]: ...
-
-    def read_stripped_lines(
-        self, file_name: str, keep_empty_lines: bool
-    ) -> Iterator[str]: ...
-
-
-class FileReader:
-    def read(self, file_name: str) -> str:
-        with open(file_name, "r") as f:
-            return f.read()
-
-    def readlines(self, file_name: str) -> Iterator[str]:
-        with open(file_name, "r") as f:
-            yield from f.readlines()
-
-    def read_stripped_lines(
-        self, file_name: str, keep_empty_lines: bool = False
-    ) -> Iterator[str]:
-        for line in self.readlines(file_name):
-            if line.strip() or keep_empty_lines:
-                yield line.strip()
-
-
 @dataclass
 class _ParsedTicketValidator:
     validator: TicketValidator
@@ -213,15 +187,8 @@ class _ParsedTicketValidator:
 
 
 class FileParser:
-    def __init__(self, file_reader: FileReaderProtocol) -> None:
-        self._file_reader = file_reader
-
-    @staticmethod
-    def default() -> "FileParser":
-        return FileParser(FileReader())
-
-    def parse_xmas_presents(self, file_name: str) -> Iterator[XmasPresent]:
-        for l in self._file_reader.readlines(file_name):
+    def parse_xmas_presents(self, input_reader: InputReader) -> Iterator[XmasPresent]:
+        for l in input_reader.readlines():
             yield XmasPresent(*map(int, l.split("x")))
 
     @staticmethod
@@ -257,9 +224,9 @@ class FileParser:
         except:
             gate.add_input_wire(input.strip())
 
-    def parse_logic_gates_circuit(self, file_name: str) -> LogicGatesCircuit:
+    def parse_logic_gates_circuit(self, input_reader: InputReader) -> LogicGatesCircuit:
         circuit = LogicGatesCircuit()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "->" not in line:
                 continue
             input_str, output_str = line.split("->")
@@ -291,18 +258,20 @@ class FileParser:
             circuit.add_gate(gate, output_wire)
         return circuit
 
-    def parse_adirected_graph(self, file_name: str) -> CityRouter:
+    def parse_adirected_graph(self, input_reader: InputReader) -> CityRouter:
         graph = CityRouter()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             nodes_str, distance_str = line.split("=")
             nodes = [n.strip() for n in nodes_str.split("to")]
             distance = int(distance_str)
             graph.add_edge(*nodes, distance)
         return graph
 
-    def parse_seating_arrangement(self, file_name: str) -> SeatingArrangements:
+    def parse_seating_arrangement(
+        self, input_reader: InputReader
+    ) -> SeatingArrangements:
         graph = SeatingArrangements()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             sentence_parts = line.strip().split(" ")
             node_a = sentence_parts[0].strip()
             node_b = sentence_parts[-1].replace(".", "").strip()
@@ -332,9 +301,9 @@ class FileParser:
             calories=int(parts[10]),
         )
 
-    def parse_rpg_boss(self, file_name: str) -> dict[str, int]:
+    def parse_rpg_boss(self, input_reader: InputReader) -> dict[str, int]:
         attributes = {}
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.split(":")
             value = int(parts[-1])
             if "Hit Points" in line:
@@ -345,8 +314,8 @@ class FileParser:
                 attributes["armor"] = value
         return attributes
 
-    def parse_aunt_sue_collection(self, file_name) -> Iterator[AuntSue]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_aunt_sue_collection(self, input_reader: InputReader) -> Iterator[AuntSue]:
+        for line in input_reader.readlines():
             parts = line.split(":", 1)
             sue_id = int(parts[0].replace("Sue ", ""))
             attributes = {}
@@ -362,9 +331,9 @@ class FileParser:
         return Molecule(tuple(atoms))
 
     def parse_molecule_replacements(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> tuple[Molecule, dict[str, tuple[Molecule]]]:
-        lines = list(self._file_reader.readlines(file_name))
+        lines = list(input_reader.readlines())
         molecule = self._parse_molecule(lines[-1].strip())
         replacements = {}
         for line in lines:
@@ -376,14 +345,14 @@ class FileParser:
             replacements[atom].append(self._parse_molecule(replace_molecule_str))
         return molecule, {k: tuple(v) for k, v in replacements.items()}
 
-    def parse_code_row_and_col(self, file_name: str) -> dict[str, int]:
-        text = self._file_reader.read(file_name)
+    def parse_code_row_and_col(self, input_reader: InputReader) -> dict[str, int]:
+        text = input_reader.read()
         parts = text.replace(",", "").replace(".", "").split(" ")
         return {"row": int(parts[-3]), "col": int(parts[-1])}
 
-    def parse_turtle_instructions(self, file_name):
+    def parse_turtle_instructions(self, input_reader: InputReader):
         instructions = []
-        text = self._file_reader.read(file_name)
+        text = input_reader.read()
         for instruction in text.split(","):
             instruction = instruction.strip()
             turn = TurnDirection(instruction[0])
@@ -401,13 +370,13 @@ class FileParser:
         }[direction]
 
     def parse_triangle_sides(
-        self, file_name: str, read_horizontally: bool
+        self, input_reader: InputReader, read_horizontally: bool
     ) -> Iterator[tuple[int, int, int]]:
         if read_horizontally:
-            for line in self._file_reader.readlines(file_name):
+            for line in input_reader.readlines():
                 yield tuple(map(int, line.strip().split()))
         else:
-            lines = list(self._file_reader.readlines(file_name))
+            lines = list(input_reader.readlines())
             for i in range(0, len(lines), 3):
                 for j in range(3):
                     yield tuple(int(lines[i + k].strip().split()[j]) for k in range(3))
@@ -422,9 +391,9 @@ class FileParser:
         return EncryptedRoom(room_name, sector_id, checksum)
 
     def parse_programmable_screen_instructions(
-        self, file_name: str, screen: ProgrammableScreen
+        self, input_reader: InputReader, screen: ProgrammableScreen
     ) -> None:
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "rect" in line:
                 width, height = map(int, line.split("rect")[-1].strip().split("x"))
                 screen.rect(width, height)
@@ -467,10 +436,10 @@ class FileParser:
             ),
         )
 
-    def parse_chip_factory(self, file_name: str) -> ChipFactory:
+    def parse_chip_factory(self, input_reader: InputReader) -> ChipFactory:
         input_assignments = list()
         robot_programs = dict()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "value" in line:
                 input_assignments.append(self._parse_input_assignment(line))
             else:
@@ -493,9 +462,9 @@ class FileParser:
         return FloorConfiguration(tuple(microchips), tuple(generators))
 
     def parse_radioisotope_testing_facility_floor_configurations(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> Iterator[FloorConfiguration]:
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             yield self._parse_floor_configuration(line)
 
     @staticmethod
@@ -505,11 +474,8 @@ class FileParser:
         position_at_time_zero = int(parts[-1].replace(".", ""))
         return SpinningDisc(num_positions, position_at_time_zero)
 
-    def parse_disc_system(self, file_name: str) -> DiscSystem:
-        discs = [
-            self._parse_spinning_disc(line)
-            for line in self._file_reader.readlines(file_name)
-        ]
+    def parse_disc_system(self, input_reader: InputReader) -> DiscSystem:
+        discs = [self._parse_spinning_disc(line) for line in input_reader.readlines()]
         return DiscSystem(discs)
 
     @staticmethod
@@ -538,10 +504,10 @@ class FileParser:
         else:
             raise ValueError(f"Unknown instruction: {line.strip()}")
 
-    def parse_string_scrambler(self, file_name: str) -> MultiStepScrambler:
+    def parse_string_scrambler(self, input_reader: InputReader) -> MultiStepScrambler:
         scramblers = [
             self._parse_string_scrambler_function(line)
-            for line in self._file_reader.readlines(file_name)
+            for line in input_reader.readlines()
         ]
         return MultiStepScrambler(scramblers)
 
@@ -554,8 +520,8 @@ class FileParser:
             used=int(parts[2].replace("T", "")),
         )
 
-    def parse_storage_nodes(self, file_name: str) -> Iterator[StorageNode]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_storage_nodes(self, input_reader: InputReader) -> Iterator[StorageNode]:
+        for line in input_reader.readlines():
             if "node" in line:
                 yield self._parse_storage_node(line)
 
@@ -586,16 +552,16 @@ class FileParser:
         else:
             raise ValueError(f"Unknown instruction: {line.strip()}")
 
-    def parse_assembunny_code(self, file_name) -> AssembunnyProgram:
+    def parse_assembunny_code(self, input_reader: InputReader) -> AssembunnyProgram:
         instructions = [
             self._parse_assembunny_instruction(line)
-            for line in self._file_reader.readlines(file_name)
+            for line in input_reader.readlines()
         ]
         return AssembunnyProgram(instructions)
 
-    def parse_program_tree(self, file_name) -> TreeNode:
+    def parse_program_tree(self, input_reader: InputReader) -> TreeNode:
         tree_builder = TreeBuilder()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split(" ")
             node_name = parts[0]
             node_weight = int(parts[1].replace("(", "").replace(")", ""))
@@ -620,23 +586,23 @@ class FileParser:
         )
 
     def parse_conditional_increment_instructions(
-        self, file_name
+        self, input_reader: InputReader
     ) -> Iterator[ConditionalIncrementInstruction]:
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             yield self._parse_conditional_increment_instruction(line)
 
-    def parse_program_graph(self, file_name) -> ProgramGraph:
+    def parse_program_graph(self, input_reader: InputReader) -> ProgramGraph:
         graph = ProgramGraph()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split(" ")
             node = int(parts[0])
             for neighbor in parts[2:]:
                 graph.add_edge(node, int(neighbor.replace(",", "")))
         return graph
 
-    def parse_layered_firewall(self, file_name) -> LayeredFirewall:
+    def parse_layered_firewall(self, input_reader: InputReader) -> LayeredFirewall:
         layers = {}
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split(":")
             layer_depth = int(parts[0])
             scanning_range = int(parts[1])
@@ -653,8 +619,10 @@ class FileParser:
             parts = instruction[1:].split("/")
             return Partner(parts[0], parts[1])
 
-    def parse_string_transformers(self, file_name) -> Iterator[StringTransform]:
-        for instruction in self._file_reader.read(file_name).split(","):
+    def parse_string_transformers(
+        self, input_reader: InputReader
+    ) -> Iterator[StringTransform]:
+        for instruction in input_reader.read().split(","):
             yield self._parse_string_transformer(instruction.strip())
 
     def _parse_duet_instruction(
@@ -704,17 +672,17 @@ class FileParser:
 
     def parse_duet_code(
         self,
-        file_name,
+        input_reader: InputReader,
         parse_rcv_as_input: bool = False,
         spy_multiply: bool = False,
     ) -> Iterator[Instruction]:
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             yield self._parse_duet_instruction(
                 line.strip(), parse_rcv_as_input, spy_multiply
             )
 
-    def parse_particles(self, file_name) -> Iterator[Particle]:
-        for particle_id, line in enumerate(self._file_reader.readlines(file_name)):
+    def parse_particles(self, input_reader: InputReader) -> Iterator[Particle]:
+        for particle_id, line in enumerate(input_reader.readlines()):
             parts = line.strip().split(">,")
             position = Vector3D(*map(int, parts[0].replace("p=<", "").split(",")))
             velocity = Vector3D(*map(int, parts[1].replace("v=<", "").split(",")))
@@ -734,21 +702,25 @@ class FileParser:
             )
         )
 
-    def parse_art_block_rules(self, file_name: str) -> dict[ArtBlock, ArtBlock]:
+    def parse_art_block_rules(
+        self, input_reader: InputReader
+    ) -> dict[ArtBlock, ArtBlock]:
         rules = {}
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split(" => ")
             rules[self.parse_art_block(parts[0])] = self.parse_art_block(parts[1])
         return rules
 
-    def parse_bridge_components(self, file_name: str) -> Iterator[BridgeComponent]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_bridge_components(
+        self, input_reader: InputReader
+    ) -> Iterator[BridgeComponent]:
+        for line in input_reader.readlines():
             yield BridgeComponent(*map(int, line.strip().split("/")))
 
     def parse_turing_machine_specs(
-        self, file_name
+        self, input_reader: InputReader
     ) -> tuple[str, int, dict[TuringState, TuringRule]]:
-        lines = list(self._file_reader.readlines(file_name))
+        lines = list(input_reader.readlines())
         initial_state = lines[0].strip().split()[-1].replace(".", "")
         steps = int(lines[1].strip().split()[-2])
         transition_rules = {}
@@ -782,12 +754,14 @@ class FileParser:
             rect_id, inches_from_left, inches_from_top, width, height
         )
 
-    def parse_fabric_rectangles(self, file_name: str) -> Iterator[FabricRectangle]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_fabric_rectangles(
+        self, input_reader: InputReader
+    ) -> Iterator[FabricRectangle]:
+        for line in input_reader.readlines():
             yield self._parse_fabric_rectangle(line)
 
-    def parse_guard_logs(self, file_name: str) -> Iterator[Guard]:
-        lines = [l.strip() for l in self._file_reader.readlines(file_name)]
+    def parse_guard_logs(self, input_reader: InputReader) -> Iterator[Guard]:
+        lines = [l.strip() for l in input_reader.readlines()]
         sorted_lines = sorted(lines, key=lambda l: l[:18])
         guard_logs = defaultdict(list)
         guard_id = -1
@@ -809,15 +783,17 @@ class FileParser:
                 naps.append(GuardNap(start, end))
             yield Guard(guard_id, naps)
 
-    def parse_directed_graph(self, file_name: str) -> DirectedGraph:
+    def parse_directed_graph(self, input_reader: InputReader) -> DirectedGraph:
         graph = DirectedGraph()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split(" ")
             graph.add_edge(parts[1], parts[-3])
         return graph
 
-    def parse_moving_particles(self, file_name) -> Iterator[MovingParticle]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_moving_particles(
+        self, input_reader: InputReader
+    ) -> Iterator[MovingParticle]:
+        for line in input_reader.readlines():
             stripped_line = (
                 line.strip()
                 .replace(">", "")
@@ -829,10 +805,10 @@ class FileParser:
             velocity = Vector2D(*coords[2:])
             yield MovingParticle(position, velocity)
 
-    def parse_plant_automaton(self, file_name) -> PlantAutomaton:
+    def parse_plant_automaton(self, input_reader: InputReader) -> PlantAutomaton:
         initial_state = set()
         rules = dict()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "initial state" in line:
                 state_str = line.strip().split(":")[-1].strip()
                 initial_state = {i for i, c in enumerate(state_str) if c == "#"}
@@ -842,8 +818,10 @@ class FileParser:
                 rules[configuration] = 1
         return PlantAutomaton(rules, initial_state)
 
-    def parse_instruction_samples(self, file_name) -> Iterator[InstructionSample]:
-        lines = list(self._file_reader.readlines(file_name))
+    def parse_instruction_samples(
+        self, input_reader: InputReader
+    ) -> Iterator[InstructionSample]:
+        lines = list(input_reader.readlines())
         for line_idx, line in enumerate(lines):
             if "Before" in line:
                 lb = line.replace("[", "").replace("]", "").strip()
@@ -863,11 +841,11 @@ class FileParser:
 
     def parse_unknown_op_code_program(
         self,
-        file_name,
+        input_reader: InputReader,
         op_code_to_instruction: dict[int, type[ThreeValueInstruction]],
     ) -> Iterator[ThreeValueInstruction]:
         instructions = []
-        for line in reversed(list(self._file_reader.readlines(file_name))):
+        for line in reversed(list(input_reader.readlines())):
             if "After:" in line:
                 break
             if not line.strip():
@@ -878,8 +856,8 @@ class FileParser:
             instructions.append(instruction_type(*values[1:]))
         yield from reversed(instructions)
 
-    def parse_position_ranges(self, file_name: str) -> Iterator[Vector2D]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_position_ranges(self, input_reader: InputReader) -> Iterator[Vector2D]:
+        for line in input_reader.readlines():
             parts = line.strip().split(",")
             coords = dict()
             for part in parts:
@@ -892,7 +870,7 @@ class FileParser:
                     yield Vector2D(x, y)
 
     def parse_three_value_instructions(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> Iterator[ThreeValueInstruction]:
         register_bound_to_pc = None
         instruction_types = {
@@ -913,7 +891,7 @@ class FileParser:
             "eqri": EqualRegisterImmediate,
             "eqrr": EqualRegisterRegister,
         }
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split()
             if "#ip" in parts:
                 register_bound_to_pc = int(parts[-1])
@@ -921,8 +899,8 @@ class FileParser:
                 instruction_type = instruction_types[parts[0]]
                 yield instruction_type(*map(int, parts[1:]), register_bound_to_pc)
 
-    def parse_nanobots(self, file_name: str) -> Iterator[TeleportNanobot]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_nanobots(self, input_reader: InputReader) -> Iterator[TeleportNanobot]:
+        for line in input_reader.readlines():
             numbers = tuple(
                 map(
                     int,
@@ -968,12 +946,12 @@ class FileParser:
             immunities=tuple(immunities),
         )
 
-    def parse_infection_game(self, file_name: str) -> InfectionGameState:
+    def parse_infection_game(self, input_reader: InputReader) -> InfectionGameState:
         immune_system_armies = []
         infection_armies = []
         loading_immune_system = True
         group_id = 1
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "Infection" in line:
                 loading_immune_system = False
             elif "Immune" in line:
@@ -991,17 +969,17 @@ class FileParser:
         )
 
     def parse_directions(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> Iterator[list[tuple[CardinalDirection, int]]]:
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             yield [
                 (self.parse_cardinal_direction(part.strip()[0]), int(part.strip()[1:]))
                 for part in line.strip().split(",")
             ]
 
-    def parse_celestial_bodies(self, file_name: str) -> CelestialBody:
+    def parse_celestial_bodies(self, input_reader: InputReader) -> CelestialBody:
         bodies = dict()
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             parts = line.strip().split(")")
             parent = parts[0]
             child = parts[1]
@@ -1039,8 +1017,10 @@ class FileParser:
         )
         return ChemicalReaction(inputs, output)
 
-    def parse_chemical_reactions(self, file_name: str) -> Iterator[ChemicalReaction]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_chemical_reactions(
+        self, input_reader: InputReader
+    ) -> Iterator[ChemicalReaction]:
+        for line in input_reader.readlines():
             yield self._parse_chemical_reaction(line.strip())
 
     @staticmethod
@@ -1059,9 +1039,9 @@ class FileParser:
         return updated_chars
 
     def parse_tunnel_maze(
-        self, file_name: str, split_entrance_four_ways: bool = False
+        self, input_reader: InputReader, split_entrance_four_ways: bool = False
     ) -> TunnelMaze:
-        content = self._file_reader.read(file_name)
+        content = input_reader.read()
         grid = CharacterGrid(content)
         maze = TunnelMaze()
         updated_chars = self._tunnel_updated_characters(grid, split_entrance_four_ways)
@@ -1105,10 +1085,10 @@ class FileParser:
                 if char == ".":
                     yield Vector2D(x, y)
 
-    def parse_portal_maze(self, file_name: str) -> PortalMaze:
+    def parse_portal_maze(self, input_reader: InputReader) -> PortalMaze:
         portals = defaultdict(list)
         maze = PortalMaze()
-        lines = list(self._file_reader.readlines(file_name))
+        lines = list(input_reader.readlines())
         for position in self._open_passage_tiles(lines):
             maze.add_node(position)
             portal_id = self._portal_id(position, lines)
@@ -1141,10 +1121,12 @@ class FileParser:
                 return False
         return True
 
-    def parse_recursive_donut_maze(self, file_name: str) -> RecursiveDonutMaze:
+    def parse_recursive_donut_maze(
+        self, input_reader: InputReader
+    ) -> RecursiveDonutMaze:
         portals = defaultdict(dict)
         maze = RecursiveDonutMaze()
-        lines = list(self._file_reader.readlines(file_name))
+        lines = list(input_reader.readlines())
         for position in self._open_passage_tiles(lines):
             maze.add_node(position)
             portal_id = self._portal_id(position, lines)
@@ -1165,9 +1147,11 @@ class FileParser:
 
         return maze
 
-    def parse_multi_technique_shuffle(self, file_name: str) -> MultiTechniqueShuffle:
+    def parse_multi_technique_shuffle(
+        self, input_reader: InputReader
+    ) -> MultiTechniqueShuffle:
         techniques = []
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "deal into new stack" in line:
                 techniques.append(DealIntoNewStackShuffle())
             elif "cut" in line:
@@ -1191,16 +1175,14 @@ class FileParser:
             return PositionalPasswordPolicy(letter, num_a, num_b), password
 
     def parse_password_policies_and_passwords(
-        self, file_name: str, use_range_policy: bool
+        self, input_reader: InputReader, use_range_policy: bool
     ) -> Iterator[tuple[PasswordPolicy, str]]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             yield self._parse_password_policy_and_password(line, use_range_policy)
 
-    def parse_passports(self, file_name: str) -> Iterator[dict[str, str]]:
+    def parse_passports(self, input_reader: InputReader) -> Iterator[dict[str, str]]:
         passport = {}
-        for line in self._file_reader.read_stripped_lines(
-            file_name, keep_empty_lines=True
-        ):
+        for line in input_reader.read_stripped_lines(keep_empty_lines=True):
             if line:
                 parts = line.split()
                 for part in parts:
@@ -1213,19 +1195,19 @@ class FileParser:
         if passport:
             yield passport
 
-    def parse_plane_seat_ids(self, file_name: str) -> Iterator[int]:
-        for line in self._file_reader.readlines(file_name):
+    def parse_plane_seat_ids(self, input_reader: InputReader) -> Iterator[int]:
+        for line in input_reader.readlines():
             line = line.strip()
             if line:
                 row = int(line[:7].replace("F", "0").replace("B", "1"), 2)
                 col = int(line[7:].replace("L", "0").replace("R", "1"), 2)
                 yield row * 8 + col
 
-    def parse_form_answers_by_groups(self, file_name: str) -> Iterator[CustomsGroup]:
+    def parse_form_answers_by_groups(
+        self, input_reader: InputReader
+    ) -> Iterator[CustomsGroup]:
         current_group = CustomsGroup()
-        for line in self._file_reader.read_stripped_lines(
-            file_name, keep_empty_lines=True
-        ):
+        for line in input_reader.read_stripped_lines(keep_empty_lines=True):
             if line:
                 current_group.add_individual_answers(set(line))
             else:
@@ -1255,9 +1237,9 @@ class FileParser:
 
         return LuggageRule(bag=container_bag, contains=contained_bags)
 
-    def parse_luggage_rules(self, file_name: str) -> LuggageRules:
+    def parse_luggage_rules(self, input_reader: InputReader) -> LuggageRules:
         rules = LuggageRules()
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             rules.add_rule(self._parse_luggage_rule(line))
         return rules
 
@@ -1274,8 +1256,10 @@ class FileParser:
         else:
             raise ValueError(f"Unknown instruction: {instruction}")
 
-    def parse_game_console_instructions(self, file_name: str) -> Iterator[Instruction]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+    def parse_game_console_instructions(
+        self, input_reader: InputReader
+    ) -> Iterator[Instruction]:
+        for line in input_reader.read_stripped_lines():
             yield self._parse_game_console_instruction(line)
 
     @staticmethod
@@ -1322,15 +1306,15 @@ class FileParser:
             raise ValueError(f"Unknown navigation instruction: {instruction}")
 
     def parse_navigation_instructions(
-        self, file_name: str, relative_to_waypoint: bool = False
+        self, input_reader: InputReader, relative_to_waypoint: bool = False
     ) -> Iterator[NavigationInstruction]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             yield self._parse_navigation_instruction(line, relative_to_waypoint)
 
     def parse_bus_schedules_and_current_timestamp(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> tuple[list[BusSchedule], int]:
-        lines = list(self._file_reader.readlines(file_name))
+        lines = list(input_reader.readlines())
         current_timestamp = int(lines[0].strip())
         bus_schedules = [
             BusSchedule(index_in_list=i, bus_id=int(bus_id))
@@ -1353,9 +1337,9 @@ class FileParser:
             )
 
     def parse_bitmask_instructions(
-        self, file_name: str, is_address_mask: bool
+        self, input_reader: InputReader, is_address_mask: bool
     ) -> Iterator[BitmaskInstruction]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             yield self._parse_bitmask_instruction(line, is_address_mask)
 
     @staticmethod
@@ -1369,14 +1353,14 @@ class FileParser:
         return TicketFieldValidator(field_name, tuple(ranges))
 
     def parse_ticket_validator_and_ticket_values(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> _ParsedTicketValidator:
         document_section = 0
         field_validators = []
         my_ticket = None
         nearby_tickets = []
 
-        lines = list(self._file_reader.readlines(file_name))
+        lines = list(input_reader.readlines())
 
         for line in lines:
             if not line.strip():
@@ -1401,11 +1385,11 @@ class FileParser:
         )
 
     def parse_context_free_grammar_and_words(
-        self, file_name: str, starting_symbol: Hashable
+        self, input_reader: InputReader, starting_symbol: Hashable
     ) -> tuple[ContextFreeGrammar, list[str]]:
         cfg = ContextFreeGrammar(starting_symbol)
         words = []
-        lines = list(self._file_reader.read_stripped_lines(file_name))
+        lines = list(input_reader.read_stripped_lines())
         for line in lines:
             if ":" in line:
                 parts = line.split(":")
@@ -1422,8 +1406,10 @@ class FileParser:
                 words.append(line)
         return cfg, words
 
-    def parse_jigsaw_pieces(self, file_name: str) -> Iterator[JigsawPieceBinaryImage]:
-        lines = list(self._file_reader.readlines(file_name))
+    def parse_jigsaw_pieces(
+        self, input_reader: InputReader
+    ) -> Iterator[JigsawPieceBinaryImage]:
+        lines = list(input_reader.readlines())
         current_id = -1
         current_rows = []
         for line in lines:
@@ -1447,15 +1433,17 @@ class FileParser:
         allergens = parts[1].replace(")", "").split(", ")
         return Food(set(ingredients), set(allergens))
 
-    def parse_foods(self, file_name: str) -> Iterator[Food]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+    def parse_foods(self, input_reader: InputReader) -> Iterator[Food]:
+        for line in input_reader.read_stripped_lines():
             yield self._parse_food(line)
 
-    def parse_crab_combat_cards(self, file_name: str) -> tuple[list[int], list[int]]:
+    def parse_crab_combat_cards(
+        self, input_reader: InputReader
+    ) -> tuple[list[int], list[int]]:
         cards_a = []
         cards_b = []
         reading_player_b = False
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             if "Player 1" in line:
                 reading_player_b = False
             elif "Player 2" in line:
@@ -1489,9 +1477,9 @@ class FileParser:
                 current_idx += 2
 
     def parse_rotated_hexagonal_directions(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> Iterator[list[HexagonalDirection]]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             yield list(
                 self._parse_rotated_hexagonal_directions_without_delimiters(line)
             )
@@ -1524,9 +1512,9 @@ class FileParser:
             raise ValueError(f"Unknown submarine navigation instruction: {line}")
 
     def parse_submarine_navigation_instructions(
-        self, file_name: str, submarine_has_aim: bool
+        self, input_reader: InputReader, submarine_has_aim: bool
     ) -> Iterator[SubmarineNavigationInstruction]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
 
             if submarine_has_aim:
                 yield self._parse_navigation_instruction_for_submarine_with_aim(line)
@@ -1534,11 +1522,9 @@ class FileParser:
                 yield self._parse_navigation_instruction_for_submarine_without_aim(line)
 
     def parse_bingo_game_and_numbers_to_draw(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> tuple[BingoGame, list[int]]:
-        lines = list(
-            self._file_reader.read_stripped_lines(file_name, keep_empty_lines=True)
-        )
+        lines = list(input_reader.read_stripped_lines(keep_empty_lines=True))
         tables = []
         numbers_to_draw = []
         current_table = []
@@ -1562,8 +1548,8 @@ class FileParser:
         end = Vector2D(*map(int, parts[1].split(",")))
         return LineSegment(start, end)
 
-    def parse_line_segments(self, file_name: str) -> Iterator[LineSegment]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+    def parse_line_segments(self, input_reader: InputReader) -> Iterator[LineSegment]:
+        for line in input_reader.read_stripped_lines():
             yield self._parse_line_segment(line)
 
     @staticmethod
@@ -1574,9 +1560,9 @@ class FileParser:
         return ShuffledSevenDigitDisplay(unique_patterns, four_digit_output)
 
     def parse_shuffled_seven_digit_displays(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> Iterator[ShuffledSevenDigitDisplay]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             yield self._parse_shuffled_seven_digit_display(line)
 
     @staticmethod
@@ -1587,10 +1573,10 @@ class FileParser:
         )
 
     def parse_underwater_cave_connections(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> dict[UnderwaterCave, set[UnderwaterCave]]:
         connections = defaultdict(set)
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             cave_a, cave_b = self._parse_underwater_caves(line)
             connections[cave_a].add(cave_b)
 
@@ -1603,11 +1589,11 @@ class FileParser:
         return FoldInstruction(is_horizontal, index)
 
     def parse_positions_and_fold_instructions(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> tuple[list[Vector2D], list[FoldInstruction]]:
         positions = []
         instructions = []
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             if "fold" in line:
                 instructions.append(self._parse_fold_instruction(line))
             else:
@@ -1615,12 +1601,12 @@ class FileParser:
         return positions, instructions
 
     def parse_polymer_and_polymer_extension_rules(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> tuple[str, dict[str, str]]:
         polymer = ""
         rules = dict()
 
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             if "->" in line:
                 parts = line.split("->")
                 rules[parts[0].strip()] = parts[1].strip()
@@ -1629,9 +1615,9 @@ class FileParser:
 
         return polymer, rules
 
-    def parse_bounding_box(self, file_name: str) -> BoundingBox:
+    def parse_bounding_box(self, input_reader: InputReader) -> BoundingBox:
         """target area: x=244..303, y=-91..-54"""
-        line = self._file_reader.read(file_name).strip()
+        line = input_reader.read().strip()
         parts = line.split(",")
         x_parts = parts[0].split("=")[-1]
         y_parts = parts[1].split("=")[-1]
@@ -1641,10 +1627,12 @@ class FileParser:
             bottom_left=Vector2D(x_min, y_min), top_right=Vector2D(x_max, y_max)
         )
 
-    def parse_underwater_scanners(self, file_name: str) -> Iterator[UnderwaterScanner]:
+    def parse_underwater_scanners(
+        self, input_reader: InputReader
+    ) -> Iterator[UnderwaterScanner]:
         current_positions = []
         current_scanner_id = -1
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             if "scanner" in line:
                 if current_positions:
                     yield UnderwaterScanner(
@@ -1658,12 +1646,12 @@ class FileParser:
             yield UnderwaterScanner(current_scanner_id, tuple(current_positions))
 
     def parse_trench_rules_and_trench_map(
-        self, file_name: str
+        self, input_reader: InputReader
     ) -> tuple[set[int], set[Vector2D]]:
         trench_rules = set()
         trench_map = set()
         current_row = 0
-        for line in self._file_reader.read_stripped_lines(file_name):
+        for line in input_reader.read_stripped_lines():
             active_columns = {i for i, c in enumerate(line) if c == "#"}
             if not trench_rules:
                 trench_rules = active_columns
@@ -1672,8 +1660,10 @@ class FileParser:
                 current_row += 1
         return trench_rules, trench_map
 
-    def parse_players_starting_positions(self, file_name: str) -> tuple[int, int]:
-        lines = list(self._file_reader.readlines(file_name))
+    def parse_players_starting_positions(
+        self, input_reader: InputReader
+    ) -> tuple[int, int]:
+        lines = list(input_reader.readlines())
         return tuple(int(line.strip().split()[-1]) for line in lines)
 
     @staticmethod
@@ -1698,8 +1688,10 @@ class FileParser:
             ),
         )
 
-    def parse_cuboid_instructions(self, file_name: str) -> Iterator[CuboidInstruction]:
-        for line in self._file_reader.read_stripped_lines(file_name):
+    def parse_cuboid_instructions(
+        self, input_reader: InputReader
+    ) -> Iterator[CuboidInstruction]:
+        for line in input_reader.read_stripped_lines():
             yield self._parse_cuboid_instruction(line)
 
     @staticmethod
@@ -1715,11 +1707,13 @@ class FileParser:
             desired_room_index=room_index, energy_spent_per_step=10**room_index
         )
 
-    def parse_amphipod_burrow(self, file_name: str, *insertions: str) -> AmphipodBurrow:
+    def parse_amphipod_burrow(
+        self, input_reader: InputReader, *insertions: str
+    ) -> AmphipodBurrow:
         hallway_length = -1
         hallway_start_index = -1
         rooms_as_dict = defaultdict(list)
-        for line in self._file_reader.readlines(file_name):
+        for line in input_reader.readlines():
             if "." in line:
                 hallway_length = line.count(".")
                 hallway_start_index = line.index(".")

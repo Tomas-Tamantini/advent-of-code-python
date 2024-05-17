@@ -3,6 +3,7 @@ from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.vectors import Vector2D
 from models.char_grid import CharacterGrid
+from models.common.input_reader import InputReader
 from models.aoc_2019 import (
     fuel_requirement,
     run_intcode_program_until_halt,
@@ -54,9 +55,8 @@ from models.aoc_2019 import (
 
 
 # AOC 2019 - Day 1: The Tyranny of the Rocket Equation
-def aoc_2019_d1(file_name: str, **_):
-    with open(file_name, "r") as file:
-        masses = [int(line) for line in file]
+def aoc_2019_d1(input_reader: InputReader, **_):
+    masses = [int(line) for line in input_reader.readlines()]
     fuel_ignoring_extra_mass = sum(
         fuel_requirement(mass, consider_fuel_mass=False) for mass in masses
     )
@@ -72,9 +72,8 @@ def aoc_2019_d1(file_name: str, **_):
 
 
 # AOC 2019 - Day 2: 1202 Program Alarm
-def aoc_2019_d2(file_name: str, **_):
-    with open(file_name, "r") as file:
-        original_instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d2(input_reader: InputReader, **_):
+    original_instructions = [int(code) for code in input_reader.read().split(",")]
     instructions = original_instructions[:]
     instructions[1] = 12
     instructions[2] = 2
@@ -88,10 +87,10 @@ def aoc_2019_d2(file_name: str, **_):
 
 
 # AOC 2019 - Day 3: Crossed Wires
-def aoc_2019_d3(file_name: str, parser: FileParser, **_):
+def aoc_2019_d3(input_reader: InputReader, parser: FileParser, **_):
     wire_a = TwistyWire()
     wire_b = TwistyWire()
-    instructions = list(parser.parse_directions(file_name))
+    instructions = list(parser.parse_directions(input_reader))
     for direction, length in instructions[0]:
         wire_a.add_segment(direction, length)
     for direction, length in instructions[1]:
@@ -110,9 +109,8 @@ def aoc_2019_d3(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 4: Secure Container
-def aoc_2019_d4(file_name: str, **_):
-    with open(file_name, "r") as file:
-        lower_bound, upper_bound = map(int, file.read().split("-"))
+def aoc_2019_d4(input_reader: InputReader, **_):
+    lower_bound, upper_bound = map(int, input_reader.read().split("-"))
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
     print(f"AOC 2019 Day 4/Part 1: Number of valid passwords is {len(valid_passwords)}")
@@ -124,9 +122,8 @@ def aoc_2019_d4(file_name: str, **_):
 
 
 # AOC 2019 - Day 5: Sunny with a Chance of Asteroids
-def aoc_2019_d5(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d5(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     output_1 = run_air_conditioner_program(instructions, air_conditioner_id=1)
     print(f"AOC 2019 Day 5/Part 1: Diagnostic code for air conditioner 1 is {output_1}")
     output_5 = run_air_conditioner_program(instructions, air_conditioner_id=5)
@@ -134,8 +131,8 @@ def aoc_2019_d5(file_name: str, **_):
 
 
 # AOC 2019 - Day 6: Universal Orbit Map
-def aoc_2019_d6(file_name: str, parser: FileParser, **_):
-    center_of_mass = parser.parse_celestial_bodies(file_name)
+def aoc_2019_d6(input_reader: InputReader, parser: FileParser, **_):
+    center_of_mass = parser.parse_celestial_bodies(input_reader)
     total_orbits = center_of_mass.count_orbits()
     print(
         f"AOC 2019 Day 6/Part 1: Total number of direct and indirect orbits is {total_orbits}"
@@ -147,9 +144,8 @@ def aoc_2019_d6(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 7: Amplification Circuit
-def aoc_2019_d7(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d7(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     amplifiers = Amplifiers(instructions)
     input_signal = 0
     max_signal = max(
@@ -169,9 +165,8 @@ def aoc_2019_d7(file_name: str, **_):
 
 
 # AOC 2019 - Day 8: Space Image Format
-def aoc_2019_d8(file_name: str, **_):
-    with open(file_name, "r") as file:
-        data = file.read().strip()
+def aoc_2019_d8(input_reader: InputReader, **_):
+    data = input_reader.read().strip()
 
     image = LayeredImage(width=25, height=6, data=data)
     layer_with_fewest_zeros = min(image.layers, key=lambda layer: layer.count_digit(0))
@@ -184,9 +179,8 @@ def aoc_2019_d8(file_name: str, **_):
 
 
 # AOC 2019 - Day 9: Sensor Boost
-def aoc_2019_d9(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d9(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     output = run_air_conditioner_program(instructions, air_conditioner_id=1)
     print(f"AOC 2019 Day 9/Part 1: Output for the BOOST program is {output}")
     output = run_air_conditioner_program(instructions, air_conditioner_id=2)
@@ -194,8 +188,8 @@ def aoc_2019_d9(file_name: str, **_):
 
 
 # AOC 2019 - Day 10: Monitoring Station
-def aoc_2019_d10(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2019_d10(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()
     print(
@@ -210,9 +204,8 @@ def aoc_2019_d10(file_name: str, **_):
 
 
 # AOC 2019 - Day 11: Space Police
-def aoc_2019_d11(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d11(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     all_black_hull = Hull()
     run_hull_painting_program(instructions, all_black_hull)
     print(
@@ -225,9 +218,8 @@ def aoc_2019_d11(file_name: str, **_):
 
 
 # AOC 2019 - Day 12: The N-Body Problem
-def aoc_2019_d12(file_name: str, parser: FileParser, **_):
-    with open(file_name, "r") as file:
-        positions = [parser.parse_vector_3d(line) for line in file]
+def aoc_2019_d12(input_reader: InputReader, parser: FileParser, **_):
+    positions = [parser.parse_vector_3d(line) for line in input_reader.readlines()]
     moons = [MoonOfJupiter(pos) for pos in positions]
     system = MoonSystem(moons)
     system.multi_step(num_steps=1000)
@@ -240,9 +232,8 @@ def aoc_2019_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 13: Care Package
-def aoc_2019_d13(file_name: str, animate: bool, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d13(input_reader: InputReader, animate: bool, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     screen = ArcadeGameScreen()
     run_intcode_arcade(instructions, screen)
     block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)
@@ -261,8 +252,8 @@ def aoc_2019_d13(file_name: str, animate: bool, **_):
 
 
 # AOC 2019 - Day 14: Space Stoichiometry
-def aoc_2019_d14(file_name: str, parser: FileParser, **_):
-    reactions = ChemicalReactions(set(parser.parse_chemical_reactions(file_name)))
+def aoc_2019_d14(input_reader: InputReader, parser: FileParser, **_):
+    reactions = ChemicalReactions(set(parser.parse_chemical_reactions(input_reader)))
     raw_material = "ORE"
     product = "FUEL"
     ore_required = reactions.min_raw_material_to_make_product(
@@ -281,9 +272,8 @@ def aoc_2019_d14(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 15: Oxygen System
-def aoc_2019_d15(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d15(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     area = DroidExploredArea()
     repair_droid_explore_area(area, instructions)
     distance = area.distance_to_oxygen_system(starting_point=Vector2D(0, 0))
@@ -295,9 +285,8 @@ def aoc_2019_d15(file_name: str, **_):
 
 
 # AOC 2019 - Day 16: Flawed Frequency Transmission
-def aoc_2019_d16(file_name: str, **_):
-    with open(file_name, "r") as file:
-        signal = list(map(int, file.read().strip()))
+def aoc_2019_d16(input_reader: InputReader, **_):
+    signal = list(map(int, input_reader.read().strip()))
 
     output = flawed_frequency_transmission(
         signal, num_phases=100, num_elements_result=8
@@ -316,9 +305,8 @@ def aoc_2019_d16(file_name: str, **_):
 
 
 # AOC 2019 - Day 17: Set and Forget
-def aoc_2019_d17(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d17(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     scaffold_map = ScaffoldMap()
     run_scaffolding_discovery_program(scaffold_map, instructions)
     alignment_parameters = sum(
@@ -338,13 +326,13 @@ def aoc_2019_d17(file_name: str, **_):
 
 
 # AOC 2019 - Day 18: Many-Worlds Interpretation
-def aoc_2019_d18(file_name: str, parser: FileParser, **_):
-    maze = parser.parse_tunnel_maze(file_name)
+def aoc_2019_d18(input_reader: InputReader, parser: FileParser, **_):
+    maze = parser.parse_tunnel_maze(input_reader)
     min_dist = maze.shortest_distance_to_all_keys()
     print(
         f"AOC 2019 Day 18/Part 1: Minimum distance to collect all keys with one robot is {min_dist}"
     )
-    maze = parser.parse_tunnel_maze(file_name, split_entrance_four_ways=True)
+    maze = parser.parse_tunnel_maze(input_reader, split_entrance_four_ways=True)
     min_dist = maze.shortest_distance_to_all_keys()
     print(
         f"AOC 2019 Day 18/Part 2: Minimum distance to collect all keys with four robots is {min_dist}"
@@ -352,9 +340,8 @@ def aoc_2019_d18(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 19: Tractor Beam
-def aoc_2019_d19(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d19(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     area = BeamArea(width=50, height=50)
     run_beam_scanner(instructions, area)
     print(
@@ -370,13 +357,13 @@ def aoc_2019_d19(file_name: str, **_):
 
 
 # AOC 2019 - Day 20: Donut Maze
-def aoc_2019_d20(file_name: str, parser: FileParser, **_):
-    portal_maze = parser.parse_portal_maze(file_name)
+def aoc_2019_d20(input_reader: InputReader, parser: FileParser, **_):
+    portal_maze = parser.parse_portal_maze(input_reader)
     num_steps = portal_maze.num_steps_to_solve()
     print(
         f"AOC 2019 Day 20/Part 1: Fewest number of steps to reach the exit in Donut Maze is {num_steps}"
     )
-    recursive_maze = parser.parse_recursive_donut_maze(file_name)
+    recursive_maze = parser.parse_recursive_donut_maze(input_reader)
     num_steps = recursive_maze.num_steps_to_solve()
     print(
         f"AOC 2019 Day 20/Part 2: Fewest number of steps to reach the exit in Recursive Donut Maze is {num_steps}"
@@ -384,9 +371,8 @@ def aoc_2019_d20(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 21: Springdroid Adventure
-def aoc_2019_d21(file_name: str, **_):
-    with open(file_name, "r") as file:
-        intcode_instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d21(input_reader: InputReader, **_):
+    intcode_instructions = [int(code) for code in input_reader.read().split(",")]
     springscript_instructions = [
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "C", "T"),
         SpringScriptInstruction(SpringScriptInstructionType.AND, "A", "T"),
@@ -436,8 +422,8 @@ def aoc_2019_d21(file_name: str, **_):
 
 
 # AOC 2019 - Day 22: Slam Shuffle
-def aoc_2019_d22(file_name: str, parser: FileParser, **_):
-    shuffle = parser.parse_multi_technique_shuffle(file_name)
+def aoc_2019_d22(input_reader: InputReader, parser: FileParser, **_):
+    shuffle = parser.parse_multi_technique_shuffle(input_reader)
     new_position = shuffle.new_card_position(
         position_before_shuffle=2019, deck_size=10_007
     )
@@ -453,9 +439,8 @@ def aoc_2019_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2019 - Day 23: Category Six
-def aoc_2019_d23(file_name: str, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d23(input_reader: InputReader, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     num_computers = 50
     lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())
     run_network(num_computers, lost_packets_manager, instructions)
@@ -477,8 +462,8 @@ def aoc_2019_d23(file_name: str, **_):
 
 
 # AOC 2019 - Day 24: Planet of Discord
-def aoc_2019_d24(file_name: str, progress_bar: ProgressBarConsole, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2019_d24(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    grid = CharacterGrid(input_reader.read())
     live_cells = set(grid.positions_with_value("#"))
 
     automaton = BugsAutomaton(width=5, height=5)
@@ -501,9 +486,8 @@ def aoc_2019_d24(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2019 - Day 25: Cryostasis
-def aoc_2019_d25(file_name: str, play: bool, **_):
-    with open(file_name, "r") as file:
-        instructions = [int(code) for code in file.read().split(",")]
+def aoc_2019_d25(input_reader: InputReader, play: bool, **_):
+    instructions = [int(code) for code in input_reader.read().split(",")]
     if play:
         control = DroidCLIControl(DroidInput())
         play_msg = ""

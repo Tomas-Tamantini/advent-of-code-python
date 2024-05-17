@@ -6,6 +6,7 @@ from models.char_grid import CharacterGrid
 from models.vectors import Vector2D, TurnDirection
 from models.graphs import topological_sorting, explore_with_bfs
 from models.assembly import Processor, ImmutableProgram, Computer
+from models.common.input_reader import InputReader
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
@@ -44,9 +45,8 @@ from models.aoc_2018 import (
 
 
 # AOC 2018 - Day 1: Chronal Calibration
-def aoc_2018_d1(file_name: str, **_):
-    with open(file_name) as file:
-        lines = file.readlines()
+def aoc_2018_d1(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     terms = [int(line) for line in lines]
     print(f"AOC 2018 Day 1/Part 1: Frequency at the end of one cycle: {sum(terms)}")
     first_duplicate_freq = first_frequency_to_be_reached_twice(terms)
@@ -54,9 +54,8 @@ def aoc_2018_d1(file_name: str, **_):
 
 
 # AOC 2018 - Day 2: Inventory Management System
-def aoc_2018_d2(file_name: str, **_):
-    with open(file_name) as file:
-        lines = file.readlines()
+def aoc_2018_d2(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     ids = [line.strip() for line in lines]
     exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)
     exactly_three = sum(contains_exactly_n_of_any_letter(id, 3) for id in ids)
@@ -74,8 +73,8 @@ def aoc_2018_d2(file_name: str, **_):
 
 
 # AOC 2018 - Day 3: No Matter How You Slice It
-def aoc_2018_d3(file_name: str, parser: FileParser, **_):
-    rectangles = parser.parse_fabric_rectangles(file_name)
+def aoc_2018_d3(input_reader: InputReader, parser: FileParser, **_):
+    rectangles = parser.parse_fabric_rectangles(input_reader)
     fabric_area = FabricArea()
     fabric_area.distribute(list(rectangles))
     conflicting_points = fabric_area.points_with_more_than_one_claim
@@ -89,8 +88,8 @@ def aoc_2018_d3(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 4: Repose Record
-def aoc_2018_d4(file_name: str, parser: FileParser, **_):
-    guards = list(parser.parse_guard_logs(file_name))
+def aoc_2018_d4(input_reader: InputReader, parser: FileParser, **_):
+    guards = list(parser.parse_guard_logs(input_reader))
     guard_most_asleep = max(guards, key=lambda g: g.total_minutes_asleep)
     minute_most_asleep = guard_most_asleep.minute_most_likely_to_be_asleep()
     product = guard_most_asleep.id * minute_most_asleep
@@ -109,9 +108,8 @@ def aoc_2018_d4(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 5: Alchemical Reduction
-def aoc_2018_d5(file_name: str, **_):
-    with open(file_name) as file:
-        polymer = file.read().strip()
+def aoc_2018_d5(input_reader: InputReader, **_):
+    polymer = input_reader.read().strip()
     reacted_polymer = polymer_reaction(polymer)
     print(f"AOC 2018 Day 5/Part 1: Length of reacted polymer: {len(reacted_polymer)}")
     min_length = minimum_polymer_length(polymer)
@@ -119,9 +117,8 @@ def aoc_2018_d5(file_name: str, **_):
 
 
 # AOC 2018 - Day 6: Chronal Coordinates
-def aoc_2018_d6(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as file:
-        lines = file.readlines()
+def aoc_2018_d6(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    lines = list(input_reader.readlines())
     coordinates = [Vector2D(*map(int, line.split(","))) for line in lines]
     voronoi = ManhattanVoronoi(coordinates)
     areas = voronoi.areas_after_expansion()
@@ -134,8 +131,8 @@ def aoc_2018_d6(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2018 - Day 7: The Sum of Its Parts
-def aoc_2018_d7(file_name: str, parser: FileParser, **_):
-    graph = parser.parse_directed_graph(file_name)
+def aoc_2018_d7(input_reader: InputReader, parser: FileParser, **_):
+    graph = parser.parse_directed_graph(input_reader)
     order = "".join(topological_sorting(graph, tie_breaker=lambda a, b: a < b))
     print(f"AOC 2018 Day 7/Part 1: Order of steps: {order}")
     time = time_to_complete_jobs(
@@ -147,18 +144,16 @@ def aoc_2018_d7(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 8: Memory Maneuver
-def aoc_2018_d8(file_name: str, **_):
-    with open(file_name) as file:
-        numbers = list(map(int, file.read().split()))
+def aoc_2018_d8(input_reader: InputReader, **_):
+    numbers = list(map(int, input_reader.read().split()))
     root = parse_list_into_navigation_tree(numbers)
     print(f"AOC 2018 Day 8/Part 1: Sum of metadata: {root.sum_of_metadata()}")
     print(f"AOC 2018 Day 8/Part 2: Value of root node: {root.navigation_value()}")
 
 
 # AOC 2018 - Day 9: Marble Mania
-def aoc_2018_d9(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as file:
-        line = file.read()
+def aoc_2018_d9(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    line = input_reader.read()
     num_players, last_marble = map(int, [line.split()[0], line.split()[-2]])
     scores = marble_game_score(num_players, last_marble)
     print(
@@ -171,8 +166,8 @@ def aoc_2018_d9(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2018 - Day 10: The Stars Align
-def aoc_2018_d10(file_name: str, parser: FileParser, **_):
-    particles = list(parser.parse_moving_particles(file_name))
+def aoc_2018_d10(input_reader: InputReader, parser: FileParser, **_):
+    particles = list(parser.parse_moving_particles(input_reader))
     moving_particles = MovingParticles(particles)
     moments = moving_particles.moments_of_bounding_box_area_increase()
     inflexion_point = next(moments) - 1
@@ -182,9 +177,8 @@ def aoc_2018_d10(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 11: Chronal Charge
-def aoc_2018_d11(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as file:
-        grid_serial_number = int(file.read())
+def aoc_2018_d11(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    grid_serial_number = int(input_reader.read())
     cells = FuelCells(width=300, height=300, grid_serial_number=grid_serial_number)
     x, y = cells.position_with_largest_total_power(region_width=3, region_height=3)
     print(f"AOC 2018 Day 11/Part 1: Position with largest total power: {x+1},{y+1}")
@@ -196,8 +190,8 @@ def aoc_2018_d11(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2018 - Day 12: Subterranean Sustainability
-def aoc_2018_d12(file_name: str, parser: FileParser, **_):
-    plant_automaton = parser.parse_plant_automaton(file_name)
+def aoc_2018_d12(input_reader: InputReader, parser: FileParser, **_):
+    plant_automaton = parser.parse_plant_automaton(input_reader)
     plants_alive = plant_automaton.plants_alive(generation=20)
     print(
         f"AOC 2018 Day 12/Part 1: Sum of indices of plants alive: {sum(plants_alive)}"
@@ -221,9 +215,8 @@ def aoc_2018_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 13: Mine Cart Madness
-def aoc_2018_d13(file_name: str, **_):
-    with open(file_name) as file:
-        mine_layout = file.read()
+def aoc_2018_d13(input_reader: InputReader, **_):
+    mine_layout = input_reader.read()
     intersection_sequence = [
         TurnDirection.LEFT,
         TurnDirection.NO_TURN,
@@ -241,9 +234,8 @@ def aoc_2018_d13(file_name: str, **_):
 
 
 # AOC 2018 - Day 14: Chocolate Charts
-def aoc_2018_d14(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as file:
-        num_steps = int(file.read())
+def aoc_2018_d14(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    num_steps = int(input_reader.read())
     recipe_scores = HotChocolateRecipeScores(first_score=3, second_score=7)
     score_generator = recipe_scores.generate_scores()
     first_scores = [next(score_generator) for _ in range(num_steps + 10)]
@@ -258,9 +250,8 @@ def aoc_2018_d14(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2018 - Day 15: Beverage Bandits
-def aoc_2018_d15(file_name: str, **_):
-    with open(file_name) as file:
-        map_with_units = file.read()
+def aoc_2018_d15(input_reader: InputReader, **_):
+    map_with_units = input_reader.read()
     elf_specs = CaveTeamSpec(attack_power=3, hit_points=200)
     goblin_specs = CaveTeamSpec(attack_power=3, hit_points=200)
     game = build_cave_game(map_with_units, elf_specs, goblin_specs)
@@ -276,8 +267,8 @@ def aoc_2018_d15(file_name: str, **_):
 
 
 # AOC 2018 - Day 16: Chronal Classification
-def aoc_2018_d16(file_name: str, parser: FileParser, **_):
-    samples = list(parser.parse_instruction_samples(file_name))
+def aoc_2018_d16(input_reader: InputReader, parser: FileParser, **_):
+    samples = list(parser.parse_instruction_samples(input_reader))
     num_samples_with_three_or_more = sum(
         len(
             list(
@@ -297,7 +288,7 @@ def aoc_2018_d16(file_name: str, parser: FileParser, **_):
         samples, candidates=ALL_THREE_VALUE_INSTRUCTIONS
     )
     instructions = parser.parse_unknown_op_code_program(
-        file_name, op_codes_to_instructions
+        input_reader, op_codes_to_instructions
     )
     program = ImmutableProgram(list(instructions))
     computer = Computer.from_processor(Processor())
@@ -307,8 +298,8 @@ def aoc_2018_d16(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 17: Reservoir Research
-def aoc_2018_d17(file_name: str, parser: FileParser, **_):
-    clay_positions = set(parser.parse_position_ranges(file_name))
+def aoc_2018_d17(input_reader: InputReader, parser: FileParser, **_):
+    clay_positions = set(parser.parse_position_ranges(input_reader))
     spring_position = Vector2D(500, 0)
     water_spring = WaterSpring(spring_position, clay_positions)
     water_spring.flow()
@@ -321,8 +312,8 @@ def aoc_2018_d17(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 18: Settlers of The North Pole
-def aoc_2018_d18(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2018_d18(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     area = LumberArea(width=grid.width, height=grid.height)
     cells = grid.tiles
     cells_after_10 = area.multi_step(cells, 10)
@@ -343,8 +334,8 @@ def aoc_2018_d18(file_name: str, **_):
 
 
 # AOC 2018 - Day 19: Go With The Flow
-def aoc_2018_d19(file_name: str, parser: FileParser, **_):
-    instructions = list(parser.parse_three_value_instructions(file_name))
+def aoc_2018_d19(input_reader: InputReader, parser: FileParser, **_):
+    instructions = list(parser.parse_three_value_instructions(input_reader))
     program = ImmutableProgram(instructions)
     computer = Computer.from_processor(Processor())
     print("AOC 2018 Day 19/Part 1: Takes about 30s to run", end="\r")
@@ -364,9 +355,8 @@ def aoc_2018_d19(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 20: A Regular Map
-def aoc_2018_d20(file_name: str, **_):
-    with open(file_name) as file:
-        regex = file.read().strip()
+def aoc_2018_d20(input_reader: InputReader, **_):
+    regex = input_reader.read().strip()
     graph = build_lattice_graph(regex)
     starting_node = Vector2D(0, 0)
     distances = {
@@ -383,9 +373,8 @@ def aoc_2018_d20(file_name: str, **_):
 
 
 # AOC 2018 - Day 21: Chronal Conversion
-def aoc_2018_d21(file_name: str, **_):
-    with open(file_name) as file:
-        lines = list(file.readlines())
+def aoc_2018_d21(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     input_number = int(lines[8].split()[1])
     register_min = optimized_chronal_conversion(
         input_number, exit_on_first_occurrence=True
@@ -402,9 +391,8 @@ def aoc_2018_d21(file_name: str, **_):
 
 
 # AOC 2018 - Day 22: Mode Maze
-def aoc_2018_d22(file_name: str, **_):
-    with open(file_name) as file:
-        lines = list(file.readlines())
+def aoc_2018_d22(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     depth = int(lines[0].split()[1])
     target = Vector2D(*map(int, lines[1].split()[1].split(",")))
     cave = RockyCave(
@@ -422,8 +410,8 @@ def aoc_2018_d22(file_name: str, **_):
 
 
 # AOC 2018 - Day 23: Experimental Emergency Teleportation
-def aoc_2018_d23(file_name: str, parser: FileParser, **_):
-    bots = list(parser.parse_nanobots(file_name))
+def aoc_2018_d23(input_reader: InputReader, parser: FileParser, **_):
+    bots = list(parser.parse_nanobots(input_reader))
     strongest = max(bots, key=lambda b: b.radius)
     num_in_range = sum(strongest.is_in_range(bot.position) for bot in bots)
     print(
@@ -436,8 +424,8 @@ def aoc_2018_d23(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 24: Immune System Simulator 20XX
-def aoc_2018_d24(file_name: str, parser: FileParser, **_):
-    initial_game_state = parser.parse_infection_game(file_name)
+def aoc_2018_d24(input_reader: InputReader, parser: FileParser, **_):
+    initial_game_state = parser.parse_infection_game(input_reader)
     game = InfectionGame(initial_game_state)
     game.run_until_over()
     num_units = game.state.total_num_units
@@ -450,9 +438,8 @@ def aoc_2018_d24(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2018 - Day 25: Four-Dimensional Adventure
-def aoc_2018_d25(file_name: str, **_):
-    with open(file_name) as file:
-        lines = file.readlines()
+def aoc_2018_d25(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     points = [tuple(map(int, line.split(","))) for line in lines]
     result = num_constellations(max_distance=3, points=points)
     print(f"AOC 2018 Day 25: Number of constellations: {result}")

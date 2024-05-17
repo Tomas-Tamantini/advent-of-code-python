@@ -7,6 +7,7 @@ from models.vectors import (
     CardinalDirection,
     CanonicalHexagonalCoordinates,
 )
+from models.common.input_reader import InputReader
 from models.number_theory import modular_logarithm
 from models.aoc_2020 import (
     subsets_that_sum_to,
@@ -35,9 +36,8 @@ from models.aoc_2020 import (
 
 
 # AOC 2020 - Day 1: Report Repair
-def aoc_2020_d1(file_name: str, **_):
-    with open(file_name) as file:
-        entries = [int(line) for line in file]
+def aoc_2020_d1(input_reader: InputReader, **_):
+    entries = [int(line) for line in input_reader.readlines()]
     target_sum = 2020
     a, b = next(subsets_that_sum_to(target_sum, subset_size=2, entries=entries))
     print(f"AOC 2020 Day 1/Part 1: The two entries multiply to {a * b}")
@@ -46,11 +46,11 @@ def aoc_2020_d1(file_name: str, **_):
 
 
 # AOC 2020 - Day 2: Password Philosophy
-def aoc_2020_d2(file_name: str, parser: FileParser, **_):
+def aoc_2020_d2(input_reader: InputReader, parser: FileParser, **_):
     num_valid_range_passwords = sum(
         1
         for policy, password in parser.parse_password_policies_and_passwords(
-            file_name, use_range_policy=True
+            input_reader, use_range_policy=True
         )
         if policy.is_valid(password)
     )
@@ -61,7 +61,7 @@ def aoc_2020_d2(file_name: str, parser: FileParser, **_):
     num_valid_positional_passwords = sum(
         1
         for policy, password in parser.parse_password_policies_and_passwords(
-            file_name, use_range_policy=False
+            input_reader, use_range_policy=False
         )
         if policy.is_valid(password)
     )
@@ -71,8 +71,8 @@ def aoc_2020_d2(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 3: Toboggan Trajectory
-def aoc_2020_d3(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2020_d3(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     forest = CylindricalForest(
         width=grid.width, height=grid.height, trees=set(grid.positions_with_value("#"))
     )
@@ -90,8 +90,8 @@ def aoc_2020_d3(file_name: str, **_):
 
 
 # AOC 2020 - Day 4: Passport Processing
-def aoc_2020_d4(file_name: str, parser: FileParser, **_):
-    passports = list(parser.parse_passports(file_name))
+def aoc_2020_d4(input_reader: InputReader, parser: FileParser, **_):
+    passports = list(parser.parse_passports(input_reader))
     required_fields = set(PASSPORT_RULES.keys())
     passports_with_all_fields = [
         passport for passport in passports if required_fields.issubset(passport.keys())
@@ -107,8 +107,8 @@ def aoc_2020_d4(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 5: Binary Boarding
-def aoc_2020_d5(file_name: str, parser: FileParser, **_):
-    seat_ids = sorted(parser.parse_plane_seat_ids(file_name))
+def aoc_2020_d5(input_reader: InputReader, parser: FileParser, **_):
+    seat_ids = sorted(parser.parse_plane_seat_ids(input_reader))
     max_id = seat_ids[-1]
     print(f"AOC 2020 Day 5/Part 1: The highest seat ID is {max_id}")
     for i, seat_id in enumerate(seat_ids):
@@ -119,8 +119,8 @@ def aoc_2020_d5(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 6: Custom Customs
-def aoc_2020_d6(file_name: str, parser: FileParser, **_):
-    groups = list(parser.parse_form_answers_by_groups(file_name))
+def aoc_2020_d6(input_reader: InputReader, parser: FileParser, **_):
+    groups = list(parser.parse_form_answers_by_groups(input_reader))
     union_yes = sum(len(group.questions_with_at_least_one_yes()) for group in groups)
     print(f"AOC 2020 Day 6/Part 1: The sum of union 'yes' answers is {union_yes}")
 
@@ -133,8 +133,8 @@ def aoc_2020_d6(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 7: Handy Haversacks
-def aoc_2020_d7(file_name: str, parser: FileParser, **_):
-    rules = parser.parse_luggage_rules(file_name)
+def aoc_2020_d7(input_reader: InputReader, parser: FileParser, **_):
+    rules = parser.parse_luggage_rules(input_reader)
     my_bag = "shiny gold"
     possible_colors = set(rules.possible_colors_of_outermost_bag(my_bag))
     print(
@@ -145,8 +145,8 @@ def aoc_2020_d7(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 8: Handheld Halting
-def aoc_2020_d8(file_name: str, parser: FileParser, **_):
-    instructions = list(parser.parse_game_console_instructions(file_name))
+def aoc_2020_d8(input_reader: InputReader, parser: FileParser, **_):
+    instructions = list(parser.parse_game_console_instructions(input_reader))
     accumulator = run_game_console(instructions)
     print(f"AOC 2020 Day 8/Part 1: The accumulator value is {accumulator}")
     accumulator = find_and_run_game_console_which_terminates(instructions)
@@ -156,9 +156,8 @@ def aoc_2020_d8(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 9: Encoding Error
-def aoc_2020_d9(file_name: str, **_):
-    with open(file_name) as file:
-        numbers = [int(line) for line in file]
+def aoc_2020_d9(input_reader: InputReader, **_):
+    numbers = [int(line) for line in input_reader.readlines()]
     encoding = XMasEncoding(preamble_length=25)
     invalid_number = next(encoding.invalid_numbers(numbers))
     print(f"AOC 2020 Day 9/Part 1: The first invalid number is {invalid_number}")
@@ -173,9 +172,8 @@ def aoc_2020_d9(file_name: str, **_):
 
 
 # AOC 2020 - Day 10: Adapter Array
-def aoc_2020_d10(file_name: str, **_):
-    with open(file_name) as file:
-        adapters = [int(line) for line in file]
+def aoc_2020_d10(input_reader: InputReader, **_):
+    adapters = [int(line) for line in input_reader.readlines()]
     array = AdapterArray(
         outlet_joltage=0,
         device_joltage=max(adapters) + 3,
@@ -191,8 +189,8 @@ def aoc_2020_d10(file_name: str, **_):
 
 
 # AOC 2020 - Day 11: Seating System
-def aoc_2020_d11(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2020_d11(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
 
     ferry_adjacent_only = FerrySeats(
         width=grid.width,
@@ -222,8 +220,8 @@ def aoc_2020_d11(file_name: str, **_):
 
 
 # AOC 2020 - Day 12: Rain Risk
-def aoc_2020_d12(file_name: str, parser: FileParser, **_):
-    ship_instructions = parser.parse_navigation_instructions(file_name)
+def aoc_2020_d12(input_reader: InputReader, parser: FileParser, **_):
+    ship_instructions = parser.parse_navigation_instructions(input_reader)
     ship = Ship(position=Vector2D(0, 0), facing=CardinalDirection.EAST)
     for instruction in ship_instructions:
         ship = instruction.execute(ship)
@@ -231,7 +229,7 @@ def aoc_2020_d12(file_name: str, parser: FileParser, **_):
     print(f"AOC 2020 Day 12/Part 1: Ship's manhattan distance: {manhattan_distance}")
 
     waypoint_instructions = parser.parse_navigation_instructions(
-        file_name, relative_to_waypoint=True
+        input_reader, relative_to_waypoint=True
     )
     ship = Ship(
         position=Vector2D(0, 0), facing=CardinalDirection.EAST, waypoint=Vector2D(10, 1)
@@ -245,9 +243,9 @@ def aoc_2020_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 13: Shuttle Search
-def aoc_2020_d13(file_name: str, parser: FileParser, **_):
+def aoc_2020_d13(input_reader: InputReader, parser: FileParser, **_):
     bus_schedules, timestap = parser.parse_bus_schedules_and_current_timestamp(
-        file_name
+        input_reader
     )
     wait_time, bus_id = min(
         (
@@ -268,9 +266,9 @@ def aoc_2020_d13(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 14: Docking Data
-def aoc_2020_d14(file_name: str, parser: FileParser, **_):
+def aoc_2020_d14(input_reader: InputReader, parser: FileParser, **_):
     values_instructions = list(
-        parser.parse_bitmask_instructions(file_name, is_address_mask=False)
+        parser.parse_bitmask_instructions(input_reader, is_address_mask=False)
     )
     memory = BitmaskMemory()
     for instruction in values_instructions:
@@ -280,7 +278,7 @@ def aoc_2020_d14(file_name: str, parser: FileParser, **_):
     )
 
     address_instructions = list(
-        parser.parse_bitmask_instructions(file_name, is_address_mask=True)
+        parser.parse_bitmask_instructions(input_reader, is_address_mask=True)
     )
     memory = BitmaskMemory()
     for instruction in address_instructions:
@@ -291,9 +289,8 @@ def aoc_2020_d14(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 15: Rambunctious Recitation
-def aoc_2020_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as file:
-        starting_numbers = [int(number) for number in file.read().split(",")]
+def aoc_2020_d15(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    starting_numbers = [int(number) for number in input_reader.read().split(",")]
     generator = memory_game_numbers(starting_numbers)
     numbers = [next(generator) for _ in range(2020)]
     print(f"AOC 2020 Day 15/Part 1: The 2020th number spoken is {numbers[-1]}")
@@ -307,8 +304,10 @@ def aoc_2020_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2020 - Day 16: Ticket Translation
-def aoc_2020_d16(file_name: str, parser: FileParser, **_):
-    parsed_ticket_validator = parser.parse_ticket_validator_and_ticket_values(file_name)
+def aoc_2020_d16(input_reader: InputReader, parser: FileParser, **_):
+    parsed_ticket_validator = parser.parse_ticket_validator_and_ticket_values(
+        input_reader
+    )
     validator = parsed_ticket_validator.validator
     nearby_tickets = parsed_ticket_validator.nearby_tickets
     scanning_error_rate = sum(
@@ -333,8 +332,8 @@ def aoc_2020_d16(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 17: Conway Cubes
-def aoc_2020_d17(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2020_d17(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     active_cubes_3d = {
         VectorNDimensional(pos.x, pos.y, 0) for pos in grid.positions_with_value("#")
     }
@@ -357,9 +356,8 @@ def aoc_2020_d17(file_name: str, **_):
 
 
 # AOC 2020 - Day 18: Operation Order
-def aoc_2020_d18(file_name: str, **_):
-    with open(file_name) as file:
-        expressions = [line.strip() for line in file]
+def aoc_2020_d18(input_reader: InputReader, **_):
+    expressions = [line.strip() for line in input_reader.readlines()]
     sum_results_left_precedence = sum(
         evaluate_expression_left_precedence(expression) for expression in expressions
     )
@@ -377,9 +375,9 @@ def aoc_2020_d18(file_name: str, **_):
 
 
 # AOC 2020 - Day 19: Monster Messages
-def aoc_2020_d19(file_name: str, parser: FileParser, **_):
+def aoc_2020_d19(input_reader: InputReader, parser: FileParser, **_):
     cfg, words = parser.parse_context_free_grammar_and_words(
-        file_name, starting_symbol=0
+        input_reader, starting_symbol=0
     )
     num_matching = sum(1 for word in words if cfg.matches(tuple(word)))
     print(f"AOC 2020 Day 19/Part 1: Number of valid messages is {num_matching}")
@@ -393,8 +391,8 @@ def aoc_2020_d19(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 20: Jurassic Jigsaw
-def aoc_2020_d20(file_name: str, parser: FileParser, **_):
-    pieces = list(parser.parse_jigsaw_pieces(file_name))
+def aoc_2020_d20(input_reader: InputReader, parser: FileParser, **_):
+    pieces = list(parser.parse_jigsaw_pieces(input_reader))
     solved_jigsaw = solve_jigsaw(pieces)
     border_pieces = list(solved_jigsaw.border_pieces())
     product = 1
@@ -422,8 +420,8 @@ def aoc_2020_d20(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 21: Allergen Assessment
-def aoc_2020_d21(file_name: str, parser: FileParser, **_):
-    foods = Foods(list(parser.parse_foods(file_name)))
+def aoc_2020_d21(input_reader: InputReader, parser: FileParser, **_):
+    foods = Foods(list(parser.parse_foods(input_reader)))
     num_times = sum(
         foods.num_times_ingredient_appears(ingredient)
         for ingredient in foods.ingredients_without_allergens()
@@ -441,8 +439,8 @@ def aoc_2020_d21(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 22: Crab Combat
-def aoc_2020_d22(file_name: str, parser: FileParser, **_):
-    cards_a, cards_b = parser.parse_crab_combat_cards(file_name)
+def aoc_2020_d22(input_reader: InputReader, parser: FileParser, **_):
+    cards_a, cards_b = parser.parse_crab_combat_cards(input_reader)
     combat = CrabCombat(cards_a, cards_b, play_recursive=False)
     combat.play_game()
     winning_score = combat.winning_score()
@@ -458,9 +456,8 @@ def aoc_2020_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 23: Crab Cups
-def aoc_2020_d23(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as file:
-        cups = [int(char) for char in file.read().strip()]
+def aoc_2020_d23(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    cups = [int(char) for char in input_reader.read().strip()]
     result = crab_cups(cups, num_moves=100)
     one_index = result.index(1)
     result_str = "".join(
@@ -478,9 +475,9 @@ def aoc_2020_d23(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2020 - Day 24: Lobby Layout
-def aoc_2020_d24(file_name: str, parser: FileParser, **_):
+def aoc_2020_d24(input_reader: InputReader, parser: FileParser, **_):
     black_tiles = set()
-    for directions in parser.parse_rotated_hexagonal_directions(file_name):
+    for directions in parser.parse_rotated_hexagonal_directions(input_reader):
         pos = CanonicalHexagonalCoordinates(0, 0)
         for direction in directions:
             pos = pos.move(direction)
@@ -498,9 +495,8 @@ def aoc_2020_d24(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2020 - Day 25: Combo Breaker
-def aoc_2020_d25(file_name: str, **_):
-    with open(file_name) as file:
-        public_keys = [int(line.strip()) for line in file]
+def aoc_2020_d25(input_reader: InputReader, **_):
+    public_keys = [int(line.strip()) for line in input_reader.readlines()]
     subject_number = 7
     mod = 20201227
     loop_size_card = modular_logarithm(public_keys[0], subject_number, mod)

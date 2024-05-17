@@ -2,6 +2,7 @@ from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.vectors import CardinalDirection, Vector2D
 from models.assembly import Processor, Computer
+from models.common.input_reader import InputReader
 from models.aoc_2016 import (
     Turtle,
     Keypad,
@@ -31,8 +32,8 @@ from models.aoc_2016 import (
 
 
 # AOC 2016 - Day 1: No Time for a Taxicab
-def aoc_2016_d1(file_name: str, parser: FileParser, **_):
-    instructions = parser.parse_turtle_instructions(file_name)
+def aoc_2016_d1(input_reader: InputReader, parser: FileParser, **_):
+    instructions = parser.parse_turtle_instructions(input_reader)
     turtle = Turtle(initial_direction=CardinalDirection.NORTH)
     for instruction in instructions:
         turtle.move(instruction)
@@ -49,22 +50,19 @@ def aoc_2016_d1(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 2: Bathroom Security
-def aoc_2016_d2(file_name: str, **_):
+def aoc_2016_d2(input_reader: InputReader, **_):
     keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
     keypad_rhombus = Keypad(
         configuration="**1**\n*234*\n56789\n*ABC*\n**D**", initial_key="5"
     )
     keys_3x3 = []
     keys_rhombus = []
-    with open(file_name, "r") as f:
-        for line in f.readlines():
-            instructions = [
-                FileParser.parse_cardinal_direction(i) for i in line.strip()
-            ]
-            keypad_three_by_three.move_multiple_keys(instructions)
-            keys_3x3.append(keypad_three_by_three.key)
-            keypad_rhombus.move_multiple_keys(instructions)
-            keys_rhombus.append(keypad_rhombus.key)
+    for line in input_reader.readlines():
+        instructions = [FileParser.parse_cardinal_direction(i) for i in line.strip()]
+        keypad_three_by_three.move_multiple_keys(instructions)
+        keys_3x3.append(keypad_three_by_three.key)
+        keypad_rhombus.move_multiple_keys(instructions)
+        keys_rhombus.append(keypad_rhombus.key)
     print(f"AOC 2016 - Day 2/Part 1: Bathroom code for 3x3 pad is {''.join(keys_3x3)}")
     print(
         f"AOC 2016 - Day 2/Part 2: Bathroom code for rhombus pad is {''.join(keys_rhombus)}"
@@ -72,14 +70,14 @@ def aoc_2016_d2(file_name: str, **_):
 
 
 # AOC 2016 - Day 3: Squares With Three Sides
-def aoc_2016_d3(file_name: str, parser: FileParser, **_):
+def aoc_2016_d3(input_reader: InputReader, parser: FileParser, **_):
     valid_triangles_horizontal = sum(
         is_valid_triangle(*sides)
-        for sides in parser.parse_triangle_sides(file_name, read_horizontally=True)
+        for sides in parser.parse_triangle_sides(input_reader, read_horizontally=True)
     )
     valid_triangles_vertical = sum(
         is_valid_triangle(*sides)
-        for sides in parser.parse_triangle_sides(file_name, read_horizontally=False)
+        for sides in parser.parse_triangle_sides(input_reader, read_horizontally=False)
     )
 
     print(
@@ -91,16 +89,15 @@ def aoc_2016_d3(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 4: Security Through Obscurity
-def aoc_2016_d4(file_name: str, **_):
+def aoc_2016_d4(input_reader: InputReader, **_):
     id_sum = 0
     id_storage = -1
-    with open(file_name, "r") as f:
-        for line in f.readlines():
-            room = FileParser.parse_encrypted_room(line.strip())
-            if room.is_real():
-                id_sum += room.sector_id
-                if "pole" in room.decrypt_name():
-                    id_storage = room.sector_id
+    for line in input_reader.readlines():
+        room = FileParser.parse_encrypted_room(line.strip())
+        if room.is_real():
+            id_sum += room.sector_id
+            if "pole" in room.decrypt_name():
+                id_storage = room.sector_id
     print(f"AOC 2016 - Day 4/Part 1: Sum of sector IDs of real rooms: {id_sum}")
     print(
         f"AOC 2016 - Day 4/Part 2: Sector ID of room where North Pole objects are stored: {id_storage}"
@@ -108,9 +105,8 @@ def aoc_2016_d4(file_name: str, **_):
 
 
 # AOC 2016 - Day 5: How About a Nice Game of Chess?
-def aoc_2016_d5(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name, "r") as f:
-        door_id = f.read().strip()
+def aoc_2016_d5(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    door_id = input_reader.read().strip()
     password_generator = PasswordGenerator(door_id, num_zeroes=5, password_length=8)
     password_generator.generate_passwords(progress_bar=progress_bar)
     print(
@@ -122,9 +118,8 @@ def aoc_2016_d5(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2016 - Day 6: Signals and Noise
-def aoc_2016_d6(file_name: str, **_):
-    with open(file_name, "r") as f:
-        lines = f.readlines()
+def aoc_2016_d6(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     message_reconstructor = MessageReconstructor(lines)
     most_common_chars = (
         message_reconstructor.reconstruct_message_from_most_common_chars()
@@ -141,16 +136,15 @@ def aoc_2016_d6(file_name: str, **_):
 
 
 # AOC 2016 - Day 7: Internet Protocol Version 7
-def aoc_2016_d7(file_name: str, **_):
+def aoc_2016_d7(input_reader: InputReader, **_):
     num_ips_that_support_tls = 0
     num_ips_that_support_ssl = 0
-    with open(file_name, "r") as f:
-        for line in f.readlines():
-            ip_parser = IpParser(line.strip())
-            if ip_parser.supports_tls():
-                num_ips_that_support_tls += 1
-            if ip_parser.supports_ssl():
-                num_ips_that_support_ssl += 1
+    for line in input_reader.readlines():
+        ip_parser = IpParser(line.strip())
+        if ip_parser.supports_tls():
+            num_ips_that_support_tls += 1
+        if ip_parser.supports_ssl():
+            num_ips_that_support_ssl += 1
     print(
         f"AOC 2016 - Day 7/Part 1: Number of IPs that support TLS: {num_ips_that_support_tls}"
     )
@@ -160,9 +154,9 @@ def aoc_2016_d7(file_name: str, **_):
 
 
 # AOC 2016 - Day 8: Two-Factor Authentication
-def aoc_2016_d8(file_name: str, parser: FileParser, **_):
+def aoc_2016_d8(input_reader: InputReader, parser: FileParser, **_):
     screen = ProgrammableScreen(width=50, height=6)
-    parser.parse_programmable_screen_instructions(file_name, screen)
+    parser.parse_programmable_screen_instructions(input_reader, screen)
     print(
         f"AOC 2016 - Day 8/Part 1: Number of lit pixels: {screen.number_of_lit_pixels()}"
     )
@@ -172,9 +166,8 @@ def aoc_2016_d8(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 9: Explosives in Cyberspace
-def aoc_2016_d9(file_name: str, **_):
-    with open(file_name, "r") as f:
-        compressed_text = f.read().strip()
+def aoc_2016_d9(input_reader: InputReader, **_):
+    compressed_text = input_reader.read().strip()
     decompressor = TextDecompressor(compressed_text)
     print(
         f"AOC 2016 - Day 9/Part 1: Length of decompressed text: {decompressor.length_shallow_decompression()}"
@@ -185,8 +178,8 @@ def aoc_2016_d9(file_name: str, **_):
 
 
 # AOC 2016 - Day 10: Balance Bots
-def aoc_2016_d10(file_name: str, parser: FileParser, **_):
-    factory = parser.parse_chip_factory(file_name)
+def aoc_2016_d10(input_reader: InputReader, parser: FileParser, **_):
+    factory = parser.parse_chip_factory(input_reader)
     factory.run()
     bot_id = factory.robot_that_compared_chips(low_id=17, high_id=61)
     print(f"AOC 2016 - Day 10/Part 1: Bot that compared chips 17 and 61: {bot_id}")
@@ -196,9 +189,9 @@ def aoc_2016_d10(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 11: Radioisotope Thermoelectric Generators
-def aoc_2016_d11(file_name: str, parser: FileParser, **_):
+def aoc_2016_d11(input_reader: InputReader, parser: FileParser, **_):
     floors = tuple(
-        parser.parse_radioisotope_testing_facility_floor_configurations(file_name)
+        parser.parse_radioisotope_testing_facility_floor_configurations(input_reader)
     )
     facility = RadioisotopeTestingFacility(floors, elevator_floor=0)
     steps = facility.min_num_steps_to_reach_final_state()
@@ -220,8 +213,8 @@ def aoc_2016_d11(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 12: Leonardo's Monorail
-def aoc_2016_d12(file_name: str, parser: FileParser, **_):
-    program = parser.parse_assembunny_code(file_name)
+def aoc_2016_d12(input_reader: InputReader, parser: FileParser, **_):
+    program = parser.parse_assembunny_code(input_reader)
     program.optimize()
     computer = Computer.from_processor(Processor())
     computer.run_program(program)
@@ -238,9 +231,8 @@ def aoc_2016_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 13: A Maze of Twisty Little Cubicles
-def aoc_2016_d13(file_name: str, **_):
-    with open(file_name, "r") as f:
-        polynomial_offset = int(f.read().strip())
+def aoc_2016_d13(input_reader: InputReader, **_):
+    polynomial_offset = int(input_reader.read().strip())
     maze = CubicleMaze(
         is_wall=lambda position: is_wall(position, polynomial_offset),
         destination=Vector2D(31, 39),
@@ -258,9 +250,8 @@ def aoc_2016_d13(file_name: str, **_):
 
 
 # AOC 2016 - Day 14: One-Time Pad
-def aoc_2016_d14(file_name: str, **_):
-    with open(file_name, "r") as f:
-        salt = f.read().strip()
+def aoc_2016_d14(input_reader: InputReader, **_):
+    salt = input_reader.read().strip()
     one_hash_generator = KeyGenerator(
         salt,
         num_repeated_characters_first_occurrence=3,
@@ -292,8 +283,8 @@ def aoc_2016_d14(file_name: str, **_):
 
 
 # AOC 2016 - Day 15: Timing is Everything
-def aoc_2016_d15(file_name: str, parser: FileParser, **_):
-    disc_system = parser.parse_disc_system(file_name)
+def aoc_2016_d15(input_reader: InputReader, parser: FileParser, **_):
+    disc_system = parser.parse_disc_system(input_reader)
     time_without_extra_disc = disc_system.time_to_press_button()
     print(
         f"AOC 2016 - Day 15/Part 1: Time to press button without extra disc: {time_without_extra_disc}"
@@ -306,9 +297,8 @@ def aoc_2016_d15(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 16: Dragon Checksum
-def aoc_2016_d16(file_name: str, **_):
-    with open(file_name, "r") as f:
-        initial_state = f.read().strip()
+def aoc_2016_d16(input_reader: InputReader, **_):
+    initial_state = input_reader.read().strip()
     checksum_272 = DragonChecksum(disk_space=272).checksum(initial_state)
     print(f"AOC 2016 - Day 16/Part 1: Checksum of disk with 272 bits: {checksum_272}")
     checksum_large = DragonChecksum(disk_space=35651584).checksum(initial_state)
@@ -318,9 +308,8 @@ def aoc_2016_d16(file_name: str, **_):
 
 
 # AOC 2016 - Day 17: Two Steps Forward
-def aoc_2016_d17(file_name: str, **_):
-    with open(file_name, "r") as f:
-        passcode = f.read().strip()
+def aoc_2016_d17(input_reader: InputReader, **_):
+    passcode = input_reader.read().strip()
     maze_structure = SecureRoomMaze(
         width=4,
         height=4,
@@ -339,9 +328,8 @@ def aoc_2016_d17(file_name: str, **_):
 
 
 # AOC 2016 - Day 18: Like a Rogue
-def aoc_2016_d18(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name, "r") as f:
-        first_row = f.read().strip()
+def aoc_2016_d18(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    first_row = input_reader.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)
     print(f"AOC 2016 - Day 18/Part 1: Number of safe tiles in 40 rows: {num_safe}")
     num_safe = num_safe_tiles(first_row, num_rows=400_000, progress_bar=progress_bar)
@@ -349,9 +337,8 @@ def aoc_2016_d18(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2016 - Day 19: An Elephant Named Joseph
-def aoc_2016_d19(file_name: str, **_):
-    with open(file_name, "r") as f:
-        num_elves = int(f.read().strip())
+def aoc_2016_d19(input_reader: InputReader, **_):
+    num_elves = int(input_reader.read().strip())
     winning_elf_take_left = josephus(num_elves)
     print(
         f"AOC 2016 - Day 19/Part 1: Winning elf if they take from the left: {winning_elf_take_left}"
@@ -363,12 +350,11 @@ def aoc_2016_d19(file_name: str, **_):
 
 
 # AOC 2016 - Day 20: Firewall Rules
-def aoc_2016_d20(file_name: str, **_):
+def aoc_2016_d20(input_reader: InputReader, **_):
     disjoint_intervals = DisjoinIntervals(0, 4_294_967_295)
-    with open(file_name, "r") as f:
-        for line in f.readlines():
-            start, end = map(int, line.strip().split("-"))
-            disjoint_intervals.remove(start, end)
+    for line in input_reader.readlines():
+        start, end = map(int, line.strip().split("-"))
+        disjoint_intervals.remove(start, end)
     lowest_allowed_ip = next(disjoint_intervals.intervals())[0]
     print(f"AOC 2016 - Day 20/Part 1: Lowest allowed IP: {lowest_allowed_ip}")
     num_allowed_ips = disjoint_intervals.num_elements()
@@ -376,8 +362,8 @@ def aoc_2016_d20(file_name: str, **_):
 
 
 # AOC 2016 - Day 21: Scrambled Letters and Hash
-def aoc_2016_d21(file_name: str, parser: FileParser, **_):
-    scrambler = parser.parse_string_scrambler(file_name)
+def aoc_2016_d21(input_reader: InputReader, parser: FileParser, **_):
+    scrambler = parser.parse_string_scrambler(input_reader)
     password = scrambler.scramble("abcdefgh")
     print(f"AOC 2016 - Day 21/Part 1: Password after scrambling: {password}")
     password = scrambler.unscramble("fbgdceah")
@@ -385,8 +371,8 @@ def aoc_2016_d21(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 22: Grid Computing
-def aoc_2016_d22(file_name: str, parser: FileParser, **_):
-    nodes = list(parser.parse_storage_nodes(file_name))
+def aoc_2016_d22(input_reader: InputReader, parser: FileParser, **_):
+    nodes = list(parser.parse_storage_nodes(input_reader))
     viable_pairs = sum(
         node_a.makes_viable_pair(node_b) for node_a in nodes for node_b in nodes
     )
@@ -395,8 +381,8 @@ def aoc_2016_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 23: Safe Cracking
-def aoc_2016_d23(file_name: str, parser: FileParser, **_):
-    program = parser.parse_assembunny_code(file_name)
+def aoc_2016_d23(input_reader: InputReader, parser: FileParser, **_):
+    program = parser.parse_assembunny_code(input_reader)
     a7 = run_self_referential_code(program, initial_value=7)
     print(f"AOC 2016 - Day 23/Part 1: Value in register a if a starts as 7: {a7}")
     a12 = run_self_referential_code(program, initial_value=12)
@@ -404,9 +390,8 @@ def aoc_2016_d23(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2016 - Day 24: Air Duct Spelunking
-def aoc_2016_d24(file_name: str, **_):
-    with open(file_name, "r") as f:
-        blueprint = f.readlines()
+def aoc_2016_d24(input_reader: InputReader, **_):
+    blueprint = list(input_reader.readlines())
 
     maze = AirDuctMaze(blueprint)
     min_steps = maze.min_num_steps_to_visit_points_of_interest(
@@ -424,8 +409,8 @@ def aoc_2016_d24(file_name: str, **_):
 
 
 # AOC 2016 - Day 25: Clock Signal
-def aoc_2016_d25(file_name: str, parser: FileParser, **_):
-    program = parser.parse_assembunny_code(file_name)
+def aoc_2016_d25(input_reader: InputReader, parser: FileParser, **_):
+    program = parser.parse_assembunny_code(input_reader)
     smallest_value = smallest_value_to_send_clock_signal(program)
     print(f"AOC 2016 - Day 25: Smallest value to send clock signal: {smallest_value}")
 

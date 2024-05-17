@@ -5,6 +5,7 @@ from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
 from models.vectors import Vector2D, BoundingBox
+from models.common.input_reader import InputReader
 from models.aoc_2021 import (
     num_increases,
     window_sum,
@@ -39,9 +40,8 @@ from models.aoc_2021 import (
 
 
 # AOC 2021 - Day 1: Sonar Sweep
-def aoc_2021_d1(file_name: str, **_):
-    with open(file_name) as file:
-        measurements = [int(line) for line in file]
+def aoc_2021_d1(input_reader: InputReader, **_):
+    measurements = [int(line) for line in input_reader.readlines()]
 
     print(
         f"AOC 2021 Day 1/Part 1: The number of measurement increases is {num_increases(measurements)}"
@@ -53,11 +53,11 @@ def aoc_2021_d1(file_name: str, **_):
 
 
 # AOC 2021 - Day 2: Dive!
-def aoc_2021_d2(file_name: str, parser: FileParser, **_):
+def aoc_2021_d2(input_reader: InputReader, parser: FileParser, **_):
     submarine = Submarine()
     instructions_without_aim = list(
         parser.parse_submarine_navigation_instructions(
-            file_name, submarine_has_aim=False
+            input_reader, submarine_has_aim=False
         )
     )
     for instruction in instructions_without_aim:
@@ -70,7 +70,7 @@ def aoc_2021_d2(file_name: str, parser: FileParser, **_):
     submarine = Submarine()
     instructions_with_aim = list(
         parser.parse_submarine_navigation_instructions(
-            file_name, submarine_has_aim=True
+            input_reader, submarine_has_aim=True
         )
     )
     for instruction in instructions_with_aim:
@@ -83,9 +83,8 @@ def aoc_2021_d2(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 3: Binary Diagnostic
-def aoc_2021_d3(file_name: str, **_):
-    with open(file_name) as file:
-        binary_strings = [line.strip() for line in file]
+def aoc_2021_d3(input_reader: InputReader, **_):
+    binary_strings = [line.strip() for line in input_reader.readlines()]
     frequency = BitFrequency(binary_strings)
     most_frequent = frequency.most_frequent_bits_in_each_position()
     least_frequent = frequency.least_frequent_bits_in_each_position()
@@ -105,8 +104,8 @@ def aoc_2021_d3(file_name: str, **_):
 
 
 # AOC 2021 - Day 4: Giant Squid
-def aoc_2021_d4(file_name: str, parser: FileParser, **_):
-    game, numbers_to_draw = parser.parse_bingo_game_and_numbers_to_draw(file_name)
+def aoc_2021_d4(input_reader: InputReader, parser: FileParser, **_):
+    game, numbers_to_draw = parser.parse_bingo_game_and_numbers_to_draw(input_reader)
     product_first_winner = -1
     product_last_winner = -1
     for number in numbers_to_draw:
@@ -125,8 +124,8 @@ def aoc_2021_d4(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 5: Hydrothermal Venture
-def aoc_2021_d5(file_name: str, parser: FileParser, **_):
-    segments = list(parser.parse_line_segments(file_name))
+def aoc_2021_d5(input_reader: InputReader, parser: FileParser, **_):
+    segments = list(parser.parse_line_segments(input_reader))
 
     def num_overlapping_positions(segments):
         position_count = defaultdict(int)
@@ -148,9 +147,8 @@ def aoc_2021_d5(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 6: Lanternfish
-def aoc_2021_d6(file_name: str, **_):
-    with open(file_name) as file:
-        days_until_reproduction = [int(day) for day in file.read().split(",")]
+def aoc_2021_d6(input_reader: InputReader, **_):
+    days_until_reproduction = [int(day) for day in input_reader.read().split(",")]
     fish_school = [
         LanternFish(days_until_reproduction=days) for days in days_until_reproduction
     ]
@@ -165,9 +163,8 @@ def aoc_2021_d6(file_name: str, **_):
 
 
 # AOC 2021 - Day 7: The Treachery of Whales
-def aoc_2021_d7(file_name: str, **_):
-    with open(file_name) as file:
-        positions = list(map(int, file.read().split(",")))
+def aoc_2021_d7(input_reader: InputReader, **_):
+    positions = list(map(int, input_reader.read().split(",")))
 
     optimal_linear = optimal_linear_fuel_consumption(positions)
     print(
@@ -181,8 +178,8 @@ def aoc_2021_d7(file_name: str, **_):
 
 
 # AOC 2021 - Day 8: Seven Segment Search
-def aoc_2021_d8(file_name: str, parser: FileParser, **_):
-    displays = list(parser.parse_shuffled_seven_digit_displays(file_name))
+def aoc_2021_d8(input_reader: InputReader, parser: FileParser, **_):
+    displays = list(parser.parse_shuffled_seven_digit_displays(input_reader))
     decoded_digits = [display.decode() for display in displays]
     num_matches = sum(
         1 for digits in decoded_digits for digit in digits if digit in "1478"
@@ -195,8 +192,8 @@ def aoc_2021_d8(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 9: Smoke Basin
-def aoc_2021_d9(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2021_d9(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     basin = SmokeBasin(
         heightmap={pos: int(height) for pos, height in grid.tiles.items()}
     )
@@ -210,15 +207,14 @@ def aoc_2021_d9(file_name: str, **_):
 
 
 # AOC 2021 - Day 10: Syntax Scoring
-def aoc_2021_d10(file_name: str, **_):
+def aoc_2021_d10(input_reader: InputReader, **_):
     mismatch_scores = {
         ")": 3,
         "]": 57,
         "}": 1197,
         ">": 25137,
     }
-    with open(file_name) as file:
-        lines = [line.strip() for line in file]
+    lines = [line.strip() for line in input_reader.readlines()]
 
     incomplete_lines = []
 
@@ -252,8 +248,8 @@ def aoc_2021_d10(file_name: str, **_):
 
 
 # AOC 2021 - Day 11: Dumbo Octopus
-def aoc_2021_d11(file_name: str, animate: bool, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2021_d11(input_reader: InputReader, animate: bool, **_):
+    grid = CharacterGrid(input_reader.read())
     octopuses = OctopusesFlashes(
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
     )
@@ -279,8 +275,8 @@ def aoc_2021_d11(file_name: str, animate: bool, **_):
 
 
 # AOC 2021 - Day 12: Passage Pathing
-def aoc_2021_d12(file_name: str, parser: FileParser, **_):
-    connections = parser.parse_underwater_cave_connections(file_name)
+def aoc_2021_d12(input_reader: InputReader, parser: FileParser, **_):
+    connections = parser.parse_underwater_cave_connections(input_reader)
     explorer = UnderwaterCaveExplorer(
         connections, start_cave_name="start", end_cave_name="end"
     )
@@ -295,8 +291,8 @@ def aoc_2021_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 13: Transparent Origami
-def aoc_2021_d13(file_name: str, parser: FileParser, **_):
-    positions, instructions = parser.parse_positions_and_fold_instructions(file_name)
+def aoc_2021_d13(input_reader: InputReader, parser: FileParser, **_):
+    positions, instructions = parser.parse_positions_and_fold_instructions(input_reader)
     visible_dots = instructions[0].apply(set(positions))
     num_visible_dots = len(visible_dots)
     print(
@@ -315,8 +311,8 @@ def aoc_2021_d13(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 14: Extended Polymerization
-def aoc_2021_d14(file_name: str, parser: FileParser, **_):
-    polymer, rules = parser.parse_polymer_and_polymer_extension_rules(file_name)
+def aoc_2021_d14(input_reader: InputReader, parser: FileParser, **_):
+    polymer, rules = parser.parse_polymer_and_polymer_extension_rules(input_reader)
     extension = PolymerExtension(rules)
     character_count = extension.character_count_after_multiple_extensions(
         polymer, num_times=10
@@ -335,8 +331,8 @@ def aoc_2021_d14(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 15: Chiton
-def aoc_2021_d15(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2021_d15(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     cave_maze = UnderwaterCaveMaze(
         risk_levels={pos: int(char) for pos, char in grid.tiles.items()},
         extension_factor=1,
@@ -361,9 +357,8 @@ def aoc_2021_d15(file_name: str, **_):
 
 
 # AOC 2021 - Day 16: Packet Decoder
-def aoc_2021_d16(file_name: str, **_):
-    with open(file_name) as file:
-        packet_as_hex = file.read().strip()
+def aoc_2021_d16(input_reader: InputReader, **_):
+    packet_as_hex = input_reader.read().strip()
     packet = PacketParser().parse_packet(packet_as_hex)
     print(f"AOC 2021 Day 16/Part 1: The sum of all versions is { packet.version_sum()}")
     print(
@@ -372,8 +367,8 @@ def aoc_2021_d16(file_name: str, **_):
 
 
 # AOC 2021 - Day 17: Trick Shot
-def aoc_2021_d17(file_name: str, parser: FileParser, **_):
-    target = parser.parse_bounding_box(file_name)
+def aoc_2021_d17(input_reader: InputReader, parser: FileParser, **_):
+    target = parser.parse_bounding_box(input_reader)
     all_velocities = list(UnderwaterProjectile.velocities_to_reach_target(target))
     max_y_velocity = max(velocity.y for velocity in all_velocities)
     max_height = UnderwaterProjectile.maximum_height(max_y_velocity)
@@ -386,9 +381,8 @@ def aoc_2021_d17(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 18: Snailfish
-def aoc_2021_d18(file_name: str, **_):
-    with open(file_name) as file:
-        lines = file.readlines()
+def aoc_2021_d18(input_reader: InputReader, **_):
+    lines = list(input_reader.readlines())
     lists = [eval(line.strip()) for line in lines]
     acc = SnailFishTree.from_list(lists[0])
     for lst in lists[1:]:
@@ -413,9 +407,9 @@ def aoc_2021_d18(file_name: str, **_):
 
 # AOC 2021 - Day 19: Beacon Scanner
 def aoc_2021_d19(
-    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
+    input_reader: InputReader, parser: FileParser, progress_bar: ProgressBarConsole, **_
 ):
-    scanners = list(parser.parse_underwater_scanners(file_name))
+    scanners = list(parser.parse_underwater_scanners(input_reader))
     pinpointed = pinpoint_scanners(
         scanners, min_num_matching_beacons=12, progress_bar=progress_bar
     )
@@ -435,10 +429,10 @@ def aoc_2021_d19(
 
 # AOC 2021 - Day 20: Trench Map
 def aoc_2021_d20(
-    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
+    input_reader: InputReader, parser: FileParser, progress_bar: ProgressBarConsole, **_
 ):
     lit_cell_configurations, lit_cells = parser.parse_trench_rules_and_trench_map(
-        file_name
+        input_reader
     )
     automaton = TrenchMapAutomaton(lit_cell_configurations)
     num_lit = automaton.num_lit_cells_after(num_steps=2, initial_lit_cells=lit_cells)
@@ -454,8 +448,8 @@ def aoc_2021_d20(
 
 
 # AOC 2021 - Day 21: Dirac Dice
-def aoc_2021_d21(file_name: str, parser: FileParser, **_):
-    starting_spaces = parser.parse_players_starting_positions(file_name)
+def aoc_2021_d21(input_reader: InputReader, parser: FileParser, **_):
+    starting_spaces = parser.parse_players_starting_positions(input_reader)
     starting_configuration = DiracDiceStartingConfiguration(
         board_size=10, goal_score=1000, starting_spaces=starting_spaces
     )
@@ -475,8 +469,8 @@ def aoc_2021_d21(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 22: Reactor Reboot
-def aoc_2021_d22(file_name: str, parser: FileParser, **_):
-    instructions = list(parser.parse_cuboid_instructions(file_name))
+def aoc_2021_d22(input_reader: InputReader, parser: FileParser, **_):
+    instructions = list(parser.parse_cuboid_instructions(input_reader))
     small_instructions = [
         instruction
         for instruction in instructions
@@ -491,14 +485,14 @@ def aoc_2021_d22(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 23: Amphipod
-def aoc_2021_d23(file_name: str, parser: FileParser, **_):
-    burrow = parser.parse_amphipod_burrow(file_name)
+def aoc_2021_d23(input_reader: InputReader, parser: FileParser, **_):
+    burrow = parser.parse_amphipod_burrow(input_reader)
     min_energy = AmphipodSorter().min_energy_to_sort(burrow)
     print(
         f"AOC 2021 Day 23/Part 1: The minimum energy to sort the burrow is {min_energy}"
     )
     insertions = ("DD", "BC", "AB", "CA")
-    extended_burrow = parser.parse_amphipod_burrow(file_name, *insertions)
+    extended_burrow = parser.parse_amphipod_burrow(input_reader, *insertions)
     min_energy = AmphipodSorter().min_energy_to_sort(extended_burrow)
     print(
         f"AOC 2021 Day 23/Part 2: The minimum energy to sort the extended burrow is {min_energy}"
@@ -506,9 +500,8 @@ def aoc_2021_d23(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 24: Arithmetic Logic Unit
-def aoc_2021_d24(file_name: str, **_):
-    with open(file_name) as f:
-        instructions = f.readlines()
+def aoc_2021_d24(input_reader: InputReader, **_):
+    instructions = list(input_reader.readlines())
     x_offsets = [int(instructions[18 * i + 5].split()[-1]) for i in range(14)]
     y_offsets = [int(instructions[18 * i + 15].split()[-1]) for i in range(14)]
     largest = largest_number_accepted_by_monad(x_offsets, y_offsets)
@@ -522,8 +515,8 @@ def aoc_2021_d24(file_name: str, **_):
 
 
 # AOC 2021 - Day 25: Sea Cucumber
-def aoc_2021_d25(file_name: str, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2021_d25(input_reader: InputReader, **_):
+    grid = CharacterGrid(input_reader.read())
     sea_cucumbers = SeaCucumbers(width=grid.width, height=grid.height)
     herds = SeaCucumbersHerds(
         east_facing=set(grid.positions_with_value(">")),

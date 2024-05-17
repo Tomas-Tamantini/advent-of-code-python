@@ -1,7 +1,9 @@
 import numpy as np
+from io import StringIO
 from input_output.file_parser import FileParser
 from input_output.progress_bar import ProgressBarConsole
 from models.char_grid import CharacterGrid
+from models.common.input_reader import InputReader
 from models.vectors import (
     CardinalDirection,
     HexagonalDirection,
@@ -38,9 +40,8 @@ from models.aoc_2017 import (
 
 
 # AOC 2017 - Day 1: Inverse Captcha
-def aoc_2017_d1(file_name: str, **_):
-    with open(file_name) as f:
-        digit_sequence = f.read().strip()
+def aoc_2017_d1(input_reader: InputReader, **_):
+    digit_sequence = input_reader.read().strip()
     sum_matches = sum(
         int(d) for d in digits_that_match_the_next(digit_sequence, wrap_around=True)
     )
@@ -56,9 +57,9 @@ def aoc_2017_d1(file_name: str, **_):
 
 
 # AOC 2017 - Day 2: Corruption Checksum
-def aoc_2017_d2(file_name: str, **_):
-    with open(file_name) as f:
-        spreadsheet = Spreadsheet(np.loadtxt(f, dtype=int, delimiter="\t"))
+def aoc_2017_d2(input_reader: InputReader, **_):
+    string_io = StringIO(input_reader.read())
+    spreadsheet = Spreadsheet(np.loadtxt(string_io, dtype=int, delimiter="\t"))
     print(
         f"AOC 2017 Day 2/Part 1: Spreadsheet checksum min/max: {spreadsheet.checksum_min_max()}"
     )
@@ -68,9 +69,8 @@ def aoc_2017_d2(file_name: str, **_):
 
 
 # AOC 2017 - Day 3: Spiral Memory
-def aoc_2017_d3(file_name: str, **_):
-    with open(file_name) as f:
-        target = int(f.read().strip())
+def aoc_2017_d3(input_reader: InputReader, **_):
+    target = int(input_reader.read().strip())
     target_coordinates = SquareSpiral.coordinates(target)
     manhattan_distance = target_coordinates.manhattan_size
     print(
@@ -87,9 +87,8 @@ def aoc_2017_d3(file_name: str, **_):
 
 
 # AOC 2017 - Day 4: High-Entropy Passphrases
-def aoc_2017_d4(file_name: str, **_):
-    with open(file_name) as f:
-        passphrases = f.readlines()
+def aoc_2017_d4(input_reader: InputReader, **_):
+    passphrases = list(input_reader.readlines())
     no_duplicates = sum(
         sentence_contains_no_duplicates(phrase) for phrase in passphrases
     )
@@ -103,9 +102,8 @@ def aoc_2017_d4(file_name: str, **_):
 
 
 # AOC 2017 - Day 5: A Maze of Twisty Trampolines, All Alike
-def aoc_2017_d5(file_name: str, **_):
-    with open(file_name) as f:
-        jump_offsets = [int(line) for line in f.readlines()]
+def aoc_2017_d5(input_reader: InputReader, **_):
+    jump_offsets = [int(line) for line in input_reader.readlines()]
     simple_increment_rule = lambda jump: jump + 1
     steps_simple_increment = 0
     for _ in follow_and_increment_jump_instructions(
@@ -127,9 +125,8 @@ def aoc_2017_d5(file_name: str, **_):
 
 
 # AOC 2017 - Day 6: Memory Reallocation
-def aoc_2017_d6(file_name: str, **_):
-    with open(file_name) as f:
-        num_blocks = [int(block) for block in f.read().split()]
+def aoc_2017_d6(input_reader: InputReader, **_):
+    num_blocks = [int(block) for block in input_reader.read().split()]
     balancer = MemoryBankBalancer(num_blocks)
     num_redistributions = len(list(balancer.unique_configurations()))
     print(f"AOC 2017 Day 6/Part 1: Number of redistributions: {num_redistributions}")
@@ -138,8 +135,8 @@ def aoc_2017_d6(file_name: str, **_):
 
 
 # AOC 2017 - Day 7: Recursive Circus
-def aoc_2017_d7(file_name: str, parser: FileParser, **_):
-    root = parser.parse_program_tree(file_name)
+def aoc_2017_d7(input_reader: InputReader, parser: FileParser, **_):
+    root = parser.parse_program_tree(input_reader)
     print(f"AOC 2017 Day 7/Part 1: Root node: {root.name}")
     imbalance = root.weight_imbalance()
     print(
@@ -148,8 +145,8 @@ def aoc_2017_d7(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 8: I Heard You Like Registers
-def aoc_2017_d8(file_name: str, parser: FileParser, **_):
-    instructions = list(parser.parse_conditional_increment_instructions(file_name))
+def aoc_2017_d8(input_reader: InputReader, parser: FileParser, **_):
+    instructions = list(parser.parse_conditional_increment_instructions(input_reader))
     max_values = list(maximum_value_at_registers(instructions))
     max_value_final = max_values[-1]
     max_value_all_time = max(max_values)
@@ -160,9 +157,8 @@ def aoc_2017_d8(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 9: Stream Processing
-def aoc_2017_d9(file_name: str, **_):
-    with open(file_name) as f:
-        stream = f.read().strip()
+def aoc_2017_d9(input_reader: InputReader, **_):
+    stream = input_reader.read().strip()
     handler = StreamHandler(stream)
     print(f"AOC 2017 Day 9/Part 1: Total score: {handler.total_score}")
     print(
@@ -171,9 +167,8 @@ def aoc_2017_d9(file_name: str, **_):
 
 
 # AOC 2017 - Day 10: Knot Hash
-def aoc_2017_d10(file_name: str, **_):
-    with open(file_name) as f:
-        lengths_str = f.read().strip()
+def aoc_2017_d10(input_reader: InputReader, **_):
+    lengths_str = input_reader.read().strip()
     lengths_as_int = [int(l) for l in lengths_str.split(",")]
     knot_hash = KnotHash(list_length=256)
     for length in lengths_as_int:
@@ -193,9 +188,8 @@ def aoc_2017_d10(file_name: str, **_):
 
 
 # AOC 2017 - Day 11: Hex Ed
-def aoc_2017_d11(file_name: str, **_):
-    with open(file_name) as f:
-        directions = [HexagonalDirection(d) for d in f.read().strip().split(",")]
+def aoc_2017_d11(input_reader: InputReader, **_):
+    directions = [HexagonalDirection(d) for d in input_reader.read().strip().split(",")]
     pos = CanonicalHexagonalCoordinates(0, 0)
     steps_away = []
     for direction in directions:
@@ -206,8 +200,8 @@ def aoc_2017_d11(file_name: str, **_):
 
 
 # AOC 2017 - Day 12: Digital Plumber
-def aoc_2017_d12(file_name: str, parser: FileParser, **_):
-    program_graph = parser.parse_program_graph(file_name)
+def aoc_2017_d12(input_reader: InputReader, parser: FileParser, **_):
+    program_graph = parser.parse_program_graph(input_reader)
     disjoint_groups = list(program_graph.disjoint_groups())
     initial_node = 0
     group_size = -1
@@ -222,8 +216,8 @@ def aoc_2017_d12(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 13: Packet Scanners
-def aoc_2017_d13(file_name: str, parser: FileParser, **_):
-    firewall = parser.parse_layered_firewall(file_name)
+def aoc_2017_d13(input_reader: InputReader, parser: FileParser, **_):
+    firewall = parser.parse_layered_firewall(input_reader)
     packet_collisions = list(firewall.packet_collisions())
     severity = sum(
         layer_depth * layer.scanning_range for layer_depth, layer in packet_collisions
@@ -234,9 +228,8 @@ def aoc_2017_d13(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 14: Disk Defragmentation
-def aoc_2017_d14(file_name: str, **_):
-    with open(file_name) as f:
-        key = f.read().strip()
+def aoc_2017_d14(input_reader: InputReader, **_):
+    key = input_reader.read().strip()
     num_rows = 128
     grid = DiskGrid(key, num_rows)
     print(f"AOC 2017 Day 14/Part 1: Number of used squares: {grid.num_used_squares()}")
@@ -244,9 +237,8 @@ def aoc_2017_d14(file_name: str, **_):
 
 
 # AOC 2017 - Day 15: Dueling Generators
-def aoc_2017_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
-    with open(file_name) as f:
-        start_a, start_b = [int(line.split()[-1]) for line in f.readlines()]
+def aoc_2017_d15(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    start_a, start_b = [int(line.split()[-1]) for line in input_reader.readlines()]
     divisor = 2_147_483_647
     generator_a = SequenceGenerator(start_a, factor=16_807, divisor=divisor)
     generator_b = SequenceGenerator(start_b, factor=48_271, divisor=divisor)
@@ -268,8 +260,8 @@ def aoc_2017_d15(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2017 - Day 16: Permutation Promenade
-def aoc_2017_d16(file_name: str, parser: FileParser, **_):
-    dance_moves = list(parser.parse_string_transformers(file_name))
+def aoc_2017_d16(input_reader: InputReader, parser: FileParser, **_):
+    dance_moves = list(parser.parse_string_transformers(input_reader))
     dancers = "abcdefghijklmnop"
     for move in dance_moves:
         dancers = move.transform(dancers)
@@ -283,9 +275,8 @@ def aoc_2017_d16(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 17: Spinlock
-def aoc_2017_d17(file_name: str, **_):
-    with open(file_name) as f:
-        step_size = int(f.read().strip())
+def aoc_2017_d17(input_reader: InputReader, **_):
+    step_size = int(input_reader.read().strip())
     buffer = CircularBuffer()
     for i in range(1, 2018):
         buffer.insert_and_update_current_position(i, step_size)
@@ -295,12 +286,12 @@ def aoc_2017_d17(file_name: str, **_):
 
 
 # AOC 2017 - Day 18: Duet
-def aoc_2017_d18(file_name: str, parser: FileParser, **_):
-    instructions_audio = list(parser.parse_duet_code(file_name))
+def aoc_2017_d18(input_reader: InputReader, parser: FileParser, **_):
+    instructions_audio = list(parser.parse_duet_code(input_reader))
     audio_output = last_recovered_frequency(instructions_audio)
     print(f"AOC 2017 Day 18/Part 1: Last recovered frequency: {audio_output}")
     instructions_communication = list(
-        parser.parse_duet_code(file_name, parse_rcv_as_input=True)
+        parser.parse_duet_code(input_reader, parse_rcv_as_input=True)
     )
     sent_values = sent_values_in_two_way_communication(instructions_communication)
 
@@ -310,9 +301,8 @@ def aoc_2017_d18(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 19: A Series of Tubes
-def aoc_2017_d19(file_name: str, **_):
-    with open(file_name) as f:
-        maze = [line for line in f.readlines()]
+def aoc_2017_d19(input_reader: InputReader, **_):
+    maze = [line for line in input_reader.readlines()]
     router = PackageRouter(maze)
     router.explore()
     print(f"AOC 2017 Day 19/Part 1: Letters visited: {''.join(router.visited_letters)}")
@@ -320,8 +310,8 @@ def aoc_2017_d19(file_name: str, **_):
 
 
 # AOC 2017 - Day 20: Particle Swarm
-def aoc_2017_d20(file_name: str, parser: FileParser, **_):
-    particles = list(parser.parse_particles(file_name))
+def aoc_2017_d20(input_reader: InputReader, parser: FileParser, **_):
+    particles = list(parser.parse_particles(input_reader))
     collider = ParticleCollider(particles)
     closest_to_origin = collider.particle_closest_to_origin_long_term()
     print(f"AOC 2017 Day 20/Part 1: Particle closest to origin: {closest_to_origin.id}")
@@ -331,9 +321,9 @@ def aoc_2017_d20(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 21: Fractal Art
-def aoc_2017_d21(file_name: str, parser: FileParser, **_):
+def aoc_2017_d21(input_reader: InputReader, parser: FileParser, **_):
     inital_pattern = FileParser.parse_art_block(".#./..#/###")
-    rules = parser.parse_art_block_rules(file_name)
+    rules = parser.parse_art_block_rules(input_reader)
     fractal_art = FractalArt(inital_pattern, rules)
     num_iterations = 5
     num_cells_on = fractal_art.num_cells_on_after_iterations(num_iterations)
@@ -348,8 +338,8 @@ def aoc_2017_d21(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 22: Sporifica Virus
-def aoc_2017_d22(file_name: str, progress_bar: ProgressBarConsole, **_):
-    grid = CharacterGrid.from_txt_file(file_name)
+def aoc_2017_d22(input_reader: InputReader, progress_bar: ProgressBarConsole, **_):
+    grid = CharacterGrid(input_reader.read())
     infected_positions = set(grid.positions_with_value("#"))
     cluster = GridCluster(
         carrier_position=grid.center,
@@ -369,8 +359,8 @@ def aoc_2017_d22(file_name: str, progress_bar: ProgressBarConsole, **_):
 
 
 # AOC 2017 - Day 23: Coprocessor Conflagration
-def aoc_2017_d23(file_name: str, parser: FileParser, **_):
-    instructions = list(parser.parse_duet_code(file_name, spy_multiply=True))
+def aoc_2017_d23(input_reader: InputReader, parser: FileParser, **_):
+    instructions = list(parser.parse_duet_code(input_reader, spy_multiply=True))
     num_multiply_instructions = count_multiply_instructions(instructions)
     print(
         f"AOC 2017 Day 23/Part 1: Number of multiply instructions: {num_multiply_instructions}"
@@ -382,8 +372,8 @@ def aoc_2017_d23(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2017 - Day 24: Electromagnetic Moat
-def aoc_2017_d24(file_name: str, parser: FileParser, **_):
-    components = list(parser.parse_bridge_components(file_name))
+def aoc_2017_d24(input_reader: InputReader, parser: FileParser, **_):
+    components = list(parser.parse_bridge_components(input_reader))
     builder = BridgeBuilder(components)
     print("Be patient, it takes ~1min to run", end="\r")
     builder.build()
@@ -395,10 +385,10 @@ def aoc_2017_d24(file_name: str, parser: FileParser, **_):
 
 # AOC 2017 - Day 25: The Halting Problem
 def aoc_2017_d25(
-    file_name: str, parser: FileParser, progress_bar: ProgressBarConsole, **_
+    input_reader: InputReader, parser: FileParser, progress_bar: ProgressBarConsole, **_
 ):
     initial_state, num_steps, transition_rules = parser.parse_turing_machine_specs(
-        file_name
+        input_reader
     )
     machine = TuringMachine()
     machine.run(transition_rules, initial_state, num_steps, progress_bar)
