@@ -1,4 +1,4 @@
-from typing import Iterator, Protocol, Optional, Hashable
+from typing import Iterator, Optional, Hashable
 from dataclasses import dataclass
 import re
 import numpy as np
