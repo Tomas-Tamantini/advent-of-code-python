@@ -1,4 +1,4 @@
-from typing import Hashable, Protocol
+from typing import Hashable, Protocol, Iterator, Union, runtime_checkable
 from math import inf
 from dataclasses import dataclass, field
 from queue import PriorityQueue
@@ -9,16 +9,31 @@ class WeightedGraph(GraphProtocol, WeightedProtocol, Protocol):
     pass
 
 
+@runtime_checkable
+class SingleMethodWeightedGraph(Protocol):
+    def weighted_neighbors(self, node: Hashable) -> Iterator[tuple[Hashable, int]]: ...
+
+
 @dataclass(frozen=True, order=True)
 class _PriorityItem:
     priority: float
     item: Hashable = field(compare=False)
 
 
+def _weighted_neighbors(
+    node: Hashable, graph: Union[WeightedGraph, SingleMethodWeightedGraph]
+) -> Iterator[tuple[Hashable, int]]:
+    if isinstance(graph, SingleMethodWeightedGraph):
+        yield from graph.weighted_neighbors(node)
+    else:
+        for neighbor in graph.neighbors(node):
+            yield neighbor, graph.weight(node, neighbor)
+
+
 def dijkstra(
     origin: Hashable,
     destination: Hashable,
-    graph: WeightedGraph,
+    graph: Union[WeightedGraph, SingleMethodWeightedGraph],
 ) -> tuple[list[Hashable], float]:
     distances = {origin: 0}
     previous = {origin: None}
@@ -37,8 +52,8 @@ def dijkstra(
                 current_node = previous[current_node]
             return path[::-1], current_distance
 
-        for neighbor in graph.neighbors(current_node):
-            distance = current_distance + graph.weight(current_node, neighbor)
+        for neighbor, weight in _weighted_neighbors(current_node, graph):
+            distance = current_distance + weight
             if distance < distances.get(neighbor, inf):
                 distances[neighbor] = distance
                 previous[neighbor] = current_node

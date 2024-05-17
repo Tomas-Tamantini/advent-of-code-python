@@ -322,6 +322,17 @@ def test_dijkstra_finds_optimal_distance_even_if_multiple_optimal_paths():
     assert distance == 13
 
 
+def test_dijkstra_also_works_with_single_method_weighted_graph():
+    class _SingleMethod:
+        def weighted_neighbors(self, node):
+            yield "b", 2
+            yield "c", 10
+
+    path, distance = dijkstra("a", "c", _SingleMethod())
+    assert path == ["a", "c"]
+    assert distance == 10
+
+
 class _MockAStarGraph(WeightedUndirectedGraph):
     def heuristic_potential(self, node) -> float:
         # Taken from computerphile video https://www.youtube.com/watch?v=ySN5Wnu88nE
