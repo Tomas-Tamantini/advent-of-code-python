@@ -1,3 +1,4 @@
+from models.common.input_reader import InputFromTextFile
 from .file_parser import FileParser
 from .progress_bar import ProgressBarConsole
 from .a2015 import ALL_2015_SOLUTIONS
@@ -29,8 +30,9 @@ def run_solutions(
         for day in days:
             file_name = f"input_files/aoc_{year}/a{year}_d{day}.txt"
             solutions[year][day - 1](
-                file_name,
-                parser=FileParser.default(),
+                file_name=file_name,  # TODO: Remove this line after converting solutions 2015 - 2021 to new structure
+                parser=FileParser.default(),  # TODO: Remove this line after converting solutions 2015 - 2021 to new structure
+                input_reader=InputFromTextFile(file_name),
                 progress_bar=ProgressBarConsole(),
                 animate=animate,
                 play=play,
