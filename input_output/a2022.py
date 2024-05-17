@@ -1,5 +1,4 @@
-# AOC 2022 Day 1: Calorie Counting
-def aoc_2022_d1(file_name: str, **_): ...
+from models.aoc_2022 import aoc_2022_d1
 
 
 # AOC 2022 Day 2: Rock Paper Scissors
