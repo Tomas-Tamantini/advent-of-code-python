@@ -48,3 +48,4 @@ from .a2021_d24 import (
     largest_number_accepted_by_monad,
     smallest_number_accepted_by_monad,
 )
+from .a2021_d25 import SeaCucumbersHerds, SeaCucumbers

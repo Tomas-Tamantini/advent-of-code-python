@@ -33,6 +33,8 @@ from models.aoc_2021 import (
     AmphipodSorter,
     largest_number_accepted_by_monad,
     smallest_number_accepted_by_monad,
+    SeaCucumbers,
+    SeaCucumbersHerds,
 )
 
 
@@ -520,7 +522,17 @@ def aoc_2021_d24(file_name: str, **_):
 
 
 # AOC 2021 - Day 25: Sea Cucumber
-def aoc_2021_d25(file_name: str, **_): ...
+def aoc_2021_d25(file_name: str, **_):
+    grid = CharacterGrid.from_txt_file(file_name)
+    sea_cucumbers = SeaCucumbers(width=grid.width, height=grid.height)
+    herds = SeaCucumbersHerds(
+        east_facing=set(grid.positions_with_value(">")),
+        south_facing=set(grid.positions_with_value("v")),
+    )
+    num_steps = sea_cucumbers.num_steps_until_halt(herds)
+    print(
+        f"AOC 2021 Day 25: The number of steps until the herds stop moving is {num_steps}"
+    )
 
 
 ALL_2021_SOLUTIONS = (
