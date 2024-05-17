@@ -31,6 +31,8 @@ from models.aoc_2021 import (
     QuantumDiracGame,
     num_reactor_cells_on,
     AmphipodSorter,
+    largest_number_accepted_by_monad,
+    smallest_number_accepted_by_monad,
 )
 
 
@@ -502,7 +504,19 @@ def aoc_2021_d23(file_name: str, parser: FileParser, **_):
 
 
 # AOC 2021 - Day 24: Arithmetic Logic Unit
-def aoc_2021_d24(file_name: str, **_): ...
+def aoc_2021_d24(file_name: str, **_):
+    with open(file_name) as f:
+        instructions = f.readlines()
+    x_offsets = [int(instructions[18 * i + 5].split()[-1]) for i in range(14)]
+    y_offsets = [int(instructions[18 * i + 15].split()[-1]) for i in range(14)]
+    largest = largest_number_accepted_by_monad(x_offsets, y_offsets)
+    print(
+        f"AOC 2021 Day 24/Part 1: The largest number accepted by the monad is {largest}"
+    )
+    smallest = smallest_number_accepted_by_monad(x_offsets, y_offsets)
+    print(
+        f"AOC 2021 Day 24/Part 2: The smallest number accepted by the monad is {smallest}"
+    )
 
 
 # AOC 2021 - Day 25: Sea Cucumber

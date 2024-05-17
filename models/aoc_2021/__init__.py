@@ -44,3 +44,7 @@ from .a2021_d23 import (
     AmphipodBurrow,
     AmphipodSorter,
 )
+from .a2021_d24 import (
+    largest_number_accepted_by_monad,
+    smallest_number_accepted_by_monad,
+)
