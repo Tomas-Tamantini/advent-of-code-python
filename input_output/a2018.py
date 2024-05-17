@@ -455,7 +455,7 @@ def aoc_2018_d25(file_name: str, **_):
         lines = file.readlines()
     points = [tuple(map(int, line.split(","))) for line in lines]
     result = num_constellations(max_distance=3, points=points)
-    print(f"AOC 2018 Day 25/Part 1: Number of constellations: {result}")
+    print(f"AOC 2018 Day 25: Number of constellations: {result}")
 
 
 ALL_2018_SOLUTIONS = (

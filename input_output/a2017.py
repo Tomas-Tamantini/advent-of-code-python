@@ -403,7 +403,7 @@ def aoc_2017_d25(
     machine = TuringMachine()
     machine.run(transition_rules, initial_state, num_steps, progress_bar)
     print(
-        f"AOC 2017 Day 25/Part 1: Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
+        f"AOC 2017 Day 25: Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
     )
 
 
