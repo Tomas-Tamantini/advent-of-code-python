@@ -1,9 +1,5 @@
 from models.common.io import InputReader
-from models.aoc_2022 import aoc_2022_d1
-
-
-# AOC 2022 Day 2: Rock Paper Scissors
-def aoc_2022_d2(input_reader: InputReader, **_): ...
+from models.aoc_2022 import aoc_2022_d1, aoc_2022_d2
 
 
 # AOC 2022 Day 3: Rucksack Reorganization
