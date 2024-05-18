@@ -1,6 +1,6 @@
 from typing import Optional
-from models.progress_bar_protocol import ProgressBar
 from collections import deque
+from models.common.io import ProgressBar
 
 
 def marble_game_score(

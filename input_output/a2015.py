@@ -1,7 +1,6 @@
 from input_output.file_parser import FileParser
 from math import prod
-from models.common.input_reader import InputReader
-from models.char_grid import CharacterGrid
+from models.common.io import InputReader, CharacterGrid
 from models.aoc_2015 import (
     final_floor,
     first_basement,

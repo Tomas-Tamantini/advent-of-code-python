@@ -1,9 +1,7 @@
 import numpy as np
 from io import StringIO
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
-from models.char_grid import CharacterGrid
-from models.common.input_reader import InputReader
+from models.common.io import ProgressBarConsole, CharacterGrid, InputReader
 from models.vectors import (
     CardinalDirection,
     HexagonalDirection,

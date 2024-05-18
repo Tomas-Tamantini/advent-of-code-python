@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.common.input_reader import InputReader
+from models.common.io import InputReader
 
 
 def parse_calories(input_reader: InputReader) -> Iterator[tuple[int, ...]]:

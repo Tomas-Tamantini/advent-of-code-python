@@ -1,8 +1,7 @@
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
+from models.common.io import ProgressBarConsole, InputReader
 from models.vectors import CardinalDirection, Vector2D
 from models.assembly import Processor, Computer
-from models.common.input_reader import InputReader
 from models.aoc_2016 import (
     Turtle,
     Keypad,

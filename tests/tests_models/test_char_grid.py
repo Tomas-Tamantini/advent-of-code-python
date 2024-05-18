@@ -1,4 +1,4 @@
-from models.char_grid import CharacterGrid
+from models.common.io import CharacterGrid
 from models.vectors import Vector2D
 
 text = """

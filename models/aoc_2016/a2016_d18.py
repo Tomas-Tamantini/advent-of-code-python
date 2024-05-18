@@ -1,6 +1,6 @@
 from typing import Optional
 from models.cellular_automata import ElementaryAutomaton
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 def num_safe_tiles(

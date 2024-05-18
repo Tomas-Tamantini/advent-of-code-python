@@ -1,5 +1,5 @@
 from models.vectors import Vector2D
-from models.char_grid import CharacterGrid
+from models.common.io import CharacterGrid
 from models.aoc_2021 import OctopusesFlashes
 
 

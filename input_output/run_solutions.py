@@ -1,6 +1,5 @@
-from models.common.input_reader import InputFromTextFile
+from models.common.io import InputFromTextFile, ProgressBarConsole
 from .file_parser import FileParser
-from .progress_bar import ProgressBarConsole
 from .a2015 import ALL_2015_SOLUTIONS
 from .a2016 import ALL_2016_SOLUTIONS
 from .a2017 import ALL_2017_SOLUTIONS

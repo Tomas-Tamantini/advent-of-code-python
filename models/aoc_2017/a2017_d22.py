@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Optional
 from models.vectors import Vector2D, CardinalDirection, TurnDirection
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 from models.cellular_automata import LangtonsAnt, AntState, MultiStateLangtonsAnt
 
 

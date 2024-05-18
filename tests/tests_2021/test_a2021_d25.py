@@ -1,6 +1,6 @@
 from models.aoc_2021 import SeaCucumbers, SeaCucumbersHerds
 from models.vectors import Vector2D
-from models.char_grid import CharacterGrid
+from models.common.io import CharacterGrid
 
 
 def test_sea_cucumbers_only_move_if_space_in_front_is_empty():

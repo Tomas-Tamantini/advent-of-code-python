@@ -2,7 +2,7 @@ from math import inf
 from dataclasses import dataclass
 from typing import Optional
 import numpy as np
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 @dataclass(frozen=True)

@@ -1,6 +1,6 @@
 from typing import Iterator, Optional
 from dataclasses import dataclass
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 @dataclass

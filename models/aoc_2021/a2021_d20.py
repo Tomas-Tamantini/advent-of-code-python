@@ -6,7 +6,7 @@ from models.cellular_automata import (
     multi_state_automaton_next_state,
     MultiStateCellVicinity,
 )
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 class _CellType(int, Enum):

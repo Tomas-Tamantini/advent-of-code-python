@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import Mock
 from datetime import datetime
 from input_output.file_parser import FileParser
-from models.common.input_reader import InputFromString
+from models.common.io import InputFromString
 from models.vectors import (
     CardinalDirection,
     Vector2D,

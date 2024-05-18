@@ -1,9 +1,7 @@
 from itertools import permutations
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
+from models.common.io import ProgressBarConsole, InputReader, CharacterGrid
 from models.vectors import Vector2D
-from models.char_grid import CharacterGrid
-from models.common.input_reader import InputReader
 from models.aoc_2019 import (
     fuel_requirement,
     run_intcode_program_until_halt,

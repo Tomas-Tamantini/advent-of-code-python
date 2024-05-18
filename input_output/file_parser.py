@@ -4,7 +4,7 @@ import re
 import numpy as np
 from datetime import datetime
 from collections import defaultdict
-from models.common.input_reader import InputReader
+from models.common.io import InputReader, CharacterGrid
 from models.graphs import DirectedGraph
 from models.vectors import (
     CardinalDirection,
@@ -14,7 +14,6 @@ from models.vectors import (
     HexagonalDirection,
     BoundingBox,
 )
-from models.char_grid import CharacterGrid
 from models.assembly import (
     Instruction,
     CopyInstruction,

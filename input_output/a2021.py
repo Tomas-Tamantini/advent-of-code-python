@@ -1,11 +1,13 @@
 from typing import Iterable
 from collections import defaultdict
-from input_output.animation import render_frame
+from models.common.io import (
+    render_frame,
+    InputReader,
+    CharacterGrid,
+    ProgressBarConsole,
+)
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
-from models.char_grid import CharacterGrid
 from models.vectors import Vector2D, BoundingBox
-from models.common.input_reader import InputReader
 from models.aoc_2021 import (
     num_increases,
     window_sum,

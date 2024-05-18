@@ -1,4 +1,4 @@
-from models.common.input_reader import InputReader
+from models.common.io import InputReader
 from .parser import parse_calories
 
 

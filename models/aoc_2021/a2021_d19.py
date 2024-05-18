@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Iterator, Optional
 from collections import defaultdict
 from models.vectors import Vector3D, Orientation
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 @dataclass(frozen=True)

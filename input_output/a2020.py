@@ -1,13 +1,11 @@
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
-from models.char_grid import CharacterGrid
+from models.common.io import ProgressBarConsole, CharacterGrid, InputReader
 from models.vectors import (
     Vector2D,
     VectorNDimensional,
     CardinalDirection,
     CanonicalHexagonalCoordinates,
 )
-from models.common.input_reader import InputReader
 from models.number_theory import modular_logarithm
 from models.aoc_2020 import (
     subsets_that_sum_to,

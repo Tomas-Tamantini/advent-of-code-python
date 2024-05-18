@@ -6,7 +6,7 @@ from models.cellular_automata import (
     TwoStateCellVicinity,
     two_state_automaton_next_state,
 )
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 def _bugs_automaton_rule(vicinity: TwoStateCellVicinity) -> bool:

@@ -1,4 +1,4 @@
-from models.common.input_reader import InputReader
+from models.common.io import InputReader
 from models.aoc_2022 import aoc_2022_d1
 
 

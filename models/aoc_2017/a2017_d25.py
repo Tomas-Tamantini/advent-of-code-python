@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from collections import defaultdict
 from typing import Optional
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 @dataclass(frozen=True)

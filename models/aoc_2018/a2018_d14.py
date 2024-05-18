@@ -1,5 +1,5 @@
 from typing import Iterator, Optional
-from models.progress_bar_protocol import ProgressBar
+from models.common.io import ProgressBar
 
 
 class HotChocolateRecipeScores:

@@ -1,12 +1,11 @@
 from itertools import combinations
 from input_output.file_parser import FileParser
-from input_output.progress_bar import ProgressBarConsole
+from models.common.io import ProgressBarConsole
 from math import inf
-from models.char_grid import CharacterGrid
+from models.common.io import CharacterGrid, InputReader
 from models.vectors import Vector2D, TurnDirection
 from models.graphs import topological_sorting, explore_with_bfs
 from models.assembly import Processor, ImmutableProgram, Computer
-from models.common.input_reader import InputReader
 from models.aoc_2018 import (
     first_frequency_to_be_reached_twice,
     contains_exactly_n_of_any_letter,
