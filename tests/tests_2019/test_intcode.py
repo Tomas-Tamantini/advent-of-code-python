@@ -1,5 +1,5 @@
 import pytest
-from models.assembly import Hardware, Processor, SerialOutput, SerialInput
+from models.common.assembly import Hardware, Processor, SerialOutput, SerialInput
 from models.aoc_2019.intcode import (
     parse_next_instruction,
     ParameterMode,

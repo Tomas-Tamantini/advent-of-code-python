@@ -1,7 +1,7 @@
 from typing import Iterator
 from math import inf
-from models.vectors import Vector2D
-from models.graphs import dijkstra
+from models.common.vectors import Vector2D
+from models.common.graphs import dijkstra
 
 
 class GridMaze:

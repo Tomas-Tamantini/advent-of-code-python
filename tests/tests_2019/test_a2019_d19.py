@@ -1,4 +1,4 @@
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from models.aoc_2019 import BeamArea, run_beam_scanner, square_closest_to_beam_source
 
 

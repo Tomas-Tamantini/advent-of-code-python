@@ -1,5 +1,5 @@
 from typing import Iterator, Optional
-from models.vectors import Vector2D, TurnDirection, CardinalDirection
+from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
 from .vacuum_robot import VacuumRobot, VacuumRobotInstruction
 from .path_compression import CompressedPath, compress_vacuum_bot_path
 

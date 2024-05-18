@@ -1,4 +1,4 @@
-from models.vectors import Vector3D
+from models.common.vectors import Vector3D
 from models.aoc_2018 import TeleportNanobot, distance_of_position_with_strongest_signal
 
 

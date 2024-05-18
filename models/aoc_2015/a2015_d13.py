@@ -1,6 +1,6 @@
 from itertools import permutations
 from typing import Iterable
-from models.graphs import WeightedDirectedGraph
+from models.common.graphs import WeightedDirectedGraph
 
 
 class SeatingArrangements(WeightedDirectedGraph):

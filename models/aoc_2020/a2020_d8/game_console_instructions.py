@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.assembly import Hardware
+from models.common.assembly import Hardware
 
 
 @dataclass(frozen=True)

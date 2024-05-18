@@ -1,5 +1,5 @@
-from models.vectors import Vector2D, CardinalDirection
-from models.graphs import explore_with_bfs, travelling_salesman
+from models.common.vectors import Vector2D, CardinalDirection
+from models.common.graphs import explore_with_bfs, travelling_salesman
 from typing import Iterator
 
 

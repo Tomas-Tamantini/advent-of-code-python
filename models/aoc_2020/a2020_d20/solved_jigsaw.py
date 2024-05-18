@@ -1,6 +1,6 @@
 from typing import Iterator
 import numpy as np
-from models.vectors import Vector2D, BoundingBox
+from models.common.vectors import Vector2D, BoundingBox
 from .jigsaw_piece import JigsawPiece
 from .jigsaw_piece_orientation import JigsawPieceOrientation
 

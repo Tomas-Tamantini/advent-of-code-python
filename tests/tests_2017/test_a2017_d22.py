@@ -1,6 +1,6 @@
 import pytest
 from models.aoc_2017 import GridCluster
-from models.vectors import Vector2D, CardinalDirection
+from models.common.vectors import Vector2D, CardinalDirection
 
 
 @pytest.mark.parametrize(

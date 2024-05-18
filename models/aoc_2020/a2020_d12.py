@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Protocol
-from models.vectors import Vector2D, CardinalDirection, TurnDirection
+from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
 
 
 @dataclass(frozen=True)

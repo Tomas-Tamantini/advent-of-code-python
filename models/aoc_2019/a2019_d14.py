@@ -1,7 +1,7 @@
 from math import ceil
 from dataclasses import dataclass
 from collections import defaultdict
-from models.graphs import topological_sorting
+from models.common.graphs import topological_sorting
 
 
 @dataclass(frozen=True)

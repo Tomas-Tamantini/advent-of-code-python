@@ -1,4 +1,4 @@
-from models.assembly import Hardware, Processor, Computer
+from models.common.assembly import Hardware, Processor, Computer
 from .intcode import IntcodeProgram
 
 

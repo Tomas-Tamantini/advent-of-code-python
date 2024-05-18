@@ -1,6 +1,6 @@
 from collections import defaultdict
 from typing import Hashable, Iterator
-from models.graphs import explore_with_bfs
+from models.common.graphs import explore_with_bfs
 
 
 class ProgramGraph:

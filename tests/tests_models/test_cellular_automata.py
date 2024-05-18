@@ -1,5 +1,5 @@
 import pytest
-from models.cellular_automata import (
+from models.common.cellular_automata import (
     ElementaryAutomaton,
     OneDimensionalBinaryCelullarAutomaton,
     GameOfLife,
@@ -7,7 +7,7 @@ from models.cellular_automata import (
     MultiStateLangtonsAnt,
     AntState,
 )
-from models.vectors import Vector2D, CardinalDirection, TurnDirection
+from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
 
 
 def test_unidimensional_automaton_cannot_have_all_zeroes_turn_into_one_rule():

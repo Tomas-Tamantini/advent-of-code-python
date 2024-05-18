@@ -1,4 +1,4 @@
-from models.assembly import Processor, Computer, Hardware
+from models.common.assembly import Processor, Computer, Hardware
 from .assembunny import AssembunnyProgram
 
 

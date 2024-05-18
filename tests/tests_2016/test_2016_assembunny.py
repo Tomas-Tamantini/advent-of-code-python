@@ -1,5 +1,10 @@
 from copy import deepcopy
-from models.assembly import Processor, Computer, CopyInstruction, JumpNotZeroInstruction
+from models.common.assembly import (
+    Processor,
+    Computer,
+    CopyInstruction,
+    JumpNotZeroInstruction,
+)
 from models.aoc_2016 import run_self_referential_code
 from models.aoc_2016.assembunny import (
     AssembunnyProgram,

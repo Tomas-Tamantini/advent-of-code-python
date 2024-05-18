@@ -1,5 +1,5 @@
 from typing import Optional, Iterator
-from models.assembly import Instruction
+from models.common.assembly import Instruction
 from .game_console_instructions import JumpOrNoOpInstruction
 
 

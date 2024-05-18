@@ -1,7 +1,7 @@
 from typing import Iterator, Optional
 from math import inf
 from collections import defaultdict
-from models.vectors import Vector2D, CardinalDirection, BoundingBox
+from models.common.vectors import Vector2D, CardinalDirection, BoundingBox
 from models.common.io import ProgressBar
 
 

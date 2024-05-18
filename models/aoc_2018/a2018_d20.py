@@ -1,7 +1,7 @@
 from typing import Iterator
 from dataclasses import dataclass
-from models.graphs import UndirectedGraph
-from models.vectors import Vector2D, CardinalDirection
+from models.common.graphs import UndirectedGraph
+from models.common.vectors import Vector2D, CardinalDirection
 
 
 _str_to_direction = {

@@ -1,4 +1,4 @@
-from models.vectors import CardinalDirection, Vector2D
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 def houses_with_at_least_one_present(instructions: str) -> set[tuple[int, int]]:

@@ -1,5 +1,5 @@
 from typing import Optional, Iterator
-from models.cellular_automata.two_state_automata import (
+from models.common.cellular_automata.two_state_automata import (
     two_state_automaton_next_state,
     TwoStateCellVicinity,
 )

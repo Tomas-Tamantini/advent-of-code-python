@@ -2,7 +2,7 @@ import numpy as np
 from io import StringIO
 from input_output.file_parser import FileParser
 from models.common.io import ProgressBarConsole, CharacterGrid, InputReader
-from models.vectors import (
+from models.common.vectors import (
     CardinalDirection,
     HexagonalDirection,
     CanonicalHexagonalCoordinates,

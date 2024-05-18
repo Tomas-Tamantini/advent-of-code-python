@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.vectors import CardinalDirection, Vector2D, TurnDirection
+from models.common.vectors import CardinalDirection, Vector2D, TurnDirection
 from typing import Iterator
 
 

@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from models.aoc_2018 import LumberArea, AcreType
 
 CENTER = Vector2D(1, 1)

@@ -1,4 +1,4 @@
-from models.vectors import Vector2D, BoundingBox
+from models.common.vectors import Vector2D, BoundingBox
 from models.aoc_2018 import MovingParticle, MovingParticles
 
 

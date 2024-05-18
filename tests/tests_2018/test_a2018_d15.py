@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import Vector2D, CardinalDirection
+from models.common.vectors import Vector2D, CardinalDirection
 from models.aoc_2018.a2018_d15 import (
     CaveTile,
     CaveMap,

@@ -2,7 +2,7 @@ from enum import Enum
 from dataclasses import dataclass
 from typing import Optional, Iterator
 from collections import defaultdict
-from models.vectors import Vector2D, BoundingBox, CardinalDirection
+from models.common.vectors import Vector2D, BoundingBox, CardinalDirection
 
 
 class _SoilType(str, Enum):

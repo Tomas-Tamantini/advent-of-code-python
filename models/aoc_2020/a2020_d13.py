@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.number_theory import ChineseRemainder, solve_chinese_remainder_system
+from models.common.number_theory import ChineseRemainder, solve_chinese_remainder_system
 
 
 @dataclass(frozen=True)

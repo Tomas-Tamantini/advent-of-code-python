@@ -1,5 +1,5 @@
 from unittest.mock import Mock
-from models.assembly import (
+from models.common.assembly import (
     Hardware,
     Processor,
     JumpNotZeroInstruction,

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.assembly import Hardware, Processor
+from models.common.assembly import Hardware, Processor
 from .three_value_instructions import ThreeValueInstruction
 
 

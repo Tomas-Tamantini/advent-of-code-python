@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.graphs import DisjointSet
+from models.common.graphs import DisjointSet
 
 
 def _manhattan_distance(

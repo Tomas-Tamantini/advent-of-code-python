@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from models.assembly import Hardware
+from models.common.assembly import Hardware
 
 
 class ParameterMode(int, Enum):

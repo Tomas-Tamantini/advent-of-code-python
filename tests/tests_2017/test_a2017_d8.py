@@ -1,5 +1,5 @@
 import pytest
-from models.assembly import Hardware, Processor
+from models.common.assembly import Hardware, Processor
 from models.aoc_2017 import (
     ComparisonOperator,
     ConditionalIncrementInstruction,

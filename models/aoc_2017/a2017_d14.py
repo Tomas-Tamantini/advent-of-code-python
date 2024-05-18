@@ -1,6 +1,6 @@
 from .a2017_d10 import knot_hash
-from models.vectors import Vector2D
-from models.graphs import explore_with_bfs
+from models.common.vectors import Vector2D
+from models.common.graphs import explore_with_bfs
 
 
 class DiskGrid:

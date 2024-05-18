@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import (
+from models.common.vectors import (
     CardinalDirection,
     Vector2D,
     TurnDirection,

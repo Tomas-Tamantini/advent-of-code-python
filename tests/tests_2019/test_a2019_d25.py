@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import CardinalDirection
+from models.common.vectors import CardinalDirection
 from models.aoc_2019.a2019_d25 import (
     MoveCommand,
     TakeCommand,

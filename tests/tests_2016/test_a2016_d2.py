@@ -1,5 +1,5 @@
 from models.aoc_2016 import Keypad
-from models.vectors import CardinalDirection
+from models.common.vectors import CardinalDirection
 
 
 def keypad_factory(configuration: str = None, initial_key: chr = "5"):

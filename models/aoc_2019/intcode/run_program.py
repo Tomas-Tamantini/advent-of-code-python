@@ -1,5 +1,11 @@
 from typing import Optional
-from models.assembly import Hardware, Processor, Computer, SerialInput, SerialOutput
+from models.common.assembly import (
+    Hardware,
+    Processor,
+    Computer,
+    SerialInput,
+    SerialOutput,
+)
 from .program import IntcodeProgram
 
 

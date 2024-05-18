@@ -1,5 +1,5 @@
 from copy import deepcopy
-from models.assembly import Processor, Hardware, Computer
+from models.common.assembly import Processor, Hardware, Computer
 from .assembunny import AssembunnyProgram
 
 

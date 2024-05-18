@@ -1,6 +1,6 @@
 from typing import Iterator, Optional
-from models.vectors import Vector2D
-from models.cellular_automata.multi_state_automata import Cell
+from models.common.vectors import Vector2D
+from models.common.cellular_automata.multi_state_automata import Cell
 
 
 class Bounded2DAutomaton:

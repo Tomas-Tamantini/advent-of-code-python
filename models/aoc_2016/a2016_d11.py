@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator, Optional, Hashable
 from itertools import combinations
-from models.graphs import min_path_length_with_bfs
+from models.common.graphs import min_path_length_with_bfs
 from collections import defaultdict
 
 

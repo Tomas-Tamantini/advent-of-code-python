@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Callable, Iterator, Optional
-from models.assembly import Hardware
+from models.common.assembly import Hardware
 
 
 @dataclass(frozen=True)

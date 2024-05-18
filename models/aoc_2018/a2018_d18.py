@@ -1,12 +1,12 @@
 from enum import Enum
 from copy import deepcopy
 from typing import Hashable
-from models.cellular_automata import (
+from models.common.cellular_automata import (
     Bounded2DAutomaton,
     MultiStateCellVicinity,
     multi_state_automaton_next_state,
 )
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 
 
 class AcreType(str, Enum):

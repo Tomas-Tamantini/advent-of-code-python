@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from models.aoc_2019.a2019_d24 import (
     BugsAutomaton,
     RecursiveBugsAutomaton,

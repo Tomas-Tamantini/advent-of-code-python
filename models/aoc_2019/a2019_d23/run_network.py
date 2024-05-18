@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.assembly import Hardware, Processor, Computer
+from models.common.assembly import Hardware, Processor, Computer
 from models.aoc_2019.intcode import IntcodeProgram
 from .network_router import NetworkRouter
 from .network_output import NetworkOutput

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from models.number_theory import is_prime
-from models.assembly import (
+from models.common.number_theory import is_prime
+from models.common.assembly import (
     Hardware,
     Instruction,
     Processor,

@@ -1,6 +1,6 @@
 from typing import Iterator
-from models.vectors import VectorNDimensional
-from models.cellular_automata import (
+from models.common.vectors import VectorNDimensional
+from models.common.cellular_automata import (
     TwoStateCellVicinity,
     two_state_automaton_next_state,
     GameOfLife,

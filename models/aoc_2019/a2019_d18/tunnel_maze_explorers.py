@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Hashable
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 
 
 @dataclass(frozen=True)

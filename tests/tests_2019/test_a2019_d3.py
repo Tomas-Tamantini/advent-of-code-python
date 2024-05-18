@@ -1,4 +1,4 @@
-from models.vectors import CardinalDirection, Vector2D
+from models.common.vectors import CardinalDirection, Vector2D
 from models.aoc_2019.a2019_d3 import WireSegment, TwistyWire
 
 

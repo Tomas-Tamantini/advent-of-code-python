@@ -1,7 +1,7 @@
 from typing import Iterator, Optional
 from math import floor
 from dataclasses import dataclass
-from models.vectors import Vector2D, CardinalDirection
+from models.common.vectors import Vector2D, CardinalDirection
 from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
 
 

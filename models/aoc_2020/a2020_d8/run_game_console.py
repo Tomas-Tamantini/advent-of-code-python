@@ -1,4 +1,4 @@
-from models.assembly import Instruction, Hardware, Computer, Processor
+from models.common.assembly import Instruction, Hardware, Computer, Processor
 from .game_console_program import GameConsoleProgram
 
 

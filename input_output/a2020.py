@@ -1,12 +1,12 @@
 from input_output.file_parser import FileParser
 from models.common.io import ProgressBarConsole, CharacterGrid, InputReader
-from models.vectors import (
+from models.common.vectors import (
     Vector2D,
     VectorNDimensional,
     CardinalDirection,
     CanonicalHexagonalCoordinates,
 )
-from models.number_theory import modular_logarithm
+from models.common.number_theory import modular_logarithm
 from models.aoc_2020 import (
     subsets_that_sum_to,
     CylindricalForest,

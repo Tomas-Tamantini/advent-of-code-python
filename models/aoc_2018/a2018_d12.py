@@ -1,4 +1,4 @@
-from models.cellular_automata import OneDimensionalBinaryCelullarAutomaton
+from models.common.cellular_automata import OneDimensionalBinaryCelullarAutomaton
 
 
 class PlantAutomaton(OneDimensionalBinaryCelullarAutomaton):

@@ -1,6 +1,6 @@
 from typing import Iterator
-from models.vectors import CanonicalHexagonalCoordinates
-from models.cellular_automata import (
+from models.common.vectors import CanonicalHexagonalCoordinates
+from models.common.cellular_automata import (
     TwoStateCellVicinity,
     two_state_automaton_next_state,
 )

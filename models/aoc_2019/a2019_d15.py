@@ -1,7 +1,7 @@
 from typing import Iterator, Optional
 from enum import Enum
-from models.vectors import Vector2D, CardinalDirection
-from models.graphs import min_path_length_with_bfs, explore_with_bfs
+from models.common.vectors import Vector2D, CardinalDirection
+from models.common.graphs import min_path_length_with_bfs, explore_with_bfs
 from .intcode import IntcodeProgram, run_intcode_program
 
 

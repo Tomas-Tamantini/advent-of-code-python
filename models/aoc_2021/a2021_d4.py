@@ -1,6 +1,6 @@
 from typing import Iterator
 import numpy as np
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 
 
 class BingoBoard:

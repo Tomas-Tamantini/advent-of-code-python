@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import Vector2D, TurnDirection, CardinalDirection
+from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
 from models.aoc_2019.a2019_d17 import (
     ScaffoldMap,
     CameraOutput,

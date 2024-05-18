@@ -1,7 +1,7 @@
 from queue import PriorityQueue
 from math import inf
 from typing import Iterator
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from .tunnel_maze_graph import TunnelMazeGraph
 from .tunnel_maze_explorers import TunnelMazeExplorers, ExplorerMove
 

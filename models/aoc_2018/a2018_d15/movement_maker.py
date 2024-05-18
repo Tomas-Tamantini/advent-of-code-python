@@ -1,6 +1,6 @@
 from typing import Optional, Iterator
-from models.vectors import Vector2D, CardinalDirection
-from models.graphs import explore_with_bfs
+from models.common.vectors import Vector2D, CardinalDirection
+from models.common.graphs import explore_with_bfs
 from .cave_map import CaveMap, CaveTile
 from .units import CaveGameUnit
 from .game_state import CaveGameState

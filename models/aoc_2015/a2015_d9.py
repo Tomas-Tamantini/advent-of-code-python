@@ -1,5 +1,5 @@
 from itertools import permutations
-from models.graphs import WeightedUndirectedGraph
+from models.common.graphs import WeightedUndirectedGraph
 
 
 class CityRouter(WeightedUndirectedGraph):

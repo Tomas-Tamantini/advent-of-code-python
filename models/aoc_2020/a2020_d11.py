@@ -1,10 +1,10 @@
 from enum import Enum
 from typing import Iterator, Optional
-from models.cellular_automata import (
+from models.common.cellular_automata import (
     MultiStateCellVicinity,
     multi_state_automaton_next_state,
 )
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 
 
 class FerrySeat(str, Enum):

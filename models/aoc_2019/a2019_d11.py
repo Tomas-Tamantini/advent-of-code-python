@@ -1,5 +1,10 @@
 from dataclasses import dataclass
-from models.vectors import Vector2D, CardinalDirection, TurnDirection, BoundingBox
+from models.common.vectors import (
+    Vector2D,
+    CardinalDirection,
+    TurnDirection,
+    BoundingBox,
+)
 from .intcode import run_intcode_program, IntcodeProgram
 
 

@@ -1,6 +1,6 @@
 import pytest
 from typing import Iterator
-from models.vectors import CanonicalHexagonalCoordinates
+from models.common.vectors import CanonicalHexagonalCoordinates
 from models.aoc_2020 import HexagonalAutomaton
 
 

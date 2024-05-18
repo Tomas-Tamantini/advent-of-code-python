@@ -1,7 +1,7 @@
 from queue import PriorityQueue
 from dataclasses import dataclass
 from enum import Enum
-from models.graphs import DirectedGraph
+from models.common.graphs import DirectedGraph
 
 
 class _Event(Enum):

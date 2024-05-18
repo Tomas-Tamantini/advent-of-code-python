@@ -1,5 +1,5 @@
 import pytest
-from models.number_theory import (
+from models.common.number_theory import (
     gcd,
     lcm,
     are_coprime,

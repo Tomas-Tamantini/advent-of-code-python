@@ -1,4 +1,4 @@
-from models.vectors import CardinalDirection
+from models.common.vectors import CardinalDirection
 from dataclasses import dataclass
 
 

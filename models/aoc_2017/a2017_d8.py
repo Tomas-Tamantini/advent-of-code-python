@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import Iterator
-from models.assembly import Hardware, ImmutableProgram, Processor, Computer
+from models.common.assembly import Hardware, ImmutableProgram, Processor, Computer
 
 
 class ComparisonOperator(Enum):

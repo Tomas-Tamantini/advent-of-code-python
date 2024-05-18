@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.vectors import CardinalDirection
+from models.common.vectors import CardinalDirection
 from .units import CaveGameUnit
 from .game_state import CaveGameState
 

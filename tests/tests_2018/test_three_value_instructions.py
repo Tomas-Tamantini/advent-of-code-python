@@ -1,5 +1,5 @@
 import pytest
-from models.assembly import Hardware, Processor
+from models.common.assembly import Hardware, Processor
 from models.aoc_2018.three_value_instructions import (
     AddRegisters,
     AddImmediate,

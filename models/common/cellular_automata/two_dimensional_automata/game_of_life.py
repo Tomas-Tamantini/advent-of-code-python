@@ -1,6 +1,6 @@
 from typing import Optional
-from models.vectors import Vector2D
-from models.cellular_automata.two_state_automata import (
+from models.common.vectors import Vector2D
+from models.common.cellular_automata.two_state_automata import (
     two_state_automaton_next_state,
     TwoStateCellVicinity,
 )

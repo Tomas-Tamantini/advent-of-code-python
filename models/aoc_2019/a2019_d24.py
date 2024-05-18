@@ -1,7 +1,7 @@
 from typing import Iterator, Optional
 from dataclasses import dataclass
-from models.vectors import Vector2D, CardinalDirection
-from models.cellular_automata import (
+from models.common.vectors import Vector2D, CardinalDirection
+from models.common.cellular_automata import (
     Bounded2DAutomaton,
     TwoStateCellVicinity,
     two_state_automaton_next_state,

@@ -1,4 +1,4 @@
-from models.graphs import DirectedGraph
+from models.common.graphs import DirectedGraph
 from models.aoc_2018 import time_to_complete_jobs
 
 

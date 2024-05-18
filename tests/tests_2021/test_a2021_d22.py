@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import Vector3D
+from models.common.vectors import Vector3D
 from models.aoc_2021 import Cuboid, CuboidInstruction, num_reactor_cells_on
 
 

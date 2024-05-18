@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.assembly import Instruction
+from models.common.assembly import Instruction
 from .instructions import (
     ParameterMode,
     IntcodeParameter,

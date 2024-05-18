@@ -1,5 +1,5 @@
 from models.common.io import CharacterGrid
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from models.aoc_2021 import SmokeBasin
 
 

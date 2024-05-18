@@ -1,6 +1,6 @@
 from typing import Iterator
-from models.cellular_automata import GameOfLife
-from models.vectors import Vector2D
+from models.common.cellular_automata import GameOfLife
+from models.common.vectors import Vector2D
 
 
 class GameOfLifeLights(GameOfLife):

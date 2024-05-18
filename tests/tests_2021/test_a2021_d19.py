@@ -1,4 +1,4 @@
-from models.vectors import Vector3D, Orientation
+from models.common.vectors import Vector3D, Orientation
 from models.aoc_2021 import (
     PinpointedScanner,
     UnderwaterScanner,

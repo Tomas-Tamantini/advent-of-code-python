@@ -1,4 +1,4 @@
-from models.vectors import Vector2D, CardinalDirection
+from models.common.vectors import Vector2D, CardinalDirection
 from models.aoc_2021 import (
     Submarine,
     MoveSubmarineInstruction,

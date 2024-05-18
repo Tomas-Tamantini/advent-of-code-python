@@ -1,5 +1,5 @@
 from typing import Optional
-from models.cellular_automata import ElementaryAutomaton
+from models.common.cellular_automata import ElementaryAutomaton
 from models.common.io import ProgressBar
 
 

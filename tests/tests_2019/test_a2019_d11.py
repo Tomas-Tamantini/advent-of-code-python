@@ -1,4 +1,4 @@
-from models.vectors import Vector2D, CardinalDirection, TurnDirection
+from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
 from models.aoc_2019.a2019_d11 import (
     Hull,
     HullRobot,

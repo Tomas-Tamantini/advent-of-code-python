@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.graphs import WeightedDirectedGraph, explore_with_bfs
+from models.common.graphs import WeightedDirectedGraph, explore_with_bfs
 
 
 @dataclass(frozen=True)

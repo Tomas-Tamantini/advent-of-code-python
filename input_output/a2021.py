@@ -7,7 +7,7 @@ from models.common.io import (
     ProgressBarConsole,
 )
 from input_output.file_parser import FileParser
-from models.vectors import Vector2D, BoundingBox
+from models.common.vectors import Vector2D, BoundingBox
 from models.aoc_2021 import (
     num_increases,
     window_sum,

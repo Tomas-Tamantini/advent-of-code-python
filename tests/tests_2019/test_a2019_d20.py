@@ -1,4 +1,4 @@
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from models.aoc_2019.a2019_d20 import PortalMaze, RecursiveDonutMaze
 
 

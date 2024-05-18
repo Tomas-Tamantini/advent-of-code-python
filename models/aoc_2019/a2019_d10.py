@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Iterator
-from models.vectors import Vector2D
-from models.number_theory import gcd
+from models.common.vectors import Vector2D
+from models.common.number_theory import gcd
 from math import atan2, pi
 
 

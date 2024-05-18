@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from datetime import datetime
 from input_output.file_parser import FileParser
 from models.common.io import InputFromString
-from models.vectors import (
+from models.common.vectors import (
     CardinalDirection,
     Vector2D,
     TurnDirection,
@@ -11,7 +11,7 @@ from models.vectors import (
     HexagonalDirection,
     BoundingBox,
 )
-from models.assembly import (
+from models.common.assembly import (
     CopyInstruction,
     InputInstruction,
     OutInstruction,

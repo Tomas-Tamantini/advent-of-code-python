@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator, Optional, Iterable
 from math import prod
-from models.vectors import Vector3D
+from models.common.vectors import Vector3D
 
 
 @dataclass(frozen=True)

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.vectors import Vector3D
+from models.common.vectors import Vector3D
 
 
 @dataclass(frozen=True)

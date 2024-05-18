@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from .cave_map import CaveMap
 from .cave_game import CaveGame
 from .units import CaveGameUnit

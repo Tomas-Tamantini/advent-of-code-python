@@ -1,6 +1,6 @@
 import pytest
 from typing import Iterator
-from models.vectors import Vector3D
+from models.common.vectors import Vector3D
 from models.aoc_2020 import HyperGameOfLife
 
 

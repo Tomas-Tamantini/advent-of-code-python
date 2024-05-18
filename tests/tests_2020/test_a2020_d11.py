@@ -1,5 +1,5 @@
 import pytest
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
 from models.aoc_2020 import FerrySeat, FerrySeats
 

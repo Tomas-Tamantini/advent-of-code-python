@@ -1,6 +1,6 @@
 from typing import Union
 from dataclasses import dataclass
-from models.assembly import (
+from models.common.assembly import (
     Instruction,
     MutableProgram,
     Hardware,

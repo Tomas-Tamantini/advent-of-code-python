@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from .units import CaveGameUnit
 
 

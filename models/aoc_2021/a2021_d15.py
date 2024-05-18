@@ -1,6 +1,6 @@
 from typing import Iterator, Optional
-from models.vectors import Vector2D, BoundingBox
-from models.graphs import dijkstra
+from models.common.vectors import Vector2D, BoundingBox
+from models.common.graphs import dijkstra
 
 
 class UnderwaterCaveMaze:

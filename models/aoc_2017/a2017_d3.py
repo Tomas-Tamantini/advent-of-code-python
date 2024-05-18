@@ -1,6 +1,6 @@
 from typing import Iterator
 from math import sqrt, floor
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 
 
 class SquareSpiral:

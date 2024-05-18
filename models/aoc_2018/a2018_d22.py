@@ -1,7 +1,7 @@
 from typing import Optional, Iterator
 from enum import Enum
-from models.vectors import Vector2D, CardinalDirection, BoundingBox
-from models.graphs import a_star
+from models.common.vectors import Vector2D, CardinalDirection, BoundingBox
+from models.common.graphs import a_star
 from dataclasses import dataclass
 
 

@@ -5,8 +5,8 @@ import numpy as np
 from datetime import datetime
 from collections import defaultdict
 from models.common.io import InputReader, CharacterGrid
-from models.graphs import DirectedGraph
-from models.vectors import (
+from models.common.graphs import DirectedGraph
+from models.common.vectors import (
     CardinalDirection,
     Vector2D,
     TurnDirection,
@@ -14,7 +14,7 @@ from models.vectors import (
     HexagonalDirection,
     BoundingBox,
 )
-from models.assembly import (
+from models.common.assembly import (
     Instruction,
     CopyInstruction,
     InputInstruction,

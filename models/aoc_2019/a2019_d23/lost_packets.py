@@ -1,4 +1,4 @@
-from models.vectors import Vector2D
+from models.common.vectors import Vector2D
 from .network_packet import NetworkPacket
 from .packet_monitor import PacketMonitor
 

@@ -1,7 +1,7 @@
 from typing import Optional
 from math import inf
 from dataclasses import dataclass
-from models.vectors import Vector2D, CardinalDirection
+from models.common.vectors import Vector2D, CardinalDirection
 from .jigsaw_piece_orientation import JigsawPieceOrientation
 from .jigsaw_piece import JigsawPiece
 from .solved_jigsaw import SolvedJigsaw
