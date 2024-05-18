@@ -1,5 +1,5 @@
 import pytest
-from .rock_paper_scissors import (
+from ..rock_paper_scissors import (
     RockPaperScissorsAction,
     rock_paper_scissors_score,
     RockPaperScissorsResult,

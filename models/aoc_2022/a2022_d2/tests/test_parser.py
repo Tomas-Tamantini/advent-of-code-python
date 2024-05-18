@@ -1,6 +1,6 @@
 from models.common.io import InputFromString
-from .rock_paper_scissors import RockPaperScissorsAction
-from .parser import parse_rock_paper_scissors
+from ..rock_paper_scissors import RockPaperScissorsAction
+from ..parser import parse_rock_paper_scissors
 
 
 def test_parse_rock_paper_scissors_with_actions():
