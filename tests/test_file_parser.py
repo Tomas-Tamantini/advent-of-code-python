@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from datetime import datetime
 from input_output.file_parser import FileParser
 from models.common.io import InputFromString
+from models.common.number_theory import Interval
 from models.common.vectors import (
     CardinalDirection,
     Vector2D,
@@ -87,7 +88,6 @@ from models.aoc_2020 import (
     WriteToMemoryInstruction,
     TicketValidator,
     TicketFieldValidator,
-    RangeInterval,
 )
 from models.aoc_2021 import (
     LineSegment,
@@ -1375,15 +1375,13 @@ def test_parse_ticket_validator_and_ticket_values():
     assert parsed.validator == TicketValidator(
         field_validators=(
             TicketFieldValidator(
-                field_name="class", intervals=(RangeInterval(1, 3), RangeInterval(5, 7))
+                field_name="class", intervals=(Interval(1, 3), Interval(5, 7))
             ),
             TicketFieldValidator(
-                field_name="row",
-                intervals=(RangeInterval(6, 11), RangeInterval(33, 44)),
+                field_name="row", intervals=(Interval(6, 11), Interval(33, 44))
             ),
             TicketFieldValidator(
-                field_name="seat",
-                intervals=(RangeInterval(13, 40), RangeInterval(45, 50)),
+                field_name="seat", intervals=(Interval(13, 40), Interval(45, 50))
             ),
         )
     )

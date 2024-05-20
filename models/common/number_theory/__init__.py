@@ -3,3 +3,4 @@ from .chinese_remainder import ChineseRemainder, solve_chinese_remainder_system
 from .primes import is_prime
 from .modular_inverse import modular_inverse
 from .modular_logarithm import modular_logarithm
+from .interval import Interval

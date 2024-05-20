@@ -1,21 +1,13 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import Iterator, Optional
-
-
-@dataclass(frozen=True, order=True)
-class RangeInterval:
-    min_inclusive: int
-    max_inclusive: int
-
-    def contains(self, number: int) -> bool:
-        return self.min_inclusive <= number <= self.max_inclusive
+from models.common.number_theory import Interval
 
 
 @dataclass(frozen=True)
 class TicketFieldValidator:
     field_name: str
-    intervals: tuple[RangeInterval, ...]
+    intervals: tuple[Interval, ...]
 
     def is_valid(self, value: int) -> bool:
         return any(interval.contains(value) for interval in self.intervals)

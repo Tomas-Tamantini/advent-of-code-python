@@ -6,6 +6,7 @@ from datetime import datetime
 from collections import defaultdict
 from models.common.io import InputReader, CharacterGrid
 from models.common.graphs import DirectedGraph
+from models.common.number_theory import Interval
 from models.common.vectors import (
     CardinalDirection,
     Vector2D,
@@ -153,7 +154,6 @@ from models.aoc_2020 import (
     WriteToMemoryInstruction,
     TicketValidator,
     TicketFieldValidator,
-    RangeInterval,
     JigsawPieceBinaryImage,
     Food,
 )
@@ -1348,7 +1348,7 @@ class FileParser:
         ranges = []
         for part in parts[1].split(" or "):
             min_value, max_value = map(int, part.split("-"))
-            ranges.append(RangeInterval(min_value, max_value))
+            ranges.append(Interval(min_value, max_value))
         return TicketFieldValidator(field_name, tuple(ranges))
 
     def parse_ticket_validator_and_ticket_values(

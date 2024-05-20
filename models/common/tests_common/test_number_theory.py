@@ -8,6 +8,7 @@ from models.common.number_theory import (
     is_prime,
     modular_inverse,
     modular_logarithm,
+    Interval,
 )
 
 
@@ -142,3 +143,22 @@ def test_modular_logarithm_finds_first_power_that_raises_the_base_to_the_number_
     number, base, mod, power
 ):
     assert modular_logarithm(number, base, mod) == power
+
+
+@pytest.mark.parametrize("number_inside_range", [3, 5, 7])
+def test_interval_contains_number_if_number_is_in_range(number_inside_range):
+    interval = Interval(min_inclusive=3, max_inclusive=7)
+    assert interval.contains(number_inside_range)
+
+
+@pytest.mark.parametrize("number_outside_range", [2, 8])
+def test_interval_does_not_contain_number_if_number_is_outside_range(
+    number_outside_range,
+):
+    interval = Interval(min_inclusive=3, max_inclusive=7)
+    assert not interval.contains(number_outside_range)
+
+
+def test_num_elements_in_interval_is_max_minus_min_plus_one():
+    interval = Interval(min_inclusive=3, max_inclusive=7)
+    assert interval.num_elements == 5
