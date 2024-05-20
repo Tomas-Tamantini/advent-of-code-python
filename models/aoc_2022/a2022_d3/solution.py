@@ -4,11 +4,25 @@ from .rucksack import Rucksack
 
 def aoc_2022_d3(input_reader: InputReader, **_) -> None:
     print("--- AOC 2022 - Day 3: Rucksack Reorganization ---")
-    total_priorities = 0
-    for items in input_reader.read_stripped_lines():
-        rucksack = Rucksack(
+    rucksacks = [
+        Rucksack(
             left_items=items[: len(items) // 2], right_items=items[len(items) // 2 :]
         )
-        for common in rucksack.items_in_common():
-            total_priorities += rucksack.item_priority(common)
-    print(f"Part 1: Total priority of common items is {total_priorities}")
+        for items in input_reader.read_stripped_lines()
+    ]
+    total_priorities = sum(
+        rucksack.item_priority(item)
+        for rucksack in rucksacks
+        for item in rucksack.items_in_common_between_left_and_right()
+    )
+    print(
+        f"Part 1: Total priority of common items between left and right is {total_priorities}"
+    )
+
+    groups = [rucksacks[i : i + 3] for i in range(0, len(rucksacks), 3)]
+    total_priorities = 0
+    for group in groups:
+        for items in group[0].items_in_common_with_others(*group[1:]):
+            total_priorities += group[0].item_priority(items)
+
+    print(f"Part 2: Total priority of common items within groups is {total_priorities}")
