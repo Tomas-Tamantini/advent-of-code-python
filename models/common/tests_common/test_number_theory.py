@@ -162,3 +162,24 @@ def test_interval_does_not_contain_number_if_number_is_outside_range(
 def test_num_elements_in_interval_is_max_minus_min_plus_one():
     interval = Interval(min_inclusive=3, max_inclusive=7)
     assert interval.num_elements == 5
+
+
+def test_interval_intersection_is_none_if_no_overlap():
+    interval_a = Interval(min_inclusive=3, max_inclusive=7)
+    interval_b = Interval(min_inclusive=8, max_inclusive=10)
+    assert interval_a.intersection(interval_b) is None
+    assert interval_b.intersection(interval_a) is None
+
+
+def test_interval_intersection_is_another_interval_if_overlap():
+    interval_a = Interval(min_inclusive=3, max_inclusive=7)
+    interval_b = Interval(min_inclusive=5, max_inclusive=10)
+    intersection = interval_a.intersection(interval_b)
+    assert intersection == Interval(min_inclusive=5, max_inclusive=7)
+
+
+def test_interval_is_fully_contained_by_other_if_min_and_max_are_within_other():
+    interval_a = Interval(min_inclusive=3, max_inclusive=7)
+    interval_b = Interval(min_inclusive=2, max_inclusive=8)
+    assert interval_a.is_contained_by(interval_b)
+    assert not interval_b.is_contained_by(interval_a)
