@@ -7,7 +7,7 @@ from .a2018 import ALL_2018_SOLUTIONS
 from .a2019 import ALL_2019_SOLUTIONS
 from .a2020 import ALL_2020_SOLUTIONS
 from .a2021 import ALL_2021_SOLUTIONS
-from .a2022 import ALL_2022_SOLUTIONS
+from models.aoc_2022 import ALL_2022_SOLUTIONS
 
 
 def run_solutions(
