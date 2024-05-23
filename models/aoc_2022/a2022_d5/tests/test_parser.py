@@ -1,9 +1,14 @@
+import pytest
 from models.common.io import InputFromString
 from ..parser import parse_crates
-from ..logic import MoveCrateItems
+from ..logic import MoveCratesOneAtATime, MoveCratesMultipleAtATime
 
 
-def test_parse_crates():
+@pytest.mark.parametrize(
+    "move_one_at_a_time, move_cls",
+    [(True, MoveCratesOneAtATime), (False, MoveCratesMultipleAtATime)],
+)
+def test_parse_crates(move_one_at_a_time, move_cls):
     input_reader = InputFromString(
         """
             [D]    
@@ -15,12 +20,12 @@ def test_parse_crates():
         move 4 from 1 to 3
         """
     )
-    parsed_crates = parse_crates(input_reader)
+    parsed_crates = parse_crates(input_reader, move_one_at_a_time)
     assert len(parsed_crates.crates) == 3
     assert parsed_crates.crates[1].peek() == "N"
     assert parsed_crates.crates[2].peek() == "D"
     assert parsed_crates.crates[3].peek() == "P"
     assert parsed_crates.moves == [
-        MoveCrateItems(num_times=1, origin_id=2, destination_id=1),
-        MoveCrateItems(num_times=4, origin_id=1, destination_id=3),
+        move_cls(num_times=1, origin_id=2, destination_id=1),
+        move_cls(num_times=4, origin_id=1, destination_id=3),
     ]

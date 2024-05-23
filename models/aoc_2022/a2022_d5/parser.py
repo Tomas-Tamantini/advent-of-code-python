@@ -2,13 +2,13 @@ from dataclasses import dataclass
 from typing import Iterator
 from collections import defaultdict
 from models.common.io import InputReader
-from .logic import Crate, MoveCrateItems
+from .logic import Crate, MoveCratesOneAtATime, MoveCratesMultipleAtATime
 
 
 @dataclass
 class _ParsedCrates:
     crates: dict[int, Crate]
-    moves: list[MoveCrateItems]
+    moves: list[MoveCratesOneAtATime]
 
 
 def _non_empty_lines(input_reader: InputReader):
@@ -17,10 +17,11 @@ def _non_empty_lines(input_reader: InputReader):
             yield line
 
 
-def _parse_move(line: str) -> MoveCrateItems:
+def _parse_move(line: str, move_one_at_a_time: bool) -> MoveCratesOneAtATime:
     stripped_line = line.strip()
     move_parts = stripped_line.split()
-    return MoveCrateItems(*(int(move_parts[i]) for i in (3, 5, 1)))
+    move_cls = MoveCratesOneAtATime if move_one_at_a_time else MoveCratesMultipleAtATime
+    return move_cls(*(int(move_parts[i]) for i in (3, 5, 1)))
 
 
 def _upper_case_letters(line: str) -> Iterator[tuple[int, chr]]:
@@ -47,13 +48,13 @@ def _create_crates(
     return crates
 
 
-def parse_crates(input_reader: InputReader) -> _ParsedCrates:
+def parse_crates(input_reader: InputReader, move_one_at_a_time: bool) -> _ParsedCrates:
     moves = []
     positions_to_crate_ids = dict()
     positions_to_items = defaultdict(list)
     for line in _non_empty_lines(input_reader):
         if "move" in line:
-            moves.append(_parse_move(line))
+            moves.append(_parse_move(line, move_one_at_a_time))
         elif "[" in line:
             for i, char in _upper_case_letters(line):
                 positions_to_items[i].append(char)
