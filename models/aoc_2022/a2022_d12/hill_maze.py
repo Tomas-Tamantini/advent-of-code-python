@@ -1,7 +1,8 @@
+from math import inf
 from typing import Iterator
 from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
-from models.common.graphs import min_path_length_with_bfs
+from models.common.graphs import explore_with_bfs
 
 
 class HillMaze:
@@ -23,11 +24,16 @@ class HillMaze:
         for neighbor in node.adjacent_positions(include_diagonals=False):
             if (
                 self._grid.contains(neighbor)
-                and self._height_difference(node, neighbor) <= 1
+                and self._height_difference(node, neighbor) >= -1
             ):
                 yield neighbor
 
-    def min_num_steps_to_destination(self, start: Vector2D, end: Vector2D) -> int:
-        return min_path_length_with_bfs(
-            self, start, is_final_state=lambda node: node == end
-        )
+    def min_num_steps_to_destination(
+        self, inital_height: chr, finish_height: chr
+    ) -> int:
+        min_steps = inf
+        for end in self._grid.positions_with_value(finish_height):
+            for node, distance in explore_with_bfs(self, initial_node=end):
+                if self._grid.tiles[node] == inital_height:
+                    min_steps = min(min_steps, distance)
+        return min_steps
