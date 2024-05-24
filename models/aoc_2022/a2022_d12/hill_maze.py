@@ -27,11 +27,7 @@ class HillMaze:
             ):
                 yield neighbor
 
-    def min_num_steps_to_destination(self) -> int:
-        initial_node = next(self._grid.positions_with_value("S"))
-        final_node = next(self._grid.positions_with_value("E"))
+    def min_num_steps_to_destination(self, start: Vector2D, end: Vector2D) -> int:
         return min_path_length_with_bfs(
-            self,
-            initial_node,
-            is_final_state=lambda node: node == final_node,
+            self, start, is_final_state=lambda node: node == end
         )

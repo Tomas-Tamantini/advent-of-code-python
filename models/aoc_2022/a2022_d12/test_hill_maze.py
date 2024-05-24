@@ -19,6 +19,8 @@ def test_neighboring_hills_are_those_at_most_one_taller_than_current():
 
 
 def test_hill_maze_finds_fastest_route_from_start_to_end():
+    start = Vector2D(0, 0)
+    end = Vector2D(5, 2)
     maze = HillMaze(
         grid=CharacterGrid(
             """
@@ -30,4 +32,4 @@ def test_hill_maze_finds_fastest_route_from_start_to_end():
             """
         )
     )
-    assert maze.min_num_steps_to_destination() == 31
+    assert maze.min_num_steps_to_destination(start, end) == 31
