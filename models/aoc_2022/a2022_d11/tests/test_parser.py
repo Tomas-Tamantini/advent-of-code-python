@@ -20,7 +20,7 @@ def test_parse_monkeys():
             If false: throw to monkey 3
         """
     )
-    monkeys = list(parse_monkeys(input_reader))
+    monkeys = list(parse_monkeys(input_reader, boredom_worry_level_divisor=3))
     assert len(monkeys) == 2
     assert monkeys[0].dequeue_item() == 20
     assert monkeys[1].dequeue_item() == 2080
