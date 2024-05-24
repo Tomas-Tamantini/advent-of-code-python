@@ -41,3 +41,6 @@ class CharacterGrid:
 
     def positions_with_value(self, value: str) -> Iterator[Vector2D]:
         return (pos for pos, char in self._tiles.items() if char == value)
+
+    def contains(self, position: Vector2D) -> bool:
+        return position in self._tiles

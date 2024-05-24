@@ -1,3 +1,4 @@
+import pytest
 from models.common.io import CharacterGrid
 from models.common.vectors import Vector2D
 
@@ -51,3 +52,24 @@ def test_character_grid_yields_all_positions_with_given_value():
            """
     expected = {Vector2D(1, 0), Vector2D(0, 1), Vector2D(1, 1)}
     assert set(CharacterGrid(text).positions_with_value("#")) == expected
+
+
+@pytest.mark.parametrize(
+    "position, expected",
+    [
+        (Vector2D(0, 0), True),
+        (Vector2D(1, 0), True),
+        (Vector2D(2, 0), True),
+        (Vector2D(3, 0), False),
+        (Vector2D(0, -1), False),
+        (Vector2D(2, 1), True),
+        (Vector2D(2, 2), False),
+    ],
+)
+def test_character_grid_checks_whether_position_is_inside(position, expected):
+    text = """
+           .#.
+           ##.
+           """
+    grid = CharacterGrid(text)
+    assert expected == grid.contains(position)
