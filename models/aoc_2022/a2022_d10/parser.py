@@ -1,6 +1,6 @@
 from typing import Iterator
 from models.common.io import InputReader
-from .register_history import InstructionWithDuration
+from .logic import InstructionWithDuration
 
 
 def parse_instructions_with_duration(

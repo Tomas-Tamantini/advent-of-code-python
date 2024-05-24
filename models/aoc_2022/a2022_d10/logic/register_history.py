@@ -11,6 +11,10 @@ class RegisterHistory:
     def __init__(self) -> None:
         self._history = [1]
 
+    @property
+    def register_values(self) -> list[int]:
+        return self._history
+
     def run_instruction(self, instruction: InstructionWithDuration) -> None:
         self._history.extend([self._history[-1]] * (instruction.num_cycles - 1))
         new_value = self._history[-1] + instruction.value_increment
