@@ -1,28 +1,33 @@
 from models.common.vectors import Vector2D, CardinalDirection
-from ..rope import Rope
+from ..logic import Rope
 
 
-def test_rope_tail_position_is_head_minus_offset():
-    rope = Rope(head=Vector2D(10, 20), tail_to_head=Vector2D(4, 7))
-    assert rope.tail == Vector2D(6, 13)
+def test_rope_starts_with_all_knots_in_origin():
+    rope = Rope(num_knots=3)
+    positions = list(rope.positions_head_to_tail())
+    assert positions == [Vector2D(0, 0) for _ in range(3)]
 
 
-def test_moving_head_does_not_affect_tail_if_they_remain_adjacent():
-    rope = Rope(head=Vector2D(10, 20), tail_to_head=Vector2D(1, 0))
-    new_rope = rope.move_head(CardinalDirection.NORTH)
-    assert new_rope.head == Vector2D(10, 21)
-    assert new_rope.tail == rope.tail
-
-
-def test_moving_head_away_from_tail_in_aligned_position_brings_tail_along():
-    rope = Rope(head=Vector2D(1, 0), tail_to_head=Vector2D(1, 0))
-    new_rope = rope.move_head(CardinalDirection.EAST)
-    assert new_rope.head == Vector2D(2, 0)
-    assert new_rope.tail == Vector2D(1, 0)
-
-
-def test_moving_head_away_from_tail_in_diagonal_position_brings_tail_along():
-    rope = Rope(head=Vector2D(-1, -1), tail_to_head=Vector2D(-1, -1))
-    new_rope = rope.move_head(CardinalDirection.SOUTH)
-    assert new_rope.head == Vector2D(-1, -2)
-    assert new_rope.tail == Vector2D(-1, -1)
+def test_pulling_on_rope_head_pulls_all_other_knots_along():
+    rope = Rope(num_knots=3)
+    tail_positions = [rope.tail_position]
+    instructions = (
+        CardinalDirection.EAST,
+        CardinalDirection.EAST,
+        CardinalDirection.NORTH,
+        CardinalDirection.NORTH,
+        CardinalDirection.NORTH,
+        CardinalDirection.NORTH,
+    )
+    for instruction in instructions:
+        rope.move_head(instruction)
+        tail_positions.append(rope.tail_position)
+    assert tail_positions == [
+        Vector2D(x=0, y=0),
+        Vector2D(x=0, y=0),
+        Vector2D(x=0, y=0),
+        Vector2D(x=0, y=0),
+        Vector2D(x=1, y=1),
+        Vector2D(x=1, y=1),
+        Vector2D(x=2, y=2),
+    ]
