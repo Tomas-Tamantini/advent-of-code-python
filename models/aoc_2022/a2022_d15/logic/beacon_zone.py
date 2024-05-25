@@ -1,54 +1,25 @@
-from typing import Iterable, Iterator, Optional
-from models.common.number_theory import Interval
+from itertools import combinations
+from typing import Iterable, Iterator
 from models.common.vectors import BoundingBox, Vector2D
-from models.common.io import ProgressBar
 from .proximity_sensor import ProximitySensor
 
 
-def _intervals_which_cannot_be_unknown_beacon(
-    row: int, sensors: Iterable[ProximitySensor]
-) -> Iterator[Interval]:
-    for sensor in sensors:
-        interval = sensor.interval_which_cannot_be_unknown_beacon(row)
-        if interval is not None:
-            yield interval
-
-
-def _position_which_must_be_beacon(
-    search_inverval: Interval, intervals_to_eliminate: Iterable[Interval]
-) -> Optional[int]:
-    sorted_intervals = sorted(intervals_to_eliminate)
-    if (
-        not sorted_intervals
-        or sorted_intervals[0].min_inclusive > search_inverval.min_inclusive
-    ):
-        return search_inverval.min_inclusive
-    current_end = sorted_intervals[0].max_inclusive
-    for interval in sorted_intervals[1:]:
-        if current_end >= search_inverval.max_inclusive:
-            return None
-        elif interval.min_inclusive > current_end + 1:
-            return current_end + 1
-        else:
-            current_end = max(current_end, interval.max_inclusive)
-    if current_end < search_inverval.max_inclusive:
-        return max(current_end + 1, search_inverval.min_inclusive)
+def _boundary_intersections(
+    sensor_a: ProximitySensor, sensor_b: ProximitySensor
+) -> Iterator[Vector2D]:
+    for boundary_a in sensor_a.boundaries():
+        for boundary_b in sensor_b.boundaries():
+            if boundary_a.slope_upwards != boundary_b.slope_upwards:
+                intersection = boundary_a.intersection(boundary_b)
+                if intersection is not None:
+                    yield intersection
 
 
 def position_which_must_be_beacon(
-    search_space: BoundingBox,
-    sensors: Iterable[ProximitySensor],
-    progress_bar: Optional[ProgressBar] = None,
+    search_space: BoundingBox, sensors: Iterable[ProximitySensor]
 ) -> Vector2D:
-    search_interval = Interval(search_space.min_x, search_space.max_x + 1)
-    for row in range(search_space.min_y, search_space.max_y + 1):
-        if progress_bar:
-            progress_bar.update(
-                step=row - search_space.min_y,
-                expected_num_steps=search_space.max_y - search_space.min_y + 1,
-            )
-        column = _position_which_must_be_beacon(
-            search_interval, _intervals_which_cannot_be_unknown_beacon(row, sensors)
-        )
-        if column is not None:
-            return Vector2D(column, row)
+    for sensor_pair in combinations(sensors, 2):
+        for intersection in _boundary_intersections(*sensor_pair):
+            if search_space.contains(intersection):
+                if all(sensor.is_out_of_reach(intersection) for sensor in sensors):
+                    return intersection

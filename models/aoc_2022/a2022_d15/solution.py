@@ -1,4 +1,4 @@
-from models.common.io import InputReader, ProgressBarConsole
+from models.common.io import InputReader
 from models.common.vectors import Vector2D, BoundingBox
 from .parser import parse_proximity_sensors
 from .logic import (
@@ -20,8 +20,6 @@ def aoc_2022_d15(input_reader: InputReader, **_) -> None:
     search_space = BoundingBox(
         bottom_left=Vector2D(0, 0), top_right=Vector2D(limit, limit)
     )
-    position = position_which_must_be_beacon(
-        search_space, sensors, ProgressBarConsole()
-    )
+    position = position_which_must_be_beacon(search_space, sensors)
     result = position.x * limit + position.y
     print(f"Part 2: Position which must contain a beacon is {result}")

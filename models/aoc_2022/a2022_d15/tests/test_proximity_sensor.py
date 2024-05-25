@@ -1,6 +1,7 @@
 from models.common.vectors import Vector2D, BoundingBox
 from models.common.number_theory import Interval
 from ..logic import (
+    DiagonalLineSegment,
     ProximitySensor,
     num_positions_which_cannot_contain_beacon,
     position_which_must_be_beacon,
@@ -14,26 +15,50 @@ def _example_sensor() -> ProximitySensor:
     )
 
 
+def test_proximity_sensor_indicates_if_position_is_out_of_reach():
+    assert _example_sensor().is_out_of_reach(Vector2D(4, 1))
+    assert not _example_sensor().is_out_of_reach(Vector2D(4, 2))
+
+
 def test_interval_which_cannot_be_beacon_is_none_in_row_farther_than_nearest_beacon():
     assert _example_sensor().interval_which_cannot_be_beacon(row=17) is None
-    assert _example_sensor().interval_which_cannot_be_unknown_beacon(row=17) is None
 
 
 def test_interval_which_cannot_be_beacon_is_calculated_properly_in_row_closer_than_nearest_beacon():
     assert _example_sensor().interval_which_cannot_be_beacon(row=9) == Interval(1, 15)
-    assert _example_sensor().interval_which_cannot_be_unknown_beacon(row=9) == Interval(
-        1, 15
-    )
 
 
 def test_interval_which_cannot_be_beacon_discounts_existing_beacon():
     assert _example_sensor().interval_which_cannot_be_beacon(row=10) == Interval(3, 14)
 
 
-def test_interval_which_cannot_be_unknown_beacon_includes_existing_beacon():
-    assert _example_sensor().interval_which_cannot_be_unknown_beacon(
-        row=10
-    ) == Interval(2, 14)
+def test_sensor_has_four_diagonal_boundaries_just_out_of_its_reach():
+    boundaries = list(_example_sensor().boundaries())
+    assert len(boundaries) == 4
+    assert set(boundaries) == {
+        DiagonalLineSegment(x_interval=Interval(-2, 8), slope_upwards=True, offset=9),
+        DiagonalLineSegment(x_interval=Interval(-2, 8), slope_upwards=False, offset=5),
+        DiagonalLineSegment(x_interval=Interval(8, 18), slope_upwards=True, offset=-11),
+        DiagonalLineSegment(x_interval=Interval(8, 18), slope_upwards=False, offset=25),
+    }
+
+
+def test_diagonal_line_segments_intersect_in_at_most_one_point():
+    line_a = DiagonalLineSegment(
+        x_interval=Interval(0, 10), slope_upwards=True, offset=2
+    )
+    line_b = DiagonalLineSegment(
+        x_interval=Interval(3, 9), slope_upwards=False, offset=10
+    )
+    line_c = DiagonalLineSegment(
+        x_interval=Interval(0, 10), slope_upwards=False, offset=9
+    )
+    line_d = DiagonalLineSegment(
+        x_interval=Interval(6, 10), slope_upwards=False, offset=10
+    )
+    assert line_a.intersection(line_b) == Vector2D(4, 6)
+    assert line_a.intersection(line_c) is None
+    assert line_a.intersection(line_d) is None
 
 
 def _example_sensors() -> list[ProximitySensor]:
