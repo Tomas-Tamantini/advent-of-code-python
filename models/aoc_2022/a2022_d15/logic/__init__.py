@@ -1,1 +1,2 @@
 from .proximity_sensor import ProximitySensor
+from .no_beacon_zone import num_positions_which_cannot_contain_beacon
