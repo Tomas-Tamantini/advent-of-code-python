@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+from models.common.io import CharacterGrid
 from ..falling_sand import FallingSand
 
 
@@ -63,3 +64,25 @@ def test_pouring_sand_piles_on_top_of_one_another():
         Vector2D(4, 8),
         Vector2D(3, 7),
     }
+
+
+def test_pouring_sand_piles_even_in_complicated_obstacles():
+    grid = CharacterGrid(
+        """
+        ......+...
+        ..........
+        ..........
+        ..........
+        ....#...##
+        ....#...#.
+        ..###...#.
+        ........#.
+        ........#.
+        #########.
+        """
+    )
+    obstacles = set(grid.positions_with_value("#"))
+    sand_pour_position = next(grid.positions_with_value("+"))
+    falling_sand = FallingSand(sand_pour_position, obstacles)
+    falling_sand.pour_until_steady_state()
+    assert len(falling_sand.resting_sand_positions) == 24
