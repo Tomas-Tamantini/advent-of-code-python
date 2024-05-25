@@ -13,6 +13,7 @@ def aoc_2022_d14(input_reader: InputReader, **_) -> None:
     num_resting = len(falling_sand.resting_sand_positions)
     print(f"Part 1: Number of resting sand grains is {num_resting}")
     floor_y_coord = falling_sand.max_obstacle_depth + 2
-    falling_sand.pour_until_source_blocked(floor_y_coord)
+    falling_sand = FallingSand(sand_pour_position, obstacles, floor_y_coord)
+    falling_sand.pour_until_source_blocked()
     num_resting = len(falling_sand.resting_sand_positions)
     print(f"Part 2: Number of resting sand grains considering floor is {num_resting}")

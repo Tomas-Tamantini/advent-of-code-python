@@ -1,3 +1,4 @@
+from typing import Optional
 from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
 from ..falling_sand import FallingSand
@@ -66,7 +67,7 @@ def test_pouring_sand_piles_on_top_of_one_another():
     }
 
 
-def _example_falling_sand():
+def _example_falling_sand(floor_y_coord: Optional[int] = None):
     grid = CharacterGrid(
         """
         ......+...
@@ -83,7 +84,7 @@ def _example_falling_sand():
     )
     obstacles = set(grid.positions_with_value("#"))
     sand_pour_position = next(grid.positions_with_value("+"))
-    return FallingSand(sand_pour_position, obstacles)
+    return FallingSand(sand_pour_position, obstacles, floor_y_coord)
 
 
 def test_pouring_sand_piles_even_in_complicated_obstacles():
@@ -93,6 +94,12 @@ def test_pouring_sand_piles_even_in_complicated_obstacles():
 
 
 def test_sand_pours_until_pouring_position_is_blocked_if_there_is_floor():
-    falling_sand = _example_falling_sand()
-    falling_sand.pour_until_source_blocked(floor_y_coord=11)
+    falling_sand = _example_falling_sand(floor_y_coord=11)
+    falling_sand.pour_until_source_blocked()
     assert len(falling_sand.resting_sand_positions) == 93
+
+
+def test_sand_pour_is_calculated_efficiently():
+    falling_sand = _example_falling_sand(floor_y_coord=100)
+    falling_sand.pour_until_source_blocked()
+    assert len(falling_sand.resting_sand_positions) == 9963
