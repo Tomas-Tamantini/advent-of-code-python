@@ -1,6 +1,7 @@
 from typing import Iterable, Iterator, Optional
 from models.common.number_theory import Interval
 from models.common.vectors import BoundingBox, Vector2D
+from models.common.io import ProgressBar
 from .proximity_sensor import ProximitySensor
 
 
@@ -35,11 +36,17 @@ def _position_which_must_be_beacon(
 
 
 def position_which_must_be_beacon(
-    search_space: BoundingBox, sensors: Iterable[ProximitySensor]
+    search_space: BoundingBox,
+    sensors: Iterable[ProximitySensor],
+    progress_bar: Optional[ProgressBar] = None,
 ) -> Vector2D:
     search_interval = Interval(search_space.min_x, search_space.max_x + 1)
     for row in range(search_space.min_y, search_space.max_y + 1):
-        print(row)
+        if progress_bar:
+            progress_bar.update(
+                step=row - search_space.min_y,
+                expected_num_steps=search_space.max_y - search_space.min_y + 1,
+            )
         column = _position_which_must_be_beacon(
             search_interval, _intervals_which_cannot_be_unknown_beacon(row, sensors)
         )
