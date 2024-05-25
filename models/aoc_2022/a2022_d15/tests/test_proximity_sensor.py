@@ -1,6 +1,10 @@
-from models.common.vectors import Vector2D
+from models.common.vectors import Vector2D, BoundingBox
 from models.common.number_theory import Interval
-from ..logic import ProximitySensor, num_positions_which_cannot_contain_beacon
+from ..logic import (
+    ProximitySensor,
+    num_positions_which_cannot_contain_beacon,
+    position_which_must_be_beacon,
+)
 
 
 def _example_sensor() -> ProximitySensor:
@@ -12,18 +16,28 @@ def _example_sensor() -> ProximitySensor:
 
 def test_interval_which_cannot_be_beacon_is_none_in_row_farther_than_nearest_beacon():
     assert _example_sensor().interval_which_cannot_be_beacon(row=17) is None
+    assert _example_sensor().interval_which_cannot_be_unknown_beacon(row=17) is None
 
 
 def test_interval_which_cannot_be_beacon_is_calculated_properly_in_row_closer_than_nearest_beacon():
     assert _example_sensor().interval_which_cannot_be_beacon(row=9) == Interval(1, 15)
+    assert _example_sensor().interval_which_cannot_be_unknown_beacon(row=9) == Interval(
+        1, 15
+    )
 
 
 def test_interval_which_cannot_be_beacon_discounts_existing_beacon():
     assert _example_sensor().interval_which_cannot_be_beacon(row=10) == Interval(3, 14)
 
 
-def test_positions_which_cannot_be_beacon_are_union_of_all_sensors():
-    sensors = [
+def test_interval_which_cannot_be_unknown_beacon_includes_existing_beacon():
+    assert _example_sensor().interval_which_cannot_be_unknown_beacon(
+        row=10
+    ) == Interval(2, 14)
+
+
+def _example_sensors() -> list[ProximitySensor]:
+    return [
         ProximitySensor(Vector2D(2, 18), Vector2D(-2, 15)),
         ProximitySensor(Vector2D(9, 16), Vector2D(10, 16)),
         ProximitySensor(Vector2D(13, 2), Vector2D(15, 3)),
@@ -39,4 +53,16 @@ def test_positions_which_cannot_be_beacon_are_union_of_all_sensors():
         ProximitySensor(Vector2D(14, 3), Vector2D(15, 3)),
         ProximitySensor(Vector2D(20, 1), Vector2D(15, 3)),
     ]
-    assert num_positions_which_cannot_contain_beacon(row=10, sensors=sensors) == 26
+
+
+def test_positions_which_cannot_be_beacon_are_union_of_all_sensors():
+    assert (
+        num_positions_which_cannot_contain_beacon(row=10, sensors=_example_sensors())
+        == 26
+    )
+
+
+def test_position_which_must_be_beacon_is_found_by_elimination():
+    search_space = BoundingBox(bottom_left=Vector2D(0, 0), top_right=Vector2D(20, 20))
+    sensors = _example_sensors()
+    assert position_which_must_be_beacon(search_space, sensors) == Vector2D(14, 11)
