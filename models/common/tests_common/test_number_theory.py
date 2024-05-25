@@ -183,3 +183,8 @@ def test_interval_is_fully_contained_by_other_if_min_and_max_are_within_other():
     interval_b = Interval(min_inclusive=2, max_inclusive=8)
     assert interval_a.is_contained_by(interval_b)
     assert not interval_b.is_contained_by(interval_a)
+
+
+def test_intervals_can_be_ordered():
+    assert Interval(2, 10) < Interval(3, 7)
+    assert Interval(3, 7) < Interval(3, 8)
