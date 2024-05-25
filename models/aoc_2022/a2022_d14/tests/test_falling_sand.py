@@ -66,7 +66,7 @@ def test_pouring_sand_piles_on_top_of_one_another():
     }
 
 
-def test_pouring_sand_piles_even_in_complicated_obstacles():
+def _example_falling_sand():
     grid = CharacterGrid(
         """
         ......+...
@@ -83,6 +83,16 @@ def test_pouring_sand_piles_even_in_complicated_obstacles():
     )
     obstacles = set(grid.positions_with_value("#"))
     sand_pour_position = next(grid.positions_with_value("+"))
-    falling_sand = FallingSand(sand_pour_position, obstacles)
+    return FallingSand(sand_pour_position, obstacles)
+
+
+def test_pouring_sand_piles_even_in_complicated_obstacles():
+    falling_sand = _example_falling_sand()
     falling_sand.pour_until_steady_state()
     assert len(falling_sand.resting_sand_positions) == 24
+
+
+def test_sand_pours_until_pouring_position_is_blocked_if_there_is_floor():
+    falling_sand = _example_falling_sand()
+    falling_sand.pour_until_source_blocked(floor_y_coord=11)
+    assert len(falling_sand.resting_sand_positions) == 93
