@@ -1,33 +1,11 @@
 from typing import Iterator
 from math import inf
 from models.common.vectors import Vector2D
-from models.common.graphs import dijkstra
+from .dijkstra import dijkstra
+from .graph import WeightedUndirectedGraph
 
 
-class GridMaze:
-
-    def __init__(self) -> None:
-        self._adjacencies = dict()
-
-    @property
-    def num_nodes(self) -> int:
-        return len(self._adjacencies)
-
-    def add_node(self, node: Vector2D) -> None:
-        if node not in self._adjacencies:
-            self._adjacencies[node] = dict()
-        for neighbor in node.adjacent_positions(include_diagonals=False):
-            if neighbor not in self._adjacencies:
-                continue
-            self._adjacencies[node][neighbor] = 1
-            self._adjacencies[neighbor][node] = 1
-
-    def weight(self, node_a: Vector2D, node_b: Vector2D) -> float:
-        return self._adjacencies[node_a].get(node_b, inf)
-
-    def neighbors(self, node: Vector2D) -> Iterator[Vector2D]:
-        yield from self._adjacencies[node]
-
+class Maze(WeightedUndirectedGraph):
     def _remove_node(self, node: Vector2D) -> None:
         for neighbor in self._adjacencies[node]:
             del self._adjacencies[neighbor][node]
@@ -76,3 +54,14 @@ class GridMaze:
             return dijkstra(origin, destination, self)[1]
         except ValueError:
             return inf
+
+
+class GridMaze(Maze):
+    def add_node_and_connect_to_neighbors(self, node: Vector2D) -> None:
+        if node not in self._adjacencies:
+            self._adjacencies[node] = dict()
+        for neighbor in node.adjacent_positions(include_diagonals=False):
+            if neighbor not in self._adjacencies:
+                continue
+            self._adjacencies[node][neighbor] = 1
+            self._adjacencies[neighbor][node] = 1

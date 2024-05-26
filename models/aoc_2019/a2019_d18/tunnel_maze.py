@@ -15,18 +15,18 @@ class TunnelMaze:
 
     def add_entrance(self, position: Vector2D) -> None:
         self._entrances.add(position)
-        self._graph.add_node(position)
+        self._graph.add_node_and_connect_to_neighbors(position)
 
     def add_key(self, position: Vector2D, key_id: str) -> None:
         self._keys[key_id] = position
-        self._graph.add_node(position)
+        self._graph.add_node_and_connect_to_neighbors(position)
 
     def add_door(self, position: Vector2D, corresponding_key_id: str) -> None:
         self._doors[corresponding_key_id] = position
-        self._graph.add_node(position)
+        self._graph.add_node_and_connect_to_neighbors(position)
 
     def add_open_passage(self, position: Vector2D) -> None:
-        self._graph.add_node(position)
+        self._graph.add_node_and_connect_to_neighbors(position)
 
     def reduced_graph(self) -> TunnelMazeGraph:
         irreducible_nodes = set()

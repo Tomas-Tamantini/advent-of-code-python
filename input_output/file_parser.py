@@ -1089,7 +1089,7 @@ class FileParser:
         maze = PortalMaze()
         lines = list(input_reader.readlines())
         for position in self._open_passage_tiles(lines):
-            maze.add_node(position)
+            maze.add_node_and_connect_to_neighbors(position)
             portal_id = self._portal_id(position, lines)
             if portal_id == "AA":
                 maze.set_entrance(position)

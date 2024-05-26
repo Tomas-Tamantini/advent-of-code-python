@@ -40,7 +40,7 @@ class RecursiveDonutMaze:
         self._step_down_to_step_up_portals = {}
 
     def add_node(self, node: Vector2D) -> None:
-        self._main_maze.add_node(node)
+        self._main_maze.add_node_and_connect_to_neighbors(node)
 
     def set_entrance(self, entrance: Vector2D) -> None:
         self._entrance = entrance

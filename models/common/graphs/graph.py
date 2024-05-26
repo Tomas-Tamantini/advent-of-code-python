@@ -59,6 +59,10 @@ class WeightedUndirectedGraph:
     def nodes(self) -> Iterator[Hashable]:
         yield from self._adjacencies.keys()
 
+    @property
+    def num_nodes(self) -> int:
+        return len(self._adjacencies)
+
     def neighbors(self, node: Hashable) -> Iterator[Hashable]:
         yield from self._adjacencies[node].keys()
 
