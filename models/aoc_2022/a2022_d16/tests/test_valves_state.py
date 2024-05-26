@@ -1,4 +1,4 @@
-from models.common.graphs import WeightedUndirectedGraph
+from models.common.graphs import Maze
 from ..logic import Valve, ValvesState
 
 
@@ -34,21 +34,21 @@ def test_valves_state_has_no_next_state_if_time_is_up():
     time_elapsed = 25
     state = _example_state(time_elapsed=time_elapsed)
     valves = _example_valves()
-    graph = WeightedUndirectedGraph()
+    graph = Maze()
     graph.add_edge(valves["A"], valves["B"], weight=1)
     assert list(state.next_states(total_time=time_elapsed, valves_graph=graph)) == []
 
 
 def test_valves_state_has_no_next_state_if_current_valve_is_open_and_has_no_neighbors():
     state = _example_state(current_valve_id="B")
-    graph = WeightedUndirectedGraph()
+    graph = Maze()
     assert list(state.next_states(total_time=30, valves_graph=graph)) == []
 
 
 def test_valves_state_can_open_current_valve_if_not_open_yet():
     state = _example_state(current_valve_id="A")
     valves = _example_valves()
-    graph = WeightedUndirectedGraph()
+    graph = Maze()
     next_states = list(state.next_states(total_time=30, valves_graph=graph))
     assert len(next_states) == 1
     next_state = next_states[0]
@@ -60,14 +60,14 @@ def test_valves_state_can_open_current_valve_if_not_open_yet():
 
 def test_valves_state_cannot_open_current_valve_if_its_flow_rate_is_zero():
     state = _example_state(current_valve_id="I")
-    graph = WeightedUndirectedGraph()
+    graph = Maze()
     assert list(state.next_states(total_time=30, valves_graph=graph)) == []
 
 
 def test_valves_state_can_go_to_neighboring_valve_if_reachable():
     state = _example_state(current_valve_id="B")
     valves = _example_valves()
-    graph = WeightedUndirectedGraph()
+    graph = Maze()
     graph.add_edge(valves["B"], valves["H"], weight=3)
     next_states = list(state.next_states(total_time=30, valves_graph=graph))
     assert len(next_states) == 1

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.common.graphs import WeightedUndirectedGraph
+from models.common.graphs import Maze
 from .valve import Valve
 
 TIME_TO_OPEN_VALVE = 1
@@ -35,7 +35,7 @@ class ValvesState:
         return upper_bound
 
     def next_states(
-        self, total_time: int, valves_graph: WeightedUndirectedGraph
+        self, total_time: int, valves_graph: Maze
     ) -> Iterator["ValvesState"]:
         if (
             self.current_valve not in self.open_valves

@@ -1,11 +1,11 @@
 from models.common.io import InputReader
-from models.common.graphs import WeightedUndirectedGraph
+from models.common.graphs import Maze
 from .logic import Valve
 
 
 def parse_valve_graph(
     input_reader: InputReader, time_to_travel_between_valves: int
-) -> WeightedUndirectedGraph:
+) -> Maze:
     lines = [
         l.replace(";", "").replace("rate=", "")
         for l in input_reader.read_stripped_lines()
@@ -18,7 +18,7 @@ def parse_valve_graph(
         valve = Valve(valve_id, flow_rate)
         valves[valve_id] = valve
 
-    graph = WeightedUndirectedGraph()
+    graph = Maze()
     for line in lines:
         current_valve_id = line.split()[1].strip()
         neighbors_str = line.replace("valves", "valve").split("valve")[-1].strip()
