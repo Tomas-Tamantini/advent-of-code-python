@@ -181,7 +181,7 @@ class VolcanoState:
             self._elapsed_time,
             self._pressure_released,
             frozenset(self._open_valves),
-            self._workers,
+            frozenset(self._workers),
         )
 
     def __eq__(self, value: object) -> bool:
