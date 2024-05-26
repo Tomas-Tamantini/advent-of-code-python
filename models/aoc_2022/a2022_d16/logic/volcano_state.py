@@ -71,17 +71,16 @@ class VolcanoState:
         self, worker_index: int, volcano: Volcano
     ) -> Iterator["VolcanoState"]:
         worker = self._workers[worker_index]
-        for (
-            neighboring_valve,
-            travel_time,
-        ) in volcano.neighboring_valves_with_travel_time(worker.valve):
-            if (
-                task_completion_time := (self._elapsed_time + travel_time)
-            ) < volcano.time_until_eruption:
-                new_worker = worker.start_moving_towards(
-                    neighboring_valve, task_completion_time
-                )
-                yield self._update_worker(worker_index, new_worker)
+        for valve in volcano.all_valves():
+            if valve != worker.valve:
+                travel_time = volcano.distance(worker.valve, valve)
+                if self._can_open_valve_in_time(
+                    valve, volcano.time_until_eruption - travel_time
+                ):
+                    new_worker = worker.start_opening_valve(
+                        self._elapsed_time + travel_time + valve.time_to_open, valve
+                    )
+                    yield self._update_worker(worker_index, new_worker)
 
     def _wait_for_eruption(self, worker_index: int, volcano: Volcano) -> "VolcanoState":
         worker = self._workers[worker_index]

@@ -45,7 +45,6 @@ def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
     assert maximum_pressure_release(volcano, num_workers=1) == 1651
 
 
-@pytest.mark.skip("Takes about 3s to run")
 def test_increasing_number_of_workers_increases_pressure_released():
     volcano = _example_volcano(time_until_eruption=26)
     assert maximum_pressure_release(volcano, num_workers=2) == 1707

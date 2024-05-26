@@ -33,16 +33,15 @@ def _mock_volcano(
     time_until_eruption: int = 30,
     min_travel_time: int = 1,
     min_time_to_open_valve: int = 1,
-    neighbors: list[tuple[Valve, int]] = None,
+    distance: int = 1,
     all_valves: set[Valve] = None,
 ):
-    neighbors = neighbors or []
     all_valves = all_valves or set()
     volcano = Mock()
     volcano.time_until_eruption = time_until_eruption
     volcano.min_travel_time = min_travel_time
     volcano.min_time_to_open_valve = min_time_to_open_valve
-    volcano.neighboring_valves_with_travel_time.return_value = neighbors
+    volcano.distance.return_value = distance
     volcano.all_valves.return_value = all_valves
     return volcano
 
@@ -71,12 +70,12 @@ def test_volcano_worker_moves_to_different_valve_if_they_are_idle():
     valve_b = _build_valve("B")
     worker = _build_worker(state=WorkerState.IDLE, valve=valve_a)
     state = _build_state(elapsed_time=0, workers=(worker,), open_valves={valve_a})
-    volcano = _mock_volcano(neighbors=[(valve_b, 5)])
+    volcano = _mock_volcano(distance=5, all_valves={valve_a, valve_b})
     next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
     assert next_states[0].elapsed_time == 0
     assert next_states[0].workers[0] == _build_worker(
-        state=WorkerState.EN_ROUTE, valve=valve_b, task_completion_time=5
+        state=WorkerState.OPENING_VALVE, valve=valve_b, task_completion_time=6
     )
 
 

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 from enum import Enum
 from .valve import Valve
 
@@ -6,8 +7,7 @@ from .valve import Valve
 class WorkerState(Enum):
     IDLE = 1
     OPENING_VALVE = 2
-    EN_ROUTE = 3
-    WAITING_FOR_ERUPTION = 4
+    WAITING_FOR_ERUPTION = 3
 
 
 @dataclass(frozen=True)
@@ -30,18 +30,8 @@ class VolcanoWorker:
             task_completion_time=task_completion_time,
         )
 
-    def start_opening_valve(self, task_completion_time: int) -> "VolcanoWorker":
-        return VolcanoWorker(
-            state=WorkerState.OPENING_VALVE,
-            valve=self.valve,
-            task_completion_time=task_completion_time,
-        )
-
-    def start_moving_towards(
-        self, new_valve: Valve, task_completion_time: int
+    def start_opening_valve(
+        self, task_completion_time: int, valve: Optional[Valve] = None
     ) -> "VolcanoWorker":
-        return VolcanoWorker(
-            state=WorkerState.EN_ROUTE,
-            valve=new_valve,
-            task_completion_time=task_completion_time,
-        )
+        valve = valve or self.valve
+        return VolcanoWorker(WorkerState.OPENING_VALVE, valve, task_completion_time)

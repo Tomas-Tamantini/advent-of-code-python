@@ -27,6 +27,11 @@ class Volcano:
             if (v.flow_rate > 0 or v == self._starting_valve)
         }
         self._graph.reduce(irreducible_nodes)
+        for node in self._graph.nodes():
+            for other_node in self._graph.nodes():
+                if node != other_node:
+                    distance = self._graph.shortest_distance(node, other_node)
+                    self._graph.add_edge(node, other_node, distance)
 
     @property
     def starting_valve(self) -> Valve:
@@ -47,8 +52,5 @@ class Volcano:
     def min_time_to_open_valve(self) -> int:
         return self._min_time_to_open_valve
 
-    def neighboring_valves_with_travel_time(
-        self, current_valve: Valve
-    ) -> Iterator[tuple[Valve, int]]:
-        for neighbor in self._graph.neighbors(current_valve):
-            yield neighbor, self._graph.weight(current_valve, neighbor)
+    def distance(self, valve_a: Valve, valve_b: Valve) -> int:
+        return self._graph.weight(valve_a, valve_b)

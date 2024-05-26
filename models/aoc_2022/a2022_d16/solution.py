@@ -14,7 +14,7 @@ def aoc_2022_d16(input_reader: InputReader, **_) -> None:
     print(f"Part 1: Maximum pressure release is {max_pressure_one_worker}")
     volcano = Volcano(graph, starting_valve, time_until_eruption=26)
     print(
-        "Part 2: Be patient, it takes about 3 minutes to run",
+        "Part 2: Be patient, it takes about 1 minute to run",
         end="\r",
     )
     max_pressure_two_workers = maximum_pressure_release(
