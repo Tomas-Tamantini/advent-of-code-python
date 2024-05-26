@@ -2,7 +2,7 @@ from models.common.graphs import Maze
 from ..logic import maximum_pressure_release, Valve, Volcano
 
 
-def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
+def _example_volcano(time_until_eruption: int) -> Volcano:
     flow_rates = {
         "AA": 0,
         "BB": 13,
@@ -36,5 +36,14 @@ def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
         for destination in destinations:
             valves_graph.add_edge(valves[source], valves[destination], weight=1)
     starting_valve = valves["AA"]
-    volcano = Volcano(valves_graph, starting_valve, time_until_eruption=30)
-    assert maximum_pressure_release(volcano) == 1651
+    return Volcano(valves_graph, starting_valve, time_until_eruption)
+
+
+def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
+    volcano = _example_volcano(time_until_eruption=30)
+    assert maximum_pressure_release(volcano, num_workers=1) == 1651
+
+
+def test_increasing_number_of_workers_increases_pressure_released():
+    volcano = _example_volcano(time_until_eruption=26)
+    assert maximum_pressure_release(volcano, num_workers=2) == 1707

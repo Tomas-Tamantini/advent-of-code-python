@@ -1,13 +1,17 @@
 from .volcano import Volcano
-from .valves_state import ValvesState
+from .volcano_worker import VolcanoWorker, WorkerState
+from .volcano_state import VolcanoState
 
 
-def maximum_pressure_release(volcano: Volcano) -> int:
-    inital_state = ValvesState(
-        current_valve=volcano.starting_valve,
-        open_valves=set(),
-        time_elapsed=0,
+def maximum_pressure_release(volcano: Volcano, num_workers: int) -> int:
+    inital_state = VolcanoState(
+        elapsed_time=0,
         pressure_released=0,
+        open_valves=set(),
+        workers=tuple(
+            VolcanoWorker(state=WorkerState.IDLE, valve=volcano.starting_valve)
+            for _ in range(num_workers)
+        ),
     )
     explore_stack = [inital_state]
     maximum_pressure_release_so_far = 0
