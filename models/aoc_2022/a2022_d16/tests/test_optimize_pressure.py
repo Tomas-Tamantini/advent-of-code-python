@@ -1,4 +1,4 @@
-from models.common.graphs import DirectedGraph
+from models.common.graphs import WeightedUndirectedGraph
 from ..logic import maximum_pressure_release, Valve
 
 
@@ -31,9 +31,9 @@ def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
         valve_id: Valve(valve_id, flow_rate)
         for valve_id, flow_rate in flow_rates.items()
     }
-    valves_graph = DirectedGraph()
+    valves_graph = WeightedUndirectedGraph()
     for source, destinations in connections.items():
         for destination in destinations:
-            valves_graph.add_edge(valves[source], valves[destination])
+            valves_graph.add_edge(valves[source], valves[destination], weight=1)
     starting_valve = valves["AA"]
     assert maximum_pressure_release(valves_graph, starting_valve, total_time=30) == 1651
