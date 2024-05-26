@@ -3,7 +3,9 @@ from .volcano_worker import VolcanoWorker, WorkerState
 from .volcano_state import VolcanoState
 
 
-def maximum_pressure_release(volcano: Volcano, num_workers: int) -> int:
+def maximum_pressure_release(
+    volcano: Volcano, num_workers: int, lower_bound: int = 0
+) -> int:
     inital_state = VolcanoState(
         elapsed_time=0,
         pressure_released=0,
@@ -14,7 +16,7 @@ def maximum_pressure_release(volcano: Volcano, num_workers: int) -> int:
         ),
     )
     explore_stack = [inital_state]
-    maximum_pressure_release_so_far = 0
+    maximum_pressure_release_so_far = lower_bound - 1
     while explore_stack:
         current_state = explore_stack.pop()
         # Branch and bound

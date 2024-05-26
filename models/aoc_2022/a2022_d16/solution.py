@@ -10,8 +10,16 @@ def aoc_2022_d16(input_reader: InputReader, **_) -> None:
     )
     starting_valve = next(valve for valve in graph.nodes() if valve.valve_id == "AA")
     volcano = Volcano(graph, starting_valve, time_until_eruption=30)
-    max_pressure = maximum_pressure_release(volcano, num_workers=1)
-    print(f"Part 1: Maximum pressure release is {max_pressure}")
+    max_pressure_one_worker = maximum_pressure_release(volcano, num_workers=1)
+    print(f"Part 1: Maximum pressure release is {max_pressure_one_worker}")
     volcano = Volcano(graph, starting_valve, time_until_eruption=26)
-    max_pressure = maximum_pressure_release(volcano, num_workers=2)
-    print(f"Part 2: Maximum pressure release with elephant helper is {max_pressure}")
+    print(
+        "Part 2: Be patient, it takes about 10 minutes to run",
+        end="\r",
+    )
+    max_pressure_two_workers = maximum_pressure_release(
+        volcano, num_workers=2, lower_bound=max_pressure_one_worker
+    )
+    print(
+        f"Part 2: Maximum pressure release with elephant helper is {max_pressure_two_workers}"
+    )
