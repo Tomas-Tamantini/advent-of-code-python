@@ -15,7 +15,7 @@ def _example_valves() -> dict[chr, Valve]:
         "I": 0,
     }
     return {
-        valve_id: Valve(valve_id, flow_rate)
+        valve_id: Valve(valve_id, flow_rate, time_to_open=1)
         for valve_id, flow_rate in flow_rates.items()
     }
 

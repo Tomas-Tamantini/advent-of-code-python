@@ -3,8 +3,6 @@ from typing import Iterator
 from .valve import Valve
 from .volcano import Volcano
 
-TIME_TO_OPEN_VALVE = 1
-
 
 @dataclass(frozen=True)
 class ValvesState:
@@ -26,7 +24,7 @@ class ValvesState:
         upper_bound += self._pressure_increase(extended_open, time_left)
         remaining_valves = set(volcano.all_valves()) - extended_open
         for next_valve_to_open in sorted(remaining_valves, key=lambda v: -v.flow_rate):
-            time_left -= volcano.min_travel_time + TIME_TO_OPEN_VALVE
+            time_left -= volcano.min_travel_time + volcano.min_time_to_open_valve
             if time_left <= 0:
                 return upper_bound
             upper_bound += time_left * next_valve_to_open.flow_rate
@@ -36,14 +34,17 @@ class ValvesState:
         if (
             self.current_valve not in self.open_valves
             and self.current_valve.flow_rate > 0
-            and self.time_elapsed + TIME_TO_OPEN_VALVE <= volcano.time_until_eruption
+            and self.time_elapsed + self.current_valve.time_to_open
+            <= volcano.time_until_eruption
         ):
             yield ValvesState(
                 current_valve=self.current_valve,
                 open_valves=self.open_valves | {self.current_valve},
-                time_elapsed=self.time_elapsed + TIME_TO_OPEN_VALVE,
+                time_elapsed=self.time_elapsed + self.current_valve.time_to_open,
                 pressure_released=self.pressure_released
-                + self._pressure_increase(self.open_valves, TIME_TO_OPEN_VALVE),
+                + self._pressure_increase(
+                    self.open_valves, self.current_valve.time_to_open
+                ),
             )
         for (
             neighboring_valve,

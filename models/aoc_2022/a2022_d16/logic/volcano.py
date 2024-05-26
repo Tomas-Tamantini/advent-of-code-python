@@ -16,6 +16,9 @@ class Volcano:
             for a in self._graph.nodes()
             for b in self._graph.neighbors(a)
         )
+        self._min_time_to_open_valve = min(
+            v.time_to_open for v in self._graph.nodes() if v.time_to_open > 0
+        )
 
     def _reduce_graph(self) -> None:
         irreducible_nodes = {
@@ -39,6 +42,10 @@ class Volcano:
     @property
     def min_travel_time(self) -> int:
         return self._min_travel_time
+
+    @property
+    def min_time_to_open_valve(self) -> int:
+        return self._min_time_to_open_valve
 
     def neighboring_valves_with_travel_time(
         self, current_valve: Valve

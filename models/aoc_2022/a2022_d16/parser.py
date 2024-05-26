@@ -4,7 +4,9 @@ from .logic import Valve
 
 
 def parse_valve_graph(
-    input_reader: InputReader, time_to_travel_between_valves: int
+    input_reader: InputReader,
+    time_to_travel_between_valves: int,
+    time_to_open_valves: int,
 ) -> Maze:
     lines = [
         l.replace(";", "").replace("rate=", "")
@@ -15,7 +17,7 @@ def parse_valve_graph(
         parts = line.split()
         valve_id = parts[1].strip()
         flow_rate = int(parts[4])
-        valve = Valve(valve_id, flow_rate)
+        valve = Valve(valve_id, flow_rate, time_to_open_valves)
         valves[valve_id] = valve
 
     graph = Maze()

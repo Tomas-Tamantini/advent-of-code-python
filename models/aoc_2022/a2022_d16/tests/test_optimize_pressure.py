@@ -28,7 +28,7 @@ def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
         "JJ": {"II"},
     }
     valves = {
-        valve_id: Valve(valve_id, flow_rate)
+        valve_id: Valve(valve_id, flow_rate, time_to_open=1)
         for valve_id, flow_rate in flow_rates.items()
     }
     valves_graph = Maze()

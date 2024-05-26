@@ -6,3 +6,4 @@ from dataclasses import dataclass
 class Valve:
     valve_id: Hashable
     flow_rate: int
+    time_to_open: int
