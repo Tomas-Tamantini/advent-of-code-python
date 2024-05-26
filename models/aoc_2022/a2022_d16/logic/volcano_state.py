@@ -1,4 +1,4 @@
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Hashable
 from .valve import Valve
 from .volcano import Volcano
 from .volcano_worker import VolcanoWorker, WorkerState
@@ -121,7 +121,7 @@ class VolcanoState:
             elapsed_time=self.elapsed_time + time_interval,
             pressure_released=self.pressure_released + pressure_increment,
             open_valves=new_open_valves,
-            workers=new_workers,
+            workers=tuple(new_workers),
         )
 
     def _index_of_next_worker_to_finish_task(self) -> int:
@@ -175,3 +175,17 @@ class VolcanoState:
                     next_valve_to_open = sorted_remaning[idx_next_valve_to_open]
                     upper_bound += worker_remaining_time * next_valve_to_open.flow_rate
         return upper_bound
+
+    def _as_hashable(self) -> Hashable:
+        return (
+            self._elapsed_time,
+            self._pressure_released,
+            frozenset(self._open_valves),
+            self._workers,
+        )
+
+    def __eq__(self, value: object) -> bool:
+        return self._as_hashable() == value._as_hashable()
+
+    def __hash__(self) -> int:
+        return hash(self._as_hashable())

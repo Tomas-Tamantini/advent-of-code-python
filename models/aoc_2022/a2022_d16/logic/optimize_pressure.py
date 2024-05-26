@@ -15,10 +15,13 @@ def maximum_pressure_release(
             for _ in range(num_workers)
         ),
     )
+    explored_states = set()
     explore_stack = [inital_state]
     maximum_pressure_release_so_far = lower_bound - 1
     while explore_stack:
         current_state = explore_stack.pop()
+        if current_state in explored_states:
+            continue
         # Branch and bound
         if (
             current_state.pressure_release_upper_bound(volcano)
@@ -29,4 +32,5 @@ def maximum_pressure_release(
             )
             for next_state in current_state.next_states(volcano):
                 explore_stack.append(next_state)
+        explored_states.add(current_state)
     return maximum_pressure_release_so_far
