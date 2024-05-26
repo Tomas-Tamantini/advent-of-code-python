@@ -17,9 +17,9 @@ class ValvesState:
     def _pressure_increase(open_valves: set[Valve], time_interval: int) -> int:
         return sum(time_interval * open_valve.flow_rate for open_valve in open_valves)
 
-    def pressure_release_upper_bound(self, total_time: int, volcano: Volcano) -> int:
+    def pressure_release_upper_bound(self, volcano: Volcano) -> int:
         upper_bound = self.pressure_released
-        time_left = total_time - self.time_elapsed
+        time_left = volcano.time_until_eruption - self.time_elapsed
         if time_left <= 0:
             return upper_bound
         extended_open = self.open_valves | {self.current_valve}
@@ -32,11 +32,11 @@ class ValvesState:
             upper_bound += time_left * next_valve_to_open.flow_rate
         return upper_bound
 
-    def next_states(self, total_time: int, volcano: Volcano) -> Iterator["ValvesState"]:
+    def next_states(self, volcano: Volcano) -> Iterator["ValvesState"]:
         if (
             self.current_valve not in self.open_valves
             and self.current_valve.flow_rate > 0
-            and self.time_elapsed + TIME_TO_OPEN_VALVE <= total_time
+            and self.time_elapsed + TIME_TO_OPEN_VALVE <= volcano.time_until_eruption
         ):
             yield ValvesState(
                 current_valve=self.current_valve,
@@ -49,7 +49,7 @@ class ValvesState:
             neighboring_valve,
             travel_time,
         ) in volcano.neighboring_valves_with_travel_time(self.current_valve):
-            if self.time_elapsed + travel_time <= total_time:
+            if self.time_elapsed + travel_time <= volcano.time_until_eruption:
                 yield ValvesState(
                     current_valve=neighboring_valve,
                     open_valves=self.open_valves,

@@ -1,17 +1,10 @@
-from models.common.graphs import Maze
-from .valve import Valve
 from .volcano import Volcano
 from .valves_state import ValvesState
 
 
-def maximum_pressure_release(
-    valves_graph: Maze,
-    starting_valve: Valve,
-    total_time: int,
-) -> int:
-    volcano = Volcano(valves_graph, starting_valve)
+def maximum_pressure_release(volcano: Volcano) -> int:
     inital_state = ValvesState(
-        current_valve=starting_valve,
+        current_valve=volcano.starting_valve,
         open_valves=set(),
         time_elapsed=0,
         pressure_released=0,
@@ -22,12 +15,12 @@ def maximum_pressure_release(
         current_state = explore_stack.pop()
         # Branch and bound
         if (
-            current_state.pressure_release_upper_bound(total_time, volcano)
+            current_state.pressure_release_upper_bound(volcano)
             > maximum_pressure_release_so_far
         ):
             maximum_pressure_release_so_far = max(
                 maximum_pressure_release_so_far, current_state.pressure_released
             )
-            for next_state in current_state.next_states(total_time, volcano):
+            for next_state in current_state.next_states(volcano):
                 explore_stack.append(next_state)
     return maximum_pressure_release_so_far

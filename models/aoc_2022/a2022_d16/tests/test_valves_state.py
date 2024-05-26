@@ -36,8 +36,10 @@ def test_valves_state_has_no_next_state_if_time_is_up():
     valves = _example_valves()
     graph = Maze()
     graph.add_edge(valves["A"], valves["B"], weight=1)
-    volcano = Volcano(graph, starting_valve=valves["A"])
-    assert list(state.next_states(total_time=time_elapsed, volcano=volcano)) == []
+    volcano = Volcano(
+        graph, starting_valve=valves["A"], time_until_eruption=time_elapsed
+    )
+    assert list(state.next_states(volcano=volcano)) == []
 
 
 def test_valves_state_has_no_next_state_if_current_valve_is_open_and_has_no_neighbors():
@@ -45,8 +47,8 @@ def test_valves_state_has_no_next_state_if_current_valve_is_open_and_has_no_neig
     state = _example_state(current_valve_id="B")
     graph = Maze()
     graph.add_edge(valves["A"], valves["C"], weight=1)
-    volcano = Volcano(graph, starting_valve=valves["A"])
-    assert list(state.next_states(total_time=30, volcano=volcano)) == []
+    volcano = Volcano(graph, starting_valve=valves["A"], time_until_eruption=30)
+    assert list(state.next_states(volcano=volcano)) == []
 
 
 def test_valves_state_can_open_current_valve_if_not_open_yet():
@@ -54,8 +56,8 @@ def test_valves_state_can_open_current_valve_if_not_open_yet():
     valves = _example_valves()
     graph = Maze()
     graph.add_edge(valves["B"], valves["C"], weight=1)
-    volcano = Volcano(graph, starting_valve=valves["A"])
-    next_states = list(state.next_states(total_time=30, volcano=volcano))
+    volcano = Volcano(graph, starting_valve=valves["A"], time_until_eruption=30)
+    next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
     next_state = next_states[0]
     assert next_state.current_valve == valves["A"]
@@ -69,8 +71,8 @@ def test_valves_state_cannot_open_current_valve_if_its_flow_rate_is_zero():
     graph = Maze()
     valves = _example_valves()
     graph.add_edge(valves["B"], valves["C"], weight=1)
-    volcano = Volcano(graph, starting_valve=valves["A"])
-    assert list(state.next_states(total_time=30, volcano=volcano)) == []
+    volcano = Volcano(graph, starting_valve=valves["A"], time_until_eruption=30)
+    assert list(state.next_states(volcano=volcano)) == []
 
 
 def test_valves_state_can_go_to_neighboring_valve_if_reachable():
@@ -78,8 +80,8 @@ def test_valves_state_can_go_to_neighboring_valve_if_reachable():
     valves = _example_valves()
     graph = Maze()
     graph.add_edge(valves["B"], valves["H"], weight=3)
-    volcano = Volcano(graph, starting_valve=valves["A"])
-    next_states = list(state.next_states(total_time=30, volcano=volcano))
+    volcano = Volcano(graph, starting_valve=valves["A"], time_until_eruption=30)
+    next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
     next_state = next_states[0]
     assert next_state.current_valve == valves["H"]
@@ -94,5 +96,5 @@ def test_pressure_release_upper_bound_uses_minimum_time_to_travel_between_valves
     graph = Maze()
     for neighbor in "BCDEFGHI":
         graph.add_edge(valves["A"], valves[neighbor], weight=1)
-    volcano = Volcano(graph, starting_valve=valves["A"])
-    assert state.pressure_release_upper_bound(total_time=30, volcano=volcano) == 315
+    volcano = Volcano(graph, starting_valve=valves["A"], time_until_eruption=30)
+    assert state.pressure_release_upper_bound(volcano=volcano) == 315

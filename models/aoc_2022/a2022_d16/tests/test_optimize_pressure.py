@@ -1,5 +1,5 @@
 from models.common.graphs import Maze
-from ..logic import maximum_pressure_release, Valve
+from ..logic import maximum_pressure_release, Valve, Volcano
 
 
 def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
@@ -36,4 +36,5 @@ def test_optimizing_pressure_finds_maximum_pressure_release_in_given_time():
         for destination in destinations:
             valves_graph.add_edge(valves[source], valves[destination], weight=1)
     starting_valve = valves["AA"]
-    assert maximum_pressure_release(valves_graph, starting_valve, total_time=30) == 1651
+    volcano = Volcano(valves_graph, starting_valve, time_until_eruption=30)
+    assert maximum_pressure_release(volcano) == 1651

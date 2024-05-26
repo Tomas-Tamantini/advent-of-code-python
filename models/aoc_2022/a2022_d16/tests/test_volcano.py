@@ -15,7 +15,7 @@ def test_volcano_collapses_valves_with_zero_flow_rate_and_just_two_neighbors():
     c = _build_valve("C", flow_rate=1)
     graph.add_edge(a, b, weight=2)
     graph.add_edge(b, c, weight=7)
-    volcano = Volcano(graph, starting_valve=a)
+    volcano = Volcano(graph, starting_valve=a, time_until_eruption=30)
     assert set(volcano.all_valves()) == {a, c}
     assert set(volcano.neighboring_valves_with_travel_time(a)) == {(c, 9)}
     assert set(volcano.neighboring_valves_with_travel_time(c)) == {(a, 9)}
@@ -26,5 +26,5 @@ def test_volcano_keeps_track_of_minimum_travel_time():
     graph.add_edge(_build_valve("A"), _build_valve("B"), weight=11)
     graph.add_edge(_build_valve("A"), _build_valve("D"), weight=7)
     graph.add_edge(_build_valve("B"), _build_valve("C"), weight=13)
-    volcano = Volcano(graph, starting_valve=_build_valve("A"))
+    volcano = Volcano(graph, starting_valve=_build_valve("A"), time_until_eruption=30)
     assert volcano.min_travel_time == 7
