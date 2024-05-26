@@ -47,6 +47,11 @@ class WeightedUndirectedGraph:
         if node not in self._adjacencies:
             self._adjacencies[node] = dict()
 
+    def remove_node(self, node: Hashable) -> None:
+        self._adjacencies.pop(node, None)
+        for neighbors in self._adjacencies.values():
+            neighbors.pop(node, None)
+
     def add_edge(self, node_a: Hashable, node_b: Hashable, weight: float) -> None:
         self._adjacencies[node_a][node_b] = weight
         self._adjacencies[node_b][node_a] = weight
