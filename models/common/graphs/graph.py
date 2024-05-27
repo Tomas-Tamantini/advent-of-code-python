@@ -67,7 +67,7 @@ class WeightedUndirectedGraph:
         yield from self._adjacencies[node].keys()
 
     def weight(self, node_a: Hashable, node_b: Hashable) -> float:
-        return self._adjacencies[node_a].get(node_b, inf)
+        return self._adjacencies[node_a].get(node_b, inf) if node_a != node_b else 0
 
 
 class DirectedGraph:

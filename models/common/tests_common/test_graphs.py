@@ -48,6 +48,12 @@ def test_can_add_node_to_weighted_undirected_graph():
     assert list(graph.nodes()) == ["a"]
 
 
+def test_distance_between_node_and_itself_is_zero_in_weighted_undirected_graph():
+    graph = WeightedUndirectedGraph()
+    graph.add_node("a")
+    assert graph.weight("a", "a") == 0
+
+
 def test_can_remove_node_from_weighted_undirected_graph():
     graph = WeightedUndirectedGraph()
     graph.add_edge("a", "b", 123)
