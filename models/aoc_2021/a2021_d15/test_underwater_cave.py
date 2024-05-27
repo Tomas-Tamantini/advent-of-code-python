@@ -1,6 +1,6 @@
 from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
-from models.aoc_2021 import UnderwaterCaveMaze
+from .underwater_cave import UnderwaterCaveMaze
 
 
 def _example_cave(extension_factor: int = 1) -> UnderwaterCaveMaze:

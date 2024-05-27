@@ -1,6 +1,6 @@
 from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
-from models.aoc_2021 import OctopusesFlashes
+from .octopus_flash import OctopusesFlashes
 
 
 def test_each_octopus_raises_its_energy_level_by_one_after_each_step():

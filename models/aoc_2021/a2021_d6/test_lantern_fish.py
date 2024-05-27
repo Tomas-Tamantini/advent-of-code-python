@@ -1,4 +1,4 @@
-from models.aoc_2021 import LanternFish, lantern_fish_population_after_n_days
+from .lantern_fish import LanternFish, lantern_fish_population_after_n_days
 
 
 def _fish_population(days_until_reproduction: list[int]) -> list[LanternFish]:

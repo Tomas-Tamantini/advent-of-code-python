@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2021 import mismatching_brackets, missing_brackets
+from .brackets import mismatching_brackets, missing_brackets
 
 
 @pytest.mark.parametrize(

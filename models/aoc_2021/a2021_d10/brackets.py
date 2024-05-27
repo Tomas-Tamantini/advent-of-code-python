@@ -7,8 +7,6 @@ _open_to_close_matches = {
     "<": ">",
 }
 
-_close_to_open_matches = {v: k for k, v in _open_to_close_matches.items()}
-
 
 def mismatching_brackets(line: str) -> Iterator[chr]:
     stack = []

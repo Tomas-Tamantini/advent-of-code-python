@@ -1,4 +1,4 @@
-from models.aoc_2021 import BitFrequency
+from .bit_frequency import BitFrequency
 
 binary_strings = [
     "01010101",

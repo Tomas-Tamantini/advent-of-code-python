@@ -1,4 +1,4 @@
-from models.aoc_2021 import (
+from .optimal_fuel_consumption import (
     optimal_linear_fuel_consumption,
     optimal_triangular_fuel_consumption,
 )

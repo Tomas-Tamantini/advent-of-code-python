@@ -1,6 +1,6 @@
 from models.common.io import CharacterGrid
 from models.common.vectors import Vector2D
-from models.aoc_2021 import SmokeBasin
+from .smoke_basin import SmokeBasin
 
 
 def _example_basin() -> SmokeBasin:

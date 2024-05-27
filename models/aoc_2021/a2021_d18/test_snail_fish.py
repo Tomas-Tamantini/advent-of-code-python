@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2021.a2021_d18 import SnailfishNode, SnailfishLeaf, SnailFishTree
+from .snail_fish import SnailfishNode, SnailfishLeaf, SnailFishTree
 
 
 def test_snailfish_leaf_magnitude_is_its_value():
