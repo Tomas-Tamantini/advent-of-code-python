@@ -56,7 +56,7 @@ def test_volcano_worker_starts_opening_closed_valve_if_they_are_idle():
     valve = _build_valve()
     worker = _build_worker(state=WorkerState.IDLE, valve=valve)
     state = _build_state(elapsed_time=0, workers=(worker,))
-    volcano = _mock_volcano()
+    volcano = _mock_volcano(all_valves={valve}, distance=0)
     next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
     assert next_states[0].elapsed_time == 0
