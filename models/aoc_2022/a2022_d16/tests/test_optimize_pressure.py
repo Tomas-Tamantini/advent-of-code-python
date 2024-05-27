@@ -1,4 +1,3 @@
-import pytest
 from models.common.graphs import Maze
 from ..logic import maximum_pressure_release, Valve, Volcano
 

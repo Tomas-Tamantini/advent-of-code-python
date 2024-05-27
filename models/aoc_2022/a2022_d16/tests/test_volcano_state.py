@@ -1,5 +1,5 @@
 from unittest.mock import Mock
-from ..logic import VolcanoState, VolcanoWorker, WorkerState, Valve
+from ..logic import VolcanoState, VolcanoWorker, Valve
 
 
 def _build_valve(
@@ -9,12 +9,12 @@ def _build_valve(
 
 
 def _build_worker(
-    state: WorkerState = WorkerState.IDLE,
+    is_idle: bool = True,
     valve: Valve = None,
     task_completion_time: int = 0,
 ) -> VolcanoWorker:
     valve = valve or _build_valve()
-    return VolcanoWorker(state, valve, task_completion_time)
+    return VolcanoWorker(is_idle, valve, task_completion_time)
 
 
 def _build_state(
@@ -54,36 +54,34 @@ def test_volcano_has_no_next_state_if_time_is_up_for_eruption():
 
 def test_volcano_worker_starts_opening_closed_valve_if_they_are_idle():
     valve = _build_valve()
-    worker = _build_worker(state=WorkerState.IDLE, valve=valve)
+    worker = _build_worker(is_idle=True, valve=valve)
     state = _build_state(elapsed_time=0, workers=(worker,))
     volcano = _mock_volcano(all_valves={valve}, distance=0)
     next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
     assert next_states[0].elapsed_time == 0
     assert next_states[0].workers[0] == _build_worker(
-        state=WorkerState.OPENING_VALVE, valve=valve, task_completion_time=1
+        is_idle=False, valve=valve, task_completion_time=1
     )
 
 
 def test_volcano_worker_moves_to_different_valve_if_they_are_idle():
     valve_a = _build_valve("A")
     valve_b = _build_valve("B")
-    worker = _build_worker(state=WorkerState.IDLE, valve=valve_a)
+    worker = _build_worker(is_idle=True, valve=valve_a)
     state = _build_state(elapsed_time=0, workers=(worker,), open_valves={valve_a})
     volcano = _mock_volcano(distance=5, all_valves={valve_a, valve_b})
     next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
     assert next_states[0].elapsed_time == 0
     assert next_states[0].workers[0] == _build_worker(
-        state=WorkerState.OPENING_VALVE, valve=valve_b, task_completion_time=6
+        is_idle=False, valve=valve_b, task_completion_time=6
     )
 
 
 def test_volcano_worker_in_the_middle_of_task_completes_that_task():
     valve = _build_valve()
-    worker = VolcanoWorker(
-        state=WorkerState.OPENING_VALVE, valve=valve, task_completion_time=12
-    )
+    worker = VolcanoWorker(is_idle=False, valve=valve, task_completion_time=12)
     state = _build_state(
         elapsed_time=0,
         pressure_released=100,
@@ -96,21 +94,19 @@ def test_volcano_worker_in_the_middle_of_task_completes_that_task():
     assert next_states[0].elapsed_time == 12
     assert next_states[0].pressure_released == 220
     assert next_states[0].workers[0] == VolcanoWorker(
-        state=WorkerState.IDLE, valve=valve, task_completion_time=12
+        is_idle=True, valve=valve, task_completion_time=12
     )
 
 
-def test_volcano_worker_waits_out_eruption_if_all_available_tasks_take_too_long():
-    valve = _build_valve(time_to_open=1000)
-    worker = _build_worker(state=WorkerState.IDLE, valve=valve)
+def test_volcano_skips_to_eruption_if_all_available_tasks_take_too_long():
+    worker = _build_worker(
+        is_idle=False, valve=_build_valve(), task_completion_time=1000
+    )
     state = _build_state(elapsed_time=0, workers=(worker,))
     volcano = _mock_volcano(time_until_eruption=10)
     next_states = list(state.next_states(volcano=volcano))
     assert len(next_states) == 1
-    assert next_states[0].elapsed_time == 0
-    assert next_states[0].workers[0] == _build_worker(
-        state=WorkerState.WAITING_FOR_ERUPTION, valve=valve, task_completion_time=10
-    )
+    assert next_states[0].elapsed_time == 10
 
 
 def test_pressure_release_upper_bound_uses_minimum_time_to_travel_between_valves_and_open_them():

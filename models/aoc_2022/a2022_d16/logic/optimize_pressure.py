@@ -1,5 +1,5 @@
 from .volcano import Volcano
-from .volcano_worker import VolcanoWorker, WorkerState
+from .volcano_worker import VolcanoWorker
 from .volcano_state import VolcanoState
 
 
@@ -11,7 +11,7 @@ def maximum_pressure_release(
         pressure_released=0,
         open_valves=set(),
         workers=tuple(
-            VolcanoWorker(state=WorkerState.IDLE, valve=volcano.starting_valve)
+            VolcanoWorker(is_idle=True, valve=volcano.starting_valve)
             for _ in range(num_workers)
         ),
     )

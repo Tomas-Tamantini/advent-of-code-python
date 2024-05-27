@@ -1,7 +1,7 @@
 from typing import Iterator, Optional, Hashable
 from .valve import Valve
 from .volcano import Volcano
-from .volcano_worker import VolcanoWorker, WorkerState
+from .volcano_worker import VolcanoWorker
 
 
 class VolcanoState:
@@ -31,21 +31,19 @@ class VolcanoState:
 
     def _valve_is_being_opened(self, valve: Valve) -> bool:
         return valve in self._open_valves and any(
-            (worker.state == WorkerState.OPENING_VALVE and worker.valve == valve)
-            for worker in self._workers
+            (not worker.is_idle and worker.valve == valve) for worker in self._workers
         )
 
     def _index_of_idle_worker(self) -> Optional[int]:
         for i, worker in enumerate(self._workers):
-            if worker.state == WorkerState.IDLE:
+            if worker.is_idle:
                 return i
 
-    def _can_open_valve_in_time(self, valve: Valve, time_until_eruption: int) -> bool:
+    def _can_open_valve(self, valve: Valve) -> bool:
         return (
             valve.flow_rate > 0
             and valve not in self._open_valves
             and not self._valve_is_being_opened(valve)
-            and valve.time_to_open + self._elapsed_time < time_until_eruption
         )
 
     def _update_worker(
@@ -73,41 +71,39 @@ class VolcanoState:
         worker = self._workers[worker_index]
         for valve in volcano.all_valves():
             travel_time = volcano.distance(worker.valve, valve)
-            if self._can_open_valve_in_time(
-                valve, volcano.time_until_eruption - travel_time
-            ):
+            if self._can_open_valve(valve):
                 new_worker = worker.start_opening_valve(
                     self._elapsed_time + travel_time + valve.time_to_open, valve
                 )
                 yield self._update_worker(worker_index, new_worker)
 
-    def _wait_for_eruption(self, worker_index: int, volcano: Volcano) -> "VolcanoState":
-        worker = self._workers[worker_index]
-        new_worker = worker.wait_for_eruption(
-            task_completion_time=volcano.time_until_eruption
-        )
-        return self._update_worker(worker_index, new_worker)
-
     def _put_to_work(
         self, idle_worker_index: int, volcano: Volcano
     ) -> Iterator["VolcanoState"]:
-        no_jobs_can_be_completed_before_eruption = True
+        no_available_valves = True
         for next_state in self._travel_to_neighboring_valves(
             idle_worker_index, volcano
         ):
-            no_jobs_can_be_completed_before_eruption = False
+            no_available_valves = False
             yield next_state
-        if no_jobs_can_be_completed_before_eruption:
-            yield self._wait_for_eruption(idle_worker_index, volcano)
+
+        if no_available_valves:
+            new_worker = self._workers[idle_worker_index].start_opening_valve(
+                task_completion_time=volcano.time_until_eruption
+            )
+            yield self._update_worker(idle_worker_index, new_worker)
+
+    def _pressure_increment(self, time_interval: int) -> int:
+        return sum(o.flow_rate * time_interval for o in self._open_valves)
 
     def _finish_task(self, worker_index: int) -> "VolcanoState":
         worker = self._workers[worker_index]
         time_interval = worker.task_completion_time - self._elapsed_time
-        pressure_increment = sum(o.flow_rate * time_interval for o in self._open_valves)
+        pressure_increment = self._pressure_increment(time_interval)
         new_worker = worker.go_idle()
         new_workers = list(self._workers)
         new_workers[worker_index] = new_worker
-        if worker.state == WorkerState.OPENING_VALVE:
+        if not worker.is_idle:
             new_open_valves = self._open_valves | {worker.valve}
         else:
             new_open_valves = self._open_valves
@@ -122,13 +118,23 @@ class VolcanoState:
         min_time = float("inf")
         next_index = None
         for i, worker in enumerate(self._workers):
-            if not worker.state == WorkerState.IDLE:
-                if worker.task_completion_time <= min_time:
-                    min_time = worker.task_completion_time
-                    next_index = i
+            if not worker.is_idle and worker.task_completion_time <= min_time:
+                min_time = worker.task_completion_time
+                next_index = i
         if next_index is None:
             raise NotImplementedError()
         return next_index
+
+    def _skip_to_eruption(self, volcano) -> "VolcanoState":
+        pressure_increment = self._pressure_increment(
+            volcano.time_until_eruption - self.elapsed_time
+        )
+        return VolcanoState(
+            elapsed_time=volcano.time_until_eruption,
+            pressure_released=self.pressure_released + pressure_increment,
+            open_valves=self._open_valves,
+            workers=self._workers,
+        )
 
     def next_states(self, volcano: Volcano) -> Iterator["VolcanoState"]:
         if self._elapsed_time >= volcano.time_until_eruption:
@@ -144,7 +150,7 @@ class VolcanoState:
             ):
                 yield self._finish_task(index_of_worker_to_finish)
             else:
-                raise NotImplementedError()
+                yield self._skip_to_eruption(volcano)
 
     def pressure_release_upper_bound(self, volcano: Volcano) -> int:
         upper_bound = self._pressure_released

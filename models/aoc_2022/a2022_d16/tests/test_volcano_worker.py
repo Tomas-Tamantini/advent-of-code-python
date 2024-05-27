@@ -1,4 +1,4 @@
-from ..logic import VolcanoWorker, WorkerState, Valve
+from ..logic import VolcanoWorker, Valve
 
 
 def _build_valve(
@@ -9,31 +9,18 @@ def _build_valve(
 
 def test_volcano_worker_changes_state_when_going_idle():
     valve = _build_valve()
-    worker = VolcanoWorker(
-        state=WorkerState.OPENING_VALVE, valve=valve, task_completion_time=7
-    )
+    worker = VolcanoWorker(is_idle=False, valve=valve, task_completion_time=7)
     new_worker = worker.go_idle()
     assert new_worker == VolcanoWorker(
-        state=WorkerState.IDLE, valve=valve, task_completion_time=7
-    )
-
-
-def test_volcano_worker_changes_state_when_waiting_for_eruption():
-    valve = _build_valve()
-    worker = VolcanoWorker(state=WorkerState.IDLE, valve=valve, task_completion_time=7)
-    new_worker = worker.wait_for_eruption(task_completion_time=123)
-    assert new_worker == VolcanoWorker(
-        state=WorkerState.WAITING_FOR_ERUPTION, valve=valve, task_completion_time=123
+        is_idle=True, valve=valve, task_completion_time=7
     )
 
 
 def test_volcano_worker_changes_state_when_they_start_opening_valve():
     valve_a = _build_valve()
     valve_b = _build_valve()
-    worker = VolcanoWorker(
-        state=WorkerState.IDLE, valve=valve_a, task_completion_time=7
-    )
+    worker = VolcanoWorker(is_idle=True, valve=valve_a, task_completion_time=7)
     new_worker = worker.start_opening_valve(task_completion_time=123, valve=valve_b)
     assert new_worker == VolcanoWorker(
-        state=WorkerState.OPENING_VALVE, valve=valve_b, task_completion_time=123
+        is_idle=False, valve=valve_b, task_completion_time=123
     )
