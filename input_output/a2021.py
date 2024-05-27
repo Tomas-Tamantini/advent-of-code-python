@@ -9,8 +9,7 @@ from models.common.io import (
 from input_output.file_parser import FileParser
 from models.common.vectors import Vector2D, BoundingBox
 from models.aoc_2021 import (
-    num_increases,
-    window_sum,
+    aoc_2021_d1,
     Submarine,
     BitFrequency,
     LanternFish,
@@ -39,19 +38,6 @@ from models.aoc_2021 import (
     SeaCucumbers,
     SeaCucumbersHerds,
 )
-
-
-# AOC 2021 - Day 1: Sonar Sweep
-def aoc_2021_d1(input_reader: InputReader, **_):
-    measurements = [int(line) for line in input_reader.readlines()]
-
-    print(
-        f"AOC 2021 Day 1/Part 1: The number of measurement increases is {num_increases(measurements)}"
-    )
-    sums = window_sum(measurements, window_size=3)
-    print(
-        f"AOC 2021 Day 1/Part 2: The number of increases in partial sums is {num_increases(sums)}"
-    )
 
 
 # AOC 2021 - Day 2: Dive!

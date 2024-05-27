@@ -1,4 +1,4 @@
-from models.aoc_2021 import num_increases, window_sum
+from .solution import num_increases, window_sum
 
 
 def test_num_increases_counts_how_many_elements_are_strictly_bigger_than_one_before():
