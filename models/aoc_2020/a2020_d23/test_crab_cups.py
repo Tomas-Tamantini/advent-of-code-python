@@ -1,4 +1,4 @@
-from models.aoc_2020 import crab_cups
+from .crab_cubs import crab_cups
 
 
 def test_crab_cups_gives_correct_cup_order_after_one_move():

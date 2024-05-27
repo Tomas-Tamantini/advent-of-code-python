@@ -1,6 +1,6 @@
-from .a2020_d1 import subsets_that_sum_to
+from .a2020_d1 import aoc_2020_d1
 from .a2020_d2 import PasswordPolicy, RangePasswordPolicy, PositionalPasswordPolicy
-from .a2020_d3 import CylindricalForest
+from .a2020_d3 import aoc_2020_d3
 from .a2020_d4 import passport_is_valid, PASSPORT_RULES
 from .a2020_d6 import CustomsGroup
 from .a2020_d7 import LuggageRule, LuggageRules
@@ -11,9 +11,9 @@ from .a2020_d8 import (
     run_game_console,
     find_and_run_game_console_which_terminates,
 )
-from .a2020_d9 import XMasEncoding
-from .a2020_d10 import AdapterArray
-from .a2020_d11 import FerrySeat, FerrySeats
+from .a2020_d9 import aoc_2020_d9
+from .a2020_d10 import aoc_2020_d10
+from .a2020_d11 import aoc_2020_d11
 from .a2020_d12 import (
     Ship,
     NavigationInstruction,
@@ -36,15 +36,13 @@ from .a2020_d14 import (
     SetMaskInstruction,
     WriteToMemoryInstruction,
 )
-from .a2020_d15 import memory_game_numbers
+from .a2020_d15 import aoc_2020_d15
 from .a2020_d16 import TicketFieldValidator, TicketValidator
-from .a2020_d17 import HyperGameOfLife
-from .a2020_d18 import (
-    evaluate_expression_left_precedence,
-    evaluate_expression_addition_precedence,
-)
+from .a2020_d17 import aoc_2020_d17
+from .a2020_d18 import aoc_2020_d18
 from .a2020_d20 import JigsawPieceBinaryImage, solve_jigsaw
 from .a2020_d21 import Food, Foods
 from .a2020_d22 import CrabCombat
-from .a2020_d23 import crab_cups
+from .a2020_d23 import aoc_2020_d23
 from .a2020_d24 import HexagonalAutomaton
+from .a2020_d25 import aoc_2020_d25

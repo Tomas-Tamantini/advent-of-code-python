@@ -1,5 +1,5 @@
 from typing import Iterator
-from .a2020_d1 import subsets_that_sum_to
+from models.aoc_2020.a2020_d1.subset_sum import subsets_that_sum_to
 
 
 class XMasEncoding:

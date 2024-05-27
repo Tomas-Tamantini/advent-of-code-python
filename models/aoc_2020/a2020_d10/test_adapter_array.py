@@ -1,4 +1,4 @@
-from models.aoc_2020 import AdapterArray
+from .adapter_array import AdapterArray
 
 
 def test_adapter_array_returns_joltage_differences():

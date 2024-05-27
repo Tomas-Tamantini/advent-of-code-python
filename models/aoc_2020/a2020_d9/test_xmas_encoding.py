@@ -1,4 +1,4 @@
-from models.aoc_2020 import XMasEncoding
+from .xmas_encoding import XMasEncoding
 
 numbers = [
     35,

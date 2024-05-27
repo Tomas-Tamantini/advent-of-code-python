@@ -1,7 +1,7 @@
 import pytest
 from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
-from models.aoc_2020 import FerrySeat, FerrySeats
+from .ferry_seats import FerrySeat, FerrySeats
 
 
 def test_empty_seat_in_ferry_without_occupied_neighbors_becomes_occupied():

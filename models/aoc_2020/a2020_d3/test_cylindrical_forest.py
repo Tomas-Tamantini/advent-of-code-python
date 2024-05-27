@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector2D
-from models.aoc_2020 import CylindricalForest
+from .cylindrical_forest import CylindricalForest
 
 
 def _forest_from_str(s: str) -> CylindricalForest:

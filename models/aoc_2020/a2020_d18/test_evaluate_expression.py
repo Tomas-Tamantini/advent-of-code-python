@@ -1,4 +1,4 @@
-from models.aoc_2020 import (
+from .evaluate_expression import (
     evaluate_expression_left_precedence,
     evaluate_expression_addition_precedence,
 )

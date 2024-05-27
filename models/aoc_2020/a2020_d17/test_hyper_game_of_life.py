@@ -1,7 +1,7 @@
 import pytest
 from typing import Iterator
 from models.common.vectors import Vector3D
-from models.aoc_2020 import HyperGameOfLife
+from .hyper_game_of_life import HyperGameOfLife
 
 
 def _generate_neighbors(cube: Vector3D, num_neighbors: int) -> Iterator[Vector3D]:

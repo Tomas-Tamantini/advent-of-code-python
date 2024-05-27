@@ -1,4 +1,4 @@
-from models.aoc_2020 import subsets_that_sum_to
+from .subset_sum import subsets_that_sum_to
 
 
 def test_subsets_which_add_to_target_is_just_number_itself_if_subset_size_is_1():

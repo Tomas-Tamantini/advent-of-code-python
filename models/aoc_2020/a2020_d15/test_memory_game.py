@@ -1,4 +1,4 @@
-from models.aoc_2020 import memory_game_numbers
+from .memory_game import memory_game_numbers
 
 
 def test_memory_game_numbers_first_spoken_are_starting_numbers():
