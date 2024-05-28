@@ -1,4 +1,4 @@
-from models.aoc_2018 import num_constellations
+from .constellations import num_constellations
 
 
 def test_num_constellations_for_zero_points_is_zero():

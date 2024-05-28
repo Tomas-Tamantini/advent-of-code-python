@@ -1,6 +1,6 @@
 from math import inf
 from models.common.vectors import Vector2D
-from models.aoc_2018 import ManhattanVoronoi
+from .voronoi import ManhattanVoronoi
 
 
 def test_no_point_extends_indefinetely_if_there_are_no_seeds():

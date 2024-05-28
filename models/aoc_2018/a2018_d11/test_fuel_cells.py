@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2018 import FuelCells
+from .fuel_cells import FuelCells
 
 
 @pytest.mark.parametrize(

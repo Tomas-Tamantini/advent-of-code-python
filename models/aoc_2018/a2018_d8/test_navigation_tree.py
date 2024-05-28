@@ -1,4 +1,4 @@
-from models.aoc_2018 import NavigationTreeNode, parse_list_into_navigation_tree
+from .navigation_tree import NavigationTreeNode, parse_list_into_navigation_tree
 
 
 def test_node_without_childrens_is_leaf():

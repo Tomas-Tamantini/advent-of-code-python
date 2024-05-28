@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2018 import marble_game_score
+from .marble_game import marble_game_score
 
 
 def test_marble_game_scores_are_zero_before_first_scoring_marble():

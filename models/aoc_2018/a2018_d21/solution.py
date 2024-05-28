@@ -1,3 +1,6 @@
+from models.common.io import InputReader
+
+
 def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool) -> int:
     visited = set()
     max_num_attempts = 1000
@@ -26,3 +29,21 @@ def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool)
                             return last_a
                     break
             b = b // 256
+
+
+def aoc_2018_d21(input_reader: InputReader, **_) -> None:
+    print("--- AOC 2018 - Day 21: Chronal Conversion ---")
+    lines = list(input_reader.readlines())
+    input_number = int(lines[8].split()[1])
+    register_min = optimized_chronal_conversion(
+        input_number, exit_on_first_occurrence=True
+    )
+    print(
+        f"Part 1: Value of register 0 to halt program with min instructions: {register_min}"
+    )
+    register_max = optimized_chronal_conversion(
+        input_number, exit_on_first_occurrence=False
+    )
+    print(
+        f"Part 2: Value of register 0 to halt program with max instructions: {register_max}"
+    )

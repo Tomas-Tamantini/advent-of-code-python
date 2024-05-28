@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector2D
-from models.aoc_2018 import LumberArea, AcreType
+from .lumber_area import LumberArea, AcreType
 
 CENTER = Vector2D(1, 1)
 area = LumberArea(width=3, height=3)

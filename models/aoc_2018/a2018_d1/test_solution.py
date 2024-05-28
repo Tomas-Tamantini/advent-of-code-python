@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2018 import first_frequency_to_be_reached_twice
+from .solution import first_frequency_to_be_reached_twice
 
 
 @pytest.mark.parametrize(

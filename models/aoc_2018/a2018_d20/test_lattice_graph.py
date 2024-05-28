@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D
-from models.aoc_2018 import build_lattice_graph
+from .lattice_graph import build_lattice_graph
 
 
 def test_empty_regex_yields_graph_with_just_origin():

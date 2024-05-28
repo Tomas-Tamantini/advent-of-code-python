@@ -1,4 +1,4 @@
-from models.aoc_2018 import polymer_reaction, minimum_polymer_length
+from .polymer_reaction import polymer_reaction, minimum_polymer_length
 
 
 def test_units_of_different_types_do_not_react():

@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2018 import HotChocolateRecipeScores
+from .hot_chocolate import HotChocolateRecipeScores
 
 
 def test_hot_chocolate_recipe_scores_are_calculated_properly():

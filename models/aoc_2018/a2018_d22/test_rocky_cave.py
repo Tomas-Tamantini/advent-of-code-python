@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D, BoundingBox
-from models.aoc_2018.a2018_d22 import RockyCave, CaveExplorer
+from .rocky_cave import RockyCave, CaveExplorer
 
 
 def test_rocky_cave_erosion_levels_are_calculated_properly():
