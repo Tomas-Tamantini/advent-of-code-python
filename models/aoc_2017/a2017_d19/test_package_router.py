@@ -1,4 +1,4 @@
-from models.aoc_2017 import PackageRouter
+from .package_router import PackageRouter
 
 
 def test_maze_without_letters_yields_no_letters():

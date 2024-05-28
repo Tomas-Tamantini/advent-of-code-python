@@ -1,4 +1,4 @@
-from models.aoc_2017 import MemoryBankBalancer
+from .memory_bank import MemoryBankBalancer
 
 
 def test_balancer_iterates_through_configurations_following_the_rules():

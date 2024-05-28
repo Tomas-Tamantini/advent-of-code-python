@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2017 import KnotHash
+from .knot_hash import KnotHash
 
 
 def test_knot_hash_initializes_with_a_sorted_list():

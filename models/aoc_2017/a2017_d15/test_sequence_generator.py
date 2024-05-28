@@ -1,4 +1,4 @@
-from models.aoc_2017 import SequenceGenerator, SequenceMatchFinder
+from .sequence_generator import SequenceGenerator, SequenceMatchFinder
 
 
 def test_sequence_generator_multiplies_previous_number_by_factor():

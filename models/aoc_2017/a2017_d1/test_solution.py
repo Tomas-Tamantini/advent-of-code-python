@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2017 import (
+from .solution import (
     digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
 )

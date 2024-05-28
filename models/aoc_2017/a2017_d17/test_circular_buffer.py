@@ -1,4 +1,4 @@
-from models.aoc_2017 import CircularBuffer
+from .circular_buffer import CircularBuffer
 
 
 def test_buffer_starts_with_single_zero_value():

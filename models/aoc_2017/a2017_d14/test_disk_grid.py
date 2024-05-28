@@ -1,4 +1,4 @@
-from models.aoc_2017 import DiskGrid
+from .disk_grid import DiskGrid
 
 grid = DiskGrid(key="flqrgnkx", num_rows=128)
 

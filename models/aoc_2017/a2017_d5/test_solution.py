@@ -1,4 +1,4 @@
-from models.aoc_2017 import follow_and_increment_jump_instructions
+from .solution import follow_and_increment_jump_instructions
 
 
 def test_jump_instructions_are_followed_and_incremented_until_they_lead_outside_the_list():

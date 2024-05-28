@@ -1,5 +1,5 @@
-from models.aoc_2017 import Spreadsheet
 import numpy as np
+from .spreadsheet import Spreadsheet
 
 
 def test_spreadsheet_checksum_min_max_is_sum_of_differences_between_max_and_min_in_each_row():

@@ -1,4 +1,4 @@
-from .a2017_d10 import knot_hash
+from models.aoc_2017.a2017_d10.knot_hash import knot_hash
 from models.common.vectors import Vector2D
 from models.common.graphs import explore_with_bfs
 

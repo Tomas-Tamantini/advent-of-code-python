@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2017 import (
+from .solution import (
     sentence_contains_no_duplicates,
     sentence_contains_no_anagrams,
 )

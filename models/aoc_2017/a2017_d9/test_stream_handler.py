@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2017 import StreamHandler
+from .stream_handler import StreamHandler
 
 
 def test_score_of_empty_stream_is_zero():

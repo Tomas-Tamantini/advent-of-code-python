@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector2D
-from models.aoc_2017 import SquareSpiral
+from .square_spiral import SquareSpiral
 
 
 @pytest.mark.parametrize(
