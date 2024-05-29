@@ -1,4 +1,4 @@
-from models.aoc_2015 import CityRouter
+from ..city_router import CityRouter
 
 
 def test_graph_with_two_nodes_has_single_possible_itinerary_distance():

@@ -6,7 +6,7 @@ from .a2015_d5 import aoc_2015_d5
 from .a2015_d6 import aoc_2015_d6
 from .a2015_d7 import aoc_2015_d7
 from .a2015_d8 import aoc_2015_d8
-from .a2015_d9 import CityRouter
+from .a2015_d9 import aoc_2015_d9
 from .a2015_d10 import aoc_2015_d10
 from .a2015_d11 import aoc_2015_d11
 from .a2015_d12 import aoc_2015_d12

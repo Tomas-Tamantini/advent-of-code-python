@@ -9,6 +9,7 @@ from models.aoc_2015 import (
     aoc_2015_d6,
     aoc_2015_d7,
     aoc_2015_d8,
+    aoc_2015_d9,
     aoc_2015_d10,
     aoc_2015_d11,
     aoc_2015_d12,
@@ -39,15 +40,6 @@ from models.aoc_2015 import (
     min_mana_to_defeat_boss,
     code_at,
 )
-
-
-# AOC 2015 - Day 9: All in a Single Night
-def aoc_2015_d9(input_reader: InputReader, parser: FileParser, **_):
-    graph = parser.parse_adirected_graph(input_reader)
-    shortest_distance = graph.shortest_complete_itinerary_distance()
-    print(f"Part 1: Distance of shortest itinerary is {shortest_distance}")
-    longest_distance = graph.longest_complete_itinerary_distance()
-    print(f"Part 2: Distance of longest itinerary is {longest_distance}")
 
 
 # AOC 2015 - Day 13: Knights of the Dinner Table

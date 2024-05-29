@@ -102,14 +102,6 @@ from models.aoc_2021 import (
 )
 
 
-def test_parse_adirected_graph():
-    graph_str = """a to b = 100
-                   a to c = 100
-                   b to c = 150"""
-    graph = FileParser().parse_adirected_graph(InputFromString(graph_str))
-    assert graph.shortest_complete_itinerary_distance() == 200
-
-
 def test_parse_seating_arrangements():
     graph_str = """Alice would gain 54 happiness units by sitting next to Bob.
                    Bob would lose 7 happiness units by sitting next to Carol.
