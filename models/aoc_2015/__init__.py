@@ -10,7 +10,7 @@ from .a2015_d9 import aoc_2015_d9
 from .a2015_d10 import aoc_2015_d10
 from .a2015_d11 import aoc_2015_d11
 from .a2015_d12 import aoc_2015_d12
-from .a2015_d13 import SeatingArrangements
+from .a2015_d13 import aoc_2015_d13
 from .a2015_d14 import Reindeer, ReindeerOlympics
 from .a2015_d15 import CookieProperties, CookieRecipe
 from .a2015_d16 import AuntSue, MatchType

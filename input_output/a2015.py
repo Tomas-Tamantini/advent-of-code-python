@@ -13,6 +13,7 @@ from models.aoc_2015 import (
     aoc_2015_d10,
     aoc_2015_d11,
     aoc_2015_d12,
+    aoc_2015_d13,
     aoc_2015_d17,
     aoc_2015_d18,
     aoc_2015_d20,
@@ -40,19 +41,6 @@ from models.aoc_2015 import (
     min_mana_to_defeat_boss,
     code_at,
 )
-
-
-# AOC 2015 - Day 13: Knights of the Dinner Table
-def aoc_2015_d13(input_reader: InputReader, parser: FileParser, **_):
-    graph = parser.parse_seating_arrangement(input_reader)
-    max_happiness = graph.both_ways_trip_max_cost()
-    print(f"Part 1: Maximum happiness without me is {max_happiness}")
-    pre_existing_nodes = list(graph.nodes())
-    for n in pre_existing_nodes:
-        graph.add_edge("Me", n, 0)
-        graph.add_edge(n, "Me", 0)
-    max_happiness = graph.both_ways_trip_max_cost()
-    print(f"Part 2: Maximum happiness with me is {max_happiness}")
 
 
 # AOC 2015 - Day 14: Reindeer Olympics

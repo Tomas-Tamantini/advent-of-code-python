@@ -1,4 +1,4 @@
-from models.aoc_2015 import SeatingArrangements
+from ..seating_arrangements import SeatingArrangements
 
 
 def test_graph_with_two_nodes_has_single_possible_itinerary_cost():
