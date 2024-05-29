@@ -1,4 +1,4 @@
-from models.aoc_2015 import XmasPresent
+from .xmas_present import XmasPresent
 
 
 def test_can_iterate_through_side_areas_of_present():

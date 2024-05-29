@@ -2,9 +2,11 @@ from input_output.file_parser import FileParser
 from models.common.io import InputReader
 from models.aoc_2015 import (
     aoc_2015_d1,
+    aoc_2015_d2,
     aoc_2015_d3,
     aoc_2015_d4,
     aoc_2015_d5,
+    aoc_2015_d6,
     aoc_2015_d8,
     aoc_2015_d10,
     aoc_2015_d11,
@@ -14,7 +16,6 @@ from models.aoc_2015 import (
     aoc_2015_d20,
     aoc_2015_d23,
     aoc_2015_d24,
-    LightGrid,
     ReindeerOlympics,
     CookieRecipe,
     ItemAssortment,
@@ -37,29 +38,6 @@ from models.aoc_2015 import (
     min_mana_to_defeat_boss,
     code_at,
 )
-
-
-# AOC 2015 - Day 2: I Was Told There Would Be No Math
-def aoc_2015_d2(input_reader: InputReader, parser: FileParser, **_):
-    presents = list(parser.parse_xmas_presents(input_reader))
-    total_area = sum(present.area_required_to_wrap() for present in presents)
-    print(f"Part 1: Santa needs {total_area} square feet of wrapping paper")
-    ribbon_length = sum(present.ribbon_required_to_wrap() for present in presents)
-    print(f"Part 2: Santa needs {ribbon_length} feet of ribbon")
-
-
-# AOC 2015 - Day 6: Probably a Fire Hazard
-def aoc_2015_d6(input_reader: InputReader, parser: FileParser, **_):
-    lines = list(input_reader.readlines())
-
-    grid = LightGrid(1000, 1000)
-    for line in lines:
-        parser.parse_and_give_light_grid_instruction(line, grid)
-    print(f"Part 1: There are {grid.num_lights_on} lights on")
-    grid = LightGrid(1000, 1000)
-    for line in lines:
-        parser.parse_and_give_light_grid_instruction(line, grid, use_elvish_tongue=True)
-    print(f"Part 2: The total brightness is {grid.num_lights_on}")
 
 
 # AOC 2015 - Day 7: Some Assembly Required

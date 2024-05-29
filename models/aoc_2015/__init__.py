@@ -1,9 +1,9 @@
 from .a2015_d1 import aoc_2015_d1
-from .a2015_d2 import XmasPresent
+from .a2015_d2 import aoc_2015_d2
 from .a2015_d3 import aoc_2015_d3
 from .a2015_d4 import aoc_2015_d4
 from .a2015_d5 import aoc_2015_d5
-from .a2015_d6 import LightGrid, LightGridRegion
+from .a2015_d6 import aoc_2015_d6
 from .a2015_d7 import (
     LogicGatesCircuit,
     DoNothingGate,

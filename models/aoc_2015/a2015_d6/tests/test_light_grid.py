@@ -1,4 +1,4 @@
-from models.aoc_2015 import LightGrid, LightGridRegion
+from ..light_grid import LightGrid, LightGridRegion
 
 
 def test_light_grid_starts_with_all_lights_off():
