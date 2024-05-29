@@ -1,4 +1,4 @@
-from models.aoc_2016 import MessageReconstructor
+from .message_reconstructor import MessageReconstructor
 
 messages = [
     "eedadn",

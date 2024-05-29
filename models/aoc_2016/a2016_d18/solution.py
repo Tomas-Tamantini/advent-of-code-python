@@ -1,6 +1,6 @@
 from typing import Optional
+from models.common.io import InputReader, ProgressBar, ProgressBarConsole
 from models.common.cellular_automata import ElementaryAutomaton
-from models.common.io import ProgressBar
 
 
 def num_safe_tiles(
@@ -17,3 +17,14 @@ def num_safe_tiles(
         current_state = automaton.next_state(current_state)
         num_unsafe_tiles += len(current_state)
     return len(first_row) * num_rows - num_unsafe_tiles
+
+
+def aoc_2016_d18(
+    input_reader: InputReader, progress_bar: ProgressBarConsole, **_
+) -> None:
+    print("--- AOC 2016 - Day 18: Like a Rogue ---")
+    first_row = input_reader.read().strip()
+    num_safe = num_safe_tiles(first_row, num_rows=40)
+    print(f"Part 1: Number of safe tiles in 40 rows: {num_safe}")
+    num_safe = num_safe_tiles(first_row, num_rows=400_000, progress_bar=progress_bar)
+    print(f"Part 2: Number of safe tiles in 400000 rows: {num_safe}")

@@ -1,4 +1,4 @@
-from models.aoc_2016 import IpParser
+from .ip_parser import IpParser
 
 
 def test_ip_does_not_support_tls_if_it_does_not_contain_abba_like_sequence():

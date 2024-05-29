@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2016 import KeyGenerator
+from .key_generator import KeyGenerator
 
 
 def test_key_are_generated_properly():

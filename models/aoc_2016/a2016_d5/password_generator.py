@@ -1,7 +1,7 @@
+from math import ceil
 from hashlib import md5
 from typing import Iterator, Optional
 from models.common.io import ProgressBar
-from math import ceil
 
 
 class PasswordGenerator:

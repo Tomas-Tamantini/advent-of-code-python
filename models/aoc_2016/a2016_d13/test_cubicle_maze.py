@@ -1,7 +1,7 @@
 import pytest
 from typing import Callable
-from models.aoc_2016 import CubicleMaze, is_wall
 from models.common.vectors import Vector2D
+from .cubicle_maze import CubicleMaze, is_wall
 
 
 def test_follows_proper_calculation_to_check_if_cubicle_is_wall():

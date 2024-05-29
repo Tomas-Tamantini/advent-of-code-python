@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2016 import TextDecompressor
+from .text_decompressor import TextDecompressor
 
 
 def test_text_without_markers_is_not_compressed():

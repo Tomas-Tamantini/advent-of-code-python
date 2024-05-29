@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2016 import DragonChecksum
+from .dragon_checksum import DragonChecksum
 
 
 @pytest.mark.parametrize(

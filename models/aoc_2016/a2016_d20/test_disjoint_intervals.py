@@ -1,4 +1,4 @@
-from models.aoc_2016 import DisjoinIntervals
+from .disjoint_intervals import DisjoinIntervals
 
 
 def test_disjoint_intervals_starts_with_single_interval():

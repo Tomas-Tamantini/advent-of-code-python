@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector2D, CardinalDirection
-from models.aoc_2016 import SecureRoom, SecureRoomMaze
+from .secure_room import SecureRoom, SecureRoomMaze
 
 
 def _build_maze_structure(

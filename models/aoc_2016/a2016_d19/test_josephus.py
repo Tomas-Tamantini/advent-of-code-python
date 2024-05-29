@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2016 import josephus, modified_josephus
+from .josephus import josephus, modified_josephus
 
 
 @pytest.mark.parametrize(

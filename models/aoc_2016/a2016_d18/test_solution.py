@@ -1,4 +1,4 @@
-from models.aoc_2016 import num_safe_tiles
+from .solution import num_safe_tiles
 
 
 def test_if_room_has_single_row_safe_tiles_are_those_of_that_row():

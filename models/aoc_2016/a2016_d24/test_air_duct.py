@@ -1,4 +1,4 @@
-from models.aoc_2016 import AirDuctMaze
+from .air_duct import AirDuctMaze
 
 
 def test_if_no_points_of_interest_pairwise_distances_are_empty():

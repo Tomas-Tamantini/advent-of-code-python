@@ -1,4 +1,4 @@
-from models.aoc_2016.a2016_d5 import PasswordGenerator
+from .password_generator import PasswordGenerator
 
 
 def test_indices_that_make_hash_start_with_n_zeroes_are_generated():
