@@ -7,13 +7,10 @@ def setup_project(
     year: int,
     day: int,
     problem_name: Optional[str] = None,
-    parser_method_suffix: Optional[str] = None,
+    parser_method_name: Optional[str] = None,
 ) -> None:
     if problem_name is None:
         problem_name = fetch_problem_name(year, day)
-    parser_method_name = (
-        f"parse_{parser_method_suffix}" if parser_method_suffix else None
-    )
     solution_path = os.path.join("models", f"aoc_{year}", f"a{year}_d{day}")
     os.makedirs(solution_path, exist_ok=False)
     _create_solution_file(year, day, problem_name, solution_path, parser_method_name)
