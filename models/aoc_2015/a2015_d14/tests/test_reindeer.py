@@ -1,4 +1,4 @@
-from models.aoc_2015 import Reindeer, ReindeerOlympics
+from ..reindeer import Reindeer, ReindeerOlympics
 
 comet = Reindeer(flight_speed=14, flight_interval=10, rest_interval=127)
 dancer = Reindeer(flight_speed=16, flight_interval=11, rest_interval=162)

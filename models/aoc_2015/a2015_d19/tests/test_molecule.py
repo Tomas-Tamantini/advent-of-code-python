@@ -1,4 +1,4 @@
-from models.aoc_2015 import (
+from ..molecule import (
     molecules_after_one_replacement,
     Molecule,
     num_replacements_from_atom_to_molecule,

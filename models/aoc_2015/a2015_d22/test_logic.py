@@ -1,7 +1,7 @@
 import pytest
 from unittest import mock
 from math import inf
-from models.aoc_2015.a2015_d22 import (
+from .logic import (
     GameState,
     Boss,
     Wizard,

@@ -1,6 +1,6 @@
 from models.common.io import InputFromTextFile, ProgressBarConsole
 from .file_parser import FileParser
-from .a2015 import ALL_2015_SOLUTIONS
+from models.aoc_2015 import ALL_2015_SOLUTIONS
 from .a2016 import ALL_2016_SOLUTIONS
 from .a2017 import ALL_2017_SOLUTIONS
 from .a2018 import ALL_2018_SOLUTIONS

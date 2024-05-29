@@ -1,4 +1,4 @@
-from models.aoc_2015.a2015_d25 import row_and_col_to_index, code_at
+from ..solution import row_and_col_to_index, code_at
 
 
 def test_row_one_and_col_one_is_index_one():

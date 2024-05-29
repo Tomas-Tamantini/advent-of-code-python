@@ -26,12 +26,7 @@ from models.common.assembly import (
     SubtractInstruction,
     ContextFreeGrammar,
 )
-from models.aoc_2015 import (
-    Reindeer,
-    CookieProperties,
-    AuntSue,
-    Molecule,
-)
+
 from models.aoc_2016 import (
     EncryptedRoom,
     TurtleInstruction,
@@ -174,75 +169,6 @@ class _ParsedTicketValidator:
 
 
 class FileParser:
-
-    @staticmethod
-    def parse_reindeer(reindeer_str: str) -> Reindeer:
-        sentence_parts = reindeer_str.split(" ")
-        return Reindeer(
-            flight_speed=int(sentence_parts[3]),
-            flight_interval=int(sentence_parts[6]),
-            rest_interval=int(sentence_parts[13]),
-        )
-
-    @staticmethod
-    def parse_cookie_properties(properties_str: str) -> CookieProperties:
-        parts = properties_str.replace(",", "").split(" ")
-        return CookieProperties(
-            capacity=int(parts[2]),
-            durability=int(parts[4]),
-            flavor=int(parts[6]),
-            texture=int(parts[8]),
-            calories=int(parts[10]),
-        )
-
-    def parse_rpg_boss(self, input_reader: InputReader) -> dict[str, int]:
-        attributes = {}
-        for line in input_reader.readlines():
-            parts = line.split(":")
-            value = int(parts[-1])
-            if "Hit Points" in line:
-                attributes["hit_points"] = value
-            elif "Damage" in line:
-                attributes["damage"] = value
-            elif "Armor" in line:
-                attributes["armor"] = value
-        return attributes
-
-    def parse_aunt_sue_collection(self, input_reader: InputReader) -> Iterator[AuntSue]:
-        for line in input_reader.readlines():
-            parts = line.split(":", 1)
-            sue_id = int(parts[0].replace("Sue ", ""))
-            attributes = {}
-            for attribute in parts[1].split(","):
-                key, value = attribute.split(":")
-                attributes[key.strip()] = int(value.strip())
-            yield AuntSue(sue_id, attributes)
-
-    @staticmethod
-    def _parse_molecule(molecule_str: str) -> Molecule:
-        atom_pattern = re.compile(r"([A-Z][a-z]?)")
-        atoms = re.findall(atom_pattern, molecule_str)
-        return Molecule(tuple(atoms))
-
-    def parse_molecule_replacements(
-        self, input_reader: InputReader
-    ) -> tuple[Molecule, dict[str, tuple[Molecule]]]:
-        lines = list(input_reader.readlines())
-        molecule = self._parse_molecule(lines[-1].strip())
-        replacements = {}
-        for line in lines:
-            if "=>" not in line:
-                continue
-            atom, replace_molecule_str = line.strip().split(" => ")
-            if atom not in replacements:
-                replacements[atom] = []
-            replacements[atom].append(self._parse_molecule(replace_molecule_str))
-        return molecule, {k: tuple(v) for k, v in replacements.items()}
-
-    def parse_code_row_and_col(self, input_reader: InputReader) -> dict[str, int]:
-        text = input_reader.read()
-        parts = text.replace(",", "").replace(".", "").split(" ")
-        return {"row": int(parts[-3]), "col": int(parts[-1])}
 
     def parse_turtle_instructions(self, input_reader: InputReader):
         instructions = []

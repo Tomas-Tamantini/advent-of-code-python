@@ -21,7 +21,6 @@ from models.common.assembly import (
     AddInstruction,
     SubtractInstruction,
 )
-from models.aoc_2015 import Molecule, Fighter
 from models.aoc_2016 import (
     TurtleInstruction,
     ProgrammableScreen,
@@ -100,72 +99,6 @@ from models.aoc_2021 import (
     Amphipod,
     AmphipodRoom,
 )
-
-
-def test_parse_reindeer():
-    reindeer_str = (
-        "Dancer can fly 27 km/s for 5 seconds, but then must rest for 132 seconds."
-    )
-    reindeer = FileParser.parse_reindeer(reindeer_str)
-    assert reindeer.flight_speed == 27
-    assert reindeer.flight_interval == 5
-    assert reindeer.rest_interval == 132
-
-
-def test_parse_cookie_properties():
-    properties_str = (
-        "PeanutButter: capacity -1, durability 3, flavor 0, texture 2, calories 1"
-    )
-    ingredient_properties = FileParser.parse_cookie_properties(properties_str)
-    assert ingredient_properties.capacity == -1
-    assert ingredient_properties.durability == 3
-    assert ingredient_properties.flavor == 0
-    assert ingredient_properties.texture == 2
-    assert ingredient_properties.calories == 1
-
-
-def test_parse_rpg_boss():
-    file_content = """Hit Points: 109
-                      Damage: 8
-                      Armor: 2"""
-    boss_kwargs = FileParser().parse_rpg_boss(InputFromString(file_content))
-    boss = Fighter(**boss_kwargs)
-    assert boss.hit_points == 109
-    assert boss.damage == 8
-    assert boss.armor == 2
-
-
-def test_parse_aunt_sue_collection():
-    file_content = """Sue 1: children: 1, cars: 8, vizslas: 7
-                      Sue 2: akitas: 10, perfumes: 10, children: 5"""
-    aunts = list(FileParser().parse_aunt_sue_collection(InputFromString(file_content)))
-    assert len(aunts) == 2
-    assert aunts[0].id == 1
-    assert aunts[0]._attributes == {"children": 1, "cars": 8, "vizslas": 7}
-    assert aunts[1].id == 2
-    assert aunts[1]._attributes == {"akitas": 10, "perfumes": 10, "children": 5}
-
-
-def test_parse_molecule_replacements():
-    file_content = """H => HO
-                      H => OH
-                      O => HH
-                      
-                      HOH"""
-    molecule, replacements = FileParser().parse_molecule_replacements(
-        InputFromString(file_content)
-    )
-    assert replacements == {
-        "H": (Molecule(("H", "O")), Molecule(("O", "H"))),
-        "O": (Molecule(("H", "H")),),
-    }
-    assert molecule == Molecule(("H", "O", "H"))
-
-
-def test_parse_code_row_and_column():
-    file_content = "To continue, please consult the code grid in the manual.  Enter the code at row 3010, column 3019."
-    row_and_col = FileParser().parse_code_row_and_col(InputFromString(file_content))
-    assert row_and_col == {"row": 3010, "col": 3019}
 
 
 def test_parse_turtle_instructions():

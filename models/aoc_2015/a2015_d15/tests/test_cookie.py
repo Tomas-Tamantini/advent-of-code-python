@@ -1,4 +1,4 @@
-from models.aoc_2015 import CookieProperties, CookieRecipe
+from ..cookie import CookieProperties, CookieRecipe
 
 
 def test_recipe_with_single_ingredient_uses_only_that_ingredient():

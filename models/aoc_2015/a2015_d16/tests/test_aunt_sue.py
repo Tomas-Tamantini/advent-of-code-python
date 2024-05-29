@@ -1,4 +1,4 @@
-from models.aoc_2015 import AuntSue, MatchType
+from ..aunt_sue import AuntSue, MatchType
 
 measured_attributes = {
     "children": (3, MatchType.EXACT),
