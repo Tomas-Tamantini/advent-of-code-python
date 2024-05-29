@@ -4,15 +4,7 @@ from .a2015_d3 import aoc_2015_d3
 from .a2015_d4 import aoc_2015_d4
 from .a2015_d5 import aoc_2015_d5
 from .a2015_d6 import aoc_2015_d6
-from .a2015_d7 import (
-    LogicGatesCircuit,
-    DoNothingGate,
-    AndGate,
-    OrGate,
-    LeftShiftGate,
-    RightShiftGate,
-    NotGate,
-)
+from .a2015_d7 import aoc_2015_d7
 from .a2015_d8 import aoc_2015_d8
 from .a2015_d9 import CityRouter
 from .a2015_d10 import aoc_2015_d10

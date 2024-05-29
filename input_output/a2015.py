@@ -7,6 +7,7 @@ from models.aoc_2015 import (
     aoc_2015_d4,
     aoc_2015_d5,
     aoc_2015_d6,
+    aoc_2015_d7,
     aoc_2015_d8,
     aoc_2015_d10,
     aoc_2015_d11,
@@ -38,15 +39,6 @@ from models.aoc_2015 import (
     min_mana_to_defeat_boss,
     code_at,
 )
-
-
-# AOC 2015 - Day 7: Some Assembly Required
-def aoc_2015_d7(input_reader: InputReader, parser: FileParser, **_):
-    circuit = parser.parse_logic_gates_circuit(input_reader)
-    a_value = circuit.get_value("a")
-    print(f"Part 1: Wire a has signal of {a_value}")
-    new_a_value = circuit.get_value("a", override_values={"b": a_value})
-    print(f"Part 2: After b is overriden, wire a has signal of {new_a_value}")
 
 
 # AOC 2015 - Day 9: All in a Single Night

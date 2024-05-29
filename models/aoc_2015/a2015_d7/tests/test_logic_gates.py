@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2015 import (
+from ..logic_gates import (
     LogicGatesCircuit,
     DoNothingGate,
     AndGate,
