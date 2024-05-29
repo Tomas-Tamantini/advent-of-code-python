@@ -1,4 +1,4 @@
-from models.aoc_2015 import md5_hash, mine_advent_coins
+from .solution import md5_hash, mine_advent_coins
 
 
 def test_md5_hash_returns_hashed_value_in_hexadecimal_form():

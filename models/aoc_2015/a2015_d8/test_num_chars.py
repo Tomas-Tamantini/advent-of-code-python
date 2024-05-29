@@ -1,4 +1,4 @@
-from models.aoc_2015 import num_chars_in_memory, num_chars_encoded
+from .num_chars import num_chars_in_memory, num_chars_encoded
 
 
 def test_first_and_last_quote_are_ignored():

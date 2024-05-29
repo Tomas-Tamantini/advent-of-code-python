@@ -1,4 +1,4 @@
-from models.aoc_2015 import first_house_to_receive_n_presents
+from .present_delivery import first_house_to_receive_n_presents
 
 
 def test_first_house_to_receive_10_presents_is_house_one():

@@ -1,4 +1,4 @@
-from models.aoc_2015 import sum_all_numbers_in_json
+from .json_parser import sum_all_numbers_in_json
 
 
 def test_json_without_digits_returns_zero():

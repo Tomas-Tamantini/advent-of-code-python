@@ -1,4 +1,4 @@
-from models.aoc_2015 import next_look_and_say
+from .solution import next_look_and_say
 
 
 def test_look_and_say_sequence_has_fixed_point():

@@ -1,4 +1,4 @@
-from models.aoc_2015 import simple_ruleset, complex_ruleset, StringClassifier
+from .string_classifier import simple_ruleset, complex_ruleset, StringClassifier
 
 
 def test_string_classifier_classifies_as_nice_if_string_passes_all_rules():

@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D
-from models.aoc_2015 import GameOfLifeLights
+from .game_of_life_lights import GameOfLifeLights
 
 
 def test_cell_which_is_off_and_has_less_than_3_neighbors_stays_off():

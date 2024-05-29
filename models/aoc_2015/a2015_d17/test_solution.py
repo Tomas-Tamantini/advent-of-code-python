@@ -1,4 +1,4 @@
-from models.aoc_2015 import eggnog_partition
+from .solution import eggnog_partition
 
 
 def test_eggnog_with_zero_volume_can_be_stored_in_one_way():

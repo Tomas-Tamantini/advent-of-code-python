@@ -1,4 +1,4 @@
-from models.aoc_2015 import possible_arrangements_of_packets_in_passenger_comparment
+from .packet_arrangement import possible_arrangements_of_packets_in_passenger_comparment
 
 
 def test_can_find_smallest_number_of_packets_to_go_in_passenger_compartment():
@@ -13,7 +13,7 @@ def test_can_find_smallest_number_of_packets_to_go_in_passenger_compartment():
     assert arrangements[0] == (11, 9)
 
 
-def test_ensures_that_packages_can_be_evenly_balanced():
+def test_ensures_that_packets_can_be_evenly_balanced():
     numbers = (1, 5, 9)
     num_groups = 3
 
