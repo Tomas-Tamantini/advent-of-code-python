@@ -1,8 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import InputReader, ProgressBarConsole
 from .sequence_generator import SequenceGenerator, SequenceMatchFinder
 
 
-def aoc_2017_d15(input_reader: InputReader, **_) -> None:
+def aoc_2017_d15(
+    input_reader: InputReader, progress_bar: ProgressBarConsole, **_
+) -> None:
     print("--- AOC 2017 - Day 15: Dueling Generators ---")
     start_a, start_b = [int(line.split()[-1]) for line in input_reader.readlines()]
     divisor = 2_147_483_647
