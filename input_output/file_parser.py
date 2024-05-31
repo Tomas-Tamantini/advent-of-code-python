@@ -27,31 +27,7 @@ from models.common.assembly import (
     ContextFreeGrammar,
 )
 
-from models.aoc_2016 import (
-    EncryptedRoom,
-    TurtleInstruction,
-    ProgrammableScreen,
-    ChipFactory,
-    ChipAssignment,
-    RobotInstruction,
-    RobotProgramming,
-    FloorConfiguration,
-    DiscSystem,
-    SpinningDisc,
-    StringScrambler,
-    MultiStepScrambler,
-    LetterSwapScrambler,
-    PositionSwapScrambler,
-    RotationScrambler,
-    LetterBasedRotationScrambler,
-    ReversionScrambler,
-    LetterMoveScrambler,
-    StorageNode,
-    AssembunnyProgram,
-    IncrementInstruction,
-    DecrementInstruction,
-    ToggleInstruction,
-)
+
 from models.aoc_2017 import (
     TreeBuilder,
     TreeNode,
@@ -169,215 +145,6 @@ class _ParsedTicketValidator:
 
 
 class FileParser:
-
-    def parse_turtle_instructions(self, input_reader: InputReader):
-        instructions = []
-        text = input_reader.read()
-        for instruction in text.split(","):
-            instruction = instruction.strip()
-            turn = TurnDirection(instruction[0])
-            steps = int(instruction[1:])
-            instructions.append(TurtleInstruction(turn, steps))
-        return instructions
-
-    @staticmethod
-    def parse_cardinal_direction(direction: str) -> CardinalDirection:
-        return {
-            "U": CardinalDirection.NORTH,
-            "R": CardinalDirection.EAST,
-            "D": CardinalDirection.SOUTH,
-            "L": CardinalDirection.WEST,
-        }[direction]
-
-    def parse_triangle_sides(
-        self, input_reader: InputReader, read_horizontally: bool
-    ) -> Iterator[tuple[int, int, int]]:
-        if read_horizontally:
-            for line in input_reader.readlines():
-                yield tuple(map(int, line.strip().split()))
-        else:
-            lines = list(input_reader.readlines())
-            for i in range(0, len(lines), 3):
-                for j in range(3):
-                    yield tuple(int(lines[i + k].strip().split()[j]) for k in range(3))
-
-    @staticmethod
-    def parse_encrypted_room(room: str) -> EncryptedRoom:
-        parts = room.split("[")
-        checksum = parts[-1].replace("]", "")
-        room_specs = parts[0].split("-")
-        sector_id = int(room_specs[-1])
-        room_name = "-".join(room_specs[:-1])
-        return EncryptedRoom(room_name, sector_id, checksum)
-
-    def parse_programmable_screen_instructions(
-        self, input_reader: InputReader, screen: ProgrammableScreen
-    ) -> None:
-        for line in input_reader.readlines():
-            if "rect" in line:
-                width, height = map(int, line.split("rect")[-1].strip().split("x"))
-                screen.rect(width, height)
-            elif "rotate row" in line:
-                row, offset = map(
-                    int, line.replace("y=", "").split("row")[-1].strip().split(" by ")
-                )
-                screen.rotate_row(row, offset)
-            elif "rotate column" in line:
-                column, offset = map(
-                    int,
-                    line.replace("x=", "").split("column")[-1].strip().split(" by "),
-                )
-                screen.rotate_column(column, offset)
-
-    @staticmethod
-    def _parse_input_assignment(line: str) -> ChipAssignment:
-        parts = line.strip().split(" ")
-        return ChipAssignment(
-            chip_id=int(parts[1]),
-            instruction=RobotInstruction(destination_id=int(parts[-1])),
-        )
-
-    @staticmethod
-    def _parse_robot_program(line: str) -> tuple[int, RobotProgramming]:
-        parts = line.strip().split(" ")
-        robot_id = int(parts[1])
-        destination_low = int(parts[-6])
-        destination_high = int(parts[-1])
-        low_is_output_bin = "output" in parts[5]
-        high_is_output_bin = "output" in parts[-2]
-        return robot_id, RobotProgramming(
-            instruction_low_id_chip=RobotInstruction(
-                destination_id=destination_low,
-                goes_to_output_bin=low_is_output_bin,
-            ),
-            instruction_high_id_chip=RobotInstruction(
-                destination_id=destination_high,
-                goes_to_output_bin=high_is_output_bin,
-            ),
-        )
-
-    def parse_chip_factory(self, input_reader: InputReader) -> ChipFactory:
-        input_assignments = list()
-        robot_programs = dict()
-        for line in input_reader.readlines():
-            if "value" in line:
-                input_assignments.append(self._parse_input_assignment(line))
-            else:
-                robot_id, robot_program = self._parse_robot_program(line)
-                if robot_id in robot_programs:
-                    raise ValueError(f"Robot {robot_id} already has a program")
-                robot_programs[robot_id] = robot_program
-        return ChipFactory(input_assignments, robot_programs)
-
-    @staticmethod
-    def _parse_floor_configuration(line: str) -> FloorConfiguration:
-        parts = line.strip().split(" ")
-        microchips = []
-        generators = []
-        for i, part in enumerate(parts):
-            if "generator" in part:
-                generators.append(parts[i - 1].strip())
-            elif "microchip" in part:
-                microchips.append(parts[i - 1].replace("-compatible", "").strip())
-        return FloorConfiguration(tuple(microchips), tuple(generators))
-
-    def parse_radioisotope_testing_facility_floor_configurations(
-        self, input_reader: InputReader
-    ) -> Iterator[FloorConfiguration]:
-        for line in input_reader.readlines():
-            yield self._parse_floor_configuration(line)
-
-    @staticmethod
-    def _parse_spinning_disc(line: str) -> SpinningDisc:
-        parts = line.strip().split(" ")
-        num_positions = int(parts[3])
-        position_at_time_zero = int(parts[-1].replace(".", ""))
-        return SpinningDisc(num_positions, position_at_time_zero)
-
-    def parse_disc_system(self, input_reader: InputReader) -> DiscSystem:
-        discs = [self._parse_spinning_disc(line) for line in input_reader.readlines()]
-        return DiscSystem(discs)
-
-    @staticmethod
-    def _parse_string_scrambler_function(line: str) -> StringScrambler:
-        parts = line.strip().split(" ")
-        if "swap position" in line:
-            return PositionSwapScrambler(
-                position_a=int(parts[2]), position_b=int(parts[-1])
-            )
-        elif "swap letter" in line:
-            return LetterSwapScrambler(letter_a=parts[2], letter_b=parts[-1])
-        elif "rotate left" in line:
-            steps = -int(parts[2])
-            return RotationScrambler(steps=steps)
-        elif "rotate right" in line:
-            steps = int(parts[2])
-            return RotationScrambler(steps=steps)
-        elif "rotate based on position of letter" in line:
-            return LetterBasedRotationScrambler(letter=parts[-1])
-        elif "reverse positions" in line:
-            return ReversionScrambler(start=int(parts[2]), end=int(parts[-1]))
-        elif "move position" in line:
-            origin = int(parts[2])
-            destination = int(parts[-1])
-            return LetterMoveScrambler(origin=origin, destination=destination)
-        else:
-            raise ValueError(f"Unknown instruction: {line.strip()}")
-
-    def parse_string_scrambler(self, input_reader: InputReader) -> MultiStepScrambler:
-        scramblers = [
-            self._parse_string_scrambler_function(line)
-            for line in input_reader.readlines()
-        ]
-        return MultiStepScrambler(scramblers)
-
-    @staticmethod
-    def _parse_storage_node(line: str) -> StorageNode:
-        parts = line.strip().split()
-        return StorageNode(
-            id=parts[0].replace("/dev/grid/node-", ""),
-            size=int(parts[1].replace("T", "")),
-            used=int(parts[2].replace("T", "")),
-        )
-
-    def parse_storage_nodes(self, input_reader: InputReader) -> Iterator[StorageNode]:
-        for line in input_reader.readlines():
-            if "node" in line:
-                yield self._parse_storage_node(line)
-
-    @staticmethod
-    def _parse_assembunny_instruction(line: str):
-        raw_parts = line.strip().split(" ")
-        parts = []
-        for part in raw_parts[1:]:
-            try:
-                parts.append(int(part))
-            except ValueError:
-                parts.append(part)
-        if "cpy" in line:
-            return CopyInstruction(source=parts[0], destination=parts[1])
-        elif "inc" in line:
-            return IncrementInstruction(register=parts[0])
-        elif "dec" in line:
-            return DecrementInstruction(register=parts[0])
-        elif "jnz" in line:
-            return JumpNotZeroInstruction(
-                value_to_compare=parts[0],
-                offset=parts[1],
-            )
-        elif "tgl" in line:
-            return ToggleInstruction(offset=parts[0])
-        elif "out" in line:
-            return OutInstruction(source=parts[0])
-        else:
-            raise ValueError(f"Unknown instruction: {line.strip()}")
-
-    def parse_assembunny_code(self, input_reader: InputReader) -> AssembunnyProgram:
-        instructions = [
-            self._parse_assembunny_instruction(line)
-            for line in input_reader.readlines()
-        ]
-        return AssembunnyProgram(instructions)
 
     def parse_program_tree(self, input_reader: InputReader) -> TreeNode:
         tree_builder = TreeBuilder()
@@ -791,9 +558,16 @@ class FileParser:
     def parse_directions(
         self, input_reader: InputReader
     ) -> Iterator[list[tuple[CardinalDirection, int]]]:
+        direction_dict = {
+            "U": CardinalDirection.NORTH,
+            "R": CardinalDirection.EAST,
+            "D": CardinalDirection.SOUTH,
+            "L": CardinalDirection.WEST,
+        }
+
         for line in input_reader.readlines():
             yield [
-                (self.parse_cardinal_direction(part.strip()[0]), int(part.strip()[1:]))
+                (direction_dict[part.strip()[0]], int(part.strip()[1:]))
                 for part in line.strip().split(",")
             ]
 
