@@ -1,8 +1,8 @@
-from typing import Iterator, Optional, Hashable
+from typing import Iterator, Hashable
 from dataclasses import dataclass
 import numpy as np
 from collections import defaultdict
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import InputReader
 from models.common.number_theory import Interval
 from models.common.vectors import (
     CardinalDirection,
@@ -13,7 +13,6 @@ from models.common.vectors import (
     BoundingBox,
 )
 from models.common.assembly import Instruction, ContextFreeGrammar
-from models.aoc_2019 import TunnelMaze
 from models.aoc_2020 import (
     PasswordPolicy,
     RangePasswordPolicy,
@@ -68,41 +67,6 @@ class _ParsedTicketValidator:
 
 
 class FileParser:
-
-    @staticmethod
-    def _tunnel_updated_characters(
-        grid: CharacterGrid, split_entrance_four_ways: bool
-    ) -> dict[Vector2D, chr]:
-        if not split_entrance_four_ways:
-            return dict()
-        entrance_position = next(grid.positions_with_value("@"))
-        updated_chars = dict()
-        for dx in range(-1, 2):
-            for dy in range(-1, 2):
-                offset = Vector2D(dx, dy)
-                new_char = "@" if offset.manhattan_size == 2 else "#"
-                updated_chars[entrance_position + offset] = new_char
-        return updated_chars
-
-    def parse_tunnel_maze(
-        self, input_reader: InputReader, split_entrance_four_ways: bool = False
-    ) -> TunnelMaze:
-        content = input_reader.read()
-        grid = CharacterGrid(content)
-        maze = TunnelMaze()
-        updated_chars = self._tunnel_updated_characters(grid, split_entrance_four_ways)
-        for position in grid.positions():
-            original_char = grid.tiles[position]
-            actual_char = updated_chars.get(position, original_char)
-            if actual_char == ".":
-                maze.add_open_passage(position)
-            if actual_char == "@":
-                maze.add_entrance(position)
-            if actual_char.islower():
-                maze.add_key(position, key_id=original_char)
-            if actual_char.isupper():
-                maze.add_door(position, corresponding_key_id=actual_char.lower())
-        return maze
 
     @staticmethod
     def _parse_password_policy_and_password(

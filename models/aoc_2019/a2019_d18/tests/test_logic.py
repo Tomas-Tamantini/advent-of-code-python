@@ -1,6 +1,6 @@
 from math import inf
 from models.common.vectors import Vector2D
-from models.aoc_2019.a2019_d18 import (
+from ..logic import (
     TunnelMazeGraph,
     TunnelMaze,
     TunnelMazeExplorers,

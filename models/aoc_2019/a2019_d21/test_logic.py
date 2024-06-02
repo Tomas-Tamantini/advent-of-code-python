@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2019.a2019_d21 import (
+from .logic import (
     SpringScriptInstruction,
     SpringScriptInstructionType,
     SpringDroidInput,

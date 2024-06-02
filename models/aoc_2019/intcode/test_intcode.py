@@ -1,10 +1,10 @@
 import pytest
 from models.common.assembly import Hardware, Processor, SerialOutput, SerialInput
-from models.aoc_2019.intcode import (
-    parse_next_instruction,
+from .instruction_parser import parse_next_instruction
+from .program import IntcodeProgram
+from .run_program import run_intcode_program
+from .instructions import (
     ParameterMode,
-    IntcodeProgram,
-    run_intcode_program,
     IntcodeParameter,
     IntcodeHalt,
     IntcodeAdd,

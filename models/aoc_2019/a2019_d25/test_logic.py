@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import CardinalDirection
-from models.aoc_2019.a2019_d25 import (
+from .logic import (
     MoveCommand,
     TakeCommand,
     DropCommand,

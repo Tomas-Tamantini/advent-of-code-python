@@ -2,7 +2,7 @@ import pytest
 from unittest import mock
 from typing import Optional
 from models.common.vectors import Vector2D
-from models.aoc_2019.a2019_d23 import (
+from .logic import (
     NetworkPacket,
     NetworkInput,
     NetworkRouter,

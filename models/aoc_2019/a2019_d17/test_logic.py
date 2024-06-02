@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
-from models.aoc_2019.a2019_d17 import (
+from .logic import (
     ScaffoldMap,
     CameraOutput,
     VacuumRobotOutput,
