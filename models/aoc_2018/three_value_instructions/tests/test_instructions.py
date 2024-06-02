@@ -1,6 +1,6 @@
 import pytest
 from models.common.assembly import Hardware, Processor
-from models.aoc_2018.three_value_instructions import (
+from ..instructions import (
     AddRegisters,
     AddImmediate,
     MultiplyRegisters,
@@ -18,7 +18,6 @@ from models.aoc_2018.three_value_instructions import (
     EqualRegisterImmediate,
     EqualRegisterRegister,
     ALL_THREE_VALUE_INSTRUCTIONS,
-    ThreeValueInstruction,
 )
 
 

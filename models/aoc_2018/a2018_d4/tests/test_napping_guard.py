@@ -1,5 +1,5 @@
-from models.aoc_2018 import GuardNap, Guard
 from datetime import datetime
+from ..napping_guard import GuardNap, Guard
 
 
 def test_guard_keeps_track_of_total_time_asleep():

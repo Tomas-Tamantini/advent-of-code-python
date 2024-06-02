@@ -1,5 +1,5 @@
 from models.common.graphs import DirectedGraph
-from models.aoc_2018 import time_to_complete_jobs
+from ..jobshop import time_to_complete_jobs
 
 
 def test_if_no_jobs_time_to_complete_is_zero():

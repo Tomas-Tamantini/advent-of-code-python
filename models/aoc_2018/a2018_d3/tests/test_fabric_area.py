@@ -1,4 +1,4 @@
-from models.aoc_2018 import FabricRectangle, FabricArea
+from ..fabric_area import FabricRectangle, FabricArea
 
 
 def test_non_overlapping_rectangles_return_empty_intersection():

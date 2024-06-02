@@ -1,5 +1,5 @@
 from models.common.vectors import Vector3D
-from models.aoc_2018 import TeleportNanobot, distance_of_position_with_strongest_signal
+from ..nanobot import TeleportNanobot, distance_of_position_with_strongest_signal
 
 
 def test_position_with_manhattan_distance_larger_than_radius_is_not_in_range_of_nanobot():

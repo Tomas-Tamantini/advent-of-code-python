@@ -4,7 +4,11 @@ from models.aoc_2018.three_value_instructions import (
     MultiplyRegisters,
     AssignmentImmediate,
 )
-from models.aoc_2018 import possible_instructions, InstructionSample, work_out_op_codes
+from ..unknown_op_code import (
+    possible_instructions,
+    InstructionSample,
+    work_out_op_codes,
+)
 
 
 def test_can_figure_out_what_instructions_produce_given_outcome():

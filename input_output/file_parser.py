@@ -1,10 +1,8 @@
 from typing import Iterator, Optional, Hashable
 from dataclasses import dataclass
 import numpy as np
-from datetime import datetime
 from collections import defaultdict
 from models.common.io import InputReader, CharacterGrid
-from models.common.graphs import DirectedGraph
 from models.common.number_theory import Interval
 from models.common.vectors import (
     CardinalDirection,
@@ -15,32 +13,6 @@ from models.common.vectors import (
     BoundingBox,
 )
 from models.common.assembly import Instruction, ContextFreeGrammar
-from models.aoc_2018 import (
-    FabricRectangle,
-    Guard,
-    GuardNap,
-    MovingParticle,
-    PlantAutomaton,
-    InstructionSample,
-    ThreeValueInstruction,
-    AddRegisters,
-    AddImmediate,
-    MultiplyRegisters,
-    MultiplyImmediate,
-    BitwiseAndRegisters,
-    BitwiseAndImmediate,
-    BitwiseOrRegisters,
-    BitwiseOrImmediate,
-    AssignmentRegisters,
-    AssignmentImmediate,
-    GreaterThanImmediateRegister,
-    GreaterThanRegisterImmediate,
-    GreaterThanRegisterRegister,
-    EqualImmediateRegister,
-    EqualRegisterImmediate,
-    EqualRegisterRegister,
-    TeleportNanobot,
-)
 from models.aoc_2019 import (
     CelestialBody,
     ChemicalQuantity,
@@ -107,176 +79,6 @@ class _ParsedTicketValidator:
 
 
 class FileParser:
-
-    @staticmethod
-    def _parse_fabric_rectangle(line: str) -> FabricRectangle:
-        parts = line.strip().split(" ")
-        rect_id = int(parts[0].replace("#", ""))
-        inches_from_left, inches_from_top = map(
-            int, parts[2].replace(":", "").split(",")
-        )
-        width, height = map(int, parts[3].split("x"))
-        return FabricRectangle(
-            rect_id, inches_from_left, inches_from_top, width, height
-        )
-
-    def parse_fabric_rectangles(
-        self, input_reader: InputReader
-    ) -> Iterator[FabricRectangle]:
-        for line in input_reader.readlines():
-            yield self._parse_fabric_rectangle(line)
-
-    def parse_guard_logs(self, input_reader: InputReader) -> Iterator[Guard]:
-        lines = [l.strip() for l in input_reader.readlines()]
-        sorted_lines = sorted(lines, key=lambda l: l[:18])
-        guard_logs = defaultdict(list)
-        guard_id = -1
-        for line in sorted_lines:
-            if not line:
-                continue
-            if "Guard" in line:
-                guard_id = int(line.split()[-3].replace("#", ""))
-            else:
-                event_time = datetime.strptime(
-                    line.split("]")[0] + "]", "[%Y-%m-%d %H:%M]"
-                )
-                guard_logs[guard_id].append(event_time)
-        for guard_id, nap_records in guard_logs.items():
-            naps = []
-            for i in range(0, len(nap_records), 2):
-                start = nap_records[i]
-                end = nap_records[i + 1]
-                naps.append(GuardNap(start, end))
-            yield Guard(guard_id, naps)
-
-    def parse_directed_graph(self, input_reader: InputReader) -> DirectedGraph:
-        graph = DirectedGraph()
-        for line in input_reader.readlines():
-            parts = line.strip().split(" ")
-            graph.add_edge(parts[1], parts[-3])
-        return graph
-
-    def parse_moving_particles(
-        self, input_reader: InputReader
-    ) -> Iterator[MovingParticle]:
-        for line in input_reader.readlines():
-            stripped_line = (
-                line.strip()
-                .replace(">", "")
-                .replace("position=<", "")
-                .replace("velocity=<", ",")
-            )
-            coords = list(map(int, stripped_line.split(",")))
-            position = Vector2D(*coords[:2])
-            velocity = Vector2D(*coords[2:])
-            yield MovingParticle(position, velocity)
-
-    def parse_plant_automaton(self, input_reader: InputReader) -> PlantAutomaton:
-        initial_state = set()
-        rules = dict()
-        for line in input_reader.readlines():
-            if "initial state" in line:
-                state_str = line.strip().split(":")[-1].strip()
-                initial_state = {i for i, c in enumerate(state_str) if c == "#"}
-            elif "=> #" in line:
-                parts = line.strip().split(" => ")
-                configuration = tuple(1 if c == "#" else 0 for c in parts[0])
-                rules[configuration] = 1
-        return PlantAutomaton(rules, initial_state)
-
-    def parse_instruction_samples(
-        self, input_reader: InputReader
-    ) -> Iterator[InstructionSample]:
-        lines = list(input_reader.readlines())
-        for line_idx, line in enumerate(lines):
-            if "Before" in line:
-                lb = line.replace("[", "").replace("]", "").strip()
-                lv = lines[line_idx + 1].strip()
-                la = lines[line_idx + 2].replace("[", "").replace("]", "").strip()
-
-                instruction_values = list(map(int, lv.split()))
-                registers_before = tuple(map(int, lb.split(":")[1].split(",")))
-                registers_after = tuple(map(int, la.split(":")[1].split(",")))
-
-                yield InstructionSample(
-                    op_code=instruction_values[0],
-                    instruction_values=tuple(instruction_values[1:]),
-                    registers_before=registers_before,
-                    registers_after=registers_after,
-                )
-
-    def parse_unknown_op_code_program(
-        self,
-        input_reader: InputReader,
-        op_code_to_instruction: dict[int, type[ThreeValueInstruction]],
-    ) -> Iterator[ThreeValueInstruction]:
-        instructions = []
-        for line in reversed(list(input_reader.readlines())):
-            if "After:" in line:
-                break
-            if not line.strip():
-                continue
-            values = list(map(int, line.strip().split()))
-            op_code = values[0]
-            instruction_type = op_code_to_instruction[op_code]
-            instructions.append(instruction_type(*values[1:]))
-        yield from reversed(instructions)
-
-    def parse_position_ranges(self, input_reader: InputReader) -> Iterator[Vector2D]:
-        for line in input_reader.readlines():
-            parts = line.strip().split(",")
-            coords = dict()
-            for part in parts:
-                key, value = part.split("=")
-                min_coord = int(value.split("..")[0])
-                max_coord = int(value.split("..")[-1])
-                coords[key.strip()] = (min_coord, max_coord)
-            for x in range(coords["x"][0], coords["x"][1] + 1):
-                for y in range(coords["y"][0], coords["y"][1] + 1):
-                    yield Vector2D(x, y)
-
-    def parse_three_value_instructions(
-        self, input_reader: InputReader
-    ) -> Iterator[ThreeValueInstruction]:
-        register_bound_to_pc = None
-        instruction_types = {
-            "addr": AddRegisters,
-            "addi": AddImmediate,
-            "mulr": MultiplyRegisters,
-            "muli": MultiplyImmediate,
-            "banr": BitwiseAndRegisters,
-            "bani": BitwiseAndImmediate,
-            "borr": BitwiseOrRegisters,
-            "bori": BitwiseOrImmediate,
-            "setr": AssignmentRegisters,
-            "seti": AssignmentImmediate,
-            "gtir": GreaterThanImmediateRegister,
-            "gtri": GreaterThanRegisterImmediate,
-            "gtrr": GreaterThanRegisterRegister,
-            "eqir": EqualImmediateRegister,
-            "eqri": EqualRegisterImmediate,
-            "eqrr": EqualRegisterRegister,
-        }
-        for line in input_reader.readlines():
-            parts = line.strip().split()
-            if "#ip" in parts:
-                register_bound_to_pc = int(parts[-1])
-            else:
-                instruction_type = instruction_types[parts[0]]
-                yield instruction_type(*map(int, parts[1:]), register_bound_to_pc)
-
-    def parse_nanobots(self, input_reader: InputReader) -> Iterator[TeleportNanobot]:
-        for line in input_reader.readlines():
-            numbers = tuple(
-                map(
-                    int,
-                    line.replace("pos=<", "")
-                    .replace(">", "")
-                    .replace("r=", "")
-                    .split(","),
-                )
-            )
-            yield TeleportNanobot(radius=numbers[-1], position=Vector3D(*numbers[:3]))
 
     def parse_directions(
         self, input_reader: InputReader

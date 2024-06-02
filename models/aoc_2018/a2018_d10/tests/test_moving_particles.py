@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D, BoundingBox
-from models.aoc_2018 import MovingParticle, MovingParticles
+from ..moving_particles import MovingParticle, MovingParticles
 
 
 def test_can_query_particle_position_at_given_time():

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator
 from models.common.assembly import Hardware, Processor
-from .three_value_instructions import ThreeValueInstruction
+from models.aoc_2018.three_value_instructions import ThreeValueInstruction
 
 
 @dataclass(frozen=True)

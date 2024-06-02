@@ -1,4 +1,4 @@
-from models.aoc_2018 import PlantAutomaton
+from ..plant_automaton import PlantAutomaton
 
 
 def test_plant_automaton_keeps_track_of_which_plants_are_alive():

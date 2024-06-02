@@ -1,0 +1,21 @@
+from .instructions import (
+    AddRegisters,
+    AddImmediate,
+    MultiplyRegisters,
+    MultiplyImmediate,
+    BitwiseAndRegisters,
+    BitwiseAndImmediate,
+    BitwiseOrRegisters,
+    BitwiseOrImmediate,
+    AssignmentRegisters,
+    AssignmentImmediate,
+    GreaterThanImmediateRegister,
+    GreaterThanRegisterImmediate,
+    GreaterThanRegisterRegister,
+    EqualImmediateRegister,
+    EqualRegisterImmediate,
+    EqualRegisterRegister,
+    ALL_THREE_VALUE_INSTRUCTIONS,
+    ThreeValueInstruction,
+)
+from .parser import parse_three_value_instructions
