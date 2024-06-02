@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector2D, CardinalDirection
-from models.aoc_2018.a2018_d15 import (
+from .logic import (
     CaveTile,
     CaveMap,
     CaveGameUnit,

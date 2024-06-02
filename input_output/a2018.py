@@ -13,6 +13,7 @@ from models.aoc_2018 import (
     aoc_2018_d11,
     aoc_2018_d13,
     aoc_2018_d14,
+    aoc_2018_d15,
     aoc_2018_d18,
     aoc_2018_d20,
     aoc_2018_d21,
@@ -21,10 +22,6 @@ from models.aoc_2018 import (
     FabricArea,
     time_to_complete_jobs,
     MovingParticles,
-    CaveGameBotAttackWeakest,
-    build_cave_game,
-    CaveTeamSpec,
-    optimal_game_for_elves,
     ALL_THREE_VALUE_INSTRUCTIONS,
     possible_instructions,
     work_out_op_codes,
@@ -111,23 +108,6 @@ def aoc_2018_d12(input_reader: InputReader, parser: FileParser, **_):
     a_50_billion = alive + (50_000_000_000 - generation) * diff_seq[-1]
     print(
         f"Part 2: Sum of indices of plants alive after 50 billion generations: {a_50_billion}"
-    )
-
-
-# AOC 2018 - Day 15: Beverage Bandits
-def aoc_2018_d15(input_reader: InputReader, **_):
-    map_with_units = input_reader.read()
-    elf_specs = CaveTeamSpec(attack_power=3, hit_points=200)
-    goblin_specs = CaveTeamSpec(attack_power=3, hit_points=200)
-    game = build_cave_game(map_with_units, elf_specs, goblin_specs)
-    game.play_until_over(bot=CaveGameBotAttackWeakest())
-    outcome = game.round * game.state.total_hp
-    print(f"Part 1: Outcome of combat: {outcome}")
-    game = build_cave_game(map_with_units, elf_specs, goblin_specs)
-    results = optimal_game_for_elves(game, bot=CaveGameBotAttackWeakest())
-    outcome = results.rounds * results.hp_remaining
-    print(
-        f"Part 2: Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {outcome}"
     )
 
 

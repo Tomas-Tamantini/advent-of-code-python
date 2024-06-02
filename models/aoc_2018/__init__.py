@@ -32,12 +32,7 @@ from .a2018_d11 import aoc_2018_d11
 from .a2018_d12 import PlantAutomaton
 from .a2018_d13 import aoc_2018_d13
 from .a2018_d14 import aoc_2018_d14
-from .a2018_d15 import (
-    CaveGameBotAttackWeakest,
-    build_cave_game,
-    CaveTeamSpec,
-    optimal_game_for_elves,
-)
+from .a2018_d15 import aoc_2018_d15
 from .a2018_d16 import possible_instructions, InstructionSample, work_out_op_codes
 from .a2018_d17 import WaterSpring
 from .a2018_d18 import aoc_2018_d18
