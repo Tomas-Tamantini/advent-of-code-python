@@ -41,11 +41,5 @@ from .a2018_d20 import aoc_2018_d20
 from .a2018_d21 import aoc_2018_d21
 from .a2018_d22 import aoc_2018_d22
 from .a2018_d23 import TeleportNanobot, distance_of_position_with_strongest_signal
-from .a2018_d24 import (
-    AttackType,
-    ArmyGroup,
-    InfectionGameState,
-    InfectionGame,
-    optimal_boost_for_immune_system,
-)
+from .a2018_d24 import aoc_2018_d24
 from .a2018_d25 import aoc_2018_d25
