@@ -1,6 +1,4 @@
 import pytest
-from unittest.mock import Mock
-from datetime import datetime
 from input_output.file_parser import FileParser
 from models.common.io import InputFromString
 from models.common.number_theory import Interval
@@ -12,7 +10,6 @@ from models.common.vectors import (
     HexagonalDirection,
     BoundingBox,
 )
-from models.aoc_2019 import ChemicalReaction, ChemicalQuantity
 from models.aoc_2020 import (
     RangePasswordPolicy,
     PositionalPasswordPolicy,
@@ -43,55 +40,6 @@ from models.aoc_2021 import (
 )
 
 
-def test_parse_directions():
-    file_content = """R8,U5
-                      U7,L6,D4"""
-    directions = list(FileParser().parse_directions(InputFromString(file_content)))
-    assert directions == [
-        [(CardinalDirection.EAST, 8), (CardinalDirection.NORTH, 5)],
-        [
-            (CardinalDirection.NORTH, 7),
-            (CardinalDirection.WEST, 6),
-            (CardinalDirection.SOUTH, 4),
-        ],
-    ]
-
-
-def test_parse_celestial_bodies():
-    file_content = """COM)A
-                      B)C
-                      COM)B"""
-    com = FileParser().parse_celestial_bodies(InputFromString(file_content))
-    assert com.name == "COM"
-    com_children = list(com.satellites)
-    assert com_children[0].name == "A"
-    assert len(list(com_children[0].satellites)) == 0
-    assert com_children[1].name == "B"
-    b_children = list(com_children[1].satellites)
-    assert b_children[0].name == "C"
-
-
-def test_parse_vector_3d():
-    assert FileParser.parse_vector_3d(" <x=-9, y=10, z=-1>") == Vector3D(-9, 10, -1)
-
-
-def test_parse_chemical_reactions():
-    file_content = """2 MPHSH, 3 NQNX => 3 FWHL
-                      144 ORE => 1 CXRVG"""
-    reactions = list(
-        FileParser().parse_chemical_reactions(InputFromString(file_content))
-    )
-    assert reactions == [
-        ChemicalReaction(
-            inputs=(ChemicalQuantity("MPHSH", 2), ChemicalQuantity("NQNX", 3)),
-            output=ChemicalQuantity("FWHL", 3),
-        ),
-        ChemicalReaction(
-            inputs=(ChemicalQuantity("ORE", 144),), output=ChemicalQuantity("CXRVG", 1)
-        ),
-    ]
-
-
 def test_parse_tunnel_maze():
     file_content = """
                    a.C
@@ -114,93 +62,6 @@ def test_tunnel_maze_can_have_entrance_split_in_four():
         InputFromString(file_content), split_entrance_four_ways=True
     )
     assert maze.shortest_distance_to_all_keys() == 8
-
-
-def test_parse_portal_maze():
-    file_content = """
-                           A           
-                           A           
-                    #######.#########  
-                    #######.........#  
-                    #######.#######.#  
-                    #######.#######.#  
-                    #######.#######.#  
-                    #####  B    ###.#  
-                  BC...##  C    ###.#  
-                    ##.##       ###.#  
-                    ##...DE  F  ###.#  
-                    #####    G  ###.#  
-                    #########.#####.#  
-                  DE..#######...###.#  
-                    #.#########.###.#  
-                  FG..#########.....#  
-                    ###########.#####  
-                               Z       
-                               Z       
-                   """
-    maze = FileParser().parse_portal_maze(InputFromString(file_content))
-    assert maze.num_steps_to_solve() == 23
-
-
-def test_parse_recursive_donut_maze():
-    file_content = """
-                       Z L X W       C                 
-                       Z P Q B       K                 
-            ###########.#.#.#.#######.###############  
-            #...#.......#.#.......#.#.......#.#.#...#  
-            ###.#.#.#.#.#.#.#.###.#.#.#######.#.#.###  
-            #.#...#.#.#...#.#.#...#...#...#.#.......#  
-            #.###.#######.###.###.#.###.###.#.#######  
-            #...#.......#.#...#...#.............#...#  
-            #.#########.#######.#.#######.#######.###  
-            #...#.#    F       R I       Z    #.#.#.#  
-            #.###.#    D       E C       H    #.#.#.#  
-            #.#...#                           #...#.#  
-            #.###.#                           #.###.#  
-            #.#....OA                       WB..#.#..ZH
-            #.###.#                           #.#.#.#  
-          CJ......#                           #.....#  
-            #######                           #######  
-            #.#....CK                         #......IC
-            #.###.#                           #.###.#  
-            #.....#                           #...#.#  
-            ###.###                           #.#.#.#  
-          XF....#.#                         RF..#.#.#  
-            #####.#                           #######  
-            #......CJ                       NM..#...#  
-            ###.#.#                           #.###.#  
-          RE....#.#                           #......RF
-            ###.###        X   X       L      #.#.#.#  
-            #.....#        F   Q       P      #.#.#.#  
-            ###.###########.###.#######.#########.###  
-            #.....#...#.....#.......#...#.....#.#...#  
-            #####.#.###.#######.#######.###.###.#.#.#  
-            #.......#.......#.#.#.#.#...#...#...#.#.#  
-            #####.###.#####.#.#.#.#.###.###.#.###.###  
-            #.......#.....#.#...#...............#...#  
-            #############.#.#.###.###################  
-                         A O F   N                     
-                         A A D   M                        
-    """
-    maze = FileParser().parse_recursive_donut_maze(InputFromString(file_content))
-    assert maze.num_steps_to_solve() == 396
-
-
-def test_parse_shuffle_techniques():
-    file_content = """
-                   deal into new stack
-                   cut -2
-                   deal with increment 7
-                   cut 8
-                   cut -4
-                   deal with increment 7
-                   cut 3
-                   deal with increment 9
-                   deal with increment 3
-                   cut -1
-                   """
-    shuffle = FileParser().parse_multi_technique_shuffle(InputFromString(file_content))
-    assert shuffle.new_card_position(position_before_shuffle=3, deck_size=10) == 8
 
 
 def test_parse_pairs_of_range_password_policy_and_password():

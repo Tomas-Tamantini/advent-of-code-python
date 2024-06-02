@@ -13,18 +13,7 @@ from models.common.vectors import (
     BoundingBox,
 )
 from models.common.assembly import Instruction, ContextFreeGrammar
-from models.aoc_2019 import (
-    CelestialBody,
-    ChemicalQuantity,
-    ChemicalReaction,
-    TunnelMaze,
-    PortalMaze,
-    RecursiveDonutMaze,
-    DealIntoNewStackShuffle,
-    CutCardsShuffle,
-    DealWithIncrementShuffle,
-    MultiTechniqueShuffle,
-)
+from models.aoc_2019 import TunnelMaze
 from models.aoc_2020 import (
     PasswordPolicy,
     RangePasswordPolicy,
@@ -80,68 +69,6 @@ class _ParsedTicketValidator:
 
 class FileParser:
 
-    def parse_directions(
-        self, input_reader: InputReader
-    ) -> Iterator[list[tuple[CardinalDirection, int]]]:
-        direction_dict = {
-            "U": CardinalDirection.NORTH,
-            "R": CardinalDirection.EAST,
-            "D": CardinalDirection.SOUTH,
-            "L": CardinalDirection.WEST,
-        }
-
-        for line in input_reader.readlines():
-            yield [
-                (direction_dict[part.strip()[0]], int(part.strip()[1:]))
-                for part in line.strip().split(",")
-            ]
-
-    def parse_celestial_bodies(self, input_reader: InputReader) -> CelestialBody:
-        bodies = dict()
-        for line in input_reader.readlines():
-            parts = line.strip().split(")")
-            parent = parts[0]
-            child = parts[1]
-            if parent not in bodies:
-                bodies[parent] = CelestialBody(parent)
-            if child not in bodies:
-                bodies[child] = CelestialBody(child)
-            bodies[parent].add_satellite(bodies[child])
-        return bodies["COM"]
-
-    @staticmethod
-    def parse_vector_3d(vector_str: str) -> Vector3D:
-        coordinates = (
-            vector_str.replace("<", "")
-            .replace(">", "")
-            .replace("=", "")
-            .replace("x", "")
-            .replace("y", "")
-            .replace("z", "")
-            .split(",")
-        )
-        return Vector3D(*map(int, coordinates))
-
-    @staticmethod
-    def _parse_chemical_quantity(quantity_str: str) -> ChemicalQuantity:
-        quantity, chemical = quantity_str.split()
-        return ChemicalQuantity(chemical=chemical, quantity=int(quantity))
-
-    @staticmethod
-    def _parse_chemical_reaction(reaction_str: str) -> ChemicalReaction:
-        input_str, output_str = reaction_str.split(" => ")
-        output = FileParser._parse_chemical_quantity(output_str)
-        inputs = tuple(
-            FileParser._parse_chemical_quantity(q) for q in input_str.split(", ")
-        )
-        return ChemicalReaction(inputs, output)
-
-    def parse_chemical_reactions(
-        self, input_reader: InputReader
-    ) -> Iterator[ChemicalReaction]:
-        for line in input_reader.readlines():
-            yield self._parse_chemical_reaction(line.strip())
-
     @staticmethod
     def _tunnel_updated_characters(
         grid: CharacterGrid, split_entrance_four_ways: bool
@@ -176,108 +103,6 @@ class FileParser:
             if actual_char.isupper():
                 maze.add_door(position, corresponding_key_id=actual_char.lower())
         return maze
-
-    @staticmethod
-    def _portal_id(position: Vector2D, lines: list[str]) -> Optional[str]:
-        for direction in CardinalDirection:
-            neighbor_position = position.move(direction)
-            if neighbor_position.y < 0 or neighbor_position.y >= len(lines):
-                continue
-            neighbor_line = lines[neighbor_position.y]
-            if neighbor_position.x < 0 or neighbor_position.x >= len(neighbor_line):
-                continue
-            neighbor_char = neighbor_line[neighbor_position.x]
-            if not neighbor_char.isupper():
-                continue
-            other_char_position = neighbor_position.move(direction)
-            other_char = lines[other_char_position.y][other_char_position.x]
-            return (
-                neighbor_char + other_char
-                if direction in {CardinalDirection.NORTH, CardinalDirection.EAST}
-                else other_char + neighbor_char
-            )
-
-    @staticmethod
-    def _open_passage_tiles(lines: list[str]) -> Iterator[Vector2D]:
-        for y, line in enumerate(lines):
-            for x, char in enumerate(line):
-                if char == ".":
-                    yield Vector2D(x, y)
-
-    def parse_portal_maze(self, input_reader: InputReader) -> PortalMaze:
-        portals = defaultdict(list)
-        maze = PortalMaze()
-        lines = list(input_reader.readlines())
-        for position in self._open_passage_tiles(lines):
-            maze.add_node_and_connect_to_neighbors(position)
-            portal_id = self._portal_id(position, lines)
-            if portal_id == "AA":
-                maze.set_entrance(position)
-            elif portal_id == "ZZ":
-                maze.set_exit(position)
-            elif portal_id is not None:
-                portals[portal_id].append(position)
-        for positions in portals.values():
-            maze.add_portal(*positions)
-
-        return maze
-
-    def _is_inner_edge_of_donut_maze(
-        self, position: Vector2D, lines: list[str]
-    ) -> bool:
-        for direction in CardinalDirection:
-            intersected_other_tile = False
-            new_position = position.move(direction)
-            while (0 <= new_position.y < len(lines)) and (
-                0 <= new_position.x < len(lines[new_position.y])
-            ):
-                character = lines[new_position.y][new_position.x]
-                if character in {"#", "."}:
-                    intersected_other_tile = True
-                    break
-                new_position = new_position.move(direction)
-            if not intersected_other_tile:
-                return False
-        return True
-
-    def parse_recursive_donut_maze(
-        self, input_reader: InputReader
-    ) -> RecursiveDonutMaze:
-        portals = defaultdict(dict)
-        maze = RecursiveDonutMaze()
-        lines = list(input_reader.readlines())
-        for position in self._open_passage_tiles(lines):
-            maze.add_node(position)
-            portal_id = self._portal_id(position, lines)
-            if portal_id == "AA":
-                maze.set_entrance(position)
-            elif portal_id == "ZZ":
-                maze.set_exit(position)
-            elif portal_id is not None:
-                kwarg = (
-                    "step_up"
-                    if self._is_inner_edge_of_donut_maze(position, lines)
-                    else "step_down"
-                )
-                portals[portal_id][kwarg] = position
-
-        for positions in portals.values():
-            maze.add_portal(**positions)
-
-        return maze
-
-    def parse_multi_technique_shuffle(
-        self, input_reader: InputReader
-    ) -> MultiTechniqueShuffle:
-        techniques = []
-        for line in input_reader.readlines():
-            if "deal into new stack" in line:
-                techniques.append(DealIntoNewStackShuffle())
-            elif "cut" in line:
-                techniques.append(CutCardsShuffle(int(line.split()[-1])))
-            elif "deal with increment" in line:
-                techniques.append(DealWithIncrementShuffle(int(line.split()[-1])))
-        return MultiTechniqueShuffle(techniques)
 
     @staticmethod
     def _parse_password_policy_and_password(

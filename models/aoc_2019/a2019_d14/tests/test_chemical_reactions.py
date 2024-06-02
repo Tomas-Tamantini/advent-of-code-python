@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2019 import ChemicalQuantity, ChemicalReaction, ChemicalReactions
+from ..chemical_reactions import ChemicalQuantity, ChemicalReaction, ChemicalReactions
 
 
 def test_chemical_reaction_calculates_inputs_required_to_produce_given_output():

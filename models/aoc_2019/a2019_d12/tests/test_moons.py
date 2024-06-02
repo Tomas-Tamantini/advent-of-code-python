@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector3D
-from models.aoc_2019 import MoonOfJupiter, MoonSystem
+from ..moons import MoonOfJupiter, MoonSystem
 
 
 def test_two_moons_with_same_given_coordinate_do_not_attract_each_other():

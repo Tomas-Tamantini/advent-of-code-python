@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D
-from models.aoc_2019.a2019_d20 import PortalMaze, RecursiveDonutMaze
+from ..donut_maze import PortalMaze, RecursiveDonutMaze
 
 
 def test_portal_maze_finds_shortest_path_between_entrance_and_exit():

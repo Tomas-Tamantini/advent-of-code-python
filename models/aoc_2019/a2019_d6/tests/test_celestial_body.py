@@ -1,4 +1,4 @@
-from models.aoc_2019 import CelestialBody
+from ..celestial_body import CelestialBody
 
 
 def test_celestial_body_starts_with_no_satellites():

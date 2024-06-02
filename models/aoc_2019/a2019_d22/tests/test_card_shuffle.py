@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2019 import (
+from ..card_shuffle import (
     DealIntoNewStackShuffle,
     CutCardsShuffle,
     DealWithIncrementShuffle,
