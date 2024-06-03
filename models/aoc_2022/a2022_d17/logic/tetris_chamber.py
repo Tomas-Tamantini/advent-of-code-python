@@ -34,7 +34,7 @@ class TetrisChamber:
     def _is_out_of_bounds(self, pos: Vector2D) -> bool:
         return pos.x < 0 or pos.x >= len(self._max_height_by_column)
 
-    def _collides_sideways(self, piece: TetrisPiece) -> bool:
+    def _collides(self, piece: TetrisPiece) -> bool:
         return any(self._is_out_of_bounds(pos) for pos in piece.positions()) or any(
             pos in self._settled_positions for pos in piece.positions()
         )
@@ -53,7 +53,7 @@ class TetrisChamber:
         while True:
             wind_direction = self._wind_generator.next_wind_direction()
             candidate = next_piece.move(wind_direction)
-            if not self._collides_sideways(candidate):
+            if not self._collides(candidate):
                 next_piece = candidate
             candidate = next_piece.move(CardinalDirection.SOUTH)
             if not self._collides_downwards(candidate):
