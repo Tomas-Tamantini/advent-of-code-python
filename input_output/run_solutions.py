@@ -1,12 +1,11 @@
 from models.common.io import InputFromTextFile, ProgressBarConsole
-from .file_parser import FileParser
 from models.aoc_2015 import ALL_2015_SOLUTIONS
 from models.aoc_2016 import ALL_2016_SOLUTIONS
 from models.aoc_2017 import ALL_2017_SOLUTIONS
 from models.aoc_2018 import ALL_2018_SOLUTIONS
 from models.aoc_2019 import ALL_2019_SOLUTIONS
 from models.aoc_2020 import ALL_2020_SOLUTIONS
-from .a2021 import ALL_2021_SOLUTIONS
+from models.aoc_2021 import ALL_2021_SOLUTIONS
 from models.aoc_2022 import ALL_2022_SOLUTIONS
 
 
@@ -30,7 +29,6 @@ def run_solutions(
             file_name = f"input_files/aoc_{year}/a{year}_d{day}.txt"
             solutions[year][day - 1](
                 input_reader=InputFromTextFile(file_name),
-                parser=FileParser(),  # TODO: Remove this line after converting solutions 2015 - 2021 to new structure
                 progress_bar=ProgressBarConsole(),
                 animate=animate,
                 play=play,

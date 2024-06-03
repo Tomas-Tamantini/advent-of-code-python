@@ -1,6 +1,6 @@
 import pytest
 from typing import Optional
-from models.aoc_2021.a2021_d23 import (
+from ..logic import (
     Amphipod,
     AmphipodRoom,
     AmphipodHallway,

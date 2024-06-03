@@ -1,18 +1,6 @@
-from input_output.file_parser import FileParser
 from models.common.io import InputFromString
-from models.aoc_2021 import (
-    Amphipod,
-    AmphipodRoom,
-)
-
-
-def test_parse_players_starting_positions():
-    file_content = """Player 1 starting position: 1
-                      Player 2 starting position: 3"""
-    positions = FileParser().parse_players_starting_positions(
-        InputFromString(file_content)
-    )
-    assert positions == (1, 3)
+from ..parser import parse_amphipod_burrow
+from ..logic import Amphipod, AmphipodRoom
 
 
 def test_parse_amphipod_burrow():
@@ -22,7 +10,7 @@ def test_parse_amphipod_burrow():
                    ###B#C#B#D###
                      #A#D#C#A#
                      #########"""
-    burrow = FileParser().parse_amphipod_burrow(InputFromString(file_content))
+    burrow = parse_amphipod_burrow(InputFromString(file_content))
     assert burrow.hallway.positions == tuple(None for _ in range(11))
     assert burrow.rooms == (
         AmphipodRoom(
@@ -72,9 +60,7 @@ def test_parse_amphipod_burrow_with_insertions():
                      #A#D#C#A#
                      #########"""
     insertions = ("DD", "BC", "AB", "AC")
-    burrow = FileParser().parse_amphipod_burrow(
-        InputFromString(file_content), *insertions
-    )
+    burrow = parse_amphipod_burrow(InputFromString(file_content), *insertions)
     assert all(room.capacity == 4 for room in burrow.rooms)
     assert burrow.hallway.positions == tuple(None for _ in range(11))
     assert burrow.rooms[1] == AmphipodRoom(

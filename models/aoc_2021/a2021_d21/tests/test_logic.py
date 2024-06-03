@@ -1,4 +1,4 @@
-from models.aoc_2021.a2021_d21 import (
+from ..logic import (
     play_deterministic_dirac_dice,
     DeterministicDiracGameResult,
     DiracDiceStartingConfiguration,

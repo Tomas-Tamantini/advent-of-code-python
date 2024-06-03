@@ -1,5 +1,5 @@
 import pytest
-from models.aoc_2021.a2021_d16 import PacketParser, LiteralPacket, RecursivePacket
+from .logic import PacketParser, LiteralPacket, RecursivePacket
 
 
 def test_literal_packet_version_sum_is_just_its_version():
