@@ -1,42 +1,20 @@
 from typing import Iterator, Hashable
-from dataclasses import dataclass
+
 import numpy as np
 from collections import defaultdict
 from models.common.io import InputReader
-from models.common.number_theory import Interval
+
 from models.common.vectors import (
     CardinalDirection,
     Vector2D,
-    TurnDirection,
     Vector3D,
-    HexagonalDirection,
     BoundingBox,
 )
 from models.common.assembly import Instruction, ContextFreeGrammar
 from models.aoc_2020 import (
-    PasswordPolicy,
-    RangePasswordPolicy,
-    PositionalPasswordPolicy,
-    CustomsGroup,
-    LuggageRule,
-    LuggageRules,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
-    NavigationInstruction,
-    MoveShipForwardInstruction,
-    MoveShipInstruction,
-    TurnShipInstruction,
-    MoveTowardsWaypointInstruction,
-    MoveWaypointInstruction,
-    RotateWaypointInstruction,
-    BusSchedule,
-    BitmaskInstruction,
-    SetMaskInstruction,
-    WriteToMemoryInstruction,
-    TicketValidator,
-    TicketFieldValidator,
     JigsawPieceBinaryImage,
-    Food,
 )
 from models.aoc_2021 import (
     SubmarineNavigationInstruction,
@@ -59,97 +37,7 @@ from models.aoc_2021 import (
 )
 
 
-@dataclass
-class _ParsedTicketValidator:
-    validator: TicketValidator
-    my_ticket: tuple[int]
-    nearby_tickets: list[tuple[int]]
-
-
 class FileParser:
-
-    @staticmethod
-    def _parse_password_policy_and_password(
-        line: str, use_range_policy: bool
-    ) -> tuple[PasswordPolicy, str]:
-        parts = line.split(":")
-        policy_parts = parts[0].split(" ")
-        num_a, num_b = map(int, policy_parts[0].split("-"))
-        letter = policy_parts[1]
-        password = parts[1].strip()
-        if use_range_policy:
-            return RangePasswordPolicy(letter, num_a, num_b), password
-        else:
-            return PositionalPasswordPolicy(letter, num_a, num_b), password
-
-    def parse_password_policies_and_passwords(
-        self, input_reader: InputReader, use_range_policy: bool
-    ) -> Iterator[tuple[PasswordPolicy, str]]:
-        for line in input_reader.read_stripped_lines():
-            yield self._parse_password_policy_and_password(line, use_range_policy)
-
-    def parse_passports(self, input_reader: InputReader) -> Iterator[dict[str, str]]:
-        passport = {}
-        for line in input_reader.read_stripped_lines(keep_empty_lines=True):
-            if line:
-                parts = line.split()
-                for part in parts:
-                    key, value = part.split(":")
-                    passport[key] = value
-            else:
-                if passport:
-                    yield passport
-                passport = {}
-        if passport:
-            yield passport
-
-    def parse_plane_seat_ids(self, input_reader: InputReader) -> Iterator[int]:
-        for line in input_reader.readlines():
-            line = line.strip()
-            if line:
-                row = int(line[:7].replace("F", "0").replace("B", "1"), 2)
-                col = int(line[7:].replace("L", "0").replace("R", "1"), 2)
-                yield row * 8 + col
-
-    def parse_form_answers_by_groups(
-        self, input_reader: InputReader
-    ) -> Iterator[CustomsGroup]:
-        current_group = CustomsGroup()
-        for line in input_reader.read_stripped_lines(keep_empty_lines=True):
-            if line:
-                current_group.add_individual_answers(set(line))
-            else:
-                if current_group.answers:
-                    yield current_group
-                current_group = CustomsGroup()
-        if current_group.answers:
-            yield current_group
-
-    def _parse_luggage_rule(self, rule: str) -> LuggageRule:
-        parts = rule.split("contain")
-        container_bag = parts[0].strip().replace("bags", "").replace("bag", "").strip()
-
-        contained_bags = dict()
-        for part in parts[1].split(","):
-            part = (
-                part.strip()
-                .replace("bags", "")
-                .replace("bag", "")
-                .replace(".", "")
-                .strip()
-            )
-            if "no other" in part:
-                continue
-            quantity, bag = part.split(" ", 1)
-            contained_bags[bag] = int(quantity)
-
-        return LuggageRule(bag=container_bag, contains=contained_bags)
-
-    def parse_luggage_rules(self, input_reader: InputReader) -> LuggageRules:
-        rules = LuggageRules()
-        for line in input_reader.read_stripped_lines():
-            rules.add_rule(self._parse_luggage_rule(line))
-        return rules
 
     def _parse_game_console_instruction(self, instruction: str) -> Instruction:
         parts = instruction.split()
@@ -169,128 +57,6 @@ class FileParser:
     ) -> Iterator[Instruction]:
         for line in input_reader.read_stripped_lines():
             yield self._parse_game_console_instruction(line)
-
-    @staticmethod
-    def _parse_navigation_instruction(
-        instruction: str, relative_to_waypoint: bool
-    ) -> NavigationInstruction:
-        action = instruction[0]
-        value = int(instruction[1:])
-        directions = {
-            "N": CardinalDirection.NORTH,
-            "S": CardinalDirection.SOUTH,
-            "E": CardinalDirection.EAST,
-            "W": CardinalDirection.WEST,
-        }
-        if action == "F":
-            return (
-                MoveTowardsWaypointInstruction(value)
-                if relative_to_waypoint
-                else MoveShipForwardInstruction(value)
-            )
-        elif action in directions:
-            return (
-                MoveWaypointInstruction(directions[action], value)
-                if relative_to_waypoint
-                else MoveShipInstruction(directions[action], value)
-            )
-        elif action in ("L", "R"):
-            if value == 0:
-                turn = TurnDirection.NO_TURN
-            elif value == 90:
-                turn = TurnDirection.LEFT if action == "L" else TurnDirection.RIGHT
-            elif value == 180:
-                turn = TurnDirection.U_TURN
-            elif value == 270:
-                turn = TurnDirection.RIGHT if action == "L" else TurnDirection.LEFT
-            else:
-                raise ValueError(f"Invalid turn angle: {value}")
-            return (
-                RotateWaypointInstruction(turn)
-                if relative_to_waypoint
-                else TurnShipInstruction(turn)
-            )
-        else:
-            raise ValueError(f"Unknown navigation instruction: {instruction}")
-
-    def parse_navigation_instructions(
-        self, input_reader: InputReader, relative_to_waypoint: bool = False
-    ) -> Iterator[NavigationInstruction]:
-        for line in input_reader.read_stripped_lines():
-            yield self._parse_navigation_instruction(line, relative_to_waypoint)
-
-    def parse_bus_schedules_and_current_timestamp(
-        self, input_reader: InputReader
-    ) -> tuple[list[BusSchedule], int]:
-        lines = list(input_reader.readlines())
-        current_timestamp = int(lines[0].strip())
-        bus_schedules = [
-            BusSchedule(index_in_list=i, bus_id=int(bus_id))
-            for i, bus_id in enumerate(lines[1].strip().split(","))
-            if bus_id != "x"
-        ]
-        return bus_schedules, current_timestamp
-
-    @staticmethod
-    def _parse_bitmask_instruction(
-        instruction: str, is_address_mask: bool
-    ) -> BitmaskInstruction:
-        parts = instruction.split(" = ")
-        if "mask" in parts[0]:
-            return SetMaskInstruction(parts[1], is_address_mask)
-        else:
-            return WriteToMemoryInstruction(
-                address=int(parts[0].replace("mem[", "").replace("]", "")),
-                value=int(parts[1]),
-            )
-
-    def parse_bitmask_instructions(
-        self, input_reader: InputReader, is_address_mask: bool
-    ) -> Iterator[BitmaskInstruction]:
-        for line in input_reader.read_stripped_lines():
-            yield self._parse_bitmask_instruction(line, is_address_mask)
-
-    @staticmethod
-    def _parse_ticket_field_validator(line: str) -> TicketFieldValidator:
-        parts = line.split(": ")
-        field_name = parts[0]
-        ranges = []
-        for part in parts[1].split(" or "):
-            min_value, max_value = map(int, part.split("-"))
-            ranges.append(Interval(min_value, max_value))
-        return TicketFieldValidator(field_name, tuple(ranges))
-
-    def parse_ticket_validator_and_ticket_values(
-        self, input_reader: InputReader
-    ) -> _ParsedTicketValidator:
-        document_section = 0
-        field_validators = []
-        my_ticket = None
-        nearby_tickets = []
-
-        lines = list(input_reader.readlines())
-
-        for line in lines:
-            if not line.strip():
-                continue
-            if "your ticket" in line:
-                document_section += 1
-            elif "nearby tickets" in line:
-                document_section += 1
-            elif document_section == 0:
-                field_validators.append(
-                    self._parse_ticket_field_validator(line.strip())
-                )
-            elif document_section == 1:
-                my_ticket = tuple(map(int, line.strip().split(",")))
-            elif document_section == 2:
-                nearby_tickets.append(tuple(map(int, line.strip().split(","))))
-            else:
-                raise ValueError(f"Unknown document section: {document_section}")
-
-        return _ParsedTicketValidator(
-            TicketValidator(tuple(field_validators)), my_ticket, nearby_tickets
-        )
 
     def parse_context_free_grammar_and_words(
         self, input_reader: InputReader, starting_symbol: Hashable
@@ -333,64 +99,6 @@ class FileParser:
                 current_rows.append(stripped_line)
         if current_id != -1:
             yield JigsawPieceBinaryImage.from_string(current_id, current_rows)
-
-    @staticmethod
-    def _parse_food(line: str) -> Food:
-        parts = line.split(" (contains ")
-        ingredients = parts[0].split()
-        allergens = parts[1].replace(")", "").split(", ")
-        return Food(set(ingredients), set(allergens))
-
-    def parse_foods(self, input_reader: InputReader) -> Iterator[Food]:
-        for line in input_reader.read_stripped_lines():
-            yield self._parse_food(line)
-
-    def parse_crab_combat_cards(
-        self, input_reader: InputReader
-    ) -> tuple[list[int], list[int]]:
-        cards_a = []
-        cards_b = []
-        reading_player_b = False
-        for line in input_reader.read_stripped_lines():
-            if "Player 1" in line:
-                reading_player_b = False
-            elif "Player 2" in line:
-                reading_player_b = True
-            else:
-                if reading_player_b:
-                    cards_b.append(int(line))
-                else:
-                    cards_a.append(int(line))
-        return cards_a, cards_b
-
-    @staticmethod
-    def _parse_rotated_hexagonal_directions_without_delimiters(
-        line: str,
-    ) -> Iterator[HexagonalDirection]:
-        coord_map = {
-            "se": HexagonalDirection.SOUTHEAST,
-            "sw": HexagonalDirection.SOUTH,
-            "nw": HexagonalDirection.NORTHWEST,
-            "ne": HexagonalDirection.NORTH,
-            "e": HexagonalDirection.NORTHEAST,
-            "w": HexagonalDirection.SOUTHWEST,
-        }
-        current_idx = 0
-        while current_idx < len(line):
-            if line[current_idx] in coord_map:
-                yield coord_map[line[current_idx]]
-                current_idx += 1
-            else:
-                yield coord_map[line[current_idx : current_idx + 2]]
-                current_idx += 2
-
-    def parse_rotated_hexagonal_directions(
-        self, input_reader: InputReader
-    ) -> Iterator[list[HexagonalDirection]]:
-        for line in input_reader.read_stripped_lines():
-            yield list(
-                self._parse_rotated_hexagonal_directions_without_delimiters(line)
-            )
 
     @staticmethod
     def _parse_navigation_instruction_for_submarine_without_aim(
