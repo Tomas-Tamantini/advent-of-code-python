@@ -1,4 +1,4 @@
-from models.aoc_2021 import ShuffledSevenDigitDisplay
+from ..seven_segment_display import ShuffledSevenDigitDisplay
 
 
 def test_decoding_shuffled_seven_digit_display_yields_four_digit_output():

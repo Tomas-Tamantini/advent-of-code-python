@@ -1,4 +1,4 @@
-from models.aoc_2021 import UnderwaterCave, UnderwaterCaveExplorer
+from ..underwater_cave import UnderwaterCave, UnderwaterCaveExplorer
 
 
 def test_underwater_cave_explorer_cannot_go_from_start_to_end_if_no_path():

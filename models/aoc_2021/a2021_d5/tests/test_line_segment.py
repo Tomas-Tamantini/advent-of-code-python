@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D
-from models.aoc_2021 import LineSegment
+from ..line_segment import LineSegment
 
 
 def test_line_segment_is_horizontal_if_dy_is_zero():

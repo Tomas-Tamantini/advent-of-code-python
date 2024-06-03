@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D
-from models.aoc_2021 import FoldInstruction
+from ..fold_instruction import FoldInstruction
 
 
 def test_folding_along_horizontal_line_transforms_y_coordinate_of_positions_below_fold_line():

@@ -1,6 +1,6 @@
 from math import inf
 from models.common.vectors import Vector2D
-from models.aoc_2021 import TrenchMapAutomaton
+from ..trench_map_automaton import TrenchMapAutomaton
 
 
 def test_trench_map_automaton_with_empty_rule_set_returns_empty_set():

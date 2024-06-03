@@ -1,5 +1,5 @@
 import numpy as np
-from models.aoc_2021 import BingoBoard, BingoGame
+from ..bingo import BingoBoard, BingoGame
 
 
 def test_bingo_board_has_dimensions_equal_to_its_input_matrix():

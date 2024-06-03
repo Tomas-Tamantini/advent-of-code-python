@@ -1,4 +1,4 @@
-from models.aoc_2021 import PolymerExtension
+from ..polymer_extension import PolymerExtension
 
 
 def test_polymer_extension_without_rules_keeps_polymer_intact():

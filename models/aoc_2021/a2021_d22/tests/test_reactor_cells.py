@@ -1,6 +1,6 @@
 import pytest
 from models.common.vectors import Vector3D
-from models.aoc_2021 import Cuboid, CuboidInstruction, num_reactor_cells_on
+from ..reactor_cells import Cuboid, CuboidInstruction, num_reactor_cells_on
 
 
 def _build_cuboid(
