@@ -1,16 +1,10 @@
-import pytest
 from input_output.file_parser import FileParser
 from models.common.io import InputFromString
-from models.common.number_theory import Interval
 from models.common.vectors import (
     CardinalDirection,
     Vector2D,
     Vector3D,
     BoundingBox,
-)
-from models.aoc_2020 import (
-    IncrementGlobalAccumulatorInstruction,
-    JumpOrNoOpInstruction,
 )
 from models.aoc_2021 import (
     LineSegment,
@@ -23,62 +17,6 @@ from models.aoc_2021 import (
     Amphipod,
     AmphipodRoom,
 )
-
-
-def test_parse_game_console_instructions():
-    file_content = """
-                   nop +0
-                   acc -1
-                   jmp +4
-                   """
-    instructions = list(
-        FileParser().parse_game_console_instructions(InputFromString(file_content))
-    )
-    assert instructions == [
-        JumpOrNoOpInstruction(offset=0, is_jump=False),
-        IncrementGlobalAccumulatorInstruction(increment=-1),
-        JumpOrNoOpInstruction(offset=4, is_jump=True),
-    ]
-
-
-def test_parse_context_free_grammar_and_words():
-    file_content = """
-                   0: 4 1 5
-                   1: 2 3 | 3 2
-                   2: 4 4 | 5 5
-                   3: 4 5 | 5 4
-                   4: "a"
-                   5: "b"
- 
-                   ababbb
-                   bababa
-                   abbbab
-                   aaabbb
-                   aaaabbb
-                   """
-    cfg, words = FileParser().parse_context_free_grammar_and_words(
-        InputFromString(file_content), starting_symbol=0
-    )
-    assert words == ["ababbb", "bababa", "abbbab", "aaabbb", "aaaabbb"]
-    assert cfg.matches(tuple("ababbb"))
-    assert not cfg.matches(tuple("aaabbb"))
-
-
-def test_parse_jigsaw_pieces():
-    file_content = """
-                   Tile 2311:                   
-                   .#.
-                   ...
-                   
-                   Tile 1951:
-                   ..#
-                   ###
-                   """
-    pieces = list(FileParser().parse_jigsaw_pieces(InputFromString(file_content)))
-    assert pieces[0].piece_id == 2311
-    assert pieces[0].render() == ".#.\n..."
-    assert pieces[1].piece_id == 1951
-    assert pieces[1].render() == "..#\n###"
 
 
 def test_parse_navigation_instructions_for_submarine_without_aim():

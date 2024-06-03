@@ -5,7 +5,7 @@ from models.aoc_2016 import ALL_2016_SOLUTIONS
 from models.aoc_2017 import ALL_2017_SOLUTIONS
 from models.aoc_2018 import ALL_2018_SOLUTIONS
 from models.aoc_2019 import ALL_2019_SOLUTIONS
-from .a2020 import ALL_2020_SOLUTIONS
+from models.aoc_2020 import ALL_2020_SOLUTIONS
 from .a2021 import ALL_2021_SOLUTIONS
 from models.aoc_2022 import ALL_2022_SOLUTIONS
 

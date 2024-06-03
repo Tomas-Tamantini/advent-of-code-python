@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock
-from models.aoc_2020 import (
+from ..logic import (
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
     GameConsoleProgram,

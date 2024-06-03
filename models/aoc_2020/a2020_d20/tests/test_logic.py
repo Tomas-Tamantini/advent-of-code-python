@@ -3,7 +3,7 @@ from typing import Hashable
 import numpy as np
 from unittest.mock import Mock
 from models.common.vectors import Vector2D, CardinalDirection
-from models.aoc_2020.a2020_d20 import (
+from ..logic import (
     JigsawPieceOrientation,
     solve_jigsaw,
     JigsawPiece,
