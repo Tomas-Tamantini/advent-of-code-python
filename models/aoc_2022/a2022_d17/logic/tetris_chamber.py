@@ -26,13 +26,8 @@ class TetrisChamber:
     def _drop_position(self) -> Vector2D:
         return Vector2D(2, self.max_height() + 4)
 
-    def _collides_downwards(self, piece: TetrisPiece) -> bool:
-        return any(
-            pos.y <= self._max_height_by_column[pos.x] for pos in piece.positions()
-        )
-
     def _is_out_of_bounds(self, pos: Vector2D) -> bool:
-        return pos.x < 0 or pos.x >= len(self._max_height_by_column)
+        return pos.x < 0 or pos.x >= len(self._max_height_by_column) or pos.y < 1
 
     def _collides(self, piece: TetrisPiece) -> bool:
         return any(self._is_out_of_bounds(pos) for pos in piece.positions()) or any(
@@ -56,7 +51,7 @@ class TetrisChamber:
             if not self._collides(candidate):
                 next_piece = candidate
             candidate = next_piece.move(CardinalDirection.SOUTH)
-            if not self._collides_downwards(candidate):
+            if not self._collides(candidate):
                 next_piece = candidate
             else:
                 self._settle_piece(next_piece)
