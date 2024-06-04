@@ -54,5 +54,6 @@ def aoc_2022_d17(input_reader: InputReader, **_) -> None:
     )
     for _ in range(2022):
         tetris_chamber.drop_next_piece()
-    max_height = tetris_chamber.max_height()
-    print(f"Part 1: The maximum height of the tower is {max_height}")
+    print(
+        f"Part 1: The height of the tower after 2022 rocks is {tetris_chamber.tower_height()}"
+    )

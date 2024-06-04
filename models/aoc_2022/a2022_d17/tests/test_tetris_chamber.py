@@ -16,7 +16,7 @@ def _build_tetris_chamber(
 
 def test_tetris_chamber_starts_empty():
     chamber = _build_tetris_chamber()
-    assert chamber.max_height() == 0
+    assert chamber.tower_height() == 0
 
 
 def test_tetris_piece_gets_dropped_2_units_away_from_left_edge_and_3_units_above_max_height():
@@ -38,7 +38,7 @@ def test_first_tetris_piece_drops_until_hit_the_floor():
     )
     chamber = _build_tetris_chamber(tetris_piece_generator=tetris_piece_generator)
     chamber.drop_next_piece()
-    assert chamber.max_height() == 3
+    assert chamber.tower_height() == 3
 
 
 def test_wind_drags_tetris_piece_sideways():
@@ -80,7 +80,7 @@ def test_tetris_pieces_stack_on_top_of_each_other():
     )
     for _ in range(10):
         chamber.drop_next_piece()
-    assert chamber.max_height() == 17
+    assert chamber.tower_height() == 17
 
 
 def _example_wind_generator():

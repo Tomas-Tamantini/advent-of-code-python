@@ -15,19 +15,20 @@ class TetrisChamber:
         self._piece_generator = tetris_piece_generator
         self._wind_generator = wind_generator
         self._settled_positions = set()
-        self._max_height_by_column = [0] * width
+        self._width = width
+        self._tower_height = 0
 
-    def max_height(self) -> int:
-        return max(self._max_height_by_column)
+    def tower_height(self) -> int:
+        return self._tower_height
 
     def settled_positions(self) -> Iterator[Vector2D]:
         return iter(self._settled_positions)
 
     def _drop_position(self) -> Vector2D:
-        return Vector2D(2, self.max_height() + 4)
+        return Vector2D(2, self.tower_height() + 4)
 
     def _is_out_of_bounds(self, pos: Vector2D) -> bool:
-        return pos.x < 0 or pos.x >= len(self._max_height_by_column) or pos.y < 1
+        return pos.x < 0 or pos.x >= self._width or pos.y < 1
 
     def _collides(self, piece: TetrisPiece) -> bool:
         return any(self._is_out_of_bounds(pos) for pos in piece.positions()) or any(
@@ -37,9 +38,7 @@ class TetrisChamber:
     def _settle_piece(self, piece: TetrisPiece) -> None:
         for pos in piece.positions():
             self._settled_positions.add(pos)
-            self._max_height_by_column[pos.x] = max(
-                self._max_height_by_column[pos.x], pos.y
-            )
+            self._tower_height = max(self._tower_height, pos.y)
 
     def drop_next_piece(self) -> None:
         next_piece = self._piece_generator.generate_next_piece(
