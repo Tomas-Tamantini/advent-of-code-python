@@ -1,7 +1,14 @@
 from unittest.mock import Mock
 from typing import Optional
+import pytest
 from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import TetrisGameState, TetrisPieceGenerator, TetrisPiece, WindGenerator
+from ..logic import (
+    TetrisGameState,
+    TetrisPieceGenerator,
+    TetrisPiece,
+    WindGenerator,
+    tower_height,
+)
 
 
 def _build_tetris_game_state(
@@ -84,6 +91,20 @@ def test_tetris_game_stores_only_exposed_blocks():
     for _ in range(3):
         game_state = game_state.drop_next_piece()
     assert len(set(game_state.exposed_blocks())) == 9
+
+
+@pytest.mark.parametrize(
+    "num_pieces_to_drop, expected_height",
+    [
+        (2022, 3068),
+        (1_000_000_000_000, 1_514_285_714_288),
+    ],
+)
+def test_tetris_tower_height_is_calculated_efficiently(
+    num_pieces_to_drop, expected_height
+):
+    game_state = _example_initial_game_state()
+    assert tower_height(game_state, num_pieces_to_drop) == expected_height
 
 
 def _example_initial_game_state():

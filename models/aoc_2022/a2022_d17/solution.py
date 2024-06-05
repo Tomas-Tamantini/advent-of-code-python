@@ -1,7 +1,7 @@
 from models.common.io import InputReader
 from models.common.vectors import Vector2D
 from .parser import parse_wind_directions
-from .logic import WindGenerator, TetrisPieceGenerator, TetrisGameState
+from .logic import WindGenerator, TetrisPieceGenerator, TetrisGameState, tower_height
 
 
 def _pieces_generator() -> TetrisPieceGenerator:
@@ -52,8 +52,7 @@ def aoc_2022_d17(input_reader: InputReader, **_) -> None:
         tetris_piece_generator=tetris_piece_generator,
         wind_generator=wind_generator,
     )
-    for _ in range(2022):
-        game_state = game_state.drop_next_piece()
-    print(
-        f"Part 1: The height of the tower after 2022 rocks is {game_state.tower_height()}"
-    )
+    height = tower_height(game_state, 2022)
+    print(f"Part 1: The height of the tower after 2022 rocks is {height}")
+    height = tower_height(game_state, 1_000_000_000_000)
+    print(f"Part 2: The height of the tower after 1 trillion rocks is {height}")

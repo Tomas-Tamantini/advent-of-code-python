@@ -22,6 +22,14 @@ class TetrisGameState:
             else set(self._get_exposed_blocks(settled_blocks))
         )
 
+    @property
+    def wind_direction_index(self) -> int:
+        return self._wind_generator.current_index
+
+    @property
+    def shape_index(self) -> int:
+        return self._piece_generator.current_shape_index
+
     def tower_height(self) -> int:
         return max((pos.y for pos in self._exposed_blocks), default=0)
 
