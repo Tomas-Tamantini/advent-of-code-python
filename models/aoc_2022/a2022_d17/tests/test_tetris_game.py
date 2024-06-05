@@ -79,6 +79,13 @@ def test_tetris_pieces_stack_on_top_of_each_other():
     assert game_state.tower_height() == 17
 
 
+def test_tetris_game_stores_only_exposed_blocks():
+    game_state = _example_initial_game_state()
+    for _ in range(3):
+        game_state = game_state.drop_next_piece()
+    assert len(set(game_state.exposed_blocks())) == 9
+
+
 def _example_initial_game_state():
     return TetrisGameState(
         width=7,

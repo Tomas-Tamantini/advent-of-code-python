@@ -16,7 +16,11 @@ class TetrisGameState:
         self._width = width
         self._piece_generator = tetris_piece_generator
         self._wind_generator = wind_generator
-        self._exposed_blocks = settled_blocks or set()
+        self._exposed_blocks = (
+            set()
+            if not settled_blocks
+            else set(self._get_exposed_blocks(settled_blocks))
+        )
 
     def tower_height(self) -> int:
         return max((pos.y for pos in self._exposed_blocks), default=0)
@@ -62,3 +66,24 @@ class TetrisGameState:
                         set(next_piece.positions())
                     ),
                 )
+
+    def _get_exposed_blocks(self, settled_blocks: set[Vector2D]) -> Iterator[Vector2D]:
+        # Use flood fill to find exposed blocks
+        max_height = max(pos.y for pos in settled_blocks) + 1
+        seed = Vector2D(0, max_height)
+        stack = [seed]
+        visited = set()
+        while stack:
+            current_block = stack.pop()
+            if current_block in visited:
+                continue
+            visited.add(current_block)
+            for neighbor in current_block.adjacent_positions(include_diagonals=False):
+                if neighbor in settled_blocks:
+                    yield neighbor
+                elif (
+                    neighbor not in visited
+                    and 0 <= neighbor.x < self._width
+                    and 0 < neighbor.y <= max_height
+                ):
+                    stack.append(neighbor)
