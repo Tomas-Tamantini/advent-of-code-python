@@ -9,7 +9,12 @@ def test_wind_generator_loops_around_wind_directions_endlessy():
         CardinalDirection.WEST,
     ]
     generator = WindGenerator(directions=directions)
-    assert [generator.next_wind_direction() for _ in range(5)] == [
+    directions = []
+    for _ in range(5):
+        directions.append(generator.wind_direction())
+        generator = generator.increment()
+
+    assert directions == [
         CardinalDirection.EAST,
         CardinalDirection.WEST,
         CardinalDirection.WEST,
