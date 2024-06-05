@@ -244,8 +244,12 @@ def test_3d_vector_can_be_multiplied_by_a_scalar():
     assert Vector3D(1, 2, 3) * 3 == 3 * Vector3D(1, 2, 3) == Vector3D(3, 6, 9)
 
 
-def test_3d_vector_has_26_adjacent_positions():
-    assert len(list(Vector3D(0, 0, 0).adjacent_positions())) == 26
+def test_3d_vector_has_26_adjacent_positions_if_diagonal_steps_are_permitted():
+    assert len(list(Vector3D(0, 0, 0).adjacent_positions(include_diagonals=True))) == 26
+
+
+def test_3d_vector_has_6_adjacent_positions_if_diagonal_steps_are_not_permitted():
+    assert len(list(Vector3D(0, 0, 0).adjacent_positions(include_diagonals=False))) == 6
 
 
 def test_vector_product_of_3d_vectors_is_anti_commutative():

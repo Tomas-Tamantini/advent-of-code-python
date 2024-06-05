@@ -15,11 +15,18 @@ class Vector3D:
     def manhattan_size(self) -> int:
         return sum(abs(coord) for coord in self)
 
-    def adjacent_positions(self) -> Iterator["Vector3D"]:
+    def adjacent_positions(
+        self, include_diagonals: bool = True
+    ) -> Iterator["Vector3D"]:
         for dx in (-1, 0, 1):
             for dy in (-1, 0, 1):
                 for dz in (-1, 0, 1):
                     if dx == dy == dz == 0:
+                        continue
+                    if (
+                        not include_diagonals
+                        and sum(abs(coord) for coord in (dx, dy, dz)) > 1
+                    ):
                         continue
                     yield Vector3D(self.x + dx, self.y + dy, self.z + dz)
 
