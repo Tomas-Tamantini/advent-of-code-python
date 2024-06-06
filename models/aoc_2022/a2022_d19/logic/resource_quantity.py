@@ -5,6 +5,17 @@ class ResourceQuantity:
     def __init__(self, quantity: dict[ResourceType, int]) -> None:
         self._quantity = quantity
 
+    def all_resources_leq(self, other: "ResourceQuantity") -> bool:
+        for resource, amount in self._quantity.items():
+            if other._quantity.get(resource, 0) < amount:
+                return False
+        return True
+
+    def increment_resource(self, resource: ResourceType) -> "ResourceQuantity":
+        new_quantity = self._quantity.copy()
+        new_quantity[resource] = new_quantity.get(resource, 0) + 1
+        return ResourceQuantity(new_quantity)
+
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, ResourceQuantity):
             return NotImplemented
@@ -13,14 +24,16 @@ class ResourceQuantity:
     def __hash__(self) -> int:
         return hash(frozenset(self._quantity.items()))
 
-    def all_resources_leq(self, other: "ResourceQuantity") -> bool:
-        for resource, amount in self._quantity.items():
-            if other._quantity.get(resource, 0) < amount:
-                return False
-        return True
-
     def __add__(self, other: "ResourceQuantity") -> "ResourceQuantity":
         new_quantity = self._quantity.copy()
         for resource, amount in other._quantity.items():
             new_quantity[resource] = new_quantity.get(resource, 0) + amount
+        return ResourceQuantity(new_quantity)
+
+    def __sub__(self, other: "ResourceQuantity") -> "ResourceQuantity":
+        new_quantity = self._quantity.copy()
+        for resource, amount in other._quantity.items():
+            new_quantity[resource] = new_quantity.get(resource, 0) - amount
+            if new_quantity[resource] == 0:
+                del new_quantity[resource]
         return ResourceQuantity(new_quantity)

@@ -42,3 +42,25 @@ def test_resource_quantities_can_be_added():
     assert quantity_c == ResourceQuantity(
         {ResourceType.ORE: 4, ResourceType.CLAY: 3, ResourceType.OBSIDIAN: 5}
     )
+
+
+def test_resource_quantities_can_be_subtracted():
+    quantity_a = ResourceQuantity({ResourceType.ORE: 1, ResourceType.CLAY: 2})
+    quantity_b = ResourceQuantity(
+        {ResourceType.ORE: 3, ResourceType.CLAY: 2, ResourceType.OBSIDIAN: 5}
+    )
+
+    quantity_c = quantity_b - quantity_a
+    assert quantity_c == ResourceQuantity(
+        {ResourceType.ORE: 2, ResourceType.OBSIDIAN: 5}
+    )
+
+
+def test_resource_quantities_can_be_incremented_by_one():
+    quantity = ResourceQuantity({ResourceType.ORE: 1, ResourceType.CLAY: 2})
+    new_quantity = quantity.increment_resource(ResourceType.ORE)
+    assert new_quantity == ResourceQuantity({ResourceType.ORE: 2, ResourceType.CLAY: 2})
+    new_quantity = new_quantity.increment_resource(ResourceType.GEODE)
+    assert new_quantity == ResourceQuantity(
+        {ResourceType.ORE: 2, ResourceType.CLAY: 2, ResourceType.GEODE: 1}
+    )
