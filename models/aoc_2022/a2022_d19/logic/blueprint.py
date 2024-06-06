@@ -20,6 +20,8 @@ class Blueprint:
     def robots_that_can_be_built(
         self, inventory: ResourceQuantity
     ) -> Iterator[ResourceType]:
-        for robot_type, cost in self._costs.items():
-            if cost.all_resources_leq(inventory):
+        for robot_type in ResourceType:
+            if robot_type in self._costs and self._costs[robot_type].all_resources_leq(
+                inventory
+            ):
                 yield robot_type
