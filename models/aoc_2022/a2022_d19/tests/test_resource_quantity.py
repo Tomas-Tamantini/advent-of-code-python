@@ -30,3 +30,15 @@ def test_resource_quantity_is_leq_other_if_all_resoureces_are_leq():
     )
     assert quantity_a.all_resources_leq(quantity_d)
     assert not quantity_d.all_resources_leq(quantity_a)
+
+
+def test_resource_quantities_can_be_added():
+    quantity_a = ResourceQuantity({ResourceType.ORE: 1, ResourceType.CLAY: 2})
+    quantity_b = ResourceQuantity(
+        {ResourceType.ORE: 3, ResourceType.CLAY: 1, ResourceType.OBSIDIAN: 5}
+    )
+
+    quantity_c = quantity_a + quantity_b
+    assert quantity_c == ResourceQuantity(
+        {ResourceType.ORE: 4, ResourceType.CLAY: 3, ResourceType.OBSIDIAN: 5}
+    )

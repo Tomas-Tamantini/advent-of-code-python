@@ -18,3 +18,9 @@ class ResourceQuantity:
             if other._quantity.get(resource, 0) < amount:
                 return False
         return True
+
+    def __add__(self, other: "ResourceQuantity") -> "ResourceQuantity":
+        new_quantity = self._quantity.copy()
+        for resource, amount in other._quantity.items():
+            new_quantity[resource] = new_quantity.get(resource, 0) + amount
+        return ResourceQuantity(new_quantity)
