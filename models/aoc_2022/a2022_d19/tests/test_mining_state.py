@@ -44,10 +44,10 @@ def test_next_mining_states_contains_robots_that_were_built():
                 {ResourceType.OBSIDIAN: 1, ResourceType.GEODE: 1}
             ),
             ResourceType.GEODE: ResourceQuantity(
-                {ResourceType.OBSIDIAN: 12, ResourceType.GEODE: 3}
+                {ResourceType.OBSIDIAN: 1, ResourceType.GEODE: 3}
             ),
             ResourceType.OBSIDIAN: ResourceQuantity(
-                {ResourceType.OBSIDIAN: 1, ResourceType.GEODE: 6, ResourceType.ORE: 2}
+                {ResourceType.OBSIDIAN: 1, ResourceType.GEODE: 2}
             ),
         }
     )
@@ -67,7 +67,7 @@ def test_next_mining_states_contains_robots_that_were_built():
         ),
         MiningState(
             timestamp=1,
-            inventory=ResourceQuantity(dict()),
+            inventory=ResourceQuantity({ResourceType.ORE: 2, ResourceType.GEODE: 4}),
             robots=ResourceQuantity(
                 {ResourceType.ORE: 2, ResourceType.GEODE: 4, ResourceType.OBSIDIAN: 1}
             ),

@@ -20,7 +20,7 @@ class MiningState:
     def next_states(self, blueprint: Blueprint) -> Iterator["MiningState"]:
         incremented_inventory = self.inventory + self.robots
         yield self._build_nothing(incremented_inventory)
-        for robot in blueprint.robots_that_can_be_built(incremented_inventory):
+        for robot in blueprint.robots_that_can_be_built(self.inventory):
             new_robots = self.robots.increment_resource(robot)
             new_inventory = incremented_inventory - blueprint.cost_to_build_robot(robot)
             yield MiningState(
