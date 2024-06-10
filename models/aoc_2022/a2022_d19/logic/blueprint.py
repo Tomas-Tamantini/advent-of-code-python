@@ -25,3 +25,13 @@ class Blueprint:
                 inventory
             ):
                 yield robot_type
+
+    def max_fraction_of_robot_that_can_be_built(
+        self, robot_resource_type: ResourceType, inventory: ResourceQuantity
+    ) -> float:
+        fraction = 1.0
+        cost = self._costs[robot_resource_type]
+        for resource, quantity in cost.resource_amounts():
+            if quantity > 0:
+                fraction = min(fraction, inventory.resource_amount(resource) / quantity)
+        return fraction

@@ -1,9 +1,13 @@
+from typing import Iterator
 from .resource_type import ResourceType
 
 
 class ResourceQuantity:
     def __init__(self, quantity: dict[ResourceType, int]) -> None:
         self._quantity = quantity
+
+    def resource_amounts(self) -> Iterator[tuple[ResourceType, int]]:
+        return self._quantity.items()
 
     def resource_amount(self, resource: ResourceType) -> int:
         return self._quantity.get(resource, 0)
@@ -14,9 +18,11 @@ class ResourceQuantity:
                 return False
         return True
 
-    def increment_resource(self, resource: ResourceType) -> "ResourceQuantity":
+    def increment_resource(
+        self, resource: ResourceType, increment: int = 1
+    ) -> "ResourceQuantity":
         new_quantity = self._quantity.copy()
-        new_quantity[resource] = self.resource_amount(resource) + 1
+        new_quantity[resource] = self.resource_amount(resource) + increment
         return ResourceQuantity(new_quantity)
 
     def __eq__(self, other: object) -> bool:
@@ -40,3 +46,12 @@ class ResourceQuantity:
             if new_quantity[resource] == 0:
                 del new_quantity[resource]
         return ResourceQuantity(new_quantity)
+
+    def __mul__(self, scalar: int) -> "ResourceQuantity":
+        new_quantity = self._quantity.copy()
+        for resource in new_quantity:
+            new_quantity[resource] *= scalar
+        return ResourceQuantity(new_quantity)
+
+    def __rmul__(self, scalar: int) -> "ResourceQuantity":
+        return self.__mul__(scalar)

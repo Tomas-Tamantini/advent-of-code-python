@@ -1,3 +1,4 @@
+from typing import Iterator
 from .resource_type import ResourceType
 from .blueprint import Blueprint
 from .mining_state import MiningState
@@ -40,11 +41,40 @@ def _resource_upper_limit(
     blueprint: Blueprint,
     current_state: MiningState,
 ) -> int:
-    remaining_time = time_limit - current_state.timestamp
-    num_inventory = current_state.inventory.resource_amount(resource_to_maximize)
-    num_existing_robots = current_state.robots.resource_amount(resource_to_maximize)
-    return (
-        num_inventory
-        + num_existing_robots * remaining_time
-        + (remaining_time * (remaining_time - 1)) // 2
+    if time_limit == current_state.timestamp:
+        return current_state.inventory.resource_amount(resource_to_maximize)
+    remaining_factory_capacity: float = 1.0
+    new_inventory = current_state.inventory
+    new_robots = current_state.robots
+    for robot_type in _prioritized_robots(
+        resource_to_maximize, blueprint, current_state
+    ):
+        robot_fraction = min(
+            remaining_factory_capacity,
+            blueprint.max_fraction_of_robot_that_can_be_built(
+                robot_type, new_inventory
+            ),
+        )
+        new_robots = new_robots.increment_resource(robot_type, robot_fraction)
+        new_inventory = new_inventory - robot_fraction * blueprint.cost_to_build_robot(
+            robot_type
+        )
+        remaining_factory_capacity -= robot_fraction
+    new_inventory = new_inventory + current_state.robots
+    new_timestamp = current_state.timestamp + 1
+    new_state = MiningState(new_timestamp, new_inventory, new_robots)
+    return _resource_upper_limit(resource_to_maximize, time_limit, blueprint, new_state)
+
+
+def _prioritized_robots(
+    resource_to_maximize: ResourceType,
+    blueprint: Blueprint,
+    current_state: MiningState,
+) -> Iterator[ResourceType]:
+    # TODO: Implement a better heuristic for robot prioritization
+    yield from (
+        ResourceType.GEODE,
+        ResourceType.OBSIDIAN,
+        ResourceType.CLAY,
+        ResourceType.ORE,
     )
