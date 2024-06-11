@@ -1,4 +1,6 @@
 import pytest
+from unittest.mock import Mock
+from dataclasses import dataclass
 from models.common.optimization.linear_programming import (
     ContinuousVariable,
     IntegerVariable,
@@ -8,6 +10,7 @@ from models.common.optimization.linear_programming import (
     ObjectiveFunction,
     MilpSolver,
 )
+from models.common.optimization.branch_and_bound import maximize_with_branch_and_bound
 
 
 def test_continuous_variable_is_not_integer():
@@ -132,3 +135,69 @@ def test_infeasible_milp_problem_raises_value_error():
     solver.add_constraint(constraint)
     with pytest.raises(ValueError):
         solver.solve()
+
+
+def test_branch_and_bound_of_single_state_returns_that_state():
+    mock_explorer = Mock()
+    initial_state = "initial"
+    mock_explorer.objective_value.return_value = 42
+    mock_explorer.upper_bound_on_objective_value.return_value = 123
+    mock_explorer.children_states.return_value = []
+    result = maximize_with_branch_and_bound(initial_state, mock_explorer)
+    assert result == 42
+
+
+def test_branch_and_bound_finds_state_with_maximum_objective_value():
+    initial_state = "A"
+    mock_explorer = Mock()
+    mock_explorer.objective_value.side_effect = lambda state: ord(state)
+    mock_explorer.upper_bound_on_objective_value.side_effect = lambda state: ord(state)
+    mock_explorer.children_states.side_effect = lambda state: ["B", "C"]
+    result = maximize_with_branch_and_bound(initial_state, mock_explorer)
+    assert result == ord("C")
+
+
+def test_branch_and_bound_prunes_branches_with_insufficient_upper_bound():
+    @dataclass
+    class _StateSpy:
+        value: int
+        visited: bool = False
+        children: list["_StateSpy"] = None
+
+        def __hash__(self) -> int:
+            return hash(self.value)
+
+        def __eq__(self, other) -> bool:
+            return self.value == other.value
+
+    class MockExplorer:
+        def objective_value(self, state):
+            return state.value
+
+        def upper_bound_on_objective_value(self, state):
+            state.visited = True
+            max_value = state.value
+            for child in state.children or []:
+                max_value = max(max_value, child.value)
+            return max_value
+
+        def children_states(self, state):
+            return state.children or []
+
+    state_a = _StateSpy(1)
+    state_b = _StateSpy(2)
+    state_c = _StateSpy(3)
+    state_d = _StateSpy(5)
+    state_e = _StateSpy(4)
+
+    state_a.children = [state_c, state_b]
+    state_b.children = [state_d]
+    state_c.children = [state_e]
+
+    result = maximize_with_branch_and_bound(state_a, MockExplorer())
+    assert result == 5
+    assert state_a.visited
+    assert state_b.visited
+    assert state_c.visited
+    assert state_d.visited
+    assert not state_e.visited

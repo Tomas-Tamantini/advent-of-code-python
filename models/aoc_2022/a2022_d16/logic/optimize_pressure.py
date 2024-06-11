@@ -1,6 +1,22 @@
+from typing import Iterator
 from .volcano import Volcano
 from .volcano_worker import VolcanoWorker
 from .volcano_state import VolcanoState
+from models.common.optimization.branch_and_bound import maximize_with_branch_and_bound
+
+
+class _VolcanoExplorer:
+    def __init__(self, volcano: Volcano) -> None:
+        self._volcano = volcano
+
+    def objective_value(self, state: VolcanoState) -> float:
+        return state.pressure_released
+
+    def upper_bound_on_objective_value(self, state: VolcanoState) -> float:
+        return state.pressure_release_upper_bound(self._volcano)
+
+    def children_states(self, state: VolcanoState) -> Iterator[VolcanoState]:
+        yield from state.next_states(self._volcano)
 
 
 def maximum_pressure_release(
@@ -15,22 +31,5 @@ def maximum_pressure_release(
             for _ in range(num_workers)
         ),
     )
-    explored_states = set()
-    explore_stack = [inital_state]
-    maximum_pressure_release_so_far = lower_bound - 1
-    while explore_stack:
-        current_state = explore_stack.pop()
-        if current_state in explored_states:
-            continue
-        # Branch and bound
-        if (
-            current_state.pressure_release_upper_bound(volcano)
-            > maximum_pressure_release_so_far
-        ):
-            maximum_pressure_release_so_far = max(
-                maximum_pressure_release_so_far, current_state.pressure_released
-            )
-            for next_state in current_state.next_states(volcano):
-                explore_stack.append(next_state)
-        explored_states.add(current_state)
-    return maximum_pressure_release_so_far
+    explorer = _VolcanoExplorer(volcano)
+    return maximize_with_branch_and_bound(inital_state, explorer, lower_bound)
