@@ -1,6 +1,6 @@
 from typing import Iterator, Iterable
 from models.common.io import InputReader
-from .logic import Blueprint, ResourceType, ResourceQuantity
+from .logic import Blueprint, ResourceType, RobotCost
 
 STR_TO_RESOURCE_TYPE = {
     "ore": ResourceType.ORE,
@@ -21,15 +21,13 @@ def _parse_robot_cost(cost_str: str) -> dict[ResourceType, int]:
     return robot_cost
 
 
-def _parse_robot_costs(robots: Iterable[str]) -> dict[ResourceType, ResourceQuantity]:
-    costs = dict()
+def _parse_robot_costs(robots: Iterable[str]) -> Iterator[RobotCost]:
     for robot in robots:
         robot = robot.strip()
         if robot:
             robot_type = STR_TO_RESOURCE_TYPE[robot.split(" ")[1]]
             robot_cost = _parse_robot_cost(robot)
-            costs[robot_type] = ResourceQuantity(robot_cost)
-    return costs
+            yield RobotCost(robot_type, robot_cost)
 
 
 def _parse_blueprint(line: str) -> Blueprint:

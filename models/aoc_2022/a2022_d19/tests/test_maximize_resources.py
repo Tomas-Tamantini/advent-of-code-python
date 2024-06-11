@@ -1,7 +1,7 @@
 import pytest
 from ..logic import (
     ResourceType,
-    ResourceQuantity,
+    RobotCost,
     Blueprint,
     MiningState,
     max_num_resource,
@@ -11,32 +11,36 @@ from ..logic import (
 def _example_blueprint_1() -> Blueprint:
     return Blueprint(
         blueprint_id=1,
-        costs={
-            ResourceType.ORE: ResourceQuantity({ResourceType.ORE: 4}),
-            ResourceType.CLAY: ResourceQuantity({ResourceType.ORE: 2}),
-            ResourceType.OBSIDIAN: ResourceQuantity(
-                {ResourceType.ORE: 3, ResourceType.CLAY: 14}
+        costs=[
+            RobotCost(robot_type=ResourceType.ORE, cost={ResourceType.ORE: 4}),
+            RobotCost(robot_type=ResourceType.CLAY, cost={ResourceType.ORE: 2}),
+            RobotCost(
+                robot_type=ResourceType.OBSIDIAN,
+                cost={ResourceType.ORE: 3, ResourceType.CLAY: 14},
             ),
-            ResourceType.GEODE: ResourceQuantity(
-                {ResourceType.ORE: 2, ResourceType.OBSIDIAN: 7}
+            RobotCost(
+                robot_type=ResourceType.GEODE,
+                cost={ResourceType.ORE: 2, ResourceType.OBSIDIAN: 7},
             ),
-        },
+        ],
     )
 
 
 def _example_blueprint_2() -> Blueprint:
     return Blueprint(
         blueprint_id=2,
-        costs={
-            ResourceType.ORE: ResourceQuantity({ResourceType.ORE: 2}),
-            ResourceType.CLAY: ResourceQuantity({ResourceType.ORE: 3}),
-            ResourceType.OBSIDIAN: ResourceQuantity(
-                {ResourceType.ORE: 3, ResourceType.CLAY: 8}
+        costs=[
+            RobotCost(robot_type=ResourceType.ORE, cost={ResourceType.ORE: 2}),
+            RobotCost(robot_type=ResourceType.CLAY, cost={ResourceType.ORE: 3}),
+            RobotCost(
+                robot_type=ResourceType.OBSIDIAN,
+                cost={ResourceType.ORE: 3, ResourceType.CLAY: 8},
             ),
-            ResourceType.GEODE: ResourceQuantity(
-                {ResourceType.ORE: 3, ResourceType.OBSIDIAN: 12}
+            RobotCost(
+                robot_type=ResourceType.GEODE,
+                cost={ResourceType.ORE: 3, ResourceType.OBSIDIAN: 12},
             ),
-        },
+        ],
     )
 
 
@@ -50,11 +54,7 @@ def _example_blueprint_2() -> Blueprint:
 def test_maximum_number_of_geodes_for_given_blueprint_is_found(
     blueprint, max_num_geodes
 ):
-    starting_state = MiningState(
-        timestamp=0,
-        inventory=ResourceQuantity(dict()),
-        robots=ResourceQuantity({ResourceType.ORE: 1}),
-    )
+    starting_state = MiningState(inventory=dict(), fleet_size={ResourceType.ORE: 1})
     time_limit = 24
     resource_to_maximize = ResourceType.GEODE
     assert (

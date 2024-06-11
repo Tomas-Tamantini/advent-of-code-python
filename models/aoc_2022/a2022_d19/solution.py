@@ -1,6 +1,8 @@
 from models.common.io import InputReader, ProgressBarConsole
 from .parser import parse_blueprints
-from .logic import max_num_resource, ResourceType, ResourceQuantity, MiningState
+from .logic import max_num_resource, ResourceType, MiningState
+
+# See MILP modelling at - https://colab.research.google.com/drive/1eD3sn1LPaT_qwa1PSUpPvhJopiWKPKGy?usp=sharing
 
 
 def aoc_2022_d19(
@@ -11,9 +13,8 @@ def aoc_2022_d19(
     time_limit = 24
     resource_to_maximize = ResourceType.GEODE
     initial_state = MiningState(
-        timestamp=0,
-        inventory=ResourceQuantity(dict()),
-        robots=ResourceQuantity({ResourceType.ORE: 1}),
+        inventory=dict(),
+        fleet_size={ResourceType.ORE: 1},
     )
 
     sum_quality_levels = 0

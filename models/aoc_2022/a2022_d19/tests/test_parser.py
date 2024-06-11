@@ -1,6 +1,6 @@
 from models.common.io import InputFromString
 from ..parser import parse_blueprints
-from ..logic import ResourceType, ResourceQuantity
+from ..logic import ResourceType
 
 
 def test_parse_blueprints():
@@ -13,9 +13,19 @@ def test_parse_blueprints():
     assert len(blueprints) == 2
     assert blueprints[0].blueprint_id == 1
     assert blueprints[1].blueprint_id == 2
-    assert blueprints[0].cost_to_build_robot(ResourceType.ORE) == ResourceQuantity(
-        {ResourceType.ORE: 2}
+    assert (
+        blueprints[0].cost(robot_type=ResourceType.ORE, resource_type=ResourceType.ORE)
+        == 2
     )
-    assert blueprints[1].cost_to_build_robot(ResourceType.GEODE) == ResourceQuantity(
-        {ResourceType.ORE: 3, ResourceType.OBSIDIAN: 8}
+    assert (
+        blueprints[1].cost(
+            robot_type=ResourceType.GEODE, resource_type=ResourceType.OBSIDIAN
+        )
+        == 8
+    )
+    assert (
+        blueprints[1].cost(
+            robot_type=ResourceType.GEODE, resource_type=ResourceType.CLAY
+        )
+        == 0
     )

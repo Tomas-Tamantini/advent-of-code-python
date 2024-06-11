@@ -1,28 +1,14 @@
-from typing import Iterator
 from dataclasses import dataclass
-from .resource_quantity import ResourceQuantity
-from .blueprint import Blueprint
+from .resource_type import ResourceType
 
 
-@dataclass(frozen=True)
+@dataclass
 class MiningState:
-    timestamp: int
-    inventory: ResourceQuantity
-    robots: ResourceQuantity
+    inventory: dict[ResourceType, int]
+    fleet_size: dict[ResourceType, int]
 
-    def _build_nothing(self, incremented_inventory: ResourceQuantity) -> "MiningState":
-        return MiningState(
-            timestamp=self.timestamp + 1,
-            inventory=incremented_inventory,
-            robots=self.robots,
-        )
+    def resource_amount(self, resource_type: ResourceType) -> int:
+        return self.inventory.get(resource_type, 0)
 
-    def next_states(self, blueprint: Blueprint) -> Iterator["MiningState"]:
-        incremented_inventory = self.inventory + self.robots
-        yield self._build_nothing(incremented_inventory)
-        for robot in blueprint.robots_that_can_be_built(self.inventory):
-            new_robots = self.robots.increment_resource(robot)
-            new_inventory = incremented_inventory - blueprint.cost_to_build_robot(robot)
-            yield MiningState(
-                timestamp=self.timestamp + 1, inventory=new_inventory, robots=new_robots
-            )
+    def num_robots(self, resource_type: ResourceType) -> int:
+        return self.fleet_size.get(resource_type, 0)
