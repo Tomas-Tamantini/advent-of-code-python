@@ -8,6 +8,9 @@ class OperationMonkey(Protocol):
     @property
     def name(self) -> str: ...
 
+    @property
+    def rational_function(self) -> RationalFunction: ...
+
     def evaluate(self) -> Fraction: ...
 
 
@@ -29,3 +32,22 @@ class BinaryOperationMonkey:
 
     def evaluate(self) -> Fraction:
         return self.operation(self.left_child.evaluate(), self.right_child.evaluate())
+
+    @property
+    def rational_function(self) -> RationalFunction:
+        return self.operation(
+            self.left_child.rational_function, self.right_child.rational_function
+        )
+
+    def solve_for_equality(self) -> Fraction:
+        left_expression = self.left_child.rational_function
+        right_expression = self.right_child.rational_function
+        polynomial = (
+            left_expression.numerator * right_expression.denominator
+            - right_expression.numerator * left_expression.denominator
+        )
+        if polynomial.degree > 1:
+            raise NotImplementedError(
+                "Cannot solve for equality of polynomials of degree > 1"
+            )
+        return Fraction(-polynomial.coefficients[0], polynomial.coefficients[1])

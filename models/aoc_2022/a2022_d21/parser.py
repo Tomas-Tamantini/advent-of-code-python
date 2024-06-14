@@ -1,4 +1,4 @@
-from typing import Iterator, Union
+from typing import Iterator, Union, Optional, Callable
 from dataclasses import dataclass
 from models.common.io import InputReader
 from models.common.polynomials import Polynomial, RationalFunction
@@ -12,13 +12,14 @@ class _UnparsedMonkey:
     operation_symbol: chr
 
 
-def _parse_operation(monkey):
-    operation_symbol = monkey.operation_symbol
+def _parse_operation(
+    operation_symbol: chr,
+) -> Callable[[RationalFunction, RationalFunction], RationalFunction]:
     return {
         "+": lambda x, y: x + y,
         "*": lambda x, y: x * y,
         "-": lambda x, y: x - y,
-        "/": lambda x, y: x // y,
+        "/": lambda x, y: x / y,
     }[operation_symbol]
 
 
@@ -43,7 +44,7 @@ def _parse_binary_operation_monkey(
 ) -> BinaryOperationMonkey:
     unparsed_monkey = unparsed_monkeys.pop(monkey_name)
     children = _parse_children(unparsed_monkey, parsed_monkeys, unparsed_monkeys)
-    operation = _parse_operation(unparsed_monkey)
+    operation = _parse_operation(unparsed_monkey.operation_symbol)
     parsed_monkey = BinaryOperationMonkey(monkey_name, *children, operation)
     parsed_monkeys[monkey_name] = parsed_monkey
     return parsed_monkey
@@ -58,9 +59,18 @@ def _parse_binary_operation_monkeys(
         _parse_binary_operation_monkey(monkey_name, parsed_monkeys, unparsed_monkeys)
 
 
-def _initial_parsing(line: str) -> Union[LeafMonkey, _UnparsedMonkey]:
+def _initial_parsing(
+    line: str, monkey_with_unknown_value: Optional[str]
+) -> Union[LeafMonkey, _UnparsedMonkey]:
     parts = line.split(":")
     monkey_name = parts[0].strip()
+    if monkey_name == monkey_with_unknown_value:
+        return LeafMonkey(
+            name=monkey_name,
+            rational_function=RationalFunction(
+                numerator=Polynomial((0, 1)), denominator=Polynomial((1,))
+            ),
+        )
     try:
         value = int(parts[1].strip())
         rational_function = RationalFunction(
@@ -76,11 +86,13 @@ def _initial_parsing(line: str) -> Union[LeafMonkey, _UnparsedMonkey]:
         )
 
 
-def parse_operation_monkeys(input_reader: InputReader) -> list[OperationMonkey]:
+def parse_operation_monkeys(
+    input_reader: InputReader, monkey_with_unknown_value: Optional[str] = None
+) -> list[OperationMonkey]:
     unparsed_monkeys = dict()
     parsed_monkeys = dict()
     for line in input_reader.read_stripped_lines():
-        monkey = _initial_parsing(line)
+        monkey = _initial_parsing(line, monkey_with_unknown_value)
         if isinstance(monkey, LeafMonkey):
             parsed_monkeys[monkey.name] = monkey
         else:
