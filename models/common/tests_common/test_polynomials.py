@@ -1,5 +1,6 @@
 import pytest
-from ..polynomials import Polynomial
+from ..polynomials import Polynomial, RationalFunction
+from fractions import Fraction
 
 
 def test_polynomials_with_the_same_coefficients_are_considered_equal():
@@ -78,3 +79,43 @@ def test_polynomial_multiplication_results_in_sum_of_degrees(
 ):
     result = Polynomial(coeff_a) * Polynomial(coeff_b)
     assert result.coefficients == expected
+
+
+def test_polynomial_integer_division_is_done_coefficient_wise():
+    pol = Polynomial(coefficients=(1, 2, 7))
+    result = pol // 2
+    assert result.coefficients == (0, 1, 3)
+
+
+def test_rational_functions_with_the_same_coefficients_are_considered_equal():
+    pol_a = Polynomial(coefficients=(1, 2, 3))
+    pol_b = Polynomial(coefficients=(3, 0, 1))
+    a = RationalFunction(numerator=pol_a, denominator=pol_b)
+    b = RationalFunction(numerator=pol_a, denominator=pol_b)
+    c = RationalFunction(numerator=pol_b, denominator=pol_a)
+    assert a == b
+    assert hash(a) == hash(b)
+
+    assert a != c
+    assert hash(a) != hash(c)
+
+
+def test_rational_functions_simplify_scalar_factors_in_common_in_numerator_and_denominator():
+    a = RationalFunction(
+        numerator=Polynomial(coefficients=(6, 6, 12)),
+        denominator=Polynomial(coefficients=(6, 9, 9)),
+    )
+    b = RationalFunction(
+        numerator=Polynomial(coefficients=(2, 2, 4)),
+        denominator=Polynomial(coefficients=(2, 3, 3)),
+    )
+    assert a == b
+    assert hash(a) == hash(b)
+
+
+def test_rational_function_evaluation_substitutes_variable_and_returns_fraction():
+    rat_fun = RationalFunction(
+        numerator=Polynomial(coefficients=(1, 2, 3)),
+        denominator=Polynomial(coefficients=(3, 2, 1)),
+    )
+    assert rat_fun.evaluate(x=2) == Fraction(17, 11)
