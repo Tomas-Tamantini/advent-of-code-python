@@ -53,6 +53,12 @@ class Polynomial:
                 new_coefficients[i + j] += coeff_a * coeff_b
         return Polynomial(coefficients=tuple(new_coefficients))
 
+    def __floordiv__(self, other: int) -> "Polynomial":
+        if other == 1:
+            return self
+        else:
+            return Polynomial(coefficients=tuple(c // other for c in self.coefficients))
+
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Polynomial):
             return False
