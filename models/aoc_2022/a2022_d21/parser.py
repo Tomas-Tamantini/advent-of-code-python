@@ -1,6 +1,7 @@
 from typing import Iterator, Union
 from dataclasses import dataclass
 from models.common.io import InputReader
+from models.common.polynomials import Polynomial, RationalFunction
 from .operation_monkeys import OperationMonkey, LeafMonkey, BinaryOperationMonkey
 
 
@@ -62,7 +63,10 @@ def _initial_parsing(line: str) -> Union[LeafMonkey, _UnparsedMonkey]:
     monkey_name = parts[0].strip()
     try:
         value = int(parts[1].strip())
-        return LeafMonkey(name=monkey_name, value=value)
+        rational_function = RationalFunction(
+            numerator=Polynomial((value,)), denominator=Polynomial((1,))
+        )
+        return LeafMonkey(monkey_name, rational_function)
     except ValueError:
         left_name, operation_symbol, right_name = parts[1].strip().split()
         return _UnparsedMonkey(
