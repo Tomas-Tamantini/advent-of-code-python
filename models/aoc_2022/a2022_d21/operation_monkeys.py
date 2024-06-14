@@ -20,6 +20,7 @@ class LeafMonkey:
 
 @dataclass
 class BinaryOperationMonkey:
+    name: str
     left_child: OperationMonkey
     right_child: OperationMonkey
     operation: Callable[[int, int], int]
