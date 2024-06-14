@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Iterator, Optional
+from models.common.io import ProgressBar
 
 
 @dataclass
@@ -30,11 +31,9 @@ class _CircularLinkedList:
     def move_node(self, node: _CircularListNode, num_steps: int) -> None:
         position_to_insert = node.previous_node
         self.remove_node(node)
-        for _ in range(abs(num_steps)):
-            if num_steps > 0:
-                position_to_insert = position_to_insert.next_node
-            else:
-                position_to_insert = position_to_insert.previous_node
+        reduced_steps = num_steps % (len(self._nodes) - 1)
+        for _ in range(reduced_steps):
+            position_to_insert = position_to_insert.next_node
         self.add_node_after(node, position_to_insert)
 
     def add_node_after(
@@ -55,8 +54,17 @@ def _initialize_linked_list(lst: list[int]) -> _CircularLinkedList:
     return linked_list
 
 
-def mix_list(lst: list[int]) -> list[int]:
-    linked_list = _initialize_linked_list(lst)
+def _shuffle_list_once(linked_list: _CircularLinkedList) -> None:
     for node in linked_list.nodes:
         linked_list.move_node(node, num_steps=node.value)
+
+
+def mix_list(
+    lst: list[int], num_rounds: int = 1, progress_bar: Optional[ProgressBar] = None
+) -> list[int]:
+    linked_list = _initialize_linked_list(lst)
+    for r in range(num_rounds):
+        if progress_bar:
+            progress_bar.update(r, num_rounds)
+        _shuffle_list_once(linked_list)
     return list(linked_list.values_in_order())
