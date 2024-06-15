@@ -51,7 +51,9 @@ class ObstacleBoard:
         new_position = position.move(facing, y_grows_down=True)
         return self._wrap_around(new_position, facing.is_horizontal)
 
-    def next_position(self, navigator: BoardNavigator, num_steps: int) -> Vector2D:
+    def move_navigator_forward(
+        self, navigator: BoardNavigator, num_steps: int
+    ) -> BoardNavigator:
         current_position = navigator.position
         for _ in range(num_steps):
             new_position = self._next_adjacent_position(
@@ -61,4 +63,4 @@ class ObstacleBoard:
                 break
             else:
                 current_position = new_position
-        return current_position
+        return BoardNavigator(current_position, navigator.facing)

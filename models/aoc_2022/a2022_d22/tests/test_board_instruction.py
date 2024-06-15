@@ -14,12 +14,13 @@ def test_turn_instruction_turns_navigator_in_place():
 
 
 def test_move_forward_moves_navigator_to_permitted_position_on_board():
-    navigator = BoardNavigator(position=Vector2D(0, 0), facing=CardinalDirection.WEST)
+    navigator = BoardNavigator(position=Vector2D(0, 0), facing=CardinalDirection.SOUTH)
     instruction = MoveForwardInstruction(num_steps=3)
     board = Mock()
-    board.next_position.return_value = Vector2D(123, 321)
-    new_navigator = instruction.execute(navigator, board)
-    assert new_navigator == BoardNavigator(
-        position=Vector2D(123, 321), facing=CardinalDirection.WEST
+    new_navigator_return_value = BoardNavigator(
+        position=Vector2D(123, 321), facing=CardinalDirection.SOUTH
     )
-    board.next_position.assert_called_once_with(navigator, 3)
+    board.move_navigator_forward.return_value = new_navigator_return_value
+    new_navigator = instruction.execute(navigator, board)
+    assert new_navigator == new_navigator_return_value
+    board.move_navigator_forward.assert_called_once_with(navigator, 3)
