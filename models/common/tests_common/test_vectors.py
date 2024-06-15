@@ -36,6 +36,10 @@ def test_vector_product_of_two_d_vectors_yields_int():
     assert Vector2D(1, 2).vector_product_2d(Vector2D(3, 4)) == -2
 
 
+def test_dot_product_of_two_vectors_yields_int():
+    assert Vector2D(1, 2).dot_product(Vector2D(3, 4)) == 11
+
+
 def test_vector_moves_by_one_step_by_default():
     assert Vector2D(0, 0).move(CardinalDirection.NORTH) == Vector2D(0, 1)
     assert Vector2D(0, 0).move(CardinalDirection.EAST) == Vector2D(1, 0)

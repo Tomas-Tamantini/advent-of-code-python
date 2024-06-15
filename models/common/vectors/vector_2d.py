@@ -39,6 +39,9 @@ class Vector2D:
     def vector_product_2d(self, other: "Vector2D") -> int:
         return self.x * other.y - self.y * other.x
 
+    def dot_product(self, other: "Vector2D") -> int:
+        return self.x * other.x + self.y * other.y
+
     def __add__(self, other: "Vector2D") -> "Vector2D":
         return Vector2D(self.x + other.x, self.y + other.y)
 
