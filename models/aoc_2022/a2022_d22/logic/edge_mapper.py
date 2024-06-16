@@ -5,12 +5,19 @@ from .cube_net import CubeNet
 
 
 class EdgeMapper(Protocol):
+    @property
+    def cube_net(self) -> CubeNet: ...
+
     def next_navigator_state(self, navigator: CubeNavigator) -> CubeNavigator: ...
 
 
 class PacmanEdgeMapper:
     def __init__(self, cube_net: CubeNet):
         self._cube_net = cube_net
+
+    @property
+    def cube_net(self) -> CubeNet:
+        return self._cube_net
 
     def next_navigator_state(self, navigator: CubeNavigator) -> CubeNavigator:
         dx, dy = navigator.facing.offset()

@@ -37,3 +37,7 @@ def test_cube_net_returns_faces_on_given_column():
 
 def test_cube_net_stores_face_positions():
     assert Vector2D(1, 3) == net.face_position("top")
+
+
+def test_cube_net_returns_topmost_left_position():
+    assert Vector2D(50, 0) == net.topmost_left_position()

@@ -5,3 +5,5 @@ from .board_instruction import BoardInstruction, TurnInstruction, MoveForwardIns
 from .cube_navigator import CubeNavigator
 from .cube_net import CubeNet
 from .edge_mapper import EdgeMapper, PacmanEdgeMapper
+from .cube_board import CubeBoard
+from .cube_face import CubeFace

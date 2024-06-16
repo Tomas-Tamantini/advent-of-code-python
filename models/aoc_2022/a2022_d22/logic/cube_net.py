@@ -20,6 +20,12 @@ class CubeNet(Generic[T]):
     def edge_length(self) -> int:
         return self._edge_length
 
+    def topmost_left_position(self) -> Vector2D:
+        leftmost_face_on_top_row = min(
+            self.faces_on_row(0), key=lambda face: self.face_position(face).x
+        )
+        return self.face_position(leftmost_face_on_top_row) * self._edge_length
+
     def face_position(self, cube_face: T) -> Vector2D:
         return self._faces_to_positions[cube_face]
 
