@@ -28,21 +28,29 @@ class PacmanEdgeMapper:
         )
 
         face_position = self._cube_net.face_position(navigator.cube_face)
-        faces = (
-            self._cube_net.faces_on_row(face_position.y)
-            if navigator.facing.is_horizontal
-            else self._cube_net.faces_on_column(face_position.x)
-        )
+        new_face_position = face_position.move(navigator.facing, y_grows_down=True)
+        if (new_face := self._cube_net.face_at(new_face_position)) is not None:
+            return CubeNavigator(
+                cube_face=new_face,
+                relative_position=new_relative_position,
+                facing=navigator.facing,
+            )
+        else:
+            faces = (
+                self._cube_net.faces_on_row(face_position.y)
+                if navigator.facing.is_horizontal
+                else self._cube_net.faces_on_column(face_position.x)
+            )
 
-        new_face = min(
-            faces,
-            key=lambda face: self._cube_net.face_position(face).dot_product(
-                offset_vector
-            ),
-        )
+            new_face = min(
+                faces,
+                key=lambda face: self._cube_net.face_position(face).dot_product(
+                    offset_vector
+                ),
+            )
 
-        return CubeNavigator(
-            cube_face=new_face,
-            relative_position=new_relative_position,
-            facing=navigator.facing,
-        )
+            return CubeNavigator(
+                cube_face=new_face,
+                relative_position=new_relative_position,
+                facing=navigator.facing,
+            )

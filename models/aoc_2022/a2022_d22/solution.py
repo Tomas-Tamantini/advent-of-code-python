@@ -1,7 +1,7 @@
 from models.common.io import InputReader
-from models.common.vectors import Vector2D, CardinalDirection
-from .parser import parse_obstacle_board_and_instructions
-from .logic import BoardNavigator
+from models.common.vectors import CardinalDirection
+from .parser import parse_cube_net_and_instructions
+from .logic import BoardNavigator, PacmanEdgeMapper, CubeBoard
 
 
 def _navigator_password(navigator: BoardNavigator) -> int:
@@ -18,11 +18,15 @@ def _navigator_password(navigator: BoardNavigator) -> int:
 
 def aoc_2022_d22(input_reader: InputReader, **_) -> None:
     print("--- AOC 2022 - Day 22: Monkey Map ---")
-    board, instructions = parse_obstacle_board_and_instructions(input_reader)
+    cube_net, instructions = parse_cube_net_and_instructions(
+        input_reader, edge_length=50
+    )
+    pacman_edge_mapper = PacmanEdgeMapper(cube_net)
+    board = CubeBoard(pacman_edge_mapper)
     navigator = BoardNavigator(
         position=board.initial_position, facing=CardinalDirection.EAST
     )
     for instruction in instructions:
         navigator = instruction.execute(navigator, board)
     password = _navigator_password(navigator)
-    print(f"Part 1: The password is {password}")
+    print(f"Part 1: The password with pacman map is {password}")

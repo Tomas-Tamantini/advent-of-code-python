@@ -1,12 +1,12 @@
 from typing import Iterator
 from models.common.vectors import Vector2D, TurnDirection
 from models.common.io import InputReader
-from models.common.number_theory import Interval
 from .logic import (
-    ObstacleBoard,
+    CubeNet,
     TurnInstruction,
     MoveForwardInstruction,
     BoardInstruction,
+    CubeFace,
 )
 
 
@@ -27,34 +27,31 @@ def _parse_instructions(line: str) -> Iterator[BoardInstruction]:
         yield MoveForwardInstruction(num_steps)
 
 
-def _non_empty_interval(line: str) -> Interval:
-    start = 0
-    end = len(line)
-    while start < len(line) and line[start] not in "#.":
-        start += 1
-    while end > start and line[end - 1] not in "#.":
-        end -= 1
-    return Interval(start, end - 1)
+def _parse_cube_net(lines: list[str], edge_length: int) -> CubeNet:
+    walls = dict()
+    for row_idx, row in enumerate(lines):
+        for column_idx, character in enumerate(row):
+            if character in ".#":
+                cube_face_position = Vector2D(
+                    column_idx // edge_length, row_idx // edge_length
+                )
+                if cube_face_position not in walls:
+                    walls[cube_face_position] = set()
+                if character == "#":
+                    wall_position = Vector2D(
+                        column_idx % edge_length, row_idx % edge_length
+                    )
+                    walls[cube_face_position].add(wall_position)
+    cube_faces_planar_positions = {CubeFace(frozenset(v)): k for k, v in walls.items()}
+    return CubeNet(edge_length, cube_faces_planar_positions)
 
 
-def _character_positions(line: str, character: chr) -> Iterator[int]:
-    return (idx for idx, c in enumerate(line) if c == character)
-
-
-def _parse_board(lines: list[str]) -> ObstacleBoard:
-    wall_positions = set()
-    rows = list()
-    for row_idx, line in enumerate(lines):
-        rows.append(_non_empty_interval(line))
-        for col_idx in _character_positions(line, "#"):
-            wall_positions.add(Vector2D(col_idx, row_idx))
-    return ObstacleBoard(tuple(rows), wall_positions)
-
-
-def parse_obstacle_board_and_instructions(
-    input_reader: InputReader,
-) -> tuple[ObstacleBoard, list[BoardInstruction]]:
+def parse_cube_net_and_instructions(
+    input_reader: InputReader, edge_length: int
+) -> tuple[CubeNet, list[BoardInstruction]]:
     lines = [l for l in input_reader.readlines() if l.strip()]
-    board_lines = lines[:-1]
+    cube_net_lines = lines[:-1]
     instruction_line = lines[-1]
-    return _parse_board(board_lines), list(_parse_instructions(instruction_line))
+    return _parse_cube_net(cube_net_lines, edge_length), list(
+        _parse_instructions(instruction_line)
+    )

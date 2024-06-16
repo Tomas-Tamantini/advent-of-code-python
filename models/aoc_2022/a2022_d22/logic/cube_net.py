@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, Iterator
+from typing import TypeVar, Generic, Iterator, Optional
 from models.common.vectors import Vector2D
 from .cube_navigator import CubeNavigator
 from .board_navigator import BoardNavigator
@@ -28,6 +28,9 @@ class CubeNet(Generic[T]):
 
     def face_position(self, cube_face: T) -> Vector2D:
         return self._faces_to_positions[cube_face]
+
+    def face_at(self, position: Vector2D) -> Optional[T]:
+        return self._positions_to_faces.get(position)
 
     def faces_on_row(self, row: int) -> Iterator[T]:
         yield from (

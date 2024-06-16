@@ -14,7 +14,7 @@ net = CubeNet(
 )
 
 
-def test_pacman_edge_mapper_sends_navigator_travelling_east_to_leftmost_side_of_cube_net():
+def test_pacman_edge_mapper_sends_navigator_to_adjacent_face_if_one_exists():
     cube_navigator = CubeNavigator(
         cube_face="right",
         relative_position=Vector2D(9, 3),
@@ -29,7 +29,22 @@ def test_pacman_edge_mapper_sends_navigator_travelling_east_to_leftmost_side_of_
     assert expected_navigator == edge_mapper.next_navigator_state(cube_navigator)
 
 
-def test_pacman_edge_mapper_sends_navigator_travelling_west_to_rightmost_side_of_cube_net():
+def test_pacman_edge_mapper_sends_navigator_travelling_east_to_leftmost_side_of_cube_net_if_no_adjacent_face():
+    cube_navigator = CubeNavigator(
+        cube_face="bottom",
+        relative_position=Vector2D(9, 3),
+        facing=CardinalDirection.EAST,
+    )
+    expected_navigator = CubeNavigator(
+        cube_face="right",
+        relative_position=Vector2D(0, 3),
+        facing=CardinalDirection.EAST,
+    )
+    edge_mapper = PacmanEdgeMapper(net)
+    assert expected_navigator == edge_mapper.next_navigator_state(cube_navigator)
+
+
+def test_pacman_edge_mapper_sends_navigator_travelling_west_to_rightmost_side_of_cube_net_if_no_adjacent_face():
     cube_navigator = CubeNavigator(
         cube_face="top",
         relative_position=Vector2D(0, 4),
@@ -44,7 +59,7 @@ def test_pacman_edge_mapper_sends_navigator_travelling_west_to_rightmost_side_of
     assert expected_navigator == edge_mapper.next_navigator_state(cube_navigator)
 
 
-def test_pacman_edge_mapper_sends_navigator_travelling_south_to_topmost_side_of_cube_net():
+def test_pacman_edge_mapper_sends_navigator_travelling_south_to_topmost_side_of_cube_net_if_no_adjacent_face():
     cube_navigator = CubeNavigator(
         cube_face="right",
         relative_position=Vector2D(9, 9),
@@ -59,9 +74,9 @@ def test_pacman_edge_mapper_sends_navigator_travelling_south_to_topmost_side_of_
     assert expected_navigator == edge_mapper.next_navigator_state(cube_navigator)
 
 
-def test_pacman_edge_mapper_sends_navigator_travelling_north_to_bottommost_side_of_cube_net():
+def test_pacman_edge_mapper_sends_navigator_travelling_north_to_bottommost_side_of_cube_net_if_no_adjacent_face():
     cube_navigator = CubeNavigator(
-        cube_face="bottom",
+        cube_face="back",
         relative_position=Vector2D(3, 0),
         facing=CardinalDirection.NORTH,
     )
