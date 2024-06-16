@@ -19,38 +19,38 @@ class PacmanEdgeMapper:
     def cube_net(self) -> CubeNet:
         return self._cube_net
 
-    def next_navigator_state(self, navigator: CubeNavigator) -> CubeNavigator:
+    def _offset_vector(self, navigator: CubeNavigator) -> Vector2D:
         dx, dy = navigator.facing.offset()
-        offset_vector = Vector2D(dx, -dy)
-        new_relative_position = (
-            navigator.relative_position
-            - (self._cube_net.edge_length - 1) * offset_vector
+        return Vector2D(dx, -dy)
+
+    def _next_relative_position(self, navigator: CubeNavigator) -> Vector2D:
+        offset_vector = self._offset_vector(navigator)
+        multiplier = self._cube_net.edge_length - 1
+        return navigator.relative_position - multiplier * offset_vector
+
+    def _wrap_around_face(self, navigator: CubeNavigator):
+        face_position = self._cube_net.face_position(navigator.cube_face)
+        faces = (
+            self._cube_net.faces_on_row(face_position.y)
+            if navigator.facing.is_horizontal
+            else self._cube_net.faces_on_column(face_position.x)
+        )
+        return min(
+            faces,
+            key=lambda face: self._cube_net.face_position(face).dot_product(
+                self._offset_vector(navigator)
+            ),
         )
 
+    def next_navigator_state(self, navigator: CubeNavigator) -> CubeNavigator:
         face_position = self._cube_net.face_position(navigator.cube_face)
         new_face_position = face_position.move(navigator.facing, y_grows_down=True)
-        if (new_face := self._cube_net.face_at(new_face_position)) is not None:
-            return CubeNavigator(
-                cube_face=new_face,
-                relative_position=new_relative_position,
-                facing=navigator.facing,
-            )
-        else:
-            faces = (
-                self._cube_net.faces_on_row(face_position.y)
-                if navigator.facing.is_horizontal
-                else self._cube_net.faces_on_column(face_position.x)
-            )
-
-            new_face = min(
-                faces,
-                key=lambda face: self._cube_net.face_position(face).dot_product(
-                    offset_vector
-                ),
-            )
-
-            return CubeNavigator(
-                cube_face=new_face,
-                relative_position=new_relative_position,
-                facing=navigator.facing,
-            )
+        new_face = self._cube_net.face_at(new_face_position)
+        if new_face is None:
+            new_face = self._wrap_around_face(navigator)
+        new_relative_position = self._next_relative_position(navigator)
+        return CubeNavigator(
+            cube_face=new_face,
+            relative_position=new_relative_position,
+            facing=navigator.facing,
+        )
