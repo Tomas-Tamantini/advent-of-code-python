@@ -1,48 +1,26 @@
 from unittest.mock import Mock
 from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import CubeBoard, BoardNavigator, PacmanEdgeMapper, CubeNet, CubeFace
+from ..logic import CubeBoard, BoardPiece, CubeNavigator
 
 
-def test_cube_board_initial_position_is_first_open_position_on_first_row():
-    cube_net = Mock()
-    cube_net.topmost_left_position.return_value = Vector2D(123, 321)
+def test_cube_board_sends_piece_to_next_adjacent_position_if_not_leaving_cube_face():
+    piece = BoardPiece(position=Vector2D(3, 6), facing=CardinalDirection.NORTH)
+    cube_board = CubeBoard(cube_size=10, edge_mapper=Mock())
+    next_piece = cube_board.move_piece_forward(piece)
+    assert next_piece == BoardPiece(
+        position=Vector2D(3, 5), facing=CardinalDirection.NORTH
+    )
+
+
+def test_cube_board_sends_piece_to_next_face_according_to_edge_mapper_if_leaving_current_cube_face():
     edge_mapper = Mock()
-    edge_mapper.cube_net = cube_net
-    board = CubeBoard(edge_mapper)
-    assert board.initial_position == Vector2D(123, 321)
-
-
-def test_next_navigator_on_board_is_cell_n_steps_away_if_it_is_open():
-    face = CubeFace(walls=frozenset())
-    cube_net = CubeNet(
-        edge_length=50, cube_faces_planar_positions={face: Vector2D(0, 0)}
+    edge_mapper.next_navigator.return_value = CubeNavigator(
+        face_planar_position=Vector2D(1, 0),
+        facing=CardinalDirection.NORTH,
     )
-    edge_mapper = PacmanEdgeMapper(cube_net)
-    board = CubeBoard(edge_mapper)
-    navigator = BoardNavigator(position=Vector2D(11, 2), facing=CardinalDirection.EAST)
-    next_navigator = board.move_navigator_forward(navigator, num_steps=3)
-    assert next_navigator.position == Vector2D(14, 2)
-
-
-def test_next_navigator_on_cube_board_moves_to_new_edge_indicated_by_edge_mapper():
-    face = CubeFace(walls=frozenset())
-    cube_net = CubeNet(
-        edge_length=10, cube_faces_planar_positions={face: Vector2D(0, 0)}
+    piece = BoardPiece(position=Vector2D(9, 7), facing=CardinalDirection.EAST)
+    cube_board = CubeBoard(cube_size=10, edge_mapper=edge_mapper)
+    next_piece = cube_board.move_piece_forward(piece)
+    assert next_piece == BoardPiece(
+        position=Vector2D(17, 9), facing=CardinalDirection.NORTH
     )
-    edge_mapper = PacmanEdgeMapper(cube_net)
-    board = CubeBoard(edge_mapper)
-    navigator = BoardNavigator(position=Vector2D(5, 2), facing=CardinalDirection.EAST)
-    next_navigator = board.move_navigator_forward(navigator, num_steps=6)
-    assert next_navigator.position == Vector2D(1, 2)
-
-
-def test_next_navigator_on_board_stops_just_before_obstacle():
-    face = CubeFace(walls=frozenset([Vector2D(10, 0)]))
-    cube_net = CubeNet(
-        edge_length=100, cube_faces_planar_positions={face: Vector2D(0, 0)}
-    )
-    edge_mapper = PacmanEdgeMapper(cube_net)
-    board = CubeBoard(edge_mapper)
-    navigator = BoardNavigator(position=Vector2D(0, 0), facing=CardinalDirection.EAST)
-    next_navigator = board.move_navigator_forward(navigator, num_steps=100)
-    assert next_navigator.position == Vector2D(9, 0)

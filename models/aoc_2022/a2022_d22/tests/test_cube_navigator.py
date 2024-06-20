@@ -1,38 +1,9 @@
-import pytest
 from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import CubeNavigator, CubeFace
+from ..logic import CubeNavigator
 
 
-@pytest.mark.parametrize(
-    "relative_position, facing, expected",
-    [
-        (Vector2D(20, 20), CardinalDirection.EAST, False),
-        (Vector2D(0, 0), CardinalDirection.SOUTH, False),
-        (Vector2D(0, 13), CardinalDirection.WEST, True),
-        (Vector2D(13, 0), CardinalDirection.NORTH, True),
-        (Vector2D(49, 13), CardinalDirection.EAST, True),
-        (Vector2D(13, 49), CardinalDirection.SOUTH, True),
-    ],
-)
-def test_cube_navigator_checks_whether_about_leave_cube_face(
-    relative_position, facing, expected
-):
-    navigator = CubeNavigator("front", relative_position, facing)
-    assert navigator.is_about_to_leave_cube_face(edge_length=50) is expected
-
-
-def test_cube_navigator_checks_whether_they_hit_wall():
-    face = CubeFace(walls=frozenset([Vector2D(10, 0)]))
+def test_next_cube_navigator_is_adjacent_position():
     navigator = CubeNavigator(
-        cube_face=face,
-        relative_position=Vector2D(0, 0),
-        facing=CardinalDirection.EAST,
+        face_planar_position=Vector2D(2, 4), facing=CardinalDirection.NORTH
     )
-    assert not navigator.hit_wall()
-
-    navigator = CubeNavigator(
-        cube_face=face,
-        relative_position=Vector2D(10, 0),
-        facing=CardinalDirection.EAST,
-    )
-    assert navigator.hit_wall()
+    assert navigator.next_position() == Vector2D(2, 3)

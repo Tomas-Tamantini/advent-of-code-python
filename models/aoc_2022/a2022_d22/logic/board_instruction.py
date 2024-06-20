@@ -1,26 +1,32 @@
 from typing import Protocol
 from dataclasses import dataclass
 from models.common.vectors import TurnDirection
-from .board_navigator import BoardNavigator
+from .board_piece import BoardPiece
 from .board import Board
 
 
 class BoardInstruction(Protocol):
-    def execute(self, navigator: BoardNavigator, board: Board) -> BoardNavigator: ...
+    def execute(self, board_piece: BoardPiece, board: Board) -> BoardPiece: ...
 
 
 @dataclass(frozen=True)
 class TurnInstruction:
     turn_direction: TurnDirection
 
-    def execute(self, navigator: BoardNavigator, board: Board) -> BoardNavigator:
-        new_facing = navigator.facing.turn(self.turn_direction)
-        return BoardNavigator(position=navigator.position, facing=new_facing)
+    def execute(self, board_piece: BoardPiece, board: Board) -> BoardPiece:
+        return board_piece.turn(self.turn_direction)
 
 
 @dataclass(frozen=True)
 class MoveForwardInstruction:
     num_steps: int
 
-    def execute(self, navigator: BoardNavigator, board: Board) -> BoardNavigator:
-        return board.move_navigator_forward(navigator, self.num_steps)
+    def execute(self, board_piece: BoardPiece, board: Board) -> BoardPiece:
+        current_piece = board_piece
+        for _ in range(self.num_steps):
+            new_piece = board.move_piece_forward(current_piece)
+            if new_piece == current_piece:
+                break
+            else:
+                current_piece = new_piece
+        return current_piece
