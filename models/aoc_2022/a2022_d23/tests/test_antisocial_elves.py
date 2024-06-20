@@ -44,3 +44,17 @@ def test_antisocial_elves_do_not_move_if_more_than_one_proposed_the_same_move():
         Vector2D(0, 3),
         Vector2D(1, 5),
     }
+
+
+def test_antisocial_elves_keep_track_of_how_many_elves_moved_last_round():
+    elves = AntisocialElves(
+        positions={Vector2D(0, 0), Vector2D(0, 1), Vector2D(0, 3), Vector2D(1, 4)}
+    )
+    direction_priority = (
+        CardinalDirection.NORTH,
+        CardinalDirection.SOUTH,
+        CardinalDirection.WEST,
+        CardinalDirection.EAST,
+    )
+    elves.move(direction_priority)
+    assert elves.num_elves_that_moved_last_round == 2

@@ -6,6 +6,11 @@ from models.common.vectors import Vector2D, CardinalDirection
 class AntisocialElves:
     def __init__(self, positions: set[Vector2D]) -> None:
         self._positions = positions.copy()
+        self._num_elves_that_moved_last_round = len(positions)
+
+    @property
+    def num_elves_that_moved_last_round(self) -> int:
+        return self._num_elves_that_moved_last_round
 
     @property
     def positions(self) -> set[Vector2D]:
@@ -48,7 +53,9 @@ class AntisocialElves:
             if direction is not None:
                 proposed_positions[elf.move(direction, y_grows_down=True)].append(elf)
 
+        self._num_elves_that_moved_last_round = 0
         for proposed_position, elves in proposed_positions.items():
             if len(elves) == 1:
                 self._positions.remove(elves[0])
                 self._positions.add(proposed_position)
+                self._num_elves_that_moved_last_round += 1
