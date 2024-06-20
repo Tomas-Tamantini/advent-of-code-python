@@ -14,99 +14,106 @@ class _Edge:
 @dataclass(frozen=True)
 class _FaceGeometry:
     face_planar_position: Vector2D
-    bottom_left: Vector3D
+    top_left: Vector3D
     x_hat: Vector3D
     y_hat: Vector3D
 
     @property
-    def top_left(self) -> Vector3D:
-        return self.bottom_left + self.y_hat
-
-    @property
-    def top_right(self) -> Vector3D:
-        return self.bottom_left + self.x_hat + self.y_hat
+    def bottom_left(self) -> Vector3D:
+        return self.top_left + self.y_hat
 
     @property
     def bottom_right(self) -> Vector3D:
-        return self.bottom_left + self.x_hat
+        return self.top_left + self.x_hat + self.y_hat
+
+    @property
+    def top_right(self) -> Vector3D:
+        return self.top_left + self.x_hat
 
     @property
     def normal(self) -> Vector3D:
-        return self.x_hat.vector_product(self.y_hat)
+        return self.y_hat.vector_product(self.x_hat)
+
+    def vertices(self, side: CardinalDirection) -> tuple[Vector3D, Vector3D]:
+        if side == CardinalDirection.NORTH:
+            return self.top_left, self.top_right
+        elif side == CardinalDirection.SOUTH:
+            return self.bottom_left, self.bottom_right
+        elif side == CardinalDirection.WEST:
+            return self.top_left, self.bottom_left
+        else:
+            return self.top_right, self.bottom_right
+
+    def neighbor(self, side: CardinalDirection) -> "_FaceGeometry":
+        neighbor = self.face_planar_position.move(side, y_grows_down=True)
+        if side == CardinalDirection.SOUTH:
+            return _FaceGeometry(
+                neighbor,
+                top_left=self.top_left + self.y_hat,
+                x_hat=self.x_hat,
+                y_hat=self.normal,
+            )
+        elif side == CardinalDirection.NORTH:
+            return _FaceGeometry(
+                neighbor,
+                top_left=self.top_left + self.normal,
+                x_hat=self.x_hat,
+                y_hat=-self.normal,
+            )
+        elif side == CardinalDirection.EAST:
+            return _FaceGeometry(
+                neighbor,
+                top_left=self.top_left + self.x_hat,
+                x_hat=self.normal,
+                y_hat=self.y_hat,
+            )
+        else:
+            return _FaceGeometry(
+                neighbor,
+                top_left=self.top_left + self.normal,
+                x_hat=-self.normal,
+                y_hat=self.y_hat,
+            )
 
 
 class CubeEdgeMapper:
     def __init__(self, cube_net: CubeNet) -> None:
-        self._edge_correspondence = self._build_edge_correspondence(cube_net)
+        self._cube_net = cube_net
+        self._edge_correspondence = self._build_edge_correspondence()
 
-    @staticmethod
-    def _build_edge_correspondence(cube_net: CubeNet) -> dict[_Edge, _Edge]:
-        # TODO: Refactor
-        face_stack = {
-            _FaceGeometry(
-                next(iter(cube_net)),
-                bottom_left=Vector3D(0, 0, 0),
-                x_hat=Vector3D(1, 0, 0),
-                y_hat=Vector3D(0, 1, 0),
-            )
-        }
+    def _build_edge_correspondence(self) -> dict[_Edge, _Edge]:
+        edges = defaultdict(list)
+        for geometry in self._geometries():
+            for direction in CardinalDirection:
+                edges[frozenset(geometry.vertices(direction))].append(
+                    _Edge(geometry.face_planar_position, direction)
+                )
+        correspondencies = dict()
+        for edge_pair in edges.values():
+            correspondencies[edge_pair[0]] = edge_pair[1]
+            correspondencies[edge_pair[1]] = edge_pair[0]
+        return correspondencies
+
+    def _geometries(self) -> set[_FaceGeometry]:
+        first_geometry = _FaceGeometry(
+            next(iter(self._cube_net)),
+            top_left=Vector3D(0, 0, 0),
+            x_hat=Vector3D(1, 0, 0),
+            y_hat=Vector3D(0, 1, 0),
+        )
+        face_stack = {first_geometry}
         visited = set()
         while face_stack:
             face = face_stack.pop()
             if face in visited:
                 continue
             visited.add(face)
-            for direction in CardinalDirection:
-                neighbor = face.face_planar_position.move(direction, y_grows_down=True)
-                if neighbor in cube_net:
-                    if direction == CardinalDirection.SOUTH:
-                        neighbor_geometry = _FaceGeometry(
-                            neighbor,
-                            bottom_left=face.bottom_left + face.y_hat,
-                            x_hat=face.x_hat,
-                            y_hat=face.normal,
-                        )
-                    elif direction == CardinalDirection.NORTH:
-                        neighbor_geometry = _FaceGeometry(
-                            neighbor,
-                            bottom_left=face.bottom_left + face.normal,
-                            x_hat=face.x_hat,
-                            y_hat=-face.normal,
-                        )
-                    elif direction == CardinalDirection.EAST:
-                        neighbor_geometry = _FaceGeometry(
-                            neighbor,
-                            bottom_left=face.bottom_left + face.x_hat,
-                            x_hat=face.normal,
-                            y_hat=face.y_hat,
-                        )
-                    else:
-                        neighbor_geometry = _FaceGeometry(
-                            neighbor,
-                            bottom_left=face.bottom_left + face.normal,
-                            x_hat=-face.normal,
-                            y_hat=face.y_hat,
-                        )
-                    face_stack.add(neighbor_geometry)
-        edges = defaultdict(list)
-        for geometry in visited:
-            edges[frozenset({geometry.bottom_left, geometry.top_left})].append(
-                _Edge(geometry.face_planar_position, CardinalDirection.WEST)
-            )
-            edges[frozenset({geometry.top_left, geometry.top_right})].append(
-                _Edge(geometry.face_planar_position, CardinalDirection.SOUTH)
-            )
-            edges[frozenset({geometry.top_right, geometry.bottom_right})].append(
-                _Edge(geometry.face_planar_position, CardinalDirection.EAST)
-            )
-            edges[frozenset({geometry.bottom_right, geometry.bottom_left})].append(
-                _Edge(geometry.face_planar_position, CardinalDirection.NORTH)
-            )
-        correspondencies = dict()
-        for edge_pair in edges.values():
-            correspondencies[edge_pair[0]] = edge_pair[1]
-            correspondencies[edge_pair[1]] = edge_pair[0]
-        return correspondencies
+            for direction in self._cube_net.directions_with_adjacent_faces(
+                face.face_planar_position
+            ):
+                neighbor_geometry = face.neighbor(direction)
+                face_stack.add(neighbor_geometry)
+        return visited
 
     def next_navigator(self, navigator: CubeNavigator) -> CubeNavigator:
         current_edge = _Edge(
