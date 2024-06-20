@@ -1,4 +1,4 @@
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
 from ..board_piece import BoardPiece
 from ..cube_net import EdgeMapper, CubeNavigator
 
@@ -25,61 +25,32 @@ class CubeBoard:
         next_face = self._face_planar_position(piece.step_forward().position)
         return current_face != next_face
 
+    def _next_relative_position(
+        self, piece: BoardPiece, next_facing: CardinalDirection
+    ) -> Vector2D:
+        x = piece.position.x % self._cube_size
+        y = piece.position.y % self._cube_size
+        direction = piece.facing
+        while direction != next_facing:
+            x, y = y, self._cube_size - 1 - x
+            direction = direction.turn(TurnDirection.LEFT)
+        offset = Vector2D(x, y).move(direction, y_grows_down=True)
+        return Vector2D(offset.x % self._cube_size, offset.y % self._cube_size)
+
     def _go_to_next_face(self, piece: BoardPiece) -> BoardPiece:
         current_cube_navigator = CubeNavigator(
             face_planar_position=self._face_planar_position(piece.position),
             facing=piece.facing,
         )
         next_cube_navigator = self._edge_mapper.next_navigator(current_cube_navigator)
+        offset = self._next_relative_position(piece, next_cube_navigator.facing)
         next_face_position = self._absolute_position(
             next_cube_navigator.face_planar_position
         )
-        aux = self._cube_size - 1
-        aux_x = piece.position.x % self._cube_size
-        aux_y = piece.position.y % self._cube_size
-        previous_facing = piece.facing
-        next_facing = next_cube_navigator.facing
-        if next_facing == CardinalDirection.EAST:
-            if previous_facing == CardinalDirection.EAST:
-                y = aux_y
-            elif previous_facing == CardinalDirection.WEST:
-                y = aux - aux_y
-            elif previous_facing == CardinalDirection.NORTH:
-                y = aux_x
-            else:
-                y = aux - aux_x
-            offset = Vector2D(0, y)
-        elif next_facing == CardinalDirection.WEST:
-            if previous_facing == CardinalDirection.EAST:
-                y = aux - aux_y
-            elif previous_facing == CardinalDirection.WEST:
-                y = aux_y
-            elif previous_facing == CardinalDirection.NORTH:
-                y = aux - aux_x
-            else:
-                y = aux_x
-            offset = Vector2D(aux, y)
-        elif next_facing == CardinalDirection.NORTH:
-            if previous_facing == CardinalDirection.EAST:
-                x = aux_y
-            elif previous_facing == CardinalDirection.WEST:
-                x = aux - aux_y
-            elif previous_facing == CardinalDirection.NORTH:
-                x = aux_x
-            else:
-                x = aux - aux_x
-            offset = Vector2D(x, aux)
-        else:
-            if previous_facing == CardinalDirection.EAST:
-                x = aux - aux_y
-            elif previous_facing == CardinalDirection.WEST:
-                x = aux_y
-            elif previous_facing == CardinalDirection.NORTH:
-                x = aux - aux_x
-            else:
-                x = aux_x
-            offset = Vector2D(x, 0)
-        return BoardPiece(next_face_position + offset, next_facing)
+        return BoardPiece(
+            position=next_face_position + offset,
+            facing=next_cube_navigator.facing,
+        )
 
     def move_piece_forward(self, piece: BoardPiece) -> BoardPiece:
         if not self._is_about_to_leave_cube_face(piece):
