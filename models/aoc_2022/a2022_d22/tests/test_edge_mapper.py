@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import CubeNavigator, CubeNet, PacmanEdgeMapper
+from ..logic import CubeNavigator, CubeNet, PacmanEdgeMapper, CubeEdgeMapper
 
 cube_sides = {
     "bottom": Vector2D(1, 1),
@@ -75,4 +75,30 @@ def test_pacman_edge_mapper_sends_navigator_travelling_north_to_bottommost_face_
         facing=CardinalDirection.NORTH,
     )
     edge_mapper = PacmanEdgeMapper(net)
+    assert expected_navigator == edge_mapper.next_navigator(cube_navigator)
+
+
+def test_cube_edge_mapper_sends_navigator_to_adjacent_face_if_one_exists():
+    cube_navigator = CubeNavigator(
+        face_planar_position=cube_sides["left"],
+        facing=CardinalDirection.EAST,
+    )
+    expected_navigator = CubeNavigator(
+        face_planar_position=cube_sides["bottom"],
+        facing=CardinalDirection.EAST,
+    )
+    edge_mapper = CubeEdgeMapper(net)
+    assert expected_navigator == edge_mapper.next_navigator(cube_navigator)
+
+
+def test_cube_edge_mapper_sends_navigator_to_adjacent_face_on_3d_cube():
+    cube_navigator = CubeNavigator(
+        face_planar_position=cube_sides["left"],
+        facing=CardinalDirection.SOUTH,
+    )
+    expected_navigator = CubeNavigator(
+        face_planar_position=cube_sides["front"],
+        facing=CardinalDirection.EAST,
+    )
+    edge_mapper = CubeEdgeMapper(net)
     assert expected_navigator == edge_mapper.next_navigator(cube_navigator)
