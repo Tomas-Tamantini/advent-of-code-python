@@ -1,5 +1,29 @@
-from models.common.vectors import Vector2D
+from collections import defaultdict
+from dataclasses import dataclass
+from models.common.vectors import Vector2D, CardinalDirection
 from .blizzard import Blizzard
+
+
+@dataclass(frozen=True)
+class _HorizontalBlizzard:
+    row: int
+    initial_column: int
+    increment: int
+
+    def position_at_time(self, time: int, valley_width) -> Vector2D:
+        x = (self.initial_column + time * self.increment - 1) % (valley_width - 2) + 1
+        return Vector2D(x, self.row)
+
+
+@dataclass(frozen=True)
+class _VerticalBlizzard:
+    column: int
+    initial_row: int
+    increment: int
+
+    def position_at_time(self, time: int, valley_height) -> Vector2D:
+        y = (self.initial_row + time * self.increment - 1) % (valley_height - 2) + 1
+        return Vector2D(self.column, y)
 
 
 class BlizzardValley:
@@ -15,7 +39,31 @@ class BlizzardValley:
         self._width = width
         self._entrance = entrance
         self._exit = exit
-        self._blizzards = blizzards
+        horizontal_blizzards = {
+            _HorizontalBlizzard(
+                row=blizzard.initial_position.y,
+                initial_column=blizzard.initial_position.x,
+                increment=1 if blizzard.direction == CardinalDirection.EAST else -1,
+            )
+            for blizzard in blizzards
+            if blizzard.direction.is_horizontal
+        }
+        vertical_blizzards = {
+            _VerticalBlizzard(
+                column=blizzard.initial_position.x,
+                initial_row=blizzard.initial_position.y,
+                increment=1 if blizzard.direction == CardinalDirection.SOUTH else -1,
+            )
+            for blizzard in blizzards
+            if blizzard.direction.is_vertical
+        }
+        self._horizontal_blizzards = defaultdict(set)
+        for blizzard in horizontal_blizzards:
+            self._horizontal_blizzards[blizzard.row].add(blizzard)
+
+        self._vertical_blizzards = defaultdict(set)
+        for blizzard in vertical_blizzards:
+            self._vertical_blizzards[blizzard.column].add(blizzard)
 
     @property
     def entrance(self) -> Vector2D:
@@ -33,14 +81,6 @@ class BlizzardValley:
             or position.y >= self._height - 1
         )
 
-    def _blizzard_position(self, blizzard: Blizzard, time: int) -> Vector2D:
-        position = blizzard.initial_position.move(
-            blizzard.direction, num_steps=time, y_grows_down=True
-        )
-        x = (position.x - 1) % (self._width - 2) + 1
-        y = (position.y - 1) % (self._height - 2) + 1
-        return Vector2D(x, y)
-
     def is_wall(self, position: Vector2D) -> bool:
         return (
             self._is_border(position)
@@ -48,13 +88,16 @@ class BlizzardValley:
             and position != self._exit
         )
 
-    def _position_occupied_by_blizzard(self, position: Vector2D, time: int) -> bool:
+    def _position_is_occupied_by_blizzard(self, position: Vector2D, time: int) -> bool:
         return any(
-            self._blizzard_position(blizzard, time) == position
-            for blizzard in self._blizzards
+            blizzard.position_at_time(time, self._width) == position
+            for blizzard in self._horizontal_blizzards[position.y]
+        ) or any(
+            blizzard.position_at_time(time, self._height) == position
+            for blizzard in self._vertical_blizzards[position.x]
         )
 
     def position_is_free_at_time(self, position: Vector2D, time: int) -> bool:
-        return not self.is_wall(position) and not self._position_occupied_by_blizzard(
-            position, time
-        )
+        return not self.is_wall(
+            position
+        ) and not self._position_is_occupied_by_blizzard(position, time)
