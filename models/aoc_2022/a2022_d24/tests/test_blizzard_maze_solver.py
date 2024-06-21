@@ -19,8 +19,8 @@ def test_blizzard_maze_solver_has_exit_as_terminal_state():
     assert not solver.is_terminal(BlizzardNavigator(position=Vector2D(1, 0), time=123))
 
 
-def test_blizzard_maze_solver_finds_shortest_time_to_reach_exit_without_intercepting_blizzards():
-    valley = BlizzardValley(
+def _example_valley() -> BlizzardValley:
+    return BlizzardValley(
         height=6,
         width=8,
         entrance=Vector2D(1, 0),
@@ -47,5 +47,13 @@ def test_blizzard_maze_solver_finds_shortest_time_to_reach_exit_without_intercep
             Blizzard(Vector2D(3, 4), CardinalDirection.SOUTH),
         },
     )
-    solver = BlizzardMazeSolver(valley)
+
+
+def test_blizzard_maze_solver_finds_shortest_time_to_reach_exit_without_intercepting_blizzards():
+    solver = BlizzardMazeSolver(_example_valley())
     assert solver.min_steps_to_exit() == 18
+
+
+def test_blizzard_maze_solver_finds_shortest_time_to_reach_exit_having_to_return_back_to_start():
+    solver = BlizzardMazeSolver(_example_valley())
+    assert solver.min_steps_to_exit(num_returns_to_start=1) == 54
