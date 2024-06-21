@@ -26,7 +26,9 @@ class BlizzardValley:
         )
 
     def _blizzard_position(self, blizzard: Blizzard, time: int) -> Vector2D:
-        position = blizzard.initial_position.move(blizzard.direction, num_steps=time)
+        position = blizzard.initial_position.move(
+            blizzard.direction, num_steps=time, y_grows_down=True
+        )
         x = (position.x - 1) % (self._width - 2) + 1
         y = (position.y - 1) % (self._height - 2) + 1
         return Vector2D(x, y)
