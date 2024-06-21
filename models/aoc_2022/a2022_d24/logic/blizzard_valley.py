@@ -17,6 +17,14 @@ class BlizzardValley:
         self._exit = exit
         self._blizzards = blizzards
 
+    @property
+    def entrance(self) -> Vector2D:
+        return self._entrance
+
+    @property
+    def exit(self) -> Vector2D:
+        return self._exit
+
     def _is_border(self, position: Vector2D) -> bool:
         return (
             position.x <= 0
