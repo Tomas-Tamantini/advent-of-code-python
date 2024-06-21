@@ -8,4 +8,5 @@ def aoc_2022_d24(input_reader: InputReader, **_) -> None:
     valley = parse_blizzard_valley(input_reader)
     solver = BlizzardMazeSolver(valley)
     min_steps = solver.min_steps_to_exit()
+    print("Part 1: Be patient, it takes about 20s to run", end="\r")
     print(f"Part 1: The minimum number of steps to exit valley is {min_steps}")

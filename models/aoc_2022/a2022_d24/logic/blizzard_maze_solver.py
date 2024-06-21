@@ -15,9 +15,14 @@ class BlizzardMazeSolver:
         return state.position == self._valley.exit
 
     def neighbors(self, node: BlizzardNavigator) -> Iterator[BlizzardNavigator]:
-        for neighbor in node.next_states():
-            if self._valley.position_is_free_at_time(neighbor.position, neighbor.time):
-                yield neighbor
+        candidates = (
+            neighbor
+            for neighbor in node.next_states()
+            if self._valley.position_is_free_at_time(neighbor.position, neighbor.time)
+        )
+        yield from sorted(
+            candidates, key=lambda c: c.position.manhattan_distance(self._valley.exit)
+        )
 
     def min_steps_to_exit(self) -> int:
         return min_path_length_with_bfs(
