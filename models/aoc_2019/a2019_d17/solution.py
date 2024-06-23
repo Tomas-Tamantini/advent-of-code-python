@@ -6,7 +6,7 @@ from .logic import (
 )
 
 
-def aoc_2019_d17(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d17(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 17: Set and Forget ---")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     scaffold_map = ScaffoldMap()

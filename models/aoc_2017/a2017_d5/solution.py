@@ -13,7 +13,7 @@ def follow_and_increment_jump_instructions(
         current_pos += jump
 
 
-def aoc_2017_d5(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d5(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 5: A Maze of Twisty Trampolines, All Alike ---")
     jump_offsets = [int(line) for line in io_handler.input_reader.readlines()]
     simple_increment_rule = lambda jump: jump + 1

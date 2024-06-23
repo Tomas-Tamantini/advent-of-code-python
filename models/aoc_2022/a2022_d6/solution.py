@@ -10,7 +10,7 @@ def detect_distinct_chars(stream: str, num_distinct_chars: int) -> int:
     return -1
 
 
-def aoc_2022_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 6: Tuning Trouble ---")
     stream = io_handler.input_reader.read()
     start_of_packet = detect_distinct_chars(stream, num_distinct_chars=4)

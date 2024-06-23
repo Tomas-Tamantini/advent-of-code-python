@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .message_reconstructor import MessageReconstructor
 
 
-def aoc_2016_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 6: Signals and Noise ---")
     lines = list(io_handler.input_reader.readlines())
     message_reconstructor = MessageReconstructor(lines)

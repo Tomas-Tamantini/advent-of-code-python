@@ -5,7 +5,7 @@ from .logic import max_num_resource, ResourceType, MiningState
 # See MILP modelling at - https://colab.research.google.com/drive/1eD3sn1LPaT_qwa1PSUpPvhJopiWKPKGy?usp=sharing
 
 
-def aoc_2022_d19(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d19(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 19: Not Enough Minerals ---")
     blueprints = list(parse_blueprints(io_handler.input_reader))
     time_limit = 24

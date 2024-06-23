@@ -3,7 +3,7 @@ from math import prod
 from .packet_arrangement import possible_arrangements_of_packets_in_passenger_comparment
 
 
-def aoc_2015_d24(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d24(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 24: It Hangs in the Balance ---")
     lines = list(io_handler.input_reader.readlines())
     numbers = tuple(int(l) for l in lines)

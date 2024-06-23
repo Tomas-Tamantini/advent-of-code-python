@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .hot_chocolate import HotChocolateRecipeScores
 
 
-def aoc_2018_d14(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d14(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 14: Chocolate Charts ---")
     num_steps = int(io_handler.input_reader.read())
     recipe_scores = HotChocolateRecipeScores(first_score=3, second_score=7)

@@ -3,7 +3,7 @@ from .parser import parse_cookie_properties
 from .cookie import CookieRecipe
 
 
-def aoc_2015_d15(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d15(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 15: Science for Hungry People ---")
     ingredients = list(parse_cookie_properties(io_handler.input_reader))
     recipe = CookieRecipe(ingredients, num_tablespoons=100)

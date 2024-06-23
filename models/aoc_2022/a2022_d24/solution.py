@@ -3,7 +3,7 @@ from .parser import parse_blizzard_valley
 from .logic import BlizzardMazeSolver
 
 
-def aoc_2022_d24(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d24(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 24: Blizzard Basin ---")
     valley = parse_blizzard_valley(io_handler.input_reader)
     solver = BlizzardMazeSolver(valley)

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_celestial_bodies
 
 
-def aoc_2019_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 6: Universal Orbit Map ---")
     center_of_mass = parse_celestial_bodies(io_handler.input_reader)
     total_orbits = center_of_mass.count_orbits()

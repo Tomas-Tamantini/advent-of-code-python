@@ -3,7 +3,7 @@ from .parser import parse_passports
 from .passport import PASSPORT_RULES, passport_is_valid
 
 
-def aoc_2020_d4(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d4(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 4: Passport Processing ---")
     passports = list(parse_passports(io_handler.input_reader))
     required_fields = set(PASSPORT_RULES.keys())

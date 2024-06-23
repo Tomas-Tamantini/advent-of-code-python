@@ -4,7 +4,7 @@ from models.common.vectors import Vector2D
 from .voronoi import ManhattanVoronoi
 
 
-def aoc_2018_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 6: Chronal Coordinates ---")
     lines = list(io_handler.input_reader.readlines())
     coordinates = [Vector2D(*map(int, line.split(","))) for line in lines]

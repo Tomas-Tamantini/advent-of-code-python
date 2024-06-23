@@ -3,7 +3,7 @@ from .parser import parse_and_give_light_grid_instructions
 from .light_grid import LightGrid
 
 
-def aoc_2015_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 6: Probably a Fire Hazard ---")
     grid = LightGrid(1000, 1000)
     parse_and_give_light_grid_instructions(io_handler.input_reader, grid)

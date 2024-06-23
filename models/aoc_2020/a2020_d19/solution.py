@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_context_free_grammar_and_words
 
 
-def aoc_2020_d19(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d19(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 19: Monster Messages ---")
     cfg, words = parse_context_free_grammar_and_words(
         io_handler.input_reader, starting_symbol=0

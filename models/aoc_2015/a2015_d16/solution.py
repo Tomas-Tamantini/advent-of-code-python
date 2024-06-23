@@ -3,7 +3,7 @@ from .parser import parse_aunt_sue_collection
 from .aunt_sue import MatchType
 
 
-def aoc_2015_d16(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d16(io_handler: IOHandler) -> None:
     measured_attributes = {
         "children": 3,
         "cats": 7,

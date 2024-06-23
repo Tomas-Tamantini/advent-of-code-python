@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .ferry_seats import FerrySeats, FerrySeat
 
 
-def aoc_2020_d11(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d11(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 11: Seating System ---")
     grid = CharacterGrid(io_handler.input_reader.read())
 

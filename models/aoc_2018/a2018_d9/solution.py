@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .marble_game import marble_game_score
 
 
-def aoc_2018_d9(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d9(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 9: Marble Mania ---")
     line = io_handler.input_reader.read()
     num_players, last_marble = map(int, [line.split()[0], line.split()[-2]])

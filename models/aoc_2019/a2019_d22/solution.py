@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_multi_technique_shuffle
 
 
-def aoc_2019_d22(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d22(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 22: Slam Shuffle ---")
     shuffle = parse_multi_technique_shuffle(io_handler.input_reader)
     new_position = shuffle.new_card_position(

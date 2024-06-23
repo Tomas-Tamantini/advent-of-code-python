@@ -3,7 +3,7 @@ from .parser import parse_submarine_navigation_instructions
 from .submarine import Submarine
 
 
-def aoc_2021_d2(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d2(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 2: Dive! ---")
     submarine = Submarine()
     instructions_without_aim = list(

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .fuel_requirement import fuel_requirement
 
 
-def aoc_2019_d1(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d1(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 1: The Tyranny of the Rocket Equation ---")
     masses = [int(line) for line in io_handler.input_reader.readlines()]
     fuel_ignoring_extra_mass = sum(

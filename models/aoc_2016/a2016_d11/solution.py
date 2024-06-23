@@ -3,7 +3,7 @@ from .parser import parse_radioisotope_testing_facility_floor_configurations
 from .radio_isotope import RadioisotopeTestingFacility, FloorConfiguration
 
 
-def aoc_2016_d11(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d11(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 11: Radioisotope Thermoelectric Generators ---")
     floors = tuple(
         parse_radioisotope_testing_facility_floor_configurations(

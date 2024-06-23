@@ -4,7 +4,7 @@ from .parser import parse_duet_code
 from .duet_code import last_recovered_frequency, sent_values_in_two_way_communication
 
 
-def aoc_2017_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 18: Duet ---")
     instructions_audio = list(parse_duet_code(io_handler.input_reader))
     audio_output = last_recovered_frequency(instructions_audio)

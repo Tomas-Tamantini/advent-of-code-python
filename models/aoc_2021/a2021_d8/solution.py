@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_shuffled_seven_digit_displays
 
 
-def aoc_2021_d8(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d8(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 8: Seven Segment Search ---")
     displays = list(parse_shuffled_seven_digit_displays(io_handler.input_reader))
     decoded_digits = [display.decode() for display in displays]

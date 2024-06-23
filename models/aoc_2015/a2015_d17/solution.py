@@ -15,7 +15,7 @@ def eggnog_partition(total_volume: int, capacities: list[int]) -> Iterator[list[
                 yield [capacities[0]] + partition
 
 
-def aoc_2015_d17(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d17(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 17: No Such Thing as Too Much ---")
     lines = list(io_handler.input_reader.readlines())
     capacities = [int(l) for l in lines]

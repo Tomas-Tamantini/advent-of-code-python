@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_calories
 
 
-def aoc_2022_d1(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d1(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 1: Calorie Counting ---")
     calories_by_elf = [
         sum(calories) for calories in parse_calories(io_handler.input_reader)

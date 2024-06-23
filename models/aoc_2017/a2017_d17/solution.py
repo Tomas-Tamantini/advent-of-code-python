@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .circular_buffer import CircularBuffer
 
 
-def aoc_2017_d17(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d17(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 17: Spinlock ---")
     step_size = int(io_handler.input_reader.read().strip())
     buffer = CircularBuffer()

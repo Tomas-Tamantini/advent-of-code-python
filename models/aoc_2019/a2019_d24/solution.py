@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .bugs_automaton import BugsAutomaton, RecursiveBugsAutomaton
 
 
-def aoc_2019_d24(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d24(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 24: Planet of Discord ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     live_cells = set(grid.positions_with_value("#"))

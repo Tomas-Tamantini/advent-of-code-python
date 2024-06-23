@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .lumber_area import LumberArea, AcreType
 
 
-def aoc_2018_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 18: Settlers of The North Pole ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     area = LumberArea(width=grid.width, height=grid.height)

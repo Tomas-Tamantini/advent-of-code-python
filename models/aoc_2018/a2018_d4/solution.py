@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_guard_logs
 
 
-def aoc_2018_d4(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d4(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 4: Repose Record ---")
     guards = list(parse_guard_logs(io_handler.input_reader))
     guard_most_asleep = max(guards, key=lambda g: g.total_minutes_asleep)

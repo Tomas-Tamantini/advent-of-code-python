@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_logic_gates_circuit
 
 
-def aoc_2015_d7(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d7(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 7: Some Assembly Required ---")
     circuit = parse_logic_gates_circuit(io_handler.input_reader)
     a_value = circuit.get_value("a")

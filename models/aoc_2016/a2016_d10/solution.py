@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_chip_factory
 
 
-def aoc_2016_d10(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d10(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 10: Balance Bots ---")
     factory = parse_chip_factory(io_handler.input_reader)
     factory.run()

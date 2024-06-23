@@ -3,7 +3,7 @@ from models.common.io import IOHandler
 from .amplifiers import Amplifiers
 
 
-def aoc_2019_d7(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d7(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 7: Amplification Circuit ---")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     amplifiers = Amplifiers(instructions)

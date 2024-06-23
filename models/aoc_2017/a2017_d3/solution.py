@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .square_spiral import SquareSpiral
 
 
-def aoc_2017_d3(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d3(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 3: Spiral Memory ---")
     target = int(io_handler.input_reader.read().strip())
     target_coordinates = SquareSpiral.coordinates(target)

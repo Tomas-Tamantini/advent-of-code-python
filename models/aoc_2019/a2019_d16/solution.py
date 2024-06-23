@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .frequency_transmission import flawed_frequency_transmission
 
 
-def aoc_2019_d16(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d16(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 16: Flawed Frequency Transmission ---")
     signal = list(map(int, io_handler.input_reader.read().strip()))
 

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .rucksack import Rucksack
 
 
-def aoc_2022_d3(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d3(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 3: Rucksack Reorganization ---")
     rucksacks = [
         Rucksack(

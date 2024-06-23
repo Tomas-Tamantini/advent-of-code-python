@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .sequence_generator import SequenceGenerator, SequenceMatchFinder
 
 
-def aoc_2017_d15(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d15(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 15: Dueling Generators ---")
     start_a, start_b = [
         int(line.split()[-1]) for line in io_handler.input_reader.readlines()

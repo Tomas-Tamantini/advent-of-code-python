@@ -38,7 +38,7 @@ def _simulate_movements(cube_size, edge_mapper, parsed_cube) -> BoardPiece:
     return _build_password(board_piece)
 
 
-def aoc_2022_d22(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d22(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 22: Monkey Map ---")
 
     cube_size = 50

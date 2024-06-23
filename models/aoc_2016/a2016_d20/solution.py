@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .disjoint_intervals import DisjoinIntervals
 
 
-def aoc_2016_d20(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d20(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 20: Firewall Rules ---")
     disjoint_intervals = DisjoinIntervals(0, 4_294_967_295)
     for line in io_handler.input_reader.readlines():

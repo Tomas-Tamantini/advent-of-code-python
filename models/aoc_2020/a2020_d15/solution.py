@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .memory_game import memory_game_numbers
 
 
-def aoc_2020_d15(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d15(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 15: Rambunctious Recitation ---")
     starting_numbers = [
         int(number) for number in io_handler.input_reader.read().split(",")

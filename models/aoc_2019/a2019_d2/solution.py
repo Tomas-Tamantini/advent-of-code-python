@@ -5,7 +5,7 @@ from .noun_and_verb import (
 )
 
 
-def aoc_2019_d2(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d2(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 2: 1202 Program Alarm ---")
     original_instructions = [
         int(code) for code in io_handler.input_reader.read().split(",")

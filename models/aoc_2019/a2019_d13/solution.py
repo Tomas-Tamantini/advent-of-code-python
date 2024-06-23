@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .arcade import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
 
 
-def aoc_2019_d13(io_handler: IOHandler, animate: bool, **_) -> None:
+def aoc_2019_d13(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 13: Care Package ---")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     screen = ArcadeGameScreen()
@@ -11,9 +11,11 @@ def aoc_2019_d13(io_handler: IOHandler, animate: bool, **_) -> None:
     print(f"Part 1: Number of block tiles is {block_tiles}")
     new_instructions = instructions[:]
     new_instructions[0] = 2
-    screen = ArcadeGameScreen(animate=animate)
+    screen = ArcadeGameScreen(animate=io_handler.execution_flags.animate)
     animation_msg = (
-        "" if animate else " (SET FLAG --animate TO SEE COOL GAME ANIMATION)"
+        ""
+        if io_handler.execution_flags.animate
+        else " (SET FLAG --animate TO SEE COOL GAME ANIMATION)"
     )
     print(f"Part 2:{animation_msg} simulating game...", end="\r")
     run_intcode_arcade(new_instructions, screen)

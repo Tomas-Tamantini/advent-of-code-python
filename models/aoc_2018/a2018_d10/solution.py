@@ -3,7 +3,7 @@ from .parser import parse_moving_particles
 from .moving_particles import MovingParticles
 
 
-def aoc_2018_d10(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d10(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 10: The Stars Align ---")
     particles = list(parse_moving_particles(io_handler.input_reader))
     moving_particles = MovingParticles(particles)

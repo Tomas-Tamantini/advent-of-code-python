@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_portal_maze, parse_recursive_donut_maze
 
 
-def aoc_2019_d20(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d20(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 20: Donut Maze ---")
     portal_maze = parse_portal_maze(io_handler.input_reader)
     num_steps = portal_maze.num_steps_to_solve()

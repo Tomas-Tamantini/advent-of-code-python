@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .hill_maze import HillMaze
 
 
-def aoc_2022_d12(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d12(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 12: Hill Climbing Algorithm ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     maze = HillMaze(grid)

@@ -3,7 +3,7 @@ from .parser import parse_underwater_cave_connections
 from .underwater_cave import UnderwaterCaveExplorer
 
 
-def aoc_2021_d12(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d12(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 12: Passage Pathing ---")
     connections = parse_underwater_cave_connections(io_handler.input_reader)
     explorer = UnderwaterCaveExplorer(

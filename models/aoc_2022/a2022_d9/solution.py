@@ -21,7 +21,7 @@ def _tail_positions(
                 render_frame(animation.frame(), sleep_seconds=0.05)
 
 
-def aoc_2022_d9(io_handler: IOHandler, animate: bool, **_) -> None:
+def aoc_2022_d9(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 9: Rope Bridge ---")
     instructions = list(parse_move_instructions(io_handler.input_reader))
     total_num_iterations = sum(distance for _, distance in instructions)
@@ -31,7 +31,7 @@ def aoc_2022_d9(io_handler: IOHandler, animate: bool, **_) -> None:
         f"Part 1: Unique positions visited by tail in two-knot rope is {len(tail_positions)}"
     )
     long_rope = Rope(num_knots=10)
-    if animate:
+    if io_handler.execution_flags.animate:
         animation_msg = ""
         width = height = 15
         animation = RopeAnimation(width, height, long_rope, total_num_iterations)

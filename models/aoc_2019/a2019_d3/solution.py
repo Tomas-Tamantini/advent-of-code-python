@@ -3,7 +3,7 @@ from .parser import parse_directions
 from .twisty_wire import TwistyWire
 
 
-def aoc_2019_d3(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d3(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 3: Crossed Wires ---")
     wire_a = TwistyWire()
     wire_b = TwistyWire()

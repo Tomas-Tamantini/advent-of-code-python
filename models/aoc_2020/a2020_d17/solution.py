@@ -3,7 +3,7 @@ from models.common.vectors import VectorNDimensional
 from .hyper_game_of_life import HyperGameOfLife
 
 
-def aoc_2020_d17(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d17(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 17: Conway Cubes ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     active_cubes_3d = {

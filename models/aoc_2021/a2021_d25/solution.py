@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .sea_cucumber import SeaCucumbers, SeaCucumbersHerds
 
 
-def aoc_2021_d25(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d25(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 25: Sea Cucumber ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     sea_cucumbers = SeaCucumbers(width=grid.width, height=grid.height)

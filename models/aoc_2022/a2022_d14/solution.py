@@ -4,7 +4,7 @@ from .parser import parse_obstacles
 from .falling_sand import FallingSand
 
 
-def aoc_2022_d14(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d14(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 14: Regolith Reservoir ---")
     obstacles = set(parse_obstacles(io_handler.input_reader))
     sand_pour_position = Vector2D(500, 0)

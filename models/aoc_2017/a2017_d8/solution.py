@@ -3,7 +3,7 @@ from .parser import parse_conditional_increment_instructions
 from .conditional_increment import maximum_value_at_registers
 
 
-def aoc_2017_d8(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d8(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 8: I Heard You Like Registers ---")
     instructions = list(
         parse_conditional_increment_instructions(io_handler.input_reader)

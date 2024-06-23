@@ -3,7 +3,7 @@ from .parser import parse_cuboid_instructions
 from .reactor_cells import num_reactor_cells_on
 
 
-def aoc_2021_d22(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d22(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 22: Reactor Reboot ---")
     instructions = list(parse_cuboid_instructions(io_handler.input_reader))
     small_instructions = [

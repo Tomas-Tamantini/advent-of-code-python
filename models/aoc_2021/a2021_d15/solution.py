@@ -3,7 +3,7 @@ from models.common.vectors import Vector2D
 from .underwater_cave import UnderwaterCaveMaze
 
 
-def aoc_2021_d15(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d15(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 15: Chiton ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     cave_maze = UnderwaterCaveMaze(

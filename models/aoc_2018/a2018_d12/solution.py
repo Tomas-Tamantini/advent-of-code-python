@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_plant_automaton
 
 
-def aoc_2018_d12(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d12(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 12: Subterranean Sustainability ---")
     plant_automaton = parse_plant_automaton(io_handler.input_reader)
     plants_alive = plant_automaton.plants_alive(generation=20)

@@ -3,7 +3,7 @@ from models.common.vectors import TurnDirection
 from .mine_carts import MineCarts
 
 
-def aoc_2018_d13(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d13(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 13: Mine Cart Madness ---")
     mine_layout = io_handler.input_reader.read()
     intersection_sequence = [

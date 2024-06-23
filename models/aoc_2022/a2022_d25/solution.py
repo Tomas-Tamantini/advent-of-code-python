@@ -26,7 +26,7 @@ def decimal_to_snafu(decimal: int) -> str:
     return "".join(reversed(digits))
 
 
-def aoc_2022_d25(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d25(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 25: Full of Hot Air ---")
     decimal_sum = sum(
         snafu_to_decimal(line) for line in io_handler.input_reader.read_stripped_lines()

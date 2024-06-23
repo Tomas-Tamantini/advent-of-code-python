@@ -3,7 +3,7 @@ from .parser import parse_programmable_screen_instructions
 from .programmable_screen import ProgrammableScreen
 
 
-def aoc_2016_d8(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d8(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 8: Two-Factor Authentication ---")
     screen = ProgrammableScreen(width=50, height=6)
     parse_programmable_screen_instructions(io_handler.input_reader, screen)

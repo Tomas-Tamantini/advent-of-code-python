@@ -9,7 +9,7 @@ from .logic import (
 )
 
 
-def aoc_2019_d21(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d21(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 21: Springdroid Adventure ---")
     intcode_instructions = [
         int(code) for code in io_handler.input_reader.read().split(",")

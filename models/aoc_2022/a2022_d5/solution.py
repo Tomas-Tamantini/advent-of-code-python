@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_crates
 
 
-def aoc_2022_d5(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d5(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 5: Supply Stacks ---")
     parsed_crates = parse_crates(io_handler.input_reader, move_one_at_a_time=True)
     crates = parsed_crates.crates

@@ -7,7 +7,7 @@ from .valid_passwords import (
 )
 
 
-def aoc_2019_d4(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d4(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 4: Secure Container ---")
     lower_bound, upper_bound = map(int, io_handler.input_reader.read().split("-"))
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]

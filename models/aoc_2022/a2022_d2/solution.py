@@ -3,7 +3,7 @@ from .parser import parse_rock_paper_scissors
 from .rock_paper_scissors import rock_paper_scissors_score
 
 
-def aoc_2022_d2(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d2(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 2: Rock Paper Scissors ---")
     score = sum(
         rock_paper_scissors_score(my_action, opponent_action)

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .fuel_cells import FuelCells
 
 
-def aoc_2018_d11(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d11(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 11: Chronal Charge ---")
     grid_serial_number = int(io_handler.input_reader.read())
     cells = FuelCells(width=300, height=300, grid_serial_number=grid_serial_number)

@@ -3,7 +3,7 @@ from models.common.assembly import Processor, Computer
 from models.aoc_2016.assembunny import parse_assembunny_code
 
 
-def aoc_2016_d12(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d12(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 12: Leonardo&apos;s Monorail ---")
     program = parse_assembunny_code(io_handler.input_reader)
     program.optimize()

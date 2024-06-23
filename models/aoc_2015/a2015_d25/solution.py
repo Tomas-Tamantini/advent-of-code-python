@@ -14,7 +14,7 @@ def code_at(row: int, col: int, first_code: int, multiplier: int, mod: int) -> i
     return code
 
 
-def aoc_2015_d25(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d25(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 25: Let It Snow ---")
     row_and_col = parse_code_row_and_col(io_handler.input_reader)
     code = code_at(**row_and_col, first_code=20151125, multiplier=252533, mod=33554393)

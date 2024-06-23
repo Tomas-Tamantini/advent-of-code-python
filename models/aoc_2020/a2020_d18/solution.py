@@ -5,7 +5,7 @@ from .evaluate_expression import (
 )
 
 
-def aoc_2020_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 18: Operation Order ---")
     expressions = [line.strip() for line in io_handler.input_reader.readlines()]
     sum_results_left_precedence = sum(

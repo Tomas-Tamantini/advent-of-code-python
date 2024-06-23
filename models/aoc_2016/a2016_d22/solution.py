@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_storage_nodes
 
 
-def aoc_2016_d22(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d22(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 22: Grid Computing ---")
     nodes = list(parse_storage_nodes(io_handler.input_reader))
     viable_pairs = sum(

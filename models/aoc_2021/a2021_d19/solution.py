@@ -3,7 +3,7 @@ from .parser import parse_underwater_scanners
 from .underwater_scanner import pinpoint_scanners
 
 
-def aoc_2021_d19(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d19(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 19: Beacon Scanner ---")
     scanners = list(parse_underwater_scanners(io_handler.input_reader))
     pinpointed = pinpoint_scanners(

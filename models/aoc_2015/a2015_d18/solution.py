@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .game_of_life_lights import GameOfLifeLights
 
 
-def aoc_2015_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 18: Like a GIF For Your Yard ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     initial_cells = set(grid.positions_with_value("#"))

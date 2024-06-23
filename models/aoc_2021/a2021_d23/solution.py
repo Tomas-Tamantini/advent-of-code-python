@@ -3,7 +3,7 @@ from .parser import parse_amphipod_burrow
 from .logic import AmphipodSorter
 
 
-def aoc_2021_d23(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d23(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 23: Amphipod ---")
     burrow = parse_amphipod_burrow(io_handler.input_reader)
     min_energy = AmphipodSorter().min_energy_to_sort(burrow)

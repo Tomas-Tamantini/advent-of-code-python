@@ -14,7 +14,7 @@ def first_basement(instructions: str) -> int:
     return -1
 
 
-def aoc_2015_d1(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d1(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 1: Not Quite Lisp ---")
     instructions = io_handler.input_reader.read()
 

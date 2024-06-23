@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_interval_pairs
 
 
-def aoc_2022_d4(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d4(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 4: Camp Cleanup ---")
     pairs = list(parse_interval_pairs(io_handler.input_reader))
     num_pairs_fully_contained = sum(

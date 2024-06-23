@@ -3,7 +3,7 @@ from models.common.vectors import Vector2D
 from .rocky_cave import RockyCave, CaveExplorer
 
 
-def aoc_2018_d22(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d22(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 22: Mode Maze ---")
     lines = list(io_handler.input_reader.readlines())
     depth = int(lines[0].split()[1])

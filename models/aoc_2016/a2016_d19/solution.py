@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .josephus import josephus, modified_josephus
 
 
-def aoc_2016_d19(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d19(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 19: An Elephant Named Joseph ---")
     num_elves = int(io_handler.input_reader.read().strip())
     winning_elf_take_left = josephus(num_elves)

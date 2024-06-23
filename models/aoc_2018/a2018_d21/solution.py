@@ -31,7 +31,7 @@ def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool)
             b = b // 256
 
 
-def aoc_2018_d21(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d21(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 21: Chronal Conversion ---")
     lines = list(io_handler.input_reader.readlines())
     input_number = int(lines[8].split()[1])

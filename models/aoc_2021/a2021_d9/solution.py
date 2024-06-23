@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .smoke_basin import SmokeBasin
 
 
-def aoc_2021_d9(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d9(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 9: Smoke Basin ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     basin = SmokeBasin(

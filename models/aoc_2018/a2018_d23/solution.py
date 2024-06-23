@@ -3,7 +3,7 @@ from .parser import parse_nanobots
 from .nanobot import distance_of_position_with_strongest_signal
 
 
-def aoc_2018_d23(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d23(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 23: Experimental Emergency Teleportation ---")
     bots = list(parse_nanobots(io_handler.input_reader))
     strongest = max(bots, key=lambda b: b.radius)

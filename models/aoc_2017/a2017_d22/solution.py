@@ -3,7 +3,7 @@ from models.common.vectors import CardinalDirection
 from .grid_cluster import GridCluster
 
 
-def aoc_2017_d22(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d22(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 22: Sporifica Virus ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     infected_positions = set(grid.positions_with_value("#"))

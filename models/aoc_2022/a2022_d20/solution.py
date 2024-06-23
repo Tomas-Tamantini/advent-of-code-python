@@ -9,7 +9,7 @@ def _numbers_at_offsets(numbers: list[int], offsets: Iterable[int]) -> Iterator[
         yield numbers[(zero_index + offset) % len(numbers)]
 
 
-def aoc_2022_d20(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d20(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 20: Grove Positioning System ---")
     offsets = (1000, 2000, 3000)
     numbers = [int(line) for line in io_handler.input_reader.read_stripped_lines()]

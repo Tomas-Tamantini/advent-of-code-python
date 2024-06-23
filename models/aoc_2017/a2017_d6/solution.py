@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .memory_bank import MemoryBankBalancer
 
 
-def aoc_2017_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 6: Memory Reallocation ---")
     num_blocks = [int(block) for block in io_handler.input_reader.read().split()]
     balancer = MemoryBankBalancer(num_blocks)

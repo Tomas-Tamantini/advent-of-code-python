@@ -3,7 +3,7 @@ from .parser import parse_cube_positions
 from .logic import total_surface_area, external_surface_area
 
 
-def aoc_2022_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 18: Boiling Boulders ---")
     cubes = set(parse_cube_positions(io_handler.input_reader))
     total_area = total_surface_area(cubes)

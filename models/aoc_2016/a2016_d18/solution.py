@@ -19,7 +19,7 @@ def num_safe_tiles(
     return len(first_row) * num_rows - num_unsafe_tiles
 
 
-def aoc_2016_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 18: Like a Rogue ---")
     first_row = io_handler.input_reader.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, ExecutionFlags
 from models.aoc_2015 import ALL_2015_SOLUTIONS
 from models.aoc_2016 import ALL_2016_SOLUTIONS
 from models.aoc_2017 import ALL_2017_SOLUTIONS
@@ -28,12 +28,10 @@ def run_solutions(
             days = [i + 1 for i in range(len(solutions[year]))]
         for day in days:
             file_name = f"input_files/aoc_{year}/a{year}_d{day}.txt"
+            flags = ExecutionFlags(animate=animate, play=play)
             io_handler = IOHandler(
                 input_reader=InputFromTextFile(file_name),
                 progress_bar=CliProgressBar(),
+                execution_flags=flags,
             )
-            solutions[year][day - 1](
-                io_handler,
-                animate=animate,
-                play=play,
-            )
+            solutions[year][day - 1](io_handler)

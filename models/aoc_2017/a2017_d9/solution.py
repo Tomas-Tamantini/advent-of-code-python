@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .stream_handler import StreamHandler
 
 
-def aoc_2017_d9(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d9(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 9: Stream Processing ---")
     stream = io_handler.input_reader.read().strip()
     handler = StreamHandler(stream)

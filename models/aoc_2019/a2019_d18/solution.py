@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_tunnel_maze
 
 
-def aoc_2019_d18(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d18(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 18: Many-Worlds Interpretation ---")
     maze = parse_tunnel_maze(io_handler.input_reader)
     min_dist = maze.shortest_distance_to_all_keys()

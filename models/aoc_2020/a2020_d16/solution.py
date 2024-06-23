@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_ticket_validator_and_ticket_values
 
 
-def aoc_2020_d16(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d16(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 16: Ticket Translation ---")
     parsed_ticket_validator = parse_ticket_validator_and_ticket_values(
         io_handler.input_reader

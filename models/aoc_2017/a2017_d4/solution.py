@@ -12,7 +12,7 @@ def sentence_contains_no_anagrams(sentence: str) -> bool:
     return len(sorted_words) == len(set(sorted_words))
 
 
-def aoc_2017_d4(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d4(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 4: High-Entropy Passphrases ---")
     passphrases = list(io_handler.input_reader.readlines())
     no_duplicates = sum(

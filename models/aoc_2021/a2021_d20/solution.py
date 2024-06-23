@@ -3,7 +3,7 @@ from .parser import parse_trench_rules_and_trench_map
 from .trench_map_automaton import TrenchMapAutomaton
 
 
-def aoc_2021_d20(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d20(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 20: Trench Map ---")
     lit_cell_configurations, lit_cells = parse_trench_rules_and_trench_map(
         io_handler.input_reader

@@ -3,7 +3,7 @@ from .parser import parse_particles
 from .particle_collider import ParticleCollider
 
 
-def aoc_2017_d20(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d20(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 20: Particle Swarm ---")
     particles = list(parse_particles(io_handler.input_reader))
     collider = ParticleCollider(particles)

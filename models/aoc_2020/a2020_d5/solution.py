@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_plane_seat_ids
 
 
-def aoc_2020_d5(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d5(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 5: Binary Boarding ---")
     seat_ids = sorted(parse_plane_seat_ids(io_handler.input_reader))
     max_id = seat_ids[-1]

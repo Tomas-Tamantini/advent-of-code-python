@@ -3,7 +3,7 @@ from .parser import parse_jigsaw_pieces
 from .logic import solve_jigsaw
 
 
-def aoc_2020_d20(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d20(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 20: Jurassic Jigsaw ---")
     pieces = list(parse_jigsaw_pieces(io_handler.input_reader))
     solved_jigsaw = solve_jigsaw(pieces)

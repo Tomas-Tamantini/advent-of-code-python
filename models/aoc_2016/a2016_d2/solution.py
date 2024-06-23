@@ -3,7 +3,7 @@ from .parser import parse_cardinal_direction_instructions
 from .keypad import Keypad
 
 
-def aoc_2016_d2(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d2(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 2: Bathroom Security ---")
     keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
     keypad_rhombus = Keypad(

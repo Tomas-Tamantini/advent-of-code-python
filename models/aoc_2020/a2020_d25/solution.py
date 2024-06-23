@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from models.common.number_theory import modular_logarithm
 
 
-def aoc_2020_d25(io_handler: IOHandler, **_) -> None:
+def aoc_2020_d25(io_handler: IOHandler) -> None:
     print("--- AOC 2020 - Day 25: Combo Breaker ---")
     public_keys = [int(line.strip()) for line in io_handler.input_reader.readlines()]
     subject_number = 7

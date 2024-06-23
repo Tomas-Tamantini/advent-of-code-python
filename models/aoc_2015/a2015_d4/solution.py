@@ -17,7 +17,7 @@ def mine_advent_coins(secret_key: str, num_leading_zeros: int) -> int:
             return number
 
 
-def aoc_2015_d4(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d4(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 4: The Ideal Stocking Stuffer ---")
     secret_key = io_handler.input_reader.read()
     print(

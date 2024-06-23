@@ -3,7 +3,7 @@ from models.common.vectors import Vector2D
 from .repair_droid import DroidExploredArea, repair_droid_explore_area
 
 
-def aoc_2019_d15(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d15(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 15: Oxygen System ---")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     area = DroidExploredArea()

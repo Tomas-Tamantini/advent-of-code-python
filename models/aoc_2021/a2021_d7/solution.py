@@ -5,7 +5,7 @@ from .optimal_fuel_consumption import (
 )
 
 
-def aoc_2021_d7(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d7(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 7: The Treachery of Whales ---")
     positions = list(map(int, io_handler.input_reader.read().split(",")))
 

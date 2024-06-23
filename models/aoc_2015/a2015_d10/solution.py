@@ -16,7 +16,7 @@ def next_look_and_say(digits_current_term: list[int]) -> list[int]:
     return digits_next_term
 
 
-def aoc_2015_d10(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d10(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 10: Elves Look, Elves Say ---")
     current_term = io_handler.input_reader.read().strip()
     current_digits = [int(d) for d in current_term]

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .disk_grid import DiskGrid
 
 
-def aoc_2017_d14(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d14(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 14: Disk Defragmentation ---")
     key = io_handler.input_reader.read().strip()
     num_rows = 128

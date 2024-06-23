@@ -13,7 +13,7 @@ def differing_indices(string_a: str, string_b: str) -> Iterator[int]:
             yield index
 
 
-def aoc_2018_d2(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d2(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 2: Inventory Management System ---")
     lines = list(io_handler.input_reader.readlines())
     ids = [line.strip() for line in lines]

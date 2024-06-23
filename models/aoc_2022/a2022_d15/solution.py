@@ -7,7 +7,7 @@ from .logic import (
 )
 
 
-def aoc_2022_d15(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d15(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 15: Beacon Exclusion Zone ---")
     sensors = list(parse_proximity_sensors(io_handler.input_reader))
     num_positions = num_positions_which_cannot_contain_beacon(

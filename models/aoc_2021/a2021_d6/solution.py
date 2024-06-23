@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .lantern_fish import LanternFish, lantern_fish_population_after_n_days
 
 
-def aoc_2021_d6(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d6(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 6: Lanternfish ---")
     days_until_reproduction = [
         int(day) for day in io_handler.input_reader.read().split(",")

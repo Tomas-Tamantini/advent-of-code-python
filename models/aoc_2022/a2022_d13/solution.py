@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .packet_comparison import left_packet_leq_right
 
 
-def aoc_2022_d13(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d13(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 13: Distress Signal ---")
     lines = list(io_handler.input_reader.read_stripped_lines())
     sum_pair_indices = 0

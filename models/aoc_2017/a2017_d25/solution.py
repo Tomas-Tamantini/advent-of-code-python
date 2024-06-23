@@ -3,7 +3,7 @@ from .parser import parse_turing_machine_specs
 from .turing_machine import TuringMachine
 
 
-def aoc_2017_d25(io_handler: IOHandler, **_) -> None:
+def aoc_2017_d25(io_handler: IOHandler) -> None:
     print("--- AOC 2017 - Day 25: The Halting Problem ---")
     initial_state, num_steps, transition_rules = parse_turing_machine_specs(
         io_handler.input_reader

@@ -3,7 +3,7 @@ from models.common.io import IOHandler
 from .parser import parse_line_segments
 
 
-def aoc_2021_d5(io_handler: IOHandler, **_) -> None:
+def aoc_2021_d5(io_handler: IOHandler) -> None:
     print("--- AOC 2021 - Day 5: Hydrothermal Venture ---")
     segments = list(parse_line_segments(io_handler.input_reader))
 

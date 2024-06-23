@@ -2,7 +2,7 @@ from models.common.io import IOHandler, CharacterGrid
 from .asteroid_belt import AsteroidBelt
 
 
-def aoc_2019_d10(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d10(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 10: Monitoring Station ---")
     grid = CharacterGrid(io_handler.input_reader.read())
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))

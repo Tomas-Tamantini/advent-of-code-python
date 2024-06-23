@@ -7,10 +7,10 @@ from .logic import (
 )
 
 
-def aoc_2019_d25(io_handler: IOHandler, play: bool, **_) -> None:
+def aoc_2019_d25(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 25: Cryostasis ---")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
-    if play:
+    if io_handler.execution_flags.play:
         control = DroidCLIControl(DroidInput())
         play_msg = ""
     else:

@@ -4,7 +4,7 @@ from .parser import parse_directed_graph
 from .jobshop import time_to_complete_jobs
 
 
-def aoc_2018_d7(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d7(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 7: The Sum of Its Parts ---")
     graph = parse_directed_graph(io_handler.input_reader)
     order = "".join(topological_sorting(graph, tie_breaker=lambda a, b: a < b))

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .layered_image import LayeredImage
 
 
-def aoc_2019_d8(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d8(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 8: Space Image Format ---")
     data = io_handler.input_reader.read().strip()
 

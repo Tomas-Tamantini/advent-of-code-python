@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .key_generator import KeyGenerator
 
 
-def aoc_2016_d14(io_handler: IOHandler, **_) -> None:
+def aoc_2016_d14(io_handler: IOHandler) -> None:
     print("--- AOC 2016 - Day 14: One-Time Pad ---")
     salt = io_handler.input_reader.read().strip()
     one_hash_generator = KeyGenerator(

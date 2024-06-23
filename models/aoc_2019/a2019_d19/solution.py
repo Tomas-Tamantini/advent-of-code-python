@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .beam_area import BeamArea, run_beam_scanner, square_closest_to_beam_source
 
 
-def aoc_2019_d19(io_handler: IOHandler, **_) -> None:
+def aoc_2019_d19(io_handler: IOHandler) -> None:
     print("--- AOC 2019 - Day 19: Tractor Beam ---")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     area = BeamArea(width=50, height=50)

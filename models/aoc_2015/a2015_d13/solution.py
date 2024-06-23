@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .parser import parse_seating_arrangement
 
 
-def aoc_2015_d13(io_handler: IOHandler, **_) -> None:
+def aoc_2015_d13(io_handler: IOHandler) -> None:
     print("--- AOC 2015 - Day 13: Knights of the Dinner Table ---")
     graph = parse_seating_arrangement(io_handler.input_reader)
     max_happiness = graph.both_ways_trip_max_cost()

@@ -2,7 +2,7 @@ from models.common.io import IOHandler
 from .polymer_reaction import polymer_reaction, minimum_polymer_length
 
 
-def aoc_2018_d5(io_handler: IOHandler, **_) -> None:
+def aoc_2018_d5(io_handler: IOHandler) -> None:
     print("--- AOC 2018 - Day 5: Alchemical Reduction ---")
     polymer = io_handler.input_reader.read().strip()
     reacted_polymer = polymer_reaction(polymer)

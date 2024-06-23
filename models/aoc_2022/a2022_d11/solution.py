@@ -14,7 +14,7 @@ def _monkey_business(
     return max_num_inspections[0] * max_num_inspections[1]
 
 
-def aoc_2022_d11(io_handler: IOHandler, **_) -> None:
+def aoc_2022_d11(io_handler: IOHandler) -> None:
     print("--- AOC 2022 - Day 11: Monkey in the Middle ---")
     monkey_business_20_rounds = _monkey_business(
         io_handler.input_reader, boredom_worry_level_divisor=3, num_rounds=20
