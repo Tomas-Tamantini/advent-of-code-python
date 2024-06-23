@@ -13,5 +13,7 @@ def aoc_2016_d8(io_handler: IOHandler) -> None:
     )
     io_handler.output_writer.write_solution(solution)
     screen_display = str(screen).replace("0", " ").replace("1", "#")
-    solution = ProblemSolution(problem_id, f"Screen display\n{screen_display}", part=2)
+    solution = ProblemSolution(
+        problem_id, f"Screen display\n\n{screen_display}\n", part=2
+    )
     io_handler.output_writer.write_solution(solution)

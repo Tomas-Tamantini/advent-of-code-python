@@ -27,6 +27,6 @@ def aoc_2021_d13(io_handler: IOHandler) -> None:
         matrix[dot.y][dot.x] = "#"
     code = "\n".join("".join(row) for row in matrix)
     solution = ProblemSolution(
-        problem_id, f"The code after all folds is\n{code}", part=2
+        problem_id, f"The code after all folds is\n\n{code}\n", part=2
     )
     io_handler.output_writer.write_solution(solution)

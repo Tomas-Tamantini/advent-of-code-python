@@ -11,7 +11,7 @@ def aoc_2018_d10(io_handler: IOHandler) -> None:
     moments = moving_particles.moments_of_bounding_box_area_increase()
     inflexion_point = next(moments) - 1
     solution = ProblemSolution(
-        problem_id, f"Message:\n{moving_particles.draw(inflexion_point)}", part=1
+        problem_id, f"Message:\n\n{moving_particles.draw(inflexion_point)}\n", part=1
     )
     io_handler.output_writer.write_solution(solution)
     solution = ProblemSolution(

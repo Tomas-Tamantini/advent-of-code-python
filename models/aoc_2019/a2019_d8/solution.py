@@ -17,5 +17,7 @@ def aoc_2019_d8(io_handler: IOHandler) -> None:
         part=1,
     )
     io_handler.output_writer.write_solution(solution)
-    solution = ProblemSolution(problem_id, f"The message is\n{image.render()}", part=2)
+    solution = ProblemSolution(
+        problem_id, f"The message is\n\n{image.render()}", part=2
+    )
     io_handler.output_writer.write_solution(solution)
