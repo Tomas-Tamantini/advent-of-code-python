@@ -3,7 +3,7 @@ from .parser import parse_operation_monkeys
 
 
 def aoc_2022_d21(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 21: Monkey Math ---")
+    io_handler.output_writer.write_header(2022, 21, "Monkey Math")
     monkeys = parse_operation_monkeys(io_handler.input_reader)
     root_monkey = next(m for m in monkeys if m.name == "root")
     result = root_monkey.evaluate()

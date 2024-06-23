@@ -4,7 +4,7 @@ from .underwater_cave import UnderwaterCaveMaze
 
 
 def aoc_2021_d15(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 15: Chiton ---")
+    io_handler.output_writer.write_header(2021, 15, "Chiton")
     grid = CharacterGrid(io_handler.input_reader.read())
     cave_maze = UnderwaterCaveMaze(
         risk_levels={pos: int(char) for pos, char in grid.tiles.items()},

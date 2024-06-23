@@ -15,7 +15,7 @@ def first_basement(instructions: str) -> int:
 
 
 def aoc_2015_d1(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 1: Not Quite Lisp ---")
+    io_handler.output_writer.write_header(2015, 1, "Not Quite Lisp")
     instructions = io_handler.input_reader.read()
 
     floor = final_floor(instructions)

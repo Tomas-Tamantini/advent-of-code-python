@@ -4,7 +4,7 @@ from .cookie import CookieRecipe
 
 
 def aoc_2015_d15(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 15: Science for Hungry People ---")
+    io_handler.output_writer.write_header(2015, 15, "Science for Hungry People")
     ingredients = list(parse_cookie_properties(io_handler.input_reader))
     recipe = CookieRecipe(ingredients, num_tablespoons=100)
     optimal_recipe = recipe.optimal_recipe()

@@ -5,7 +5,7 @@ from .turtle import Turtle
 
 
 def aoc_2016_d1(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 1: No Time for a Taxicab ---")
+    io_handler.output_writer.write_header(2016, 1, "No Time for a Taxicab")
     instructions = list(parse_turtle_instructions(io_handler.input_reader))
     turtle = Turtle(initial_direction=CardinalDirection.NORTH)
     for instruction in instructions:

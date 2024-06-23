@@ -4,7 +4,7 @@ from .programmable_screen import ProgrammableScreen
 
 
 def aoc_2016_d8(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 8: Two-Factor Authentication ---")
+    io_handler.output_writer.write_header(2016, 8, "Two-Factor Authentication")
     screen = ProgrammableScreen(width=50, height=6)
     parse_programmable_screen_instructions(io_handler.input_reader, screen)
     print(f"Part 1: Number of lit pixels: {screen.number_of_lit_pixels()}")

@@ -5,7 +5,7 @@ from .ship import Ship
 
 
 def aoc_2020_d12(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 12: Rain Risk ---")
+    io_handler.output_writer.write_header(2020, 12, "Rain Risk")
     ship_instructions = parse_navigation_instructions(io_handler.input_reader)
     ship = Ship(position=Vector2D(0, 0), facing=CardinalDirection.EAST)
     for instruction in ship_instructions:

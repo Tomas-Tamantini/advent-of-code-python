@@ -4,7 +4,7 @@ from .twisty_wire import TwistyWire
 
 
 def aoc_2019_d3(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 3: Crossed Wires ---")
+    io_handler.output_writer.write_header(2019, 3, "Crossed Wires")
     wire_a = TwistyWire()
     wire_b = TwistyWire()
     instructions = list(parse_directions(io_handler.input_reader))

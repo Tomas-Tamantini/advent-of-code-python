@@ -3,7 +3,7 @@ from .crab_cubs import crab_cups
 
 
 def aoc_2020_d23(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 23: Crab Cups ---")
+    io_handler.output_writer.write_header(2020, 23, "Crab Cups")
     cups = [int(char) for char in io_handler.input_reader.read().strip()]
     result = crab_cups(cups, num_moves=100)
     one_index = result.index(1)

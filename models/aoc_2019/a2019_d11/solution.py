@@ -4,7 +4,7 @@ from .hull_painting import Hull, run_hull_painting_program
 
 
 def aoc_2019_d11(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 11: Space Police ---")
+    io_handler.output_writer.write_header(2019, 11, "Space Police")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     all_black_hull = Hull()
     run_hull_painting_program(instructions, all_black_hull)

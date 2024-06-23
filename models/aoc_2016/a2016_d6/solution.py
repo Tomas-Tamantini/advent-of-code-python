@@ -3,7 +3,7 @@ from .message_reconstructor import MessageReconstructor
 
 
 def aoc_2016_d6(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 6: Signals and Noise ---")
+    io_handler.output_writer.write_header(2016, 6, "Signals and Noise")
     lines = list(io_handler.input_reader.readlines())
     message_reconstructor = MessageReconstructor(lines)
     most_common_chars = (

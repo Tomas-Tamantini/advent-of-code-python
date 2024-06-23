@@ -8,7 +8,7 @@ from .logic import (
 
 
 def aoc_2018_d15(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 15: Beverage Bandits ---")
+    io_handler.output_writer.write_header(2018, 15, "Beverage Bandits")
     map_with_units = io_handler.input_reader.read()
     elf_specs = CaveTeamSpec(attack_power=3, hit_points=200)
     goblin_specs = CaveTeamSpec(attack_power=3, hit_points=200)

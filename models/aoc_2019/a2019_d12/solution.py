@@ -4,7 +4,7 @@ from .moons import MoonOfJupiter, MoonSystem
 
 
 def aoc_2019_d12(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 12: The N-Body Problem ---")
+    io_handler.output_writer.write_header(2019, 12, "The N-Body Problem")
     positions = list(parse_3d_vectors(io_handler.input_reader))
     moons = [MoonOfJupiter(pos) for pos in positions]
     system = MoonSystem(moons)

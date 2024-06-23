@@ -4,7 +4,7 @@ from models.aoc_2016.assembunny import parse_assembunny_code
 
 
 def aoc_2016_d12(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 12: Leonardo&apos;s Monorail ---")
+    io_handler.output_writer.write_header(2016, 12, "Leonardo&apos;s Monorail")
     program = parse_assembunny_code(io_handler.input_reader)
     program.optimize()
     computer = Computer.from_processor(Processor())

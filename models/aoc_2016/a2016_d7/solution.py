@@ -3,7 +3,7 @@ from .ip_parser import IpParser
 
 
 def aoc_2016_d7(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 7: Internet Protocol Version 7 ---")
+    io_handler.output_writer.write_header(2016, 7, "Internet Protocol Version 7")
     num_ips_that_support_tls = 0
     num_ips_that_support_ssl = 0
     for line in io_handler.input_reader.readlines():

@@ -3,7 +3,9 @@ from .present_delivery import first_house_to_receive_n_presents
 
 
 def aoc_2015_d20(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 20: Infinite Elves and Infinite Houses ---")
+    io_handler.output_writer.write_header(
+        2015, 20, "Infinite Elves and Infinite Houses"
+    )
     target_num_presents = int(io_handler.input_reader.read())
     first_house = first_house_to_receive_n_presents(
         target_num_presents, presents_multiple_per_elf=10

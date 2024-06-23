@@ -3,7 +3,7 @@ from .marble_game import marble_game_score
 
 
 def aoc_2018_d9(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 9: Marble Mania ---")
+    io_handler.output_writer.write_header(2018, 9, "Marble Mania")
     line = io_handler.input_reader.read()
     num_players, last_marble = map(int, [line.split()[0], line.split()[-2]])
     scores = marble_game_score(num_players, last_marble)

@@ -4,7 +4,7 @@ from .parser import parse_line_segments
 
 
 def aoc_2021_d5(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 5: Hydrothermal Venture ---")
+    io_handler.output_writer.write_header(2021, 5, "Hydrothermal Venture")
     segments = list(parse_line_segments(io_handler.input_reader))
 
     def num_overlapping_positions(segments):

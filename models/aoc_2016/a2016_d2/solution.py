@@ -4,7 +4,7 @@ from .keypad import Keypad
 
 
 def aoc_2016_d2(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 2: Bathroom Security ---")
+    io_handler.output_writer.write_header(2016, 2, "Bathroom Security")
     keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
     keypad_rhombus = Keypad(
         configuration="**1**\n*234*\n56789\n*ABC*\n**D**", initial_key="5"

@@ -4,7 +4,7 @@ from .parser import parse_positions_and_fold_instructions
 
 
 def aoc_2021_d13(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 13: Transparent Origami ---")
+    io_handler.output_writer.write_header(2021, 13, "Transparent Origami")
     positions, instructions = parse_positions_and_fold_instructions(
         io_handler.input_reader
     )

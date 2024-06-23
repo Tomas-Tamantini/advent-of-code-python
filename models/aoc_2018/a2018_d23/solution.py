@@ -4,7 +4,9 @@ from .nanobot import distance_of_position_with_strongest_signal
 
 
 def aoc_2018_d23(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 23: Experimental Emergency Teleportation ---")
+    io_handler.output_writer.write_header(
+        2018, 23, "Experimental Emergency Teleportation"
+    )
     bots = list(parse_nanobots(io_handler.input_reader))
     strongest = max(bots, key=lambda b: b.radius)
     num_in_range = sum(strongest.is_in_range(bot.position) for bot in bots)

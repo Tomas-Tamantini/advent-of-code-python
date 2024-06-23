@@ -18,7 +18,9 @@ def houses_with_at_least_one_present(instructions: str) -> set[tuple[int, int]]:
 
 
 def aoc_2015_d3(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 3: Perfectly Spherical Houses in a Vacuum ---")
+    io_handler.output_writer.write_header(
+        2015, 3, "Perfectly Spherical Houses in a Vacuum"
+    )
     instructions = io_handler.input_reader.read()
 
     houses = houses_with_at_least_one_present(instructions)

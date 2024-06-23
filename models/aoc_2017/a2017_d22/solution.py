@@ -4,7 +4,7 @@ from .grid_cluster import GridCluster
 
 
 def aoc_2017_d22(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 22: Sporifica Virus ---")
+    io_handler.output_writer.write_header(2017, 22, "Sporifica Virus")
     grid = CharacterGrid(io_handler.input_reader.read())
     infected_positions = set(grid.positions_with_value("#"))
     cluster = GridCluster(

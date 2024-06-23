@@ -3,7 +3,9 @@ from .string_classifier import StringClassifier, simple_ruleset, complex_ruleset
 
 
 def aoc_2015_d5(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 5: Doesn&apos;t He Have Intern-Elves For This? ---")
+    io_handler.output_writer.write_header(
+        2015, 5, "Doesn&apos;t He Have Intern-Elves For This?"
+    )
     strings = list(io_handler.input_reader.readlines())
     simple_classifier = StringClassifier(simple_ruleset)
     complex_classifier = StringClassifier(complex_ruleset)

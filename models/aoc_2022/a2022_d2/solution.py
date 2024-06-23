@@ -4,7 +4,7 @@ from .rock_paper_scissors import rock_paper_scissors_score
 
 
 def aoc_2022_d2(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 2: Rock Paper Scissors ---")
+    io_handler.output_writer.write_header(2022, 2, "Rock Paper Scissors")
     score = sum(
         rock_paper_scissors_score(my_action, opponent_action)
         for opponent_action, my_action in parse_rock_paper_scissors(

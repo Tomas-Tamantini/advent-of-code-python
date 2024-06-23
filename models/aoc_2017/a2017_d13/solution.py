@@ -3,7 +3,7 @@ from .parser import parse_layered_firewall
 
 
 def aoc_2017_d13(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 13: Packet Scanners ---")
+    io_handler.output_writer.write_header(2017, 13, "Packet Scanners")
     firewall = parse_layered_firewall(io_handler.input_reader)
     packet_collisions = list(firewall.packet_collisions())
     severity = sum(

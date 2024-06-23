@@ -4,7 +4,7 @@ from .moving_particles import MovingParticles
 
 
 def aoc_2018_d10(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 10: The Stars Align ---")
+    io_handler.output_writer.write_header(2018, 10, "The Stars Align")
     particles = list(parse_moving_particles(io_handler.input_reader))
     moving_particles = MovingParticles(particles)
     moments = moving_particles.moments_of_bounding_box_area_increase()

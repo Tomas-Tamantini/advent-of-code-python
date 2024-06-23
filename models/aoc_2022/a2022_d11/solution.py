@@ -15,7 +15,7 @@ def _monkey_business(
 
 
 def aoc_2022_d11(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 11: Monkey in the Middle ---")
+    io_handler.output_writer.write_header(2022, 11, "Monkey in the Middle")
     monkey_business_20_rounds = _monkey_business(
         io_handler.input_reader, boredom_worry_level_divisor=3, num_rounds=20
     )

@@ -14,7 +14,9 @@ def follow_and_increment_jump_instructions(
 
 
 def aoc_2017_d5(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 5: A Maze of Twisty Trampolines, All Alike ---")
+    io_handler.output_writer.write_header(
+        2017, 5, "A Maze of Twisty Trampolines, All Alike"
+    )
     jump_offsets = [int(line) for line in io_handler.input_reader.readlines()]
     simple_increment_rule = lambda jump: jump + 1
     steps_simple_increment = 0

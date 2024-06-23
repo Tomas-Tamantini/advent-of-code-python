@@ -4,7 +4,7 @@ from .repair_droid import DroidExploredArea, repair_droid_explore_area
 
 
 def aoc_2019_d15(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 15: Oxygen System ---")
+    io_handler.output_writer.write_header(2019, 15, "Oxygen System")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     area = DroidExploredArea()
     repair_droid_explore_area(area, instructions)

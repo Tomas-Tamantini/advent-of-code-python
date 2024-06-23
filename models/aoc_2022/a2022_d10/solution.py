@@ -4,7 +4,7 @@ from .logic import RegisterHistory, SpriteScreen
 
 
 def aoc_2022_d10(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 10: Cathode-Ray Tube ---")
+    io_handler.output_writer.write_header(2022, 10, "Cathode-Ray Tube")
     rh = RegisterHistory()
     for instruction in parse_instructions_with_duration(io_handler.input_reader):
         rh.run_instruction(instruction)

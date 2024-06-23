@@ -3,7 +3,7 @@ from .asteroid_belt import AsteroidBelt
 
 
 def aoc_2019_d10(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 10: Monitoring Station ---")
+    io_handler.output_writer.write_header(2019, 10, "Monitoring Station")
     grid = CharacterGrid(io_handler.input_reader.read())
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()

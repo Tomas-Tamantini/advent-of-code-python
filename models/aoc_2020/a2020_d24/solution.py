@@ -5,7 +5,7 @@ from .hexagonal_automaton import HexagonalAutomaton
 
 
 def aoc_2020_d24(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 24: Lobby Layout ---")
+    io_handler.output_writer.write_header(2020, 24, "Lobby Layout")
     black_tiles = set()
     for directions in parse_rotated_hexagonal_directions(io_handler.input_reader):
         pos = CanonicalHexagonalCoordinates(0, 0)

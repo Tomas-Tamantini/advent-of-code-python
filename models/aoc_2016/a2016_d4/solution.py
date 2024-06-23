@@ -3,7 +3,7 @@ from .parser import parse_encrypted_rooms
 
 
 def aoc_2016_d4(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 4: Security Through Obscurity ---")
+    io_handler.output_writer.write_header(2016, 4, "Security Through Obscurity")
     id_sum = 0
     id_storage = -1
     for room in parse_encrypted_rooms(io_handler.input_reader):

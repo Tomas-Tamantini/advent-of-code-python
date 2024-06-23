@@ -3,7 +3,7 @@ from .parser import parse_bingo_game_and_numbers_to_draw
 
 
 def aoc_2021_d4(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 4: Giant Squid ---")
+    io_handler.output_writer.write_header(2021, 4, "Giant Squid")
     game, numbers_to_draw = parse_bingo_game_and_numbers_to_draw(
         io_handler.input_reader
     )

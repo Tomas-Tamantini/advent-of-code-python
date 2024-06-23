@@ -4,7 +4,7 @@ from .packet_arrangement import possible_arrangements_of_packets_in_passenger_co
 
 
 def aoc_2015_d24(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 24: It Hangs in the Balance ---")
+    io_handler.output_writer.write_header(2015, 24, "It Hangs in the Balance")
     lines = list(io_handler.input_reader.readlines())
     numbers = tuple(int(l) for l in lines)
     min_quantum_entanglement = min(

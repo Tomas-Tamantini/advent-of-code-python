@@ -3,7 +3,7 @@ from .snail_fish import SnailFishTree
 
 
 def aoc_2021_d18(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 18: Snailfish ---")
+    io_handler.output_writer.write_header(2021, 18, "Snailfish")
     lines = list(io_handler.input_reader.readlines())
     lists = [eval(line.strip()) for line in lines]
     acc = SnailFishTree.from_list(lists[0])

@@ -4,7 +4,7 @@ from .foods import Foods
 
 
 def aoc_2020_d21(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 21: Allergen Assessment ---")
+    io_handler.output_writer.write_header(2020, 21, "Allergen Assessment")
     foods = Foods(list(parse_foods(io_handler.input_reader)))
     num_times = sum(
         foods.num_times_ingredient_appears(ingredient)

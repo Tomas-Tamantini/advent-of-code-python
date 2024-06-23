@@ -35,7 +35,7 @@ def _smallest_number_accepted_by_monad(
 
 
 def aoc_2021_d24(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 24: Arithmetic Logic Unit ---")
+    io_handler.output_writer.write_header(2021, 24, "Arithmetic Logic Unit")
     instructions = list(io_handler.input_reader.readlines())
     x_offsets = [int(instructions[18 * i + 5].split()[-1]) for i in range(14)]
     y_offsets = [int(instructions[18 * i + 15].split()[-1]) for i in range(14)]

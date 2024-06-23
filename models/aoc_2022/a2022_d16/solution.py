@@ -4,7 +4,7 @@ from .logic import maximum_pressure_release, Volcano
 
 
 def aoc_2022_d16(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 16: Proboscidea Volcanium ---")
+    io_handler.output_writer.write_header(2022, 16, "Proboscidea Volcanium")
     graph = parse_valve_graph(
         io_handler.input_reader, time_to_travel_between_valves=1, time_to_open_valves=1
     )

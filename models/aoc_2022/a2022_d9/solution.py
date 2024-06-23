@@ -22,7 +22,7 @@ def _tail_positions(
 
 
 def aoc_2022_d9(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 9: Rope Bridge ---")
+    io_handler.output_writer.write_header(2022, 9, "Rope Bridge")
     instructions = list(parse_move_instructions(io_handler.input_reader))
     total_num_iterations = sum(distance for _, distance in instructions)
     short_rope = Rope(num_knots=2)

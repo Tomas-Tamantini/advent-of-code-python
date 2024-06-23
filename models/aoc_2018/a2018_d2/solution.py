@@ -14,7 +14,7 @@ def differing_indices(string_a: str, string_b: str) -> Iterator[int]:
 
 
 def aoc_2018_d2(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 2: Inventory Management System ---")
+    io_handler.output_writer.write_header(2018, 2, "Inventory Management System")
     lines = list(io_handler.input_reader.readlines())
     ids = [line.strip() for line in lines]
     exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)

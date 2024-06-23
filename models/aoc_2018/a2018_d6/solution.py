@@ -5,7 +5,7 @@ from .voronoi import ManhattanVoronoi
 
 
 def aoc_2018_d6(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 6: Chronal Coordinates ---")
+    io_handler.output_writer.write_header(2018, 6, "Chronal Coordinates")
     lines = list(io_handler.input_reader.readlines())
     coordinates = [Vector2D(*map(int, line.split(","))) for line in lines]
     voronoi = ManhattanVoronoi(coordinates)

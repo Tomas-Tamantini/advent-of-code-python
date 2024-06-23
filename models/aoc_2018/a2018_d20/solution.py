@@ -5,7 +5,7 @@ from .lattice_graph import build_lattice_graph
 
 
 def aoc_2018_d20(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 20: A Regular Map ---")
+    io_handler.output_writer.write_header(2018, 20, "A Regular Map")
     regex = io_handler.input_reader.read().strip()
     graph = build_lattice_graph(regex)
     starting_node = Vector2D(0, 0)

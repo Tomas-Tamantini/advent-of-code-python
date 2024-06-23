@@ -4,7 +4,7 @@ from .underwater_projectile import UnderwaterProjectile
 
 
 def aoc_2021_d17(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 17: Trick Shot ---")
+    io_handler.output_writer.write_header(2021, 17, "Trick Shot")
     target = parse_bounding_box(io_handler.input_reader)
     all_velocities = list(UnderwaterProjectile.velocities_to_reach_target(target))
     max_y_velocity = max(velocity.y for velocity in all_velocities)

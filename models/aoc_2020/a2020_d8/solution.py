@@ -4,7 +4,7 @@ from .logic import run_game_console, find_and_run_game_console_which_terminates
 
 
 def aoc_2020_d8(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 8: Handheld Halting ---")
+    io_handler.output_writer.write_header(2020, 8, "Handheld Halting")
     instructions = list(parse_game_console_instructions(io_handler.input_reader))
     accumulator = run_game_console(instructions)
     print(f"Part 1: The accumulator value is {accumulator}")

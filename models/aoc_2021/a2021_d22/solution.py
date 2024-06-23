@@ -4,7 +4,7 @@ from .reactor_cells import num_reactor_cells_on
 
 
 def aoc_2021_d22(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 22: Reactor Reboot ---")
+    io_handler.output_writer.write_header(2021, 22, "Reactor Reboot")
     instructions = list(parse_cuboid_instructions(io_handler.input_reader))
     small_instructions = [
         instruction

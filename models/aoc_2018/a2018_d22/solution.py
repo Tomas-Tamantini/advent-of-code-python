@@ -4,7 +4,7 @@ from .rocky_cave import RockyCave, CaveExplorer
 
 
 def aoc_2018_d22(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 22: Mode Maze ---")
+    io_handler.output_writer.write_header(2018, 22, "Mode Maze")
     lines = list(io_handler.input_reader.readlines())
     depth = int(lines[0].split()[1])
     target = Vector2D(*map(int, lines[1].split()[1].split(",")))

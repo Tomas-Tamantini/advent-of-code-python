@@ -3,7 +3,7 @@ from models.common.vectors import HexagonalDirection, CanonicalHexagonalCoordina
 
 
 def aoc_2017_d11(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 11: Hex Ed ---")
+    io_handler.output_writer.write_header(2017, 11, "Hex Ed")
     directions = [
         HexagonalDirection(d) for d in io_handler.input_reader.read().strip().split(",")
     ]

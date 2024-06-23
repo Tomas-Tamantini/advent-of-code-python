@@ -3,7 +3,7 @@ from .smoke_basin import SmokeBasin
 
 
 def aoc_2021_d9(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 9: Smoke Basin ---")
+    io_handler.output_writer.write_header(2021, 9, "Smoke Basin")
     grid = CharacterGrid(io_handler.input_reader.read())
     basin = SmokeBasin(
         heightmap={pos: int(height) for pos, height in grid.tiles.items()}

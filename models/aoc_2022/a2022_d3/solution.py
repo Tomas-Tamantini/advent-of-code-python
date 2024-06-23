@@ -3,7 +3,7 @@ from .rucksack import Rucksack
 
 
 def aoc_2022_d3(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 3: Rucksack Reorganization ---")
+    io_handler.output_writer.write_header(2022, 3, "Rucksack Reorganization")
     rucksacks = [
         Rucksack(
             left_items=items[: len(items) // 2], right_items=items[len(items) // 2 :]

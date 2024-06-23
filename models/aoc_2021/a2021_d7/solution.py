@@ -6,7 +6,7 @@ from .optimal_fuel_consumption import (
 
 
 def aoc_2021_d7(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 7: The Treachery of Whales ---")
+    io_handler.output_writer.write_header(2021, 7, "The Treachery of Whales")
     positions = list(map(int, io_handler.input_reader.read().split(",")))
 
     optimal_linear = optimal_linear_fuel_consumption(positions)

@@ -6,7 +6,7 @@ from .unknown_op_code import possible_instructions, work_out_op_codes
 
 
 def aoc_2018_d16(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 16: Chronal Classification ---")
+    io_handler.output_writer.write_header(2018, 16, "Chronal Classification")
     samples = list(parse_instruction_samples(io_handler.input_reader))
     num_samples_with_three_or_more = sum(
         len(

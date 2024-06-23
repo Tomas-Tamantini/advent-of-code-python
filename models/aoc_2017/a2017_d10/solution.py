@@ -3,7 +3,7 @@ from .knot_hash import KnotHash
 
 
 def aoc_2017_d10(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 10: Knot Hash ---")
+    io_handler.output_writer.write_header(2017, 10, "Knot Hash")
     lengths_str = io_handler.input_reader.read().strip()
     lengths_as_int = [int(l) for l in lengths_str.split(",")]
     knot_hash = KnotHash(list_length=256)

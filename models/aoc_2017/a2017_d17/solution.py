@@ -3,7 +3,7 @@ from .circular_buffer import CircularBuffer
 
 
 def aoc_2017_d17(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 17: Spinlock ---")
+    io_handler.output_writer.write_header(2017, 17, "Spinlock")
     step_size = int(io_handler.input_reader.read().strip())
     buffer = CircularBuffer()
     for i in range(1, 2018):

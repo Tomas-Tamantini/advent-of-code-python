@@ -3,7 +3,7 @@ from .hill_maze import HillMaze
 
 
 def aoc_2022_d12(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 12: Hill Climbing Algorithm ---")
+    io_handler.output_writer.write_header(2022, 12, "Hill Climbing Algorithm")
     grid = CharacterGrid(io_handler.input_reader.read())
     maze = HillMaze(grid)
     min_num_steps = maze.min_num_steps_to_destination("S", "E")

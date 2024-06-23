@@ -7,7 +7,7 @@ from .molecule import (
 
 
 def aoc_2015_d19(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 19: Medicine for Rudolph ---")
+    io_handler.output_writer.write_header(2015, 19, "Medicine for Rudolph")
     molecule, replacements = parse_molecule_replacements(io_handler.input_reader)
     new_molecules = set(molecules_after_one_replacement(molecule, replacements))
     print(f"Part 1: There are {len(new_molecules)} new molecules after one replacement")

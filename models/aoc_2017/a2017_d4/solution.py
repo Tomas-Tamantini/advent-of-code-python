@@ -13,7 +13,7 @@ def sentence_contains_no_anagrams(sentence: str) -> bool:
 
 
 def aoc_2017_d4(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 4: High-Entropy Passphrases ---")
+    io_handler.output_writer.write_header(2017, 4, "High-Entropy Passphrases")
     passphrases = list(io_handler.input_reader.readlines())
     no_duplicates = sum(
         sentence_contains_no_duplicates(phrase) for phrase in passphrases

@@ -4,7 +4,7 @@ from .secure_room import SecureRoom, SecureRoomMaze
 
 
 def aoc_2016_d17(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 17: Two Steps Forward ---")
+    io_handler.output_writer.write_header(2016, 17, "Two Steps Forward")
     passcode = io_handler.input_reader.read().strip()
     maze_structure = SecureRoomMaze(
         width=4,

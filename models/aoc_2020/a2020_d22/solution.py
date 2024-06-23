@@ -4,7 +4,7 @@ from .crab_combat import CrabCombat
 
 
 def aoc_2020_d22(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 22: Crab Combat ---")
+    io_handler.output_writer.write_header(2020, 22, "Crab Combat")
     cards_a, cards_b = parse_crab_combat_cards(io_handler.input_reader)
     combat = CrabCombat(cards_a, cards_b, play_recursive=False)
     combat.play_game()

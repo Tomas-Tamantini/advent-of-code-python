@@ -3,7 +3,7 @@ from .cylindrical_forest import CylindricalForest
 
 
 def aoc_2020_d3(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 3: Toboggan Trajectory ---")
+    io_handler.output_writer.write_header(2020, 3, "Toboggan Trajectory")
     grid = CharacterGrid(io_handler.input_reader.read())
     forest = CylindricalForest(
         width=grid.width, height=grid.height, trees=set(grid.positions_with_value("#"))

@@ -20,7 +20,7 @@ def num_safe_tiles(
 
 
 def aoc_2016_d18(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 18: Like a Rogue ---")
+    io_handler.output_writer.write_header(2016, 18, "Like a Rogue")
     first_row = io_handler.input_reader.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)
     print(f"Part 1: Number of safe tiles in 40 rows: {num_safe}")

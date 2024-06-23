@@ -4,7 +4,7 @@ from .submarine import Submarine
 
 
 def aoc_2021_d2(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 2: Dive! ---")
+    io_handler.output_writer.write_header(2021, 2, "Dive!")
     submarine = Submarine()
     instructions_without_aim = list(
         parse_submarine_navigation_instructions(

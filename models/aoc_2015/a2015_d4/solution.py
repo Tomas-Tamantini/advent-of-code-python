@@ -18,7 +18,7 @@ def mine_advent_coins(secret_key: str, num_leading_zeros: int) -> int:
 
 
 def aoc_2015_d4(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 4: The Ideal Stocking Stuffer ---")
+    io_handler.output_writer.write_header(2015, 4, "The Ideal Stocking Stuffer")
     secret_key = io_handler.input_reader.read()
     print(
         f"Part 1: The number to make hash start with 5 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=5)}"

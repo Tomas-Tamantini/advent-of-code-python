@@ -4,7 +4,7 @@ from .logic import BlizzardMazeSolver
 
 
 def aoc_2022_d24(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 24: Blizzard Basin ---")
+    io_handler.output_writer.write_header(2022, 24, "Blizzard Basin")
     valley = parse_blizzard_valley(io_handler.input_reader)
     solver = BlizzardMazeSolver(valley)
     print("Part 1: Be patient, it takes about 20s to run", end="\r")

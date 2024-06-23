@@ -4,7 +4,7 @@ from .logic import solve_jigsaw
 
 
 def aoc_2020_d20(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 20: Jurassic Jigsaw ---")
+    io_handler.output_writer.write_header(2020, 20, "Jurassic Jigsaw")
     pieces = list(parse_jigsaw_pieces(io_handler.input_reader))
     solved_jigsaw = solve_jigsaw(pieces)
     border_pieces = list(solved_jigsaw.border_pieces())

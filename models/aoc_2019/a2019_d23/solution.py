@@ -8,7 +8,7 @@ from .logic import (
 
 
 def aoc_2019_d23(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 23: Category Six ---")
+    io_handler.output_writer.write_header(2019, 23, "Category Six")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     num_computers = 50
     lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())

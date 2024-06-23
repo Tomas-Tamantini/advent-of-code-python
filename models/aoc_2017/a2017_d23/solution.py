@@ -8,7 +8,7 @@ from .coprocessor import (
 
 
 def aoc_2017_d23(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 23: Coprocessor Conflagration ---")
+    io_handler.output_writer.write_header(2017, 23, "Coprocessor Conflagration")
     instructions = list(
         parse_duet_code(io_handler.input_reader, mul_cls=SpyMultiplyInstruction)
     )

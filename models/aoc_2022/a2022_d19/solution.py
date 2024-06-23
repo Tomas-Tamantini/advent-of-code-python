@@ -6,7 +6,7 @@ from .logic import max_num_resource, ResourceType, MiningState
 
 
 def aoc_2022_d19(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 19: Not Enough Minerals ---")
+    io_handler.output_writer.write_header(2022, 19, "Not Enough Minerals")
     blueprints = list(parse_blueprints(io_handler.input_reader))
     time_limit = 24
     resource_to_maximize = ResourceType.GEODE

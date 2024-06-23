@@ -4,7 +4,7 @@ from .fabric_area import FabricArea
 
 
 def aoc_2018_d3(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 3: No Matter How You Slice It ---")
+    io_handler.output_writer.write_header(2018, 3, "No Matter How You Slice It")
     rectangles = parse_fabric_rectangles(io_handler.input_reader)
     fabric_area = FabricArea()
     fabric_area.distribute(list(rectangles))

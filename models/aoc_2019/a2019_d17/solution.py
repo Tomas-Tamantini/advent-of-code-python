@@ -7,7 +7,7 @@ from .logic import (
 
 
 def aoc_2019_d17(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 17: Set and Forget ---")
+    io_handler.output_writer.write_header(2019, 17, "Set and Forget")
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     scaffold_map = ScaffoldMap()
     run_scaffolding_discovery_program(scaffold_map, instructions)

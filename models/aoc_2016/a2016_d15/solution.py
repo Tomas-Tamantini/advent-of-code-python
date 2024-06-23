@@ -4,7 +4,7 @@ from .disc_system import SpinningDisc
 
 
 def aoc_2016_d15(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 15: Timing is Everything ---")
+    io_handler.output_writer.write_header(2016, 15, "Timing is Everything")
     disc_system = parse_disc_system(io_handler.input_reader)
     time_without_extra_disc = disc_system.time_to_press_button()
     print(f"Part 1: Time to press button without extra disc: {time_without_extra_disc}")

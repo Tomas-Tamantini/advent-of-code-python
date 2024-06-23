@@ -4,7 +4,7 @@ from .rpg_game import Fighter, ItemAssortment, RpgItem, ItemShop
 
 
 def aoc_2015_d21(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 21: RPG Simulator 20XX ---")
+    io_handler.output_writer.write_header(2015, 21, "RPG Simulator 20XX")
     my_hit_points = 100
     boss_kwargs = parse_rpg_boss(io_handler.input_reader)
     boss = Fighter(**boss_kwargs)

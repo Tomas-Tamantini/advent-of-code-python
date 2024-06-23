@@ -3,7 +3,7 @@ from .parser import parse_program_graph
 
 
 def aoc_2017_d12(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 12: Digital Plumber ---")
+    io_handler.output_writer.write_header(2017, 12, "Digital Plumber")
     program_graph = parse_program_graph(io_handler.input_reader)
     disjoint_groups = list(program_graph.disjoint_groups())
     initial_node = 0

@@ -8,7 +8,7 @@ from .valid_passwords import (
 
 
 def aoc_2019_d4(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 4: Secure Container ---")
+    io_handler.output_writer.write_header(2019, 4, "Secure Container")
     lower_bound, upper_bound = map(int, io_handler.input_reader.read().split("-"))
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))

@@ -4,7 +4,7 @@ from .chemical_reactions import ChemicalReactions, ChemicalQuantity
 
 
 def aoc_2019_d14(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 14: Space Stoichiometry ---")
+    io_handler.output_writer.write_header(2019, 14, "Space Stoichiometry")
     reactions = ChemicalReactions(
         set(parse_chemical_reactions(io_handler.input_reader))
     )

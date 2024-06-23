@@ -4,7 +4,7 @@ from .bitmask_memory import BitmaskMemory
 
 
 def aoc_2020_d14(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 14: Docking Data ---")
+    io_handler.output_writer.write_header(2020, 14, "Docking Data")
     values_instructions = list(
         parse_bitmask_instructions(io_handler.input_reader, is_address_mask=False)
     )

@@ -4,7 +4,7 @@ from .conditional_increment import maximum_value_at_registers
 
 
 def aoc_2017_d8(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 8: I Heard You Like Registers ---")
+    io_handler.output_writer.write_header(2017, 8, "I Heard You Like Registers")
     instructions = list(
         parse_conditional_increment_instructions(io_handler.input_reader)
     )

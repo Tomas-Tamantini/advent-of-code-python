@@ -15,7 +15,7 @@ def optimized_sum_divisors_program(a: int, b: int) -> int:
 
 
 def aoc_2018_d19(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 19: Go With The Flow ---")
+    io_handler.output_writer.write_header(2018, 19, "Go With The Flow")
     instructions = list(parse_three_value_instructions(io_handler.input_reader))
     program = ImmutableProgram(instructions)
     computer = Computer.from_processor(Processor())

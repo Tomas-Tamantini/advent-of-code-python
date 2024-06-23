@@ -10,7 +10,7 @@ def window_sum(lst: list[int], window_size: int) -> list[int]:
 
 
 def aoc_2021_d1(io_handler: IOHandler) -> None:
-    print("--- AOC 2021 - Day 1: Sonar Sweep ---")
+    io_handler.output_writer.write_header(2021, 1, "Sonar Sweep")
     measurements = [int(line) for line in io_handler.input_reader.readlines()]
 
     print(

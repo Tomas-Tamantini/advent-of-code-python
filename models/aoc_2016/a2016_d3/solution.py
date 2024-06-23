@@ -11,7 +11,7 @@ def is_valid_triangle(side_a: int, side_b: int, side_c: int) -> bool:
 
 
 def aoc_2016_d3(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 3: Squares With Three Sides ---")
+    io_handler.output_writer.write_header(2016, 3, "Squares With Three Sides")
     valid_triangles_horizontal = sum(
         is_valid_triangle(*sides)
         for sides in parse_triangle_sides(

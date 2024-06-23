@@ -12,7 +12,7 @@ def _scenic_score(position: Vector2D, tree_height_map: TreeHeightMap) -> int:
 
 
 def aoc_2022_d8(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 8: Treetop Tree House ---")
+    io_handler.output_writer.write_header(2022, 8, "Treetop Tree House")
     grid = [
         [int(char) for char in line]
         for line in io_handler.input_reader.read_stripped_lines()

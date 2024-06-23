@@ -4,7 +4,9 @@ from .radio_isotope import RadioisotopeTestingFacility, FloorConfiguration
 
 
 def aoc_2016_d11(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 11: Radioisotope Thermoelectric Generators ---")
+    io_handler.output_writer.write_header(
+        2016, 11, "Radioisotope Thermoelectric Generators"
+    )
     floors = tuple(
         parse_radioisotope_testing_facility_floor_configurations(
             io_handler.input_reader

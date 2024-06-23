@@ -3,7 +3,7 @@ from .air_duct import AirDuctMaze
 
 
 def aoc_2016_d24(io_handler: IOHandler) -> None:
-    print("--- AOC 2016 - Day 24: Air Duct Spelunking ---")
+    io_handler.output_writer.write_header(2016, 24, "Air Duct Spelunking")
     blueprint = list(io_handler.input_reader.readlines())
 
     maze = AirDuctMaze(blueprint)

@@ -39,7 +39,7 @@ def _simulate_movements(cube_size, edge_mapper, parsed_cube) -> BoardPiece:
 
 
 def aoc_2022_d22(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 22: Monkey Map ---")
+    io_handler.output_writer.write_header(2022, 22, "Monkey Map")
 
     cube_size = 50
     parsed = parse_cube_net_and_instructions(io_handler.input_reader, cube_size)

@@ -3,7 +3,7 @@ from .parser import parse_password_policies_and_passwords
 
 
 def aoc_2020_d2(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 2: Password Philosophy ---")
+    io_handler.output_writer.write_header(2020, 2, "Password Philosophy")
     num_valid_range_passwords = sum(
         1
         for policy, password in parse_password_policies_and_passwords(

@@ -44,7 +44,7 @@ def _pieces_generator() -> TetrisPieceGenerator:
 
 
 def aoc_2022_d17(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 17: Pyroclastic Flow ---")
+    io_handler.output_writer.write_header(2022, 17, "Pyroclastic Flow")
     wind_generator = WindGenerator(
         tuple(parse_wind_directions(io_handler.input_reader))
     )

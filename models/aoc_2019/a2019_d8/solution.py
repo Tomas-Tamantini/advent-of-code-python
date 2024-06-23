@@ -3,7 +3,7 @@ from .layered_image import LayeredImage
 
 
 def aoc_2019_d8(io_handler: IOHandler) -> None:
-    print("--- AOC 2019 - Day 8: Space Image Format ---")
+    io_handler.output_writer.write_header(2019, 8, "Space Image Format")
     data = io_handler.input_reader.read().strip()
 
     image = LayeredImage(width=25, height=6, data=data)

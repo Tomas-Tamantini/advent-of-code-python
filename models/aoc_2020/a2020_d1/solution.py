@@ -3,7 +3,7 @@ from .subset_sum import subsets_that_sum_to
 
 
 def aoc_2020_d1(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 1: Report Repair ---")
+    io_handler.output_writer.write_header(2020, 1, "Report Repair")
     entries = [int(line) for line in io_handler.input_reader.readlines()]
     target_sum = 2020
     a, b = next(subsets_that_sum_to(target_sum, subset_size=2, entries=entries))

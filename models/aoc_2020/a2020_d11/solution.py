@@ -3,7 +3,7 @@ from .ferry_seats import FerrySeats, FerrySeat
 
 
 def aoc_2020_d11(io_handler: IOHandler) -> None:
-    print("--- AOC 2020 - Day 11: Seating System ---")
+    io_handler.output_writer.write_header(2020, 11, "Seating System")
     grid = CharacterGrid(io_handler.input_reader.read())
 
     ferry_adjacent_only = FerrySeats(

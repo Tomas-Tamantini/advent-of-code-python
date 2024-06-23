@@ -5,7 +5,7 @@ from .falling_sand import FallingSand
 
 
 def aoc_2022_d14(io_handler: IOHandler) -> None:
-    print("--- AOC 2022 - Day 14: Regolith Reservoir ---")
+    io_handler.output_writer.write_header(2022, 14, "Regolith Reservoir")
     obstacles = set(parse_obstacles(io_handler.input_reader))
     sand_pour_position = Vector2D(500, 0)
     falling_sand = FallingSand(sand_pour_position, obstacles)

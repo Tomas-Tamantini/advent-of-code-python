@@ -3,7 +3,7 @@ from .parser import parse_guard_logs
 
 
 def aoc_2018_d4(io_handler: IOHandler) -> None:
-    print("--- AOC 2018 - Day 4: Repose Record ---")
+    io_handler.output_writer.write_header(2018, 4, "Repose Record")
     guards = list(parse_guard_logs(io_handler.input_reader))
     guard_most_asleep = max(guards, key=lambda g: g.total_minutes_asleep)
     minute_most_asleep = guard_most_asleep.minute_most_likely_to_be_asleep()

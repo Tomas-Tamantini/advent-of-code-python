@@ -19,7 +19,7 @@ def digits_that_match_one_across_the_circle(sequence: str) -> Iterator[chr]:
 
 
 def aoc_2017_d1(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 1: Inverse Captcha ---")
+    io_handler.output_writer.write_header(2017, 1, "Inverse Captcha")
     digit_sequence = io_handler.input_reader.read().strip()
     sum_matches = sum(
         int(d) for d in digits_that_match_the_next(digit_sequence, wrap_around=True)

@@ -4,7 +4,7 @@ from .particle_collider import ParticleCollider
 
 
 def aoc_2017_d20(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 20: Particle Swarm ---")
+    io_handler.output_writer.write_header(2017, 20, "Particle Swarm")
     particles = list(parse_particles(io_handler.input_reader))
     collider = ParticleCollider(particles)
     closest_to_origin = collider.particle_closest_to_origin_long_term()

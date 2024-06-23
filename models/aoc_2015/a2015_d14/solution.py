@@ -4,7 +4,7 @@ from .reindeer import ReindeerOlympics
 
 
 def aoc_2015_d14(io_handler: IOHandler) -> None:
-    print("--- AOC 2015 - Day 14: Reindeer Olympics ---")
+    io_handler.output_writer.write_header(2015, 14, "Reindeer Olympics")
     reindeers = list(parse_reindeers(io_handler.input_reader))
     race_duration = 2503
     reindeer_olympics = ReindeerOlympics(reindeers)

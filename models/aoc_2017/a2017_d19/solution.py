@@ -3,7 +3,7 @@ from .package_router import PackageRouter
 
 
 def aoc_2017_d19(io_handler: IOHandler) -> None:
-    print("--- AOC 2017 - Day 19: A Series of Tubes ---")
+    io_handler.output_writer.write_header(2017, 19, "A Series of Tubes")
     maze = [line for line in io_handler.input_reader.readlines()]
     router = PackageRouter(maze)
     router.explore()
