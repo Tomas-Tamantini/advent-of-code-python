@@ -1,11 +1,12 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import Vector2D
 from models.common.graphs import explore_with_bfs
 from .lattice_graph import build_lattice_graph
 
 
 def aoc_2018_d20(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 20, "A Regular Map")
+    problem_id = Problem(2018, 20, "A Regular Map")
+    io_handler.output_writer.write_header(problem_id)
     regex = io_handler.input_reader.read().strip()
     graph = build_lattice_graph(regex)
     starting_node = Vector2D(0, 0)

@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_chip_factory
 
 
 def aoc_2016_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 10, "Balance Bots")
+    problem_id = Problem(2016, 10, "Balance Bots")
+    io_handler.output_writer.write_header(problem_id)
     factory = parse_chip_factory(io_handler.input_reader)
     factory.run()
     bot_id = factory.robot_that_compared_chips(low_id=17, high_id=61)

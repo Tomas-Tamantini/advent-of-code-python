@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import InfectionGame, optimal_boost_for_immune_system
 from .parser import parse_infection_game
 
 
 def aoc_2018_d24(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 24, "Immune System Simulator 20XX")
+    problem_id = Problem(2018, 24, "Immune System Simulator 20XX")
+    io_handler.output_writer.write_header(problem_id)
     initial_game_state = parse_infection_game(io_handler.input_reader)
     game = InfectionGame(initial_game_state)
     game.run_until_over()

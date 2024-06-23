@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import Vector2D
 from .secure_room import SecureRoom, SecureRoomMaze
 
 
 def aoc_2016_d17(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 17, "Two Steps Forward")
+    problem_id = Problem(2016, 17, "Two Steps Forward")
+    io_handler.output_writer.write_header(problem_id)
     passcode = io_handler.input_reader.read().strip()
     maze_structure = SecureRoomMaze(
         width=4,

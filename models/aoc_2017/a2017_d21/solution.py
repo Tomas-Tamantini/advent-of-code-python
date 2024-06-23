@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_art_block_rules, parse_art_block
 from .fractal_art import FractalArt
 
 
 def aoc_2017_d21(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 21, "Fractal Art")
+    problem_id = Problem(2017, 21, "Fractal Art")
+    io_handler.output_writer.write_header(problem_id)
     inital_pattern = parse_art_block(".#./..#/###")
     rules = parse_art_block_rules(io_handler.input_reader)
     fractal_art = FractalArt(inital_pattern, rules)

@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .lantern_fish import LanternFish, lantern_fish_population_after_n_days
 
 
 def aoc_2021_d6(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 6, "Lanternfish")
+    problem_id = Problem(2021, 6, "Lanternfish")
+    io_handler.output_writer.write_header(problem_id)
     days_until_reproduction = [
         int(day) for day in io_handler.input_reader.read().split(",")
     ]

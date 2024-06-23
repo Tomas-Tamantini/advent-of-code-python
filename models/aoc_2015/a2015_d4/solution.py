@@ -1,5 +1,5 @@
 from hashlib import md5
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def md5_hash(message: str) -> str:
@@ -18,7 +18,8 @@ def mine_advent_coins(secret_key: str, num_leading_zeros: int) -> int:
 
 
 def aoc_2015_d4(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 4, "The Ideal Stocking Stuffer")
+    problem_id = Problem(2015, 4, "The Ideal Stocking Stuffer")
+    io_handler.output_writer.write_header(problem_id)
     secret_key = io_handler.input_reader.read()
     print(
         f"Part 1: The number to make hash start with 5 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=5)}"

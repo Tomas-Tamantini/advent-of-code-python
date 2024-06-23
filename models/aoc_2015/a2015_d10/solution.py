@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def next_look_and_say(digits_current_term: list[int]) -> list[int]:
@@ -17,7 +17,8 @@ def next_look_and_say(digits_current_term: list[int]) -> list[int]:
 
 
 def aoc_2015_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 10, "Elves Look, Elves Say")
+    problem_id = Problem(2015, 10, "Elves Look, Elves Say")
+    io_handler.output_writer.write_header(problem_id)
     current_term = io_handler.input_reader.read().strip()
     current_digits = [int(d) for d in current_term]
     for _ in range(40):

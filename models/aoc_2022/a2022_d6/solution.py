@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def detect_distinct_chars(stream: str, num_distinct_chars: int) -> int:
@@ -11,7 +11,8 @@ def detect_distinct_chars(stream: str, num_distinct_chars: int) -> int:
 
 
 def aoc_2022_d6(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 6, "Tuning Trouble")
+    problem_id = Problem(2022, 6, "Tuning Trouble")
+    io_handler.output_writer.write_header(problem_id)
     stream = io_handler.input_reader.read()
     start_of_packet = detect_distinct_chars(stream, num_distinct_chars=4)
     print(f"Part 1: Packet starts at {start_of_packet}")

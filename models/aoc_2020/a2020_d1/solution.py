@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .subset_sum import subsets_that_sum_to
 
 
 def aoc_2020_d1(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 1, "Report Repair")
+    problem_id = Problem(2020, 1, "Report Repair")
+    io_handler.output_writer.write_header(problem_id)
     entries = [int(line) for line in io_handler.input_reader.readlines()]
     target_sum = 2020
     a, b = next(subsets_that_sum_to(target_sum, subset_size=2, entries=entries))

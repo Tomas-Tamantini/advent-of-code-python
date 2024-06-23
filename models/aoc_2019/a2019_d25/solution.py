@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import (
     run_droid_explore_program,
     DroidCLIControl,
@@ -8,7 +8,8 @@ from .logic import (
 
 
 def aoc_2019_d25(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 25, "Cryostasis")
+    problem_id = Problem(2019, 25, "Cryostasis")
+    io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     if io_handler.execution_flags.play:
         control = DroidCLIControl(DroidInput())

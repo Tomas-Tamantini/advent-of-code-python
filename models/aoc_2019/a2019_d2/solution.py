@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .noun_and_verb import (
     run_intcode_program_until_halt,
     noun_and_verb_for_given_output,
@@ -6,7 +6,8 @@ from .noun_and_verb import (
 
 
 def aoc_2019_d2(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 2, "1202 Program Alarm")
+    problem_id = Problem(2019, 2, "1202 Program Alarm")
+    io_handler.output_writer.write_header(problem_id)
     original_instructions = [
         int(code) for code in io_handler.input_reader.read().split(",")
     ]

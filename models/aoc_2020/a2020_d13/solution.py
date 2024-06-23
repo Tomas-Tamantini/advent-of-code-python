@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_bus_schedules_and_current_timestamp
 from .bus_schedule import earliest_timestamp_to_match_wait_time_and_index_in_list
 
 
 def aoc_2020_d13(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 13, "Shuttle Search")
+    problem_id = Problem(2020, 13, "Shuttle Search")
+    io_handler.output_writer.write_header(problem_id)
     bus_schedules, timestap = parse_bus_schedules_and_current_timestamp(
         io_handler.input_reader
     )

@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_turing_machine_specs
 from .turing_machine import TuringMachine
 
 
 def aoc_2017_d25(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 25, "The Halting Problem")
+    problem_id = Problem(2017, 25, "The Halting Problem")
+    io_handler.output_writer.write_header(problem_id)
     initial_state, num_steps, transition_rules = parse_turing_machine_specs(
         io_handler.input_reader
     )

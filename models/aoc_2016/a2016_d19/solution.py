@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .josephus import josephus, modified_josephus
 
 
 def aoc_2016_d19(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 19, "An Elephant Named Joseph")
+    problem_id = Problem(2016, 19, "An Elephant Named Joseph")
+    io_handler.output_writer.write_header(problem_id)
     num_elves = int(io_handler.input_reader.read().strip())
     winning_elf_take_left = josephus(num_elves)
     print(f"Part 1: Winning elf if they take from the left: {winning_elf_take_left}")

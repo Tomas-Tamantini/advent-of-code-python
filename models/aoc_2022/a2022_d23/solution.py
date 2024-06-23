@@ -1,10 +1,11 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from models.common.vectors import CardinalDirection, BoundingBox
 from .logic import AntisocialElves, direction_priority
 
 
 def aoc_2022_d23(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 23, "Unstable Diffusion")
+    problem_id = Problem(2022, 23, "Unstable Diffusion")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     positions = set(grid.positions_with_value("#"))
     priority_first_round = [

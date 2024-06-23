@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_valve_graph
 from .logic import maximum_pressure_release, Volcano
 
 
 def aoc_2022_d16(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 16, "Proboscidea Volcanium")
+    problem_id = Problem(2022, 16, "Proboscidea Volcanium")
+    io_handler.output_writer.write_header(problem_id)
     graph = parse_valve_graph(
         io_handler.input_reader, time_to_travel_between_valves=1, time_to_open_valves=1
     )

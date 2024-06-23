@@ -1,6 +1,6 @@
 from typing import Iterator
 from itertools import combinations
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def contains_exactly_n_of_any_letter(string: str, n: int) -> bool:
@@ -14,7 +14,8 @@ def differing_indices(string_a: str, string_b: str) -> Iterator[int]:
 
 
 def aoc_2018_d2(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 2, "Inventory Management System")
+    problem_id = Problem(2018, 2, "Inventory Management System")
+    io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
     ids = [line.strip() for line in lines]
     exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)

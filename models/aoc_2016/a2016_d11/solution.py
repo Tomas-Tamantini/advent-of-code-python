@@ -1,12 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_radioisotope_testing_facility_floor_configurations
 from .radio_isotope import RadioisotopeTestingFacility, FloorConfiguration
 
 
 def aoc_2016_d11(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(
-        2016, 11, "Radioisotope Thermoelectric Generators"
-    )
+    problem_id = Problem(2016, 11, "Radioisotope Thermoelectric Generators")
+    io_handler.output_writer.write_header(problem_id)
     floors = tuple(
         parse_radioisotope_testing_facility_floor_configurations(
             io_handler.input_reader

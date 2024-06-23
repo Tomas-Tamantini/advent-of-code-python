@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .sequence_generator import SequenceGenerator, SequenceMatchFinder
 
 
 def aoc_2017_d15(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 15, "Dueling Generators")
+    problem_id = Problem(2017, 15, "Dueling Generators")
+    io_handler.output_writer.write_header(problem_id)
     start_a, start_b = [
         int(line.split()[-1]) for line in io_handler.input_reader.readlines()
     ]

@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_crates
 
 
 def aoc_2022_d5(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 5, "Supply Stacks")
+    problem_id = Problem(2022, 5, "Supply Stacks")
+    io_handler.output_writer.write_header(problem_id)
     parsed_crates = parse_crates(io_handler.input_reader, move_one_at_a_time=True)
     crates = parsed_crates.crates
     for move in parsed_crates.moves:

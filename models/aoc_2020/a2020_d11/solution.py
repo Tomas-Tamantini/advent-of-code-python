@@ -1,9 +1,10 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from .ferry_seats import FerrySeats, FerrySeat
 
 
 def aoc_2020_d11(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 11, "Seating System")
+    problem_id = Problem(2020, 11, "Seating System")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
 
     ferry_adjacent_only = FerrySeats(

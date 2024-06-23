@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_context_free_grammar_and_words
 
 
 def aoc_2020_d19(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 19, "Monster Messages")
+    problem_id = Problem(2020, 19, "Monster Messages")
+    io_handler.output_writer.write_header(problem_id)
     cfg, words = parse_context_free_grammar_and_words(
         io_handler.input_reader, starting_symbol=0
     )

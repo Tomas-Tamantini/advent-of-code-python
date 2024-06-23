@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_rpg_boss
 from .rpg_game import Fighter, ItemAssortment, RpgItem, ItemShop
 
 
 def aoc_2015_d21(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 21, "RPG Simulator 20XX")
+    problem_id = Problem(2015, 21, "RPG Simulator 20XX")
+    io_handler.output_writer.write_header(problem_id)
     my_hit_points = 100
     boss_kwargs = parse_rpg_boss(io_handler.input_reader)
     boss = Fighter(**boss_kwargs)

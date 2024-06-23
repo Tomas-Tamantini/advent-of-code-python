@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_luggage_rules
 
 
 def aoc_2020_d7(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 7, "Handy Haversacks")
+    problem_id = Problem(2020, 7, "Handy Haversacks")
+    io_handler.output_writer.write_header(problem_id)
     rules = parse_luggage_rules(io_handler.input_reader)
     my_bag = "shiny gold"
     possible_colors = set(rules.possible_colors_of_outermost_bag(my_bag))

@@ -1,11 +1,12 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import Vector2D
 from .parser import parse_obstacles
 from .falling_sand import FallingSand
 
 
 def aoc_2022_d14(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 14, "Regolith Reservoir")
+    problem_id = Problem(2022, 14, "Regolith Reservoir")
+    io_handler.output_writer.write_header(problem_id)
     obstacles = set(parse_obstacles(io_handler.input_reader))
     sand_pour_position = Vector2D(500, 0)
     falling_sand = FallingSand(sand_pour_position, obstacles)

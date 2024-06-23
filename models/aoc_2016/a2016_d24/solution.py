@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .air_duct import AirDuctMaze
 
 
 def aoc_2016_d24(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 24, "Air Duct Spelunking")
+    problem_id = Problem(2016, 24, "Air Duct Spelunking")
+    io_handler.output_writer.write_header(problem_id)
     blueprint = list(io_handler.input_reader.readlines())
 
     maze = AirDuctMaze(blueprint)

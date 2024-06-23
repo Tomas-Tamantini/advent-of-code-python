@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_shuffled_seven_digit_displays
 
 
 def aoc_2021_d8(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 8, "Seven Segment Search")
+    problem_id = Problem(2021, 8, "Seven Segment Search")
+    io_handler.output_writer.write_header(problem_id)
     displays = list(parse_shuffled_seven_digit_displays(io_handler.input_reader))
     decoded_digits = [display.decode() for display in displays]
     num_matches = sum(

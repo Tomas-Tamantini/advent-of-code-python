@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .knot_hash import KnotHash
 
 
 def aoc_2017_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 10, "Knot Hash")
+    problem_id = Problem(2017, 10, "Knot Hash")
+    io_handler.output_writer.write_header(problem_id)
     lengths_str = io_handler.input_reader.read().strip()
     lengths_as_int = [int(l) for l in lengths_str.split(",")]
     knot_hash = KnotHash(list_length=256)

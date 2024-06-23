@@ -1,10 +1,11 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from models.common.vectors import VectorNDimensional
 from .hyper_game_of_life import HyperGameOfLife
 
 
 def aoc_2020_d17(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 17, "Conway Cubes")
+    problem_id = Problem(2020, 17, "Conway Cubes")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     active_cubes_3d = {
         VectorNDimensional(pos.x, pos.y, 0) for pos in grid.positions_with_value("#")

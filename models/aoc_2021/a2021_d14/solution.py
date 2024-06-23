@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_polymer_and_polymer_extension_rules
 from .polymer_extension import PolymerExtension
 
 
 def aoc_2021_d14(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 14, "Extended Polymerization")
+    problem_id = Problem(2021, 14, "Extended Polymerization")
+    io_handler.output_writer.write_header(problem_id)
     polymer, rules = parse_polymer_and_polymer_extension_rules(io_handler.input_reader)
     extension = PolymerExtension(rules)
     character_count = extension.character_count_after_multiple_extensions(

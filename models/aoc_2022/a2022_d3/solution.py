@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .rucksack import Rucksack
 
 
 def aoc_2022_d3(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 3, "Rucksack Reorganization")
+    problem_id = Problem(2022, 3, "Rucksack Reorganization")
+    io_handler.output_writer.write_header(problem_id)
     rucksacks = [
         Rucksack(
             left_items=items[: len(items) // 2], right_items=items[len(items) // 2 :]

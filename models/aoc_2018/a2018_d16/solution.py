@@ -1,12 +1,13 @@
 from models.common.assembly import Processor, ImmutableProgram, Computer
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.aoc_2018.three_value_instructions import ALL_THREE_VALUE_INSTRUCTIONS
 from .parser import parse_instruction_samples, parse_unknown_op_code_program
 from .unknown_op_code import possible_instructions, work_out_op_codes
 
 
 def aoc_2018_d16(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 16, "Chronal Classification")
+    problem_id = Problem(2018, 16, "Chronal Classification")
+    io_handler.output_writer.write_header(problem_id)
     samples = list(parse_instruction_samples(io_handler.input_reader))
     num_samples_with_three_or_more = sum(
         len(

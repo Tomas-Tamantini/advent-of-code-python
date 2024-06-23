@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_trench_rules_and_trench_map
 from .trench_map_automaton import TrenchMapAutomaton
 
 
 def aoc_2021_d20(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 20, "Trench Map")
+    problem_id = Problem(2021, 20, "Trench Map")
+    io_handler.output_writer.write_header(problem_id)
     lit_cell_configurations, lit_cells = parse_trench_rules_and_trench_map(
         io_handler.input_reader
     )

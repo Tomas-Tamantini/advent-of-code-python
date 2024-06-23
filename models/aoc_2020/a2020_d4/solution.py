@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_passports
 from .passport import PASSPORT_RULES, passport_is_valid
 
 
 def aoc_2020_d4(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 4, "Passport Processing")
+    problem_id = Problem(2020, 4, "Passport Processing")
+    io_handler.output_writer.write_header(problem_id)
     passports = list(parse_passports(io_handler.input_reader))
     required_fields = set(PASSPORT_RULES.keys())
     passports_with_all_fields = [

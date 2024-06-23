@@ -1,11 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .string_classifier import StringClassifier, simple_ruleset, complex_ruleset
 
 
 def aoc_2015_d5(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(
-        2015, 5, "Doesn&apos;t He Have Intern-Elves For This?"
-    )
+    problem_id = Problem(2015, 5, "Doesn't He Have Intern-Elves For This?")
+    io_handler.output_writer.write_header(problem_id)
     strings = list(io_handler.input_reader.readlines())
     simple_classifier = StringClassifier(simple_ruleset)
     complex_classifier = StringClassifier(complex_ruleset)

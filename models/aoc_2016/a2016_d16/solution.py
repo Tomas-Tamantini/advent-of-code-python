@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .dragon_checksum import DragonChecksum
 
 
 def aoc_2016_d16(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 16, "Dragon Checksum")
+    problem_id = Problem(2016, 16, "Dragon Checksum")
+    io_handler.output_writer.write_header(problem_id)
     initial_state = io_handler.input_reader.read().strip()
     checksum_272 = DragonChecksum(disk_space=272).checksum(initial_state)
     print(f"Part 1: Checksum of disk with 272 bits: {checksum_272}")

@@ -1,9 +1,10 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from .asteroid_belt import AsteroidBelt
 
 
 def aoc_2019_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 10, "Monitoring Station")
+    problem_id = Problem(2019, 10, "Monitoring Station")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()

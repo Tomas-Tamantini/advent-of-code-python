@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_moving_particles
 from .moving_particles import MovingParticles
 
 
 def aoc_2018_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 10, "The Stars Align")
+    problem_id = Problem(2018, 10, "The Stars Align")
+    io_handler.output_writer.write_header(problem_id)
     particles = list(parse_moving_particles(io_handler.input_reader))
     moving_particles = MovingParticles(particles)
     moments = moving_particles.moments_of_bounding_box_area_increase()

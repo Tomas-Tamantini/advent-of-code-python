@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def final_floor(instructions: str) -> int:
@@ -15,7 +15,8 @@ def first_basement(instructions: str) -> int:
 
 
 def aoc_2015_d1(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 1, "Not Quite Lisp")
+    problem_id = Problem(2015, 1, "Not Quite Lisp")
+    io_handler.output_writer.write_header(problem_id)
     instructions = io_handler.input_reader.read()
 
     floor = final_floor(instructions)

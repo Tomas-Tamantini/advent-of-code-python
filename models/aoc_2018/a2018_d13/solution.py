@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import TurnDirection
 from .mine_carts import MineCarts
 
 
 def aoc_2018_d13(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 13, "Mine Cart Madness")
+    problem_id = Problem(2018, 13, "Mine Cart Madness")
+    io_handler.output_writer.write_header(problem_id)
     mine_layout = io_handler.input_reader.read()
     intersection_sequence = [
         TurnDirection.LEFT,

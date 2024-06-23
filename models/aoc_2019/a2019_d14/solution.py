@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_chemical_reactions
 from .chemical_reactions import ChemicalReactions, ChemicalQuantity
 
 
 def aoc_2019_d14(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 14, "Space Stoichiometry")
+    problem_id = Problem(2019, 14, "Space Stoichiometry")
+    io_handler.output_writer.write_header(problem_id)
     reactions = ChemicalReactions(
         set(parse_chemical_reactions(io_handler.input_reader))
     )

@@ -1,9 +1,10 @@
 from typing import Optional
+from models.common.io import Problem
 
 
 class CliOutputWriter:
-    def write_header(self, year: int, day: int, problem_title: str) -> None:
-        print(f"--- AOC {year} - Day {day}: {problem_title} ---")
+    def write_header(self, problem: Problem) -> None:
+        print(f"--- AOC {problem.year} - Day {problem.day}: {problem.title} ---")
 
     def give_time_estimation(
         self, time_estimation: str, part: Optional[int] = None

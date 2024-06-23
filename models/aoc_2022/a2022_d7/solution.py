@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_file_tree
 
 
 def aoc_2022_d7(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 7, "No Space Left On Device")
+    problem_id = Problem(2022, 7, "No Space Left On Device")
+    io_handler.output_writer.write_header(problem_id)
     tree = parse_file_tree(io_handler.input_reader)
     sizes = tuple(dir.size() for dir in tree.all_directories())
     sum_small_directories = sum(size for size in sizes if size <= 100_000)

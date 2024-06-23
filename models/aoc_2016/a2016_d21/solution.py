@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_string_scrambler
 
 
 def aoc_2016_d21(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 21, "Scrambled Letters and Hash")
+    problem_id = Problem(2016, 21, "Scrambled Letters and Hash")
+    io_handler.output_writer.write_header(problem_id)
     scrambler = parse_string_scrambler(io_handler.input_reader)
     password = scrambler.scramble("abcdefgh")
     print(f"Part 1: Password after scrambling: {password}")

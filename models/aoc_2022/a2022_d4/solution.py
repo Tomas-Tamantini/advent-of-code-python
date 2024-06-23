@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_interval_pairs
 
 
 def aoc_2022_d4(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 4, "Camp Cleanup")
+    problem_id = Problem(2022, 4, "Camp Cleanup")
+    io_handler.output_writer.write_header(problem_id)
     pairs = list(parse_interval_pairs(io_handler.input_reader))
     num_pairs_fully_contained = sum(
         interval_a.is_contained_by(interval_b) or interval_b.is_contained_by(interval_a)

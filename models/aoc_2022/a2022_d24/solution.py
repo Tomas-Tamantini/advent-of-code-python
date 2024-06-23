@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_blizzard_valley
 from .logic import BlizzardMazeSolver
 
 
 def aoc_2022_d24(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 24, "Blizzard Basin")
+    problem_id = Problem(2022, 24, "Blizzard Basin")
+    io_handler.output_writer.write_header(problem_id)
     valley = parse_blizzard_valley(io_handler.input_reader)
     solver = BlizzardMazeSolver(valley)
     io_handler.output_writer.give_time_estimation("20s", part=1)

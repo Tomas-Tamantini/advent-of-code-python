@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import PacketParser
 
 
 def aoc_2021_d16(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 16, "Packet Decoder")
+    problem_id = Problem(2021, 16, "Packet Decoder")
+    io_handler.output_writer.write_header(problem_id)
     packet_as_hex = io_handler.input_reader.read().strip()
     packet = PacketParser().parse_packet(packet_as_hex)
     print(f"Part 1: The sum of all versions is { packet.version_sum()}")

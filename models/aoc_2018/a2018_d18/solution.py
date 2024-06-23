@@ -1,9 +1,10 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from .lumber_area import LumberArea, AcreType
 
 
 def aoc_2018_d18(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 18, "Settlers of The North Pole")
+    problem_id = Problem(2018, 18, "Settlers of The North Pole")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     area = LumberArea(width=grid.width, height=grid.height)
     cells = grid.tiles

@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .adapter_array import AdapterArray
 
 
 def aoc_2020_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 10, "Adapter Array")
+    problem_id = Problem(2020, 10, "Adapter Array")
+    io_handler.output_writer.write_header(problem_id)
     adapters = [int(line) for line in io_handler.input_reader.readlines()]
     array = AdapterArray(
         outlet_joltage=0,

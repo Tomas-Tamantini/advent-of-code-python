@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .bit_frequency import BitFrequency
 
 
 def aoc_2021_d3(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 3, "Binary Diagnostic")
+    problem_id = Problem(2021, 3, "Binary Diagnostic")
+    io_handler.output_writer.write_header(problem_id)
     binary_strings = [line.strip() for line in io_handler.input_reader.readlines()]
     frequency = BitFrequency(binary_strings)
     most_frequent = frequency.most_frequent_bits_in_each_position()

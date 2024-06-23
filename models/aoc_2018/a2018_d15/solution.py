@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import (
     CaveGameBotAttackWeakest,
     build_cave_game,
@@ -8,7 +8,8 @@ from .logic import (
 
 
 def aoc_2018_d15(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 15, "Beverage Bandits")
+    problem_id = Problem(2018, 15, "Beverage Bandits")
+    io_handler.output_writer.write_header(problem_id)
     map_with_units = io_handler.input_reader.read()
     elf_specs = CaveTeamSpec(attack_power=3, hit_points=200)
     goblin_specs = CaveTeamSpec(attack_power=3, hit_points=200)

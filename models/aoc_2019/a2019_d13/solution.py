@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .arcade import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
 
 
 def aoc_2019_d13(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 13, "Care Package")
+    problem_id = Problem(2019, 13, "Care Package")
+    io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     screen = ArcadeGameScreen()
     run_intcode_arcade(instructions, screen)

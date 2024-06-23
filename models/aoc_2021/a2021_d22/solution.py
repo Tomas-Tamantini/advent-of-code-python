@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_cuboid_instructions
 from .reactor_cells import num_reactor_cells_on
 
 
 def aoc_2021_d22(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 22, "Reactor Reboot")
+    problem_id = Problem(2021, 22, "Reactor Reboot")
+    io_handler.output_writer.write_header(problem_id)
     instructions = list(parse_cuboid_instructions(io_handler.input_reader))
     small_instructions = [
         instruction

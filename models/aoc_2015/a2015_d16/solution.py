@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_aunt_sue_collection
 from .aunt_sue import MatchType
 

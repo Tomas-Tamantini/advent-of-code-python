@@ -1,11 +1,12 @@
 from math import inf
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import Vector2D
 from .voronoi import ManhattanVoronoi
 
 
 def aoc_2018_d6(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 6, "Chronal Coordinates")
+    problem_id = Problem(2018, 6, "Chronal Coordinates")
+    io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
     coordinates = [Vector2D(*map(int, line.split(","))) for line in lines]
     voronoi = ManhattanVoronoi(coordinates)

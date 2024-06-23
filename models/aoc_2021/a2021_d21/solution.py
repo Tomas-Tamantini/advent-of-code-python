@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_players_starting_positions
 from .logic import (
     DiracDiceStartingConfiguration,
@@ -8,7 +8,8 @@ from .logic import (
 
 
 def aoc_2021_d21(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 21, "Dirac Dice")
+    problem_id = Problem(2021, 21, "Dirac Dice")
+    io_handler.output_writer.write_header(problem_id)
     starting_spaces = parse_players_starting_positions(io_handler.input_reader)
     starting_configuration = DiracDiceStartingConfiguration(
         board_size=10, goal_score=1000, starting_spaces=starting_spaces

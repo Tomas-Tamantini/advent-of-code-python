@@ -1,9 +1,10 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from .game_of_life_lights import GameOfLifeLights
 
 
 def aoc_2015_d18(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 18, "Like a GIF For Your Yard")
+    problem_id = Problem(2015, 18, "Like a GIF For Your Yard")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     initial_cells = set(grid.positions_with_value("#"))
     game = GameOfLifeLights(grid.width, grid.height)

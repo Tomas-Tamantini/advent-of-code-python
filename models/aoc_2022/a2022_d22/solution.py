@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import CardinalDirection, Vector2D
 from .parser import parse_cube_net_and_instructions
 from .logic import (
@@ -39,7 +39,8 @@ def _simulate_movements(cube_size, edge_mapper, parsed_cube) -> BoardPiece:
 
 
 def aoc_2022_d22(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 22, "Monkey Map")
+    problem_id = Problem(2022, 22, "Monkey Map")
+    io_handler.output_writer.write_header(problem_id)
 
     cube_size = 50
     parsed = parse_cube_net_and_instructions(io_handler.input_reader, cube_size)

@@ -1,10 +1,11 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from .parser import parse_jigsaw_pieces
 from .logic import solve_jigsaw
 
 
 def aoc_2020_d20(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 20, "Jurassic Jigsaw")
+    problem_id = Problem(2020, 20, "Jurassic Jigsaw")
+    io_handler.output_writer.write_header(problem_id)
     pieces = list(parse_jigsaw_pieces(io_handler.input_reader))
     solved_jigsaw = solve_jigsaw(pieces)
     border_pieces = list(solved_jigsaw.border_pieces())

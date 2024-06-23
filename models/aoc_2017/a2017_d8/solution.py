@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_conditional_increment_instructions
 from .conditional_increment import maximum_value_at_registers
 
 
 def aoc_2017_d8(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 8, "I Heard You Like Registers")
+    problem_id = Problem(2017, 8, "I Heard You Like Registers")
+    io_handler.output_writer.write_header(problem_id)
     instructions = list(
         parse_conditional_increment_instructions(io_handler.input_reader)
     )

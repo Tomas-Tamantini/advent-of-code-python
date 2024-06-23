@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .frequency_transmission import flawed_frequency_transmission
 
 
 def aoc_2019_d16(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 16, "Flawed Frequency Transmission")
+    problem_id = Problem(2019, 16, "Flawed Frequency Transmission")
+    io_handler.output_writer.write_header(problem_id)
     signal = list(map(int, io_handler.input_reader.read().strip()))
 
     output = flawed_frequency_transmission(

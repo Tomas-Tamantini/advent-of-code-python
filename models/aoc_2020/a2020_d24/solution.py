@@ -1,11 +1,12 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import CanonicalHexagonalCoordinates
 from .parser import parse_rotated_hexagonal_directions
 from .hexagonal_automaton import HexagonalAutomaton
 
 
 def aoc_2020_d24(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 24, "Lobby Layout")
+    problem_id = Problem(2020, 24, "Lobby Layout")
+    io_handler.output_writer.write_header(problem_id)
     black_tiles = set()
     for directions in parse_rotated_hexagonal_directions(io_handler.input_reader):
         pos = CanonicalHexagonalCoordinates(0, 0)

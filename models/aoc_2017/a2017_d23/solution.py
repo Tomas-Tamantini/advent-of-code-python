@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.aoc_2017.a2017_d18.parser import parse_duet_code
 from .coprocessor import (
     count_multiply_instructions,
@@ -8,7 +8,8 @@ from .coprocessor import (
 
 
 def aoc_2017_d23(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 23, "Coprocessor Conflagration")
+    problem_id = Problem(2017, 23, "Coprocessor Conflagration")
+    io_handler.output_writer.write_header(problem_id)
     instructions = list(
         parse_duet_code(io_handler.input_reader, mul_cls=SpyMultiplyInstruction)
     )

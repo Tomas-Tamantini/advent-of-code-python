@@ -1,10 +1,11 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from models.common.vectors import CardinalDirection
 from .grid_cluster import GridCluster
 
 
 def aoc_2017_d22(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 22, "Sporifica Virus")
+    problem_id = Problem(2017, 22, "Sporifica Virus")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     infected_positions = set(grid.positions_with_value("#"))
     cluster = GridCluster(

@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_3d_vectors
 from .moons import MoonOfJupiter, MoonSystem
 
 
 def aoc_2019_d12(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 12, "The N-Body Problem")
+    problem_id = Problem(2019, 12, "The N-Body Problem")
+    io_handler.output_writer.write_header(problem_id)
     positions = list(parse_3d_vectors(io_handler.input_reader))
     moons = [MoonOfJupiter(pos) for pos in positions]
     system = MoonSystem(moons)

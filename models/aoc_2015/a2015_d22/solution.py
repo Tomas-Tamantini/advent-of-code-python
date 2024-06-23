@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import (
     Wizard,
     Boss,
@@ -16,7 +16,8 @@ from models.aoc_2015.a2015_d21.parser import parse_rpg_boss
 
 
 def aoc_2015_d22(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 22, "Wizard Simulator 20XX")
+    problem_id = Problem(2015, 22, "Wizard Simulator 20XX")
+    io_handler.output_writer.write_header(problem_id)
     wizard = Wizard(hit_points=50, mana=500)
     boss_kwargs = parse_rpg_boss(io_handler.input_reader)
     boss = Boss(hit_points=boss_kwargs["hit_points"])

@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .crab_cubs import crab_cups
 
 
 def aoc_2020_d23(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 23, "Crab Cups")
+    problem_id = Problem(2020, 23, "Crab Cups")
+    io_handler.output_writer.write_header(problem_id)
     cups = [int(char) for char in io_handler.input_reader.read().strip()]
     result = crab_cups(cups, num_moves=100)
     one_index = result.index(1)

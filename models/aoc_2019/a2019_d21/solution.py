@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import (
     run_spring_droid_program,
     SpringScriptInstruction,
@@ -10,7 +10,8 @@ from .logic import (
 
 
 def aoc_2019_d21(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 21, "Springdroid Adventure")
+    problem_id = Problem(2019, 21, "Springdroid Adventure")
+    io_handler.output_writer.write_header(problem_id)
     intcode_instructions = [
         int(code) for code in io_handler.input_reader.read().split(",")
     ]

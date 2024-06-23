@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool) -> int:
@@ -32,7 +32,8 @@ def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool)
 
 
 def aoc_2018_d21(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 21, "Chronal Conversion")
+    problem_id = Problem(2018, 21, "Chronal Conversion")
+    io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
     input_number = int(lines[8].split()[1])
     register_min = optimized_chronal_conversion(

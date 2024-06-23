@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_disc_system
 from .disc_system import SpinningDisc
 
 
 def aoc_2016_d15(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 15, "Timing is Everything")
+    problem_id = Problem(2016, 15, "Timing is Everything")
+    io_handler.output_writer.write_header(problem_id)
     disc_system = parse_disc_system(io_handler.input_reader)
     time_without_extra_disc = disc_system.time_to_press_button()
     print(f"Part 1: Time to press button without extra disc: {time_without_extra_disc}")

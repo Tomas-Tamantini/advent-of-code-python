@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.assembly import Processor, Computer
 from models.aoc_2016.assembunny import parse_assembunny_code
 
 
 def aoc_2016_d12(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 12, "Leonardo&apos;s Monorail")
+    problem_id = Problem(2016, 12, "Leonardo's Monorail")
+    io_handler.output_writer.write_header(problem_id)
     program = parse_assembunny_code(io_handler.input_reader)
     program.optimize()
     computer = Computer.from_processor(Processor())

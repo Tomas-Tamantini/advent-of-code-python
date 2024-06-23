@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import Vector2D
 from .rocky_cave import RockyCave, CaveExplorer
 
 
 def aoc_2018_d22(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2018, 22, "Mode Maze")
+    problem_id = Problem(2018, 22, "Mode Maze")
+    io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
     depth = int(lines[0].split()[1])
     target = Vector2D(*map(int, lines[1].split()[1].split(",")))

@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_particles
 from .particle_collider import ParticleCollider
 
 
 def aoc_2017_d20(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 20, "Particle Swarm")
+    problem_id = Problem(2017, 20, "Particle Swarm")
+    io_handler.output_writer.write_header(problem_id)
     particles = list(parse_particles(io_handler.input_reader))
     collider = ParticleCollider(particles)
     closest_to_origin = collider.particle_closest_to_origin_long_term()

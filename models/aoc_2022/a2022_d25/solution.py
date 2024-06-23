@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 _BASE = 5
 
@@ -27,7 +27,8 @@ def decimal_to_snafu(decimal: int) -> str:
 
 
 def aoc_2022_d25(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 25, "Full of Hot Air")
+    problem_id = Problem(2022, 25, "Full of Hot Air")
+    io_handler.output_writer.write_header(problem_id)
     decimal_sum = sum(
         snafu_to_decimal(line) for line in io_handler.input_reader.read_stripped_lines()
     )

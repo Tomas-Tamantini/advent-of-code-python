@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import CardinalDirection, Vector2D
 from .tree_height_map import TreeHeightMap
 from math import prod
@@ -12,7 +12,8 @@ def _scenic_score(position: Vector2D, tree_height_map: TreeHeightMap) -> int:
 
 
 def aoc_2022_d8(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 8, "Treetop Tree House")
+    problem_id = Problem(2022, 8, "Treetop Tree House")
+    io_handler.output_writer.write_header(problem_id)
     grid = [
         [int(char) for char in line]
         for line in io_handler.input_reader.read_stripped_lines()

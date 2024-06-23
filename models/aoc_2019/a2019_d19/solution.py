@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .beam_area import BeamArea, run_beam_scanner, square_closest_to_beam_source
 
 
 def aoc_2019_d19(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 19, "Tractor Beam")
+    problem_id = Problem(2019, 19, "Tractor Beam")
+    io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     area = BeamArea(width=50, height=50)
     run_beam_scanner(instructions, area)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_triangle_sides
 
 
@@ -11,7 +11,8 @@ def is_valid_triangle(side_a: int, side_b: int, side_c: int) -> bool:
 
 
 def aoc_2016_d3(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 3, "Squares With Three Sides")
+    problem_id = Problem(2016, 3, "Squares With Three Sides")
+    io_handler.output_writer.write_header(problem_id)
     valid_triangles_horizontal = sum(
         is_valid_triangle(*sides)
         for sides in parse_triangle_sides(

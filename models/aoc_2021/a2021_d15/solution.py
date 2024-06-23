@@ -1,10 +1,11 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from models.common.vectors import Vector2D
 from .underwater_cave import UnderwaterCaveMaze
 
 
 def aoc_2021_d15(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 15, "Chiton")
+    problem_id = Problem(2021, 15, "Chiton")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     cave_maze = UnderwaterCaveMaze(
         risk_levels={pos: int(char) for pos, char in grid.tiles.items()},

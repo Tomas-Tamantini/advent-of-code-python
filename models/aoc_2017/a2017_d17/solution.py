@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .circular_buffer import CircularBuffer
 
 
 def aoc_2017_d17(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 17, "Spinlock")
+    problem_id = Problem(2017, 17, "Spinlock")
+    io_handler.output_writer.write_header(problem_id)
     step_size = int(io_handler.input_reader.read().strip())
     buffer = CircularBuffer()
     for i in range(1, 2018):

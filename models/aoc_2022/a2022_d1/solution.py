@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_calories
 
 
 def aoc_2022_d1(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 1, "Calorie Counting")
+    problem_id = Problem(2022, 1, "Calorie Counting")
+    io_handler.output_writer.write_header(problem_id)
     calories_by_elf = [
         sum(calories) for calories in parse_calories(io_handler.input_reader)
     ]

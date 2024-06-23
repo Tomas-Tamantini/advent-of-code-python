@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .memory_game import memory_game_numbers
 
 
 def aoc_2020_d15(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 15, "Rambunctious Recitation")
+    problem_id = Problem(2020, 15, "Rambunctious Recitation")
+    io_handler.output_writer.write_header(problem_id)
     starting_numbers = [
         int(number) for number in io_handler.input_reader.read().split(",")
     ]

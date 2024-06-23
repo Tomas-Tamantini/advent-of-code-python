@@ -1,11 +1,12 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import CardinalDirection
 from .parser import parse_turtle_instructions
 from .turtle import Turtle
 
 
 def aoc_2016_d1(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 1, "No Time for a Taxicab")
+    problem_id = Problem(2016, 1, "No Time for a Taxicab")
+    io_handler.output_writer.write_header(problem_id)
     instructions = list(parse_turtle_instructions(io_handler.input_reader))
     turtle = Turtle(initial_direction=CardinalDirection.NORTH)
     for instruction in instructions:

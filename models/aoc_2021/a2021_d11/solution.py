@@ -1,9 +1,10 @@
-from models.common.io import IOHandler, CharacterGrid, render_frame
+from models.common.io import IOHandler, Problem, CharacterGrid, render_frame
 from .octopus_flash import OctopusesFlashes
 
 
 def aoc_2021_d11(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 11, "Dumbo Octopus")
+    problem_id = Problem(2021, 11, "Dumbo Octopus")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     octopuses = OctopusesFlashes(
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}

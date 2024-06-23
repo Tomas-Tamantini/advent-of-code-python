@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_instructions_with_duration
 from .logic import RegisterHistory, SpriteScreen
 
 
 def aoc_2022_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 10, "Cathode-Ray Tube")
+    problem_id = Problem(2022, 10, "Cathode-Ray Tube")
+    io_handler.output_writer.write_header(problem_id)
     rh = RegisterHistory()
     for instruction in parse_instructions_with_duration(io_handler.input_reader):
         rh.run_instruction(instruction)

@@ -1,5 +1,5 @@
 from typing import Iterator, Callable
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def follow_and_increment_jump_instructions(
@@ -14,9 +14,8 @@ def follow_and_increment_jump_instructions(
 
 
 def aoc_2017_d5(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(
-        2017, 5, "A Maze of Twisty Trampolines, All Alike"
-    )
+    problem_id = Problem(2017, 5, "A Maze of Twisty Trampolines, All Alike")
+    io_handler.output_writer.write_header(problem_id)
     jump_offsets = [int(line) for line in io_handler.input_reader.readlines()]
     simple_increment_rule = lambda jump: jump + 1
     steps_simple_increment = 0

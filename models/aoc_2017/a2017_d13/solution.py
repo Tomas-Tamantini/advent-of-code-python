@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_layered_firewall
 
 
 def aoc_2017_d13(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 13, "Packet Scanners")
+    problem_id = Problem(2017, 13, "Packet Scanners")
+    io_handler.output_writer.write_header(problem_id)
     firewall = parse_layered_firewall(io_handler.input_reader)
     packet_collisions = list(firewall.packet_collisions())
     severity = sum(

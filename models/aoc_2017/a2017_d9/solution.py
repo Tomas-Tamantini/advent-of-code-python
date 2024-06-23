@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .stream_handler import StreamHandler
 
 
 def aoc_2017_d9(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 9, "Stream Processing")
+    problem_id = Problem(2017, 9, "Stream Processing")
+    io_handler.output_writer.write_header(problem_id)
     stream = io_handler.input_reader.read().strip()
     handler = StreamHandler(stream)
     print(f"Part 1: Total score: {handler.total_score}")

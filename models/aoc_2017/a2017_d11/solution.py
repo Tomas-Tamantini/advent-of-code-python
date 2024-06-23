@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import HexagonalDirection, CanonicalHexagonalCoordinates
 
 
 def aoc_2017_d11(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 11, "Hex Ed")
+    problem_id = Problem(2017, 11, "Hex Ed")
+    io_handler.output_writer.write_header(problem_id)
     directions = [
         HexagonalDirection(d) for d in io_handler.input_reader.read().strip().split(",")
     ]

@@ -1,11 +1,12 @@
 from models.common.vectors import Vector2D, CardinalDirection
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_navigation_instructions
 from .ship import Ship
 
 
 def aoc_2020_d12(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 12, "Rain Risk")
+    problem_id = Problem(2020, 12, "Rain Risk")
+    io_handler.output_writer.write_header(problem_id)
     ship_instructions = parse_navigation_instructions(io_handler.input_reader)
     ship = Ship(position=Vector2D(0, 0), facing=CardinalDirection.EAST)
     for instruction in ship_instructions:

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import Vector2D
 from .parser import parse_wind_directions
 from .logic import WindGenerator, TetrisPieceGenerator, TetrisGameState, tower_height
@@ -44,7 +44,8 @@ def _pieces_generator() -> TetrisPieceGenerator:
 
 
 def aoc_2022_d17(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 17, "Pyroclastic Flow")
+    problem_id = Problem(2022, 17, "Pyroclastic Flow")
+    io_handler.output_writer.write_header(problem_id)
     wind_generator = WindGenerator(
         tuple(parse_wind_directions(io_handler.input_reader))
     )

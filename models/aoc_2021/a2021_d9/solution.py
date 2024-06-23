@@ -1,9 +1,10 @@
-from models.common.io import IOHandler, CharacterGrid
+from models.common.io import IOHandler, Problem, CharacterGrid
 from .smoke_basin import SmokeBasin
 
 
 def aoc_2021_d9(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 9, "Smoke Basin")
+    problem_id = Problem(2021, 9, "Smoke Basin")
+    io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     basin = SmokeBasin(
         heightmap={pos: int(height) for pos, height in grid.tiles.items()}

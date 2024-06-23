@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .snail_fish import SnailFishTree
 
 
 def aoc_2021_d18(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 18, "Snailfish")
+    problem_id = Problem(2021, 18, "Snailfish")
+    io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
     lists = [eval(line.strip()) for line in lines]
     acc = SnailFishTree.from_list(lists[0])

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .logic import (
     MonitorBadAddressPackets,
     MonitorRepeatedYValuePackets,
@@ -8,7 +8,8 @@ from .logic import (
 
 
 def aoc_2019_d23(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 23, "Category Six")
+    problem_id = Problem(2019, 23, "Category Six")
+    io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     num_computers = 50
     lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())

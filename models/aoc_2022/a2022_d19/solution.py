@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_blueprints
 from .logic import max_num_resource, ResourceType, MiningState
 
@@ -6,7 +6,8 @@ from .logic import max_num_resource, ResourceType, MiningState
 
 
 def aoc_2022_d19(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 19, "Not Enough Minerals")
+    problem_id = Problem(2022, 19, "Not Enough Minerals")
+    io_handler.output_writer.write_header(problem_id)
     blueprints = list(parse_blueprints(io_handler.input_reader))
     time_limit = 24
     resource_to_maximize = ResourceType.GEODE

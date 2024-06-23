@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_password_policies_and_passwords
 
 
 def aoc_2020_d2(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2020, 2, "Password Philosophy")
+    problem_id = Problem(2020, 2, "Password Philosophy")
+    io_handler.output_writer.write_header(problem_id)
     num_valid_range_passwords = sum(
         1
         for policy, password in parse_password_policies_and_passwords(

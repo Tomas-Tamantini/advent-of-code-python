@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_multi_technique_shuffle
 
 
 def aoc_2019_d22(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 22, "Slam Shuffle")
+    problem_id = Problem(2019, 22, "Slam Shuffle")
+    io_handler.output_writer.write_header(problem_id)
     shuffle = parse_multi_technique_shuffle(io_handler.input_reader)
     new_position = shuffle.new_card_position(
         position_before_shuffle=2019, deck_size=10_007

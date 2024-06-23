@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .key_generator import KeyGenerator
 
 
 def aoc_2016_d14(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2016, 14, "One-Time Pad")
+    problem_id = Problem(2016, 14, "One-Time Pad")
+    io_handler.output_writer.write_header(problem_id)
     salt = io_handler.input_reader.read().strip()
     one_hash_generator = KeyGenerator(
         salt,

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, InputReader
+from models.common.io import IOHandler, Problem, InputReader
 from .monkey import Monkeys
 from .parser import parse_monkeys
 
@@ -15,7 +15,8 @@ def _monkey_business(
 
 
 def aoc_2022_d11(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2022, 11, "Monkey in the Middle")
+    problem_id = Problem(2022, 11, "Monkey in the Middle")
+    io_handler.output_writer.write_header(problem_id)
     monkey_business_20_rounds = _monkey_business(
         io_handler.input_reader, boredom_worry_level_divisor=3, num_rounds=20
     )

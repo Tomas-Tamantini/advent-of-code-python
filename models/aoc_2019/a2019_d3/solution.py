@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_directions
 from .twisty_wire import TwistyWire
 
 
 def aoc_2019_d3(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2019, 3, "Crossed Wires")
+    problem_id = Problem(2019, 3, "Crossed Wires")
+    io_handler.output_writer.write_header(problem_id)
     wire_a = TwistyWire()
     wire_b = TwistyWire()
     instructions = list(parse_directions(io_handler.input_reader))

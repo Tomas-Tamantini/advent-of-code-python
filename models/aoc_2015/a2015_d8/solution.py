@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .num_chars import num_chars_encoded, num_chars_in_memory
 
 
 def aoc_2015_d8(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2015, 8, "Matchsticks")
+    problem_id = Problem(2015, 8, "Matchsticks")
+    io_handler.output_writer.write_header(problem_id)
     difference_orignal_memory = 0
     difference_encoded_original = 0
     for line in io_handler.input_reader.readlines():

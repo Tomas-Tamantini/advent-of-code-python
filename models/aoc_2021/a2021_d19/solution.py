@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_underwater_scanners
 from .underwater_scanner import pinpoint_scanners
 
 
 def aoc_2021_d19(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 19, "Beacon Scanner")
+    problem_id = Problem(2021, 19, "Beacon Scanner")
+    io_handler.output_writer.write_header(problem_id)
     scanners = list(parse_underwater_scanners(io_handler.input_reader))
     pinpointed = pinpoint_scanners(
         scanners, min_num_matching_beacons=12, progress_bar=io_handler.progress_bar

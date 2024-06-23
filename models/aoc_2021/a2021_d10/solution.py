@@ -1,10 +1,11 @@
 from typing import Iterable
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .brackets import mismatching_brackets, missing_brackets
 
 
 def aoc_2021_d10(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 10, "Syntax Scoring")
+    problem_id = Problem(2021, 10, "Syntax Scoring")
+    io_handler.output_writer.write_header(problem_id)
     mismatch_scores = {
         ")": 3,
         "]": 57,

@@ -1,10 +1,11 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from models.common.vectors import BoundingBox
 from .parser import parse_positions_and_fold_instructions
 
 
 def aoc_2021_d13(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 13, "Transparent Origami")
+    problem_id = Problem(2021, 13, "Transparent Origami")
+    io_handler.output_writer.write_header(problem_id)
     positions, instructions = parse_positions_and_fold_instructions(
         io_handler.input_reader
     )

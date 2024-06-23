@@ -1,9 +1,10 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 from .parser import parse_program_graph
 
 
 def aoc_2017_d12(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2017, 12, "Digital Plumber")
+    problem_id = Problem(2017, 12, "Digital Plumber")
+    io_handler.output_writer.write_header(problem_id)
     program_graph = parse_program_graph(io_handler.input_reader)
     disjoint_groups = list(program_graph.disjoint_groups())
     initial_node = 0

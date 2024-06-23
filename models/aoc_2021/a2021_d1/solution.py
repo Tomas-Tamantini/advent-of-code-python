@@ -1,4 +1,4 @@
-from models.common.io import IOHandler
+from models.common.io import IOHandler, Problem
 
 
 def num_increases(lst: list[int]) -> int:
@@ -10,7 +10,8 @@ def window_sum(lst: list[int], window_size: int) -> list[int]:
 
 
 def aoc_2021_d1(io_handler: IOHandler) -> None:
-    io_handler.output_writer.write_header(2021, 1, "Sonar Sweep")
+    problem_id = Problem(2021, 1, "Sonar Sweep")
+    io_handler.output_writer.write_header(problem_id)
     measurements = [int(line) for line in io_handler.input_reader.readlines()]
 
     print(
