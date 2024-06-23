@@ -9,6 +9,11 @@ from .logic import (
 )
 
 
+def _log_error(io_handler: IOHandler, droid_output: SpringDroidOutput, part: int):
+    error_msg = f"Part {part}: Spring bot fell into a hole. Try a different springscript.\n{droid_output.render()}"
+    io_handler.output_writer.log_error(error_msg)
+
+
 def aoc_2019_d21(io_handler: IOHandler) -> None:
     problem_id = Problem(2019, 21, "Springdroid Adventure")
     io_handler.output_writer.write_header(problem_id)
@@ -34,8 +39,7 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
         )
         io_handler.output_writer.write_solution(solution)
     except ValueError:
-        print(droid_output.render())
-        print("Part 1: Spring bot fell into a hole. Try a different springscript.")
+        _log_error(io_handler, droid_output, part=1)
     springscript_instructions = [
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "B", "J"),
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "C", "T"),
@@ -57,5 +61,4 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
         )
         io_handler.output_writer.write_solution(solution)
     except ValueError:
-        print(droid_output.render())
-        print("Part 2: Spring bot fell into a hole. Try a different springscript.")
+        _log_error(io_handler, droid_output, part=2)

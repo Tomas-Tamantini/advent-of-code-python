@@ -21,7 +21,8 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
         if io_handler.execution_flags.animate
         else " (SET FLAG --animate TO SEE COOL GAME ANIMATION)"
     )
-    print(f"Part 2:{animation_msg} simulating game...", end="\r")
+    progress_message = f"Part 2:{animation_msg} simulating game..."
+    io_handler.output_writer.log_progress(progress_message)
     run_intcode_arcade(new_instructions, screen)
     solution = ProblemSolution(
         problem_id, f"{animation_msg} Final score is {screen.current_score}", part=2

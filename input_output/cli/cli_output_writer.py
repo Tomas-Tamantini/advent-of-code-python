@@ -12,6 +12,12 @@ class CliOutputWriter:
         else:
             print(solution.solution_text)
 
+    def log_progress(self, progress_message: str) -> None:
+        print(progress_message, end="\r")
+
+    def log_error(self, error_message: str) -> None:
+        print(f"Error: {error_message}")
+
     def give_time_estimation(
         self, time_estimation: str, part: Optional[int] = None
     ) -> None:

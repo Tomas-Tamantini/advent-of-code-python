@@ -16,10 +16,10 @@ def aoc_2019_d25(io_handler: IOHandler) -> None:
         play_msg = ""
     else:
         control = DroidAutomaticControl(DroidInput())
-        play_msg = "(SET FLAG --play TO PLAY THE GAME AND CONTROL THE DROID YOURSELF)"
-    print(f"{play_msg} droid looking for password...", end="\r")
+        play_msg = "(SET FLAG --play TO PLAY THE GAME AND CONTROL THE DROID YOURSELF) "
+    io_handler.output_writer.log_progress(f"{play_msg}droid looking for password...")
     run_droid_explore_program(instructions, control)
     solution = ProblemSolution(
-        problem_id, f"{play_msg} Airlock password is {control.airlock_password}"
+        problem_id, f"{play_msg}Airlock password is {control.airlock_password}"
     )
     io_handler.output_writer.write_solution(solution)
