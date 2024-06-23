@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_instructions_with_duration
 from .logic import RegisterHistory, SpriteScreen
 
 
-def aoc_2022_d10(input_reader: InputReader, **_) -> None:
+def aoc_2022_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 10: Cathode-Ray Tube ---")
     rh = RegisterHistory()
-    for instruction in parse_instructions_with_duration(input_reader):
+    for instruction in parse_instructions_with_duration(io_handler.input_reader):
         rh.run_instruction(instruction)
     strengths = [cycle * rh.value_during_cycle(cycle) for cycle in range(20, 221, 40)]
     print(

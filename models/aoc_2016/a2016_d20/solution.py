@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .disjoint_intervals import DisjoinIntervals
 
 
-def aoc_2016_d20(input_reader: InputReader, **_) -> None:
+def aoc_2016_d20(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 20: Firewall Rules ---")
     disjoint_intervals = DisjoinIntervals(0, 4_294_967_295)
-    for line in input_reader.readlines():
+    for line in io_handler.input_reader.readlines():
         start, end = map(int, line.strip().split("-"))
         disjoint_intervals.remove(start, end)
     lowest_allowed_ip = next(disjoint_intervals.intervals())[0]

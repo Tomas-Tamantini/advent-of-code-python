@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .key_generator import KeyGenerator
 
 
-def aoc_2016_d14(input_reader: InputReader, **_) -> None:
+def aoc_2016_d14(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 14: One-Time Pad ---")
-    salt = input_reader.read().strip()
+    salt = io_handler.input_reader.read().strip()
     one_hash_generator = KeyGenerator(
         salt,
         num_repeated_characters_first_occurrence=3,

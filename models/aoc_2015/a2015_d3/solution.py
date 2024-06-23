@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import CardinalDirection, Vector2D
 
 
@@ -17,9 +17,9 @@ def houses_with_at_least_one_present(instructions: str) -> set[tuple[int, int]]:
     return visited_houses
 
 
-def aoc_2015_d3(input_reader: InputReader, **_) -> None:
+def aoc_2015_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 3: Perfectly Spherical Houses in a Vacuum ---")
-    instructions = input_reader.read()
+    instructions = io_handler.input_reader.read()
 
     houses = houses_with_at_least_one_present(instructions)
     print(f"Part 1: Santa visits {len(houses)} houses")

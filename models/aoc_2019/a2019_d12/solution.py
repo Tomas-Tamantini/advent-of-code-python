@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_3d_vectors
 from .moons import MoonOfJupiter, MoonSystem
 
 
-def aoc_2019_d12(input_reader: InputReader, **_) -> None:
+def aoc_2019_d12(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 12: The N-Body Problem ---")
-    positions = list(parse_3d_vectors(input_reader))
+    positions = list(parse_3d_vectors(io_handler.input_reader))
     moons = [MoonOfJupiter(pos) for pos in positions]
     system = MoonSystem(moons)
     system.multi_step(num_steps=1000)

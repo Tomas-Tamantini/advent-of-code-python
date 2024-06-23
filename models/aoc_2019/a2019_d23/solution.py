@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .logic import (
     MonitorBadAddressPackets,
     MonitorRepeatedYValuePackets,
@@ -7,9 +7,9 @@ from .logic import (
 )
 
 
-def aoc_2019_d23(input_reader: InputReader, **_) -> None:
+def aoc_2019_d23(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 23: Category Six ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     num_computers = 50
     lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())
     run_network(num_computers, lost_packets_manager, instructions)

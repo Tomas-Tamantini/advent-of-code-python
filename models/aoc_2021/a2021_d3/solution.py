@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .bit_frequency import BitFrequency
 
 
-def aoc_2021_d3(input_reader: InputReader, **_) -> None:
+def aoc_2021_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 3: Binary Diagnostic ---")
-    binary_strings = [line.strip() for line in input_reader.readlines()]
+    binary_strings = [line.strip() for line in io_handler.input_reader.readlines()]
     frequency = BitFrequency(binary_strings)
     most_frequent = frequency.most_frequent_bits_in_each_position()
     least_frequent = frequency.least_frequent_bits_in_each_position()

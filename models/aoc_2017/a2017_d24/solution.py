@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_bridge_components
 from .bridge_builder import BridgeBuilder
 
 
-def aoc_2017_d24(input_reader: InputReader, **_) -> None:
+def aoc_2017_d24(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 24: Electromagnetic Moat ---")
-    components = list(parse_bridge_components(input_reader))
+    components = list(parse_bridge_components(io_handler.input_reader))
     builder = BridgeBuilder(components)
     print("Be patient, it takes ~1min to run", end="\r")
     builder.build()

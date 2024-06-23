@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_program_graph
 
 
-def aoc_2017_d12(input_reader: InputReader, **_) -> None:
+def aoc_2017_d12(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 12: Digital Plumber ---")
-    program_graph = parse_program_graph(input_reader)
+    program_graph = parse_program_graph(io_handler.input_reader)
     disjoint_groups = list(program_graph.disjoint_groups())
     initial_node = 0
     group_size = -1

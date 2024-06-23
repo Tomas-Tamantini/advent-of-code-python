@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_moving_particles
 from .moving_particles import MovingParticles
 
 
-def aoc_2018_d10(input_reader: InputReader, **_) -> None:
+def aoc_2018_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 10: The Stars Align ---")
-    particles = list(parse_moving_particles(input_reader))
+    particles = list(parse_moving_particles(io_handler.input_reader))
     moving_particles = MovingParticles(particles)
     moments = moving_particles.moments_of_bounding_box_area_increase()
     inflexion_point = next(moments) - 1

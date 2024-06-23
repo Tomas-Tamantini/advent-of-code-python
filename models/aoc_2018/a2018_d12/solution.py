@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_plant_automaton
 
 
-def aoc_2018_d12(input_reader: InputReader, **_) -> None:
+def aoc_2018_d12(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 12: Subterranean Sustainability ---")
-    plant_automaton = parse_plant_automaton(input_reader)
+    plant_automaton = parse_plant_automaton(io_handler.input_reader)
     plants_alive = plant_automaton.plants_alive(generation=20)
     print(f"Part 1: Sum of indices of plants alive: {sum(plants_alive)}")
     # Part 2 assumes linear growth after transitional period

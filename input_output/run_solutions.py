@@ -1,4 +1,4 @@
-from models.common.io import InputFromTextFile, ProgressBarConsole
+from models.common.io import IOHandler
 from models.aoc_2015 import ALL_2015_SOLUTIONS
 from models.aoc_2016 import ALL_2016_SOLUTIONS
 from models.aoc_2017 import ALL_2017_SOLUTIONS
@@ -7,6 +7,7 @@ from models.aoc_2019 import ALL_2019_SOLUTIONS
 from models.aoc_2020 import ALL_2020_SOLUTIONS
 from models.aoc_2021 import ALL_2021_SOLUTIONS
 from models.aoc_2022 import ALL_2022_SOLUTIONS
+from .cli import InputFromTextFile, CliProgressBar
 
 
 def run_solutions(
@@ -27,9 +28,12 @@ def run_solutions(
             days = [i + 1 for i in range(len(solutions[year]))]
         for day in days:
             file_name = f"input_files/aoc_{year}/a{year}_d{day}.txt"
-            solutions[year][day - 1](
+            io_handler = IOHandler(
                 input_reader=InputFromTextFile(file_name),
-                progress_bar=ProgressBarConsole(),
+                progress_bar=CliProgressBar(),
+            )
+            solutions[year][day - 1](
+                io_handler,
                 animate=animate,
                 play=play,
             )

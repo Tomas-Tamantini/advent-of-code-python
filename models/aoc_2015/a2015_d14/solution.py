@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_reindeers
 from .reindeer import ReindeerOlympics
 
 
-def aoc_2015_d14(input_reader: InputReader, **_) -> None:
+def aoc_2015_d14(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 14: Reindeer Olympics ---")
-    reindeers = list(parse_reindeers(input_reader))
+    reindeers = list(parse_reindeers(io_handler.input_reader))
     race_duration = 2503
     reindeer_olympics = ReindeerOlympics(reindeers)
     max_distance = max(reindeer_olympics.positions_at_time(race_duration))

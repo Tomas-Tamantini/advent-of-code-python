@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 _BASE = 5
 
@@ -26,10 +26,10 @@ def decimal_to_snafu(decimal: int) -> str:
     return "".join(reversed(digits))
 
 
-def aoc_2022_d25(input_reader: InputReader, **_) -> None:
+def aoc_2022_d25(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 25: Full of Hot Air ---")
     decimal_sum = sum(
-        snafu_to_decimal(line) for line in input_reader.read_stripped_lines()
+        snafu_to_decimal(line) for line in io_handler.input_reader.read_stripped_lines()
     )
     snafu_sum = decimal_to_snafu(decimal_sum)
     print(f"Total sum of snafu numbers is {snafu_sum}")

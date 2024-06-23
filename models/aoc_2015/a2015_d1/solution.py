@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def final_floor(instructions: str) -> int:
@@ -14,9 +14,9 @@ def first_basement(instructions: str) -> int:
     return -1
 
 
-def aoc_2015_d1(input_reader: InputReader, **_) -> None:
+def aoc_2015_d1(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 1: Not Quite Lisp ---")
-    instructions = input_reader.read()
+    instructions = io_handler.input_reader.read()
 
     floor = final_floor(instructions)
     print(f"Part 1: Santa is on floor {floor}")

@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_encrypted_rooms
 
 
-def aoc_2016_d4(input_reader: InputReader, **_) -> None:
+def aoc_2016_d4(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 4: Security Through Obscurity ---")
     id_sum = 0
     id_storage = -1
-    for room in parse_encrypted_rooms(input_reader):
+    for room in parse_encrypted_rooms(io_handler.input_reader):
         if room.is_real():
             id_sum += room.sector_id
             if "pole" in room.decrypt_name():

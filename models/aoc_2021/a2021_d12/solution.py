@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_underwater_cave_connections
 from .underwater_cave import UnderwaterCaveExplorer
 
 
-def aoc_2021_d12(input_reader: InputReader, **_) -> None:
+def aoc_2021_d12(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 12: Passage Pathing ---")
-    connections = parse_underwater_cave_connections(input_reader)
+    connections = parse_underwater_cave_connections(io_handler.input_reader)
     explorer = UnderwaterCaveExplorer(
         connections, start_cave_name="start", end_cave_name="end"
     )

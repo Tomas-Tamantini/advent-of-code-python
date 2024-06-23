@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_file_tree
 
 
-def aoc_2022_d7(input_reader: InputReader, **_) -> None:
+def aoc_2022_d7(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 7: No Space Left On Device ---")
-    tree = parse_file_tree(input_reader)
+    tree = parse_file_tree(io_handler.input_reader)
     sizes = tuple(dir.size() for dir in tree.all_directories())
     sum_small_directories = sum(size for size in sizes if size <= 100_000)
     print(f"Part 1: Sum of sizes of small directories is {sum_small_directories}")

@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_blizzard_valley
 from .logic import BlizzardMazeSolver
 
 
-def aoc_2022_d24(input_reader: InputReader, **_) -> None:
+def aoc_2022_d24(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 24: Blizzard Basin ---")
-    valley = parse_blizzard_valley(input_reader)
+    valley = parse_blizzard_valley(io_handler.input_reader)
     solver = BlizzardMazeSolver(valley)
     print("Part 1: Be patient, it takes about 20s to run", end="\r")
     min_steps = solver.min_steps_to_exit()

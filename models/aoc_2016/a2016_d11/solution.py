@@ -1,12 +1,14 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_radioisotope_testing_facility_floor_configurations
 from .radio_isotope import RadioisotopeTestingFacility, FloorConfiguration
 
 
-def aoc_2016_d11(input_reader: InputReader, **_) -> None:
+def aoc_2016_d11(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 11: Radioisotope Thermoelectric Generators ---")
     floors = tuple(
-        parse_radioisotope_testing_facility_floor_configurations(input_reader)
+        parse_radioisotope_testing_facility_floor_configurations(
+            io_handler.input_reader
+        )
     )
     facility = RadioisotopeTestingFacility(floors, elevator_floor=0)
     steps = facility.min_num_steps_to_reach_final_state()

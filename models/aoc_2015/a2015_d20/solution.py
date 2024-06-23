@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .present_delivery import first_house_to_receive_n_presents
 
 
-def aoc_2015_d20(input_reader: InputReader, **_) -> None:
+def aoc_2015_d20(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 20: Infinite Elves and Infinite Houses ---")
-    target_num_presents = int(input_reader.read())
+    target_num_presents = int(io_handler.input_reader.read())
     first_house = first_house_to_receive_n_presents(
         target_num_presents, presents_multiple_per_elf=10
     )

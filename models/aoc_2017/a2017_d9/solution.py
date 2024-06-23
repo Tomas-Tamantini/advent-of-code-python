@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .stream_handler import StreamHandler
 
 
-def aoc_2017_d9(input_reader: InputReader, **_) -> None:
+def aoc_2017_d9(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 9: Stream Processing ---")
-    stream = input_reader.read().strip()
+    stream = io_handler.input_reader.read().strip()
     handler = StreamHandler(stream)
     print(f"Part 1: Total score: {handler.total_score}")
     print(

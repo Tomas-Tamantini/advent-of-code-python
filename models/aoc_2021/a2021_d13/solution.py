@@ -1,11 +1,13 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import BoundingBox
 from .parser import parse_positions_and_fold_instructions
 
 
-def aoc_2021_d13(input_reader: InputReader, **_) -> None:
+def aoc_2021_d13(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 13: Transparent Origami ---")
-    positions, instructions = parse_positions_and_fold_instructions(input_reader)
+    positions, instructions = parse_positions_and_fold_instructions(
+        io_handler.input_reader
+    )
     visible_dots = instructions[0].apply(set(positions))
     num_visible_dots = len(visible_dots)
     print(

@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_interval_pairs
 
 
-def aoc_2022_d4(input_reader: InputReader, **_) -> None:
+def aoc_2022_d4(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 4: Camp Cleanup ---")
-    pairs = list(parse_interval_pairs(input_reader))
+    pairs = list(parse_interval_pairs(io_handler.input_reader))
     num_pairs_fully_contained = sum(
         interval_a.is_contained_by(interval_b) or interval_b.is_contained_by(interval_a)
         for interval_a, interval_b in pairs

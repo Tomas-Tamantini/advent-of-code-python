@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def digits_that_match_the_next(sequence: str, wrap_around: bool) -> Iterator[chr]:
@@ -18,9 +18,9 @@ def digits_that_match_one_across_the_circle(sequence: str) -> Iterator[chr]:
             yield sequence[i]
 
 
-def aoc_2017_d1(input_reader: InputReader, **_) -> None:
+def aoc_2017_d1(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 1: Inverse Captcha ---")
-    digit_sequence = input_reader.read().strip()
+    digit_sequence = io_handler.input_reader.read().strip()
     sum_matches = sum(
         int(d) for d in digits_that_match_the_next(digit_sequence, wrap_around=True)
     )

@@ -1,10 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_bingo_game_and_numbers_to_draw
 
 
-def aoc_2021_d4(input_reader: InputReader, **_) -> None:
+def aoc_2021_d4(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 4: Giant Squid ---")
-    game, numbers_to_draw = parse_bingo_game_and_numbers_to_draw(input_reader)
+    game, numbers_to_draw = parse_bingo_game_and_numbers_to_draw(
+        io_handler.input_reader
+    )
     product_first_winner = -1
     product_last_winner = -1
     for number in numbers_to_draw:

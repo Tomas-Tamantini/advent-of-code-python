@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .air_duct import AirDuctMaze
 
 
-def aoc_2016_d24(input_reader: InputReader, **_) -> None:
+def aoc_2016_d24(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 24: Air Duct Spelunking ---")
-    blueprint = list(input_reader.readlines())
+    blueprint = list(io_handler.input_reader.readlines())
 
     maze = AirDuctMaze(blueprint)
     min_steps = maze.min_num_steps_to_visit_points_of_interest(

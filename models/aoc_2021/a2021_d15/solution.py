@@ -1,11 +1,11 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from models.common.vectors import Vector2D
 from .underwater_cave import UnderwaterCaveMaze
 
 
-def aoc_2021_d15(input_reader: InputReader, **_) -> None:
+def aoc_2021_d15(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 15: Chiton ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     cave_maze = UnderwaterCaveMaze(
         risk_levels={pos: int(char) for pos, char in grid.tiles.items()},
         extension_factor=1,

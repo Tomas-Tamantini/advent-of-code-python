@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .adapter_array import AdapterArray
 
 
-def aoc_2020_d10(input_reader: InputReader, **_) -> None:
+def aoc_2020_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 10: Adapter Array ---")
-    adapters = [int(line) for line in input_reader.readlines()]
+    adapters = [int(line) for line in io_handler.input_reader.readlines()]
     array = AdapterArray(
         outlet_joltage=0,
         device_joltage=max(adapters) + 3,

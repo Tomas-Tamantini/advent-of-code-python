@@ -1,10 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import HexagonalDirection, CanonicalHexagonalCoordinates
 
 
-def aoc_2017_d11(input_reader: InputReader, **_) -> None:
+def aoc_2017_d11(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 11: Hex Ed ---")
-    directions = [HexagonalDirection(d) for d in input_reader.read().strip().split(",")]
+    directions = [
+        HexagonalDirection(d) for d in io_handler.input_reader.read().strip().split(",")
+    ]
     pos = CanonicalHexagonalCoordinates(0, 0)
     steps_away = []
     for direction in directions:

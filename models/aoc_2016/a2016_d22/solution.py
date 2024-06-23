@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_storage_nodes
 
 
-def aoc_2016_d22(input_reader: InputReader, **_) -> None:
+def aoc_2016_d22(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 22: Grid Computing ---")
-    nodes = list(parse_storage_nodes(input_reader))
+    nodes = list(parse_storage_nodes(io_handler.input_reader))
     viable_pairs = sum(
         node_a.makes_viable_pair(node_b) for node_a in nodes for node_b in nodes
     )

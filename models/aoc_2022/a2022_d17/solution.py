@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D
 from .parser import parse_wind_directions
 from .logic import WindGenerator, TetrisPieceGenerator, TetrisGameState, tower_height
@@ -43,9 +43,11 @@ def _pieces_generator() -> TetrisPieceGenerator:
     )
 
 
-def aoc_2022_d17(input_reader: InputReader, **_) -> None:
+def aoc_2022_d17(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 17: Pyroclastic Flow ---")
-    wind_generator = WindGenerator(tuple(parse_wind_directions(input_reader)))
+    wind_generator = WindGenerator(
+        tuple(parse_wind_directions(io_handler.input_reader))
+    )
     tetris_piece_generator = _pieces_generator()
     game_state = TetrisGameState(
         width=7,

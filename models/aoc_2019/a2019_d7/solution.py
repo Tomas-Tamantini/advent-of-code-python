@@ -1,11 +1,11 @@
 from itertools import permutations
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .amplifiers import Amplifiers
 
 
-def aoc_2019_d7(input_reader: InputReader, **_) -> None:
+def aoc_2019_d7(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 7: Amplification Circuit ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     amplifiers = Amplifiers(instructions)
     input_signal = 0
     max_signal = max(

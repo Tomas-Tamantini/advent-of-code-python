@@ -1,4 +1,4 @@
-def aoc_2015_d23(**_) -> None:
+def aoc_2015_d23(*_, **__) -> None:
     print("--- AOC 2015 - Day 23: Opening the Turing Lock ---")
     # TODO: Make implementation independent of input
     print(

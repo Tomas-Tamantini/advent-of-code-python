@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .message_reconstructor import MessageReconstructor
 
 
-def aoc_2016_d6(input_reader: InputReader, **_) -> None:
+def aoc_2016_d6(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 6: Signals and Noise ---")
-    lines = list(input_reader.readlines())
+    lines = list(io_handler.input_reader.readlines())
     message_reconstructor = MessageReconstructor(lines)
     most_common_chars = (
         message_reconstructor.reconstruct_message_from_most_common_chars()

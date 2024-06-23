@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_triangle_sides
 
 
@@ -10,15 +10,19 @@ def is_valid_triangle(side_a: int, side_b: int, side_c: int) -> bool:
     )
 
 
-def aoc_2016_d3(input_reader: InputReader, **_) -> None:
+def aoc_2016_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 3: Squares With Three Sides ---")
     valid_triangles_horizontal = sum(
         is_valid_triangle(*sides)
-        for sides in parse_triangle_sides(input_reader, read_horizontally=True)
+        for sides in parse_triangle_sides(
+            io_handler.input_reader, read_horizontally=True
+        )
     )
     valid_triangles_vertical = sum(
         is_valid_triangle(*sides)
-        for sides in parse_triangle_sides(input_reader, read_horizontally=False)
+        for sides in parse_triangle_sides(
+            io_handler.input_reader, read_horizontally=False
+        )
     )
 
     print(

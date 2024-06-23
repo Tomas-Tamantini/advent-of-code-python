@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D
 from .secure_room import SecureRoom, SecureRoomMaze
 
 
-def aoc_2016_d17(input_reader: InputReader, **_) -> None:
+def aoc_2016_d17(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 17: Two Steps Forward ---")
-    passcode = input_reader.read().strip()
+    passcode = io_handler.input_reader.read().strip()
     maze_structure = SecureRoomMaze(
         width=4,
         height=4,

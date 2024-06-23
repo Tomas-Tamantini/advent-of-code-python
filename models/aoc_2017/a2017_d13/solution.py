@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_layered_firewall
 
 
-def aoc_2017_d13(input_reader: InputReader, **_) -> None:
+def aoc_2017_d13(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 13: Packet Scanners ---")
-    firewall = parse_layered_firewall(input_reader)
+    firewall = parse_layered_firewall(io_handler.input_reader)
     packet_collisions = list(firewall.packet_collisions())
     severity = sum(
         layer_depth * layer.scanning_range for layer_depth, layer in packet_collisions

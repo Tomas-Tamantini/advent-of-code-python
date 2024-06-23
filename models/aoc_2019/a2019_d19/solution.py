@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .beam_area import BeamArea, run_beam_scanner, square_closest_to_beam_source
 
 
-def aoc_2019_d19(input_reader: InputReader, **_) -> None:
+def aoc_2019_d19(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 19: Tractor Beam ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     area = BeamArea(width=50, height=50)
     run_beam_scanner(instructions, area)
     print(

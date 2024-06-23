@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D, BoundingBox
 from .parser import parse_proximity_sensors
 from .logic import (
@@ -7,9 +7,9 @@ from .logic import (
 )
 
 
-def aoc_2022_d15(input_reader: InputReader, **_) -> None:
+def aoc_2022_d15(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 15: Beacon Exclusion Zone ---")
-    sensors = list(parse_proximity_sensors(input_reader))
+    sensors = list(parse_proximity_sensors(io_handler.input_reader))
     num_positions = num_positions_which_cannot_contain_beacon(
         row=2_000_000, sensors=sensors
     )

@@ -1,14 +1,14 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .rucksack import Rucksack
 
 
-def aoc_2022_d3(input_reader: InputReader, **_) -> None:
+def aoc_2022_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 3: Rucksack Reorganization ---")
     rucksacks = [
         Rucksack(
             left_items=items[: len(items) // 2], right_items=items[len(items) // 2 :]
         )
-        for items in input_reader.read_stripped_lines()
+        for items in io_handler.input_reader.read_stripped_lines()
     ]
     total_priorities = sum(
         rucksack.item_priority(item)

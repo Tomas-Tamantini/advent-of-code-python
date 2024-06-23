@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .logic import (
     run_droid_explore_program,
     DroidCLIControl,
@@ -7,9 +7,9 @@ from .logic import (
 )
 
 
-def aoc_2019_d25(input_reader: InputReader, play: bool, **_) -> None:
+def aoc_2019_d25(io_handler: IOHandler, play: bool, **_) -> None:
     print("--- AOC 2019 - Day 25: Cryostasis ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     if play:
         control = DroidCLIControl(DroidInput())
         play_msg = ""

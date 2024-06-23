@@ -1,9 +1,9 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_cardinal_direction_instructions
 from .keypad import Keypad
 
 
-def aoc_2016_d2(input_reader: InputReader, **_) -> None:
+def aoc_2016_d2(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 2: Bathroom Security ---")
     keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
     keypad_rhombus = Keypad(
@@ -11,7 +11,7 @@ def aoc_2016_d2(input_reader: InputReader, **_) -> None:
     )
     keys_3x3 = []
     keys_rhombus = []
-    for instructions in parse_cardinal_direction_instructions(input_reader):
+    for instructions in parse_cardinal_direction_instructions(io_handler.input_reader):
         keypad_three_by_three.move_multiple_keys(instructions)
         keys_3x3.append(keypad_three_by_three.key)
         keypad_rhombus.move_multiple_keys(instructions)

@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .logic import (
     run_spring_droid_program,
     SpringScriptInstruction,
@@ -9,9 +9,11 @@ from .logic import (
 )
 
 
-def aoc_2019_d21(input_reader: InputReader, **_) -> None:
+def aoc_2019_d21(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 21: Springdroid Adventure ---")
-    intcode_instructions = [int(code) for code in input_reader.read().split(",")]
+    intcode_instructions = [
+        int(code) for code in io_handler.input_reader.read().split(",")
+    ]
     springscript_instructions = [
         SpringScriptInstruction(SpringScriptInstructionType.NOT, "C", "T"),
         SpringScriptInstruction(SpringScriptInstructionType.AND, "A", "T"),

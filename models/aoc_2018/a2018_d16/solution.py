@@ -1,13 +1,13 @@
 from models.common.assembly import Processor, ImmutableProgram, Computer
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.aoc_2018.three_value_instructions import ALL_THREE_VALUE_INSTRUCTIONS
 from .parser import parse_instruction_samples, parse_unknown_op_code_program
 from .unknown_op_code import possible_instructions, work_out_op_codes
 
 
-def aoc_2018_d16(input_reader: InputReader, **_) -> None:
+def aoc_2018_d16(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 16: Chronal Classification ---")
-    samples = list(parse_instruction_samples(input_reader))
+    samples = list(parse_instruction_samples(io_handler.input_reader))
     num_samples_with_three_or_more = sum(
         len(
             list(
@@ -26,7 +26,9 @@ def aoc_2018_d16(input_reader: InputReader, **_) -> None:
     op_codes_to_instructions = work_out_op_codes(
         samples, candidates=ALL_THREE_VALUE_INSTRUCTIONS
     )
-    instructions = parse_unknown_op_code_program(input_reader, op_codes_to_instructions)
+    instructions = parse_unknown_op_code_program(
+        io_handler.input_reader, op_codes_to_instructions
+    )
     program = ImmutableProgram(list(instructions))
     computer = Computer.from_processor(Processor())
     computer.run_program(program)

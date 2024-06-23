@@ -1,13 +1,13 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_directions
 from .twisty_wire import TwistyWire
 
 
-def aoc_2019_d3(input_reader: InputReader, **_) -> None:
+def aoc_2019_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 3: Crossed Wires ---")
     wire_a = TwistyWire()
     wire_b = TwistyWire()
-    instructions = list(parse_directions(input_reader))
+    instructions = list(parse_directions(io_handler.input_reader))
     for direction, length in instructions[0]:
         wire_a.add_segment(direction, length)
     for direction, length in instructions[1]:

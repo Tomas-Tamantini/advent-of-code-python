@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D
 from .repair_droid import DroidExploredArea, repair_droid_explore_area
 
 
-def aoc_2019_d15(input_reader: InputReader, **_) -> None:
+def aoc_2019_d15(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 15: Oxygen System ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     area = DroidExploredArea()
     repair_droid_explore_area(area, instructions)
     distance = area.distance_to_oxygen_system(starting_point=Vector2D(0, 0))

@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_seating_arrangement
 
 
-def aoc_2015_d13(input_reader: InputReader, **_) -> None:
+def aoc_2015_d13(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 13: Knights of the Dinner Table ---")
-    graph = parse_seating_arrangement(input_reader)
+    graph = parse_seating_arrangement(io_handler.input_reader)
     max_happiness = graph.both_ways_trip_max_cost()
     print(f"Part 1: Maximum happiness without me is {max_happiness}")
     pre_existing_nodes = list(graph.nodes())

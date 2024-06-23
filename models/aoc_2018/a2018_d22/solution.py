@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D
 from .rocky_cave import RockyCave, CaveExplorer
 
 
-def aoc_2018_d22(input_reader: InputReader, **_) -> None:
+def aoc_2018_d22(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 22: Mode Maze ---")
-    lines = list(input_reader.readlines())
+    lines = list(io_handler.input_reader.readlines())
     depth = int(lines[0].split()[1])
     target = Vector2D(*map(int, lines[1].split()[1].split(",")))
     cave = RockyCave(

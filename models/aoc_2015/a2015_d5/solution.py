@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .string_classifier import StringClassifier, simple_ruleset, complex_ruleset
 
 
-def aoc_2015_d5(input_reader: InputReader, **_) -> None:
+def aoc_2015_d5(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 5: Doesn&apos;t He Have Intern-Elves For This? ---")
-    strings = list(input_reader.readlines())
+    strings = list(io_handler.input_reader.readlines())
     simple_classifier = StringClassifier(simple_ruleset)
     complex_classifier = StringClassifier(complex_ruleset)
     nice_strings_simple_ruleset = [

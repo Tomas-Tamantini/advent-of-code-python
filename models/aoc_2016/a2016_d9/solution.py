@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .text_decompressor import TextDecompressor
 
 
-def aoc_2016_d9(input_reader: InputReader, **_) -> None:
+def aoc_2016_d9(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 9: Explosives in Cyberspace ---")
-    compressed_text = input_reader.read().strip()
+    compressed_text = io_handler.input_reader.read().strip()
     decompressor = TextDecompressor(compressed_text)
     print(
         f"Part 1: Length of decompressed text: {decompressor.length_shallow_decompression()}"

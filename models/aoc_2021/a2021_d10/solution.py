@@ -1,9 +1,9 @@
 from typing import Iterable
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .brackets import mismatching_brackets, missing_brackets
 
 
-def aoc_2021_d10(input_reader: InputReader, **_) -> None:
+def aoc_2021_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 10: Syntax Scoring ---")
     mismatch_scores = {
         ")": 3,
@@ -11,7 +11,7 @@ def aoc_2021_d10(input_reader: InputReader, **_) -> None:
         "}": 1197,
         ">": 25137,
     }
-    lines = [line.strip() for line in input_reader.readlines()]
+    lines = [line.strip() for line in io_handler.input_reader.readlines()]
 
     incomplete_lines = []
 

@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .layered_image import LayeredImage
 
 
-def aoc_2019_d8(input_reader: InputReader, **_) -> None:
+def aoc_2019_d8(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 8: Space Image Format ---")
-    data = input_reader.read().strip()
+    data = io_handler.input_reader.read().strip()
 
     image = LayeredImage(width=25, height=6, data=data)
     layer_with_fewest_zeros = min(image.layers, key=lambda layer: layer.count_digit(0))

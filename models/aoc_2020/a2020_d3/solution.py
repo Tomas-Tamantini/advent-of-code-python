@@ -1,10 +1,10 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from .cylindrical_forest import CylindricalForest
 
 
-def aoc_2020_d3(input_reader: InputReader, **_) -> None:
+def aoc_2020_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 3: Toboggan Trajectory ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     forest = CylindricalForest(
         width=grid.width, height=grid.height, trees=set(grid.positions_with_value("#"))
     )

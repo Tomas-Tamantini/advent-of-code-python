@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_crab_combat_cards
 from .crab_combat import CrabCombat
 
 
-def aoc_2020_d22(input_reader: InputReader, **_) -> None:
+def aoc_2020_d22(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 22: Crab Combat ---")
-    cards_a, cards_b = parse_crab_combat_cards(input_reader)
+    cards_a, cards_b = parse_crab_combat_cards(io_handler.input_reader)
     combat = CrabCombat(cards_a, cards_b, play_recursive=False)
     combat.play_game()
     winning_score = combat.winning_score()

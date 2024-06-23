@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler, InputReader
 from .monkey import Monkeys
 from .parser import parse_monkeys
 
@@ -14,13 +14,13 @@ def _monkey_business(
     return max_num_inspections[0] * max_num_inspections[1]
 
 
-def aoc_2022_d11(input_reader: InputReader, **_) -> None:
+def aoc_2022_d11(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 11: Monkey in the Middle ---")
     monkey_business_20_rounds = _monkey_business(
-        input_reader, boredom_worry_level_divisor=3, num_rounds=20
+        io_handler.input_reader, boredom_worry_level_divisor=3, num_rounds=20
     )
     print(f"Part 1: Monkey business for 20 rounds is {monkey_business_20_rounds}")
     monkey_business_10k_rounds = _monkey_business(
-        input_reader, boredom_worry_level_divisor=1, num_rounds=10_000
+        io_handler.input_reader, boredom_worry_level_divisor=1, num_rounds=10_000
     )
     print(f"Part 2: Monkey business for 10,000 rounds is {monkey_business_10k_rounds}")

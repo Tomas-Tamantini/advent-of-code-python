@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D
 from .hull_painting import Hull, run_hull_painting_program
 
 
-def aoc_2019_d11(input_reader: InputReader, **_) -> None:
+def aoc_2019_d11(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 11: Space Police ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     all_black_hull = Hull()
     run_hull_painting_program(instructions, all_black_hull)
     print(

@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .snail_fish import SnailFishTree
 
 
-def aoc_2021_d18(input_reader: InputReader, **_) -> None:
+def aoc_2021_d18(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 18: Snailfish ---")
-    lines = list(input_reader.readlines())
+    lines = list(io_handler.input_reader.readlines())
     lists = [eval(line.strip()) for line in lines]
     acc = SnailFishTree.from_list(lists[0])
     for lst in lists[1:]:

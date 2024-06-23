@@ -1,10 +1,10 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from .lumber_area import LumberArea, AcreType
 
 
-def aoc_2018_d18(input_reader: InputReader, **_) -> None:
+def aoc_2018_d18(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 18: Settlers of The North Pole ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     area = LumberArea(width=grid.width, height=grid.height)
     cells = grid.tiles
     cells_after_10 = area.multi_step(cells, 10)

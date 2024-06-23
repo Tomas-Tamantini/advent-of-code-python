@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def eggnog_partition(total_volume: int, capacities: list[int]) -> Iterator[list[int]]:
@@ -15,9 +15,9 @@ def eggnog_partition(total_volume: int, capacities: list[int]) -> Iterator[list[
                 yield [capacities[0]] + partition
 
 
-def aoc_2015_d17(input_reader: InputReader, **_) -> None:
+def aoc_2015_d17(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 17: No Such Thing as Too Much ---")
-    lines = list(input_reader.readlines())
+    lines = list(io_handler.input_reader.readlines())
     capacities = [int(l) for l in lines]
     total_volume = 150
     partitions = list(eggnog_partition(total_volume, capacities))

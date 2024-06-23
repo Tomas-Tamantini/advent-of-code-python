@@ -1,11 +1,11 @@
 from collections import defaultdict
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_line_segments
 
 
-def aoc_2021_d5(input_reader: InputReader, **_) -> None:
+def aoc_2021_d5(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 5: Hydrothermal Venture ---")
-    segments = list(parse_line_segments(input_reader))
+    segments = list(parse_line_segments(io_handler.input_reader))
 
     def num_overlapping_positions(segments):
         position_count = defaultdict(int)

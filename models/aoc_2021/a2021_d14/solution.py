@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_polymer_and_polymer_extension_rules
 from .polymer_extension import PolymerExtension
 
 
-def aoc_2021_d14(input_reader: InputReader, **_) -> None:
+def aoc_2021_d14(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 14: Extended Polymerization ---")
-    polymer, rules = parse_polymer_and_polymer_extension_rules(input_reader)
+    polymer, rules = parse_polymer_and_polymer_extension_rules(io_handler.input_reader)
     extension = PolymerExtension(rules)
     character_count = extension.character_count_after_multiple_extensions(
         polymer, num_times=10

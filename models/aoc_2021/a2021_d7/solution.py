@@ -1,13 +1,13 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .optimal_fuel_consumption import (
     optimal_linear_fuel_consumption,
     optimal_triangular_fuel_consumption,
 )
 
 
-def aoc_2021_d7(input_reader: InputReader, **_) -> None:
+def aoc_2021_d7(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 7: The Treachery of Whales ---")
-    positions = list(map(int, input_reader.read().split(",")))
+    positions = list(map(int, io_handler.input_reader.read().split(",")))
 
     optimal_linear = optimal_linear_fuel_consumption(positions)
     print(

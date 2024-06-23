@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .logic import (
     ScaffoldMap,
     run_scaffolding_discovery_program,
@@ -6,9 +6,9 @@ from .logic import (
 )
 
 
-def aoc_2019_d17(input_reader: InputReader, **_) -> None:
+def aoc_2019_d17(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 17: Set and Forget ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     scaffold_map = ScaffoldMap()
     run_scaffolding_discovery_program(scaffold_map, instructions)
     alignment_parameters = sum(

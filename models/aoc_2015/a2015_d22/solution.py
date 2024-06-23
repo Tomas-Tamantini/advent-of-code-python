@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .logic import (
     Wizard,
     Boss,
@@ -15,10 +15,10 @@ from .logic import (
 from models.aoc_2015.a2015_d21.parser import parse_rpg_boss
 
 
-def aoc_2015_d22(input_reader: InputReader, **_) -> None:
+def aoc_2015_d22(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 22: Wizard Simulator 20XX ---")
     wizard = Wizard(hit_points=50, mana=500)
-    boss_kwargs = parse_rpg_boss(input_reader)
+    boss_kwargs = parse_rpg_boss(io_handler.input_reader)
     boss = Boss(hit_points=boss_kwargs["hit_points"])
     boss_move = BossMove(damage=boss_kwargs["damage"])
     game_state = GameState(wizard, boss, is_wizard_turn=True)

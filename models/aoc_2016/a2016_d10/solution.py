@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_chip_factory
 
 
-def aoc_2016_d10(input_reader: InputReader, **_) -> None:
+def aoc_2016_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 10: Balance Bots ---")
-    factory = parse_chip_factory(input_reader)
+    factory = parse_chip_factory(io_handler.input_reader)
     factory.run()
     bot_id = factory.robot_that_compared_chips(low_id=17, high_id=61)
     print(f"Part 1: Bot that compared chips 17 and 61: {bot_id}")

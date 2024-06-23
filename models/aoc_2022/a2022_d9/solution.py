@@ -1,5 +1,5 @@
 from typing import Iterator, Optional
-from models.common.io import InputReader, render_frame
+from models.common.io import IOHandler, render_frame
 from models.common.vectors import Vector2D, CardinalDirection
 from .logic import Rope
 from .parser import parse_move_instructions
@@ -21,9 +21,9 @@ def _tail_positions(
                 render_frame(animation.frame(), sleep_seconds=0.05)
 
 
-def aoc_2022_d9(input_reader: InputReader, animate: bool, **_) -> None:
+def aoc_2022_d9(io_handler: IOHandler, animate: bool, **_) -> None:
     print("--- AOC 2022 - Day 9: Rope Bridge ---")
-    instructions = list(parse_move_instructions(input_reader))
+    instructions = list(parse_move_instructions(io_handler.input_reader))
     total_num_iterations = sum(distance for _, distance in instructions)
     short_rope = Rope(num_knots=2)
     tail_positions = set(_tail_positions(short_rope, instructions))

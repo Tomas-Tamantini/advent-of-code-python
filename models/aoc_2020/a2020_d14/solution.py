@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_bitmask_instructions
 from .bitmask_memory import BitmaskMemory
 
 
-def aoc_2020_d14(input_reader: InputReader, **_) -> None:
+def aoc_2020_d14(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 14: Docking Data ---")
     values_instructions = list(
-        parse_bitmask_instructions(input_reader, is_address_mask=False)
+        parse_bitmask_instructions(io_handler.input_reader, is_address_mask=False)
     )
     memory = BitmaskMemory()
     for instruction in values_instructions:
@@ -16,7 +16,7 @@ def aoc_2020_d14(input_reader: InputReader, **_) -> None:
     )
 
     address_instructions = list(
-        parse_bitmask_instructions(input_reader, is_address_mask=True)
+        parse_bitmask_instructions(io_handler.input_reader, is_address_mask=True)
     )
     memory = BitmaskMemory()
     for instruction in address_instructions:

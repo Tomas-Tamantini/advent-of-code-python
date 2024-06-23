@@ -1,9 +1,9 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_aunt_sue_collection
 from .aunt_sue import MatchType
 
 
-def aoc_2015_d16(input_reader: InputReader, **_) -> None:
+def aoc_2015_d16(io_handler: IOHandler, **_) -> None:
     measured_attributes = {
         "children": 3,
         "cats": 7,
@@ -33,7 +33,7 @@ def aoc_2015_d16(input_reader: InputReader, **_) -> None:
         attribute: (value, match_type(attribute))
         for attribute, value in measured_attributes.items()
     }
-    aunts = parse_aunt_sue_collection(input_reader)
+    aunts = parse_aunt_sue_collection(io_handler.input_reader)
     for aunt in aunts:
         if aunt.matches(measured_attributes_exact):
             print(f"Part 1: Aunt Sue {aunt.id} matches exact data")

@@ -1,13 +1,15 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .noun_and_verb import (
     run_intcode_program_until_halt,
     noun_and_verb_for_given_output,
 )
 
 
-def aoc_2019_d2(input_reader: InputReader, **_) -> None:
+def aoc_2019_d2(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 2: 1202 Program Alarm ---")
-    original_instructions = [int(code) for code in input_reader.read().split(",")]
+    original_instructions = [
+        int(code) for code in io_handler.input_reader.read().split(",")
+    ]
     instructions = original_instructions[:]
     instructions[1] = 12
     instructions[2] = 2

@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .square_spiral import SquareSpiral
 
 
-def aoc_2017_d3(input_reader: InputReader, **_) -> None:
+def aoc_2017_d3(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 3: Spiral Memory ---")
-    target = int(input_reader.read().strip())
+    target = int(io_handler.input_reader.read().strip())
     target_coordinates = SquareSpiral.coordinates(target)
     manhattan_distance = target_coordinates.manhattan_size
     print(f"Part 1: Manhattan distance to {target}: {manhattan_distance}")

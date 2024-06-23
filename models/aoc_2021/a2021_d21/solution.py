@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_players_starting_positions
 from .logic import (
     DiracDiceStartingConfiguration,
@@ -7,9 +7,9 @@ from .logic import (
 )
 
 
-def aoc_2021_d21(input_reader: InputReader, **_) -> None:
+def aoc_2021_d21(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 21: Dirac Dice ---")
-    starting_spaces = parse_players_starting_positions(input_reader)
+    starting_spaces = parse_players_starting_positions(io_handler.input_reader)
     starting_configuration = DiracDiceStartingConfiguration(
         board_size=10, goal_score=1000, starting_spaces=starting_spaces
     )

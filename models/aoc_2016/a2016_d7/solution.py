@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .ip_parser import IpParser
 
 
-def aoc_2016_d7(input_reader: InputReader, **_) -> None:
+def aoc_2016_d7(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 7: Internet Protocol Version 7 ---")
     num_ips_that_support_tls = 0
     num_ips_that_support_ssl = 0
-    for line in input_reader.readlines():
+    for line in io_handler.input_reader.readlines():
         ip_parser = IpParser(line.strip())
         if ip_parser.supports_tls():
             num_ips_that_support_tls += 1

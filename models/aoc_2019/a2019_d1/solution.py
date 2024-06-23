@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .fuel_requirement import fuel_requirement
 
 
-def aoc_2019_d1(input_reader: InputReader, **_) -> None:
+def aoc_2019_d1(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 1: The Tyranny of the Rocket Equation ---")
-    masses = [int(line) for line in input_reader.readlines()]
+    masses = [int(line) for line in io_handler.input_reader.readlines()]
     fuel_ignoring_extra_mass = sum(
         fuel_requirement(mass, consider_fuel_mass=False) for mass in masses
     )

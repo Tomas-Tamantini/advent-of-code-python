@@ -1,5 +1,5 @@
 from typing import Iterable, Iterator
-from models.common.io import InputReader, ProgressBar
+from models.common.io import IOHandler
 from .circular_encryption import mix_list
 
 
@@ -9,10 +9,10 @@ def _numbers_at_offsets(numbers: list[int], offsets: Iterable[int]) -> Iterator[
         yield numbers[(zero_index + offset) % len(numbers)]
 
 
-def aoc_2022_d20(input_reader: InputReader, progress_bar: ProgressBar, **_) -> None:
+def aoc_2022_d20(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 20: Grove Positioning System ---")
     offsets = (1000, 2000, 3000)
-    numbers = [int(line) for line in input_reader.read_stripped_lines()]
+    numbers = [int(line) for line in io_handler.input_reader.read_stripped_lines()]
     shuffled_numbers = mix_list(numbers)
     total_sum = sum(_numbers_at_offsets(shuffled_numbers, offsets))
     print(f"Part 1: Sum of numbers at positions 1000, 2000, and 3000: {total_sum}")
@@ -20,7 +20,7 @@ def aoc_2022_d20(input_reader: InputReader, progress_bar: ProgressBar, **_) -> N
     key = 811589153
     multiplied_list = [number * key for number in numbers]
     shuffled_multiplied_list = mix_list(
-        multiplied_list, num_rounds=10, progress_bar=progress_bar
+        multiplied_list, num_rounds=10, progress_bar=io_handler.progress_bar
     )
     total_sum = sum(_numbers_at_offsets(shuffled_multiplied_list, offsets))
     print(

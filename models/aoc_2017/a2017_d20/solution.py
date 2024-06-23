@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_particles
 from .particle_collider import ParticleCollider
 
 
-def aoc_2017_d20(input_reader: InputReader, **_) -> None:
+def aoc_2017_d20(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 20: Particle Swarm ---")
-    particles = list(parse_particles(input_reader))
+    particles = list(parse_particles(io_handler.input_reader))
     collider = ParticleCollider(particles)
     closest_to_origin = collider.particle_closest_to_origin_long_term()
     print(f"Part 1: Particle closest to origin: {closest_to_origin.id}")

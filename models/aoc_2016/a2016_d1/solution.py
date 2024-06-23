@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import CardinalDirection
 from .parser import parse_turtle_instructions
 from .turtle import Turtle
 
 
-def aoc_2016_d1(input_reader: InputReader, **_) -> None:
+def aoc_2016_d1(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 1: No Time for a Taxicab ---")
-    instructions = list(parse_turtle_instructions(input_reader))
+    instructions = list(parse_turtle_instructions(io_handler.input_reader))
     turtle = Turtle(initial_direction=CardinalDirection.NORTH)
     for instruction in instructions:
         turtle.move(instruction)

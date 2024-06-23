@@ -1,5 +1,5 @@
 from typing import Optional
-from models.common.io import InputReader, ProgressBar, ProgressBarConsole
+from models.common.io import IOHandler, ProgressBar
 from models.common.cellular_automata import ElementaryAutomaton
 
 
@@ -19,12 +19,12 @@ def num_safe_tiles(
     return len(first_row) * num_rows - num_unsafe_tiles
 
 
-def aoc_2016_d18(
-    input_reader: InputReader, progress_bar: ProgressBarConsole, **_
-) -> None:
+def aoc_2016_d18(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2016 - Day 18: Like a Rogue ---")
-    first_row = input_reader.read().strip()
+    first_row = io_handler.input_reader.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)
     print(f"Part 1: Number of safe tiles in 40 rows: {num_safe}")
-    num_safe = num_safe_tiles(first_row, num_rows=400_000, progress_bar=progress_bar)
+    num_safe = num_safe_tiles(
+        first_row, num_rows=400_000, progress_bar=io_handler.progress_bar
+    )
     print(f"Part 2: Number of safe tiles in 400000 rows: {num_safe}")

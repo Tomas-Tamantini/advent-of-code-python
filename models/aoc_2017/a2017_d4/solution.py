@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def sentence_contains_no_duplicates(sentence: str) -> bool:
@@ -12,9 +12,9 @@ def sentence_contains_no_anagrams(sentence: str) -> bool:
     return len(sorted_words) == len(set(sorted_words))
 
 
-def aoc_2017_d4(input_reader: InputReader, **_) -> None:
+def aoc_2017_d4(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 4: High-Entropy Passphrases ---")
-    passphrases = list(input_reader.readlines())
+    passphrases = list(io_handler.input_reader.readlines())
     no_duplicates = sum(
         sentence_contains_no_duplicates(phrase) for phrase in passphrases
     )

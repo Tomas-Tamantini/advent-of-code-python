@@ -1,13 +1,13 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import CanonicalHexagonalCoordinates
 from .parser import parse_rotated_hexagonal_directions
 from .hexagonal_automaton import HexagonalAutomaton
 
 
-def aoc_2020_d24(input_reader: InputReader, **_) -> None:
+def aoc_2020_d24(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 24: Lobby Layout ---")
     black_tiles = set()
-    for directions in parse_rotated_hexagonal_directions(input_reader):
+    for directions in parse_rotated_hexagonal_directions(io_handler.input_reader):
         pos = CanonicalHexagonalCoordinates(0, 0)
         for direction in directions:
             pos = pos.move(direction)

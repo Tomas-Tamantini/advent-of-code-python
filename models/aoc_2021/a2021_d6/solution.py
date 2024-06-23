@@ -1,10 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .lantern_fish import LanternFish, lantern_fish_population_after_n_days
 
 
-def aoc_2021_d6(input_reader: InputReader, **_) -> None:
+def aoc_2021_d6(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 6: Lanternfish ---")
-    days_until_reproduction = [int(day) for day in input_reader.read().split(",")]
+    days_until_reproduction = [
+        int(day) for day in io_handler.input_reader.read().split(",")
+    ]
     fish_school = [
         LanternFish(days_until_reproduction=days) for days in days_until_reproduction
     ]

@@ -1,10 +1,10 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from .asteroid_belt import AsteroidBelt
 
 
-def aoc_2019_d10(input_reader: InputReader, **_) -> None:
+def aoc_2019_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 10: Monitoring Station ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()
     print(f"Part 1: Best location can see {others_visible} other asteroids")

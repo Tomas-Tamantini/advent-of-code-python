@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .circular_buffer import CircularBuffer
 
 
-def aoc_2017_d17(input_reader: InputReader, **_) -> None:
+def aoc_2017_d17(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 17: Spinlock ---")
-    step_size = int(input_reader.read().strip())
+    step_size = int(io_handler.input_reader.read().strip())
     buffer = CircularBuffer()
     for i in range(1, 2018):
         buffer.insert_and_update_current_position(i, step_size)

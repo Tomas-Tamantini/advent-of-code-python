@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import TurnDirection
 from .mine_carts import MineCarts
 
 
-def aoc_2018_d13(input_reader: InputReader, **_) -> None:
+def aoc_2018_d13(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 13: Mine Cart Madness ---")
-    mine_layout = input_reader.read()
+    mine_layout = io_handler.input_reader.read()
     intersection_sequence = [
         TurnDirection.LEFT,
         TurnDirection.NO_TURN,

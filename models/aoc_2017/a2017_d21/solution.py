@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_art_block_rules, parse_art_block
 from .fractal_art import FractalArt
 
 
-def aoc_2017_d21(input_reader: InputReader, **_) -> None:
+def aoc_2017_d21(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 21: Fractal Art ---")
     inital_pattern = parse_art_block(".#./..#/###")
-    rules = parse_art_block_rules(input_reader)
+    rules = parse_art_block_rules(io_handler.input_reader)
     fractal_art = FractalArt(inital_pattern, rules)
     num_iterations = 5
     num_cells_on = fractal_art.num_cells_on_after_iterations(num_iterations)

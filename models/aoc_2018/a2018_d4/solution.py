@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_guard_logs
 
 
-def aoc_2018_d4(input_reader: InputReader, **_) -> None:
+def aoc_2018_d4(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 4: Repose Record ---")
-    guards = list(parse_guard_logs(input_reader))
+    guards = list(parse_guard_logs(io_handler.input_reader))
     guard_most_asleep = max(guards, key=lambda g: g.total_minutes_asleep)
     minute_most_asleep = guard_most_asleep.minute_most_likely_to_be_asleep()
     product = guard_most_asleep.id * minute_most_asleep

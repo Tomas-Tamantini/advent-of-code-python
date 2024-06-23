@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.graphs import topological_sorting
 from .parser import parse_directed_graph
 from .jobshop import time_to_complete_jobs
 
 
-def aoc_2018_d7(input_reader: InputReader, **_) -> None:
+def aoc_2018_d7(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 7: The Sum of Its Parts ---")
-    graph = parse_directed_graph(input_reader)
+    graph = parse_directed_graph(io_handler.input_reader)
     order = "".join(topological_sorting(graph, tie_breaker=lambda a, b: a < b))
     print(f"Part 1: Order of steps: {order}")
     time = time_to_complete_jobs(

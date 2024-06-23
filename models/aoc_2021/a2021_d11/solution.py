@@ -1,10 +1,10 @@
-from models.common.io import InputReader, CharacterGrid, render_frame
+from models.common.io import IOHandler, CharacterGrid, render_frame
 from .octopus_flash import OctopusesFlashes
 
 
-def aoc_2021_d11(input_reader: InputReader, animate: bool, **_) -> None:
+def aoc_2021_d11(io_handler: IOHandler, animate: bool, **_) -> None:
     print("--- AOC 2021 - Day 11: Dumbo Octopus ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     octopuses = OctopusesFlashes(
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
     )

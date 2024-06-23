@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_rpg_boss
 from .rpg_game import Fighter, ItemAssortment, RpgItem, ItemShop
 
 
-def aoc_2015_d21(input_reader: InputReader, **_) -> None:
+def aoc_2015_d21(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 21: RPG Simulator 20XX ---")
     my_hit_points = 100
-    boss_kwargs = parse_rpg_boss(input_reader)
+    boss_kwargs = parse_rpg_boss(io_handler.input_reader)
     boss = Fighter(**boss_kwargs)
     weapons = ItemAssortment(
         items=[

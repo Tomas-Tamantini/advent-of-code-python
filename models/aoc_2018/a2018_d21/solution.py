@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool) -> int:
@@ -31,9 +31,9 @@ def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool)
             b = b // 256
 
 
-def aoc_2018_d21(input_reader: InputReader, **_) -> None:
+def aoc_2018_d21(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 21: Chronal Conversion ---")
-    lines = list(input_reader.readlines())
+    lines = list(io_handler.input_reader.readlines())
     input_number = int(lines[8].split()[1])
     register_min = optimized_chronal_conversion(
         input_number, exit_on_first_occurrence=True

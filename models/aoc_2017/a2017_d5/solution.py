@@ -1,5 +1,5 @@
 from typing import Iterator, Callable
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def follow_and_increment_jump_instructions(
@@ -13,9 +13,9 @@ def follow_and_increment_jump_instructions(
         current_pos += jump
 
 
-def aoc_2017_d5(input_reader: InputReader, **_) -> None:
+def aoc_2017_d5(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 5: A Maze of Twisty Trampolines, All Alike ---")
-    jump_offsets = [int(line) for line in input_reader.readlines()]
+    jump_offsets = [int(line) for line in io_handler.input_reader.readlines()]
     simple_increment_rule = lambda jump: jump + 1
     steps_simple_increment = 0
     for _ in follow_and_increment_jump_instructions(

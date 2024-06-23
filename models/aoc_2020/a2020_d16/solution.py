@@ -1,10 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_ticket_validator_and_ticket_values
 
 
-def aoc_2020_d16(input_reader: InputReader, **_) -> None:
+def aoc_2020_d16(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 16: Ticket Translation ---")
-    parsed_ticket_validator = parse_ticket_validator_and_ticket_values(input_reader)
+    parsed_ticket_validator = parse_ticket_validator_and_ticket_values(
+        io_handler.input_reader
+    )
     validator = parsed_ticket_validator.validator
     nearby_tickets = parsed_ticket_validator.nearby_tickets
     scanning_error_rate = sum(

@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import CardinalDirection, Vector2D
 from .parser import parse_cube_net_and_instructions
 from .logic import (
@@ -38,11 +38,11 @@ def _simulate_movements(cube_size, edge_mapper, parsed_cube) -> BoardPiece:
     return _build_password(board_piece)
 
 
-def aoc_2022_d22(input_reader: InputReader, **_) -> None:
+def aoc_2022_d22(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 22: Monkey Map ---")
 
     cube_size = 50
-    parsed = parse_cube_net_and_instructions(input_reader, cube_size)
+    parsed = parse_cube_net_and_instructions(io_handler.input_reader, cube_size)
 
     pacman_edge_mapper = PacmanEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, pacman_edge_mapper, parsed)

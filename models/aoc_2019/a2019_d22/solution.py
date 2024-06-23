@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_multi_technique_shuffle
 
 
-def aoc_2019_d22(input_reader: InputReader, **_) -> None:
+def aoc_2019_d22(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 22: Slam Shuffle ---")
-    shuffle = parse_multi_technique_shuffle(input_reader)
+    shuffle = parse_multi_technique_shuffle(io_handler.input_reader)
     new_position = shuffle.new_card_position(
         position_before_shuffle=2019, deck_size=10_007
     )

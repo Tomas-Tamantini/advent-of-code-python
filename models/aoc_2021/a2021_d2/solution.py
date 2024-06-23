@@ -1,13 +1,15 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_submarine_navigation_instructions
 from .submarine import Submarine
 
 
-def aoc_2021_d2(input_reader: InputReader, **_) -> None:
+def aoc_2021_d2(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2021 - Day 2: Dive! ---")
     submarine = Submarine()
     instructions_without_aim = list(
-        parse_submarine_navigation_instructions(input_reader, submarine_has_aim=False)
+        parse_submarine_navigation_instructions(
+            io_handler.input_reader, submarine_has_aim=False
+        )
     )
     for instruction in instructions_without_aim:
         submarine = instruction.execute(submarine)
@@ -16,7 +18,9 @@ def aoc_2021_d2(input_reader: InputReader, **_) -> None:
 
     submarine = Submarine()
     instructions_with_aim = list(
-        parse_submarine_navigation_instructions(input_reader, submarine_has_aim=True)
+        parse_submarine_navigation_instructions(
+            io_handler.input_reader, submarine_has_aim=True
+        )
     )
     for instruction in instructions_with_aim:
         submarine = instruction.execute(submarine)

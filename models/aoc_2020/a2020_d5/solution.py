@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_plane_seat_ids
 
 
-def aoc_2020_d5(input_reader: InputReader, **_) -> None:
+def aoc_2020_d5(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 5: Binary Boarding ---")
-    seat_ids = sorted(parse_plane_seat_ids(input_reader))
+    seat_ids = sorted(parse_plane_seat_ids(io_handler.input_reader))
     max_id = seat_ids[-1]
     print(f"Part 1: The highest seat ID is {max_id}")
     for i, seat_id in enumerate(seat_ids):

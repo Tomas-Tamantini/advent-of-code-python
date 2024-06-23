@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from models.common.vectors import Vector2D
 from models.common.graphs import explore_with_bfs
 from .lattice_graph import build_lattice_graph
 
 
-def aoc_2018_d20(input_reader: InputReader, **_) -> None:
+def aoc_2018_d20(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2018 - Day 20: A Regular Map ---")
-    regex = input_reader.read().strip()
+    regex = io_handler.input_reader.read().strip()
     graph = build_lattice_graph(regex)
     starting_node = Vector2D(0, 0)
     distances = {

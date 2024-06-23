@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_string_transformers
 from .string_transform import transform_string_multiple_rounds
 
 
-def aoc_2017_d16(input_reader: InputReader, **_) -> None:
+def aoc_2017_d16(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 16: Permutation Promenade ---")
-    dance_moves = list(parse_string_transformers(input_reader))
+    dance_moves = list(parse_string_transformers(io_handler.input_reader))
     dancers = "abcdefghijklmnop"
     for move in dance_moves:
         dancers = move.transform(dancers)

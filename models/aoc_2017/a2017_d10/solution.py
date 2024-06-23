@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .knot_hash import KnotHash
 
 
-def aoc_2017_d10(input_reader: InputReader, **_) -> None:
+def aoc_2017_d10(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2017 - Day 10: Knot Hash ---")
-    lengths_str = input_reader.read().strip()
+    lengths_str = io_handler.input_reader.read().strip()
     lengths_as_int = [int(l) for l in lengths_str.split(",")]
     knot_hash = KnotHash(list_length=256)
     for length in lengths_as_int:

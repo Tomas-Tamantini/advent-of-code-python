@@ -1,10 +1,10 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from .game_of_life_lights import GameOfLifeLights
 
 
-def aoc_2015_d18(input_reader: InputReader, **_) -> None:
+def aoc_2015_d18(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2015 - Day 18: Like a GIF For Your Yard ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     initial_cells = set(grid.positions_with_value("#"))
     game = GameOfLifeLights(grid.width, grid.height)
     num_steps = 100

@@ -1,11 +1,11 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from models.common.vectors import CardinalDirection, BoundingBox
 from .logic import AntisocialElves, direction_priority
 
 
-def aoc_2022_d23(input_reader: InputReader, **_) -> None:
+def aoc_2022_d23(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 23: Unstable Diffusion ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
     positions = set(grid.positions_with_value("#"))
     priority_first_round = [
         CardinalDirection.NORTH,

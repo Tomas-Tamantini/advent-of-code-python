@@ -1,11 +1,11 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_foods
 from .foods import Foods
 
 
-def aoc_2020_d21(input_reader: InputReader, **_) -> None:
+def aoc_2020_d21(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 21: Allergen Assessment ---")
-    foods = Foods(list(parse_foods(input_reader)))
+    foods = Foods(list(parse_foods(io_handler.input_reader)))
     num_times = sum(
         foods.num_times_ingredient_appears(ingredient)
         for ingredient in foods.ingredients_without_allergens()

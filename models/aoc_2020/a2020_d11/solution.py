@@ -1,10 +1,10 @@
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import IOHandler, CharacterGrid
 from .ferry_seats import FerrySeats, FerrySeat
 
 
-def aoc_2020_d11(input_reader: InputReader, **_) -> None:
+def aoc_2020_d11(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 11: Seating System ---")
-    grid = CharacterGrid(input_reader.read())
+    grid = CharacterGrid(io_handler.input_reader.read())
 
     ferry_adjacent_only = FerrySeats(
         width=grid.width,

@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .arcade import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
 
 
-def aoc_2019_d13(input_reader: InputReader, animate: bool, **_) -> None:
+def aoc_2019_d13(io_handler: IOHandler, animate: bool, **_) -> None:
     print("--- AOC 2019 - Day 13: Care Package ---")
-    instructions = [int(code) for code in input_reader.read().split(",")]
+    instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     screen = ArcadeGameScreen()
     run_intcode_arcade(instructions, screen)
     block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)

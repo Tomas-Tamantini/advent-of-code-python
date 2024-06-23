@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .valid_passwords import (
     digits_are_increasing,
     two_adjacent_digits_are_the_same,
@@ -7,9 +7,9 @@ from .valid_passwords import (
 )
 
 
-def aoc_2019_d4(input_reader: InputReader, **_) -> None:
+def aoc_2019_d4(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 4: Secure Container ---")
-    lower_bound, upper_bound = map(int, input_reader.read().split("-"))
+    lower_bound, upper_bound = map(int, io_handler.input_reader.read().split("-"))
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
     print(f"Part 1: Number of valid passwords is {len(valid_passwords)}")

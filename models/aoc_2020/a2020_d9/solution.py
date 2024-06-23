@@ -1,10 +1,10 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .xmas_encoding import XMasEncoding
 
 
-def aoc_2020_d9(input_reader: InputReader, **_) -> None:
+def aoc_2020_d9(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2020 - Day 9: Encoding Error ---")
-    numbers = [int(line) for line in input_reader.readlines()]
+    numbers = [int(line) for line in io_handler.input_reader.readlines()]
     encoding = XMasEncoding(preamble_length=25)
     invalid_number = next(encoding.invalid_numbers(numbers))
     print(f"Part 1: The first invalid number is {invalid_number}")

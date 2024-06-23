@@ -1,4 +1,4 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 
 
 def detect_distinct_chars(stream: str, num_distinct_chars: int) -> int:
@@ -10,9 +10,9 @@ def detect_distinct_chars(stream: str, num_distinct_chars: int) -> int:
     return -1
 
 
-def aoc_2022_d6(input_reader: InputReader, **_) -> None:
+def aoc_2022_d6(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 6: Tuning Trouble ---")
-    stream = input_reader.read()
+    stream = io_handler.input_reader.read()
     start_of_packet = detect_distinct_chars(stream, num_distinct_chars=4)
     print(f"Part 1: Packet starts at {start_of_packet}")
     start_of_message = detect_distinct_chars(stream, num_distinct_chars=14)

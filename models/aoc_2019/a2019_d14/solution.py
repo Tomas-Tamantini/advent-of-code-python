@@ -1,11 +1,13 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_chemical_reactions
 from .chemical_reactions import ChemicalReactions, ChemicalQuantity
 
 
-def aoc_2019_d14(input_reader: InputReader, **_) -> None:
+def aoc_2019_d14(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2019 - Day 14: Space Stoichiometry ---")
-    reactions = ChemicalReactions(set(parse_chemical_reactions(input_reader)))
+    reactions = ChemicalReactions(
+        set(parse_chemical_reactions(io_handler.input_reader))
+    )
     raw_material = "ORE"
     product = "FUEL"
     ore_required = reactions.min_raw_material_to_make_product(

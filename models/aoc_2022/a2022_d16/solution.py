@@ -1,12 +1,12 @@
-from models.common.io import InputReader
+from models.common.io import IOHandler
 from .parser import parse_valve_graph
 from .logic import maximum_pressure_release, Volcano
 
 
-def aoc_2022_d16(input_reader: InputReader, **_) -> None:
+def aoc_2022_d16(io_handler: IOHandler, **_) -> None:
     print("--- AOC 2022 - Day 16: Proboscidea Volcanium ---")
     graph = parse_valve_graph(
-        input_reader, time_to_travel_between_valves=1, time_to_open_valves=1
+        io_handler.input_reader, time_to_travel_between_valves=1, time_to_open_valves=1
     )
     starting_valve = next(valve for valve in graph.nodes() if valve.valve_id == "AA")
     volcano = Volcano(graph, starting_valve, time_until_eruption=30)
