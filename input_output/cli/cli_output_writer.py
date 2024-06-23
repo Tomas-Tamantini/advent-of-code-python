@@ -15,7 +15,11 @@ class CliOutputWriter:
             animation = "(SET FLAG --animate TO SEE COOL ANIMATION) "
         else:
             animation = ""
-        print(f"{part}{animation}{solution.solution_text}")
+        if solution.supports_play and not self._execution_flags.play:
+            play = "(SET FLAG --play TO PLAY THE GAME) "
+        else:
+            play = ""
+        print(f"{part}{animation}{play}{solution.solution_text}")
 
     def log_progress(self, progress_message: str) -> None:
         print(progress_message, end="\r")
