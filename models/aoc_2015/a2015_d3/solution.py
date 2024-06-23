@@ -23,13 +23,18 @@ def aoc_2015_d3(io_handler: IOHandler) -> None:
     instructions = io_handler.input_reader.read()
 
     houses = houses_with_at_least_one_present(instructions)
-    solution = ProblemSolution(problem_id, f"Santa visits {len(houses)} houses", part=1)
+    solution = ProblemSolution(
+        problem_id, f"Santa visits {len(houses)} houses", part=1, result=len(houses)
+    )
     io_handler.set_solution(solution)
 
     houses_santa = houses_with_at_least_one_present(instructions[::2])
     houses_robot = houses_with_at_least_one_present(instructions[1::2])
     houses = houses_santa.union(houses_robot)
     solution = ProblemSolution(
-        problem_id, f"Santa and Robot Santa visit {len(houses)} houses", part=2
+        problem_id,
+        f"Santa and Robot Santa visit {len(houses)} houses",
+        part=2,
+        result=len(houses),
     )
     io_handler.set_solution(solution)

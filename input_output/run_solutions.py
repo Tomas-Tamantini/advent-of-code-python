@@ -50,5 +50,11 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
 
 
 def _report_wrong_results(result_checker):
-    for wrong_result in result_checker.wrong_results():
-        print(wrong_result)
+    print()
+    wrong_results = list(result_checker.wrong_results())
+    if not wrong_results:
+        print("All results are correct!")
+    else:
+        print("The following results are incorrect:")
+        for wrong_result in wrong_results:
+            print(wrong_result)

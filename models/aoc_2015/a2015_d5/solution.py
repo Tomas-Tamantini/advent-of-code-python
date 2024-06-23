@@ -11,16 +11,16 @@ def aoc_2015_d5(io_handler: IOHandler) -> None:
     nice_strings_simple_ruleset = [
         string for string in strings if simple_classifier.is_nice_string(string)
     ]
+    result = len(nice_strings_simple_ruleset)
     solution = ProblemSolution(
-        problem_id, f"There are {len(nice_strings_simple_ruleset)} nice strings", part=1
+        problem_id, f"There are {result} nice strings", result, part=1
     )
     io_handler.set_solution(solution)
     nice_strings_complex_ruleset = [
         string for string in strings if complex_classifier.is_nice_string(string)
     ]
+    result = len(nice_strings_complex_ruleset)
     solution = ProblemSolution(
-        problem_id,
-        f"There are {len(nice_strings_complex_ruleset)} nice strings",
-        part=2,
+        problem_id, f"There are {result} nice strings", result, part=2
     )
     io_handler.set_solution(solution)
