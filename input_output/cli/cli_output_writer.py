@@ -6,11 +6,14 @@ class CliOutputWriter:
     def write_header(self, problem: Problem) -> None:
         print(f"--- AOC {problem.year} - Day {problem.day}: {problem.title} ---")
 
-    def write_solution(self, solution: ProblemSolution) -> None:
-        if solution.part is not None:
-            print(f"Part {solution.part}: {solution.solution_text}")
-        else:
-            print(solution.solution_text)
+    def write_solution(
+        self, solution: ProblemSolution, suggest_animation: bool = False
+    ) -> None:
+        part = f"Part {solution.part}: " if solution.part is not None else ""
+        animation = (
+            "(SET FLAG --animate TO SEE COOL ANIMATION) " if suggest_animation else ""
+        )
+        print(f"{part}{animation}{solution.solution_text}")
 
     def log_progress(self, progress_message: str) -> None:
         print(progress_message, end="\r")

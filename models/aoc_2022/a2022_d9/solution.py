@@ -36,16 +36,16 @@ def aoc_2022_d9(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_solution(solution)
     long_rope = Rope(num_knots=10)
     if io_handler.execution_flags.animate:
-        animation_msg = ""
         width = height = 15
         animation = RopeAnimation(width, height, long_rope, total_num_iterations)
     else:
-        animation_msg = " (SET FLAG --animate TO SEE COOL ANIMATION)"
         animation = None
     tail_positions = set(_tail_positions(long_rope, instructions, animation))
     solution = ProblemSolution(
         problem_id,
-        f"{animation_msg} Unique positions visited by tail in ten-knot rope is {len(tail_positions)}",
+        f"Unique positions visited by tail in ten-knot rope is {len(tail_positions)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.output_writer.write_solution(
+        solution, suggest_animation=not io_handler.execution_flags.animate
+    )

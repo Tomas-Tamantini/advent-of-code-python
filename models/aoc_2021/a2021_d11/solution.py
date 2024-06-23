@@ -33,14 +33,11 @@ def aoc_2021_d11(io_handler: IOHandler) -> None:
         if io_handler.execution_flags.animate:
             frame = octopuses.render() + f"\nStep: {current_step}"
             render_frame(frame, sleep_seconds=0.05)
-    animation_msg = (
-        ""
-        if io_handler.execution_flags.animate
-        else " (SET FLAG --animate TO SEE COOL ANIMATION)"
-    )
     solution = ProblemSolution(
         problem_id,
-        f"{animation_msg} The number of steps until all octopuses flash is {current_step}",
+        f"The number of steps until all octopuses flash is {current_step}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.output_writer.write_solution(
+        solution, suggest_animation=not io_handler.execution_flags.animate
+    )
