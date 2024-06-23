@@ -19,7 +19,7 @@ def aoc_2019_d23(io_handler: IOHandler) -> None:
     lost_packets_manager = LostPackets(
         monitor=MonitorRepeatedYValuePackets(max_repeated_y=1)
     )
-    print("Be patient, it takes ~1min to run", end="\r")
+    io_handler.output_writer.give_time_estimation("1min", part=2)
     run_network(num_computers, lost_packets_manager, instructions)
     ans = lost_packets_manager.content_last_packet.y
 

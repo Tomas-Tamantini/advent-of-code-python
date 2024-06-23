@@ -13,10 +13,7 @@ def aoc_2022_d16(io_handler: IOHandler) -> None:
     max_pressure_one_worker = maximum_pressure_release(volcano, num_workers=1)
     print(f"Part 1: Maximum pressure release is {max_pressure_one_worker}")
     volcano = Volcano(graph, starting_valve, time_until_eruption=26)
-    print(
-        "Part 2: Be patient, it takes about 1 minute to run",
-        end="\r",
-    )
+    io_handler.output_writer.give_time_estimation("1min", part=2)
     max_pressure_two_workers = maximum_pressure_release(
         volcano, num_workers=2, lower_bound=max_pressure_one_worker
     )

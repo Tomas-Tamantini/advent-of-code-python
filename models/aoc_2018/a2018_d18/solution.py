@@ -11,7 +11,7 @@ def aoc_2018_d18(io_handler: IOHandler) -> None:
     num_wooded = sum(c == AcreType.TREE for c in cells_after_10.values())
     num_lumberyards = sum(c == AcreType.LUMBERYARD for c in cells_after_10.values())
     print(f"Part 1: Resource value after 10 minutes: {num_wooded * num_lumberyards}")
-    print("Part 2 - Be patient, it takes about a minute to run", end="\r")
+    io_handler.output_writer.give_time_estimation("1min", part=2)
     cells_after_1b = area.multi_step(cells, 1_000_000_000)
     num_wooded = sum(c == AcreType.TREE for c in cells_after_1b.values())
     num_lumberyards = sum(c == AcreType.LUMBERYARD for c in cells_after_1b.values())

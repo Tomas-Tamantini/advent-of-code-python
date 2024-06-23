@@ -20,10 +20,7 @@ def aoc_2016_d14(io_handler: IOHandler) -> None:
         max_num_steps_between_occurrences=1000,
         num_hashes=2017,
     )
-    print(
-        "Part 2 - Be patient, it takes about a minute to run",
-        end="\r",
-    )
+    io_handler.output_writer.give_time_estimation("1min", part=2)
     # TODO: Use progress bar
     indices_multiple_hash = multiple_hash_generator.indices_which_produce_keys(
         num_indices=64
