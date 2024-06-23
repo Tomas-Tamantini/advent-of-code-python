@@ -1,0 +1,40 @@
+{
+  "results_by_year": [
+    {
+      "year": 2015,
+      "results_by_day": [
+        { "day": 1, "title": "Not Quite Lisp", "results": [138, 1771] },
+        {
+          "day": 2,
+          "title": "I Was Told There Would Be No Math",
+          "results": [1598415, 3812909]
+        },
+        {
+          "day": 3,
+          "title": "Perfectly Spherical Houses in a Vacuum",
+          "results": [2565, 2639]
+        },
+        {
+          "day": 4,
+          "title": "The Ideal Stocking Stuffer",
+          "results": [117946, 3938038]
+        },
+        {
+          "day": 5,
+          "title": "Doesn't He Have Intern-Elves For This?",
+          "results": [236, 51]
+        },
+        {
+          "day": 6,
+          "title": "Probably a Fire Hazard",
+          "results": [377891, 14110788]
+        },
+        {
+          "day": 7,
+          "title": "Some Assembly Required",
+          "results": [46065, 14134]
+        }
+      ]
+    }
+  ]
+}
