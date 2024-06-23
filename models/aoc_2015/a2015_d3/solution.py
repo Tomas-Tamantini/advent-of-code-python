@@ -18,7 +18,7 @@ def houses_with_at_least_one_present(instructions: str) -> set[tuple[int, int]]:
 
 
 def aoc_2015_d3(io_handler: IOHandler) -> None:
-    problem_id = 2015, 3, "Perfectly Spherical Houses in a Vacuum"
+    problem_id = Problem(2015, 3, "Perfectly Spherical Houses in a Vacuum")
     io_handler.output_writer.write_header(problem_id)
     instructions = io_handler.input_reader.read()
 
