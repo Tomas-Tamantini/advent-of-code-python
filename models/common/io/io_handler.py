@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from .input_reader import InputReader
+from .output_writer import OutputWriter
 from .progress_bar import ProgressBar
 
 
@@ -12,5 +13,6 @@ class ExecutionFlags:
 @dataclass(frozen=True)
 class IOHandler:
     input_reader: InputReader
+    output_writer: OutputWriter
     progress_bar: ProgressBar
     execution_flags: ExecutionFlags

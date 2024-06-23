@@ -7,7 +7,7 @@ from models.aoc_2019 import ALL_2019_SOLUTIONS
 from models.aoc_2020 import ALL_2020_SOLUTIONS
 from models.aoc_2021 import ALL_2021_SOLUTIONS
 from models.aoc_2022 import ALL_2022_SOLUTIONS
-from .cli import InputFromTextFile, CliProgressBar
+from .cli import InputFromTextFile, CliProgressBar, CliOutputWriter
 
 
 def run_solutions(
@@ -31,6 +31,7 @@ def run_solutions(
             flags = ExecutionFlags(animate=animate, play=play)
             io_handler = IOHandler(
                 input_reader=InputFromTextFile(file_name),
+                output_writer=CliOutputWriter(),
                 progress_bar=CliProgressBar(),
                 execution_flags=flags,
             )
