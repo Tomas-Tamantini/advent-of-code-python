@@ -24,8 +24,9 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
     io_handler.output_writer.log_progress(f"Part 2: {animation_msg}simulating game...")
     run_intcode_arcade(new_instructions, screen)
     solution = ProblemSolution(
-        problem_id, f"Final score is {screen.current_score}", part=2
+        problem_id,
+        f"Final score is {screen.current_score}",
+        part=2,
+        supports_animation=True,
     )
-    io_handler.output_writer.write_solution(
-        solution, suggest_animation=not io_handler.execution_flags.animate
-    )
+    io_handler.output_writer.write_solution(solution)

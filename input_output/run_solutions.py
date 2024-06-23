@@ -31,7 +31,7 @@ def run_solutions(
             flags = ExecutionFlags(animate=animate, play=play)
             io_handler = IOHandler(
                 input_reader=InputFromTextFile(file_name),
-                output_writer=CliOutputWriter(),
+                output_writer=CliOutputWriter(flags),
                 progress_bar=CliProgressBar(),
                 execution_flags=flags,
             )

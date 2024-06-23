@@ -13,16 +13,16 @@ class Problem:
 class ProblemSolution:
     problem_id: Problem
     solution_text: str
-    result: str = ""
+    result: str = ""  # TODO: Make this field mandatory
     part: Optional[int] = None
+    supports_animation: bool = False
+    supports_play: bool = False
 
 
 class OutputWriter(Protocol):
     def write_header(self, problem: Problem) -> None: ...
 
-    def write_solution(
-        self, solution: ProblemSolution, suggest_animation: bool = False
-    ) -> None: ...
+    def write_solution(self, solution: ProblemSolution) -> None: ...
 
     def log_progress(self, progress_message: str) -> None: ...
 

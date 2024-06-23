@@ -1,18 +1,20 @@
 from typing import Optional
-from models.common.io import Problem, ProblemSolution
+from models.common.io import Problem, ProblemSolution, ExecutionFlags
 
 
 class CliOutputWriter:
+    def __init__(self, execution_flags: ExecutionFlags) -> None:
+        self._execution_flags = execution_flags
+
     def write_header(self, problem: Problem) -> None:
         print(f"--- AOC {problem.year} - Day {problem.day}: {problem.title} ---")
 
-    def write_solution(
-        self, solution: ProblemSolution, suggest_animation: bool = False
-    ) -> None:
+    def write_solution(self, solution: ProblemSolution) -> None:
         part = f"Part {solution.part}: " if solution.part is not None else ""
-        animation = (
-            "(SET FLAG --animate TO SEE COOL ANIMATION) " if suggest_animation else ""
-        )
+        if solution.supports_animation and not self._execution_flags.animate:
+            animation = "(SET FLAG --animate TO SEE COOL ANIMATION) "
+        else:
+            animation = ""
         print(f"{part}{animation}{solution.solution_text}")
 
     def log_progress(self, progress_message: str) -> None:

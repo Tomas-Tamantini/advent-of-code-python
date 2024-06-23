@@ -37,7 +37,6 @@ def aoc_2021_d11(io_handler: IOHandler) -> None:
         problem_id,
         f"The number of steps until all octopuses flash is {current_step}",
         part=2,
+        supports_animation=True,
     )
-    io_handler.output_writer.write_solution(
-        solution, suggest_animation=not io_handler.execution_flags.animate
-    )
+    io_handler.output_writer.write_solution(solution)
