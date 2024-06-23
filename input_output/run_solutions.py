@@ -27,7 +27,7 @@ def run_solutions(
         if len(days) == 0:
             days = [i + 1 for i in range(len(solutions[year]))]
         for day in days:
-            file_name = f"input_files/aoc_{year}/a{year}_d{day}.txt"
+            file_name = f"files/input_files/aoc_{year}/a{year}_d{day}.txt"
             flags = ExecutionFlags(animate=animate, play=play)
             io_handler = IOHandler(
                 input_reader=InputFromTextFile(file_name),
