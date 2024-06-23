@@ -11,7 +11,7 @@ def aoc_2017_d16(io_handler: IOHandler) -> None:
     for move in dance_moves:
         dancers = move.transform(dancers)
     solution = ProblemSolution(problem_id, f"Final order of dancers: {dancers}", part=1)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     num_dances = 1_000_000_000
     dancers = "abcdefghijklmnop"
     dancers = transform_string_multiple_rounds(dancers, dance_moves, num_dances)
@@ -20,4 +20,4 @@ def aoc_2017_d16(io_handler: IOHandler) -> None:
         f"Final order of dancers after {num_dances} dances: {dancers}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

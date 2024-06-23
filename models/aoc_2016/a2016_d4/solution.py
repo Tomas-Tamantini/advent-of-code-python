@@ -15,10 +15,10 @@ def aoc_2016_d4(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Sum of sector IDs of real rooms: {id_sum}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Sector ID of room where North Pole objects are stored: {id_storage}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

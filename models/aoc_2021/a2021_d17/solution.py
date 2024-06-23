@@ -13,10 +13,10 @@ def aoc_2021_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The maximum height of the projectile is {max_height}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"The number of different velocities to reach the target is {len(all_velocities)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

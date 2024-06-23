@@ -34,4 +34,4 @@ def aoc_2022_d25(io_handler: IOHandler) -> None:
     )
     snafu_sum = decimal_to_snafu(decimal_sum)
     solution = ProblemSolution(problem_id, f"Total sum of snafu numbers is {snafu_sum}")
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

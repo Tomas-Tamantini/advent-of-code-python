@@ -11,9 +11,9 @@ def aoc_2020_d1(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The two entries multiply to {a * b}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     a, b, c = next(subsets_that_sum_to(target_sum, subset_size=3, entries=entries))
     solution = ProblemSolution(
         problem_id, f"The three entries multiply to {a * b * c}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

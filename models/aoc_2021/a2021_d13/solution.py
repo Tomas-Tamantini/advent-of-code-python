@@ -16,7 +16,7 @@ def aoc_2021_d13(io_handler: IOHandler) -> None:
         f"The number of visible dots after the first fold is {num_visible_dots}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     for remaining_instructions in instructions[1:]:
         visible_dots = remaining_instructions.apply(visible_dots)
@@ -29,4 +29,4 @@ def aoc_2021_d13(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The code after all folds is\n\n{code}\n", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

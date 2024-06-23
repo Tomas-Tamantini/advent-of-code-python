@@ -12,7 +12,7 @@ def aoc_2019_d22(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"New position of card 2019 is {new_position}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     original_position = shuffle.original_card_position(
         position_after_shuffle=2020,
         deck_size=119315717514047,
@@ -21,4 +21,4 @@ def aoc_2019_d22(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Original position of card 2020 is {original_position}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

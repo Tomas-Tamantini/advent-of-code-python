@@ -15,7 +15,7 @@ def aoc_2020_d22(io_handler: IOHandler) -> None:
         f"Winning player's score for non-recursive combat is {winning_score}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     combat = CrabCombat(cards_a, cards_b, play_recursive=True)
     combat.play_game()
     winning_score = combat.winning_score()
@@ -24,4 +24,4 @@ def aoc_2020_d22(io_handler: IOHandler) -> None:
         f"Winning player's score for recursive combat is {winning_score}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

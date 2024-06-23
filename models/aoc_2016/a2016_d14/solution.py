@@ -18,7 +18,7 @@ def aoc_2016_d14(io_handler: IOHandler) -> None:
         f"64th key produced at index {indices_one_hash[-1]} with one hash",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     multiple_hash_generator = KeyGenerator(
         salt,
         num_repeated_characters_first_occurrence=3,
@@ -36,4 +36,4 @@ def aoc_2016_d14(io_handler: IOHandler) -> None:
         f"64th key produced at index {indices_multiple_hash[-1]} with multiple hashes",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -41,9 +41,9 @@ def aoc_2015_d16(io_handler: IOHandler) -> None:
             solution = ProblemSolution(
                 problem_id, f"Aunt Sue {aunt.id} matches exact data", part=1
             )
-            io_handler.output_writer.write_solution(solution)
+            io_handler.set_solution(solution)
         if aunt.matches(measure_attributes_retroencabulator):
             solution = ProblemSolution(
                 problem_id, f"Aunt Sue {aunt.id} matches range data", part=2
             )
-            io_handler.output_writer.write_solution(solution)
+            io_handler.set_solution(solution)

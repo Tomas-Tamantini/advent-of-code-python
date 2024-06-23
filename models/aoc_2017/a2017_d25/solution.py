@@ -14,4 +14,4 @@ def aoc_2017_d25(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

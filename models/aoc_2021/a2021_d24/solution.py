@@ -44,9 +44,9 @@ def aoc_2021_d24(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The largest number accepted by the monad is {largest}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     smallest = _smallest_number_accepted_by_monad(x_offsets, y_offsets)
     solution = ProblemSolution(
         problem_id, f"The smallest number accepted by the monad is {smallest}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

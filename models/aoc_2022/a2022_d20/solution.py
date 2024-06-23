@@ -21,7 +21,7 @@ def aoc_2022_d20(io_handler: IOHandler) -> None:
         f"Sum of numbers at positions 1000, 2000, and 3000: {total_sum}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     key = 811589153
     multiplied_list = [number * key for number in numbers]
@@ -34,4 +34,4 @@ def aoc_2022_d20(io_handler: IOHandler) -> None:
         f"Sum of numbers at positions 1000, 2000, and 3000 after 10 rounds mixing: {total_sum}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

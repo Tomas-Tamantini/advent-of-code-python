@@ -26,10 +26,10 @@ def aoc_2015_d10(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Lenght of 40th term is {len(current_digits)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     for _ in range(10):
         current_digits = next_look_and_say(current_digits)
     solution = ProblemSolution(
         problem_id, f"Lenght of 50th term is {len(current_digits)}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

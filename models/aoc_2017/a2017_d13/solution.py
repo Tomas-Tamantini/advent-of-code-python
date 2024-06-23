@@ -13,9 +13,9 @@ def aoc_2017_d13(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Severity of packet collisions: {severity}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     minimum_delay = firewall.minimum_delay_to_avoid_collisions()
     solution = ProblemSolution(
         problem_id, f"Minimum delay to avoid collisions: {minimum_delay}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

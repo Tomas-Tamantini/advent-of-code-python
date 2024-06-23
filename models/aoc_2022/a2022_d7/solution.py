@@ -13,7 +13,7 @@ def aoc_2022_d7(io_handler: IOHandler) -> None:
         f"Sum of sizes of small directories is {sum_small_directories}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     tree.navigate_to_root()
     used_space = tree.current_directory.size()
     total_space = 70_000_000
@@ -23,4 +23,4 @@ def aoc_2022_d7(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Size of smallest directory to delete is {size_to_delete}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

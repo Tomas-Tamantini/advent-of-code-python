@@ -18,7 +18,7 @@ def aoc_2019_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Value at position 0 is {final_state[0]}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     noun, verb = noun_and_verb_for_given_output(
         original_instructions, desired_output=19690720, noun_range=100, verb_range=100
     )
@@ -26,4 +26,4 @@ def aoc_2019_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Noun and verb combined is {combined}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

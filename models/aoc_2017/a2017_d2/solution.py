@@ -14,10 +14,10 @@ def aoc_2017_d2(io_handler: IOHandler) -> None:
         f"Spreadsheet checksum min/max: {spreadsheet.checksum_min_max()}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Spreadsheet checksum divisibility: {spreadsheet.checksum_divisibility()}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

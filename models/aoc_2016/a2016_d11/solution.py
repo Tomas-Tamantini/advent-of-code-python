@@ -18,7 +18,7 @@ def aoc_2016_d11(io_handler: IOHandler) -> None:
         f"Minimum number of steps to get all items on 4th floor: {steps}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     extra_microchips = ("elerium", "dilithium")
     extra_generators = ("elerium", "dilithium")
     updated_first_floor = FloorConfiguration(
@@ -33,4 +33,4 @@ def aoc_2016_d11(io_handler: IOHandler) -> None:
         f"Minimum number of steps to get all items on 4th floor with extra items: {steps}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

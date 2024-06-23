@@ -10,9 +10,9 @@ def aoc_2019_d9(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Output for the BOOST program is {output}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     output = run_air_conditioner_program(instructions, air_conditioner_id=2)
     solution = ProblemSolution(
         problem_id, f"Coordinates of the distress signal are {output}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

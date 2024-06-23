@@ -26,7 +26,7 @@ def aoc_2018_d19(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Value of register 0 at the end of the program: {value}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     # Part 2 was optimized by hand
     result = optimized_sum_divisors_program(
         a=instructions[21]._input_b.value,
@@ -35,4 +35,4 @@ def aoc_2018_d19(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Value of register 0 at the end of the program: {result}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

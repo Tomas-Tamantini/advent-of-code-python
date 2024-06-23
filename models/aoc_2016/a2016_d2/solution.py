@@ -20,8 +20,8 @@ def aoc_2016_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Bathroom code for 3x3 pad is {''.join(keys_3x3)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Bathroom code for rhombus pad is {''.join(keys_rhombus)}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

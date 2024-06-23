@@ -12,7 +12,7 @@ def aoc_2018_d4(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Guard most asleep has product {product}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     guard_most_asleep_on_same_minute = max(
         guards,
         key=lambda g: g.num_times_slept_on_minute(g.minute_most_likely_to_be_asleep()),
@@ -24,4 +24,4 @@ def aoc_2018_d4(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Guard most asleep on same minute has product {product}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

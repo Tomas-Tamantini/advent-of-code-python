@@ -15,7 +15,7 @@ def aoc_2022_d10(io_handler: IOHandler) -> None:
         f"Sum of strengths at cycles 20, 60, 100, 140, and 180: {sum(strengths)}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     screen = SpriteScreen(width=40, height=6, sprite_length=3)
     sprite_center_positions = rh.register_values
     solution = ProblemSolution(
@@ -23,4 +23,4 @@ def aoc_2022_d10(io_handler: IOHandler) -> None:
         f"The message formed by the sprite is\n\n{screen.draw(sprite_center_positions)}\n",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

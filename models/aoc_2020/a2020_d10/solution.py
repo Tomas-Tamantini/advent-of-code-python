@@ -18,7 +18,7 @@ def aoc_2020_d10(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"{num_1_diff * num_3_diff} joltage differences", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     num_arrangements = array.number_of_arrangements()
     solution = ProblemSolution(problem_id, f"{num_arrangements} arrangements", part=2)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

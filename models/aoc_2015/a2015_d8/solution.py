@@ -19,10 +19,10 @@ def aoc_2015_d8(io_handler: IOHandler) -> None:
         f"Difference between original and memory is {difference_orignal_memory}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Difference between encoded and original is {difference_encoded_original}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

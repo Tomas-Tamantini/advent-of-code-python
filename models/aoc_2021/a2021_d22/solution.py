@@ -17,10 +17,10 @@ def aoc_2021_d22(io_handler: IOHandler) -> None:
         f"The number of cells turned on in smaller volume is {num_reactor_cells_on(small_instructions)}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"The number of cells turned on in entire volume is {num_reactor_cells_on(instructions)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

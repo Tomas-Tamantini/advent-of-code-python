@@ -15,9 +15,9 @@ def aoc_2021_d6(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The population of lanternfish after 80 days is {pop_80}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     pop_256 = lantern_fish_population_after_n_days(fish_school, days=256)
     solution = ProblemSolution(
         problem_id, f"The population of lanternfish after 256 days is {pop_256}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

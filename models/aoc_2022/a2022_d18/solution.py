@@ -11,9 +11,9 @@ def aoc_2022_d18(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Total surface area of droplet is {total_area}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     external_area = external_surface_area(cubes)
     solution = ProblemSolution(
         problem_id, f"External surface area of droplet is {external_area}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

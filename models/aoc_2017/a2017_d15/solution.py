@@ -20,7 +20,7 @@ def aoc_2017_d15(io_handler: IOHandler) -> None:
         f"Number of matches not filtering out multiples: {num_matches}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     generator_a.filter_multiples_of = 4
     generator_b.filter_multiples_of = 8
     num_matches = match_finder.num_matches(
@@ -29,4 +29,4 @@ def aoc_2017_d15(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of matches filtering out multiples: {num_matches}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

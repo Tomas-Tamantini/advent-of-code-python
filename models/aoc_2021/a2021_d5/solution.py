@@ -22,7 +22,7 @@ def aoc_2021_d5(io_handler: IOHandler) -> None:
         f"The number of intersections of non-diagonals is {num_count}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     num_count = num_overlapping_positions(segments)
     solution = ProblemSolution(
@@ -30,4 +30,4 @@ def aoc_2021_d5(io_handler: IOHandler) -> None:
         f"The number of intersections of all segments is {num_count}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

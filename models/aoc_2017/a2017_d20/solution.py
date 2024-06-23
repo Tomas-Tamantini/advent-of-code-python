@@ -12,10 +12,10 @@ def aoc_2017_d20(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Particle closest to origin: {closest_to_origin.id}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     destroyed = collider.particles_destroyed_in_collisions()
     num_remaining = len(particles) - len(destroyed)
     solution = ProblemSolution(
         problem_id, f"Particles remaining: {num_remaining}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

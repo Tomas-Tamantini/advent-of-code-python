@@ -50,11 +50,11 @@ def aoc_2022_d22(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The password with pacman map is {password}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     cube_edge_mapper = CubeEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, cube_edge_mapper, parsed)
     solution = ProblemSolution(
         problem_id, f"The password with cube map is {password}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

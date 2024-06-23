@@ -10,10 +10,10 @@ def aoc_2017_d9(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Total score: {handler.total_score}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Number of non-cancelled characters in garbage: {handler.num_non_cancelled_chars_in_garbage}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

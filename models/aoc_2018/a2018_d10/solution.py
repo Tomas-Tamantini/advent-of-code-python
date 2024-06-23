@@ -13,8 +13,8 @@ def aoc_2018_d10(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Message:\n\n{moving_particles.draw(inflexion_point)}\n", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Time to reach message: {inflexion_point}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -21,7 +21,7 @@ def aoc_2020_d13(io_handler: IOHandler) -> None:
         f"Bus ID {bus_id} multiplied by wait time {wait_time} is {bus_id * wait_time}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     earliest_timestamp = earliest_timestamp_to_match_wait_time_and_index_in_list(
         bus_schedules
     )
@@ -30,4 +30,4 @@ def aoc_2020_d13(io_handler: IOHandler) -> None:
         f"Earliest timestamp to match bus schedules is {earliest_timestamp}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

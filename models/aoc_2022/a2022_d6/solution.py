@@ -18,9 +18,9 @@ def aoc_2022_d6(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Packet starts at {start_of_packet}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     start_of_message = detect_distinct_chars(stream, num_distinct_chars=14)
     solution = ProblemSolution(
         problem_id, f"Message starts at {start_of_message}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

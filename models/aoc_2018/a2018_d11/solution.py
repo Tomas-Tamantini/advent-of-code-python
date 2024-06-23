@@ -11,7 +11,7 @@ def aoc_2018_d11(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Position with largest total power: {x+1},{y+1}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     square = cells.square_with_largest_total_power(io_handler.progress_bar)
     (x, y), s = square.coords_top_left, square.size
     solution = ProblemSolution(
@@ -19,4 +19,4 @@ def aoc_2018_d11(io_handler: IOHandler) -> None:
         f"Position with largest total power and region size: {x+1},{y+1},{s}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

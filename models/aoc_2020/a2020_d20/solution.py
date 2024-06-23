@@ -15,7 +15,7 @@ def aoc_2020_d20(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Product of corner pieces is {product}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     sea_monster_text = "\n".join(
         [
             "                  # ",
@@ -36,4 +36,4 @@ def aoc_2020_d20(io_handler: IOHandler) -> None:
         f"Number of non-sea-monster cells is {num_non_sea_monster_cells}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -11,7 +11,7 @@ def aoc_2017_d3(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Manhattan distance to {target}: {manhattan_distance}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     first_value_larger_than_input = -1
     for value in SquareSpiral.adjacent_sum_sequence():
         if value > target:
@@ -22,4 +22,4 @@ def aoc_2017_d3(io_handler: IOHandler) -> None:
         f"First sequence term larger than {target}: {first_value_larger_than_input}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

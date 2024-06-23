@@ -19,11 +19,11 @@ def aoc_2018_d13(io_handler: IOHandler) -> None:
         f"Position of first collision: {collisions[0].x},{collisions[0].y}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     last_position = list(mine_carts.cart_positions)[0]
     solution = ProblemSolution(
         problem_id,
         f"Position of last cart: {last_position.x},{last_position.y}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

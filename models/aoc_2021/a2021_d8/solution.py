@@ -15,9 +15,9 @@ def aoc_2021_d8(io_handler: IOHandler) -> None:
         f"The number of 1, 4, 7, 8 in the decoded digits is {num_matches}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     total_sum = sum(int(digits) for digits in decoded_digits)
     solution = ProblemSolution(
         problem_id, f"The total sum of all decoded digits is {total_sum}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

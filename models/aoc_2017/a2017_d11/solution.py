@@ -16,8 +16,8 @@ def aoc_2017_d11(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"He ended up {steps_away[-1]} steps away", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"He was at most {max(steps_away)} steps away", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

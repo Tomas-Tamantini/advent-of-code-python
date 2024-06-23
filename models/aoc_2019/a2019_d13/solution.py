@@ -12,7 +12,7 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of block tiles is {block_tiles}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     new_instructions = instructions[:]
     new_instructions[0] = 2
     screen = ArcadeGameScreen(animate=io_handler.execution_flags.animate)
@@ -29,4 +29,4 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
         part=2,
         supports_animation=True,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

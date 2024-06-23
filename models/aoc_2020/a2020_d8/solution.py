@@ -11,11 +11,11 @@ def aoc_2020_d8(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The accumulator value is {accumulator}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     accumulator = find_and_run_game_console_which_terminates(instructions)
     solution = ProblemSolution(
         problem_id,
         f"The accumulator value in program which terminates is {accumulator}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

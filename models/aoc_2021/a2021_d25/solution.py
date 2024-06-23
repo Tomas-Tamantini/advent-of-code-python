@@ -15,4 +15,4 @@ def aoc_2021_d25(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The number of steps until the herds stop moving is {num_steps}"
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

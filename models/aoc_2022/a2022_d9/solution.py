@@ -33,7 +33,7 @@ def aoc_2022_d9(io_handler: IOHandler) -> None:
         f"Unique positions visited by tail in two-knot rope is {len(tail_positions)}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     long_rope = Rope(num_knots=10)
     if io_handler.execution_flags.animate:
         width = height = 15
@@ -47,4 +47,4 @@ def aoc_2022_d9(io_handler: IOHandler) -> None:
         part=2,
         supports_animation=True,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

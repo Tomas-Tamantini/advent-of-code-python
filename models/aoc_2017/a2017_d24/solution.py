@@ -13,10 +13,10 @@ def aoc_2017_d24(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Maximum bridge strength: {builder.max_strength}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Maximum strength of longest bridge: {builder.max_strength_of_longest_bridge}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

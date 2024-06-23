@@ -12,8 +12,8 @@ def aoc_2016_d22(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of viable pairs: {viable_pairs}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, "Done by hand (move hole around grid)", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

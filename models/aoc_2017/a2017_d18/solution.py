@@ -12,7 +12,7 @@ def aoc_2017_d18(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Last recovered frequency: {audio_output}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     instructions_communication = list(
         parse_duet_code(io_handler.input_reader, rcv_cls=InputInstruction)
     )
@@ -23,4 +23,4 @@ def aoc_2017_d18(io_handler: IOHandler) -> None:
         f"Number of values sent by program 1: {len(sent_values['1'])}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

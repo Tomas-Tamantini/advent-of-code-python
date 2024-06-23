@@ -18,8 +18,8 @@ def aoc_2017_d12(io_handler: IOHandler) -> None:
         f"Number of nodes in group with node {initial_node}: {group_size}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Number of disjoint groups: {len(disjoint_groups)}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -16,7 +16,7 @@ def aoc_2019_d4(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of valid passwords is {len(valid_passwords)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     criteria.append(at_least_one_group_of_exactly_two_equal_digits)
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
     solution = ProblemSolution(
@@ -24,4 +24,4 @@ def aoc_2019_d4(io_handler: IOHandler) -> None:
         f"Number of valid passwords with the new criteria is {len(valid_passwords)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

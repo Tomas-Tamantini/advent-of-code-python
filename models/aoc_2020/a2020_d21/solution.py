@@ -16,7 +16,7 @@ def aoc_2020_d21(io_handler: IOHandler) -> None:
         f"Number of times non-allergen ingredients appear is {num_times}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     matches: dict[str, str] = foods.ingredients_with_allergens()
     canonical_dangerous_ingredients = ",".join(
         ingredient for ingredient in sorted(matches.keys(), key=matches.get)
@@ -26,4 +26,4 @@ def aoc_2020_d21(io_handler: IOHandler) -> None:
         f"Canonical dangerous ingredient list is {canonical_dangerous_ingredients}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

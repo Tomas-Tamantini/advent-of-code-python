@@ -10,8 +10,8 @@ def aoc_2018_d8(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Sum of metadata: {root.sum_of_metadata()}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Value of root node: {root.navigation_value()}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

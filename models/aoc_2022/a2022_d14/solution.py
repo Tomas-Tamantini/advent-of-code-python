@@ -15,7 +15,7 @@ def aoc_2022_d14(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of resting sand grains is {num_resting}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     floor_y_coord = falling_sand.max_obstacle_depth + 2
     falling_sand = FallingSand(sand_pour_position, obstacles, floor_y_coord)
     falling_sand.pour_until_source_blocked()
@@ -25,4 +25,4 @@ def aoc_2022_d14(io_handler: IOHandler) -> None:
         f"Number of resting sand grains considering floor is {num_resting}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

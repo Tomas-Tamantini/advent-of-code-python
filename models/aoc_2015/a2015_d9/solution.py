@@ -10,9 +10,9 @@ def aoc_2015_d9(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Distance of shortest itinerary is {shortest_distance}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     longest_distance = graph.longest_complete_itinerary_distance()
     solution = ProblemSolution(
         problem_id, f"Distance of longest itinerary is {longest_distance}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

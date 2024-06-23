@@ -12,7 +12,7 @@ def aoc_2019_d18(io_handler: IOHandler) -> None:
         f"Minimum distance to collect all keys with one robot is {min_dist}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     maze = parse_tunnel_maze(io_handler.input_reader, split_entrance_four_ways=True)
     min_dist = maze.shortest_distance_to_all_keys()
     solution = ProblemSolution(
@@ -20,4 +20,4 @@ def aoc_2019_d18(io_handler: IOHandler) -> None:
         f"Minimum distance to collect all keys with four robots is {min_dist}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

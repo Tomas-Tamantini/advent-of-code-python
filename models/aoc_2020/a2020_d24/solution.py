@@ -19,7 +19,7 @@ def aoc_2020_d24(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of black tiles is {len(black_tiles)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     automaton = HexagonalAutomaton()
     for _ in range(100):
         black_tiles = automaton.next_state(black_tiles)
@@ -28,4 +28,4 @@ def aoc_2020_d24(io_handler: IOHandler) -> None:
         f"Number of black tiles after 100 days is {len(black_tiles)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

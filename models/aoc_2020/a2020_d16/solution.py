@@ -19,7 +19,7 @@ def aoc_2020_d16(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The scanning error rate is {scanning_error_rate}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     my_ticket = parsed_ticket_validator.my_ticket
     fields_to_positions = validator.map_fields_to_positions(
@@ -32,4 +32,4 @@ def aoc_2020_d16(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Product of 'departure' fields on my ticket is {product}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

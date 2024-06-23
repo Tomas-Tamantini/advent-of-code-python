@@ -10,7 +10,7 @@ def aoc_2018_d12(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Sum of indices of plants alive: {sum(plants_alive)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     # Part 2 assumes linear growth after transitional period
     last_alive = 0
     diff_seq = []
@@ -29,4 +29,4 @@ def aoc_2018_d12(io_handler: IOHandler) -> None:
         f"Sum of indices of plants alive after 50 billion generations: {a_50_billion}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

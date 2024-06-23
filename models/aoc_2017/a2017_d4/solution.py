@@ -24,9 +24,9 @@ def aoc_2017_d4(io_handler: IOHandler) -> None:
         f"Number of passphrases with no duplicate words: {no_duplicates}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     no_anagrams = sum(sentence_contains_no_anagrams(phrase) for phrase in passphrases)
     solution = ProblemSolution(
         problem_id, f"Number of passphrases with no anagrams: {no_anagrams}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

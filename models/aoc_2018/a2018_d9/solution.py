@@ -13,11 +13,11 @@ def aoc_2018_d9(io_handler: IOHandler) -> None:
         f"Winning score up to marble {last_marble}: {max(scores.values())}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     scores = marble_game_score(num_players, last_marble * 100, io_handler.progress_bar)
     solution = ProblemSolution(
         problem_id,
         f"Winning score up to marble {last_marble * 100}: {max(scores.values())}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

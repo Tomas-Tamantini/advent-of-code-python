@@ -11,7 +11,7 @@ def aoc_2017_d6(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of redistributions: {num_redistributions}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     loop_size = balancer.loop_size()
     solution = ProblemSolution(problem_id, f"Loop size: {loop_size}", part=2)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

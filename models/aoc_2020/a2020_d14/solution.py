@@ -17,7 +17,7 @@ def aoc_2020_d14(io_handler: IOHandler) -> None:
         f"Sum of values in memory after applying mask to values is {memory.sum_values()}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     address_instructions = list(
         parse_bitmask_instructions(io_handler.input_reader, is_address_mask=True)
@@ -30,4 +30,4 @@ def aoc_2020_d14(io_handler: IOHandler) -> None:
         f"Sum of values in memory after applying mask to addresses is {memory.sum_values()}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

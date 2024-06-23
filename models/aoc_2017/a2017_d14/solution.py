@@ -11,8 +11,8 @@ def aoc_2017_d14(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of used squares: {grid.num_used_squares()}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Number of regions: {grid.num_regions()}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

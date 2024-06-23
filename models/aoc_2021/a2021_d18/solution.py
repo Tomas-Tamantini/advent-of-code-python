@@ -13,7 +13,7 @@ def aoc_2021_d18(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The magnitude of the snailfish is {acc.magnitude()}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     largest_magnitude = 0
     for i in range(len(lists)):
@@ -29,4 +29,4 @@ def aoc_2021_d18(io_handler: IOHandler) -> None:
         f"The largest magnitude of the sum of two snailfish is {largest_magnitude}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

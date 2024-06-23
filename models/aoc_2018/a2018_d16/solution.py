@@ -26,7 +26,7 @@ def aoc_2018_d16(io_handler: IOHandler) -> None:
         f"Number of samples with three or more possible instructions: {num_samples_with_three_or_more}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     op_codes_to_instructions = work_out_op_codes(
         samples, candidates=ALL_THREE_VALUE_INSTRUCTIONS
     )
@@ -38,4 +38,4 @@ def aoc_2018_d16(io_handler: IOHandler) -> None:
     computer.run_program(program)
     value = computer.get_register_value(register=0)
     solution = ProblemSolution(problem_id, f"Value of register 0: {value}", part=2)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

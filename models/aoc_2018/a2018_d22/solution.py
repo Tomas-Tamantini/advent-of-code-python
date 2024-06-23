@@ -18,10 +18,10 @@ def aoc_2018_d22(io_handler: IOHandler) -> None:
     )
     risk_level = cave.risk_level()
     solution = ProblemSolution(problem_id, f"Risk level of cave: {risk_level}", part=1)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     explorer = CaveExplorer(cave, time_to_move=1, time_to_switch_gear=7)
     shortest_time = explorer.shortest_time_to_target()
     solution = ProblemSolution(
         problem_id, f"Shortest time to reach target: {shortest_time}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

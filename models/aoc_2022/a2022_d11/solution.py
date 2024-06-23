@@ -25,7 +25,7 @@ def aoc_2022_d11(io_handler: IOHandler) -> None:
         f"Monkey business for 20 rounds is {monkey_business_20_rounds}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     monkey_business_10k_rounds = _monkey_business(
         io_handler.input_reader, boredom_worry_level_divisor=1, num_rounds=10_000
     )
@@ -34,4 +34,4 @@ def aoc_2022_d11(io_handler: IOHandler) -> None:
         f"Monkey business for 10,000 rounds is {monkey_business_10k_rounds}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

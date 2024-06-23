@@ -31,7 +31,7 @@ def aoc_2022_d19(io_handler: IOHandler) -> None:
         f"The sum of quality levels for all blueprints is {sum_quality_levels}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     time_limit = 32
     geode_product = 1
@@ -45,4 +45,4 @@ def aoc_2022_d19(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The product of the number of geodes is {geode_product}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

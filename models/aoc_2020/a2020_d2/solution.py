@@ -17,7 +17,7 @@ def aoc_2020_d2(io_handler: IOHandler) -> None:
         f"{num_valid_range_passwords} valid passwords using range rule",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     num_valid_positional_passwords = sum(
         1
@@ -31,4 +31,4 @@ def aoc_2020_d2(io_handler: IOHandler) -> None:
         f"{num_valid_positional_passwords} valid passwords using positional rule",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -12,7 +12,7 @@ def aoc_2019_d20(io_handler: IOHandler) -> None:
         f"Fewest number of steps to reach the exit in Donut Maze is {num_steps}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     recursive_maze = parse_recursive_donut_maze(io_handler.input_reader)
     num_steps = recursive_maze.num_steps_to_solve()
     solution = ProblemSolution(
@@ -20,4 +20,4 @@ def aoc_2019_d20(io_handler: IOHandler) -> None:
         f"Fewest number of steps to reach the exit in Recursive Donut Maze is {num_steps}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

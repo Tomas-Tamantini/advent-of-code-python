@@ -13,7 +13,7 @@ def aoc_2020_d3(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"{num_collisions} collisions with trees", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     slopes = ((1, 1), (3, 1), (5, 1), (7, 1), (1, 2))
     product = 1
@@ -23,4 +23,4 @@ def aoc_2020_d3(io_handler: IOHandler) -> None:
         )
         product *= num_collisions
     solution = ProblemSolution(problem_id, f"Product of collisions: {product}", part=2)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

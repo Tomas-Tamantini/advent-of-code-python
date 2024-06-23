@@ -16,7 +16,7 @@ def aoc_2019_d24(io_handler: IOHandler) -> None:
         f"Biodiversity rating of the first repeated state is {rating}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     recursive_automaton = RecursiveBugsAutomaton(width=5, height=5)
     final_state = recursive_automaton.advance(
@@ -30,4 +30,4 @@ def aoc_2019_d24(io_handler: IOHandler) -> None:
         f"Number of bugs in recursive grid after 200 minutes is {num_bugs}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

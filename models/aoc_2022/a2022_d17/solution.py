@@ -59,11 +59,11 @@ def aoc_2022_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The height of the tower after 2022 rocks is {height}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     height = tower_height(game_state, 1_000_000_000_000)
     solution = ProblemSolution(
         problem_id,
         f"The height of the tower after 1 trillion rocks is {height}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

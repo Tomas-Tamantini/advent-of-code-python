@@ -15,7 +15,7 @@ def aoc_2021_d3(io_handler: IOHandler) -> None:
         f"The product of the most and least frequent bits is {product}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     filtered_most_frequent = frequency.filter_down_to_one(filter_by_most_common=True)
     filtered_least_frequent = frequency.filter_down_to_one(filter_by_most_common=False)
@@ -25,4 +25,4 @@ def aoc_2021_d3(io_handler: IOHandler) -> None:
         f"The product of the most and least frequent bits in filtered strings is {product}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

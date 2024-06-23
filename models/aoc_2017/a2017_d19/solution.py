@@ -11,8 +11,8 @@ def aoc_2017_d19(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Letters visited: {''.join(router.visited_letters)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Number of routing steps: {router.num_steps}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

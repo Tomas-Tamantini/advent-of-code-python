@@ -10,9 +10,9 @@ def aoc_2018_d5(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Length of reacted polymer: {len(reacted_polymer)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     min_length = minimum_polymer_length(polymer)
     solution = ProblemSolution(
         problem_id, f"Minimum length of polymer: {min_length}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

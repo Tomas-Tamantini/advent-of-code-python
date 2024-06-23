@@ -16,7 +16,7 @@ def aoc_2020_d4(io_handler: IOHandler) -> None:
         f"{len(passports_with_all_fields)} passports with all fields",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     num_valid_passports = sum(
         passport_is_valid(passport, PASSPORT_RULES) for passport in passports
@@ -24,4 +24,4 @@ def aoc_2020_d4(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"{num_valid_passports} valid passports", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

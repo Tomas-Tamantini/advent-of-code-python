@@ -13,4 +13,4 @@ def aoc_2016_d25(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Smallest value to send clock signal: {smallest_value}"
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

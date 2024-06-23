@@ -15,7 +15,7 @@ def aoc_2022_d16(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Maximum pressure release is {max_pressure_one_worker}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     volcano = Volcano(graph, starting_valve, time_until_eruption=26)
     io_handler.output_writer.give_time_estimation("1min", part=2)
     max_pressure_two_workers = maximum_pressure_release(
@@ -26,4 +26,4 @@ def aoc_2022_d16(io_handler: IOHandler) -> None:
         f"Maximum pressure release with elephant helper is {max_pressure_two_workers}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -19,7 +19,7 @@ def aoc_2015_d24(io_handler: IOHandler) -> None:
         f"Quantum entanglement of optimal arrangement divided in 3 groups is {min_quantum_entanglement}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     min_quantum_entanglement = min(
         prod(group)
         for group in possible_arrangements_of_packets_in_passenger_comparment(
@@ -31,4 +31,4 @@ def aoc_2015_d24(io_handler: IOHandler) -> None:
         f"Quantum entanglement of optimal arrangement divided in 4 groups is {min_quantum_entanglement}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

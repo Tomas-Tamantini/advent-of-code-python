@@ -14,7 +14,7 @@ def aoc_2015_d5(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"There are {len(nice_strings_simple_ruleset)} nice strings", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     nice_strings_complex_ruleset = [
         string for string in strings if complex_classifier.is_nice_string(string)
     ]
@@ -23,4 +23,4 @@ def aoc_2015_d5(io_handler: IOHandler) -> None:
         f"There are {len(nice_strings_complex_ruleset)} nice strings",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

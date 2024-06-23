@@ -19,7 +19,7 @@ def aoc_2022_d15(io_handler: IOHandler) -> None:
         f"Number of positions which cannot contain a beacon is {num_positions}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     limit = 4_000_000
     search_space = BoundingBox(
         bottom_left=Vector2D(0, 0), top_right=Vector2D(limit, limit)
@@ -29,4 +29,4 @@ def aoc_2022_d15(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Position which must contain a beacon is {result}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

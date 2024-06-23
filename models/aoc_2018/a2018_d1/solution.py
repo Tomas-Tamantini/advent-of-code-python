@@ -20,9 +20,9 @@ def aoc_2018_d1(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Frequency at the end of one cycle: {sum(terms)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     first_duplicate_freq = first_frequency_to_be_reached_twice(terms)
     solution = ProblemSolution(
         problem_id, f"First duplicate frequency: {first_duplicate_freq}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

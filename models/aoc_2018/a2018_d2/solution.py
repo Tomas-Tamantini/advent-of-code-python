@@ -23,7 +23,7 @@ def aoc_2018_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Checksum of ids is {exactly_two * exactly_three}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     letters_in_common = ""
     for i, j in combinations(range(len(ids)), 2):
         differing = list(differing_indices(ids[i], ids[j]))
@@ -34,4 +34,4 @@ def aoc_2018_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Letters in common between ids are {letters_in_common}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -10,9 +10,9 @@ def aoc_2019_d5(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Diagnostic code for air conditioner 1 is {output_1}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     output_5 = run_air_conditioner_program(instructions, air_conditioner_id=5)
     solution = ProblemSolution(
         problem_id, f"Diagnostic code for air conditioner 5 is {output_5}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -37,7 +37,7 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
         solution = ProblemSolution(
             problem_id, f"Hull damage from walking on the hull is {hull_damage}", part=1
         )
-        io_handler.output_writer.write_solution(solution)
+        io_handler.set_solution(solution)
     except ValueError:
         _log_error(io_handler, droid_output, part=1)
     springscript_instructions = [
@@ -59,6 +59,6 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
         solution = ProblemSolution(
             problem_id, f"Hull damage from running on the hull is {hull_damage}", part=2
         )
-        io_handler.output_writer.write_solution(solution)
+        io_handler.set_solution(solution)
     except ValueError:
         _log_error(io_handler, droid_output, part=2)

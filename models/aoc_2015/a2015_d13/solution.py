@@ -10,7 +10,7 @@ def aoc_2015_d13(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Maximum happiness without me is {max_happiness}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     pre_existing_nodes = list(graph.nodes())
     for n in pre_existing_nodes:
         graph.add_edge("Me", n, 0)
@@ -19,4 +19,4 @@ def aoc_2015_d13(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Maximum happiness with me is {max_happiness}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

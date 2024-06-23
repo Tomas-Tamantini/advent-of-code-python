@@ -25,7 +25,7 @@ def aoc_2022_d8(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Total visible trees: {len(visible)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     best_scenic_score = max(
         _scenic_score(position, tree_height_map)
         for position in tree_height_map.all_positions()
@@ -33,4 +33,4 @@ def aoc_2022_d8(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Best scenic score: {best_scenic_score}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

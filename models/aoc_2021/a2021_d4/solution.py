@@ -22,10 +22,10 @@ def aoc_2021_d4(io_handler: IOHandler) -> None:
         f"The product for the first bingo winner is {product_first_winner}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"The product for the last bingo winner is {product_last_winner}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

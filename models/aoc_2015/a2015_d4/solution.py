@@ -26,11 +26,11 @@ def aoc_2015_d4(io_handler: IOHandler) -> None:
         f"The number to make hash start with 5 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=5)}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     solution = ProblemSolution(
         problem_id,
         f"The number to make hash start with 6 zeroes is {mine_advent_coins(secret_key, num_leading_zeros=6)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -17,7 +17,7 @@ def aoc_2020_d18(io_handler: IOHandler) -> None:
         f"Sum of results using left precedence is {sum_results_left_precedence}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     sum_results_addition_precedence = sum(
         evaluate_expression_addition_precedence(expression)
@@ -28,4 +28,4 @@ def aoc_2020_d18(io_handler: IOHandler) -> None:
         f"Sum of results using addition precedence is {sum_results_addition_precedence}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

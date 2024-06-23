@@ -15,7 +15,7 @@ def aoc_2022_d4(io_handler: IOHandler) -> None:
         f"Number of pairs in which one interval contains the other is {num_pairs_fully_contained}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     num_pairs_with_overlap = sum(
         interval_a.intersection(interval_b) is not None
@@ -26,4 +26,4 @@ def aoc_2022_d4(io_handler: IOHandler) -> None:
         f"Number of pairs with some overlap {num_pairs_with_overlap}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -12,7 +12,7 @@ def aoc_2017_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Value after 2017: {buffer.values[1]}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     value_after_zero = CircularBuffer.value_after_zero(step_size, 50_000_000)
     solution = ProblemSolution(problem_id, f"Value after 0: {value_after_zero}", part=2)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

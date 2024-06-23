@@ -16,7 +16,7 @@ def aoc_2021_d19(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The number of beacons is {len(all_beacons)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     max_distance = max(
         scanner_a.position.manhattan_distance(scanner_b.position)
         for scanner_a in pinpointed
@@ -27,4 +27,4 @@ def aoc_2021_d19(io_handler: IOHandler) -> None:
         f"The maximum distance between any two scanners is {max_distance}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

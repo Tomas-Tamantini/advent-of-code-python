@@ -15,7 +15,7 @@ def aoc_2022_d5(io_handler: IOHandler) -> None:
         f"Items on top of crates when moving one at a time are {top_items}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     parsed_crates = parse_crates(io_handler.input_reader, move_one_at_a_time=False)
     crates = parsed_crates.crates
@@ -27,4 +27,4 @@ def aoc_2022_d5(io_handler: IOHandler) -> None:
         f"Items on top of crates when moving all at once are {top_items}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -15,9 +15,9 @@ def aoc_2019_d15(io_handler: IOHandler) -> None:
         f"Fewest number of movement commands to reach the oxygen system is {distance}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     minutes = area.minutes_to_fill_with_oxygen()
     solution = ProblemSolution(
         problem_id, f"Minutes to fill the area with oxygen is {minutes}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

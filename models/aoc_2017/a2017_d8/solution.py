@@ -15,8 +15,8 @@ def aoc_2017_d8(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Maximum register value at end: {max_value_final}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"Maximum register value at any time: {max_value_all_time}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

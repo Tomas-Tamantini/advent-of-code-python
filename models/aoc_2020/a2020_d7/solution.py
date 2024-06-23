@@ -11,9 +11,9 @@ def aoc_2020_d7(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"{len(possible_colors)} possible outermost bag colors", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     num_inside = rules.number_of_bags_contained_inside(my_bag)
     solution = ProblemSolution(
         problem_id, f"{my_bag} contains {num_inside} bags", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

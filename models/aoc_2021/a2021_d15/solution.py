@@ -17,7 +17,7 @@ def aoc_2021_d15(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The risk level of the optimal path is {risk_level}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     extension_factor = 5
     cave_maze = UnderwaterCaveMaze(
@@ -33,4 +33,4 @@ def aoc_2021_d15(io_handler: IOHandler) -> None:
         f"The risk level of the optimal path in the extended cave is {risk_level}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

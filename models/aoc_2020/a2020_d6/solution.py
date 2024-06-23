@@ -10,7 +10,7 @@ def aoc_2020_d6(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The sum of union 'yes' answers is {union_yes}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     intersection_yes = sum(
         len(group.questions_everyone_answered_yes()) for group in groups
@@ -20,4 +20,4 @@ def aoc_2020_d6(io_handler: IOHandler) -> None:
         f"The sum of intersection 'yes' answers is {intersection_yes}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

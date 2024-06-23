@@ -10,8 +10,8 @@ def aoc_2021_d16(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The sum of all versions is { packet.version_sum()}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"The evaluation of the packet is { packet.evaluate()}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

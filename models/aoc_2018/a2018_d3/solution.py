@@ -15,9 +15,9 @@ def aoc_2018_d3(io_handler: IOHandler) -> None:
         f"Number of square inches with multiple claims: {len(conflicting_points)}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     id_without_overlap = fabric_area.rectangle_without_overlap.id
     solution = ProblemSolution(
         problem_id, f"Id of rectangle without overlap: {id_without_overlap}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

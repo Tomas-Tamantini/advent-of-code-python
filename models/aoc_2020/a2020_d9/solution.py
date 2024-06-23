@@ -11,7 +11,7 @@ def aoc_2020_d9(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The first invalid number is {invalid_number}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     contiguous_numbers = next(
         encoding.contiguous_numbers_which_sum_to_target(numbers, target=invalid_number)
     )
@@ -20,4 +20,4 @@ def aoc_2020_d9(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The sum of min and max contiguous numbers is {result}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

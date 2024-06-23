@@ -14,7 +14,7 @@ def aoc_2015_d20(io_handler: IOHandler) -> None:
         f"First house to receive {target_num_presents} presents is {first_house}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     first_house = first_house_to_receive_n_presents(
         target_num_presents, presents_multiple_per_elf=11, houses_per_elf=50
     )
@@ -23,4 +23,4 @@ def aoc_2015_d20(io_handler: IOHandler) -> None:
         f"First house to receive {target_num_presents} presents (with 50 visits per elf) is {first_house}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

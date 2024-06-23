@@ -14,10 +14,10 @@ def aoc_2018_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of tiles with water: {water_spring.num_wet_tiles}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Number of tiles with retained water: {water_spring.num_still_water_tiles}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

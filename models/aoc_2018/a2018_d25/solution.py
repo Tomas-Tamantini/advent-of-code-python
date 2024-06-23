@@ -9,4 +9,4 @@ def aoc_2018_d25(io_handler: IOHandler) -> None:
     points = [tuple(map(int, line.split(","))) for line in lines]
     result = num_constellations(max_distance=3, points=points)
     solution = ProblemSolution(problem_id, f"Number of constellations: {result}")
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

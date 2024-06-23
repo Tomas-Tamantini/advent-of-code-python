@@ -28,7 +28,7 @@ def aoc_2022_d23(io_handler: IOHandler) -> None:
         f"After 10 moves, the number of ground tiles is {empty_spaces}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     io_handler.output_writer.give_time_estimation("20s", part=2)
     round_index = 0
     elves = AntisocialElves(positions)
@@ -40,4 +40,4 @@ def aoc_2022_d23(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of rounds until elves settle is {round_index}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

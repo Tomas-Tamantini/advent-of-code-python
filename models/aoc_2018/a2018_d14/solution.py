@@ -13,7 +13,7 @@ def aoc_2018_d14(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Scores of next 10 recipes: {last_ten_scores}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     first_occurrence = recipe_scores.first_occurrence_of_subsequence(
         tuple(map(int, str(num_steps))), io_handler.progress_bar
     )
@@ -22,4 +22,4 @@ def aoc_2018_d14(io_handler: IOHandler) -> None:
         f"Number of recipes to the left of the score sequence: {first_occurrence}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -16,7 +16,7 @@ def aoc_2017_d21(io_handler: IOHandler) -> None:
         f"Number of cells on after {num_iterations} iterations: {num_cells_on}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     num_iterations = 18
     num_cells_on = fractal_art.num_cells_on_after_iterations(num_iterations)
     solution = ProblemSolution(
@@ -24,4 +24,4 @@ def aoc_2017_d21(io_handler: IOHandler) -> None:
         f"Number of cells on after {num_iterations} iterations: {num_cells_on}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

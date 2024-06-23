@@ -26,7 +26,7 @@ def aoc_2021_d10(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The total mismatch score is {mismatch_score}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     def missing_score(missing_brackets: Iterable[chr]) -> int:
         missing_scores = {
@@ -48,4 +48,4 @@ def aoc_2021_d10(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The middle missing score is {middle_score}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

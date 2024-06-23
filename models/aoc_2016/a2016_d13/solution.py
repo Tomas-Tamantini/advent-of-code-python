@@ -16,7 +16,7 @@ def aoc_2016_d13(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Fewest number of steps to reach destination: {num_steps}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     max_steps = 50
     num_reachable = maze.number_of_reachable_cubicles(origin, max_steps)
     solution = ProblemSolution(
@@ -24,4 +24,4 @@ def aoc_2016_d13(io_handler: IOHandler) -> None:
         f"Number of cubicles reachable in at most {max_steps} steps: {num_reachable}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

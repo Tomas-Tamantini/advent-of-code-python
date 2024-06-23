@@ -18,7 +18,7 @@ def aoc_2019_d7(io_handler: IOHandler) -> None:
         f"Maximum signal that can be sent to the thrusters is {max_signal}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     max_signal_feedback = max(
         amplifiers.run_with_feedback(phase_settings, input_signal)
         for phase_settings in permutations(range(5, 10))
@@ -28,4 +28,4 @@ def aoc_2019_d7(io_handler: IOHandler) -> None:
         f"Maximum signal that can be sent to the thrusters with feedback is {max_signal_feedback}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

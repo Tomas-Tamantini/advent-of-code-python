@@ -13,7 +13,7 @@ def aoc_2020_d15(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The 2020th number spoken is {numbers[-1]}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     generator = memory_game_numbers(starting_numbers)
     number = -1
     num_terms = 30_000_000
@@ -23,4 +23,4 @@ def aoc_2020_d15(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The {num_terms}th number spoken is {number}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -22,4 +22,4 @@ def aoc_2019_d25(io_handler: IOHandler) -> None:
         f"Airlock password is {control.airlock_password}",
         supports_play=True,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

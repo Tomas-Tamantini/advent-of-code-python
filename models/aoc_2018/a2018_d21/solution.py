@@ -44,7 +44,7 @@ def aoc_2018_d21(io_handler: IOHandler) -> None:
         f"Value of register 0 to halt program with min instructions: {register_min}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     register_max = optimized_chronal_conversion(
         input_number, exit_on_first_occurrence=False
     )
@@ -53,4 +53,4 @@ def aoc_2018_d21(io_handler: IOHandler) -> None:
         f"Value of register 0 to halt program with max instructions: {register_max}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -16,7 +16,7 @@ def aoc_2021_d7(io_handler: IOHandler) -> None:
         f"The total fuel required with linear consumption is {optimal_linear}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     optimal_triangular = optimal_triangular_fuel_consumption(positions)
     solution = ProblemSolution(
@@ -24,4 +24,4 @@ def aoc_2021_d7(io_handler: IOHandler) -> None:
         f"The total fuel required with triangular consumption is {optimal_triangular}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

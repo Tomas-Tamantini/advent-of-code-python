@@ -24,7 +24,7 @@ def aoc_2015_d3(io_handler: IOHandler) -> None:
 
     houses = houses_with_at_least_one_present(instructions)
     solution = ProblemSolution(problem_id, f"Santa visits {len(houses)} houses", part=1)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     houses_santa = houses_with_at_least_one_present(instructions[::2])
     houses_robot = houses_with_at_least_one_present(instructions[1::2])
@@ -32,4 +32,4 @@ def aoc_2015_d3(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Santa and Robot Santa visit {len(houses)} houses", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

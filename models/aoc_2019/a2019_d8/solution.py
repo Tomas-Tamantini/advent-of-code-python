@@ -16,8 +16,8 @@ def aoc_2019_d8(io_handler: IOHandler) -> None:
         f"Number of 1 digits multiplied by the number of 2 digits is {ones * twos}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id, f"The message is\n\n{image.render()}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

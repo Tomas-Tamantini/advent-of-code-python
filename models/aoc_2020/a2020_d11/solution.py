@@ -21,7 +21,7 @@ def aoc_2020_d11(io_handler: IOHandler) -> None:
         f"Occupied seats considering only adjacent neighbors: {num_occupied}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     ferry_first_chair = FerrySeats(
         width=grid.width,
@@ -37,4 +37,4 @@ def aoc_2020_d11(io_handler: IOHandler) -> None:
         f"Occupied seats considering first chair in line of sight: {num_occupied}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

@@ -19,9 +19,9 @@ def aoc_2017_d23(io_handler: IOHandler) -> None:
         f"Number of multiply instructions: {num_multiply_instructions}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     h_register = optimized_coprocessor_code(
         initial_a=1, initial_b=instructions[0].source
     )
     solution = ProblemSolution(problem_id, f"Value of register h: {h_register}", part=2)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

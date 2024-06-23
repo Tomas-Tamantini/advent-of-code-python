@@ -34,7 +34,7 @@ def aoc_2015_d22(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Minimum mana to defeat boss is {min_mana}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     drain_health = DrainWizardHealthEffect(
         id="drain_health",
@@ -48,4 +48,4 @@ def aoc_2015_d22(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Minimum mana to defeat boss in hard mode is {min_mana}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

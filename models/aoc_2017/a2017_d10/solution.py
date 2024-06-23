@@ -15,7 +15,7 @@ def aoc_2017_d10(io_handler: IOHandler) -> None:
         f"Product of first two numbers: {knot_hash.list[0] * knot_hash.list[1]}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     lengths_as_bytes = [ord(c) for c in lengths_str] + [17, 31, 73, 47, 23]
     knot_hash = KnotHash(list_length=256)
     num_rounds = 64
@@ -27,4 +27,4 @@ def aoc_2017_d10(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Dense hash as hex string: {dense_hash_as_hex}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

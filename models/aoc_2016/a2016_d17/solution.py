@@ -20,9 +20,9 @@ def aoc_2016_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Shortest path to vault: {shortest_path}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     longest_path_length = room.length_longest_path()
     solution = ProblemSolution(
         problem_id, f"Length of longest path to vault: {longest_path_length}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

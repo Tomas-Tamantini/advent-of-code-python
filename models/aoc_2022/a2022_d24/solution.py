@@ -13,7 +13,7 @@ def aoc_2022_d24(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The minimum number of steps to exit valley is {min_steps}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     io_handler.output_writer.give_time_estimation("1min", part=2)
     min_steps = solver.min_steps_to_exit(num_returns_to_start=1)
     solution = ProblemSolution(
@@ -21,4 +21,4 @@ def aoc_2022_d24(io_handler: IOHandler) -> None:
         f"The minimum number of steps to exit valley twice is {min_steps}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

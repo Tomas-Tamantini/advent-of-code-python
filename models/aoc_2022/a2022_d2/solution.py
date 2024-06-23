@@ -15,7 +15,7 @@ def aoc_2022_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Total score parsing XYZ as actions is {score}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     score = sum(
         rock_paper_scissors_score(my_action, opponent_action)
         for opponent_action, my_action in parse_rock_paper_scissors(
@@ -25,4 +25,4 @@ def aoc_2022_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Total score parsing XYZ as results is {score}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

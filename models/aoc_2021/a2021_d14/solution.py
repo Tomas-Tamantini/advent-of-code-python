@@ -17,7 +17,7 @@ def aoc_2021_d14(io_handler: IOHandler) -> None:
         f"The difference between the most and least common characters after 10 steps is {difference}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     character_count = extension.character_count_after_multiple_extensions(
         polymer, num_times=40
     )
@@ -27,4 +27,4 @@ def aoc_2021_d14(io_handler: IOHandler) -> None:
         f"The difference between the most and least common characters after 40 steps is {difference}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

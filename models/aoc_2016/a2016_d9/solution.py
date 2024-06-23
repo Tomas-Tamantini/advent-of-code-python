@@ -12,10 +12,10 @@ def aoc_2016_d9(io_handler: IOHandler) -> None:
         f"Length of decompressed text: {decompressor.length_shallow_decompression()}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Length of recursively decompressed text: {decompressor.length_recursive_decompression()}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

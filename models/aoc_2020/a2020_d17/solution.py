@@ -16,7 +16,7 @@ def aoc_2020_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of active 3D cubes is {len(active_cubes_3d)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     active_cubes_4d = {
         VectorNDimensional(pos.x, pos.y, 0, 0) for pos in grid.positions_with_value("#")
@@ -27,4 +27,4 @@ def aoc_2020_d17(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of active 4D hypercubes is {len(active_cubes_4d)}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

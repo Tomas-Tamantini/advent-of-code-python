@@ -21,7 +21,7 @@ def aoc_2021_d21(io_handler: IOHandler) -> None:
         f"The product of the worst score and number of dice rolls is {result}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     starting_configuration = DiracDiceStartingConfiguration(
         board_size=10, goal_score=21, starting_spaces=starting_spaces
     )
@@ -30,4 +30,4 @@ def aoc_2021_d21(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The number of wins for the first player is {num_wins}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

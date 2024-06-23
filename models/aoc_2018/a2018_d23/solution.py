@@ -12,11 +12,11 @@ def aoc_2018_d23(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Number of bots in range of strongest: {num_in_range}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     optimal_distance = distance_of_position_with_strongest_signal(bots)
     solution = ProblemSolution(
         problem_id,
         f"Optimal distance from origin with most bots in range: {optimal_distance}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

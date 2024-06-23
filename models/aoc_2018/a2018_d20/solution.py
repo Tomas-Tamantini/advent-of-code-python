@@ -17,11 +17,11 @@ def aoc_2018_d20(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Maximum distance from starting node: {max_distance}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     num_rooms_at_least_1000 = sum(d >= 1000 for d in distances.values())
     solution = ProblemSolution(
         problem_id,
         f"Number of rooms at least 1000 doors away: {num_rooms_at_least_1000}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

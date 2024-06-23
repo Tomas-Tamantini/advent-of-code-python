@@ -17,7 +17,7 @@ def aoc_2018_d15(io_handler: IOHandler) -> None:
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     outcome = game.round * game.state.total_hp
     solution = ProblemSolution(problem_id, f"Outcome of combat: {outcome}", part=1)
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     game = build_cave_game(map_with_units, elf_specs, goblin_specs)
     results = optimal_game_for_elves(game, bot=CaveGameBotAttackWeakest())
     outcome = results.rounds * results.hp_remaining
@@ -26,4 +26,4 @@ def aoc_2018_d15(io_handler: IOHandler) -> None:
         f"Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {outcome}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

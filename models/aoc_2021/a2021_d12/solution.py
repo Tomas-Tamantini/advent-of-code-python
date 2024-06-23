@@ -14,11 +14,11 @@ def aoc_2021_d12(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The number of paths from start to end is {len(paths)}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     paths = list(explorer.all_paths(may_visit_one_small_cave_twice=True))
     solution = ProblemSolution(
         problem_id,
         f"The number of paths from start to end with one small cave visited twice is {len(paths)}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

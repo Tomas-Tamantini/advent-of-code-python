@@ -20,7 +20,7 @@ def aoc_2021_d2(io_handler: IOHandler) -> None:
         f"The product of the final position without aim is {product}",
         part=1,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     submarine = Submarine()
     instructions_with_aim = list(
@@ -35,4 +35,4 @@ def aoc_2021_d2(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"The product of the final position with aim is {product}", part=2
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

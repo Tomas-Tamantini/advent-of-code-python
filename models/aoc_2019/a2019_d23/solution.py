@@ -18,7 +18,7 @@ def aoc_2019_d23(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Y value of the first packet sent to address 255 is {ans}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     lost_packets_manager = LostPackets(
         monitor=MonitorRepeatedYValuePackets(max_repeated_y=1)
@@ -32,4 +32,4 @@ def aoc_2019_d23(io_handler: IOHandler) -> None:
         f"Y value of the first packet sent to address 255 after NAT repeats a packet is {ans}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

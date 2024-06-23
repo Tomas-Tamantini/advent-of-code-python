@@ -10,11 +10,11 @@ def aoc_2015_d12(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Sum of all numbers in JSON is {json_sum}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
     json_sum_minus_red = sum_all_numbers_in_json(json_str, property_to_ignore="red")
     solution = ProblemSolution(
         problem_id,
         f"Sum of all numbers in JSON ignoring 'red' property is {json_sum_minus_red}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)

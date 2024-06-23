@@ -15,7 +15,7 @@ def aoc_2020_d12(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id, f"Ship's manhattan distance: {manhattan_distance}", part=1
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
 
     waypoint_instructions = parse_navigation_instructions(
         io_handler.input_reader, relative_to_waypoint=True
@@ -31,4 +31,4 @@ def aoc_2020_d12(io_handler: IOHandler) -> None:
         f"Ship's manhattan distance with waypoint: {manhattan_distance}",
         part=2,
     )
-    io_handler.output_writer.write_solution(solution)
+    io_handler.set_solution(solution)
