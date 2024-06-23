@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_interval_pairs
 
 
@@ -10,12 +10,20 @@ def aoc_2022_d4(io_handler: IOHandler) -> None:
         interval_a.is_contained_by(interval_b) or interval_b.is_contained_by(interval_a)
         for interval_a, interval_b in pairs
     )
-    print(
-        f"Part 1: Number of pairs in which one interval contains the other is {num_pairs_fully_contained}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of pairs in which one interval contains the other is {num_pairs_fully_contained}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
 
     num_pairs_with_overlap = sum(
         interval_a.intersection(interval_b) is not None
         for interval_a, interval_b in pairs
     )
-    print(f"Part 2: Number of pairs with some overlap {num_pairs_with_overlap}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of pairs with some overlap {num_pairs_with_overlap}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

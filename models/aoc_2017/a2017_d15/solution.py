@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .sequence_generator import SequenceGenerator, SequenceMatchFinder
 
 
@@ -15,10 +15,18 @@ def aoc_2017_d15(io_handler: IOHandler) -> None:
     num_matches = match_finder.num_matches(
         num_steps=40_000_000, progress_bar=io_handler.progress_bar
     )
-    print(f"Part 1: Number of matches not filtering out multiples: {num_matches}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of matches not filtering out multiples: {num_matches}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
     generator_a.filter_multiples_of = 4
     generator_b.filter_multiples_of = 8
     num_matches = match_finder.num_matches(
         num_steps=5_000_000, progress_bar=io_handler.progress_bar
     )
-    print(f"Part 2: Number of matches filtering out multiples: {num_matches}")
+    solution = ProblemSolution(
+        problem_id, f"Number of matches filtering out multiples: {num_matches}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     run_droid_explore_program,
     DroidCLIControl,
@@ -19,4 +19,7 @@ def aoc_2019_d25(io_handler: IOHandler) -> None:
         play_msg = "(SET FLAG --play TO PLAY THE GAME AND CONTROL THE DROID YOURSELF)"
     print(f"{play_msg} droid looking for password...", end="\r")
     run_droid_explore_program(instructions, control)
-    print(f"{play_msg} Airlock password is {control.airlock_password}")
+    solution = ProblemSolution(
+        problem_id, f"{play_msg} Airlock password is {control.airlock_password}"
+    )
+    io_handler.output_writer.write_solution(solution)

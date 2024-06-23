@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
 from .rocky_cave import RockyCave, CaveExplorer
 
@@ -17,7 +17,11 @@ def aoc_2018_d22(io_handler: IOHandler) -> None:
         erosion_level_mod=20183,
     )
     risk_level = cave.risk_level()
-    print(f"Part 1: Risk level of cave: {risk_level}")
+    solution = ProblemSolution(problem_id, f"Risk level of cave: {risk_level}", part=1)
+    io_handler.output_writer.write_solution(solution)
     explorer = CaveExplorer(cave, time_to_move=1, time_to_switch_gear=7)
     shortest_time = explorer.shortest_time_to_target()
-    print(f"Part 2: Shortest time to reach target: {shortest_time}")
+    solution = ProblemSolution(
+        problem_id, f"Shortest time to reach target: {shortest_time}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

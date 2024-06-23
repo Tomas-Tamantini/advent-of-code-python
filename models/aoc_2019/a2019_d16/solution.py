@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .frequency_transmission import flawed_frequency_transmission
 
 
@@ -11,11 +11,17 @@ def aoc_2019_d16(io_handler: IOHandler) -> None:
         signal, num_phases=100, num_elements_result=8
     )
     digits = "".join(map(str, output))
-    print(f"Part 1: First 8 digits after 100 phases are {digits}")
+    solution = ProblemSolution(
+        problem_id, f"First 8 digits after 100 phases are {digits}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     signal = signal * 10_000
     offset = int("".join(map(str, signal[:7])))
     output = flawed_frequency_transmission(
         signal, num_phases=100, offset=offset, num_elements_result=8
     )
     digits = "".join(map(str, output))
-    print(f"Part 2: 8 digits of larger signal after 100 phases are {digits}")
+    solution = ProblemSolution(
+        problem_id, f"8 digits of larger signal after 100 phases are {digits}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

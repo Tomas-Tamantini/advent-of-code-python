@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
 from .secure_room import SecureRoom, SecureRoomMaze
 
@@ -17,6 +17,12 @@ def aoc_2016_d17(io_handler: IOHandler) -> None:
     initial_position = Vector2D(0, 3)
     room = SecureRoom(position=initial_position)
     shortest_path = room.steps_shortest_path()
-    print(f"Part 1: Shortest path to vault: {shortest_path}")
+    solution = ProblemSolution(
+        problem_id, f"Shortest path to vault: {shortest_path}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     longest_path_length = room.length_longest_path()
-    print(f"Part 2: Length of longest path to vault: {longest_path_length}")
+    solution = ProblemSolution(
+        problem_id, f"Length of longest path to vault: {longest_path_length}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

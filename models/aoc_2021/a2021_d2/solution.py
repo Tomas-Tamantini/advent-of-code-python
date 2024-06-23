@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_submarine_navigation_instructions
 from .submarine import Submarine
 
@@ -15,7 +15,12 @@ def aoc_2021_d2(io_handler: IOHandler) -> None:
     for instruction in instructions_without_aim:
         submarine = instruction.execute(submarine)
     product = submarine.position.x * submarine.position.y
-    print(f"Part 1: The product of the final position without aim is {product}")
+    solution = ProblemSolution(
+        problem_id,
+        f"The product of the final position without aim is {product}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
 
     submarine = Submarine()
     instructions_with_aim = list(
@@ -27,4 +32,7 @@ def aoc_2021_d2(io_handler: IOHandler) -> None:
         submarine = instruction.execute(submarine)
 
     product = submarine.position.x * submarine.position.y
-    print(f"Part 2: The product of the final position with aim is {product}")
+    solution = ProblemSolution(
+        problem_id, f"The product of the final position with aim is {product}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

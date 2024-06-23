@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
 from .parser import parse_wind_directions
 from .logic import WindGenerator, TetrisPieceGenerator, TetrisGameState, tower_height
@@ -56,6 +56,14 @@ def aoc_2022_d17(io_handler: IOHandler) -> None:
         wind_generator=wind_generator,
     )
     height = tower_height(game_state, 2022)
-    print(f"Part 1: The height of the tower after 2022 rocks is {height}")
+    solution = ProblemSolution(
+        problem_id, f"The height of the tower after 2022 rocks is {height}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     height = tower_height(game_state, 1_000_000_000_000)
-    print(f"Part 2: The height of the tower after 1 trillion rocks is {height}")
+    solution = ProblemSolution(
+        problem_id,
+        f"The height of the tower after 1 trillion rocks is {height}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

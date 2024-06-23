@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .num_chars import num_chars_encoded, num_chars_in_memory
 
 
@@ -14,9 +14,15 @@ def aoc_2015_d8(io_handler: IOHandler) -> None:
         num_encoded = num_chars_encoded(stripped_line)
         difference_orignal_memory += num_original - num_memory
         difference_encoded_original += num_encoded - num_original
-    print(
-        f"Part 1: Difference between original and memory is {difference_orignal_memory}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Difference between original and memory is {difference_orignal_memory}",
+        part=1,
     )
-    print(
-        f"Part 2: Difference between encoded and original is {difference_encoded_original}"
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Difference between encoded and original is {difference_encoded_original}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

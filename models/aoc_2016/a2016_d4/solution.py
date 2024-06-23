@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_encrypted_rooms
 
 
@@ -12,7 +12,13 @@ def aoc_2016_d4(io_handler: IOHandler) -> None:
             id_sum += room.sector_id
             if "pole" in room.decrypt_name():
                 id_storage = room.sector_id
-    print(f"Part 1: Sum of sector IDs of real rooms: {id_sum}")
-    print(
-        f"Part 2: Sector ID of room where North Pole objects are stored: {id_storage}"
+    solution = ProblemSolution(
+        problem_id, f"Sum of sector IDs of real rooms: {id_sum}", part=1
     )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Sector ID of room where North Pole objects are stored: {id_storage}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

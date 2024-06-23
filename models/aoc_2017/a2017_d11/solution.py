@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import HexagonalDirection, CanonicalHexagonalCoordinates
 
 
@@ -13,5 +13,11 @@ def aoc_2017_d11(io_handler: IOHandler) -> None:
     for direction in directions:
         pos = pos.move(direction)
         steps_away.append(pos.num_steps_away_from_origin())
-    print(f"Part 1: He ended up {steps_away[-1]} steps away")
-    print(f"Part 2: He was at most {max(steps_away)} steps away")
+    solution = ProblemSolution(
+        problem_id, f"He ended up {steps_away[-1]} steps away", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"He was at most {max(steps_away)} steps away", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

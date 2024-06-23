@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
 from .parser import parse_position_ranges
 from .water_spring import WaterSpring
@@ -11,7 +11,13 @@ def aoc_2018_d17(io_handler: IOHandler) -> None:
     spring_position = Vector2D(500, 0)
     water_spring = WaterSpring(spring_position, clay_positions)
     water_spring.flow()
-    print(f"Part 1: Number of tiles with water: {water_spring.num_wet_tiles}")
-    print(
-        f"Part 2: Number of tiles with retained water: {water_spring.num_still_water_tiles}"
+    solution = ProblemSolution(
+        problem_id, f"Number of tiles with water: {water_spring.num_wet_tiles}", part=1
     )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of tiles with retained water: {water_spring.num_still_water_tiles}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

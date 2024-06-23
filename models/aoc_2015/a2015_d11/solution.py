@@ -1,9 +1,11 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def aoc_2015_d11(io_handler: IOHandler) -> None:
     problem_id = Problem(2015, 11, "Corporate Policy")
     io_handler.output_writer.write_header(problem_id)
     # TODO: Make implementation independent of input
-    print("Part 1: Done by hand - hepxxyzz")
-    print("Part 2: Done by hand - hepxcrrq")
+    solution = ProblemSolution(problem_id, "Done by hand - hepxxyzz", part=1)
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(problem_id, "Done by hand - hepxcrrq", part=2)
+    io_handler.output_writer.write_solution(solution)

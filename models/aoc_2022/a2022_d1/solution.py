@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_calories
 
 
@@ -10,6 +10,12 @@ def aoc_2022_d1(io_handler: IOHandler) -> None:
     ]
     sorted_calories = sorted(calories_by_elf)
     max_calories = sorted_calories[-1]
-    print(f"Part 1: Maximum calories is {max_calories}")
+    solution = ProblemSolution(
+        problem_id, f"Maximum calories is {max_calories}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     top_3_calories = sum(sorted_calories[-3:])
-    print(f"Part 2: Sum of top 3 calories is {top_3_calories}")
+    solution = ProblemSolution(
+        problem_id, f"Sum of top 3 calories is {top_3_calories}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

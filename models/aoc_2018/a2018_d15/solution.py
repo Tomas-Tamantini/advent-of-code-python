@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     CaveGameBotAttackWeakest,
     build_cave_game,
@@ -16,10 +16,14 @@ def aoc_2018_d15(io_handler: IOHandler) -> None:
     game = build_cave_game(map_with_units, elf_specs, goblin_specs)
     game.play_until_over(bot=CaveGameBotAttackWeakest())
     outcome = game.round * game.state.total_hp
-    print(f"Part 1: Outcome of combat: {outcome}")
+    solution = ProblemSolution(problem_id, f"Outcome of combat: {outcome}", part=1)
+    io_handler.output_writer.write_solution(solution)
     game = build_cave_game(map_with_units, elf_specs, goblin_specs)
     results = optimal_game_for_elves(game, bot=CaveGameBotAttackWeakest())
     outcome = results.rounds * results.hp_remaining
-    print(
-        f"Part 2: Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {outcome}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {outcome}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

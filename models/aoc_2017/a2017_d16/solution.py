@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_string_transformers
 from .string_transform import transform_string_multiple_rounds
 
@@ -10,8 +10,14 @@ def aoc_2017_d16(io_handler: IOHandler) -> None:
     dancers = "abcdefghijklmnop"
     for move in dance_moves:
         dancers = move.transform(dancers)
-    print(f"Part 1: Final order of dancers: {dancers}")
+    solution = ProblemSolution(problem_id, f"Final order of dancers: {dancers}", part=1)
+    io_handler.output_writer.write_solution(solution)
     num_dances = 1_000_000_000
     dancers = "abcdefghijklmnop"
     dancers = transform_string_multiple_rounds(dancers, dance_moves, num_dances)
-    print(f"Part 2: Final order of dancers after {num_dances} dances: {dancers}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Final order of dancers after {num_dances} dances: {dancers}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

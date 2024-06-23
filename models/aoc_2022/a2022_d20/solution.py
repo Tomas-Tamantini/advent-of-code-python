@@ -1,5 +1,5 @@
 from typing import Iterable, Iterator
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .circular_encryption import mix_list
 
 
@@ -16,7 +16,12 @@ def aoc_2022_d20(io_handler: IOHandler) -> None:
     numbers = [int(line) for line in io_handler.input_reader.read_stripped_lines()]
     shuffled_numbers = mix_list(numbers)
     total_sum = sum(_numbers_at_offsets(shuffled_numbers, offsets))
-    print(f"Part 1: Sum of numbers at positions 1000, 2000, and 3000: {total_sum}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Sum of numbers at positions 1000, 2000, and 3000: {total_sum}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
 
     key = 811589153
     multiplied_list = [number * key for number in numbers]
@@ -24,6 +29,9 @@ def aoc_2022_d20(io_handler: IOHandler) -> None:
         multiplied_list, num_rounds=10, progress_bar=io_handler.progress_bar
     )
     total_sum = sum(_numbers_at_offsets(shuffled_multiplied_list, offsets))
-    print(
-        f"Part 2: Sum of numbers at positions 1000, 2000, and 3000 after 10 rounds mixing: {total_sum}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Sum of numbers at positions 1000, 2000, and 3000 after 10 rounds mixing: {total_sum}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.graphs import topological_sorting
 from .parser import parse_directed_graph
 from .jobshop import time_to_complete_jobs
@@ -9,10 +9,12 @@ def aoc_2018_d7(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     graph = parse_directed_graph(io_handler.input_reader)
     order = "".join(topological_sorting(graph, tie_breaker=lambda a, b: a < b))
-    print(f"Part 1: Order of steps: {order}")
+    solution = ProblemSolution(problem_id, f"Order of steps: {order}", part=1)
+    io_handler.output_writer.write_solution(solution)
     time = time_to_complete_jobs(
         num_workers=5,
         jobs_dag=graph,
         job_durations={node: ord(node) - ord("A") + 61 for node in graph.nodes()},
     )
-    print(f"Part 2: Time to complete jobs: {time}")
+    solution = ProblemSolution(problem_id, f"Time to complete jobs: {time}", part=2)
+    io_handler.output_writer.write_solution(solution)

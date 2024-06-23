@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .layered_image import LayeredImage
 
 
@@ -11,7 +11,11 @@ def aoc_2019_d8(io_handler: IOHandler) -> None:
     layer_with_fewest_zeros = min(image.layers, key=lambda layer: layer.count_digit(0))
     ones = layer_with_fewest_zeros.count_digit(1)
     twos = layer_with_fewest_zeros.count_digit(2)
-    print(
-        f"Part 1: Number of 1 digits multiplied by the number of 2 digits is {ones * twos}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of 1 digits multiplied by the number of 2 digits is {ones * twos}",
+        part=1,
     )
-    print(f"Part 2: The message is\n{image.render()}")
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(problem_id, f"The message is\n{image.render()}", part=2)
+    io_handler.output_writer.write_solution(solution)

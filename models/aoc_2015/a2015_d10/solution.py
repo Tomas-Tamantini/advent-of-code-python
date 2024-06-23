@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def next_look_and_say(digits_current_term: list[int]) -> list[int]:
@@ -23,7 +23,13 @@ def aoc_2015_d10(io_handler: IOHandler) -> None:
     current_digits = [int(d) for d in current_term]
     for _ in range(40):
         current_digits = next_look_and_say(current_digits)
-    print(f"Part 1: Lenght of 40th term is {len(current_digits)}")
+    solution = ProblemSolution(
+        problem_id, f"Lenght of 40th term is {len(current_digits)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     for _ in range(10):
         current_digits = next_look_and_say(current_digits)
-    print(f"Part 2: Lenght of 50th term is {len(current_digits)}")
+    solution = ProblemSolution(
+        problem_id, f"Lenght of 50th term is {len(current_digits)}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

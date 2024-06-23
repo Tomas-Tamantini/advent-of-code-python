@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection, Vector2D
 
 
@@ -23,9 +23,13 @@ def aoc_2015_d3(io_handler: IOHandler) -> None:
     instructions = io_handler.input_reader.read()
 
     houses = houses_with_at_least_one_present(instructions)
-    print(f"Part 1: Santa visits {len(houses)} houses")
+    solution = ProblemSolution(problem_id, f"Santa visits {len(houses)} houses", part=1)
+    io_handler.output_writer.write_solution(solution)
 
     houses_santa = houses_with_at_least_one_present(instructions[::2])
     houses_robot = houses_with_at_least_one_present(instructions[1::2])
     houses = houses_santa.union(houses_robot)
-    print(f"Part 2: Santa and Robot Santa visit {len(houses)} houses")
+    solution = ProblemSolution(
+        problem_id, f"Santa and Robot Santa visit {len(houses)} houses", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

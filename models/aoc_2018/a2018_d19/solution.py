@@ -1,5 +1,5 @@
 from math import sqrt
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.assembly import Processor, ImmutableProgram, Computer
 from models.aoc_2018.three_value_instructions import parse_three_value_instructions
 
@@ -20,13 +20,19 @@ def aoc_2018_d19(io_handler: IOHandler) -> None:
     instructions = list(parse_three_value_instructions(io_handler.input_reader))
     program = ImmutableProgram(instructions)
     computer = Computer.from_processor(Processor())
-    print("Part 1: Takes about 30s to run", end="\r")
+    io_handler.output_writer.give_time_estimation("30s", part=1)
     computer.run_program(program)
     value = computer.get_register_value(register=0)
-    print(f"Part 1: Value of register 0 at the end of the program: {value}")
+    solution = ProblemSolution(
+        problem_id, f"Value of register 0 at the end of the program: {value}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     # Part 2 was optimized by hand
     result = optimized_sum_divisors_program(
         a=instructions[21]._input_b.value,
         b=instructions[23]._input_b.value,
     )
-    print(f"Part 2: Value of register 0 at the end of the program: {result}")
+    solution = ProblemSolution(
+        problem_id, f"Value of register 0 at the end of the program: {result}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

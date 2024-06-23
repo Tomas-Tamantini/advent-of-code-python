@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_code_row_and_col
 
 
@@ -19,4 +19,8 @@ def aoc_2015_d25(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     row_and_col = parse_code_row_and_col(io_handler.input_reader)
     code = code_at(**row_and_col, first_code=20151125, multiplier=252533, mod=33554393)
-    print(f"Code at row {row_and_col['row']}, column {row_and_col['col']} is {code}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Code at row {row_and_col['row']}, column {row_and_col['col']} is {code}",
+    )
+    io_handler.output_writer.write_solution(solution)

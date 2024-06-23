@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem, CharacterGrid
+from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
 from models.common.vectors import CardinalDirection, BoundingBox
 from .logic import AntisocialElves, direction_priority
 
@@ -23,7 +23,12 @@ def aoc_2022_d23(io_handler: IOHandler) -> None:
     bounding_box = BoundingBox.from_points(elves.positions)
     num_elves = len(elves.positions)
     empty_spaces = (bounding_box.width + 1) * (bounding_box.height + 1) - num_elves
-    print(f"Part 1: After 10 moves, the number of ground tiles is {empty_spaces}")
+    solution = ProblemSolution(
+        problem_id,
+        f"After 10 moves, the number of ground tiles is {empty_spaces}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
     io_handler.output_writer.give_time_estimation("20s", part=2)
     round_index = 0
     elves = AntisocialElves(positions)
@@ -32,4 +37,7 @@ def aoc_2022_d23(io_handler: IOHandler) -> None:
         elves.move(priority)
         round_index += 1
 
-    print(f"Part 2: Number of rounds until elves settle is {round_index}")
+    solution = ProblemSolution(
+        problem_id, f"Number of rounds until elves settle is {round_index}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

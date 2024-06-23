@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_underwater_scanners
 from .underwater_scanner import pinpoint_scanners
 
@@ -13,10 +13,18 @@ def aoc_2021_d19(io_handler: IOHandler) -> None:
     all_beacons = set()
     for scanner in pinpointed:
         all_beacons.update(scanner.visible_beacons_absolute_coordinates())
-    print(f"Part 1: The number of beacons is {len(all_beacons)}")
+    solution = ProblemSolution(
+        problem_id, f"The number of beacons is {len(all_beacons)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     max_distance = max(
         scanner_a.position.manhattan_distance(scanner_b.position)
         for scanner_a in pinpointed
         for scanner_b in pinpointed
     )
-    print(f"Part 2: The maximum distance between any two scanners is {max_distance}")
+    solution = ProblemSolution(
+        problem_id,
+        f"The maximum distance between any two scanners is {max_distance}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection, Vector2D
 from .parser import parse_cube_net_and_instructions
 from .logic import (
@@ -47,8 +47,14 @@ def aoc_2022_d22(io_handler: IOHandler) -> None:
 
     pacman_edge_mapper = PacmanEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, pacman_edge_mapper, parsed)
-    print(f"Part 1: The password with pacman map is {password}")
+    solution = ProblemSolution(
+        problem_id, f"The password with pacman map is {password}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
 
     cube_edge_mapper = CubeEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, cube_edge_mapper, parsed)
-    print(f"Part 2: The password with cube map is {password}")
+    solution = ProblemSolution(
+        problem_id, f"The password with cube map is {password}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,5 +1,5 @@
 from models.common.vectors import Vector2D, CardinalDirection
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_navigation_instructions
 from .ship import Ship
 
@@ -12,7 +12,10 @@ def aoc_2020_d12(io_handler: IOHandler) -> None:
     for instruction in ship_instructions:
         ship = instruction.execute(ship)
     manhattan_distance = ship.position.manhattan_size
-    print(f"Part 1: Ship's manhattan distance: {manhattan_distance}")
+    solution = ProblemSolution(
+        problem_id, f"Ship's manhattan distance: {manhattan_distance}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
 
     waypoint_instructions = parse_navigation_instructions(
         io_handler.input_reader, relative_to_waypoint=True
@@ -23,4 +26,9 @@ def aoc_2020_d12(io_handler: IOHandler) -> None:
     for instruction in waypoint_instructions:
         ship = instruction.execute(ship)
     manhattan_distance = ship.position.manhattan_size
-    print(f"Part 2: Ship's manhattan distance with waypoint: {manhattan_distance}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Ship's manhattan distance with waypoint: {manhattan_distance}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .air_duct import AirDuctMaze
 
 
@@ -11,12 +11,18 @@ def aoc_2016_d24(io_handler: IOHandler) -> None:
     min_steps = maze.min_num_steps_to_visit_points_of_interest(
         must_return_to_origin=False
     )
-    print(
-        f"Part 1: Fewest number of steps to visit all points of interest: {min_steps}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Fewest number of steps to visit all points of interest: {min_steps}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     min_steps_round_trip = maze.min_num_steps_to_visit_points_of_interest(
         must_return_to_origin=True
     )
-    print(
-        f"Part 2: Fewest number of steps to visit all points of interest and return to origin: {min_steps_round_trip}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Fewest number of steps to visit all points of interest and return to origin: {min_steps_round_trip}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

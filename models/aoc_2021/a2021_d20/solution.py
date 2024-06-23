@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_trench_rules_and_trench_map
 from .trench_map_automaton import TrenchMapAutomaton
 
@@ -11,8 +11,14 @@ def aoc_2021_d20(io_handler: IOHandler) -> None:
     )
     automaton = TrenchMapAutomaton(lit_cell_configurations)
     num_lit = automaton.num_lit_cells_after(num_steps=2, initial_lit_cells=lit_cells)
-    print(f"Part 1: The number of lit cells after two steps is {num_lit}")
+    solution = ProblemSolution(
+        problem_id, f"The number of lit cells after two steps is {num_lit}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     num_lit = automaton.num_lit_cells_after(
         num_steps=50, initial_lit_cells=lit_cells, progress_bar=io_handler.progress_bar
     )
-    print(f"Part 2: The number of lit cells after 50 steps is {num_lit}")
+    solution = ProblemSolution(
+        problem_id, f"The number of lit cells after 50 steps is {num_lit}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

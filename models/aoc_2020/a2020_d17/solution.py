@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem, CharacterGrid
+from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
 from models.common.vectors import VectorNDimensional
 from .hyper_game_of_life import HyperGameOfLife
 
@@ -13,7 +13,10 @@ def aoc_2020_d17(io_handler: IOHandler) -> None:
     automaton = HyperGameOfLife()
     for _ in range(6):
         active_cubes_3d = automaton.next_state(active_cubes_3d)
-    print(f"Part 1: Number of active 3D cubes is {len(active_cubes_3d)}")
+    solution = ProblemSolution(
+        problem_id, f"Number of active 3D cubes is {len(active_cubes_3d)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
 
     active_cubes_4d = {
         VectorNDimensional(pos.x, pos.y, 0, 0) for pos in grid.positions_with_value("#")
@@ -21,4 +24,7 @@ def aoc_2020_d17(io_handler: IOHandler) -> None:
     automaton = HyperGameOfLife()
     for _ in range(6):
         active_cubes_4d = automaton.next_state(active_cubes_4d)
-    print(f"Part 2: Number of active 4D hypercubes is {len(active_cubes_4d)}")
+    solution = ProblemSolution(
+        problem_id, f"Number of active 4D hypercubes is {len(active_cubes_4d)}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

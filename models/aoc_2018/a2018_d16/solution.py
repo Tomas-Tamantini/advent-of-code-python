@@ -1,5 +1,5 @@
 from models.common.assembly import Processor, ImmutableProgram, Computer
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.aoc_2018.three_value_instructions import ALL_THREE_VALUE_INSTRUCTIONS
 from .parser import parse_instruction_samples, parse_unknown_op_code_program
 from .unknown_op_code import possible_instructions, work_out_op_codes
@@ -21,9 +21,12 @@ def aoc_2018_d16(io_handler: IOHandler) -> None:
         >= 3
         for sample in samples
     )
-    print(
-        f"Part 1: Number of samples with three or more possible instructions: {num_samples_with_three_or_more}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of samples with three or more possible instructions: {num_samples_with_three_or_more}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     op_codes_to_instructions = work_out_op_codes(
         samples, candidates=ALL_THREE_VALUE_INSTRUCTIONS
     )
@@ -34,4 +37,5 @@ def aoc_2018_d16(io_handler: IOHandler) -> None:
     computer = Computer.from_processor(Processor())
     computer.run_program(program)
     value = computer.get_register_value(register=0)
-    print(f"Part 2: Value of register 0: {value}")
+    solution = ProblemSolution(problem_id, f"Value of register 0: {value}", part=2)
+    io_handler.output_writer.write_solution(solution)

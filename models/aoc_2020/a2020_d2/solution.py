@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_password_policies_and_passwords
 
 
@@ -12,7 +12,12 @@ def aoc_2020_d2(io_handler: IOHandler) -> None:
         )
         if policy.is_valid(password)
     )
-    print(f"Part 1: {num_valid_range_passwords} valid passwords using range rule")
+    solution = ProblemSolution(
+        problem_id,
+        f"{num_valid_range_passwords} valid passwords using range rule",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
 
     num_valid_positional_passwords = sum(
         1
@@ -21,6 +26,9 @@ def aoc_2020_d2(io_handler: IOHandler) -> None:
         )
         if policy.is_valid(password)
     )
-    print(
-        f"Part 2: {num_valid_positional_passwords} valid passwords using positional rule"
+    solution = ProblemSolution(
+        problem_id,
+        f"{num_valid_positional_passwords} valid passwords using positional rule",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

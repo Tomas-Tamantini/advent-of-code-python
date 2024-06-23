@@ -1,6 +1,6 @@
 from typing import Iterator
 from itertools import combinations
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def contains_exactly_n_of_any_letter(string: str, n: int) -> bool:
@@ -20,7 +20,10 @@ def aoc_2018_d2(io_handler: IOHandler) -> None:
     ids = [line.strip() for line in lines]
     exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)
     exactly_three = sum(contains_exactly_n_of_any_letter(id, 3) for id in ids)
-    print(f"Part 1: Checksum of ids is {exactly_two * exactly_three}")
+    solution = ProblemSolution(
+        problem_id, f"Checksum of ids is {exactly_two * exactly_three}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     letters_in_common = ""
     for i, j in combinations(range(len(ids)), 2):
         differing = list(differing_indices(ids[i], ids[j]))
@@ -28,4 +31,7 @@ def aoc_2018_d2(io_handler: IOHandler) -> None:
             letters_in_common = ids[i][: differing[0]] + ids[i][differing[0] + 1 :]
             break
 
-    print(f"Part 2: Letters in common between ids are {letters_in_common}")
+    solution = ProblemSolution(
+        problem_id, f"Letters in common between ids are {letters_in_common}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

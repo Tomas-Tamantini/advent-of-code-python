@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .arcade import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
 
 
@@ -9,7 +9,10 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
     screen = ArcadeGameScreen()
     run_intcode_arcade(instructions, screen)
     block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)
-    print(f"Part 1: Number of block tiles is {block_tiles}")
+    solution = ProblemSolution(
+        problem_id, f"Number of block tiles is {block_tiles}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     new_instructions = instructions[:]
     new_instructions[0] = 2
     screen = ArcadeGameScreen(animate=io_handler.execution_flags.animate)
@@ -20,4 +23,7 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
     )
     print(f"Part 2:{animation_msg} simulating game...", end="\r")
     run_intcode_arcade(new_instructions, screen)
-    print(f"Part 2:{animation_msg} Final score is {screen.current_score}")
+    solution = ProblemSolution(
+        problem_id, f"{animation_msg} Final score is {screen.current_score}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

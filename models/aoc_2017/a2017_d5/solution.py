@@ -1,5 +1,5 @@
 from typing import Iterator, Callable
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def follow_and_increment_jump_instructions(
@@ -23,11 +23,21 @@ def aoc_2017_d5(io_handler: IOHandler) -> None:
         jump_offsets[:], simple_increment_rule
     ):
         steps_simple_increment += 1
-    print(f"Part 1: Steps to exit with simple increment: {steps_simple_increment}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Steps to exit with simple increment: {steps_simple_increment}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
     complex_increment_rule = lambda jump: jump - 1 if jump >= 3 else jump + 1
     steps_complex_increment = 0
     for _ in follow_and_increment_jump_instructions(
         jump_offsets[:], complex_increment_rule
     ):
         steps_complex_increment += 1
-    print(f"Part 2: Steps to exit with increment/decrement: {steps_complex_increment}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Steps to exit with increment/decrement: {steps_complex_increment}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

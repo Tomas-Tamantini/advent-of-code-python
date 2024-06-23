@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 # Solved by manually parsing input code
@@ -41,6 +41,12 @@ def aoc_2021_d24(io_handler: IOHandler) -> None:
     x_offsets = [int(instructions[18 * i + 5].split()[-1]) for i in range(14)]
     y_offsets = [int(instructions[18 * i + 15].split()[-1]) for i in range(14)]
     largest = _largest_number_accepted_by_monad(x_offsets, y_offsets)
-    print(f"Part 1: The largest number accepted by the monad is {largest}")
+    solution = ProblemSolution(
+        problem_id, f"The largest number accepted by the monad is {largest}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     smallest = _smallest_number_accepted_by_monad(x_offsets, y_offsets)
-    print(f"Part 2: The smallest number accepted by the monad is {smallest}")
+    solution = ProblemSolution(
+        problem_id, f"The smallest number accepted by the monad is {smallest}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

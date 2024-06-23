@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_cardinal_direction_instructions
 from .keypad import Keypad
 
@@ -17,5 +17,11 @@ def aoc_2016_d2(io_handler: IOHandler) -> None:
         keys_3x3.append(keypad_three_by_three.key)
         keypad_rhombus.move_multiple_keys(instructions)
         keys_rhombus.append(keypad_rhombus.key)
-    print(f"Part 1: Bathroom code for 3x3 pad is {''.join(keys_3x3)}")
-    print(f"Part 2: Bathroom code for rhombus pad is {''.join(keys_rhombus)}")
+    solution = ProblemSolution(
+        problem_id, f"Bathroom code for 3x3 pad is {''.join(keys_3x3)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"Bathroom code for rhombus pad is {''.join(keys_rhombus)}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

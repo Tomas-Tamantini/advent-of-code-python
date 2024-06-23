@@ -1,4 +1,10 @@
-from models.common.io import IOHandler, Problem, CharacterGrid, render_frame
+from models.common.io import (
+    IOHandler,
+    Problem,
+    ProblemSolution,
+    CharacterGrid,
+    render_frame,
+)
 from .octopus_flash import OctopusesFlashes
 
 
@@ -10,7 +16,12 @@ def aoc_2021_d11(io_handler: IOHandler) -> None:
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
     )
     octopuses.multi_step(num_steps=100)
-    print(f"Part 1: The number of flashes after 100 steps is {octopuses.num_flashes}")
+    solution = ProblemSolution(
+        problem_id,
+        f"The number of flashes after 100 steps is {octopuses.num_flashes}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
 
     octopuses = OctopusesFlashes(
         energy_levels={pos: int(height) for pos, height in grid.tiles.items()}
@@ -27,6 +38,9 @@ def aoc_2021_d11(io_handler: IOHandler) -> None:
         if io_handler.execution_flags.animate
         else " (SET FLAG --animate TO SEE COOL ANIMATION)"
     )
-    print(
-        f"Part 2:{animation_msg} The number of steps until all octopuses flash is {current_step}"
+    solution = ProblemSolution(
+        problem_id,
+        f"{animation_msg} The number of steps until all octopuses flash is {current_step}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

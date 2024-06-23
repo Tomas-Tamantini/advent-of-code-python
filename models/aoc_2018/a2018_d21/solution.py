@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool) -> int:
@@ -39,12 +39,18 @@ def aoc_2018_d21(io_handler: IOHandler) -> None:
     register_min = optimized_chronal_conversion(
         input_number, exit_on_first_occurrence=True
     )
-    print(
-        f"Part 1: Value of register 0 to halt program with min instructions: {register_min}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Value of register 0 to halt program with min instructions: {register_min}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     register_max = optimized_chronal_conversion(
         input_number, exit_on_first_occurrence=False
     )
-    print(
-        f"Part 2: Value of register 0 to halt program with max instructions: {register_max}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Value of register 0 to halt program with max instructions: {register_max}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

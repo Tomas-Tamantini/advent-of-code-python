@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .valid_passwords import (
     digits_are_increasing,
     two_adjacent_digits_are_the_same,
@@ -13,9 +13,15 @@ def aoc_2019_d4(io_handler: IOHandler) -> None:
     lower_bound, upper_bound = map(int, io_handler.input_reader.read().split("-"))
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
-    print(f"Part 1: Number of valid passwords is {len(valid_passwords)}")
+    solution = ProblemSolution(
+        problem_id, f"Number of valid passwords is {len(valid_passwords)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     criteria.append(at_least_one_group_of_exactly_two_equal_digits)
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
-    print(
-        f"Part 2: Number of valid passwords with the new criteria is {len(valid_passwords)}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of valid passwords with the new criteria is {len(valid_passwords)}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

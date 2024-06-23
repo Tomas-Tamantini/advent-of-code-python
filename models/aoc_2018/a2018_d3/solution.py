@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_fabric_rectangles
 from .fabric_area import FabricArea
 
@@ -10,8 +10,14 @@ def aoc_2018_d3(io_handler: IOHandler) -> None:
     fabric_area = FabricArea()
     fabric_area.distribute(list(rectangles))
     conflicting_points = fabric_area.points_with_more_than_one_claim
-    print(
-        f"Part 1: Number of square inches with multiple claims: {len(conflicting_points)}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of square inches with multiple claims: {len(conflicting_points)}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     id_without_overlap = fabric_area.rectangle_without_overlap.id
-    print(f"Part 2: Id of rectangle without overlap: {id_without_overlap}")
+    solution = ProblemSolution(
+        problem_id, f"Id of rectangle without overlap: {id_without_overlap}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

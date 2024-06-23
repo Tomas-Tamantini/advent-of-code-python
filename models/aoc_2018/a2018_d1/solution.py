@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def first_frequency_to_be_reached_twice(offsets: list[int]) -> int:
@@ -17,6 +17,12 @@ def aoc_2018_d1(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
     terms = [int(line) for line in lines]
-    print(f"Part 1: Frequency at the end of one cycle: {sum(terms)}")
+    solution = ProblemSolution(
+        problem_id, f"Frequency at the end of one cycle: {sum(terms)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     first_duplicate_freq = first_frequency_to_be_reached_twice(terms)
-    print(f"Part 2: First duplicate frequency: {first_duplicate_freq}")
+    solution = ProblemSolution(
+        problem_id, f"First duplicate frequency: {first_duplicate_freq}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

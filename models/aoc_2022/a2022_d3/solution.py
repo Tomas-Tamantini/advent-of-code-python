@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .rucksack import Rucksack
 
 
@@ -16,9 +16,12 @@ def aoc_2022_d3(io_handler: IOHandler) -> None:
         for rucksack in rucksacks
         for item in rucksack.items_in_common_between_left_and_right()
     )
-    print(
-        f"Part 1: Total priority of common items between left and right is {total_priorities}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Total priority of common items between left and right is {total_priorities}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
 
     groups = [rucksacks[i : i + 3] for i in range(0, len(rucksacks), 3)]
     total_priorities = 0
@@ -26,4 +29,9 @@ def aoc_2022_d3(io_handler: IOHandler) -> None:
         for items in group[0].items_in_common_with_others(*group[1:]):
             total_priorities += group[0].item_priority(items)
 
-    print(f"Part 2: Total priority of common items within groups is {total_priorities}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Total priority of common items within groups is {total_priorities}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

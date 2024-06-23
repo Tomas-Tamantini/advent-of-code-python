@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from math import prod
 from .packet_arrangement import possible_arrangements_of_packets_in_passenger_comparment
 
@@ -14,15 +14,21 @@ def aoc_2015_d24(io_handler: IOHandler) -> None:
             numbers, num_groups=3
         )
     )
-    print(
-        f"Part 1: Quantum entanglement of optimal arrangement divided in 3 groups is {min_quantum_entanglement}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Quantum entanglement of optimal arrangement divided in 3 groups is {min_quantum_entanglement}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     min_quantum_entanglement = min(
         prod(group)
         for group in possible_arrangements_of_packets_in_passenger_comparment(
             numbers, num_groups=4
         )
     )
-    print(
-        f"Part 2: Quantum entanglement of optimal arrangement divided in 4 groups is {min_quantum_entanglement}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Quantum entanglement of optimal arrangement divided in 4 groups is {min_quantum_entanglement}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

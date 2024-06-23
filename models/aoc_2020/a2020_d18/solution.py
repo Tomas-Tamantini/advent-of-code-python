@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .evaluate_expression import (
     evaluate_expression_addition_precedence,
     evaluate_expression_left_precedence,
@@ -12,14 +12,20 @@ def aoc_2020_d18(io_handler: IOHandler) -> None:
     sum_results_left_precedence = sum(
         evaluate_expression_left_precedence(expression) for expression in expressions
     )
-    print(
-        f"Part 1: Sum of results using left precedence is {sum_results_left_precedence}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Sum of results using left precedence is {sum_results_left_precedence}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
 
     sum_results_addition_precedence = sum(
         evaluate_expression_addition_precedence(expression)
         for expression in expressions
     )
-    print(
-        f"Part 2: Sum of results using addition precedence is {sum_results_addition_precedence}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Sum of results using addition precedence is {sum_results_addition_precedence}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

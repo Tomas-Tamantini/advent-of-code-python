@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_3d_vectors
 from .moons import MoonOfJupiter, MoonSystem
 
@@ -13,6 +13,8 @@ def aoc_2019_d12(io_handler: IOHandler) -> None:
     total_energy = sum(
         m.position.manhattan_size * m.velocity.manhattan_size for m in system.moons
     )
-    print(f"Part 1: Total energy is {total_energy}")
+    solution = ProblemSolution(problem_id, f"Total energy is {total_energy}", part=1)
+    io_handler.output_writer.write_solution(solution)
     period = system.period()
-    print(f"Part 2: System period is {period}")
+    solution = ProblemSolution(problem_id, f"System period is {period}", part=2)
+    io_handler.output_writer.write_solution(solution)

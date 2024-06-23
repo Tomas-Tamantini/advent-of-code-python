@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_bus_schedules_and_current_timestamp
 from .bus_schedule import earliest_timestamp_to_match_wait_time_and_index_in_list
 
@@ -16,10 +16,18 @@ def aoc_2020_d13(io_handler: IOHandler) -> None:
         )
         for bus in bus_schedules
     )
-    print(
-        f"Part 1: Bus ID {bus_id} multiplied by wait time {wait_time} is {bus_id * wait_time}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Bus ID {bus_id} multiplied by wait time {wait_time} is {bus_id * wait_time}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     earliest_timestamp = earliest_timestamp_to_match_wait_time_and_index_in_list(
         bus_schedules
     )
-    print(f"Part 2: Earliest timestamp to match bus schedules is {earliest_timestamp}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Earliest timestamp to match bus schedules is {earliest_timestamp}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_cuboid_instructions
 from .reactor_cells import num_reactor_cells_on
 
@@ -12,9 +12,15 @@ def aoc_2021_d22(io_handler: IOHandler) -> None:
         for instruction in instructions
         if instruction.cuboid.all_coords_are_between(-50, 50)
     ]
-    print(
-        f"Part 1: The number of cells turned on in smaller volume is {num_reactor_cells_on(small_instructions)}"
+    solution = ProblemSolution(
+        problem_id,
+        f"The number of cells turned on in smaller volume is {num_reactor_cells_on(small_instructions)}",
+        part=1,
     )
-    print(
-        f"Part 2: The number of cells turned on in entire volume is {num_reactor_cells_on(instructions)}"
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"The number of cells turned on in entire volume is {num_reactor_cells_on(instructions)}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

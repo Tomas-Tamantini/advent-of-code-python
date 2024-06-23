@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_triangle_sides
 
 
@@ -26,9 +26,15 @@ def aoc_2016_d3(io_handler: IOHandler) -> None:
         )
     )
 
-    print(
-        f"Part 1: Number of valid triangles read horizontally: {valid_triangles_horizontal}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of valid triangles read horizontally: {valid_triangles_horizontal}",
+        part=1,
     )
-    print(
-        f"Part 2: Number of valid triangles read vertically: {valid_triangles_vertical}"
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of valid triangles read vertically: {valid_triangles_vertical}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

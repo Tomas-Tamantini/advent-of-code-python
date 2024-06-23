@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_bingo_game_and_numbers_to_draw
 
 
@@ -17,5 +17,15 @@ def aoc_2021_d4(io_handler: IOHandler) -> None:
         elif game.all_boards_won():
             product_last_winner = number * sum(game.winners[-1].unmarked_numbers())
             break
-    print(f"Part 1: The product for the first bingo winner is {product_first_winner}")
-    print(f"Part 2: The product for the last bingo winner is {product_last_winner}")
+    solution = ProblemSolution(
+        problem_id,
+        f"The product for the first bingo winner is {product_first_winner}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"The product for the last bingo winner is {product_last_winner}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

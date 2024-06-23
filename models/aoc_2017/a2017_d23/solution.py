@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from models.aoc_2017.a2017_d18.parser import parse_duet_code
 from .coprocessor import (
     count_multiply_instructions,
@@ -14,8 +14,14 @@ def aoc_2017_d23(io_handler: IOHandler) -> None:
         parse_duet_code(io_handler.input_reader, mul_cls=SpyMultiplyInstruction)
     )
     num_multiply_instructions = count_multiply_instructions(instructions)
-    print(f"Part 1: Number of multiply instructions: {num_multiply_instructions}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of multiply instructions: {num_multiply_instructions}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
     h_register = optimized_coprocessor_code(
         initial_a=1, initial_b=instructions[0].source
     )
-    print(f"Part 2: Value of register h: {h_register}")
+    solution = ProblemSolution(problem_id, f"Value of register h: {h_register}", part=2)
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_undirected_graph
 
 
@@ -7,6 +7,12 @@ def aoc_2015_d9(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     graph = parse_undirected_graph(io_handler.input_reader)
     shortest_distance = graph.shortest_complete_itinerary_distance()
-    print(f"Part 1: Distance of shortest itinerary is {shortest_distance}")
+    solution = ProblemSolution(
+        problem_id, f"Distance of shortest itinerary is {shortest_distance}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     longest_distance = graph.longest_complete_itinerary_distance()
-    print(f"Part 2: Distance of longest itinerary is {longest_distance}")
+    solution = ProblemSolution(
+        problem_id, f"Distance of longest itinerary is {longest_distance}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

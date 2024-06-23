@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem, CharacterGrid
+from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
 from .game_of_life_lights import GameOfLifeLights
 
 
@@ -17,9 +17,15 @@ def aoc_2015_d18(io_handler: IOHandler) -> None:
         cells_corners_always_on_game = game.step_with_always_on_cells(
             cells_corners_always_on_game, corner_cells
         )
-    print(
-        f"Part 1: There are {len(cells_default_game)} lights on after {num_steps} steps"
+    solution = ProblemSolution(
+        problem_id,
+        f"There are {len(cells_default_game)} lights on after {num_steps} steps",
+        part=1,
     )
-    print(
-        f"Part 2: There are {len(cells_corners_always_on_game)} lights on after {num_steps} steps with corner lights always on"
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"There are {len(cells_corners_always_on_game)} lights on after {num_steps} steps with corner lights always on",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

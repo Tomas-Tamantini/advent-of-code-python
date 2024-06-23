@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def digits_that_match_the_next(sequence: str, wrap_around: bool) -> Iterator[chr]:
@@ -25,8 +25,16 @@ def aoc_2017_d1(io_handler: IOHandler) -> None:
     sum_matches = sum(
         int(d) for d in digits_that_match_the_next(digit_sequence, wrap_around=True)
     )
-    print(f"Part 1: Sum of digits that match the next one: {sum_matches}")
+    solution = ProblemSolution(
+        problem_id, f"Sum of digits that match the next one: {sum_matches}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     sum_matches = sum(
         int(d) for d in digits_that_match_one_across_the_circle(digit_sequence)
     )
-    print(f"Part 2: Sum of digits that match one across the circle: {sum_matches}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Sum of digits that match one across the circle: {sum_matches}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

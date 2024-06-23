@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     Wizard,
     Boss,
@@ -31,7 +31,10 @@ def aoc_2015_d22(io_handler: IOHandler) -> None:
         Recharge(mana_cost=229, duration=5, mana_recharge=101),
     ]
     min_mana = min_mana_to_defeat_boss(game_state, spell_book, boss_move)
-    print(f"Part 1: Minimum mana to defeat boss is {min_mana}")
+    solution = ProblemSolution(
+        problem_id, f"Minimum mana to defeat boss is {min_mana}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
 
     drain_health = DrainWizardHealthEffect(
         id="drain_health",
@@ -42,4 +45,7 @@ def aoc_2015_d22(io_handler: IOHandler) -> None:
 
     game_state_hard_mode = game_state.add_spell_effect(drain_health)
     min_mana = min_mana_to_defeat_boss(game_state_hard_mode, spell_book, boss_move)
-    print(f"Part 2: Minimum mana to defeat boss in hard mode is {min_mana}")
+    solution = ProblemSolution(
+        problem_id, f"Minimum mana to defeat boss in hard mode is {min_mana}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_program_graph
 
 
@@ -13,5 +13,13 @@ def aoc_2017_d12(io_handler: IOHandler) -> None:
         if initial_node in group:
             group_size = len(group)
             break
-    print(f"Part 1: Number of nodes in group with node {initial_node}: {group_size}")
-    print(f"Part 2: Number of disjoint groups: {len(disjoint_groups)}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of nodes in group with node {initial_node}: {group_size}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"Number of disjoint groups: {len(disjoint_groups)}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

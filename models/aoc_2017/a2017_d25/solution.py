@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_turing_machine_specs
 from .turing_machine import TuringMachine
 
@@ -11,6 +11,7 @@ def aoc_2017_d25(io_handler: IOHandler) -> None:
     )
     machine = TuringMachine()
     machine.run(transition_rules, initial_state, num_steps, io_handler.progress_bar)
-    print(
-        f"AOC 2017 Day 25: Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
+    solution = ProblemSolution(
+        problem_id, f"Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
     )
+    io_handler.output_writer.write_solution(solution)

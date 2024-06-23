@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .package_router import PackageRouter
 
 
@@ -8,5 +8,11 @@ def aoc_2017_d19(io_handler: IOHandler) -> None:
     maze = [line for line in io_handler.input_reader.readlines()]
     router = PackageRouter(maze)
     router.explore()
-    print(f"Part 1: Letters visited: {''.join(router.visited_letters)}")
-    print(f"Part 2: Number of routing steps: {router.num_steps}")
+    solution = ProblemSolution(
+        problem_id, f"Letters visited: {''.join(router.visited_letters)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"Number of routing steps: {router.num_steps}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

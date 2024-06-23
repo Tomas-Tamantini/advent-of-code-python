@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_moving_particles
 from .moving_particles import MovingParticles
 
@@ -10,6 +10,11 @@ def aoc_2018_d10(io_handler: IOHandler) -> None:
     moving_particles = MovingParticles(particles)
     moments = moving_particles.moments_of_bounding_box_area_increase()
     inflexion_point = next(moments) - 1
-    print("Part 1: Message:")
-    print(moving_particles.draw(inflexion_point))
-    print(f"Part 2: Time to reach message: {inflexion_point}")
+    solution = ProblemSolution(
+        problem_id, f"Message:\n{moving_particles.draw(inflexion_point)}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"Time to reach message: {inflexion_point}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

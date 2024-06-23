@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_reindeers
 from .reindeer import ReindeerOlympics
 
@@ -10,6 +10,12 @@ def aoc_2015_d14(io_handler: IOHandler) -> None:
     race_duration = 2503
     reindeer_olympics = ReindeerOlympics(reindeers)
     max_distance = max(reindeer_olympics.positions_at_time(race_duration))
-    print(f"Part 1: Furthest reindeer is at position {max_distance}")
+    solution = ProblemSolution(
+        problem_id, f"Furthest reindeer is at position {max_distance}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     max_points = max(reindeer_olympics.points_at_time(race_duration))
-    print(f"Part 2: Reindeer with most points has {max_points} points")
+    solution = ProblemSolution(
+        problem_id, f"Reindeer with most points has {max_points} points", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

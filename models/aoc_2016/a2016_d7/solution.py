@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .ip_parser import IpParser
 
 
@@ -13,5 +13,15 @@ def aoc_2016_d7(io_handler: IOHandler) -> None:
             num_ips_that_support_tls += 1
         if ip_parser.supports_ssl():
             num_ips_that_support_ssl += 1
-    print(f"Part 1: Number of IPs that support TLS: {num_ips_that_support_tls}")
-    print(f"Part 2: Number of IPs that support SSL: {num_ips_that_support_ssl}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of IPs that support TLS: {num_ips_that_support_tls}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of IPs that support SSL: {num_ips_that_support_ssl}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_bridge_components
 from .bridge_builder import BridgeBuilder
 
@@ -10,7 +10,13 @@ def aoc_2017_d24(io_handler: IOHandler) -> None:
     builder = BridgeBuilder(components)
     io_handler.output_writer.give_time_estimation("1min", part=1)
     builder.build()
-    print(f"Part 1: Maximum bridge strength: {builder.max_strength}")
-    print(
-        f"Part 2: Maximum strength of longest bridge: {builder.max_strength_of_longest_bridge}"
+    solution = ProblemSolution(
+        problem_id, f"Maximum bridge strength: {builder.max_strength}", part=1
     )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Maximum strength of longest bridge: {builder.max_strength_of_longest_bridge}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

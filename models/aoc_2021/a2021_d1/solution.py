@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def num_increases(lst: list[int]) -> int:
@@ -14,8 +14,16 @@ def aoc_2021_d1(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     measurements = [int(line) for line in io_handler.input_reader.readlines()]
 
-    print(
-        f"Part 1: The number of measurement increases is {num_increases(measurements)}"
+    solution = ProblemSolution(
+        problem_id,
+        f"The number of measurement increases is {num_increases(measurements)}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
     sums = window_sum(measurements, window_size=3)
-    print(f"Part 2: The number of increases in partial sums is {num_increases(sums)}")
+    solution = ProblemSolution(
+        problem_id,
+        f"The number of increases in partial sums is {num_increases(sums)}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

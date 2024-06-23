@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem, InputReader
+from models.common.io import IOHandler, Problem, ProblemSolution, InputReader
 from .monkey import Monkeys
 from .parser import parse_monkeys
 
@@ -20,8 +20,18 @@ def aoc_2022_d11(io_handler: IOHandler) -> None:
     monkey_business_20_rounds = _monkey_business(
         io_handler.input_reader, boredom_worry_level_divisor=3, num_rounds=20
     )
-    print(f"Part 1: Monkey business for 20 rounds is {monkey_business_20_rounds}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Monkey business for 20 rounds is {monkey_business_20_rounds}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
     monkey_business_10k_rounds = _monkey_business(
         io_handler.input_reader, boredom_worry_level_divisor=1, num_rounds=10_000
     )
-    print(f"Part 2: Monkey business for 10,000 rounds is {monkey_business_10k_rounds}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Monkey business for 10,000 rounds is {monkey_business_10k_rounds}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

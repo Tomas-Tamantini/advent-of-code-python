@@ -1,5 +1,5 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def eggnog_partition(total_volume: int, capacities: list[int]) -> Iterator[list[int]]:
@@ -23,9 +23,15 @@ def aoc_2015_d17(io_handler: IOHandler) -> None:
     total_volume = 150
     partitions = list(eggnog_partition(total_volume, capacities))
     num_ways = len(partitions)
-    print(f"Part 1: There are {num_ways} ways to store eggnog")
+    solution = ProblemSolution(
+        problem_id, f"There are {num_ways} ways to store eggnog", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     min_num_containers = min(len(p) for p in partitions)
     num_ways_min_containers = sum(1 for p in partitions if len(p) == min_num_containers)
-    print(
-        f"Part 2: There are {num_ways_min_containers} ways to store eggnog using {min_num_containers} containers"
+    solution = ProblemSolution(
+        problem_id,
+        f"There are {num_ways_min_containers} ways to store eggnog using {min_num_containers} containers",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

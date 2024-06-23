@@ -1,9 +1,11 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_aunt_sue_collection
 from .aunt_sue import MatchType
 
 
 def aoc_2015_d16(io_handler: IOHandler) -> None:
+    problem_id = Problem(2015, 16, "Aunt Sue")
+    io_handler.output_writer.write_header(problem_id)
     measured_attributes = {
         "children": 3,
         "cats": 7,
@@ -36,6 +38,12 @@ def aoc_2015_d16(io_handler: IOHandler) -> None:
     aunts = parse_aunt_sue_collection(io_handler.input_reader)
     for aunt in aunts:
         if aunt.matches(measured_attributes_exact):
-            print(f"Part 1: Aunt Sue {aunt.id} matches exact data")
+            solution = ProblemSolution(
+                problem_id, f"Aunt Sue {aunt.id} matches exact data", part=1
+            )
+            io_handler.output_writer.write_solution(solution)
         if aunt.matches(measure_attributes_retroencabulator):
-            print(f"Part 2: Aunt Sue {aunt.id} matches range data")
+            solution = ProblemSolution(
+                problem_id, f"Aunt Sue {aunt.id} matches range data", part=2
+            )
+            io_handler.output_writer.write_solution(solution)

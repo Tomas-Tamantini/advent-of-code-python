@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_logic_gates_circuit
 
 
@@ -7,6 +7,10 @@ def aoc_2015_d7(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     circuit = parse_logic_gates_circuit(io_handler.input_reader)
     a_value = circuit.get_value("a")
-    print(f"Part 1: Wire a has signal of {a_value}")
+    solution = ProblemSolution(problem_id, f"Wire a has signal of {a_value}", part=1)
+    io_handler.output_writer.write_solution(solution)
     new_a_value = circuit.get_value("a", override_values={"b": a_value})
-    print(f"Part 2: After b is overriden, wire a has signal of {new_a_value}")
+    solution = ProblemSolution(
+        problem_id, f"After b is overriden, wire a has signal of {new_a_value}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

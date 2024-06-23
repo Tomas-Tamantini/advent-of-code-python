@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .disk_grid import DiskGrid
 
 
@@ -8,5 +8,11 @@ def aoc_2017_d14(io_handler: IOHandler) -> None:
     key = io_handler.input_reader.read().strip()
     num_rows = 128
     grid = DiskGrid(key, num_rows)
-    print(f"Part 1: Number of used squares: {grid.num_used_squares()}")
-    print(f"Part 2: Number of regions: {grid.num_regions()}")
+    solution = ProblemSolution(
+        problem_id, f"Number of used squares: {grid.num_used_squares()}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"Number of regions: {grid.num_regions()}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

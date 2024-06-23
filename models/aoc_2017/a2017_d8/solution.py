@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_conditional_increment_instructions
 from .conditional_increment import maximum_value_at_registers
 
@@ -12,5 +12,11 @@ def aoc_2017_d8(io_handler: IOHandler) -> None:
     max_values = list(maximum_value_at_registers(instructions))
     max_value_final = max_values[-1]
     max_value_all_time = max(max_values)
-    print(f"Part 1: Maximum register value at end: {max_value_final}")
-    print(f"Part 2: Maximum register value at any time: {max_value_all_time}")
+    solution = ProblemSolution(
+        problem_id, f"Maximum register value at end: {max_value_final}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id, f"Maximum register value at any time: {max_value_all_time}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

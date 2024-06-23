@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .string_classifier import StringClassifier, simple_ruleset, complex_ruleset
 
 
@@ -11,8 +11,16 @@ def aoc_2015_d5(io_handler: IOHandler) -> None:
     nice_strings_simple_ruleset = [
         string for string in strings if simple_classifier.is_nice_string(string)
     ]
-    print(f"Part 1: There are {len(nice_strings_simple_ruleset)} nice strings")
+    solution = ProblemSolution(
+        problem_id, f"There are {len(nice_strings_simple_ruleset)} nice strings", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     nice_strings_complex_ruleset = [
         string for string in strings if complex_classifier.is_nice_string(string)
     ]
-    print(f"Part 2: There are {len(nice_strings_complex_ruleset)} nice strings")
+    solution = ProblemSolution(
+        problem_id,
+        f"There are {len(nice_strings_complex_ruleset)} nice strings",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_layered_firewall
 
 
@@ -10,6 +10,12 @@ def aoc_2017_d13(io_handler: IOHandler) -> None:
     severity = sum(
         layer_depth * layer.scanning_range for layer_depth, layer in packet_collisions
     )
-    print(f"Part 1: Severity of packet collisions: {severity}")
+    solution = ProblemSolution(
+        problem_id, f"Severity of packet collisions: {severity}", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     minimum_delay = firewall.minimum_delay_to_avoid_collisions()
-    print(f"Part 2: Minimum delay to avoid collisions: {minimum_delay}")
+    solution = ProblemSolution(
+        problem_id, f"Minimum delay to avoid collisions: {minimum_delay}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

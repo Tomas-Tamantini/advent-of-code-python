@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def sentence_contains_no_duplicates(sentence: str) -> bool:
@@ -19,6 +19,14 @@ def aoc_2017_d4(io_handler: IOHandler) -> None:
     no_duplicates = sum(
         sentence_contains_no_duplicates(phrase) for phrase in passphrases
     )
-    print(f"Part 1: Number of passphrases with no duplicate words: {no_duplicates}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of passphrases with no duplicate words: {no_duplicates}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
     no_anagrams = sum(sentence_contains_no_anagrams(phrase) for phrase in passphrases)
-    print(f"Part 2: Number of passphrases with no anagrams: {no_anagrams}")
+    solution = ProblemSolution(
+        problem_id, f"Number of passphrases with no anagrams: {no_anagrams}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

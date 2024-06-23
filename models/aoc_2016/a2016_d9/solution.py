@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .text_decompressor import TextDecompressor
 
 
@@ -7,9 +7,15 @@ def aoc_2016_d9(io_handler: IOHandler) -> None:
     io_handler.output_writer.write_header(problem_id)
     compressed_text = io_handler.input_reader.read().strip()
     decompressor = TextDecompressor(compressed_text)
-    print(
-        f"Part 1: Length of decompressed text: {decompressor.length_shallow_decompression()}"
+    solution = ProblemSolution(
+        problem_id,
+        f"Length of decompressed text: {decompressor.length_shallow_decompression()}",
+        part=1,
     )
-    print(
-        f"Part 2: Length of recursively decompressed text: {decompressor.length_recursive_decompression()}"
+    io_handler.output_writer.write_solution(solution)
+    solution = ProblemSolution(
+        problem_id,
+        f"Length of recursively decompressed text: {decompressor.length_recursive_decompression()}",
+        part=2,
     )
+    io_handler.output_writer.write_solution(solution)

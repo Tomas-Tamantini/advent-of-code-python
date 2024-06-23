@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     run_spring_droid_program,
     SpringScriptInstruction,
@@ -29,7 +29,10 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
     run_spring_droid_program(intcode_instructions, droid_input, droid_output)
     try:
         hull_damage = droid_output.large_output()
-        print(f"Part 1: Hull damage from walking on the hull is {hull_damage}")
+        solution = ProblemSolution(
+            problem_id, f"Hull damage from walking on the hull is {hull_damage}", part=1
+        )
+        io_handler.output_writer.write_solution(solution)
     except ValueError:
         print(droid_output.render())
         print("Part 1: Spring bot fell into a hole. Try a different springscript.")
@@ -49,7 +52,10 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
     run_spring_droid_program(intcode_instructions, droid_input, droid_output)
     try:
         hull_damage = droid_output.large_output()
-        print(f"Part 2: Hull damage from running on the hull is {hull_damage}")
+        solution = ProblemSolution(
+            problem_id, f"Hull damage from running on the hull is {hull_damage}", part=2
+        )
+        io_handler.output_writer.write_solution(solution)
     except ValueError:
         print(droid_output.render())
         print("Part 2: Spring bot fell into a hole. Try a different springscript.")

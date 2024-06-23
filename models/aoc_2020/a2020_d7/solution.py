@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_luggage_rules
 
 
@@ -8,6 +8,12 @@ def aoc_2020_d7(io_handler: IOHandler) -> None:
     rules = parse_luggage_rules(io_handler.input_reader)
     my_bag = "shiny gold"
     possible_colors = set(rules.possible_colors_of_outermost_bag(my_bag))
-    print(f"Part 1: {len(possible_colors)} possible outermost bag colors")
+    solution = ProblemSolution(
+        problem_id, f"{len(possible_colors)} possible outermost bag colors", part=1
+    )
+    io_handler.output_writer.write_solution(solution)
     num_inside = rules.number_of_bags_contained_inside(my_bag)
-    print(f"Part 2: {my_bag} contains {num_inside} bags")
+    solution = ProblemSolution(
+        problem_id, f"{my_bag} contains {num_inside} bags", part=2
+    )
+    io_handler.output_writer.write_solution(solution)

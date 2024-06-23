@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem, CharacterGrid
+from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
 from .bugs_automaton import BugsAutomaton, RecursiveBugsAutomaton
 
 
@@ -11,7 +11,12 @@ def aoc_2019_d24(io_handler: IOHandler) -> None:
     automaton = BugsAutomaton(width=5, height=5)
     repeated_state = automaton.first_pattern_to_appear_twice(live_cells)
     rating = automaton.biodiversity_rating(repeated_state)
-    print(f"Part 1: Biodiversity rating of the first repeated state is {rating}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Biodiversity rating of the first repeated state is {rating}",
+        part=1,
+    )
+    io_handler.output_writer.write_solution(solution)
 
     recursive_automaton = RecursiveBugsAutomaton(width=5, height=5)
     final_state = recursive_automaton.advance(
@@ -20,4 +25,9 @@ def aoc_2019_d24(io_handler: IOHandler) -> None:
         progress_bar=io_handler.progress_bar,
     )
     num_bugs = len(final_state)
-    print(f"Part 2: Number of bugs in recursive grid after 200 minutes is {num_bugs}")
+    solution = ProblemSolution(
+        problem_id,
+        f"Number of bugs in recursive grid after 200 minutes is {num_bugs}",
+        part=2,
+    )
+    io_handler.output_writer.write_solution(solution)

@@ -1,4 +1,4 @@
-from models.common.io import IOHandler, Problem
+from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_blueprints
 from .logic import max_num_resource, ResourceType, MiningState
 
@@ -26,9 +26,12 @@ def aoc_2022_d19(io_handler: IOHandler) -> None:
         quality_level = blueprint_id * num_geodes
         sum_quality_levels += quality_level
         io_handler.progress_bar.update(step=i + 1, expected_num_steps=len(blueprints))
-    print(
-        f"Part 1: The sum of quality levels for all blueprints is {sum_quality_levels}"
+    solution = ProblemSolution(
+        problem_id,
+        f"The sum of quality levels for all blueprints is {sum_quality_levels}",
+        part=1,
     )
+    io_handler.output_writer.write_solution(solution)
 
     time_limit = 32
     geode_product = 1
@@ -39,4 +42,7 @@ def aoc_2022_d19(io_handler: IOHandler) -> None:
         )
         geode_product *= num_geodes
         io_handler.progress_bar.update(step=i + 1, expected_num_steps=3)
-    print(f"Part 2: The product of the number of geodes is {geode_product}")
+    solution = ProblemSolution(
+        problem_id, f"The product of the number of geodes is {geode_product}", part=2
+    )
+    io_handler.output_writer.write_solution(solution)
