@@ -11,11 +11,17 @@ def aoc_2015_d14(io_handler: IOHandler) -> None:
     reindeer_olympics = ReindeerOlympics(reindeers)
     max_distance = max(reindeer_olympics.positions_at_time(race_duration))
     solution = ProblemSolution(
-        problem_id, f"Furthest reindeer is at position {max_distance}", part=1
+        problem_id,
+        f"Furthest reindeer is at position {max_distance}",
+        part=1,
+        result=max_distance,
     )
     io_handler.set_solution(solution)
     max_points = max(reindeer_olympics.points_at_time(race_duration))
     solution = ProblemSolution(
-        problem_id, f"Reindeer with most points has {max_points} points", part=2
+        problem_id,
+        f"Reindeer with most points has {max_points} points",
+        part=2,
+        result=max_points,
     )
     io_handler.set_solution(solution)

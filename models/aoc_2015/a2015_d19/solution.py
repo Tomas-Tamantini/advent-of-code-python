@@ -15,6 +15,7 @@ def aoc_2015_d19(io_handler: IOHandler) -> None:
         problem_id,
         f"There are {len(new_molecules)} new molecules after one replacement",
         part=1,
+        result=len(new_molecules),
     )
     io_handler.set_solution(solution)
     num_replacements = num_replacements_from_atom_to_molecule(
@@ -24,5 +25,6 @@ def aoc_2015_d19(io_handler: IOHandler) -> None:
         problem_id,
         f"Minimum number of replacements to make molecule is {num_replacements}",
         part=2,
+        result=num_replacements,
     )
     io_handler.set_solution(solution)

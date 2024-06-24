@@ -32,7 +32,10 @@ def aoc_2015_d22(io_handler: IOHandler) -> None:
     ]
     min_mana = min_mana_to_defeat_boss(game_state, spell_book, boss_move)
     solution = ProblemSolution(
-        problem_id, f"Minimum mana to defeat boss is {min_mana}", part=1
+        problem_id,
+        f"Minimum mana to defeat boss is {min_mana}",
+        part=1,
+        result=min_mana,
     )
     io_handler.set_solution(solution)
 
@@ -46,6 +49,9 @@ def aoc_2015_d22(io_handler: IOHandler) -> None:
     game_state_hard_mode = game_state.add_spell_effect(drain_health)
     min_mana = min_mana_to_defeat_boss(game_state_hard_mode, spell_book, boss_move)
     solution = ProblemSolution(
-        problem_id, f"Minimum mana to defeat boss in hard mode is {min_mana}", part=2
+        problem_id,
+        f"Minimum mana to defeat boss in hard mode is {min_mana}",
+        part=2,
+        result=min_mana,
     )
     io_handler.set_solution(solution)

@@ -21,11 +21,13 @@ def aoc_2015_d18(io_handler: IOHandler) -> None:
         problem_id,
         f"There are {len(cells_default_game)} lights on after {num_steps} steps",
         part=1,
+        result=len(cells_default_game),
     )
     io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"There are {len(cells_corners_always_on_game)} lights on after {num_steps} steps with corner lights always on",
         part=2,
+        result=len(cells_corners_always_on_game),
     )
     io_handler.set_solution(solution)

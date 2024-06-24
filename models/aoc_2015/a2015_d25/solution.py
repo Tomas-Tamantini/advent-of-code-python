@@ -22,5 +22,6 @@ def aoc_2015_d25(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id,
         f"Code at row {row_and_col['row']}, column {row_and_col['col']} is {code}",
+        result=code,
     )
     io_handler.set_solution(solution)

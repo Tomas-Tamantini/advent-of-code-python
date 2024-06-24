@@ -24,12 +24,18 @@ def aoc_2015_d10(io_handler: IOHandler) -> None:
     for _ in range(40):
         current_digits = next_look_and_say(current_digits)
     solution = ProblemSolution(
-        problem_id, f"Lenght of 40th term is {len(current_digits)}", part=1
+        problem_id,
+        f"Lenght of 40th term is {len(current_digits)}",
+        part=1,
+        result=len(current_digits),
     )
     io_handler.set_solution(solution)
     for _ in range(10):
         current_digits = next_look_and_say(current_digits)
     solution = ProblemSolution(
-        problem_id, f"Lenght of 50th term is {len(current_digits)}", part=2
+        problem_id,
+        f"Lenght of 50th term is {len(current_digits)}",
+        part=2,
+        result=len(current_digits),
     )
     io_handler.set_solution(solution)

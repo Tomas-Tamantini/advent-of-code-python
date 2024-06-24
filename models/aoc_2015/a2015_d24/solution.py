@@ -18,6 +18,7 @@ def aoc_2015_d24(io_handler: IOHandler) -> None:
         problem_id,
         f"Quantum entanglement of optimal arrangement divided in 3 groups is {min_quantum_entanglement}",
         part=1,
+        result=min_quantum_entanglement,
     )
     io_handler.set_solution(solution)
     min_quantum_entanglement = min(
@@ -29,6 +30,7 @@ def aoc_2015_d24(io_handler: IOHandler) -> None:
     solution = ProblemSolution(
         problem_id,
         f"Quantum entanglement of optimal arrangement divided in 4 groups is {min_quantum_entanglement}",
+        result=min_quantum_entanglement,
         part=2,
     )
     io_handler.set_solution(solution)

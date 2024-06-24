@@ -24,7 +24,10 @@ def aoc_2015_d17(io_handler: IOHandler) -> None:
     partitions = list(eggnog_partition(total_volume, capacities))
     num_ways = len(partitions)
     solution = ProblemSolution(
-        problem_id, f"There are {num_ways} ways to store eggnog", part=1
+        problem_id,
+        f"There are {num_ways} ways to store eggnog",
+        part=1,
+        result=num_ways,
     )
     io_handler.set_solution(solution)
     min_num_containers = min(len(p) for p in partitions)
@@ -33,5 +36,6 @@ def aoc_2015_d17(io_handler: IOHandler) -> None:
         problem_id,
         f"There are {num_ways_min_containers} ways to store eggnog using {min_num_containers} containers",
         part=2,
+        result=num_ways_min_containers,
     )
     io_handler.set_solution(solution)

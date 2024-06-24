@@ -8,7 +8,10 @@ def aoc_2015_d13(io_handler: IOHandler) -> None:
     graph = parse_seating_arrangement(io_handler.input_reader)
     max_happiness = graph.both_ways_trip_max_cost()
     solution = ProblemSolution(
-        problem_id, f"Maximum happiness without me is {max_happiness}", part=1
+        problem_id,
+        f"Maximum happiness without me is {max_happiness}",
+        part=1,
+        result=max_happiness,
     )
     io_handler.set_solution(solution)
     pre_existing_nodes = list(graph.nodes())
@@ -17,6 +20,9 @@ def aoc_2015_d13(io_handler: IOHandler) -> None:
         graph.add_edge(n, "Me", 0)
     max_happiness = graph.both_ways_trip_max_cost()
     solution = ProblemSolution(
-        problem_id, f"Maximum happiness with me is {max_happiness}", part=2
+        problem_id,
+        f"Maximum happiness with me is {max_happiness}",
+        part=2,
+        result=max_happiness,
     )
     io_handler.set_solution(solution)
