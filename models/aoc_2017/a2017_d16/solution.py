@@ -11,7 +11,9 @@ def aoc_2017_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     dancers = "abcdefghijklmnop"
     for move in dance_moves:
         dancers = move.transform(dancers)
-    yield ProblemSolution(problem_id, f"Final order of dancers: {dancers}", part=1)
+    yield ProblemSolution(
+        problem_id, f"Final order of dancers: {dancers}", part=1, result=dancers
+    )
 
     num_dances = 1_000_000_000
     dancers = "abcdefghijklmnop"
@@ -20,4 +22,5 @@ def aoc_2017_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Final order of dancers after {num_dances} dances: {dancers}",
         part=2,
+        result=dancers,
     )

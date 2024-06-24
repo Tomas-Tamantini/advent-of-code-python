@@ -13,5 +13,7 @@ def aoc_2017_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     machine = TuringMachine()
     machine.run(transition_rules, initial_state, num_steps, io_handler.progress_bar)
     yield ProblemSolution(
-        problem_id, f"Number of 1s after {num_steps} steps: {machine.sum_tape_values}"
+        problem_id,
+        f"Number of 1s after {num_steps} steps: {machine.sum_tape_values}",
+        result=machine.sum_tape_values,
     )

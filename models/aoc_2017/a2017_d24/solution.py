@@ -12,11 +12,15 @@ def aoc_2017_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.give_time_estimation("1min", part=1)
     builder.build()
     yield ProblemSolution(
-        problem_id, f"Maximum bridge strength: {builder.max_strength}", part=1
+        problem_id,
+        f"Maximum bridge strength: {builder.max_strength}",
+        part=1,
+        result=builder.max_strength,
     )
 
     yield ProblemSolution(
         problem_id,
         f"Maximum strength of longest bridge: {builder.max_strength_of_longest_bridge}",
         part=2,
+        result=builder.max_strength_of_longest_bridge,
     )

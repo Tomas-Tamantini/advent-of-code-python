@@ -11,9 +11,11 @@ def aoc_2017_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     knot_hash = KnotHash(list_length=256)
     for length in lengths_as_int:
         knot_hash.iterate_hash(length)
+    result = knot_hash.list[0] * knot_hash.list[1]
     yield ProblemSolution(
         problem_id,
-        f"Product of first two numbers: {knot_hash.list[0] * knot_hash.list[1]}",
+        f"Product of first two numbers: {result}",
+        result,
         part=1,
     )
 
@@ -26,5 +28,8 @@ def aoc_2017_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     dense_hash = knot_hash.dense_hash()
     dense_hash_as_hex = "".join(f"{n:02x}" for n in dense_hash)
     yield ProblemSolution(
-        problem_id, f"Dense hash as hex string: {dense_hash_as_hex}", part=2
+        problem_id,
+        f"Dense hash as hex string: {dense_hash_as_hex}",
+        part=2,
+        result=dense_hash_as_hex,
     )

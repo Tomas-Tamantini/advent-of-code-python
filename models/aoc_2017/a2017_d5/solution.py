@@ -27,6 +27,7 @@ def aoc_2017_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Steps to exit with simple increment: {steps_simple_increment}",
         part=1,
+        result=steps_simple_increment,
     )
 
     complex_increment_rule = lambda jump: jump - 1 if jump >= 3 else jump + 1
@@ -39,4 +40,5 @@ def aoc_2017_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Steps to exit with increment/decrement: {steps_complex_increment}",
         part=2,
+        result=steps_complex_increment,
     )

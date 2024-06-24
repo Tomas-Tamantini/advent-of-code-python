@@ -18,8 +18,12 @@ def aoc_2017_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of nodes in group with node {initial_node}: {group_size}",
         part=1,
+        result=group_size,
     )
 
     yield ProblemSolution(
-        problem_id, f"Number of disjoint groups: {len(disjoint_groups)}", part=2
+        problem_id,
+        f"Number of disjoint groups: {len(disjoint_groups)}",
+        part=2,
+        result=len(disjoint_groups),
     )

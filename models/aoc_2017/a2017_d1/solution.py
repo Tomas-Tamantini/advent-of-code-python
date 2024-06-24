@@ -26,7 +26,10 @@ def aoc_2017_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         int(d) for d in digits_that_match_the_next(digit_sequence, wrap_around=True)
     )
     yield ProblemSolution(
-        problem_id, f"Sum of digits that match the next one: {sum_matches}", part=1
+        problem_id,
+        f"Sum of digits that match the next one: {sum_matches}",
+        part=1,
+        result=sum_matches,
     )
 
     sum_matches = sum(
@@ -35,5 +38,6 @@ def aoc_2017_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     yield ProblemSolution(
         problem_id,
         f"Sum of digits that match one across the circle: {sum_matches}",
+        result=sum_matches,
         part=2,
     )

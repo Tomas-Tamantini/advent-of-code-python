@@ -20,6 +20,7 @@ def aoc_2017_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of matches not filtering out multiples: {num_matches}",
         part=1,
+        result=num_matches,
     )
 
     generator_a.filter_multiples_of = 4
@@ -28,5 +29,8 @@ def aoc_2017_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         num_steps=5_000_000, progress_bar=io_handler.progress_bar
     )
     yield ProblemSolution(
-        problem_id, f"Number of matches filtering out multiples: {num_matches}", part=2
+        problem_id,
+        f"Number of matches filtering out multiples: {num_matches}",
+        part=2,
+        result=num_matches,
     )

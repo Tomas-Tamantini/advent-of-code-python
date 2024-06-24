@@ -9,10 +9,12 @@ def aoc_2017_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     maze = [line for line in io_handler.input_reader.readlines()]
     router = PackageRouter(maze)
     router.explore()
-    yield ProblemSolution(
-        problem_id, f"Letters visited: {''.join(router.visited_letters)}", part=1
-    )
+    result = "".join(router.visited_letters)
+    yield ProblemSolution(problem_id, f"Letters visited: {result}", result, part=1)
 
     yield ProblemSolution(
-        problem_id, f"Number of routing steps: {router.num_steps}", part=2
+        problem_id,
+        f"Number of routing steps: {router.num_steps}",
+        part=2,
+        result=router.num_steps,
     )

@@ -9,10 +9,9 @@ def aoc_2017_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     key = io_handler.input_reader.read().strip()
     num_rows = 128
     grid = DiskGrid(key, num_rows)
+    result = grid.num_used_squares()
     yield ProblemSolution(
-        problem_id, f"Number of used squares: {grid.num_used_squares()}", part=1
+        problem_id, f"Number of used squares: {result}", result, part=1
     )
-
-    yield ProblemSolution(
-        problem_id, f"Number of regions: {grid.num_regions()}", part=2
-    )
+    result = grid.num_regions()
+    yield ProblemSolution(problem_id, f"Number of regions: {result}", result, part=2)

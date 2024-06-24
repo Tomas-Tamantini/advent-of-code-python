@@ -11,7 +11,10 @@ def aoc_2017_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     instructions_audio = list(parse_duet_code(io_handler.input_reader))
     audio_output = last_recovered_frequency(instructions_audio)
     yield ProblemSolution(
-        problem_id, f"Last recovered frequency: {audio_output}", part=1
+        problem_id,
+        f"Last recovered frequency: {audio_output}",
+        part=1,
+        result=audio_output,
     )
 
     instructions_communication = list(
@@ -23,4 +26,5 @@ def aoc_2017_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of values sent by program 1: {len(sent_values['1'])}",
         part=2,
+        result=len(sent_values["1"]),
     )

@@ -10,8 +10,13 @@ def aoc_2017_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     balancer = MemoryBankBalancer(num_blocks)
     num_redistributions = len(list(balancer.unique_configurations()))
     yield ProblemSolution(
-        problem_id, f"Number of redistributions: {num_redistributions}", part=1
+        problem_id,
+        f"Number of redistributions: {num_redistributions}",
+        part=1,
+        result=num_redistributions,
     )
 
     loop_size = balancer.loop_size()
-    yield ProblemSolution(problem_id, f"Loop size: {loop_size}", part=2)
+    yield ProblemSolution(
+        problem_id, f"Loop size: {loop_size}", part=2, result=loop_size
+    )

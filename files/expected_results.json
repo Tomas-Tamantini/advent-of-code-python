@@ -269,127 +269,127 @@
         {
           "day": 1,
           "title": "Inverse Captcha",
-          "results": []
+          "results": [1228, 1238]
         },
         {
           "day": 2,
           "title": "Corruption Checksum",
-          "results": []
+          "results": [51833, 288]
         },
         {
           "day": 3,
           "title": "Spiral Memory",
-          "results": []
+          "results": [430, 312453]
         },
         {
           "day": 4,
           "title": "High-Entropy Passphrases",
-          "results": []
+          "results": [477, 167]
         },
         {
           "day": 5,
           "title": "A Maze of Twisty Trampolines, All Alike",
-          "results": []
+          "results": [396086, 28675390]
         },
         {
           "day": 6,
           "title": "Memory Reallocation",
-          "results": []
+          "results": [6681, 2392]
         },
         {
           "day": 7,
           "title": "Recursive Circus",
-          "results": []
+          "results": ["cqmvs", 2310]
         },
         {
           "day": 8,
           "title": "I Heard You Like Registers",
-          "results": []
+          "results": [3745, 4644]
         },
         {
           "day": 9,
           "title": "Stream Processing",
-          "results": []
+          "results": [14421, 6817]
         },
         {
           "day": 10,
           "title": "Knot Hash",
-          "results": []
+          "results": [48705, "1c46642b6f2bc21db2a2149d0aeeae5d"]
         },
         {
           "day": 11,
           "title": "Hex Ed",
-          "results": []
+          "results": [650, 1465]
         },
         {
           "day": 12,
           "title": "Digital Plumber",
-          "results": []
+          "results": [113, 202]
         },
         {
           "day": 13,
           "title": "Packet Scanners",
-          "results": []
+          "results": [1704, 3970918]
         },
         {
           "day": 14,
           "title": "Disk Defragmentation",
-          "results": []
+          "results": [8226, 1128]
         },
         {
           "day": 15,
           "title": "Dueling Generators",
-          "results": []
+          "results": [638, 343]
         },
         {
           "day": 16,
           "title": "Permutation Promenade",
-          "results": []
+          "results": ["jkmflcgpdbonihea", "ajcdefghpkblmion"]
         },
         {
           "day": 17,
           "title": "Spinlock",
-          "results": []
+          "results": [1025, 37803463]
         },
         {
           "day": 18,
           "title": "Duet",
-          "results": []
+          "results": [7071, 8001]
         },
         {
           "day": 19,
           "title": "A Series of Tubes",
-          "results": []
+          "results": ["VTWBPYAQFU", 17358]
         },
         {
           "day": 20,
           "title": "Particle Swarm",
-          "results": []
+          "results": [150, 657]
         },
         {
           "day": 21,
           "title": "Fractal Art",
-          "results": []
+          "results": [150, 2606275]
         },
         {
           "day": 22,
           "title": "Sporifica Virus",
-          "results": []
+          "results": [5246, 2512059]
         },
         {
           "day": 23,
           "title": "Coprocessor Conflagration",
-          "results": []
+          "results": [5929, 907]
         },
         {
           "day": 24,
           "title": "Electromagnetic Moat",
-          "results": []
+          "results": [1868, 1841]
         },
         {
           "day": 25,
           "title": "The Halting Problem",
-          "results": []
+          "results": [3145]
         }
       ]
     },

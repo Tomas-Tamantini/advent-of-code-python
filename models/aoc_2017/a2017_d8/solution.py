@@ -14,9 +14,15 @@ def aoc_2017_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     max_value_final = max_values[-1]
     max_value_all_time = max(max_values)
     yield ProblemSolution(
-        problem_id, f"Maximum register value at end: {max_value_final}", part=1
+        problem_id,
+        f"Maximum register value at end: {max_value_final}",
+        part=1,
+        result=max_value_final,
     )
 
     yield ProblemSolution(
-        problem_id, f"Maximum register value at any time: {max_value_all_time}", part=2
+        problem_id,
+        f"Maximum register value at any time: {max_value_all_time}",
+        part=2,
+        result=max_value_all_time,
     )

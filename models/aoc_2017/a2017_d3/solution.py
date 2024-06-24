@@ -10,7 +10,10 @@ def aoc_2017_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     target_coordinates = SquareSpiral.coordinates(target)
     manhattan_distance = target_coordinates.manhattan_size
     yield ProblemSolution(
-        problem_id, f"Manhattan distance to {target}: {manhattan_distance}", part=1
+        problem_id,
+        f"Manhattan distance to {target}: {manhattan_distance}",
+        part=1,
+        result=manhattan_distance,
     )
 
     first_value_larger_than_input = -1
@@ -22,4 +25,5 @@ def aoc_2017_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"First sequence term larger than {target}: {first_value_larger_than_input}",
         part=2,
+        result=first_value_larger_than_input,
     )

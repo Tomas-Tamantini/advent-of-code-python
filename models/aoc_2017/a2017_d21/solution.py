@@ -16,6 +16,7 @@ def aoc_2017_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of cells on after {num_iterations} iterations: {num_cells_on}",
         part=1,
+        result=num_cells_on,
     )
 
     num_iterations = 18
@@ -24,4 +25,5 @@ def aoc_2017_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of cells on after {num_iterations} iterations: {num_cells_on}",
         part=2,
+        result=num_cells_on,
     )
