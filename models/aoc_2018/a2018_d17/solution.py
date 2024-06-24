@@ -13,11 +13,15 @@ def aoc_2018_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     water_spring = WaterSpring(spring_position, clay_positions)
     water_spring.flow()
     yield ProblemSolution(
-        problem_id, f"Number of tiles with water: {water_spring.num_wet_tiles}", part=1
+        problem_id,
+        f"Number of tiles with water: {water_spring.num_wet_tiles}",
+        part=1,
+        result=water_spring.num_wet_tiles,
     )
 
     yield ProblemSolution(
         problem_id,
         f"Number of tiles with retained water: {water_spring.num_still_water_tiles}",
         part=2,
+        result=water_spring.num_still_water_tiles,
     )

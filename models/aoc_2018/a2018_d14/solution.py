@@ -12,7 +12,10 @@ def aoc_2018_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     first_scores = [next(score_generator) for _ in range(num_steps + 10)]
     last_ten_scores = "".join(map(str, first_scores[num_steps : num_steps + 10]))
     yield ProblemSolution(
-        problem_id, f"Scores of next 10 recipes: {last_ten_scores}", part=1
+        problem_id,
+        f"Scores of next 10 recipes: {last_ten_scores}",
+        part=1,
+        result=last_ten_scores,
     )
 
     first_occurrence = recipe_scores.first_occurrence_of_subsequence(
@@ -22,4 +25,5 @@ def aoc_2018_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of recipes to the left of the score sequence: {first_occurrence}",
         part=2,
+        result=first_occurrence,
     )

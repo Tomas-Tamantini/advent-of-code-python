@@ -9,10 +9,13 @@ def aoc_2018_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     polymer = io_handler.input_reader.read().strip()
     reacted_polymer = polymer_reaction(polymer)
     yield ProblemSolution(
-        problem_id, f"Length of reacted polymer: {len(reacted_polymer)}", part=1
+        problem_id,
+        f"Length of reacted polymer: {len(reacted_polymer)}",
+        part=1,
+        result=len(reacted_polymer),
     )
 
-    min_length = minimum_polymer_length(polymer)
+    result = minimum_polymer_length(polymer)
     yield ProblemSolution(
-        problem_id, f"Minimum length of polymer: {min_length}", part=2
+        problem_id, f"Minimum length of polymer: {result}", result, part=2
     )

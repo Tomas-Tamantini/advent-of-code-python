@@ -17,11 +17,11 @@ def aoc_2018_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         col_multiplier=48271,
         erosion_level_mod=20183,
     )
-    risk_level = cave.risk_level()
-    yield ProblemSolution(problem_id, f"Risk level of cave: {risk_level}", part=1)
+    result = cave.risk_level()
+    yield ProblemSolution(problem_id, f"Risk level of cave: {result}", result, part=1)
 
     explorer = CaveExplorer(cave, time_to_move=1, time_to_switch_gear=7)
-    shortest_time = explorer.shortest_time_to_target()
+    result = explorer.shortest_time_to_target()
     yield ProblemSolution(
-        problem_id, f"Shortest time to reach target: {shortest_time}", part=2
+        problem_id, f"Shortest time to reach target: {result}", result, part=2
     )

@@ -8,8 +8,9 @@ def aoc_2018_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     plant_automaton = parse_plant_automaton(io_handler.input_reader)
     plants_alive = plant_automaton.plants_alive(generation=20)
+    result = sum(plants_alive)
     yield ProblemSolution(
-        problem_id, f"Sum of indices of plants alive: {sum(plants_alive)}", part=1
+        problem_id, f"Sum of indices of plants alive: {result}", result, part=1
     )
 
     # Part 2 assumes linear growth after transitional period
@@ -29,4 +30,5 @@ def aoc_2018_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Sum of indices of plants alive after 50 billion generations: {a_50_billion}",
         part=2,
+        result=a_50_billion,
     )

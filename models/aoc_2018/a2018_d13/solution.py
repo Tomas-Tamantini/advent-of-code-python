@@ -15,15 +15,13 @@ def aoc_2018_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     ]
     mine_carts = MineCarts(mine_layout, intersection_sequence)
     collisions = list(mine_carts.collisions())
+    result = f"{collisions[0].x},{collisions[0].y}"
     yield ProblemSolution(
-        problem_id,
-        f"Position of first collision: {collisions[0].x},{collisions[0].y}",
-        part=1,
+        problem_id, f"Position of first collision: {result}", result, part=1
     )
 
     last_position = list(mine_carts.cart_positions)[0]
+    result = f"{last_position.x},{last_position.y}"
     yield ProblemSolution(
-        problem_id,
-        f"Position of last cart: {last_position.x},{last_position.y}",
-        part=2,
+        problem_id, f"Position of last cart: {result}", result, part=2
     )

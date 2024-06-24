@@ -13,9 +13,13 @@ def aoc_2018_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     voronoi = ManhattanVoronoi(coordinates)
     areas = voronoi.areas_after_expansion()
     largest_area = max(a for a in areas.values() if a != inf)
-    yield ProblemSolution(problem_id, f"Largest Voronoi area: {largest_area}", part=1)
+    yield ProblemSolution(
+        problem_id, f"Largest Voronoi area: {largest_area}", part=1, result=largest_area
+    )
 
     num_points = voronoi.num_points_whose_sum_of_distances_is_less_than(
         10000, io_handler.progress_bar
     )
-    yield ProblemSolution(problem_id, f"Number of points: {num_points}", part=2)
+    yield ProblemSolution(
+        problem_id, f"Number of points: {num_points}", part=2, result=num_points
+    )

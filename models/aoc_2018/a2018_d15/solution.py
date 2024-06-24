@@ -16,14 +16,15 @@ def aoc_2018_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     goblin_specs = CaveTeamSpec(attack_power=3, hit_points=200)
     game = build_cave_game(map_with_units, elf_specs, goblin_specs)
     game.play_until_over(bot=CaveGameBotAttackWeakest())
-    outcome = game.round * game.state.total_hp
-    yield ProblemSolution(problem_id, f"Outcome of combat: {outcome}", part=1)
+    result = game.round * game.state.total_hp
+    yield ProblemSolution(problem_id, f"Outcome of combat: {result}", result, part=1)
 
     game = build_cave_game(map_with_units, elf_specs, goblin_specs)
     results = optimal_game_for_elves(game, bot=CaveGameBotAttackWeakest())
-    outcome = results.rounds * results.hp_remaining
+    result = results.rounds * results.hp_remaining
     yield ProblemSolution(
         problem_id,
-        f"Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {outcome}",
+        f"Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {result}",
+        result,
         part=2,
     )

@@ -20,9 +20,8 @@ def aoc_2018_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     ids = [line.strip() for line in lines]
     exactly_two = sum(contains_exactly_n_of_any_letter(id, 2) for id in ids)
     exactly_three = sum(contains_exactly_n_of_any_letter(id, 3) for id in ids)
-    yield ProblemSolution(
-        problem_id, f"Checksum of ids is {exactly_two * exactly_three}", part=1
-    )
+    result = exactly_two * exactly_three
+    yield ProblemSolution(problem_id, f"Checksum of ids is {result}", result, part=1)
 
     letters_in_common = ""
     for i, j in combinations(range(len(ids)), 2):
@@ -32,5 +31,8 @@ def aoc_2018_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
             break
 
     yield ProblemSolution(
-        problem_id, f"Letters in common between ids are {letters_in_common}", part=2
+        problem_id,
+        f"Letters in common between ids are {letters_in_common}",
+        part=2,
+        result=letters_in_common,
     )

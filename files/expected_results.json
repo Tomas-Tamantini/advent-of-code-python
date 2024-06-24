@@ -399,127 +399,130 @@
         {
           "day": 1,
           "title": "Chronal Calibration",
-          "results": []
+          "results": [439, 124645]
         },
         {
           "day": 2,
           "title": "Inventory Management System",
-          "results": []
+          "results": [8610, "iosnxmfkpabcjpdywvrtahluy"]
         },
         {
           "day": 3,
           "title": "No Matter How You Slice It",
-          "results": []
+          "results": [112418, 560]
         },
         {
           "day": 4,
           "title": "Repose Record",
-          "results": []
+          "results": [4716, 117061]
         },
         {
           "day": 5,
           "title": "Alchemical Reduction",
-          "results": []
+          "results": [11754, 4098]
         },
         {
           "day": 6,
           "title": "Chronal Coordinates",
-          "results": []
+          "results": [5429, 32614]
         },
         {
           "day": 7,
           "title": "The Sum of Its Parts",
-          "results": []
+          "results": ["DFOQPTELAYRVUMXHKWSGZBCJIN", 1036]
         },
         {
           "day": 8,
           "title": "Memory Maneuver",
-          "results": []
+          "results": [42951, 18568]
         },
         {
           "day": 9,
           "title": "Marble Mania",
-          "results": []
+          "results": [416424, 3498287922]
         },
         {
           "day": 10,
           "title": "The Stars Align",
-          "results": []
+          "results": [
+            "######..######...####...#####....####....####....####......###\n.....#.......#..#....#..#....#..#....#..#....#..#....#......#.\n.....#.......#..#.......#....#..#.......#.......#...........#.\n....#.......#...#.......#....#..#.......#.......#...........#.\n...#.......#....#.......#####...#.......#.......#...........#.\n..#.......#.....#.......#....#..#..###..#..###..#...........#.\n.#.......#......#.......#....#..#....#..#....#..#...........#.\n#.......#.......#.......#....#..#....#..#....#..#.......#...#.\n#.......#.......#....#..#....#..#...##..#...##..#....#..#...#.\n######..######...####...#####....###.#...###.#...####....###..",
+            10886
+          ]
         },
         {
           "day": 11,
           "title": "Chronal Charge",
-          "results": []
+          "results": ["235,16", "236,227,14"]
         },
         {
           "day": 12,
           "title": "Subterranean Sustainability",
-          "results": []
+          "results": [4217, 4550000002111]
         },
         {
           "day": 13,
           "title": "Mine Cart Madness",
-          "results": []
+          "results": ["130,104", "29,83"]
         },
         {
           "day": 14,
           "title": "Chocolate Charts",
-          "results": []
+          "results": [3147574107, 20280190]
         },
         {
           "day": 15,
           "title": "Beverage Bandits",
-          "results": []
+          "results": [213692, 52688]
         },
         {
           "day": 16,
           "title": "Chronal Classification",
-          "results": []
+          "results": [531, 649]
         },
         {
           "day": 17,
           "title": "Reservoir Research",
-          "results": []
+          "results": [33004, 23294]
         },
         {
           "day": 18,
           "title": "Settlers of The North Pole",
-          "results": []
+          "results": [605154, 200364]
         },
         {
           "day": 19,
           "title": "Go With The Flow",
-          "results": []
+          "results": [1530, 16533000]
         },
         {
           "day": 20,
           "title": "A Regular Map",
-          "results": []
+          "results": [3502, 8000]
         },
         {
           "day": 21,
           "title": "Chronal Conversion",
-          "results": []
+          "results": [15615244, 12963935]
         },
         {
           "day": 22,
           "title": "Mode Maze",
-          "results": []
+          "results": [10603, 952]
         },
         {
           "day": 23,
           "title": "Experimental Emergency Teleportation",
-          "results": []
+          "results": [430, 80250793]
         },
         {
           "day": 24,
           "title": "Immune System Simulator 20XX",
-          "results": []
+          "results": [24009, 379]
         },
         {
           "day": 25,
           "title": "Four-Dimensional Adventure",
-          "results": []
+          "results": [396]
         }
       ]
     },

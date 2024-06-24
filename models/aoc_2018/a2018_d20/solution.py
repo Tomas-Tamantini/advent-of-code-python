@@ -14,9 +14,9 @@ def aoc_2018_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     distances = {
         node: distance for node, distance in explore_with_bfs(graph, starting_node)
     }
-    max_distance = max(distances.values())
+    result = max(distances.values())
     yield ProblemSolution(
-        problem_id, f"Maximum distance from starting node: {max_distance}", part=1
+        problem_id, f"Maximum distance from starting node: {result}", result, part=1
     )
 
     num_rooms_at_least_1000 = sum(d >= 1000 for d in distances.values())
@@ -24,4 +24,5 @@ def aoc_2018_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of rooms at least 1000 doors away: {num_rooms_at_least_1000}",
         part=2,
+        result=num_rooms_at_least_1000,
     )

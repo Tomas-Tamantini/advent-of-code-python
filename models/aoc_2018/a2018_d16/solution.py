@@ -26,6 +26,7 @@ def aoc_2018_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of samples with three or more possible instructions: {num_samples_with_three_or_more}",
         part=1,
+        result=num_samples_with_three_or_more,
     )
 
     op_codes_to_instructions = work_out_op_codes(
@@ -37,5 +38,5 @@ def aoc_2018_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     program = ImmutableProgram(list(instructions))
     computer = Computer.from_processor(Processor())
     computer.run_program(program)
-    value = computer.get_register_value(register=0)
-    yield ProblemSolution(problem_id, f"Value of register 0: {value}", part=2)
+    result = computer.get_register_value(register=0)
+    yield ProblemSolution(problem_id, f"Value of register 0: {result}", result, part=2)

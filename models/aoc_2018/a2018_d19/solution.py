@@ -23,9 +23,12 @@ def aoc_2018_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     computer = Computer.from_processor(Processor())
     io_handler.output_writer.give_time_estimation("30s", part=1)
     computer.run_program(program)
-    value = computer.get_register_value(register=0)
+    result = computer.get_register_value(register=0)
     yield ProblemSolution(
-        problem_id, f"Value of register 0 at the end of the program: {value}", part=1
+        problem_id,
+        f"Value of register 0 at the end of the program: {result}",
+        result,
+        part=1,
     )
 
     # Part 2 was optimized by hand
@@ -34,5 +37,8 @@ def aoc_2018_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         b=instructions[23]._input_b.value,
     )
     yield ProblemSolution(
-        problem_id, f"Value of register 0 at the end of the program: {result}", part=2
+        problem_id,
+        f"Value of register 0 at the end of the program: {result}",
+        result,
+        part=2,
     )

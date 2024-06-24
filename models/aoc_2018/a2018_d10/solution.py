@@ -11,10 +11,12 @@ def aoc_2018_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     moving_particles = MovingParticles(particles)
     moments = moving_particles.moments_of_bounding_box_area_increase()
     inflexion_point = next(moments) - 1
-    yield ProblemSolution(
-        problem_id, f"Message:\n\n{moving_particles.draw(inflexion_point)}\n", part=1
-    )
+    result = moving_particles.draw(inflexion_point)
+    yield ProblemSolution(problem_id, f"Message:\n\n{result}\n", result, part=1)
 
     yield ProblemSolution(
-        problem_id, f"Time to reach message: {inflexion_point}", part=2
+        problem_id,
+        f"Time to reach message: {inflexion_point}",
+        part=2,
+        result=inflexion_point,
     )
