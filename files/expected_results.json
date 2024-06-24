@@ -136,127 +136,130 @@
         {
           "day": 1,
           "title": "No Time for a Taxicab",
-          "results": []
+          "results": [301, 130]
         },
         {
           "day": 2,
           "title": "Bathroom Security",
-          "results": []
+          "results": ["97289", "9A7DC"]
         },
         {
           "day": 3,
           "title": "Squares With Three Sides",
-          "results": []
+          "results": [917, 1649]
         },
         {
           "day": 4,
           "title": "Security Through Obscurity",
-          "results": []
+          "results": [137896, 501]
         },
         {
           "day": 5,
           "title": "How About a Nice Game of Chess?",
-          "results": []
+          "results": ["801b56a7", "424a0197"]
         },
         {
           "day": 6,
           "title": "Signals and Noise",
-          "results": []
+          "results": ["tkspfjcc", "xrlmbypn"]
         },
         {
           "day": 7,
           "title": "Internet Protocol Version 7",
-          "results": []
+          "results": [105, 258]
         },
         {
           "day": 8,
           "title": "Two-Factor Authentication",
-          "results": []
+          "results": [
+            123,
+            " ##  #### ###  #  # ###  #### ###    ## ###   ### \n#  # #    #  # #  # #  #    # #  #    # #  # #    \n#  # ###  ###  #  # #  #   #  ###     # #  # #    \n#### #    #  # #  # ###   #   #  #    # ###   ##  \n#  # #    #  # #  # #    #    #  # #  # #       # \n#  # #    ###   ##  #    #### ###   ##  #    ###  "
+          ]
         },
         {
           "day": 9,
           "title": "Explosives in Cyberspace",
-          "results": []
+          "results": [110346, 10774309173]
         },
         {
           "day": 10,
           "title": "Balance Bots",
-          "results": []
+          "results": [73, 3965]
         },
         {
           "day": 11,
           "title": "Radioisotope Thermoelectric Generators",
-          "results": []
+          "results": [33, 57]
         },
         {
           "day": 12,
           "title": "Leonardo's Monorail",
-          "results": []
+          "results": [318083, 9227737]
         },
         {
           "day": 13,
           "title": "A Maze of Twisty Little Cubicles",
-          "results": []
+          "results": [90, 135]
         },
         {
           "day": 14,
           "title": "One-Time Pad",
-          "results": []
+          "results": [23890, 22696]
         },
         {
           "day": 15,
           "title": "Timing is Everything",
-          "results": []
+          "results": [122318, 3208583]
         },
         {
           "day": 16,
           "title": "Dragon Checksum",
-          "results": []
+          "results": ["10111110010110110", "01101100001100100"]
         },
         {
           "day": 17,
           "title": "Two Steps Forward",
-          "results": []
+          "results": ["DDRRUDLRRD", 488]
         },
         {
           "day": 18,
           "title": "Like a Rogue",
-          "results": []
+          "results": [1974, 19991126]
         },
         {
           "day": 19,
           "title": "An Elephant Named Joseph",
-          "results": []
+          "results": [1830117, 1417887]
         },
         {
           "day": 20,
           "title": "Firewall Rules",
-          "results": []
+          "results": [31053880, 117]
         },
         {
           "day": 21,
           "title": "Scrambled Letters and Hash",
-          "results": []
+          "results": ["bfheacgd", "gcehdbfa"]
         },
         {
           "day": 22,
           "title": "Grid Computing",
-          "results": []
+          "results": [892, 227]
         },
         {
           "day": 23,
           "title": "Safe Cracking",
-          "results": []
+          "results": [11748, 479008308]
         },
         {
           "day": 24,
           "title": "Air Duct Spelunking",
-          "results": []
+          "results": [462, 676]
         },
         {
           "day": 25,
           "title": "Clock Signal",
-          "results": []
+          "results": [175]
         }
       ]
     },

@@ -18,11 +18,17 @@ def aoc_2016_d17(io_handler: IOHandler) -> None:
     room = SecureRoom(position=initial_position)
     shortest_path = room.steps_shortest_path()
     solution = ProblemSolution(
-        problem_id, f"Shortest path to vault: {shortest_path}", part=1
+        problem_id,
+        f"Shortest path to vault: {shortest_path}",
+        part=1,
+        result=shortest_path,
     )
     io_handler.set_solution(solution)
     longest_path_length = room.length_longest_path()
     solution = ProblemSolution(
-        problem_id, f"Length of longest path to vault: {longest_path_length}", part=2
+        problem_id,
+        f"Length of longest path to vault: {longest_path_length}",
+        part=2,
+        result=longest_path_length,
     )
     io_handler.set_solution(solution)

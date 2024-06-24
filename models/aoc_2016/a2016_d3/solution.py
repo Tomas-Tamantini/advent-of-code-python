@@ -30,11 +30,13 @@ def aoc_2016_d3(io_handler: IOHandler) -> None:
         problem_id,
         f"Number of valid triangles read horizontally: {valid_triangles_horizontal}",
         part=1,
+        result=valid_triangles_horizontal,
     )
     io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Number of valid triangles read vertically: {valid_triangles_vertical}",
         part=2,
+        result=valid_triangles_vertical,
     )
     io_handler.set_solution(solution)

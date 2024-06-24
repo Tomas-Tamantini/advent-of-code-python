@@ -8,11 +8,11 @@ def aoc_2016_d23(io_handler: IOHandler) -> None:
     program = parse_assembunny_code(io_handler.input_reader)
     a7 = run_self_referential_code(program, initial_value=7)
     solution = ProblemSolution(
-        problem_id, f"Value in register a if a starts as 7: {a7}", part=1
+        problem_id, f"Value in register a if a starts as 7: {a7}", part=1, result=a7
     )
     io_handler.set_solution(solution)
     a12 = run_self_referential_code(program, initial_value=12)
     solution = ProblemSolution(
-        problem_id, f"Value in register a if a starts as 12: {a12}", part=2
+        problem_id, f"Value in register a if a starts as 12: {a12}", part=2, result=a12
     )
     io_handler.set_solution(solution)

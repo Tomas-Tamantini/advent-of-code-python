@@ -17,11 +17,13 @@ def aoc_2016_d2(io_handler: IOHandler) -> None:
         keys_3x3.append(keypad_three_by_three.key)
         keypad_rhombus.move_multiple_keys(instructions)
         keys_rhombus.append(keypad_rhombus.key)
+    result = "".join(keys_3x3)
     solution = ProblemSolution(
-        problem_id, f"Bathroom code for 3x3 pad is {''.join(keys_3x3)}", part=1
+        problem_id, f"Bathroom code for 3x3 pad is {result}", result, part=1
     )
     io_handler.set_solution(solution)
+    result = "".join(keys_rhombus)
     solution = ProblemSolution(
-        problem_id, f"Bathroom code for rhombus pad is {''.join(keys_rhombus)}", part=2
+        problem_id, f"Bathroom code for rhombus pad is {result}", result, part=2
     )
     io_handler.set_solution(solution)

@@ -17,6 +17,7 @@ def aoc_2016_d11(io_handler: IOHandler) -> None:
         problem_id,
         f"Minimum number of steps to get all items on 4th floor: {steps}",
         part=1,
+        result=steps,
     )
     io_handler.set_solution(solution)
     extra_microchips = ("elerium", "dilithium")
@@ -32,5 +33,6 @@ def aoc_2016_d11(io_handler: IOHandler) -> None:
         problem_id,
         f"Minimum number of steps to get all items on 4th floor with extra items: {steps}",
         part=2,
+        result=steps,
     )
     io_handler.set_solution(solution)

@@ -25,13 +25,19 @@ def aoc_2016_d18(io_handler: IOHandler) -> None:
     first_row = io_handler.input_reader.read().strip()
     num_safe = num_safe_tiles(first_row, num_rows=40)
     solution = ProblemSolution(
-        problem_id, f"Number of safe tiles in 40 rows: {num_safe}", part=1
+        problem_id,
+        f"Number of safe tiles in 40 rows: {num_safe}",
+        part=1,
+        result=num_safe,
     )
     io_handler.set_solution(solution)
     num_safe = num_safe_tiles(
         first_row, num_rows=400_000, progress_bar=io_handler.progress_bar
     )
     solution = ProblemSolution(
-        problem_id, f"Number of safe tiles in 400000 rows: {num_safe}", part=2
+        problem_id,
+        f"Number of safe tiles in 400000 rows: {num_safe}",
+        part=2,
+        result=num_safe,
     )
     io_handler.set_solution(solution)

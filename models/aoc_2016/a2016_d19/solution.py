@@ -11,6 +11,7 @@ def aoc_2016_d19(io_handler: IOHandler) -> None:
         problem_id,
         f"Winning elf if they take from the left: {winning_elf_take_left}",
         part=1,
+        result=winning_elf_take_left,
     )
     io_handler.set_solution(solution)
     winning_elf_take_across = modified_josephus(num_elves)
@@ -18,5 +19,6 @@ def aoc_2016_d19(io_handler: IOHandler) -> None:
         problem_id,
         f"Winning elf if they take from across: {winning_elf_take_across}",
         part=2,
+        result=winning_elf_take_across,
     )
     io_handler.set_solution(solution)

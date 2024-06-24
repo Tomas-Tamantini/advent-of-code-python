@@ -10,10 +10,14 @@ def aoc_2016_d22(io_handler: IOHandler) -> None:
         node_a.makes_viable_pair(node_b) for node_a in nodes for node_b in nodes
     )
     solution = ProblemSolution(
-        problem_id, f"Number of viable pairs: {viable_pairs}", part=1
+        problem_id,
+        f"Number of viable pairs: {viable_pairs}",
+        part=1,
+        result=viable_pairs,
     )
     io_handler.set_solution(solution)
+    # TODO: Implement part 2
     solution = ProblemSolution(
-        problem_id, "Done by hand (move hole around grid)", part=2
+        problem_id, "Done by hand (move hole around grid): 227", part=2, result=227
     )
     io_handler.set_solution(solution)

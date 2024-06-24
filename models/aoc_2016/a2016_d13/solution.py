@@ -14,7 +14,10 @@ def aoc_2016_d13(io_handler: IOHandler) -> None:
     origin = Vector2D(1, 1)
     num_steps = maze.length_shortest_path(initial_position=origin)
     solution = ProblemSolution(
-        problem_id, f"Fewest number of steps to reach destination: {num_steps}", part=1
+        problem_id,
+        f"Fewest number of steps to reach destination: {num_steps}",
+        part=1,
+        result=num_steps,
     )
     io_handler.set_solution(solution)
     max_steps = 50
@@ -23,5 +26,6 @@ def aoc_2016_d13(io_handler: IOHandler) -> None:
         problem_id,
         f"Number of cubicles reachable in at most {max_steps} steps: {num_reachable}",
         part=2,
+        result=num_reachable,
     )
     io_handler.set_solution(solution)

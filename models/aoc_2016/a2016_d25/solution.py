@@ -11,6 +11,8 @@ def aoc_2016_d25(io_handler: IOHandler) -> None:
     program = parse_assembunny_code(io_handler.input_reader)
     smallest_value = smallest_value_to_send_clock_signal(program)
     solution = ProblemSolution(
-        problem_id, f"Smallest value to send clock signal: {smallest_value}"
+        problem_id,
+        f"Smallest value to send clock signal: {smallest_value}",
+        result=smallest_value,
     )
     io_handler.set_solution(solution)

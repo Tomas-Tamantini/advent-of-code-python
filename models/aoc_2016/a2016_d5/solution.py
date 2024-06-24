@@ -12,11 +12,13 @@ def aoc_2016_d5(io_handler: IOHandler) -> None:
         problem_id,
         f"Password generated left to right: {password_generator.password_left_to_right}",
         part=1,
+        result=password_generator.password_left_to_right,
     )
     io_handler.set_solution(solution)
     solution = ProblemSolution(
         problem_id,
         f"Password generated one position at a time: {password_generator.password_one_position_at_a_time}",
         part=2,
+        result=password_generator.password_one_position_at_a_time,
     )
     io_handler.set_solution(solution)

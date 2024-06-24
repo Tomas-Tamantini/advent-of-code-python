@@ -14,7 +14,10 @@ def aoc_2016_d1(io_handler: IOHandler) -> None:
     destination = turtle.position
     manhattan_distance = destination.manhattan_size
     solution = ProblemSolution(
-        problem_id, f"Easter Bunny HQ is {manhattan_distance} blocks away", part=1
+        problem_id,
+        f"Easter Bunny HQ is {manhattan_distance} blocks away",
+        part=1,
+        result=manhattan_distance,
     )
     io_handler.set_solution(solution)
     self_intersection = next(turtle.path_self_intersections())
@@ -23,5 +26,6 @@ def aoc_2016_d1(io_handler: IOHandler) -> None:
         problem_id,
         f"First point of self intersection is {manhattan_distance} blocks away",
         part=2,
+        result=manhattan_distance,
     )
     io_handler.set_solution(solution)

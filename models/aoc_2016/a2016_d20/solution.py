@@ -11,11 +11,17 @@ def aoc_2016_d20(io_handler: IOHandler) -> None:
         disjoint_intervals.remove(start, end)
     lowest_allowed_ip = next(disjoint_intervals.intervals())[0]
     solution = ProblemSolution(
-        problem_id, f"Lowest allowed IP: {lowest_allowed_ip}", part=1
+        problem_id,
+        f"Lowest allowed IP: {lowest_allowed_ip}",
+        part=1,
+        result=lowest_allowed_ip,
     )
     io_handler.set_solution(solution)
     num_allowed_ips = disjoint_intervals.num_elements()
     solution = ProblemSolution(
-        problem_id, f"Number of allowed IPs: {num_allowed_ips}", part=2
+        problem_id,
+        f"Number of allowed IPs: {num_allowed_ips}",
+        part=2,
+        result=num_allowed_ips,
     )
     io_handler.set_solution(solution)
