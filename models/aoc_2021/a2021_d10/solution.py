@@ -1,9 +1,9 @@
-from typing import Iterable
+from typing import Iterable, Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .brackets import mismatching_brackets, missing_brackets
 
 
-def aoc_2021_d10(io_handler: IOHandler) -> None:
+def aoc_2021_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2021, 10, "Syntax Scoring")
     io_handler.output_writer.write_header(problem_id)
     mismatch_scores = {
@@ -23,10 +23,9 @@ def aoc_2021_d10(io_handler: IOHandler) -> None:
             mismatch_score += mismatch_scores[mismatch]
         except StopIteration:
             incomplete_lines.append(line)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The total mismatch score is {mismatch_score}", part=1
     )
-    io_handler.set_solution(solution)
 
     def missing_score(missing_brackets: Iterable[chr]) -> int:
         missing_scores = {
@@ -45,7 +44,6 @@ def aoc_2021_d10(io_handler: IOHandler) -> None:
     ]
 
     middle_score = sorted(missing_scores)[len(missing_scores) // 2]
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The middle missing score is {middle_score}", part=2
     )
-    io_handler.set_solution(solution)

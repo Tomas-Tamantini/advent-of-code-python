@@ -1,16 +1,17 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_plant_automaton
 
 
-def aoc_2018_d12(io_handler: IOHandler) -> None:
+def aoc_2018_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2018, 12, "Subterranean Sustainability")
     io_handler.output_writer.write_header(problem_id)
     plant_automaton = parse_plant_automaton(io_handler.input_reader)
     plants_alive = plant_automaton.plants_alive(generation=20)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Sum of indices of plants alive: {sum(plants_alive)}", part=1
     )
-    io_handler.set_solution(solution)
+
     # Part 2 assumes linear growth after transitional period
     last_alive = 0
     diff_seq = []
@@ -24,9 +25,8 @@ def aoc_2018_d12(io_handler: IOHandler) -> None:
             break
         generation += 1
     a_50_billion = alive + (50_000_000_000 - generation) * diff_seq[-1]
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Sum of indices of plants alive after 50 billion generations: {a_50_billion}",
         part=2,
     )
-    io_handler.set_solution(solution)

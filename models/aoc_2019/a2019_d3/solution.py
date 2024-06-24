@@ -1,9 +1,10 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_directions
 from .twisty_wire import TwistyWire
 
 
-def aoc_2019_d3(io_handler: IOHandler) -> None:
+def aoc_2019_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2019, 3, "Crossed Wires")
     io_handler.output_writer.write_header(problem_id)
     wire_a = TwistyWire()
@@ -15,18 +16,17 @@ def aoc_2019_d3(io_handler: IOHandler) -> None:
         wire_b.add_segment(direction, length)
     intersections = set(wire_a.intersection_points(wire_b))
     closest = min(intersections, key=lambda point: point.manhattan_size)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Closest intersection distance to the central port is {closest.manhattan_size}",
         part=1,
     )
-    io_handler.set_solution(solution)
+
     shortest = min(
         wire_a.distance_to(point) + wire_b.distance_to(point) for point in intersections
     )
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Shortest combined distance to an intersection is {shortest}",
         part=2,
     )
-    io_handler.set_solution(solution)

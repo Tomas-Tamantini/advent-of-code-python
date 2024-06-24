@@ -1,18 +1,17 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .arcade import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
 
 
-def aoc_2019_d13(io_handler: IOHandler) -> None:
+def aoc_2019_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2019, 13, "Care Package")
     io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     screen = ArcadeGameScreen()
     run_intcode_arcade(instructions, screen)
     block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)
-    solution = ProblemSolution(
-        problem_id, f"Number of block tiles is {block_tiles}", part=1
-    )
-    io_handler.set_solution(solution)
+    yield ProblemSolution(problem_id, f"Number of block tiles is {block_tiles}", part=1)
+
     new_instructions = instructions[:]
     new_instructions[0] = 2
     screen = ArcadeGameScreen(animate=io_handler.execution_flags.animate)
@@ -23,10 +22,9 @@ def aoc_2019_d13(io_handler: IOHandler) -> None:
     )
     io_handler.output_writer.log_progress(f"Part 2: {animation_msg}simulating game...")
     run_intcode_arcade(new_instructions, screen)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Final score is {screen.current_score}",
         part=2,
         supports_animation=True,
     )
-    io_handler.set_solution(solution)

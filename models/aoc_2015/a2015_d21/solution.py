@@ -1,9 +1,10 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_rpg_boss
 from .rpg_game import Fighter, ItemAssortment, RpgItem, ItemShop
 
 
-def aoc_2015_d21(io_handler: IOHandler) -> None:
+def aoc_2015_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 21, "RPG Simulator 20XX")
     io_handler.output_writer.write_header(problem_id)
     my_hit_points = 100
@@ -50,16 +51,15 @@ def aoc_2015_d21(io_handler: IOHandler) -> None:
 
     winning_items = shop.cheapest_winning_items(my_hit_points, opponent=boss)
     min_cost = sum(item.cost for item in winning_items)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Cheapest winning items cost {min_cost}", part=1, result=min_cost
     )
-    io_handler.set_solution(solution)
+
     losing_items = shop.most_expensive_losing_items(my_hit_points, opponent=boss)
     max_cost = sum(item.cost for item in losing_items)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Most expensive losing items cost {max_cost}",
         part=2,
         result=max_cost,
     )
-    io_handler.set_solution(solution)

@@ -34,19 +34,18 @@ def _smallest_number_accepted_by_monad(
     return 11111111111111 + sum(_offsets(x_offsets, y_offsets, is_largest=False))
 
 
-def aoc_2021_d24(io_handler: IOHandler) -> None:
+def aoc_2021_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2021, 24, "Arithmetic Logic Unit")
     io_handler.output_writer.write_header(problem_id)
     instructions = list(io_handler.input_reader.readlines())
     x_offsets = [int(instructions[18 * i + 5].split()[-1]) for i in range(14)]
     y_offsets = [int(instructions[18 * i + 15].split()[-1]) for i in range(14)]
     largest = _largest_number_accepted_by_monad(x_offsets, y_offsets)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The largest number accepted by the monad is {largest}", part=1
     )
-    io_handler.set_solution(solution)
+
     smallest = _smallest_number_accepted_by_monad(x_offsets, y_offsets)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The smallest number accepted by the monad is {smallest}", part=2
     )
-    io_handler.set_solution(solution)

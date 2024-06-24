@@ -1,3 +1,4 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
 from .parser import parse_wind_directions
@@ -43,7 +44,7 @@ def _pieces_generator() -> TetrisPieceGenerator:
     )
 
 
-def aoc_2022_d17(io_handler: IOHandler) -> None:
+def aoc_2022_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2022, 17, "Pyroclastic Flow")
     io_handler.output_writer.write_header(problem_id)
     wind_generator = WindGenerator(
@@ -56,14 +57,13 @@ def aoc_2022_d17(io_handler: IOHandler) -> None:
         wind_generator=wind_generator,
     )
     height = tower_height(game_state, 2022)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The height of the tower after 2022 rocks is {height}", part=1
     )
-    io_handler.set_solution(solution)
+
     height = tower_height(game_state, 1_000_000_000_000)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"The height of the tower after 1 trillion rocks is {height}",
         part=2,
     )
-    io_handler.set_solution(solution)

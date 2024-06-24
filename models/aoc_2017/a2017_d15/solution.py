@@ -1,8 +1,9 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .sequence_generator import SequenceGenerator, SequenceMatchFinder
 
 
-def aoc_2017_d15(io_handler: IOHandler) -> None:
+def aoc_2017_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2017, 15, "Dueling Generators")
     io_handler.output_writer.write_header(problem_id)
     start_a, start_b = [
@@ -15,18 +16,17 @@ def aoc_2017_d15(io_handler: IOHandler) -> None:
     num_matches = match_finder.num_matches(
         num_steps=40_000_000, progress_bar=io_handler.progress_bar
     )
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Number of matches not filtering out multiples: {num_matches}",
         part=1,
     )
-    io_handler.set_solution(solution)
+
     generator_a.filter_multiples_of = 4
     generator_b.filter_multiples_of = 8
     num_matches = match_finder.num_matches(
         num_steps=5_000_000, progress_bar=io_handler.progress_bar
     )
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Number of matches filtering out multiples: {num_matches}", part=2
     )
-    io_handler.set_solution(solution)

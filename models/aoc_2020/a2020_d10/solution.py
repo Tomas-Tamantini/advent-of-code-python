@@ -1,8 +1,9 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .adapter_array import AdapterArray
 
 
-def aoc_2020_d10(io_handler: IOHandler) -> None:
+def aoc_2020_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2020, 10, "Adapter Array")
     io_handler.output_writer.write_header(problem_id)
     adapters = [int(line) for line in io_handler.input_reader.readlines()]
@@ -15,10 +16,9 @@ def aoc_2020_d10(io_handler: IOHandler) -> None:
     differences = array.joltage_differences_of_sorted_adapters()
     num_1_diff = differences.count(1)
     num_3_diff = differences.count(3)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"{num_1_diff * num_3_diff} joltage differences", part=1
     )
-    io_handler.set_solution(solution)
+
     num_arrangements = array.number_of_arrangements()
-    solution = ProblemSolution(problem_id, f"{num_arrangements} arrangements", part=2)
-    io_handler.set_solution(solution)
+    yield ProblemSolution(problem_id, f"{num_arrangements} arrangements", part=2)

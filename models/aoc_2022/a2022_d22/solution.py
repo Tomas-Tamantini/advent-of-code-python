@@ -1,3 +1,4 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection, Vector2D
 from .parser import parse_cube_net_and_instructions
@@ -38,7 +39,7 @@ def _simulate_movements(cube_size, edge_mapper, parsed_cube) -> BoardPiece:
     return _build_password(board_piece)
 
 
-def aoc_2022_d22(io_handler: IOHandler) -> None:
+def aoc_2022_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2022, 22, "Monkey Map")
     io_handler.output_writer.write_header(problem_id)
 
@@ -47,14 +48,12 @@ def aoc_2022_d22(io_handler: IOHandler) -> None:
 
     pacman_edge_mapper = PacmanEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, pacman_edge_mapper, parsed)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The password with pacman map is {password}", part=1
     )
-    io_handler.set_solution(solution)
 
     cube_edge_mapper = CubeEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, cube_edge_mapper, parsed)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"The password with cube map is {password}", part=2
     )
-    io_handler.set_solution(solution)

@@ -44,7 +44,8 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
                 execution_flags=flags,
                 result_checker=result_checker,
             )
-            solutions[year][day - 1](io_handler)
+            for solution in solutions[year][day - 1](io_handler):
+                io_handler.set_solution(solution)
     if flags.check_results:
         _report_wrong_results(result_checker)
 

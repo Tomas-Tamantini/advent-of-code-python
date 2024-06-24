@@ -1,9 +1,10 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_cardinal_direction_instructions
 from .keypad import Keypad
 
 
-def aoc_2016_d2(io_handler: IOHandler) -> None:
+def aoc_2016_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2016, 2, "Bathroom Security")
     io_handler.output_writer.write_header(problem_id)
     keypad_three_by_three = Keypad(configuration="123\n456\n789", initial_key="5")
@@ -18,12 +19,11 @@ def aoc_2016_d2(io_handler: IOHandler) -> None:
         keypad_rhombus.move_multiple_keys(instructions)
         keys_rhombus.append(keypad_rhombus.key)
     result = "".join(keys_3x3)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Bathroom code for 3x3 pad is {result}", result, part=1
     )
-    io_handler.set_solution(solution)
+
     result = "".join(keys_rhombus)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Bathroom code for rhombus pad is {result}", result, part=2
     )
-    io_handler.set_solution(solution)

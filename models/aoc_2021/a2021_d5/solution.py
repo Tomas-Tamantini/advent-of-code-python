@@ -1,9 +1,10 @@
 from collections import defaultdict
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_line_segments
 
 
-def aoc_2021_d5(io_handler: IOHandler) -> None:
+def aoc_2021_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2021, 5, "Hydrothermal Venture")
     io_handler.output_writer.write_header(problem_id)
     segments = list(parse_line_segments(io_handler.input_reader))
@@ -17,17 +18,15 @@ def aoc_2021_d5(io_handler: IOHandler) -> None:
 
     non_diagonal_segments = [segment for segment in segments if not segment.is_diagonal]
     num_count = num_overlapping_positions(non_diagonal_segments)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"The number of intersections of non-diagonals is {num_count}",
         part=1,
     )
-    io_handler.set_solution(solution)
 
     num_count = num_overlapping_positions(segments)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"The number of intersections of all segments is {num_count}",
         part=2,
     )
-    io_handler.set_solution(solution)

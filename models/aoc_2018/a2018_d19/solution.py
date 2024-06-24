@@ -1,4 +1,5 @@
 from math import sqrt
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.assembly import Processor, ImmutableProgram, Computer
 from models.aoc_2018.three_value_instructions import parse_three_value_instructions
@@ -14,7 +15,7 @@ def optimized_sum_divisors_program(a: int, b: int) -> int:
     )
 
 
-def aoc_2018_d19(io_handler: IOHandler) -> None:
+def aoc_2018_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2018, 19, "Go With The Flow")
     io_handler.output_writer.write_header(problem_id)
     instructions = list(parse_three_value_instructions(io_handler.input_reader))
@@ -23,16 +24,15 @@ def aoc_2018_d19(io_handler: IOHandler) -> None:
     io_handler.output_writer.give_time_estimation("30s", part=1)
     computer.run_program(program)
     value = computer.get_register_value(register=0)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Value of register 0 at the end of the program: {value}", part=1
     )
-    io_handler.set_solution(solution)
+
     # Part 2 was optimized by hand
     result = optimized_sum_divisors_program(
         a=instructions[21]._input_b.value,
         b=instructions[23]._input_b.value,
     )
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Value of register 0 at the end of the program: {result}", part=2
     )
-    io_handler.set_solution(solution)

@@ -1,3 +1,4 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     run_spring_droid_program,
@@ -14,7 +15,7 @@ def _log_error(io_handler: IOHandler, droid_output: SpringDroidOutput, part: int
     io_handler.output_writer.log_error(error_msg)
 
 
-def aoc_2019_d21(io_handler: IOHandler) -> None:
+def aoc_2019_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2019, 21, "Springdroid Adventure")
     io_handler.output_writer.write_header(problem_id)
     intcode_instructions = [
@@ -34,10 +35,10 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
     run_spring_droid_program(intcode_instructions, droid_input, droid_output)
     try:
         hull_damage = droid_output.large_output()
-        solution = ProblemSolution(
+        yield ProblemSolution(
             problem_id, f"Hull damage from walking on the hull is {hull_damage}", part=1
         )
-        io_handler.set_solution(solution)
+
     except ValueError:
         _log_error(io_handler, droid_output, part=1)
     springscript_instructions = [
@@ -56,9 +57,9 @@ def aoc_2019_d21(io_handler: IOHandler) -> None:
     run_spring_droid_program(intcode_instructions, droid_input, droid_output)
     try:
         hull_damage = droid_output.large_output()
-        solution = ProblemSolution(
+        yield ProblemSolution(
             problem_id, f"Hull damage from running on the hull is {hull_damage}", part=2
         )
-        io_handler.set_solution(solution)
+
     except ValueError:
         _log_error(io_handler, droid_output, part=2)

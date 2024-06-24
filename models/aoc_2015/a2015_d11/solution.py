@@ -1,15 +1,15 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 
 
-def aoc_2015_d11(io_handler: IOHandler) -> None:
+def aoc_2015_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 11, "Corporate Policy")
     io_handler.output_writer.write_header(problem_id)
     # TODO: Make implementation independent of input
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, "Done by hand - hepxxyzz", part=1, result="hepxxyzz"
     )
-    io_handler.set_solution(solution)
-    solution = ProblemSolution(
+
+    yield ProblemSolution(
         problem_id, "Done by hand - heqaabcc", part=2, result="heqaabcc"
     )
-    io_handler.set_solution(solution)

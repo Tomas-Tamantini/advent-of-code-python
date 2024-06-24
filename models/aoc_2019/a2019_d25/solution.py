@@ -1,3 +1,4 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     run_droid_explore_program,
@@ -7,7 +8,7 @@ from .logic import (
 )
 
 
-def aoc_2019_d25(io_handler: IOHandler) -> None:
+def aoc_2019_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2019, 25, "Cryostasis")
     io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
@@ -17,9 +18,8 @@ def aoc_2019_d25(io_handler: IOHandler) -> None:
         control = DroidAutomaticControl(DroidInput())
     io_handler.output_writer.log_progress("Droid looking for password...")
     run_droid_explore_program(instructions, control)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Airlock password is {control.airlock_password}",
         supports_play=True,
     )
-    io_handler.set_solution(solution)

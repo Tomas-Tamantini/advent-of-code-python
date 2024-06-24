@@ -1,9 +1,10 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_radioisotope_testing_facility_floor_configurations
 from .radio_isotope import RadioisotopeTestingFacility, FloorConfiguration
 
 
-def aoc_2016_d11(io_handler: IOHandler) -> None:
+def aoc_2016_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2016, 11, "Radioisotope Thermoelectric Generators")
     io_handler.output_writer.write_header(problem_id)
     floors = tuple(
@@ -13,13 +14,13 @@ def aoc_2016_d11(io_handler: IOHandler) -> None:
     )
     facility = RadioisotopeTestingFacility(floors, elevator_floor=0)
     steps = facility.min_num_steps_to_reach_final_state()
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Minimum number of steps to get all items on 4th floor: {steps}",
         part=1,
         result=steps,
     )
-    io_handler.set_solution(solution)
+
     extra_microchips = ("elerium", "dilithium")
     extra_generators = ("elerium", "dilithium")
     updated_first_floor = FloorConfiguration(
@@ -29,10 +30,9 @@ def aoc_2016_d11(io_handler: IOHandler) -> None:
     updated_floors = (updated_first_floor,) + floors[1:]
     facility = RadioisotopeTestingFacility(updated_floors, elevator_floor=0)
     steps = facility.min_num_steps_to_reach_final_state()
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Minimum number of steps to get all items on 4th floor with extra items: {steps}",
         part=2,
         result=steps,
     )
-    io_handler.set_solution(solution)

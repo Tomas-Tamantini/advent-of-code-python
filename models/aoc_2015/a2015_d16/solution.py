@@ -1,9 +1,10 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_aunt_sue_collection
 from .aunt_sue import MatchType
 
 
-def aoc_2015_d16(io_handler: IOHandler) -> None:
+def aoc_2015_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 16, "Aunt Sue")
     io_handler.output_writer.write_header(problem_id)
     measured_attributes = {
@@ -38,18 +39,17 @@ def aoc_2015_d16(io_handler: IOHandler) -> None:
     aunts = parse_aunt_sue_collection(io_handler.input_reader)
     for aunt in aunts:
         if aunt.matches(measured_attributes_exact):
-            solution = ProblemSolution(
+            yield ProblemSolution(
                 problem_id,
                 f"Aunt Sue {aunt.id} matches exact data",
                 part=1,
                 result=aunt.id,
             )
-            io_handler.set_solution(solution)
+
         if aunt.matches(measure_attributes_retroencabulator):
-            solution = ProblemSolution(
+            yield ProblemSolution(
                 problem_id,
                 f"Aunt Sue {aunt.id} matches range data",
                 part=2,
                 result=aunt.id,
             )
-            io_handler.set_solution(solution)

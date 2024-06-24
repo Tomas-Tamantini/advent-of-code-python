@@ -15,7 +15,7 @@ def eggnog_partition(total_volume: int, capacities: list[int]) -> Iterator[list[
                 yield [capacities[0]] + partition
 
 
-def aoc_2015_d17(io_handler: IOHandler) -> None:
+def aoc_2015_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 17, "No Such Thing as Too Much")
     io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
@@ -23,19 +23,18 @@ def aoc_2015_d17(io_handler: IOHandler) -> None:
     total_volume = 150
     partitions = list(eggnog_partition(total_volume, capacities))
     num_ways = len(partitions)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"There are {num_ways} ways to store eggnog",
         part=1,
         result=num_ways,
     )
-    io_handler.set_solution(solution)
+
     min_num_containers = min(len(p) for p in partitions)
     num_ways_min_containers = sum(1 for p in partitions if len(p) == min_num_containers)
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"There are {num_ways_min_containers} ways to store eggnog using {min_num_containers} containers",
         part=2,
         result=num_ways_min_containers,
     )
-    io_handler.set_solution(solution)

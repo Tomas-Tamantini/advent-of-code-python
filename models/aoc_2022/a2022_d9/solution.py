@@ -21,19 +21,19 @@ def _tail_positions(
                 render_frame(animation.frame(), sleep_seconds=0.05)
 
 
-def aoc_2022_d9(io_handler: IOHandler) -> None:
+def aoc_2022_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2022, 9, "Rope Bridge")
     io_handler.output_writer.write_header(problem_id)
     instructions = list(parse_move_instructions(io_handler.input_reader))
     total_num_iterations = sum(distance for _, distance in instructions)
     short_rope = Rope(num_knots=2)
     tail_positions = set(_tail_positions(short_rope, instructions))
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Unique positions visited by tail in two-knot rope is {len(tail_positions)}",
         part=1,
     )
-    io_handler.set_solution(solution)
+
     long_rope = Rope(num_knots=10)
     if io_handler.execution_flags.animate:
         width = height = 15
@@ -41,10 +41,9 @@ def aoc_2022_d9(io_handler: IOHandler) -> None:
     else:
         animation = None
     tail_positions = set(_tail_positions(long_rope, instructions, animation))
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Unique positions visited by tail in ten-knot rope is {len(tail_positions)}",
         part=2,
         supports_animation=True,
     )
-    io_handler.set_solution(solution)

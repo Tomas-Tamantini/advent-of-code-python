@@ -1,8 +1,9 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
 from .game_of_life_lights import GameOfLifeLights
 
 
-def aoc_2015_d18(io_handler: IOHandler) -> None:
+def aoc_2015_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 18, "Like a GIF For Your Yard")
     io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
@@ -17,17 +18,16 @@ def aoc_2015_d18(io_handler: IOHandler) -> None:
         cells_corners_always_on_game = game.step_with_always_on_cells(
             cells_corners_always_on_game, corner_cells
         )
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"There are {len(cells_default_game)} lights on after {num_steps} steps",
         part=1,
         result=len(cells_default_game),
     )
-    io_handler.set_solution(solution)
-    solution = ProblemSolution(
+
+    yield ProblemSolution(
         problem_id,
         f"There are {len(cells_corners_always_on_game)} lights on after {num_steps} steps with corner lights always on",
         part=2,
         result=len(cells_corners_always_on_game),
     )
-    io_handler.set_solution(solution)

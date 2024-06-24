@@ -1,3 +1,4 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .logic import (
     MonitorBadAddressPackets,
@@ -7,7 +8,7 @@ from .logic import (
 )
 
 
-def aoc_2019_d23(io_handler: IOHandler) -> None:
+def aoc_2019_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2019, 23, "Category Six")
     io_handler.output_writer.write_header(problem_id)
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
@@ -15,10 +16,9 @@ def aoc_2019_d23(io_handler: IOHandler) -> None:
     lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())
     run_network(num_computers, lost_packets_manager, instructions)
     ans = lost_packets_manager.content_last_packet.y
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id, f"Y value of the first packet sent to address 255 is {ans}", part=1
     )
-    io_handler.set_solution(solution)
 
     lost_packets_manager = LostPackets(
         monitor=MonitorRepeatedYValuePackets(max_repeated_y=1)
@@ -27,9 +27,8 @@ def aoc_2019_d23(io_handler: IOHandler) -> None:
     run_network(num_computers, lost_packets_manager, instructions)
     ans = lost_packets_manager.content_last_packet.y
 
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Y value of the first packet sent to address 255 after NAT repeats a packet is {ans}",
         part=2,
     )
-    io_handler.set_solution(solution)

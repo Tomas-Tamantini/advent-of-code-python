@@ -1,8 +1,9 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .rucksack import Rucksack
 
 
-def aoc_2022_d3(io_handler: IOHandler) -> None:
+def aoc_2022_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2022, 3, "Rucksack Reorganization")
     io_handler.output_writer.write_header(problem_id)
     rucksacks = [
@@ -16,12 +17,11 @@ def aoc_2022_d3(io_handler: IOHandler) -> None:
         for rucksack in rucksacks
         for item in rucksack.items_in_common_between_left_and_right()
     )
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Total priority of common items between left and right is {total_priorities}",
         part=1,
     )
-    io_handler.set_solution(solution)
 
     groups = [rucksacks[i : i + 3] for i in range(0, len(rucksacks), 3)]
     total_priorities = 0
@@ -29,9 +29,8 @@ def aoc_2022_d3(io_handler: IOHandler) -> None:
         for items in group[0].items_in_common_with_others(*group[1:]):
             total_priorities += group[0].item_priority(items)
 
-    solution = ProblemSolution(
+    yield ProblemSolution(
         problem_id,
         f"Total priority of common items within groups is {total_priorities}",
         part=2,
     )
-    io_handler.set_solution(solution)

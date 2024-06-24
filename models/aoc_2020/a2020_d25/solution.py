@@ -1,8 +1,9 @@
+from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.number_theory import modular_logarithm
 
 
-def aoc_2020_d25(io_handler: IOHandler) -> None:
+def aoc_2020_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2020, 25, "Combo Breaker")
     io_handler.output_writer.write_header(problem_id)
     public_keys = [int(line.strip()) for line in io_handler.input_reader.readlines()]
@@ -11,5 +12,4 @@ def aoc_2020_d25(io_handler: IOHandler) -> None:
     loop_size_card = modular_logarithm(public_keys[0], subject_number, mod)
     loop_size_door = modular_logarithm(public_keys[1], subject_number, mod)
     encryption_key = pow(subject_number, loop_size_card * loop_size_door, mod)
-    solution = ProblemSolution(problem_id, f"Encryption key is {encryption_key}")
-    io_handler.set_solution(solution)
+    yield ProblemSolution(problem_id, f"Encryption key is {encryption_key}")
