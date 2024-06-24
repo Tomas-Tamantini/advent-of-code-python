@@ -30,12 +30,16 @@ def _create_solution_file(
     parser_method_name: Optional[str],
 ) -> None:
     with open(os.path.join(solution_path, "solution.py"), "w") as f:
-        f.write("from models.common.io import IOHandler, Problem\n")
+        f.write("from typing import Iterator\n")
+        f.write("from models.common.io import IOHandler, Problem, ProblemSolution\n")
         if parser_method_name:
             f.write(f"from .parser import {parser_method_name}\n")
-        f.write(f"\n\ndef aoc_{year}_d{day}(io_handler: IOHandler) -> None:\n")
+        f.write(
+            f"\n\ndef aoc_{year}_d{day}(io_handler: IOHandler) -> Iterator[ProblemSolution]:\n"
+        )
         f.write(f'    problem_id = Problem({year}, {day}, "{problem_name}")\n')
         f.write("    io_handler.output_writer.write_header(problem_id)\n")
+        f.write("    yield from []\n")
 
 
 def _create_test_folder(test_path: str) -> None:
