@@ -21,8 +21,8 @@ def aoc_2015_d6(io_handler: IOHandler) -> None:
     )
     solution = ProblemSolution(
         problem_id,
-        f"The total brightness is {grid.num_lights_on}",
+        f"The total brightness is {grid.total_brightness}",
         part=2,
-        result=grid.num_lights_on,
+        result=grid.total_brightness,
     )
     io_handler.set_solution(solution)
