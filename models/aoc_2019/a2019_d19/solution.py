@@ -13,6 +13,7 @@ def aoc_2019_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of points attracted to the beam is {area.num_points_attracted_to_beam}",
         part=1,
+        result=area.num_points_attracted_to_beam,
     )
 
     square_position = square_closest_to_beam_source(
@@ -23,4 +24,5 @@ def aoc_2019_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Position of the square closest to the beam source is at {answer}",
         part=2,
+        result=answer,
     )

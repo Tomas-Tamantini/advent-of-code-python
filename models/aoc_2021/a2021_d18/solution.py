@@ -11,8 +11,9 @@ def aoc_2021_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     acc = SnailFishTree.from_list(lists[0])
     for lst in lists[1:]:
         acc = acc + SnailFishTree.from_list(lst)
+    result = acc.magnitude()
     yield ProblemSolution(
-        problem_id, f"The magnitude of the snailfish is {acc.magnitude()}", part=1
+        problem_id, f"The magnitude of the snailfish is {result}", result, part=1
     )
 
     largest_magnitude = 0
@@ -28,4 +29,5 @@ def aoc_2021_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The largest magnitude of the sum of two snailfish is {largest_magnitude}",
         part=2,
+        result=largest_magnitude,
     )

@@ -16,6 +16,7 @@ def aoc_2020_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of times non-allergen ingredients appear is {num_times}",
         part=1,
+        result=num_times,
     )
 
     matches: dict[str, str] = foods.ingredients_with_allergens()
@@ -26,4 +27,5 @@ def aoc_2020_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Canonical dangerous ingredient list is {canonical_dangerous_ingredients}",
         part=2,
+        result=canonical_dangerous_ingredients,
     )

@@ -12,11 +12,15 @@ def aoc_2021_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     max_y_velocity = max(velocity.y for velocity in all_velocities)
     max_height = UnderwaterProjectile.maximum_height(max_y_velocity)
     yield ProblemSolution(
-        problem_id, f"The maximum height of the projectile is {max_height}", part=1
+        problem_id,
+        f"The maximum height of the projectile is {max_height}",
+        part=1,
+        result=max_height,
     )
 
     yield ProblemSolution(
         problem_id,
         f"The number of different velocities to reach the target is {len(all_velocities)}",
         part=2,
+        result=len(all_velocities),
     )

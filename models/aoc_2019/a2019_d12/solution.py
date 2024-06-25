@@ -14,7 +14,11 @@ def aoc_2019_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     total_energy = sum(
         m.position.manhattan_size * m.velocity.manhattan_size for m in system.moons
     )
-    yield ProblemSolution(problem_id, f"Total energy is {total_energy}", part=1)
+    yield ProblemSolution(
+        problem_id, f"Total energy is {total_energy}", part=1, result=total_energy
+    )
 
     period = system.period()
-    yield ProblemSolution(problem_id, f"System period is {period}", part=2)
+    yield ProblemSolution(
+        problem_id, f"System period is {period}", part=2, result=period
+    )

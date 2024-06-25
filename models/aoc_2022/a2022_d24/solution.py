@@ -12,7 +12,10 @@ def aoc_2022_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.give_time_estimation("20s", part=1)
     min_steps = solver.min_steps_to_exit()
     yield ProblemSolution(
-        problem_id, f"The minimum number of steps to exit valley is {min_steps}", part=1
+        problem_id,
+        f"The minimum number of steps to exit valley is {min_steps}",
+        part=1,
+        result=min_steps,
     )
 
     io_handler.output_writer.give_time_estimation("1min", part=2)
@@ -21,4 +24,5 @@ def aoc_2022_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The minimum number of steps to exit valley twice is {min_steps}",
         part=2,
+        result=min_steps,
     )

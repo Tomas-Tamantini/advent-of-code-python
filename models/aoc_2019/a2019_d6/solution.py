@@ -12,6 +12,7 @@ def aoc_2019_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Total number of direct and indirect orbits is {total_orbits}",
         part=1,
+        result=total_orbits,
     )
 
     orbital_distance = center_of_mass.orbital_distance("YOU", "SAN") - 2
@@ -19,4 +20,5 @@ def aoc_2019_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Minimum number of orbital transfers required is {orbital_distance}",
         part=2,
+        result=orbital_distance,
     )

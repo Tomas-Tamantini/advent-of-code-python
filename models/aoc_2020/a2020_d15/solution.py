@@ -12,7 +12,10 @@ def aoc_2020_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     generator = memory_game_numbers(starting_numbers)
     numbers = [next(generator) for _ in range(2020)]
     yield ProblemSolution(
-        problem_id, f"The 2020th number spoken is {numbers[-1]}", part=1
+        problem_id,
+        f"The 2020th number spoken is {numbers[-1]}",
+        part=1,
+        result=numbers[-1],
     )
 
     generator = memory_game_numbers(starting_numbers)
@@ -22,5 +25,8 @@ def aoc_2020_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         io_handler.progress_bar.update(i, num_terms)
         number = next(generator)
     yield ProblemSolution(
-        problem_id, f"The {num_terms}th number spoken is {number}", part=2
+        problem_id,
+        f"The {num_terms}th number spoken is {number}",
+        part=2,
+        result=number,
     )

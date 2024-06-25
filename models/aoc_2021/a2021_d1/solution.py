@@ -15,15 +15,16 @@ def aoc_2021_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     measurements = [int(line) for line in io_handler.input_reader.readlines()]
 
+    result = num_increases(measurements)
     yield ProblemSolution(
-        problem_id,
-        f"The number of measurement increases is {num_increases(measurements)}",
-        part=1,
+        problem_id, f"The number of measurement increases is {result}", result, part=1
     )
 
     sums = window_sum(measurements, window_size=3)
+    result = num_increases(sums)
     yield ProblemSolution(
         problem_id,
-        f"The number of increases in partial sums is {num_increases(sums)}",
+        f"The number of increases in partial sums is {result}",
+        result,
         part=2,
     )

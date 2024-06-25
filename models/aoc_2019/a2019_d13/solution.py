@@ -10,7 +10,12 @@ def aoc_2019_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     screen = ArcadeGameScreen()
     run_intcode_arcade(instructions, screen)
     block_tiles = screen.count_tiles(ArcadeGameTile.BLOCK)
-    yield ProblemSolution(problem_id, f"Number of block tiles is {block_tiles}", part=1)
+    yield ProblemSolution(
+        problem_id,
+        f"Number of block tiles is {block_tiles}",
+        part=1,
+        result=block_tiles,
+    )
 
     new_instructions = instructions[:]
     new_instructions[0] = 2
@@ -26,5 +31,6 @@ def aoc_2019_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Final score is {screen.current_score}",
         part=2,
+        result=screen.current_score,
         supports_animation=True,
     )

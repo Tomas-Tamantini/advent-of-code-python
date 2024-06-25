@@ -14,5 +14,7 @@ def aoc_2021_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     num_steps = sea_cucumbers.num_steps_until_halt(herds)
     yield ProblemSolution(
-        problem_id, f"The number of steps until the herds stop moving is {num_steps}"
+        problem_id,
+        f"The number of steps until the herds stop moving is {num_steps}",
+        result=num_steps,
     )

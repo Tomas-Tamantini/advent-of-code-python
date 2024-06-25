@@ -14,10 +14,16 @@ def aoc_2021_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     ]
     pop_80 = lantern_fish_population_after_n_days(fish_school, days=80)
     yield ProblemSolution(
-        problem_id, f"The population of lanternfish after 80 days is {pop_80}", part=1
+        problem_id,
+        f"The population of lanternfish after 80 days is {pop_80}",
+        part=1,
+        result=pop_80,
     )
 
     pop_256 = lantern_fish_population_after_n_days(fish_school, days=256)
     yield ProblemSolution(
-        problem_id, f"The population of lanternfish after 256 days is {pop_256}", part=2
+        problem_id,
+        f"The population of lanternfish after 256 days is {pop_256}",
+        part=2,
+        result=pop_256,
     )

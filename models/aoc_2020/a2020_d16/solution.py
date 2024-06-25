@@ -18,7 +18,10 @@ def aoc_2020_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         if not validator.is_valid_field(value)
     )
     yield ProblemSolution(
-        problem_id, f"The scanning error rate is {scanning_error_rate}", part=1
+        problem_id,
+        f"The scanning error rate is {scanning_error_rate}",
+        part=1,
+        result=scanning_error_rate,
     )
 
     my_ticket = parsed_ticket_validator.my_ticket
@@ -30,5 +33,8 @@ def aoc_2020_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         if field_name.startswith("departure"):
             product *= my_ticket[position]
     yield ProblemSolution(
-        problem_id, f"Product of 'departure' fields on my ticket is {product}", part=2
+        problem_id,
+        f"Product of 'departure' fields on my ticket is {product}",
+        part=2,
+        result=product,
     )

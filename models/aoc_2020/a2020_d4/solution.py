@@ -16,9 +16,15 @@ def aoc_2020_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"{len(passports_with_all_fields)} passports with all fields",
         part=1,
+        result=len(passports_with_all_fields),
     )
 
     num_valid_passports = sum(
         passport_is_valid(passport, PASSPORT_RULES) for passport in passports
     )
-    yield ProblemSolution(problem_id, f"{num_valid_passports} valid passports", part=2)
+    yield ProblemSolution(
+        problem_id,
+        f"{num_valid_passports} valid passports",
+        part=2,
+        result=num_valid_passports,
+    )

@@ -11,7 +11,10 @@ def aoc_2019_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         position_before_shuffle=2019, deck_size=10_007
     )
     yield ProblemSolution(
-        problem_id, f"New position of card 2019 is {new_position}", part=1
+        problem_id,
+        f"New position of card 2019 is {new_position}",
+        part=1,
+        result=new_position,
     )
 
     original_position = shuffle.original_card_position(
@@ -20,5 +23,8 @@ def aoc_2019_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         num_shuffles=101741582076661,
     )
     yield ProblemSolution(
-        problem_id, f"Original position of card 2020 is {original_position}", part=2
+        problem_id,
+        f"Original position of card 2020 is {original_position}",
+        part=2,
+        result=original_position,
     )

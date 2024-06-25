@@ -15,9 +15,10 @@ def aoc_2021_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The number of 1, 4, 7, 8 in the decoded digits is {num_matches}",
         part=1,
+        result=num_matches,
     )
 
-    total_sum = sum(int(digits) for digits in decoded_digits)
+    result = sum(int(digits) for digits in decoded_digits)
     yield ProblemSolution(
-        problem_id, f"The total sum of all decoded digits is {total_sum}", part=2
+        problem_id, f"The total sum of all decoded digits is {result}", result, part=2
     )

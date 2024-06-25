@@ -15,10 +15,11 @@ def aoc_2021_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     for instruction in instructions_without_aim:
         submarine = instruction.execute(submarine)
-    product = submarine.position.x * submarine.position.y
+    result = submarine.position.x * submarine.position.y
     yield ProblemSolution(
         problem_id,
-        f"The product of the final position without aim is {product}",
+        f"The product of the final position without aim is {result}",
+        result,
         part=1,
     )
 
@@ -31,7 +32,10 @@ def aoc_2021_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     for instruction in instructions_with_aim:
         submarine = instruction.execute(submarine)
 
-    product = submarine.position.x * submarine.position.y
+    result = submarine.position.x * submarine.position.y
     yield ProblemSolution(
-        problem_id, f"The product of the final position with aim is {product}", part=2
+        problem_id,
+        f"The product of the final position with aim is {result}",
+        result,
+        part=2,
     )

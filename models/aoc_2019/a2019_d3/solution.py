@@ -20,13 +20,15 @@ def aoc_2019_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Closest intersection distance to the central port is {closest.manhattan_size}",
         part=1,
+        result=closest.manhattan_size,
     )
 
-    shortest = min(
+    result = min(
         wire_a.distance_to(point) + wire_b.distance_to(point) for point in intersections
     )
     yield ProblemSolution(
         problem_id,
-        f"Shortest combined distance to an intersection is {shortest}",
+        f"Shortest combined distance to an intersection is {result}",
+        result,
         part=2,
     )

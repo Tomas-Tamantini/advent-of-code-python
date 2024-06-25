@@ -10,7 +10,10 @@ def aoc_2020_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     encoding = XMasEncoding(preamble_length=25)
     invalid_number = next(encoding.invalid_numbers(numbers))
     yield ProblemSolution(
-        problem_id, f"The first invalid number is {invalid_number}", part=1
+        problem_id,
+        f"The first invalid number is {invalid_number}",
+        part=1,
+        result=invalid_number,
     )
 
     contiguous_numbers = next(
@@ -19,5 +22,8 @@ def aoc_2020_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     min_num, max_num = min(contiguous_numbers), max(contiguous_numbers)
     result = min_num + max_num
     yield ProblemSolution(
-        problem_id, f"The sum of min and max contiguous numbers is {result}", part=2
+        problem_id,
+        f"The sum of min and max contiguous numbers is {result}",
+        result,
+        part=2,
     )

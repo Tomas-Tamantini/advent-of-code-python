@@ -13,9 +13,11 @@ def aoc_2020_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     memory = BitmaskMemory()
     for instruction in values_instructions:
         instruction.execute(memory)
+    result = memory.sum_values()
     yield ProblemSolution(
         problem_id,
-        f"Sum of values in memory after applying mask to values is {memory.sum_values()}",
+        f"Sum of values in memory after applying mask to values is {result}",
+        result,
         part=1,
     )
 
@@ -25,8 +27,10 @@ def aoc_2020_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     memory = BitmaskMemory()
     for instruction in address_instructions:
         instruction.execute(memory)
+    result = memory.sum_values()
     yield ProblemSolution(
         problem_id,
-        f"Sum of values in memory after applying mask to addresses is {memory.sum_values()}",
+        f"Sum of values in memory after applying mask to addresses is {result}",
+        result,
         part=2,
     )

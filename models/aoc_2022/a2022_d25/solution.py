@@ -34,4 +34,6 @@ def aoc_2022_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         snafu_to_decimal(line) for line in io_handler.input_reader.read_stripped_lines()
     )
     snafu_sum = decimal_to_snafu(decimal_sum)
-    yield ProblemSolution(problem_id, f"Total sum of snafu numbers is {snafu_sum}")
+    yield ProblemSolution(
+        problem_id, f"Total sum of snafu numbers is {snafu_sum}", result=snafu_sum
+    )

@@ -16,6 +16,7 @@ def aoc_2021_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The number of visible dots after the first fold is {num_visible_dots}",
         part=1,
+        result=num_visible_dots,
     )
 
     for remaining_instructions in instructions[1:]:
@@ -27,5 +28,5 @@ def aoc_2021_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         matrix[dot.y][dot.x] = "#"
     code = "\n".join("".join(row) for row in matrix)
     yield ProblemSolution(
-        problem_id, f"The code after all folds is\n\n{code}\n", part=2
+        problem_id, f"The code after all folds is\n\n{code}\n", part=2, result=code
     )

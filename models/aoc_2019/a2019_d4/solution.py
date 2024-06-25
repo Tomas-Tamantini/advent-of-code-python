@@ -15,7 +15,10 @@ def aoc_2019_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     criteria = [digits_are_increasing, two_adjacent_digits_are_the_same]
     valid_passwords = list(valid_passwords_in_range(lower_bound, upper_bound, criteria))
     yield ProblemSolution(
-        problem_id, f"Number of valid passwords is {len(valid_passwords)}", part=1
+        problem_id,
+        f"Number of valid passwords is {len(valid_passwords)}",
+        part=1,
+        result=len(valid_passwords),
     )
 
     criteria.append(at_least_one_group_of_exactly_two_equal_digits)
@@ -24,4 +27,5 @@ def aoc_2019_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of valid passwords with the new criteria is {len(valid_passwords)}",
         part=2,
+        result=len(valid_passwords),
     )

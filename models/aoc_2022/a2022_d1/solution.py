@@ -11,9 +11,14 @@ def aoc_2022_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     ]
     sorted_calories = sorted(calories_by_elf)
     max_calories = sorted_calories[-1]
-    yield ProblemSolution(problem_id, f"Maximum calories is {max_calories}", part=1)
+    yield ProblemSolution(
+        problem_id, f"Maximum calories is {max_calories}", part=1, result=max_calories
+    )
 
     top_3_calories = sum(sorted_calories[-3:])
     yield ProblemSolution(
-        problem_id, f"Sum of top 3 calories is {top_3_calories}", part=2
+        problem_id,
+        f"Sum of top 3 calories is {top_3_calories}",
+        part=2,
+        result=top_3_calories,
     )

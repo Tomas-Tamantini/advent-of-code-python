@@ -17,7 +17,10 @@ def aoc_2019_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         pos.x * pos.y for pos in scaffold_map.scaffolding_intersections()
     )
     yield ProblemSolution(
-        problem_id, f"Sum of alignment parameters is {alignment_parameters}", part=1
+        problem_id,
+        f"Sum of alignment parameters is {alignment_parameters}",
+        part=1,
+        result=alignment_parameters,
     )
 
     compressed_path = scaffold_map.compressed_path_through_scaffolding(
@@ -26,5 +29,8 @@ def aoc_2019_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     instructions[0] = 2
     dust_collected = run_scaffolding_exploration_program(instructions, compressed_path)
     yield ProblemSolution(
-        problem_id, f"Dust collected by the vacuum robot is {dust_collected}", part=2
+        problem_id,
+        f"Dust collected by the vacuum robot is {dust_collected}",
+        part=2,
+        result=dust_collected,
     )

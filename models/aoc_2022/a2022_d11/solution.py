@@ -25,6 +25,7 @@ def aoc_2022_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Monkey business for 20 rounds is {monkey_business_20_rounds}",
         part=1,
+        result=monkey_business_20_rounds,
     )
 
     monkey_business_10k_rounds = _monkey_business(
@@ -34,4 +35,5 @@ def aoc_2022_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Monkey business for 10,000 rounds is {monkey_business_10k_rounds}",
         part=2,
+        result=monkey_business_10k_rounds,
     )

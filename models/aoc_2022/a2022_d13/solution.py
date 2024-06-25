@@ -14,7 +14,10 @@ def aoc_2022_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         if left_packet_leq_right(packet_left, packet_right):
             sum_pair_indices += pair_index + 1
     yield ProblemSolution(
-        problem_id, f"Sum of pair indices is {sum_pair_indices}", part=1
+        problem_id,
+        f"Sum of pair indices is {sum_pair_indices}",
+        part=1,
+        result=sum_pair_indices,
     )
 
     first_divider = [[2]]
@@ -25,7 +28,7 @@ def aoc_2022_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_leq_second_divider = sum(
         left_packet_leq_right(eval(line), second_divider) for line in lines
     )
-    product = (num_leq_first_divider + 1) * (num_leq_second_divider + 2)
+    result = (num_leq_first_divider + 1) * (num_leq_second_divider + 2)
     yield ProblemSolution(
-        problem_id, f"Product of divider indices is {product}", part=2
+        problem_id, f"Product of divider indices is {result}", result, part=2
     )

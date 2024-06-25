@@ -8,12 +8,15 @@ def aoc_2020_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2020, 8, "Handheld Halting")
     io_handler.output_writer.write_header(problem_id)
     instructions = list(parse_game_console_instructions(io_handler.input_reader))
-    accumulator = run_game_console(instructions)
-    yield ProblemSolution(problem_id, f"The accumulator value is {accumulator}", part=1)
+    result = run_game_console(instructions)
+    yield ProblemSolution(
+        problem_id, f"The accumulator value is {result}", result, part=1
+    )
 
-    accumulator = find_and_run_game_console_which_terminates(instructions)
+    result = find_and_run_game_console_which_terminates(instructions)
     yield ProblemSolution(
         problem_id,
-        f"The accumulator value in program which terminates is {accumulator}",
+        f"The accumulator value in program which terminates is {result}",
+        result,
         part=2,
     )

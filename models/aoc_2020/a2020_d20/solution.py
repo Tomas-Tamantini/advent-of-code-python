@@ -13,7 +13,9 @@ def aoc_2020_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     product = 1
     for piece in border_pieces:
         product *= piece.piece_id
-    yield ProblemSolution(problem_id, f"Product of corner pieces is {product}", part=1)
+    yield ProblemSolution(
+        problem_id, f"Product of corner pieces is {product}", part=1, result=product
+    )
 
     sea_monster_text = "\n".join(
         [
@@ -34,4 +36,5 @@ def aoc_2020_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of non-sea-monster cells is {num_non_sea_monster_cells}",
         part=2,
+        result=num_non_sea_monster_cells,
     )

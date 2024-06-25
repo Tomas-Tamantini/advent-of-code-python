@@ -16,7 +16,10 @@ def aoc_2021_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     end = Vector2D(grid.width - 1, grid.height - 1)
     risk_level = cave_maze.risk_of_optimal_path(start, end)
     yield ProblemSolution(
-        problem_id, f"The risk level of the optimal path is {risk_level}", part=1
+        problem_id,
+        f"The risk level of the optimal path is {risk_level}",
+        part=1,
+        result=risk_level,
     )
 
     extension_factor = 5
@@ -32,4 +35,5 @@ def aoc_2021_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The risk level of the optimal path in the extended cave is {risk_level}",
         part=2,
+        result=risk_level,
     )

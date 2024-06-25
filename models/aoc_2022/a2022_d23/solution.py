@@ -28,6 +28,7 @@ def aoc_2022_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"After 10 moves, the number of ground tiles is {empty_spaces}",
         part=1,
+        result=empty_spaces,
     )
 
     io_handler.output_writer.give_time_estimation("20s", part=2)
@@ -39,5 +40,8 @@ def aoc_2022_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         round_index += 1
 
     yield ProblemSolution(
-        problem_id, f"Number of rounds until elves settle is {round_index}", part=2
+        problem_id,
+        f"Number of rounds until elves settle is {round_index}",
+        part=2,
+        result=round_index,
     )

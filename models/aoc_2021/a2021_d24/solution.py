@@ -42,10 +42,16 @@ def aoc_2021_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     y_offsets = [int(instructions[18 * i + 15].split()[-1]) for i in range(14)]
     largest = _largest_number_accepted_by_monad(x_offsets, y_offsets)
     yield ProblemSolution(
-        problem_id, f"The largest number accepted by the monad is {largest}", part=1
+        problem_id,
+        f"The largest number accepted by the monad is {largest}",
+        part=1,
+        result=largest,
     )
 
     smallest = _smallest_number_accepted_by_monad(x_offsets, y_offsets)
     yield ProblemSolution(
-        problem_id, f"The smallest number accepted by the monad is {smallest}", part=2
+        problem_id,
+        f"The smallest number accepted by the monad is {smallest}",
+        part=2,
+        result=smallest,
     )

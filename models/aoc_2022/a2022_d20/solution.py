@@ -20,6 +20,7 @@ def aoc_2022_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Sum of numbers at positions 1000, 2000, and 3000: {total_sum}",
         part=1,
+        result=total_sum,
     )
 
     key = 811589153
@@ -32,4 +33,5 @@ def aoc_2022_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Sum of numbers at positions 1000, 2000, and 3000 after 10 rounds mixing: {total_sum}",
         part=2,
+        result=total_sum,
     )

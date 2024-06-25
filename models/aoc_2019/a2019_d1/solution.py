@@ -14,6 +14,7 @@ def aoc_2019_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Fuel required ignoring its extra mass is {fuel_ignoring_extra_mass}",
         part=1,
+        result=fuel_ignoring_extra_mass,
     )
 
     fuel_including_extra_mass = sum(
@@ -23,4 +24,5 @@ def aoc_2019_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Fuel required including its extra mass is {fuel_including_extra_mass}",
         part=2,
+        result=fuel_including_extra_mass,
     )

@@ -13,6 +13,7 @@ def aoc_2022_d7(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Sum of sizes of small directories is {sum_small_directories}",
         part=1,
+        result=sum_small_directories,
     )
 
     tree.navigate_to_root()
@@ -22,5 +23,8 @@ def aoc_2022_d7(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     delete_threshold = required_space + used_space - total_space
     size_to_delete = min((size for size in sizes if size >= delete_threshold))
     yield ProblemSolution(
-        problem_id, f"Size of smallest directory to delete is {size_to_delete}", part=2
+        problem_id,
+        f"Size of smallest directory to delete is {size_to_delete}",
+        part=2,
+        result=size_to_delete,
     )

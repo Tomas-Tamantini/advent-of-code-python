@@ -12,10 +12,12 @@ def aoc_2019_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     layer_with_fewest_zeros = min(image.layers, key=lambda layer: layer.count_digit(0))
     ones = layer_with_fewest_zeros.count_digit(1)
     twos = layer_with_fewest_zeros.count_digit(2)
+    result = ones * twos
     yield ProblemSolution(
         problem_id,
-        f"Number of 1 digits multiplied by the number of 2 digits is {ones * twos}",
+        f"Number of 1 digits multiplied by the number of 2 digits is {result}",
+        result,
         part=1,
     )
-
-    yield ProblemSolution(problem_id, f"The message is\n\n{image.render()}", part=2)
+    result = image.render()
+    yield ProblemSolution(problem_id, f"The message is\n\n{result}", result, part=2)

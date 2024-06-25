@@ -14,7 +14,10 @@ def aoc_2022_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         )
     )
     yield ProblemSolution(
-        problem_id, f"Total score parsing XYZ as actions is {score}", part=1
+        problem_id,
+        f"Total score parsing XYZ as actions is {score}",
+        part=1,
+        result=score,
     )
 
     score = sum(
@@ -24,5 +27,8 @@ def aoc_2022_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         )
     )
     yield ProblemSolution(
-        problem_id, f"Total score parsing XYZ as results is {score}", part=2
+        problem_id,
+        f"Total score parsing XYZ as results is {score}",
+        part=2,
+        result=score,
     )

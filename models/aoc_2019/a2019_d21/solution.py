@@ -36,7 +36,10 @@ def aoc_2019_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     try:
         hull_damage = droid_output.large_output()
         yield ProblemSolution(
-            problem_id, f"Hull damage from walking on the hull is {hull_damage}", part=1
+            problem_id,
+            f"Hull damage from walking on the hull is {hull_damage}",
+            part=1,
+            result=hull_damage,
         )
 
     except ValueError:
@@ -58,7 +61,10 @@ def aoc_2019_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     try:
         hull_damage = droid_output.large_output()
         yield ProblemSolution(
-            problem_id, f"Hull damage from running on the hull is {hull_damage}", part=2
+            problem_id,
+            f"Hull damage from running on the hull is {hull_damage}",
+            part=2,
+            result=hull_damage,
         )
 
     except ValueError:

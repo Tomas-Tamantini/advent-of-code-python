@@ -17,9 +17,11 @@ def aoc_2020_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         )
         for bus in bus_schedules
     )
+    result = bus_id * wait_time
     yield ProblemSolution(
         problem_id,
-        f"Bus ID {bus_id} multiplied by wait time {wait_time} is {bus_id * wait_time}",
+        f"Bus ID {bus_id} multiplied by wait time {wait_time} is {result}",
+        result,
         part=1,
     )
 
@@ -30,4 +32,5 @@ def aoc_2020_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Earliest timestamp to match bus schedules is {earliest_timestamp}",
         part=2,
+        result=earliest_timestamp,
     )

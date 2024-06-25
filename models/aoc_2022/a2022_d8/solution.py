@@ -23,10 +23,17 @@ def aoc_2022_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     visible = set()
     for direction in CardinalDirection:
         visible.update(tree_height_map.visible_trees(direction))
-    yield ProblemSolution(problem_id, f"Total visible trees: {len(visible)}", part=1)
+    yield ProblemSolution(
+        problem_id, f"Total visible trees: {len(visible)}", part=1, result=len(visible)
+    )
 
     best_scenic_score = max(
         _scenic_score(position, tree_height_map)
         for position in tree_height_map.all_positions()
     )
-    yield ProblemSolution(problem_id, f"Best scenic score: {best_scenic_score}", part=2)
+    yield ProblemSolution(
+        problem_id,
+        f"Best scenic score: {best_scenic_score}",
+        part=2,
+        result=best_scenic_score,
+    )

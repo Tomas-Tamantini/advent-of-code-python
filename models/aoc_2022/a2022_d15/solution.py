@@ -19,6 +19,7 @@ def aoc_2022_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of positions which cannot contain a beacon is {num_positions}",
         part=1,
+        result=num_positions,
     )
 
     limit = 4_000_000
@@ -28,5 +29,5 @@ def aoc_2022_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     position = position_which_must_be_beacon(search_space, sensors)
     result = position.x * limit + position.y
     yield ProblemSolution(
-        problem_id, f"Position which must contain a beacon is {result}", part=2
+        problem_id, f"Position which must contain a beacon is {result}", result, part=2
     )

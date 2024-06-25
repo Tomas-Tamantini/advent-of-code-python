@@ -16,7 +16,17 @@ def aoc_2022_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     stream = io_handler.input_reader.read()
     start_of_packet = detect_distinct_chars(stream, num_distinct_chars=4)
-    yield ProblemSolution(problem_id, f"Packet starts at {start_of_packet}", part=1)
+    yield ProblemSolution(
+        problem_id,
+        f"Packet starts at {start_of_packet}",
+        part=1,
+        result=start_of_packet,
+    )
 
     start_of_message = detect_distinct_chars(stream, num_distinct_chars=14)
-    yield ProblemSolution(problem_id, f"Message starts at {start_of_message}", part=2)
+    yield ProblemSolution(
+        problem_id,
+        f"Message starts at {start_of_message}",
+        part=2,
+        result=start_of_message,
+    )

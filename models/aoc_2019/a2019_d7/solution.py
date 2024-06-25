@@ -18,6 +18,7 @@ def aoc_2019_d7(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Maximum signal that can be sent to the thrusters is {max_signal}",
         part=1,
+        result=max_signal,
     )
 
     max_signal_feedback = max(
@@ -28,4 +29,5 @@ def aoc_2019_d7(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Maximum signal that can be sent to the thrusters with feedback is {max_signal_feedback}",
         part=2,
+        result=max_signal_feedback,
     )

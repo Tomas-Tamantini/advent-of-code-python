@@ -22,10 +22,12 @@ def aoc_2021_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The product for the first bingo winner is {product_first_winner}",
         part=1,
+        result=product_first_winner,
     )
 
     yield ProblemSolution(
         problem_id,
         f"The product for the last bingo winner is {product_last_winner}",
         part=2,
+        result=product_last_winner,
     )

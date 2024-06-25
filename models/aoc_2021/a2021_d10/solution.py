@@ -24,7 +24,10 @@ def aoc_2021_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         except StopIteration:
             incomplete_lines.append(line)
     yield ProblemSolution(
-        problem_id, f"The total mismatch score is {mismatch_score}", part=1
+        problem_id,
+        f"The total mismatch score is {mismatch_score}",
+        part=1,
+        result=mismatch_score,
     )
 
     def missing_score(missing_brackets: Iterable[chr]) -> int:
@@ -45,5 +48,8 @@ def aoc_2021_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     middle_score = sorted(missing_scores)[len(missing_scores) // 2]
     yield ProblemSolution(
-        problem_id, f"The middle missing score is {middle_score}", part=2
+        problem_id,
+        f"The middle missing score is {middle_score}",
+        part=2,
+        result=middle_score,
     )

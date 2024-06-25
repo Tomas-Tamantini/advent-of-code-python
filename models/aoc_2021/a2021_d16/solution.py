@@ -8,10 +8,11 @@ def aoc_2021_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     packet_as_hex = io_handler.input_reader.read().strip()
     packet = PacketParser().parse_packet(packet_as_hex)
+    result = packet.version_sum()
     yield ProblemSolution(
-        problem_id, f"The sum of all versions is { packet.version_sum()}", part=1
+        problem_id, f"The sum of all versions is {result}", result, part=1
     )
-
+    result = packet.evaluate()
     yield ProblemSolution(
-        problem_id, f"The evaluation of the packet is { packet.evaluate()}", part=2
+        problem_id, f"The evaluation of the packet is {result}", result, part=2
     )

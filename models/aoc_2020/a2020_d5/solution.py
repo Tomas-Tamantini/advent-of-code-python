@@ -8,12 +8,17 @@ def aoc_2020_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     seat_ids = sorted(parse_plane_seat_ids(io_handler.input_reader))
     max_id = seat_ids[-1]
-    yield ProblemSolution(problem_id, f"The highest seat ID is {max_id}", part=1)
+    yield ProblemSolution(
+        problem_id, f"The highest seat ID is {max_id}", part=1, result=max_id
+    )
 
     for i, seat_id in enumerate(seat_ids):
         if seat_ids[i + 1] - seat_id == 2:
             missing_seat_id = seat_id + 1
             break
     yield ProblemSolution(
-        problem_id, f"The missing seat ID is {missing_seat_id}", part=2
+        problem_id,
+        f"The missing seat ID is {missing_seat_id}",
+        part=2,
+        result=missing_seat_id,
     )

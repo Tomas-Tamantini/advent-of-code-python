@@ -21,5 +21,6 @@ def aoc_2019_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     yield ProblemSolution(
         problem_id,
         f"Airlock password is {control.airlock_password}",
+        result=control.airlock_password,
         supports_play=True,
     )

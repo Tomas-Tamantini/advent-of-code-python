@@ -16,7 +16,10 @@ def aoc_2019_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         raw_material, product=ChemicalQuantity(product, quantity=1)
     )
     yield ProblemSolution(
-        problem_id, f"Minimum ore required to make 1 fuel is {ore_required}", part=1
+        problem_id,
+        f"Minimum ore required to make 1 fuel is {ore_required}",
+        part=1,
+        result=ore_required,
     )
 
     fuel_produced = reactions.max_product_that_can_be_produced(
@@ -27,4 +30,5 @@ def aoc_2019_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Maximum fuel that can be produced with 1 trillion ore is {fuel_produced}",
         part=2,
+        result=fuel_produced,
     )

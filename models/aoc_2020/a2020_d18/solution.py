@@ -17,6 +17,7 @@ def aoc_2020_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Sum of results using left precedence is {sum_results_left_precedence}",
         part=1,
+        result=sum_results_left_precedence,
     )
 
     sum_results_addition_precedence = sum(
@@ -27,4 +28,5 @@ def aoc_2020_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Sum of results using addition precedence is {sum_results_addition_precedence}",
         part=2,
+        result=sum_results_addition_precedence,
     )

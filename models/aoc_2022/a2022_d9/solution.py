@@ -32,6 +32,7 @@ def aoc_2022_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Unique positions visited by tail in two-knot rope is {len(tail_positions)}",
         part=1,
+        result=len(tail_positions),
     )
 
     long_rope = Rope(num_knots=10)
@@ -45,5 +46,6 @@ def aoc_2022_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Unique positions visited by tail in ten-knot rope is {len(tail_positions)}",
         part=2,
+        result=len(tail_positions),
         supports_animation=True,
     )

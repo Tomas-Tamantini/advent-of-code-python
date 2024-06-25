@@ -17,16 +17,18 @@ def aoc_2021_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         return sum(1 for count in position_count.values() if count > 1)
 
     non_diagonal_segments = [segment for segment in segments if not segment.is_diagonal]
-    num_count = num_overlapping_positions(non_diagonal_segments)
+    result = num_overlapping_positions(non_diagonal_segments)
     yield ProblemSolution(
         problem_id,
-        f"The number of intersections of non-diagonals is {num_count}",
+        f"The number of intersections of non-diagonals is {result}",
+        result,
         part=1,
     )
 
-    num_count = num_overlapping_positions(segments)
+    result = num_overlapping_positions(segments)
     yield ProblemSolution(
         problem_id,
-        f"The number of intersections of all segments is {num_count}",
+        f"The number of intersections of all segments is {result}",
+        result,
         part=2,
     )

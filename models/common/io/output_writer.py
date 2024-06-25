@@ -13,7 +13,7 @@ class Problem:
 class ProblemSolution:
     problem_id: Problem
     solution_text: str
-    result: str = ""  # TODO: Make this field mandatory
+    result: str
     part: Optional[int] = None
     supports_animation: bool = False
     supports_play: bool = False

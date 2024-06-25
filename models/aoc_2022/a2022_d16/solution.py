@@ -14,7 +14,10 @@ def aoc_2022_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     volcano = Volcano(graph, starting_valve, time_until_eruption=30)
     max_pressure_one_worker = maximum_pressure_release(volcano, num_workers=1)
     yield ProblemSolution(
-        problem_id, f"Maximum pressure release is {max_pressure_one_worker}", part=1
+        problem_id,
+        f"Maximum pressure release is {max_pressure_one_worker}",
+        part=1,
+        result=max_pressure_one_worker,
     )
 
     volcano = Volcano(graph, starting_valve, time_until_eruption=26)
@@ -26,4 +29,5 @@ def aoc_2022_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Maximum pressure release with elephant helper is {max_pressure_two_workers}",
         part=2,
+        result=max_pressure_two_workers,
     )

@@ -14,7 +14,10 @@ def aoc_2022_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     falling_sand.pour_until_steady_state()
     num_resting = len(falling_sand.resting_sand_positions)
     yield ProblemSolution(
-        problem_id, f"Number of resting sand grains is {num_resting}", part=1
+        problem_id,
+        f"Number of resting sand grains is {num_resting}",
+        part=1,
+        result=num_resting,
     )
 
     floor_y_coord = falling_sand.max_obstacle_depth + 2
@@ -25,4 +28,5 @@ def aoc_2022_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of resting sand grains considering floor is {num_resting}",
         part=2,
+        result=num_resting,
     )

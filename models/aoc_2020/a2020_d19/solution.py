@@ -11,12 +11,18 @@ def aoc_2020_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     num_matching = sum(1 for word in words if cfg.matches(tuple(word)))
     yield ProblemSolution(
-        problem_id, f"Number of valid messages is {num_matching}", part=1
+        problem_id,
+        f"Number of valid messages is {num_matching}",
+        part=1,
+        result=num_matching,
     )
 
     cfg.add_rule(8, (42, 8))
     cfg.add_rule(11, (42, 11, 31))
     num_matching = sum(1 for word in words if cfg.matches(tuple(word)))
     yield ProblemSolution(
-        problem_id, f"Number of valid messages with loops is {num_matching}", part=2
+        problem_id,
+        f"Number of valid messages with loops is {num_matching}",
+        part=2,
+        result=num_matching,
     )

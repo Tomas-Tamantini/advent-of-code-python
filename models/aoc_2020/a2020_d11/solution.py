@@ -21,6 +21,7 @@ def aoc_2020_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Occupied seats considering only adjacent neighbors: {num_occupied}",
         part=1,
+        result=num_occupied,
     )
 
     ferry_first_chair = FerrySeats(
@@ -36,4 +37,5 @@ def aoc_2020_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Occupied seats considering first chair in line of sight: {num_occupied}",
         part=2,
+        result=num_occupied,
     )

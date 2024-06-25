@@ -20,6 +20,7 @@ def aoc_2021_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     yield ProblemSolution(
         problem_id,
         f"The product of the worst score and number of dice rolls is {result}",
+        result,
         part=1,
     )
 
@@ -29,5 +30,8 @@ def aoc_2021_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     quantum_game = QuantumDiracGame(starting_configuration)
     num_wins = quantum_game.num_wins(first_player_win=True)
     yield ProblemSolution(
-        problem_id, f"The number of wins for the first player is {num_wins}", part=2
+        problem_id,
+        f"The number of wins for the first player is {num_wins}",
+        part=2,
+        result=num_wins,
     )

@@ -10,10 +10,16 @@ def aoc_2022_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     cubes = set(parse_cube_positions(io_handler.input_reader))
     total_area = total_surface_area(cubes)
     yield ProblemSolution(
-        problem_id, f"Total surface area of droplet is {total_area}", part=1
+        problem_id,
+        f"Total surface area of droplet is {total_area}",
+        part=1,
+        result=total_area,
     )
 
     external_area = external_surface_area(cubes)
     yield ProblemSolution(
-        problem_id, f"External surface area of droplet is {external_area}", part=2
+        problem_id,
+        f"External surface area of droplet is {external_area}",
+        part=2,
+        result=external_area,
     )

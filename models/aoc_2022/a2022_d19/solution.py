@@ -31,6 +31,7 @@ def aoc_2022_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The sum of quality levels for all blueprints is {sum_quality_levels}",
         part=1,
+        result=sum_quality_levels,
     )
 
     time_limit = 32
@@ -43,5 +44,8 @@ def aoc_2022_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         geode_product *= num_geodes
         io_handler.progress_bar.update(step=i + 1, expected_num_steps=3)
     yield ProblemSolution(
-        problem_id, f"The product of the number of geodes is {geode_product}", part=2
+        problem_id,
+        f"The product of the number of geodes is {geode_product}",
+        part=2,
+        result=geode_product,
     )

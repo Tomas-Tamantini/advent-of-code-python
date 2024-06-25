@@ -15,6 +15,7 @@ def aoc_2022_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Items on top of crates when moving one at a time are {top_items}",
         part=1,
+        result=top_items,
     )
 
     parsed_crates = parse_crates(io_handler.input_reader, move_one_at_a_time=False)
@@ -26,4 +27,5 @@ def aoc_2022_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Items on top of crates when moving all at once are {top_items}",
         part=2,
+        result=top_items,
     )

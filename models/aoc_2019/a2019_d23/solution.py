@@ -15,9 +15,12 @@ def aoc_2019_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_computers = 50
     lost_packets_manager = LostPackets(monitor=MonitorBadAddressPackets())
     run_network(num_computers, lost_packets_manager, instructions)
-    ans = lost_packets_manager.content_last_packet.y
+    result = lost_packets_manager.content_last_packet.y
     yield ProblemSolution(
-        problem_id, f"Y value of the first packet sent to address 255 is {ans}", part=1
+        problem_id,
+        f"Y value of the first packet sent to address 255 is {result}",
+        result,
+        part=1,
     )
 
     lost_packets_manager = LostPackets(
@@ -25,10 +28,11 @@ def aoc_2019_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     io_handler.output_writer.give_time_estimation("1min", part=2)
     run_network(num_computers, lost_packets_manager, instructions)
-    ans = lost_packets_manager.content_last_packet.y
+    result = lost_packets_manager.content_last_packet.y
 
     yield ProblemSolution(
         problem_id,
-        f"Y value of the first packet sent to address 255 after NAT repeats a packet is {ans}",
+        f"Y value of the first packet sent to address 255 after NAT repeats a packet is {result}",
+        result,
         part=2,
     )

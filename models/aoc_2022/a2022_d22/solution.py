@@ -49,11 +49,14 @@ def aoc_2022_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     pacman_edge_mapper = PacmanEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, pacman_edge_mapper, parsed)
     yield ProblemSolution(
-        problem_id, f"The password with pacman map is {password}", part=1
+        problem_id,
+        f"The password with pacman map is {password}",
+        part=1,
+        result=password,
     )
 
     cube_edge_mapper = CubeEdgeMapper(parsed.cube_net)
     password = _simulate_movements(cube_size, cube_edge_mapper, parsed)
     yield ProblemSolution(
-        problem_id, f"The password with cube map is {password}", part=2
+        problem_id, f"The password with cube map is {password}", part=2, result=password
     )

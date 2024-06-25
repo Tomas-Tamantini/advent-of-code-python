@@ -21,6 +21,7 @@ def aoc_2022_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Total priority of common items between left and right is {total_priorities}",
         part=1,
+        result=total_priorities,
     )
 
     groups = [rucksacks[i : i + 3] for i in range(0, len(rucksacks), 3)]
@@ -33,4 +34,5 @@ def aoc_2022_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Total priority of common items within groups is {total_priorities}",
         part=2,
+        result=total_priorities,
     )

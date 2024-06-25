@@ -15,7 +15,10 @@ def aoc_2020_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     for _ in range(6):
         active_cubes_3d = automaton.next_state(active_cubes_3d)
     yield ProblemSolution(
-        problem_id, f"Number of active 3D cubes is {len(active_cubes_3d)}", part=1
+        problem_id,
+        f"Number of active 3D cubes is {len(active_cubes_3d)}",
+        part=1,
+        result=len(active_cubes_3d),
     )
 
     active_cubes_4d = {
@@ -25,5 +28,8 @@ def aoc_2020_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     for _ in range(6):
         active_cubes_4d = automaton.next_state(active_cubes_4d)
     yield ProblemSolution(
-        problem_id, f"Number of active 4D hypercubes is {len(active_cubes_4d)}", part=2
+        problem_id,
+        f"Number of active 4D hypercubes is {len(active_cubes_4d)}",
+        part=2,
+        result=len(active_cubes_4d),
     )

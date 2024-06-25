@@ -18,7 +18,10 @@ def aoc_2020_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         else:
             black_tiles.add(pos)
     yield ProblemSolution(
-        problem_id, f"Number of black tiles is {len(black_tiles)}", part=1
+        problem_id,
+        f"Number of black tiles is {len(black_tiles)}",
+        part=1,
+        result=len(black_tiles),
     )
 
     automaton = HexagonalAutomaton()
@@ -27,5 +30,6 @@ def aoc_2020_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     yield ProblemSolution(
         problem_id,
         f"Number of black tiles after 100 days is {len(black_tiles)}",
+        result=len(black_tiles),
         part=2,
     )

@@ -16,6 +16,7 @@ def aoc_2019_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Biodiversity rating of the first repeated state is {rating}",
         part=1,
+        result=rating,
     )
 
     recursive_automaton = RecursiveBugsAutomaton(width=5, height=5)
@@ -29,4 +30,5 @@ def aoc_2019_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Number of bugs in recursive grid after 200 minutes is {num_bugs}",
         part=2,
+        result=num_bugs,
     )

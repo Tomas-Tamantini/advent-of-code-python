@@ -58,7 +58,10 @@ def aoc_2022_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     height = tower_height(game_state, 2022)
     yield ProblemSolution(
-        problem_id, f"The height of the tower after 2022 rocks is {height}", part=1
+        problem_id,
+        f"The height of the tower after 2022 rocks is {height}",
+        part=1,
+        result=height,
     )
 
     height = tower_height(game_state, 1_000_000_000_000)
@@ -66,4 +69,5 @@ def aoc_2022_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The height of the tower after 1 trillion rocks is {height}",
         part=2,
+        result=height,
     )

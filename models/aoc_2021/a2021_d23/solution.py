@@ -10,7 +10,10 @@ def aoc_2021_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     burrow = parse_amphipod_burrow(io_handler.input_reader)
     min_energy = AmphipodSorter().min_energy_to_sort(burrow)
     yield ProblemSolution(
-        problem_id, f"The minimum energy to sort the burrow is {min_energy}", part=1
+        problem_id,
+        f"The minimum energy to sort the burrow is {min_energy}",
+        part=1,
+        result=min_energy,
     )
 
     insertions = ("DD", "BC", "AB", "CA")
@@ -20,4 +23,5 @@ def aoc_2021_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The minimum energy to sort the extended burrow is {min_energy}",
         part=2,
+        result=min_energy,
     )

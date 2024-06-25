@@ -14,7 +14,10 @@ def aoc_2020_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         ship = instruction.execute(ship)
     manhattan_distance = ship.position.manhattan_size
     yield ProblemSolution(
-        problem_id, f"Ship's manhattan distance: {manhattan_distance}", part=1
+        problem_id,
+        f"Ship's manhattan distance: {manhattan_distance}",
+        part=1,
+        result=manhattan_distance,
     )
 
     waypoint_instructions = parse_navigation_instructions(
@@ -30,4 +33,5 @@ def aoc_2020_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Ship's manhattan distance with waypoint: {manhattan_distance}",
         part=2,
+        result=manhattan_distance,
     )

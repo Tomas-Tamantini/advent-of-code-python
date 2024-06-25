@@ -15,9 +15,13 @@ def aoc_2019_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"Fewest number of movement commands to reach the oxygen system is {distance}",
         part=1,
+        result=distance,
     )
 
     minutes = area.minutes_to_fill_with_oxygen()
     yield ProblemSolution(
-        problem_id, f"Minutes to fill the area with oxygen is {minutes}", part=2
+        problem_id,
+        f"Minutes to fill the area with oxygen is {minutes}",
+        part=2,
+        result=minutes,
     )

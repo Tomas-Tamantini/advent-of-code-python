@@ -21,6 +21,7 @@ def aoc_2021_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The number of flashes after 100 steps is {octopuses.num_flashes}",
         part=1,
+        result=octopuses.num_flashes,
     )
 
     octopuses = OctopusesFlashes(
@@ -37,5 +38,6 @@ def aoc_2021_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The number of steps until all octopuses flash is {current_step}",
         part=2,
+        result=current_step,
         supports_animation=True,
     )

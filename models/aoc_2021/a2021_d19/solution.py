@@ -15,7 +15,10 @@ def aoc_2021_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     for scanner in pinpointed:
         all_beacons.update(scanner.visible_beacons_absolute_coordinates())
     yield ProblemSolution(
-        problem_id, f"The number of beacons is {len(all_beacons)}", part=1
+        problem_id,
+        f"The number of beacons is {len(all_beacons)}",
+        part=1,
+        result=len(all_beacons),
     )
 
     max_distance = max(
@@ -27,4 +30,5 @@ def aoc_2021_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         problem_id,
         f"The maximum distance between any two scanners is {max_distance}",
         part=2,
+        result=max_distance,
     )

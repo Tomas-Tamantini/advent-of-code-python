@@ -12,4 +12,6 @@ def aoc_2020_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     loop_size_card = modular_logarithm(public_keys[0], subject_number, mod)
     loop_size_door = modular_logarithm(public_keys[1], subject_number, mod)
     encryption_key = pow(subject_number, loop_size_card * loop_size_door, mod)
-    yield ProblemSolution(problem_id, f"Encryption key is {encryption_key}")
+    yield ProblemSolution(
+        problem_id, f"Encryption key is {encryption_key}", result=encryption_key
+    )

@@ -10,14 +10,18 @@ def aoc_2019_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     belt = AsteroidBelt(asteroids=set(grid.positions_with_value("#")))
     most_visible, others_visible = belt.asteroid_with_most_visibility()
     yield ProblemSolution(
-        problem_id, f"Best location can see {others_visible} other asteroids", part=1
+        problem_id,
+        f"Best location can see {others_visible} other asteroids",
+        part=1,
+        result=others_visible,
     )
 
     vaporized = list(belt.vaporize_asteroids_from(most_visible))
     two_hundredth = vaporized[199]
-    product = two_hundredth.x * 100 + two_hundredth.y
+    result = two_hundredth.x * 100 + two_hundredth.y
     yield ProblemSolution(
         problem_id,
-        f"200th asteroid to be vaporized is at {two_hundredth.x}, {two_hundredth.y} - product: {product}",
+        f"200th asteroid to be vaporized is at {two_hundredth.x}, {two_hundredth.y} - product: {result}",
+        result,
         part=2,
     )
