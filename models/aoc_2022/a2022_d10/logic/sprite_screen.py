@@ -18,7 +18,7 @@ class SpriteScreen:
                 current_row += (
                     "#"
                     if abs(sprite_center_position - col) <= self._sprite_half_length
-                    else "."
+                    else " "
                 )
                 current_cycle += 1
             rendered.append(current_row)
