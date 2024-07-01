@@ -58,7 +58,7 @@ def _create_parser_file(solution_path: str, parser_method_name: str) -> None:
         f.write("from models.common.io import InputReader\n")
         f.write("\n\n")
         f.write(
-            f"def {parser_method_name}(input_reader: InputReader) -> InsertReturnType:\n"
+            f'def {parser_method_name}(input_reader: InputReader) -> "InsertReturnType":\n'
         )
         f.write("    pass\n")
 
