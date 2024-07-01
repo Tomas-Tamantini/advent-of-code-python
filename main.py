@@ -5,7 +5,7 @@ from models.common.io import ExecutionFlags
 
 def main(flags: ExecutionFlags) -> None:
     solutions_to_run = {
-        2022: (),
+        2023: (),
     }
 
     run_solutions(solutions_to_run, flags)
