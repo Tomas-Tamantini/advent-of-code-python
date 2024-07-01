@@ -69,5 +69,6 @@ def _create_parser_test_file(parser_method_name: str, test_path: str) -> None:
         f.write(f"from ..parser import {parser_method_name}\n")
         f.write("\n\n")
         f.write(f"def test_{parser_method_name}():\n")
-        f.write('    input_reader = InputFromString("""file content""")\n')
-        f.write("    assert False\n")
+        f.write('    file_content = ""\n')
+        f.write("    input_reader = InputFromString(file_content)\n")
+        f.write("    # TODO: Implement test\n")
