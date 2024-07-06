@@ -15,5 +15,8 @@ class CubeGame:
     def handfuls(self) -> Iterable[CubeAmount]:
         return self._handfuls
 
+    def minimum_bag(self) -> CubeAmount:
+        return CubeAmount.merge(*self._handfuls)
+
     def bag_amount_is_possible(self, bag: CubeAmount) -> bool:
         return all(handful.all_colors_leq(bag) for handful in self._handfuls)

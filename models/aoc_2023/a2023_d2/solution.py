@@ -4,6 +4,11 @@ from .parser import parse_cube_games
 from .logic import CubeAmount
 
 
+def _power(bag: CubeAmount) -> int:
+    amounts = bag.amount_by_color
+    return amounts["red"] * amounts["green"] * amounts["blue"]
+
+
 def aoc_2023_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2023, 2, "Cube Conundrum")
     io_handler.output_writer.write_header(problem_id)
@@ -18,4 +23,11 @@ def aoc_2023_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         f"Part 1: The sum of IDs of possible games is {sum_ids}",
         result=sum_ids,
         part=1,
+    )
+    sum_powers = sum(_power(game.minimum_bag()) for game in games)
+    yield ProblemSolution(
+        problem_id,
+        f"Part 2: The sum of powers of minimum bags is {sum_powers}",
+        result=sum_powers,
+        part=2,
     )
