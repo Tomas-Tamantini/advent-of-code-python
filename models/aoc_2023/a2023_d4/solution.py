@@ -1,6 +1,7 @@
 from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
 from .parser import parse_scratchcards
+from .scratchcard import number_of_cards_after_prizes
 
 
 def aoc_2023_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
@@ -14,4 +15,12 @@ def aoc_2023_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         f"Part 1: The total number of points is {total_num_points}",
         result=total_num_points,
         part=1,
+    )
+
+    total_num_cards = number_of_cards_after_prizes(cards)
+    yield ProblemSolution(
+        problem_id,
+        f"Part 2: They end up with {total_num_cards} cards",
+        result=total_num_cards,
+        part=2,
     )

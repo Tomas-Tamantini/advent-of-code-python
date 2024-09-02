@@ -1,6 +1,6 @@
 from typing import Iterator
 from models.common.io import InputReader
-from .logic import ScratchCard
+from .scratchcard import ScratchCard
 
 
 def _parse_scratchcard(line: str) -> ScratchCard:

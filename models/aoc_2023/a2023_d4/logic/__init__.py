@@ -1,1 +1,0 @@
-from .scratchcard import ScratchCard
