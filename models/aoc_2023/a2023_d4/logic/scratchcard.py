@@ -10,3 +10,6 @@ class ScratchCard:
     @property
     def num_matches(self) -> int:
         return len(self.winning_numbers & self.chosen_numbers)
+
+    def num_points(self) -> int:
+        return 0 if self.num_matches == 0 else 2 ** (self.num_matches - 1)
