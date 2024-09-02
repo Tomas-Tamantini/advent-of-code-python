@@ -188,3 +188,23 @@ def test_interval_is_fully_contained_by_other_if_min_and_max_are_within_other():
 def test_intervals_can_be_ordered():
     assert Interval(2, 10) < Interval(3, 7)
     assert Interval(3, 7) < Interval(3, 8)
+
+
+def test_intervals_can_be_offset():
+    assert Interval(3, 7).offset(5) == Interval(8, 12)
+
+
+def test_subtracting_interval_from_other_without_intersection_yields_orginal_interval():
+    interval_a = Interval(3, 7)
+    interval_b = Interval(10, 12)
+    assert list(interval_a - interval_b) == [interval_a]
+
+
+def test_subtracting_interval_from_other_with_intersection_yields_remaining_intervals():
+    assert list(Interval(3, 7) - Interval(0, 100)) == []
+    assert list(Interval(3, 7) - Interval(5, 10)) == [Interval(3, 4)]
+    assert list(Interval(3, 7) - Interval(1, 4)) == [Interval(5, 7)]
+    assert list(Interval(0, 100) - Interval(50, 60)) == [
+        Interval(0, 49),
+        Interval(61, 100),
+    ]

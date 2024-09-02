@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Iterator
 from dataclasses import dataclass
 
 
@@ -24,3 +24,24 @@ class Interval:
 
     def is_contained_by(self, other: "Interval") -> bool:
         return self == self.intersection(other)
+
+    def offset(self, offset: int) -> "Interval":
+        return Interval(
+            min_inclusive=self.min_inclusive + offset,
+            max_inclusive=self.max_inclusive + offset,
+        )
+
+    def __sub__(self, other: "Interval") -> Iterator["Interval"]:
+        intersection = self.intersection(other)
+        if intersection is None:
+            yield self
+        else:
+            left_min = self.min_inclusive
+            left_max = intersection.min_inclusive - 1
+            if left_min <= left_max:
+                yield Interval(min_inclusive=left_min, max_inclusive=left_max)
+
+            right_min = intersection.max_inclusive + 1
+            right_max = self.max_inclusive
+            if right_min <= right_max:
+                yield Interval(min_inclusive=right_min, max_inclusive=right_max)
