@@ -56,3 +56,13 @@ class JokerHand:
 
     def card_values(self) -> Iterator[int]:
         return map(self._card_value, self._cards)
+
+
+def first_hand_beats_second(first: CamelHand, second: CamelHand) -> bool:
+    return (
+        first.rank(),
+        tuple(first.card_values()),
+    ) > (
+        second.rank(),
+        tuple(second.card_values()),
+    )

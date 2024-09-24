@@ -1,5 +1,5 @@
 import pytest
-from ..logic import HandRank, OrdinaryHand, JokerHand
+from ..logic import HandRank, OrdinaryHand, JokerHand, first_hand_beats_second
 
 
 def test_hand_ranks_are_properly_ordered():
@@ -50,3 +50,17 @@ def test_joker_hands_properly_classify_rank(hand, rank):
 
 def test_joker_hands_properly_classify_card_values():
     assert tuple(JokerHand("38QKJ").card_values()) == (3, 8, 12, 13, 0)
+
+
+def test_hand_of_higher_rank_beats_hand_of_lower_rank():
+    best = OrdinaryHand("AAAJJ")
+    worst = OrdinaryHand("TTT98")
+    assert first_hand_beats_second(best, worst)
+    assert not first_hand_beats_second(worst, best)
+
+
+def test_hands_with_same_ranks_are_compared_card_by_card_from_first_to_last():
+    best = OrdinaryHand("3256T")
+    worst = OrdinaryHand("3254T")
+    assert first_hand_beats_second(best, worst)
+    assert not first_hand_beats_second(worst, best)
