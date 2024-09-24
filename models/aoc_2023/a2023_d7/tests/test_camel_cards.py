@@ -1,5 +1,5 @@
 import pytest
-from ..logic import HandRank, OrdinaryHand, JokerHand, first_hand_beats_second
+from ..logic import HandRank, OrdinaryHand, JokerHand, first_hand_beats_second, CamelBid
 
 
 def test_hand_ranks_are_properly_ordered():
@@ -64,3 +64,13 @@ def test_hands_with_same_ranks_are_compared_card_by_card_from_first_to_last():
     worst = OrdinaryHand("3254T")
     assert first_hand_beats_second(best, worst)
     assert not first_hand_beats_second(worst, best)
+
+
+def test_camel_bids_can_be_sorted():
+    bids = [
+        CamelBid(hand=OrdinaryHand("3256T"), bid_value=1),
+        CamelBid(hand=OrdinaryHand("AAAJJ"), bid_value=2),
+        CamelBid(hand=OrdinaryHand("3254T"), bid_value=3),
+    ]
+    sorted_values = [bid.bid_value for bid in sorted(bids)]
+    assert sorted_values == [3, 1, 2]
