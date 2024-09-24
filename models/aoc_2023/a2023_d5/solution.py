@@ -32,7 +32,7 @@ def aoc_2023_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Part 1: The lowest location with seeds as values is {min_output}",
+        f"The lowest location with seeds as values is {min_output}",
         result=min_output,
         part=1,
     )
@@ -42,7 +42,7 @@ def aoc_2023_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Part 2: The lowest location with seeds as ranges is {min_output}",
+        f"The lowest location with seeds as ranges is {min_output}",
         result=min_output,
         part=2,
     )

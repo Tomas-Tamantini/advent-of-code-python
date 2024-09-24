@@ -16,7 +16,7 @@ def aoc_2023_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     sum_part_numbers = sum(part.number for part in part_numbers)
     yield ProblemSolution(
         problem_id,
-        f"Part 1: The sum of part numbers is {sum_part_numbers}",
+        f"The sum of part numbers is {sum_part_numbers}",
         result=sum_part_numbers,
         part=1,
     )
@@ -28,7 +28,7 @@ def aoc_2023_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Part 2: The sum of gear ratios is {sum_gear_ratios}",
+        f"The sum of gear ratios is {sum_gear_ratios}",
         result=sum_gear_ratios,
         part=2,
     )

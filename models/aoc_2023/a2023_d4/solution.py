@@ -12,7 +12,7 @@ def aoc_2023_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     total_num_points = sum(card.num_points() for card in cards)
     yield ProblemSolution(
         problem_id,
-        f"Part 1: The total number of points is {total_num_points}",
+        f"The total number of points is {total_num_points}",
         result=total_num_points,
         part=1,
     )
@@ -20,7 +20,7 @@ def aoc_2023_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     total_num_cards = number_of_cards_after_prizes(cards)
     yield ProblemSolution(
         problem_id,
-        f"Part 2: They end up with {total_num_cards} cards",
+        f"They end up with {total_num_cards} cards",
         result=total_num_cards,
         part=2,
     )

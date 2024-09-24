@@ -15,7 +15,7 @@ def aoc_2023_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     result = sum(_calibration_values(sequence) for sequence in sequences)
     yield ProblemSolution(
-        problem_id, f"The sum of calibation values is {result}", result, part=1
+        problem_id, f"The sum of calibration values is {result}", result, part=1
     )
 
     result = sum(
@@ -24,7 +24,7 @@ def aoc_2023_d1(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The sum of calibation values including spelled out digits is {result}",
+        f"The sum of calibration values including spelled out digits is {result}",
         result,
         part=2,
     )
