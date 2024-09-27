@@ -1,6 +1,7 @@
 from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
 from .logic import PipeMaze
+from models.common.vectors import num_grid_points_inside_polygon
 
 
 def aoc_2023_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
@@ -13,4 +14,12 @@ def aoc_2023_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     furthest = len(loop) // 2
     yield ProblemSolution(
         problem_id, f"The distance to furthest point is {furthest}", furthest, part=1
+    )
+
+    num_inside = num_grid_points_inside_polygon(loop)
+    yield ProblemSolution(
+        problem_id,
+        f"The number of points inside the loop is {num_inside}",
+        num_inside,
+        part=2,
     )
