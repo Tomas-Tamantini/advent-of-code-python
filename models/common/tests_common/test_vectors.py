@@ -9,6 +9,8 @@ from models.common.vectors import (
     HexagonalDirection,
     CanonicalHexagonalCoordinates,
     Orientation,
+    twice_polygon_area,
+    num_grid_points_inside_polygon,
 )
 
 
@@ -363,3 +365,38 @@ def test_coordinates_in_given_orientation_can_be_reverted_to_absolute_coordinate
     )
     absolute_coordinates = orientation.to_absolute_coordinates(Vector3D(1, 2, 3))
     assert absolute_coordinates == Vector3D(-3, 1, -2)
+
+
+@pytest.mark.parametrize(
+    "vertices, twice_area",
+    [
+        ([], 0),
+        ([(0, 0)], 0),
+        ([(0, 0), (1, 0)], 0),
+        ([(0, 0), (1, 0), (0, 1)], 1),
+        ([(1, 6), (3, 1), (7, 2), (4, 4), (8, 5)], 33),
+    ],
+)
+def test_twice_area_of_polygon_is_calculated_with_shoelace_theorem(
+    vertices, twice_area
+):
+    vertices_as_vectors = [Vector2D(*vertex) for vertex in vertices]
+    assert twice_polygon_area(vertices_as_vectors) == twice_area
+
+
+@pytest.mark.parametrize(
+    "vertices, num_grid_points",
+    [
+        ([], 0),
+        ([(0, 0)], 0),
+        ([(0, 0), (1, 0)], 0),
+        ([(0, 0), (1, 0), (0, 1)], 0),
+        ([(1, 6), (3, 1), (7, 2), (4, 4), (8, 5)], 15),
+        ([(1, 0), (4, 3), (4, 5), (0, 3)], 7),
+    ],
+)
+def test_number_of_grid_points_inside_polygon_calculated_with_picks_theorem(
+    vertices, num_grid_points
+):
+    vertices_as_vectors = [Vector2D(*vertex) for vertex in vertices]
+    assert num_grid_points_inside_polygon(vertices_as_vectors) == num_grid_points
