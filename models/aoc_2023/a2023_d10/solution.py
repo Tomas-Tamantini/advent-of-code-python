@@ -1,6 +1,6 @@
 from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
-from .logic import PipeMaze
+from .pipe_maze import PipeMaze
 from models.common.vectors import Polygon
 
 

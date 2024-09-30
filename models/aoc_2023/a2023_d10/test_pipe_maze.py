@@ -1,6 +1,6 @@
 from models.common.vectors import Vector2D, CardinalDirection
 from models.common.io import CharacterGrid
-from .logic import PipeMaze, PipeSegment
+from .pipe_maze import PipeMaze, PipeSegment
 
 
 def test_can_enter_pipe_segment_from_one_of_its_two_directions():

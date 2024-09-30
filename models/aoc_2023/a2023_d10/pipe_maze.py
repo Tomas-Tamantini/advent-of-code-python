@@ -2,7 +2,18 @@ from dataclasses import dataclass
 from typing import Iterator, Optional
 from models.common.io import CharacterGrid
 from models.common.vectors import Vector2D, CardinalDirection
-from .pipe_segment import PipeSegment
+
+
+class PipeSegment:
+    def __init__(self, direction_a: CardinalDirection, direction_b: CardinalDirection):
+        self._directions = {direction_a, direction_b}
+
+    def can_enter_from(self, direction: CardinalDirection) -> bool:
+        return direction in self._directions
+
+    def exit_direction(self, enter_direction: CardinalDirection) -> CardinalDirection:
+        return next(iter(self._directions - {enter_direction.reverse()}))
+
 
 _STARTING_TILE = "S"
 _SEGMENTS = {
