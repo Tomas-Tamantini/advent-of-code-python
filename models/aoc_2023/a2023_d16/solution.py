@@ -17,3 +17,17 @@ def aoc_2023_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=num_cells,
         part=1,
     )
+
+    # TODO: Optimize part 2, maybe using memoization?
+    max_energized_tiles = 0
+    for i, initial_beam in enumerate(contraption.beams_starting_from_edges()):
+        io_handler.progress_bar.update(i, contraption.perimeter)
+        num_cells = num_energized_tiles(initial_beam, contraption)
+        max_energized_tiles = max(max_energized_tiles, num_cells)
+
+    yield ProblemSolution(
+        problem_id,
+        f"The maximum number of energized tiles is {max_energized_tiles}",
+        result=max_energized_tiles,
+        part=2,
+    )

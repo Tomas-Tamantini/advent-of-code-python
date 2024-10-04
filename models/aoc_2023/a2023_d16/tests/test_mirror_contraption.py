@@ -52,3 +52,21 @@ def test_light_beam_in_contraption_is_split_by_splitter():
         LightBeam(position=Vector2D(7, 7), direction=CardinalDirection.NORTH),
         LightBeam(position=Vector2D(7, 9), direction=CardinalDirection.SOUTH),
     }
+
+
+def test_contraption_iterates_through_beams_entering_through_edge_tiles():
+    contraption = MirrorContraption(width=3, height=2, cells=dict())
+    beams = list(contraption.beams_starting_from_edges())
+    assert len(beams) == 10
+    assert set(beams) == {
+        LightBeam(position=Vector2D(0, 0), direction=CardinalDirection.EAST),
+        LightBeam(position=Vector2D(0, 1), direction=CardinalDirection.EAST),
+        LightBeam(position=Vector2D(2, 0), direction=CardinalDirection.WEST),
+        LightBeam(position=Vector2D(2, 1), direction=CardinalDirection.WEST),
+        LightBeam(position=Vector2D(0, 0), direction=CardinalDirection.SOUTH),
+        LightBeam(position=Vector2D(1, 0), direction=CardinalDirection.SOUTH),
+        LightBeam(position=Vector2D(2, 0), direction=CardinalDirection.SOUTH),
+        LightBeam(position=Vector2D(0, 1), direction=CardinalDirection.NORTH),
+        LightBeam(position=Vector2D(1, 1), direction=CardinalDirection.NORTH),
+        LightBeam(position=Vector2D(2, 1), direction=CardinalDirection.NORTH),
+    }
