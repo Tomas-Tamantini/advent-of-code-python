@@ -372,13 +372,15 @@ def test_a_star_raises_value_error_if_no_path():
     graph = _MockAStarGraph()
     graph.add_edge("A", "B", weight=2)
     with pytest.raises(ValueError):
-        a_star("A", "C", graph)
+        is_destination = lambda n: n == "C"
+        a_star("A", is_destination, graph)
 
 
 def test_a_star_returns_distance_zero_if_origin_equals_destination():
     graph = _MockAStarGraph()
     graph.add_edge("a", "b", weight=2)
-    path, distance = a_star("a", "a", graph)
+    is_destination = lambda n: n == "a"
+    path, distance = a_star("a", is_destination, graph)
     assert path == ["a"]
     assert distance == 0
 
@@ -405,7 +407,8 @@ def test_a_star_returns_path_with_optimal_distance():
     graph.add_edge("H", "G", 2)
     graph.add_edge("G", "E", 2)
 
-    path, distance = a_star("S", "E", graph)
+    is_destination = lambda n: n == "E"
+    path, distance = a_star("S", is_destination, graph)
     assert path == ["S", "B", "H", "G", "E"]
     assert distance == 7
 

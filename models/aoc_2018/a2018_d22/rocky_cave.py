@@ -122,7 +122,7 @@ class CaveExplorer:
         final_state = _ExplorerState(position=self._cave.target, gear=_Gear.TORCH)
         _, distance = a_star(
             origin=initial_state,
-            destination=final_state,
+            is_destination=lambda state: state == final_state,
             graph=self,
         )
         return distance

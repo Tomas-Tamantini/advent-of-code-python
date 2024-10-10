@@ -1,4 +1,4 @@
-from typing import Hashable, Protocol
+from typing import Hashable, Protocol, Callable
 from math import inf
 from dataclasses import dataclass, field
 from queue import PriorityQueue
@@ -19,7 +19,7 @@ class _PriorityItem:
 
 def a_star(
     origin: Hashable,
-    destination: Hashable,
+    is_destination: Callable[[Hashable], bool],
     graph: AStarGraphProtocol,
 ) -> tuple[list[Hashable], float]:
     distances = {origin: 0}
@@ -32,7 +32,7 @@ def a_star(
         current_node = current.item
         current_distance = current.actual_distance
 
-        if current_node == destination:
+        if is_destination(current_node):
             path = []
             while current_node:
                 path.append(current_node)
