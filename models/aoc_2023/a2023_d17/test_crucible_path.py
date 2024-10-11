@@ -90,7 +90,7 @@ def test_crucible_has_not_arrived_at_final_state_if_not_in_final_position():
     assert not crucible_path.is_final_state(crucible)
 
 
-@pytest.mark.parametrize("invalid_steps", [2, 6])
+@pytest.mark.parametrize("invalid_steps", [1, 2])
 def test_crucible_has_not_arrived_at_final_state_if_invalid_number_of_steps(
     invalid_steps,
 ):

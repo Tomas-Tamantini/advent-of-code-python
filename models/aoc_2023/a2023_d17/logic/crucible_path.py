@@ -43,10 +43,9 @@ class CruciblePath:
                 yield Crucible(new_pos, new_dir, num_steps_in_same_direction)
 
     def is_final_state(self, crucible: Crucible) -> bool:
-        return crucible.position == self._city_map.final_position and (
-            self._min_steps_same_direction
-            <= crucible.num_steps_in_same_direction
-            <= self._max_steps_same_direction
+        return (
+            crucible.position == self._city_map.final_position
+            and self._min_steps_same_direction <= crucible.num_steps_in_same_direction
         )
 
     def weight(self, node_a: Crucible, node_b: Crucible) -> int:
