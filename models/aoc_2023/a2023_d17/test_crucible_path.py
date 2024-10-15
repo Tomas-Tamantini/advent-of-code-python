@@ -4,11 +4,9 @@ from models.common.vectors import Vector2D, CardinalDirection
 from .logic import CruciblePath, CityMap, Crucible
 
 
-def test_initial_crucible_starts_at_origin_facing_east():
+def test_initial_crucible_starts_at_origin():
     assert CruciblePath.inital_crucible() == Crucible(
-        position=Vector2D(0, 0),
-        direction=CardinalDirection.EAST,
-        num_steps_in_same_direction=0,
+        position=Vector2D(0, 0), direction=None, num_steps_in_same_direction=0
     )
 
 
@@ -114,6 +112,24 @@ def test_crucible_arrived_at_final_state_if_in_final_position_and_has_valid_numb
     )
     crucible_path = _example_path()
     assert crucible_path.is_final_state(crucible)
+
+
+def test_crucible_can_start_facing_in_any_direction():
+    initial_pos = Vector2D(5, 5)
+    crucible = Crucible(
+        position=initial_pos, direction=None, num_steps_in_same_direction=0
+    )
+    crucible_path = _example_path()
+    next_states = list(crucible_path.neighbors(crucible))
+    assert len(next_states) == 4
+    assert set(next_states) == {
+        Crucible(
+            position=initial_pos.move(direction, y_grows_down=True),
+            direction=direction,
+            num_steps_in_same_direction=1,
+        )
+        for direction in CardinalDirection
+    }
 
 
 def test_if_crucible_has_not_reached_minimum_number_of_steps_in_same_direction_it_must_move_forward():

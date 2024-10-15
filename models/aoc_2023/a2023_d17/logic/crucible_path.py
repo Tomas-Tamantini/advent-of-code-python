@@ -19,17 +19,21 @@ class CruciblePath:
     @staticmethod
     def inital_crucible() -> Crucible:
         return Crucible(
-            position=Vector2D(0, 0),
-            direction=CardinalDirection.EAST,
-            num_steps_in_same_direction=0,
+            position=Vector2D(0, 0), direction=None, num_steps_in_same_direction=0
         )
 
-    def _new_directions(self, node: Crucible) -> Iterator[CardinalDirection]:
+    def _valid_directions(self, node: Crucible) -> Iterator[CardinalDirection]:
         if node.num_steps_in_same_direction < self._max_steps_same_direction:
             yield node.direction
         if node.num_steps_in_same_direction >= self._min_steps_same_direction:
             yield node.direction.turn_left()
             yield node.direction.turn_right()
+
+    def _new_directions(self, node: Crucible) -> Iterator[CardinalDirection]:
+        if node.direction is None:
+            yield from CardinalDirection
+        else:
+            yield from self._valid_directions(node)
 
     def neighbors(self, node: Crucible) -> Iterator[Crucible]:
         for new_dir in self._new_directions(node):

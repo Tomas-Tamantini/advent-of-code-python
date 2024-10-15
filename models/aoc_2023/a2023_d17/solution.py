@@ -12,6 +12,7 @@ def aoc_2023_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     light_crucible = CruciblePath(
         city_map, min_steps_same_direction=0, max_steps_same_direction=3
     )
+    io_handler.output_writer.give_time_estimation("10s", part=1)
     light_heat_loss = light_crucible.min_heat_loss()
     yield ProblemSolution(
         problem_id,
@@ -20,14 +21,14 @@ def aoc_2023_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         part=1,
     )
 
-    # TODO: Find out why it's giving the wrong answer (995 vs the correct 982)
-    # ultra_crucible = CruciblePath(
-    #     city_map, min_steps_same_direction=4, max_steps_same_direction=10
-    # )
-    # ultra_heat_loss = ultra_crucible.min_heat_loss()
-    # yield ProblemSolution(
-    #     problem_id,
-    #     f"Minimum heat loss for ultra crucible is {ultra_heat_loss}",
-    #     result=ultra_heat_loss,
-    #     part=2,
-    # )
+    ultra_crucible = CruciblePath(
+        city_map, min_steps_same_direction=4, max_steps_same_direction=10
+    )
+    io_handler.output_writer.give_time_estimation("20s", part=2)
+    ultra_heat_loss = ultra_crucible.min_heat_loss()
+    yield ProblemSolution(
+        problem_id,
+        f"Minimum heat loss for ultra crucible is {ultra_heat_loss}",
+        result=ultra_heat_loss,
+        part=2,
+    )
