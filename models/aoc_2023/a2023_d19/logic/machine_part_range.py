@@ -18,6 +18,9 @@ class MachinePartRange:
             max(attribute.num_elements, 0) for attribute in self._attributes.values()
         )
 
+    def rating_sum(self) -> int:
+        return sum(attribute.min_inclusive for attribute in self._attributes.values())
+
     def __eq__(self, value: object) -> bool:
         if not isinstance(value, MachinePartRange):
             return False
