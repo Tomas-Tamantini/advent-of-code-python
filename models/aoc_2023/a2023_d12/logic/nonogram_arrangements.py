@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Iterator
 from dataclasses import dataclass
 from .nonogram_row import NonogramRow
 
@@ -23,54 +23,77 @@ class _NonogramSolveState:
     def pointers(self) -> _NonogramSolvePointers:
         return self._pointers
 
-    def filled_in_all_groups(self) -> bool:
-        return self._pointers.contiguous_group_pointer >= self._row.num_groups
+    def is_complete(self) -> bool:
+        return (
+            self._pointers.contiguous_group_pointer >= self._row.num_groups
+            and self._pointers.cell_pointer >= self._row.num_cells
+        )
 
-    def some_filled_in_cell_ahead(self) -> bool:
-        substring_ahead = self._row.cells[self._pointers.cell_pointer :]
-        return _FILLED_IN in substring_ahead
+    def _there_are_remaining_groups(self) -> bool:
+        return self._row.num_groups - self._pointers.contiguous_group_pointer > 0
 
-    def current_cell(self) -> Optional[chr]:
+    def _current_cell(self) -> Optional[chr]:
         return (
             self._row.cells[self._pointers.cell_pointer]
             if self._pointers.cell_pointer < self._row.num_cells
             else None
         )
 
-    def state_after_filling_in_current_group(
-        self,
-    ) -> Optional["_NonogramSolveState"]:
-        current_group_size = self._row.contiguous_groups_sizes[
+    def _current_group_size(self) -> int:
+        return self._row.contiguous_groups_sizes[
             self._pointers.contiguous_group_pointer
         ]
+
+    def _skip_current_cell(self) -> _NonogramSolvePointers:
+        return _NonogramSolvePointers(
+            cell_pointer=self._pointers.cell_pointer + 1,
+            contiguous_group_pointer=self._pointers.contiguous_group_pointer,
+        )
+
+    def _fill_in_current_cell(self) -> _NonogramSolvePointers:
+        return _NonogramSolvePointers(
+            self._pointers.cell_pointer + self._current_group_size() + 1,
+            self._pointers.contiguous_group_pointer + 1,
+        )
+
+    def _can_skip_current_cell(self) -> bool:
+        return self._current_cell() in (_EMPTY, _UNKNOWN)
+
+    def _can_fill_in_current_cell(self) -> bool:
+        if not self._there_are_remaining_groups() or self._current_cell() not in (
+            _FILLED_IN,
+            _UNKNOWN,
+        ):
+            return False
+        current_group_size = self._current_group_size()
         if self._pointers.cell_pointer + current_group_size > self._row.num_cells:
-            return None
+            return False
 
         substring = self._row.cells[
             self._pointers.cell_pointer : self._pointers.cell_pointer
             + current_group_size
         ]
         if _EMPTY in substring:
-            return None
+            return False
 
         next_index = self._pointers.cell_pointer + current_group_size
 
         if (next_index < self._row.num_cells) and self._row.cells[
             next_index
         ] == _FILLED_IN:
-            return None
+            return False
 
-        pointers = _NonogramSolvePointers(
-            self._pointers.cell_pointer + current_group_size + 1,
-            self._pointers.contiguous_group_pointer + 1,
-        )
-        return _NonogramSolveState(self._row, pointers)
+        return True
 
-    def increment_cell_pointer(self) -> "_NonogramSolveState":
-        pointers = _NonogramSolvePointers(
-            self._pointers.cell_pointer + 1, self._pointers.contiguous_group_pointer
-        )
-        return _NonogramSolveState(self._row, pointers)
+    def _next_pointers(self) -> Iterator[_NonogramSolvePointers]:
+        if self._can_skip_current_cell():
+            yield self._skip_current_cell()
+        if self._can_fill_in_current_cell():
+            yield self._fill_in_current_cell()
+
+    def next_states(self) -> Iterator["_NonogramSolveState"]:
+        for next_pointers in self._next_pointers():
+            yield _NonogramSolveState(self._row, next_pointers)
 
 
 def num_arrangements_nonogram_row(row: NonogramRow) -> int:
@@ -87,43 +110,13 @@ def _num_arrangements_recursive(
 ) -> int:
     if state.pointers in memoized_results:
         return memoized_results[state.pointers]
-    num_arrangements = 0
-    if state.filled_in_all_groups():
-        num_arrangements = 0 if state.some_filled_in_cell_ahead() else 1
+    if state.is_complete():
+        num_arrangements = 1
     else:
-        num_arrangements = _num_arrangements_with_remaining_groups(
-            state, memoized_results
+        num_arrangements = sum(
+            _num_arrangements_recursive(next_state, memoized_results)
+            for next_state in state.next_states()
         )
 
     memoized_results[state.pointers] = num_arrangements
     return num_arrangements
-
-
-def _num_arrangements_with_remaining_groups(
-    state: _NonogramSolveState, memoized_results: dict[_NonogramSolvePointers, int]
-) -> int:
-    current_cell = state.current_cell()
-    if current_cell == _EMPTY:
-        new_state = state.increment_cell_pointer()
-        return _num_arrangements_recursive(new_state, memoized_results)
-    elif current_cell == _FILLED_IN:
-        new_state = state.state_after_filling_in_current_group()
-        return (
-            0
-            if new_state is None
-            else _num_arrangements_recursive(new_state, memoized_results)
-        )
-    elif current_cell == _UNKNOWN:
-        state_without_filling_in = state.increment_cell_pointer()
-        num_without_filling_in = _num_arrangements_recursive(
-            state_without_filling_in, memoized_results
-        )
-        state_filling_in = state.state_after_filling_in_current_group()
-        num_filling_in = (
-            0
-            if state_filling_in is None
-            else _num_arrangements_recursive(state_filling_in, memoized_results)
-        )
-        return num_without_filling_in + num_filling_in
-    else:
-        return 0
