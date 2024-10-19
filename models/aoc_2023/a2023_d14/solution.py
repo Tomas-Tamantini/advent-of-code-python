@@ -23,3 +23,19 @@ def aoc_2023_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=load_one_tilt,
         part=1,
     )
+
+    cycle = (
+        CardinalDirection.NORTH,
+        CardinalDirection.WEST,
+        CardinalDirection.SOUTH,
+        CardinalDirection.EAST,
+    )
+    io_handler.output_writer.give_time_estimation("15s", part=2)
+    rolled_cycles = dish.run_cycles(rounded_rocks, cycle, num_cycles=1000000000)
+    load_cycle = dish.load_from_south_edge(rolled_cycles)
+    yield ProblemSolution(
+        problem_id,
+        f"The load after 1 billion cycles is {load_cycle}",
+        result=load_cycle,
+        part=2,
+    )

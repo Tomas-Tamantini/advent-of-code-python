@@ -69,3 +69,37 @@ class ParabolicDish:
 
     def load_from_south_edge(self, rounded_rocks: set[Vector2D]) -> int:
         return sum(self._height - pos.y for pos in rounded_rocks)
+
+    def run_cycle(
+        self, rounded_rocks: set[Vector2D], cycle: tuple[CardinalDirection, ...]
+    ) -> set[Vector2D]:
+        rocks = rounded_rocks
+        for tilt in cycle:
+            rocks = set(self.tilt(rocks, tilt))
+        return rocks
+
+    def run_cycles(
+        self,
+        rounded_rocks: set[Vector2D],
+        cycle: tuple[CardinalDirection, ...],
+        num_cycles: int,
+    ) -> set[Vector2D]:
+        rocks = rounded_rocks
+        state = frozenset(rocks)
+        seen_indices = {state: 0}
+        seen_list = [state]
+        for i in range(num_cycles):
+            rocks = self.run_cycle(rocks, cycle)
+            state = frozenset(rocks)
+            if state not in seen_indices:
+                seen_indices[state] = len(seen_list)
+                seen_list.append(state)
+            else:
+                repeat_index = seen_indices[state]
+                cycle_period = i + 1 - repeat_index
+                equivalent_index = (
+                    repeat_index + (num_cycles - repeat_index) % cycle_period
+                )
+                return seen_list[equivalent_index]
+
+        return rocks

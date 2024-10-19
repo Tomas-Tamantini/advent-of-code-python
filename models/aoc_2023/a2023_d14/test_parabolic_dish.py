@@ -111,3 +111,58 @@ def test_parabolic_dish_load_is_calculated_from_south_edge():
     rocks = _rounded_rocks_positions(_EXAMPLE_DISH)
     rolled_rocks = dish.tilt(rocks, CardinalDirection.NORTH)
     assert dish.load_from_south_edge(rolled_rocks) == 136
+
+
+_EXAMPLE_CYCLE = (
+    CardinalDirection.NORTH,
+    CardinalDirection.WEST,
+    CardinalDirection.SOUTH,
+    CardinalDirection.EAST,
+)
+
+
+def test_parabolic_dish_can_run_cycle_of_tilts():
+    dish = _build_dish(_EXAMPLE_DISH)
+    rocks = _rounded_rocks_positions(_EXAMPLE_DISH)
+    rolled_rocks = dish.run_cycle(rocks, _EXAMPLE_CYCLE)
+    expected = _rounded_rocks_positions(
+        """
+        .....#....
+        ....#...O#
+        ...OO##...
+        .OO#......
+        .....OOO#.
+        .O#...O#.#
+        ....O#....
+        ......OOOO
+        #...O###..
+        #..OO#...."""
+    )
+    assert expected == rolled_rocks
+
+
+def test_parabolic_dish_can_run_multiple_cycles():
+    dish = _build_dish(_EXAMPLE_DISH)
+    rocks = _rounded_rocks_positions(_EXAMPLE_DISH)
+    rolled_rocks = dish.run_cycles(rocks, _EXAMPLE_CYCLE, num_cycles=3)
+    expected = _rounded_rocks_positions(
+        """
+        .....#....
+        ....#...O#
+        .....##...
+        ..O#......
+        .....OOO#.
+        .O#...O#.#
+        ....O#...O
+        .......OOO
+        #...O###.O
+        #.OOO#...O"""
+    )
+    assert expected == rolled_rocks
+
+
+def test_parabolic_dish_can_run_multiple_cycles_efficiently():
+    dish = _build_dish(_EXAMPLE_DISH)
+    rocks = _rounded_rocks_positions(_EXAMPLE_DISH)
+    rolled_rocks = dish.run_cycles(rocks, _EXAMPLE_CYCLE, num_cycles=1000000000)
+    assert 64 == dish.load_from_south_edge(rolled_rocks)
