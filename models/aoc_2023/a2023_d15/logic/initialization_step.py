@@ -6,6 +6,9 @@ class InitializationStep(Protocol):
 
     def __str__(self) -> str: ...
 
+    @property
+    def label(self) -> str: ...
+
 
 @dataclass(frozen=True)
 class RemoveLens:
