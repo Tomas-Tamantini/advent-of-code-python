@@ -92,3 +92,16 @@ def test_module_network_has_its_state_changed_after_propagation():
         Pulse("inv", "b", PulseType.HIGH),
         Pulse("con", "output", PulseType.HIGH),
     ]
+
+
+def test_resetting_network_resets_all_of_its_modules():
+    flip_a = FlipFlopModule("a")
+    inv = ConjunctionModule("inv", num_inputs=1)
+    connections = {"a": ("inv",), "inv": tuple()}
+    network = ModuleNetwork([flip_a, inv], connections)
+    network.propagate(Pulse("button", "a", PulseType.LOW), PulseHistory())
+    assert flip_a.is_on
+    assert inv.num_high_inputs == 1
+    network.reset()
+    assert not flip_a.is_on
+    assert inv.num_high_inputs == 0

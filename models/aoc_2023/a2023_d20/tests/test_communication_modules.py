@@ -42,6 +42,14 @@ def test_flip_flop_sends_low_pulse_if_it_flipped_to_off():
     assert module.propagate(input_pulse) == PulseType.LOW
 
 
+def test_resetting_flip_flop_module_flips_it_to_off():
+    module = FlipFlopModule("F")
+    input_pulse = Pulse("orig", "T", PulseType.LOW)
+    module.propagate(input_pulse)
+    module.reset()
+    assert not module.is_on
+
+
 def test_conjuction_module_starts_with_all_inputs_low():
     module = ConjunctionModule("C", num_inputs=3)
     assert module.num_high_inputs == 0
@@ -64,3 +72,10 @@ def test_conjuction_module_sends_low_pulse_if_all_inputs_are_high_otherwise_send
     assert module.propagate(Pulse("in3", "C", PulseType.HIGH)) == PulseType.LOW
     assert module.propagate(Pulse("in2", "C", PulseType.LOW)) == PulseType.HIGH
     assert module.propagate(Pulse("in2", "C", PulseType.HIGH)) == PulseType.LOW
+
+
+def test_restting_conjuction_module_sets_all_inputs_to_low():
+    module = ConjunctionModule("C", num_inputs=3)
+    module.propagate(Pulse("in1", "C", PulseType.HIGH))
+    module.reset()
+    assert module.num_high_inputs == 0

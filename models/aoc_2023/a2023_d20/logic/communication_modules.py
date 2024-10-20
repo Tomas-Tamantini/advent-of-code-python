@@ -9,6 +9,8 @@ class CommunicationModule(Protocol):
 
     def propagate(self, input_pulse: Pulse) -> Optional[PulseType]: ...
 
+    def reset(self) -> None: ...
+
 
 @dataclass(frozen=True)
 class BroadcastModule:
@@ -16,6 +18,9 @@ class BroadcastModule:
 
     def propagate(self, input_pulse: Pulse) -> Optional[PulseType]:
         return input_pulse.pulse_type
+
+    def reset(self) -> None:
+        pass
 
 
 class FlipFlopModule:
@@ -35,6 +40,9 @@ class FlipFlopModule:
         if input_pulse.pulse_type == PulseType.LOW:
             self._is_on = not self._is_on
             return PulseType.HIGH if self._is_on else PulseType.LOW
+
+    def reset(self) -> None:
+        self._is_on = False
 
 
 class ConjunctionModule:
@@ -62,3 +70,6 @@ class ConjunctionModule:
         else:
             self._high_inputs.discard(input_pulse.origin)
             return PulseType.HIGH
+
+    def reset(self) -> None:
+        self._high_inputs = set()

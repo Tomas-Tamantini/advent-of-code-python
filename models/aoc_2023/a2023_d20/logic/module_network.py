@@ -32,3 +32,7 @@ class ModuleNetwork:
             monitor.track(pulse)
             for output_pulse in self._output_pulses(pulse):
                 pulse_queue.put(output_pulse)
+
+    def reset(self) -> None:
+        for module in self._modules.values():
+            module.reset()
