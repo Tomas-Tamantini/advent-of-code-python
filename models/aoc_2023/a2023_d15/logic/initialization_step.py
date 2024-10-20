@@ -1,5 +1,7 @@
 from typing import Protocol
 from dataclasses import dataclass
+from .lens_box import LensBox
+from .lens import Lens
 
 
 class InitializationStep(Protocol):
@@ -9,6 +11,8 @@ class InitializationStep(Protocol):
     @property
     def label(self) -> str: ...
 
+    def apply(self, lens_box: LensBox) -> None: ...
+
 
 @dataclass(frozen=True)
 class RemoveLens:
@@ -17,11 +21,20 @@ class RemoveLens:
     def __str__(self) -> str:
         return f"{self.label}-"
 
+    def apply(self, lens_box: LensBox) -> None:
+        lens_box.remove_lens(self.label)
+
 
 @dataclass(frozen=True)
 class InsertLens:
-    label: str
-    focal_strength: int
+    lens: Lens
+
+    @property
+    def label(self) -> str:
+        return self.lens.label
 
     def __str__(self) -> str:
-        return f"{self.label}={self.focal_strength}"
+        return f"{self.lens.label}={self.lens.focal_strength}"
+
+    def apply(self, lens_box: LensBox) -> None:
+        lens_box.insert_lens(self.lens)
