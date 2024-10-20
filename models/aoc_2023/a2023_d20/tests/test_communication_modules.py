@@ -1,4 +1,4 @@
-from ..logic import Pulse, PulseType, BroadcastModule, FlipFlopModule
+from ..logic import Pulse, PulseType, BroadcastModule, FlipFlopModule, ConjunctionModule
 
 
 def test_broadcast_module_sends_signal_forward():
@@ -40,3 +40,27 @@ def test_flip_flop_sends_low_pulse_if_it_flipped_to_off():
     input_pulse = Pulse("orig", "T", PulseType.LOW)
     module.propagate(input_pulse)
     assert module.propagate(input_pulse) == PulseType.LOW
+
+
+def test_conjuction_module_starts_with_all_inputs_low():
+    module = ConjunctionModule("C", num_inputs=3)
+    assert module.num_high_inputs == 0
+
+
+def test_conjuction_module_remembers_how_many_inputs_are_high():
+    module = ConjunctionModule("C", num_inputs=3)
+    module.propagate(Pulse("in1", "C", PulseType.LOW))
+    module.propagate(Pulse("in2", "C", PulseType.HIGH))
+    module.propagate(Pulse("in3", "C", PulseType.HIGH))
+    module.propagate(Pulse("in2", "C", PulseType.LOW))
+    module.propagate(Pulse("in1", "C", PulseType.HIGH))
+    assert module.num_high_inputs == 2  # in1 and in3
+
+
+def test_conjuction_module_sends_low_pulse_if_all_inputs_are_high_otherwise_sends_low():
+    module = ConjunctionModule("C", num_inputs=3)
+    assert module.propagate(Pulse("in1", "C", PulseType.HIGH)) == PulseType.HIGH
+    assert module.propagate(Pulse("in2", "C", PulseType.HIGH)) == PulseType.HIGH
+    assert module.propagate(Pulse("in3", "C", PulseType.HIGH)) == PulseType.LOW
+    assert module.propagate(Pulse("in2", "C", PulseType.LOW)) == PulseType.HIGH
+    assert module.propagate(Pulse("in2", "C", PulseType.HIGH)) == PulseType.LOW
