@@ -5,3 +5,4 @@ from .communication_modules import (
     FlipFlopModule,
     ConjunctionModule,
 )
+from .module_network import ModuleNetwork
