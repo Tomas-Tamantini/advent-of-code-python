@@ -1,9 +1,20 @@
-from typing import Protocol
+from typing import Protocol, Iterator
 from .pulse import Pulse, PulseType
 
 
 class PulseMonitor(Protocol):
     def track(self, pulse: Pulse) -> None: ...
+
+
+class PulseHistory:
+    def __init__(self) -> None:
+        self._history = []
+
+    def history(self) -> Iterator[Pulse]:
+        yield from self._history
+
+    def track(self, pulse: Pulse) -> None:
+        self._history.append(pulse)
 
 
 class PulseCounter:

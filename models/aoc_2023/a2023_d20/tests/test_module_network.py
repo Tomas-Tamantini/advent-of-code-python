@@ -1,4 +1,3 @@
-from typing import Iterator
 from ..logic import (
     BroadcastModule,
     FlipFlopModule,
@@ -6,18 +5,8 @@ from ..logic import (
     ModuleNetwork,
     Pulse,
     PulseType,
+    PulseHistory,
 )
-
-
-class _SpyMonitor:
-    def __init__(self) -> None:
-        self._history = []
-
-    def history(self) -> Iterator[Pulse]:
-        yield from self._history
-
-    def track(self, pulse: Pulse) -> None:
-        self._history.append(pulse)
 
 
 def _example_network_1():
@@ -39,12 +28,6 @@ def _example_network_1():
 
 
 def _example_network_2():
-    """
-    broadcaster -> a
-    %a -> inv, con
-    &inv -> b
-    %b -> con
-    &con -> output"""
     modules = [
         BroadcastModule("broadcaster"),
         FlipFlopModule("a"),
@@ -64,7 +47,7 @@ def _example_network_2():
 
 def test_module_network_propagates_pulses_in_queue_order():
     network = _example_network_1()
-    monitor = _SpyMonitor()
+    monitor = PulseHistory()
     initial_pulse = Pulse("button", "broadcaster", PulseType.LOW)
     network.propagate(initial_pulse, monitor)
     pulses = list(monitor.history())
@@ -86,7 +69,7 @@ def test_module_network_propagates_pulses_in_queue_order():
 
 def test_module_network_has_its_state_changed_after_propagation():
     network = _example_network_2()
-    monitor = _SpyMonitor()
+    monitor = PulseHistory()
     initial_pulse = Pulse("button", "broadcaster", PulseType.LOW)
     network.propagate(initial_pulse, monitor)
     network.propagate(initial_pulse, monitor)

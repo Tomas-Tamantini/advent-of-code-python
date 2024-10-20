@@ -6,4 +6,4 @@ from .communication_modules import (
     ConjunctionModule,
 )
 from .module_network import ModuleNetwork
-from .pulse_monitor import PulseCounter
+from .pulse_monitor import PulseCounter, PulseHistory
