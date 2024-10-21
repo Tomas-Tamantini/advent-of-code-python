@@ -27,6 +27,5 @@ class InfiniteGarden:
     rock_positions: set[Vector2D]
 
     def is_valid_position(self, position: Vector2D) -> bool:
-        raise NotImplementedError()
-        # equivalent_pos = Vector2D(pos.x % self._width, pos.y % self._height)
-        # return equivalent_pos not in self._rock_positions
+        equivalent_pos = Vector2D(position.x % self.width, position.y % self.height)
+        return equivalent_pos not in self.rock_positions
