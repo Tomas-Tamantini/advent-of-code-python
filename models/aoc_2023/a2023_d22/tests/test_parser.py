@@ -1,8 +1,15 @@
 from models.common.io import InputFromString
-from ..parser import parse_bricks_snapshot
+from models.common.vectors import Vector3D
+from ..parser import parse_bricks
+from ..logic import Brick
 
 
 def test_parse_bricks_snapshot():
-    file_content = ""
+    file_content = """1,3,231~3,3,231
+                      4,5,264~4,5,265"""
     input_reader = InputFromString(file_content)
-    # TODO: Implement test
+    bricks = list(parse_bricks(input_reader))
+    assert bricks == [
+        Brick(start=Vector3D(1, 3, 231), end=Vector3D(3, 3, 231)),
+        Brick(start=Vector3D(4, 5, 264), end=Vector3D(4, 5, 265)),
+    ]
