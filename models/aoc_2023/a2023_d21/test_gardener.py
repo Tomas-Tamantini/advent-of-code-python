@@ -92,4 +92,3 @@ def test_gardener_keeps_track_of_reachable_plots_in_efficent_manner():
     assert series[10] == 50
     assert series[50] == 1594
     assert series[100] == 6536
-    # assert series[500] == 167004
