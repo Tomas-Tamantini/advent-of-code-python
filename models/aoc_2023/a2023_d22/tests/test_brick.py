@@ -25,3 +25,14 @@ def test_brick_iterates_through_xy_projection():
         Vector2D(2, 4),
         Vector2D(2, 5),
     }
+
+
+def test_brick_checks_whether_it_sits_on_top_of_another():
+    brick_a = Brick(start=Vector3D(0, 0, 0), end=Vector3D(3, 0, 0))
+    brick_b = Brick(start=Vector3D(3, 0, 1), end=Vector3D(5, 0, 1))
+    brick_c = Brick(start=Vector3D(3, 0, 2), end=Vector3D(3, 0, 4))
+    brick_d = Brick(start=Vector3D(3, 1, 5), end=Vector3D(3, 1, 5))
+    assert brick_b.sits_on_top(brick_a)
+    assert brick_c.sits_on_top(brick_b)
+    assert not brick_c.sits_on_top(brick_a)
+    assert not brick_d.sits_on_top(brick_c)

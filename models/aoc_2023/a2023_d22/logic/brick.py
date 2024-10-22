@@ -30,3 +30,10 @@ class Brick:
             offset = Vector2D(diff.x // size, diff.y // size)
             for i in range(size + 1):
                 yield first_cell + i * offset
+
+    def sits_on_top(self, base_brick: "Brick") -> bool:
+        if self.min_z_coordinate != base_brick.max_z_coordinate + 1:
+            return False
+        base_coords = set(base_brick.xy_projection())
+        top_coords = set(self.xy_projection())
+        return len(base_coords.intersection(top_coords)) > 0
