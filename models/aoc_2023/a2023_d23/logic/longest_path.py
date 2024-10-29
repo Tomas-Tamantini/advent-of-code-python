@@ -21,7 +21,7 @@ def _max_length_recursive(
         return 0
     if current_node in visited:
         return -inf
-    max_length = -1
+    max_length = -inf
     visited.add(current_node)
     for neighbor in graph.neighbors(current_node):
         new_length = graph.weight(current_node, neighbor) + _max_length_recursive(

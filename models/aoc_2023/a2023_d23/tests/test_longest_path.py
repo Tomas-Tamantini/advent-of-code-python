@@ -1,3 +1,4 @@
+from math import inf
 from models.common.graphs import WeightedDirectedGraph
 from ..logic import max_length_non_repeating_path
 
@@ -8,11 +9,11 @@ def test_max_length_non_repeating_path_is_zero_if_start_equals_end():
     assert 0 == max_length_non_repeating_path(graph, "A", "A")
 
 
-def test_max_length_non_repeating_path_is_minus_one_if_no_path():
+def test_max_length_non_repeating_path_is_minus_inf_if_no_path():
     graph = WeightedDirectedGraph()
     graph.add_node("A")
     graph.add_node("B")
-    assert -1 == max_length_non_repeating_path(graph, "A", "B")
+    assert -inf == max_length_non_repeating_path(graph, "A", "B")
 
 
 def test_max_length_non_repeating_path_is_path_length_if_one_possible_path():
