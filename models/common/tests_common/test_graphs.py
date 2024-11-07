@@ -151,6 +151,13 @@ def test_neighbors_in_weighted_directed_graph_are_from_outgoing_edges_only():
     assert list(graph.neighbors("b")) == []
 
 
+def test_weighted_directed_graph_keeps_track_of_number_of_nodes():
+    graph = WeightedDirectedGraph()
+    assert graph.num_nodes == 0
+    graph.add_edge("a", "b", weight=2)
+    assert graph.num_nodes == 2
+
+
 class MockGraph:
     def neighbors(self, node):
         adjacencies = {

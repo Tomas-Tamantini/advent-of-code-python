@@ -119,6 +119,10 @@ class WeightedDirectedGraph:
         self._outgoing[source][target] = weight
         self.add_node(source)
 
+    @property
+    def num_nodes(self) -> int:
+        return len(self._incoming)
+
     def nodes(self) -> Iterator[Hashable]:
         yield from self._incoming.keys()
 
