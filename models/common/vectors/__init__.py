@@ -6,3 +6,4 @@ from .orientation import Orientation
 from .bounding_box import BoundingBox
 from .hexagonal_coordinates import HexagonalDirection, CanonicalHexagonalCoordinates
 from .polygon import Polygon
+from .linear_algebra import solve_linear_system_exactly

@@ -1,4 +1,5 @@
 import pytest
+from fractions import Fraction
 from models.common.vectors import (
     CardinalDirection,
     Vector2D,
@@ -10,6 +11,7 @@ from models.common.vectors import (
     CanonicalHexagonalCoordinates,
     Orientation,
     Polygon,
+    solve_linear_system_exactly,
 )
 
 
@@ -417,3 +419,10 @@ def test_number_of_grid_points_inside_polygon_calculated_with_picks_theorem(
 ):
     polygon = Polygon([Vector2D(*vertex) for vertex in vertices])
     assert polygon.num_grid_points_inside() == num_grid_points
+
+
+def test_linear_system_is_solved_exactly():
+    a = [[0, 1, 2], [3, 0, -4], [1, 1, 2]]
+    b = [11, 13, 17]
+    expected = [Fraction(6), Fraction(17, 2), Fraction(5, 4)]
+    assert expected == solve_linear_system_exactly(a, b)
