@@ -13,3 +13,6 @@ class Hailstone:
             start=Vector2D(self.position.x, self.position.y),
             direction=Vector2D(self.velocity.x, self.velocity.y),
         )
+
+    def pos_vel_cross_product(self) -> Vector3D:
+        return self.position.vector_product(self.velocity)
