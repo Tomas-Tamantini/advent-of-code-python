@@ -47,7 +47,6 @@ class MazeExplorer:
 
     def children_states(self, state: MazePath) -> Iterator[MazePath]:
         if not self._path_is_terminal(state):
-            # TODO: Check if exploring neighbors with larger weight first improves runtime
             for neighbor in self._graph.neighbors(state.current_node):
                 if not state.has_visited(neighbor):
                     weight = self._graph.weight(state.current_node, neighbor)

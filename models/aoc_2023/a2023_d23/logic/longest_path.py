@@ -15,6 +15,6 @@ def max_length_non_repeating_path(
         length = graph.weight(destination_neighbor, end_node)
         end_node = destination_neighbor
     return length + maximize_with_branch_and_bound(
-        initial_state=MazePath(path=(start_node,)),
+        initial_state=MazePath(current_node=start_node),
         state_explorer=MazeExplorer(graph, end_node),
     )

@@ -49,7 +49,7 @@ def test_max_length_non_repeating_path_does_not_visit_same_node_more_than_once()
     assert 2 == max_length_non_repeating_path(graph, "A", "E")
 
 
-@pytest.mark.skip("Waiting for implementation")
+@pytest.mark.skip("Test takes about 2s to run")
 def test_max_length_non_repeating_path_runs_efficiently():
     graph = WeightedDirectedGraph()
     size = 6

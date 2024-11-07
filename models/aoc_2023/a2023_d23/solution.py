@@ -25,7 +25,7 @@ def aoc_2023_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     flat_maze = parse_forest_map(grid, consider_slopes=False)
     flat_maze.reduce(irreducible_nodes={start, end})
-    io_handler.output_writer.give_time_estimation("2min", part=2)
+    io_handler.output_writer.give_time_estimation("10s", part=2)
     flat_length = max_length_non_repeating_path(flat_maze, start, end)
     yield ProblemSolution(
         problem_id,
