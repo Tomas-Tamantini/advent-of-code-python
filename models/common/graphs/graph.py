@@ -27,6 +27,10 @@ class UndirectedGraph:
         if node not in self._adjacencies:
             self._adjacencies[node] = set()
 
+    @property
+    def num_nodes(self) -> int:
+        return len(self._adjacencies)
+
     def add_edge(self, node_a: Hashable, node_b: Hashable) -> None:
         self._adjacencies[node_a].add(node_b)
         self._adjacencies[node_b].add(node_a)

@@ -37,6 +37,15 @@ def test_can_add_edge_to_mutable_undirected_graph():
     assert list(graph.neighbors("b")) == ["a"]
 
 
+def test_mutable_undirected_graph_keeps_track_of_number_of_nodes():
+    graph = UndirectedGraph()
+    assert graph.num_nodes == 0
+    graph.add_node("a")
+    assert graph.num_nodes == 1
+    graph.add_edge("a", "b")
+    assert graph.num_nodes == 2
+
+
 def test_weighted_undirected_graph_starts_empty():
     graph = WeightedUndirectedGraph()
     assert list(graph.nodes()) == []
