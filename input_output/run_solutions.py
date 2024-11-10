@@ -1,5 +1,5 @@
 import os
-from models.common.io import IOHandler, ExecutionFlags
+from models.common.io import IOHandler, ExecutionFlags, ResultChecker
 from models.aoc_2015 import ALL_2015_SOLUTIONS
 from models.aoc_2016 import ALL_2016_SOLUTIONS
 from models.aoc_2017 import ALL_2017_SOLUTIONS
@@ -16,7 +16,7 @@ def _get_input_path(year: int, day: int) -> str:
     return os.path.join("files", "input_files", f"aoc_{year}", f"a{year}_d{day}.txt")
 
 
-def _get_result_checker() -> JsonResultChecker:
+def _get_result_checker() -> ResultChecker:
     expected_results_path = os.path.join("files", "expected_results.json")
     return JsonResultChecker(expected_results_path)
 
@@ -52,12 +52,14 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
         _report_wrong_results(result_checker)
 
 
-def _report_wrong_results(result_checker):
+def _report_wrong_results(result_checker: ResultChecker) -> None:
     print()
     wrong_results = list(result_checker.wrong_results())
+    num_wrong = len(wrong_results)
+    num_solutions = result_checker.number_of_solutions
     if not wrong_results:
-        print("All results are correct!")
+        print(f"All results are correct! ({num_solutions}/{num_solutions})")
     else:
-        print("The following results are incorrect:")
+        print(f"The following results are incorrect ({num_wrong}/{num_solutions}):")
         for wrong_result in wrong_results:
             print(wrong_result)
