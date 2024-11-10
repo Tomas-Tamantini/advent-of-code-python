@@ -1,5 +1,6 @@
 from typing import Hashable, Optional
 from dataclasses import dataclass
+from collections import deque
 from models.common.graphs import UndirectedGraph
 from models.common.io import ProgressBar
 from .stoer_wagner import MergedNodes, build_stoer_wagner_graph
@@ -31,16 +32,16 @@ def minimum_cut_partition(
     for i in range(num_nodes - 1):
         if progress_bar:
             progress_bar.update(i, num_nodes)
-        sorted_merged_nodes = list(
-            sw_graph.maximum_adjacency_sorting(start_node=next(sw_graph.nodes()))
+        penultimate_node, last_node = deque(
+            sw_graph.maximum_adjacency_sorting(start_node=next(sw_graph.nodes())),
+            maxlen=2,
         )
-        cut_weight = sw_graph.cut_weight(sorted_merged_nodes[-1])
+        cut_weight = sw_graph.cut_weight(last_node)
         if best_cut_of_the_phase is None or cut_weight < best_cut_of_the_phase.weight:
             best_cut_of_the_phase = _CutOfThePhase(
-                merged_nodes=sorted_merged_nodes[-1],
-                weight=cut_weight,
+                merged_nodes=last_node, weight=cut_weight
             )
             if cut_weight <= minimum_cut_lower_bound:
                 break
-        sw_graph.merge(sorted_merged_nodes[-1], sorted_merged_nodes[-2])
+        sw_graph.merge(penultimate_node, last_node)
     return best_cut_of_the_phase.partition(all_nodes=set(graph.nodes()))
