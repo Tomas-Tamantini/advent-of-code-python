@@ -1,6 +1,6 @@
 import pytest
 from models.common.graphs import UndirectedGraph
-from ..minimum_cut import minimum_cut_partition
+from ..logic import minimum_cut_partition
 
 
 def test_minimum_cut_of_graph_with_less_than_two_nodes_raises_value_error():
