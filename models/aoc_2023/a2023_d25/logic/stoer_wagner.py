@@ -13,15 +13,6 @@ class MergedNodes:
 
 
 class StoerWagnerGraph(WeightedUndirectedGraph):
-    def _weight_between_node_and_group(
-        self, node: MergedNodes, group: Iterable[MergedNodes]
-    ) -> int:
-        return sum(
-            self.weight(grouped_node, node)
-            for grouped_node in group
-            if self.has_edge(grouped_node, node)
-        )
-
     def merge(self, node_a: MergedNodes, node_b: MergedNodes) -> None:
         new_node = node_a.merge(node_b)
         self.add_node(new_node)
@@ -43,20 +34,21 @@ class StoerWagnerGraph(WeightedUndirectedGraph):
     ) -> Iterator[MergedNodes]:
         grouped = set()
         queued = {start_node}
+        weight_between_node_and_group = dict()
         while queued:
             if len(queued) == 1:
                 next_node = queued.pop()
             else:
-                next_node = max(
-                    queued,
-                    key=lambda n: self._weight_between_node_and_group(n, grouped),
-                )
+                next_node = max(queued, key=lambda n: weight_between_node_and_group[n])
                 queued.remove(next_node)
             yield next_node
             grouped.add(next_node)
             for n in self.neighbors(next_node):
                 if n not in grouped:
                     queued.add(n)
+                    if n not in weight_between_node_and_group:
+                        weight_between_node_and_group[n] = 0
+                    weight_between_node_and_group[n] += self.weight(next_node, n)
 
 
 def build_stoer_wagner_graph(graph: UndirectedGraph) -> StoerWagnerGraph:
