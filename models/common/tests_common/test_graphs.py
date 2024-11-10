@@ -77,12 +77,14 @@ def test_can_add_weighted_edge_to_weighted_undirected_graph():
     assert set(graph.nodes()) == {"a", "b"}
     assert list(graph.neighbors("a")) == ["b"]
     assert list(graph.neighbors("b")) == ["a"]
+    assert graph.has_edge("a", "b")
     assert graph.weight("a", "b") == 2
 
 
 def test_weight_between_non_adjacent_nodes_in_undirected_graph_is_infinity():
     graph = WeightedUndirectedGraph()
     graph.add_edge("a", "b", weight=2)
+    assert not graph.has_edge("a", "c")
     assert graph.weight("a", "c") == float("inf")
 
 

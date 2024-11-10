@@ -43,7 +43,6 @@ class UndirectedGraph:
 
 
 class WeightedUndirectedGraph:
-
     def __init__(self) -> None:
         self._adjacencies = defaultdict(dict)
 
@@ -72,6 +71,9 @@ class WeightedUndirectedGraph:
 
     def weight(self, node_a: Hashable, node_b: Hashable) -> float:
         return self._adjacencies[node_a].get(node_b, inf) if node_a != node_b else 0
+
+    def has_edge(self, node_a: Hashable, node_b: Hashable) -> bool:
+        return node_b in self._adjacencies[node_a]
 
 
 class DirectedGraph:
