@@ -1838,7 +1838,15 @@
     },
     {
       "year": 2024,
-      "results_by_day": []
+      "results_by_day": [
+        {
+          "day": 1,
+          "title": "Historian Hysteria",
+          "results": [
+            2057374
+          ]
+        }
+      ]
     }
   ]
 }
