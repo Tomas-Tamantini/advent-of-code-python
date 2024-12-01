@@ -9,6 +9,7 @@ from models.aoc_2020 import ALL_2020_SOLUTIONS
 from models.aoc_2021 import ALL_2021_SOLUTIONS
 from models.aoc_2022 import ALL_2022_SOLUTIONS
 from models.aoc_2023 import ALL_2023_SOLUTIONS
+from models.aoc_2024 import ALL_2024_SOLUTIONS
 from .cli import InputFromTextFile, CliProgressBar, CliOutputWriter, JsonResultChecker
 
 
@@ -32,6 +33,7 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
         2021: ALL_2021_SOLUTIONS,
         2022: ALL_2022_SOLUTIONS,
         2023: ALL_2023_SOLUTIONS,
+        2024: ALL_2024_SOLUTIONS,
     }
     result_checker = _get_result_checker()
     for year, days in problems.items():
