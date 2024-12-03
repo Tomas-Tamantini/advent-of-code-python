@@ -8,14 +8,13 @@ from .program_instructions import (
 )
 
 
-def _parse_instruction(program: str, match: re.Match[str]) -> ProgramInstruction:
-    substring = program[match.start() : match.end()]
-    if "mul" in substring:
+def _parse_instruction(match: re.Match[str]) -> ProgramInstruction:
+    if "mul" in match.group(0):
         return MultiplicationInstruction(int(match.group(1)), int(match.group(2)))
-    elif "don't" in substring:
-        return DontInstruction()
-    else:
+    elif match.group(0) == "do()":
         return DoInstruction()
+    else:
+        return DontInstruction()
 
 
 def parse_program(program: str) -> Iterator[ProgramInstruction]:
@@ -24,4 +23,4 @@ def parse_program(program: str) -> Iterator[ProgramInstruction]:
     pattern_dont = r"don't\(\)"
     pattern = re.compile(f"{pattern_mult}|{pattern_do}|{pattern_dont}")
     for match in pattern.finditer(program):
-        yield _parse_instruction(program, match)
+        yield _parse_instruction(match)
