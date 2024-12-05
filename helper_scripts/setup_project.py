@@ -1,4 +1,5 @@
 import os
+import json
 from typing import Optional
 from .fetch_problem_name import fetch_problem_name
 
@@ -9,6 +10,7 @@ def setup_project(
     problem_name: Optional[str] = None,
     parser_method_name: Optional[str] = None,
     create_empty_input_file: bool = True,
+    create_expected_result_template: bool = True,
 ) -> None:
     if problem_name is None:
         problem_name = fetch_problem_name(year, day)
@@ -23,6 +25,8 @@ def setup_project(
         _create_parser_test_file(parser_method_name, test_path)
     if create_empty_input_file:
         _create_empty_input_file(year, day)
+    if create_expected_result_template:
+        _create_expected_result_template(year, day)
 
 
 def _create_solution_file(
@@ -82,3 +86,28 @@ def _create_empty_input_file(year: int, day: int) -> None:
         os.path.join("files", "input_files", f"aoc_{year}", f"a{year}_d{day}.txt"), "w"
     ) as f:
         f.write("")
+
+
+def _yearly_results(year: int, results_by_year: list) -> dict:
+    for year_results in results_by_year:
+        if year_results["year"] == year:
+            return year_results
+    yearly_results = {"year": year, "results_by_day": []}
+    results_by_year.append(yearly_results)
+    return yearly_results
+
+
+def _create_expected_result_template(year: int, day: int, problem_name: str) -> None:
+    file_path = os.path.join("files", "expected_results.json")
+    with open(file_path, "r") as f:
+        expected_results = json.load(f)
+    results_by_year: list[dict] = expected_results.get("results_by_year", [])
+    yearly_results = _yearly_results(year, results_by_year)
+    results_by_day: list[dict] = yearly_results.get("results_by_day", [])
+    if any(day_results["day"] == day for day_results in results_by_day):
+        raise ValueError("Expected results already exist")
+    new_result = {"day": day, "title": problem_name, "results": []}
+    results_by_day.append(new_result)
+
+    with open(file_path, "w") as f:
+        json.dump(expected_results, f, indent=4)
