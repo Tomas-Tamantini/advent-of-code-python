@@ -8,6 +8,7 @@ def setup_project(
     day: int,
     problem_name: Optional[str] = None,
     parser_method_name: Optional[str] = None,
+    create_empty_input_file: bool = True,
 ) -> None:
     if problem_name is None:
         problem_name = fetch_problem_name(year, day)
@@ -20,6 +21,8 @@ def setup_project(
         _create_test_folder(test_path)
         _create_parser_file(solution_path, parser_method_name)
         _create_parser_test_file(parser_method_name, test_path)
+    if create_empty_input_file:
+        _create_empty_input_file(year, day)
 
 
 def _create_solution_file(
@@ -72,3 +75,10 @@ def _create_parser_test_file(parser_method_name: str, test_path: str) -> None:
         f.write('    file_content = ""\n')
         f.write("    input_reader = InputFromString(file_content)\n")
         f.write("    # TODO: Implement test\n")
+
+
+def _create_empty_input_file(year: int, day: int) -> None:
+    with open(
+        os.path.join("files", "input_files", f"aoc_{year}", f"a{year}_d{day}.txt"), "w"
+    ) as f:
+        f.write("")
