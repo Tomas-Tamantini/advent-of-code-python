@@ -26,7 +26,7 @@ def setup_project(
     if create_empty_input_file:
         _create_empty_input_file(year, day)
     if create_expected_result_template:
-        _create_expected_result_template(year, day)
+        _create_expected_result_template(year, day, problem_name)
 
 
 def _create_solution_file(
