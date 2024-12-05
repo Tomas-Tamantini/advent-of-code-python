@@ -43,12 +43,12 @@ def test_update_is_not_correctly_ordered_if_it_violates_any_rules(update):
     assert not _RULES.is_in_correct_order(update)
 
 
-def test_page_ordering_is_transitive():
+def test_page_ordering_ignores_rules_not_involving_pages_in_update():
     rules = PageOrderingRules(
         [
             PageOrderingRule(1, 2),
             PageOrderingRule(2, 3),
-            PageOrderingRule(3, 4),
         ]
     )
-    assert not rules.is_in_correct_order((4, 1))
+    assert rules.is_in_correct_order((1, 3))
+    assert rules.is_in_correct_order((3, 1))
