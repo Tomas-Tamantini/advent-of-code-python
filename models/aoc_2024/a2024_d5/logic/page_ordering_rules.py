@@ -1,6 +1,6 @@
 from itertools import combinations
 from typing import Iterable, Iterator
-from models.common.graphs import DirectedGraph
+from models.common.graphs import DirectedGraph, topological_sorting
 from .page_ordering_rule import PageOrderingRule
 
 
@@ -37,3 +37,9 @@ class PageOrderingRules:
             page_after not in violations_graph.reachable_from(page_before)
             for page_before, page_after in combinations(update, 2)
         )
+
+    def sort_update(self, update: tuple[int, ...]) -> tuple[int, ...]:
+        sorting_dag = DirectedGraph()
+        for rule in self._pertinent_rules(update):
+            sorting_dag.add_edge(rule.page_before, rule.page_after)
+        return tuple(topological_sorting(sorting_dag))
