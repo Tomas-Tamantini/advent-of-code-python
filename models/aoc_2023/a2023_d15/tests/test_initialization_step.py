@@ -16,7 +16,7 @@ def test_remove_lens_instructs_lens_box_to_remove_lens_of_given_label():
     step = RemoveLens("ab")
     mock_lens_box = Mock(spec=LensBox)
     step.apply(mock_lens_box)
-    assert mock_lens_box.remove_lens.called_once_with("ab")
+    mock_lens_box.remove_lens.assert_called_once_with("ab")
 
 
 def test_insert_lens_instructs_lens_box_to_insert_lens_of_given_label_and_focal_strength():
@@ -24,4 +24,4 @@ def test_insert_lens_instructs_lens_box_to_insert_lens_of_given_label_and_focal_
     step = InsertLens(lens)
     mock_lens_box = Mock(spec=LensBox)
     step.apply(mock_lens_box)
-    assert mock_lens_box.insert_lens.called_once_with(lens)
+    mock_lens_box.insert_lens.assert_called_once_with(lens)

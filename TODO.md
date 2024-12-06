@@ -1,7 +1,7 @@
 # TODOs
 
-- [ ] Use poetry for dependency management and update pipeline
-- [ ] Upgrade to python 3.13
+- [x] Use poetry for dependency management and update pipeline
+- [x] Upgrade to python 3.13
 - [ ] Use taskipy for task shortcuts
 - [ ] Use ruff for formatting
 - [ ] Get coverage
