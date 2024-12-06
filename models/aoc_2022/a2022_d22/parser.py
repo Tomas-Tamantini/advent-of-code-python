@@ -57,7 +57,7 @@ def _parse_cube_net(lines: list[str], edge_length: int) -> CubeNet:
 def parse_cube_net_and_instructions(
     input_reader: InputReader, edge_length: int
 ) -> _ParsedCube:
-    lines = [l for l in input_reader.readlines() if l.strip()]
+    lines = [line for line in input_reader.readlines() if line.strip()]
     cube_net_lines = lines[:-1]
     instruction_line = lines[-1]
     return _ParsedCube(

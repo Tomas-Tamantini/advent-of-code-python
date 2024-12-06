@@ -9,4 +9,4 @@ def test_parse_layered_firewall():
                       4: 4
                       6: 4"""
     firewall = parse_layered_firewall(InputFromString(file_content))
-    assert [l for l, _ in firewall.packet_collisions()] == [0, 6]
+    assert [layer for layer, _ in firewall.packet_collisions()] == [0, 6]

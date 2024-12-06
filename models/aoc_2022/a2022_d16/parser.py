@@ -10,8 +10,8 @@ def parse_valve_graph(
     time_to_open_valves: int,
 ) -> Maze:
     lines = [
-        l.replace(";", "").replace("rate=", "")
-        for l in input_reader.read_stripped_lines()
+        line.replace(";", "").replace("rate=", "")
+        for line in input_reader.read_stripped_lines()
     ]
     valves = dict()
     for line in lines:

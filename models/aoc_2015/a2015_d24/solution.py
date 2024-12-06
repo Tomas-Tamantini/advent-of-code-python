@@ -10,7 +10,7 @@ def aoc_2015_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 24, "It Hangs in the Balance")
     io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
-    numbers = tuple(int(l) for l in lines)
+    numbers = tuple(int(line) for line in lines)
     min_quantum_entanglement = min(
         prod(group)
         for group in possible_arrangements_of_packets_in_passenger_comparment(

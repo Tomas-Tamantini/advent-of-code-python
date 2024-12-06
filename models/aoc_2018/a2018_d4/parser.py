@@ -8,8 +8,8 @@ from .napping_guard import Guard, GuardNap
 
 
 def parse_guard_logs(input_reader: InputReader) -> Iterator[Guard]:
-    lines = [l.strip() for l in input_reader.readlines()]
-    sorted_lines = sorted(lines, key=lambda l: l[:18])
+    lines = [line.strip() for line in input_reader.readlines()]
+    sorted_lines = sorted(lines, key=lambda line: line[:18])
     guard_logs = defaultdict(list)
     guard_id = -1
     for line in sorted_lines:

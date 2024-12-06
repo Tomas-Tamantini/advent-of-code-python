@@ -20,7 +20,7 @@ def aoc_2015_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2015, 17, "No Such Thing as Too Much")
     io_handler.output_writer.write_header(problem_id)
     lines = list(io_handler.input_reader.readlines())
-    capacities = [int(l) for l in lines]
+    capacities = [int(line) for line in lines]
     total_volume = 150
     partitions = list(eggnog_partition(total_volume, capacities))
     num_ways = len(partitions)
