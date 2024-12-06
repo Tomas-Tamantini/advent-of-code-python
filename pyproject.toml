@@ -26,6 +26,7 @@ build-backend = "poetry.core.masonry.api"
 preview = true
 select = ['I', 'F', 'E', 'W', 'PL', 'PT']
 exclude = ["__init__.py"]
+ignore = ["PLR2004", "PT011"]
 
 [tool.pytest.ini_options]
 pythonpath = "."
