@@ -23,10 +23,10 @@ class OneDimensionalBinaryCelullarAutomaton:
         if not rules:
             return 0
         rule_length = -1
-        for rule in rules:
+        for rule, rule_value in rules.items():
             if len(rule) % 2 == 0:
                 raise ValueError("Rules must have odd length")
-            if all(r == 0 for r in rule) and rules[rule] == 1:
+            if all(r == 0 for r in rule) and rule_value == 1:
                 raise ValueError("Rule for all zeros must be zero")
             if rule_length == -1:
                 rule_length = len(rule)
