@@ -24,7 +24,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff.lint]
 preview = true
-select = ['I']
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+exclude = ["__init__.py"]
 
 [tool.pytest.ini_options]
 pythonpath = "."

@@ -25,8 +25,7 @@ def aoc_2021_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
                 tree_i = SnailFishTree.from_list(lists[i])
                 tree_j = SnailFishTree.from_list(lists[j])
                 magnitude = (tree_i + tree_j).magnitude()
-                if magnitude > largest_magnitude:
-                    largest_magnitude = magnitude
+                largest_magnitude = max(magnitude, largest_magnitude)
     yield ProblemSolution(
         problem_id,
         f"The largest magnitude of the sum of two snailfish is {largest_magnitude}",

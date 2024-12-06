@@ -1,6 +1,6 @@
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Hashable, Iterable, Iterator
+from typing import Hashable, Iterator
 
 from models.common.graphs import UndirectedGraph, WeightedUndirectedGraph
 

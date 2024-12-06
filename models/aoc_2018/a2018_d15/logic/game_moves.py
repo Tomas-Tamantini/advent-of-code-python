@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 from models.common.vectors import CardinalDirection
 
 from .game_state import CaveGameState

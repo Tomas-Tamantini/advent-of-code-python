@@ -10,10 +10,9 @@ def _contiguous_lines(lines: Iterable[str]) -> Iterator[str]:
     for line in lines:
         if line:
             current_str += "\n" + line
-        else:
-            if current_str:
-                yield current_str
-                current_str = ""
+        elif current_str:
+            yield current_str
+            current_str = ""
     if current_str:
         yield current_str
 

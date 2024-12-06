@@ -6,7 +6,6 @@ from models.common.io import CharacterGrid
 from models.common.vectors import CardinalDirection, Vector2D
 
 from ..logic import DirectedMaze, max_length_non_repeating_path
-from ..parser import parse_forest_map
 
 
 def _parse_maze(maze_str: str) -> DirectedMaze:

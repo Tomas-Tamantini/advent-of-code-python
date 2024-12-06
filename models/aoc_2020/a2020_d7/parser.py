@@ -1,5 +1,3 @@
-from typing import Iterator
-
 from models.common.io import InputReader
 
 from .luggage_rules import LuggageRule, LuggageRules

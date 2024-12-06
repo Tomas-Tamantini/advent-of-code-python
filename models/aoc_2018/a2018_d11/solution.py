@@ -11,14 +11,14 @@ def aoc_2018_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     grid_serial_number = int(io_handler.input_reader.read())
     cells = FuelCells(width=300, height=300, grid_serial_number=grid_serial_number)
     x, y = cells.position_with_largest_total_power(region_width=3, region_height=3)
-    result = f"{x+1},{y+1}"
+    result = f"{x + 1},{y + 1}"
     yield ProblemSolution(
         problem_id, f"Position with largest total power: {result}", result, part=1
     )
 
     square = cells.square_with_largest_total_power(io_handler.progress_bar)
     (x, y), s = square.coords_top_left, square.size
-    result = f"{x+1},{y+1},{s}"
+    result = f"{x + 1},{y + 1},{s}"
     yield ProblemSolution(
         problem_id,
         f"Position with largest total power and region size: {result}",

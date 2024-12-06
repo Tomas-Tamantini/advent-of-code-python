@@ -35,7 +35,7 @@ def build_cave_game(
             if char == "E":
                 elves.append(
                     _build_unit(
-                        unit_id=f"E{len(elves)+1}",
+                        unit_id=f"E{len(elves) + 1}",
                         position=Vector2D(x, y),
                         specs=elf_specs,
                     )
@@ -43,7 +43,7 @@ def build_cave_game(
             elif char == "G":
                 goblins.append(
                     _build_unit(
-                        unit_id=f"G{len(goblins)+1}",
+                        unit_id=f"G{len(goblins) + 1}",
                         position=Vector2D(x, y),
                         specs=goblin_specs,
                     )

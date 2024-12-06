@@ -38,6 +38,6 @@ def test_number_of_bags_contained_inside_is_counted_efficiently():
     rules = LuggageRules()
     for i in range(100):
         rules.add_rule(
-            LuggageRule(f"color_{i}", {f"color_{i+1}": 1, f"color_{i+2}": 1})
+            LuggageRule(f"color_{i}", {f"color_{i + 1}": 1, f"color_{i + 2}": 1})
         )
     assert rules.number_of_bags_contained_inside("color_0") == 1854745384386157998350

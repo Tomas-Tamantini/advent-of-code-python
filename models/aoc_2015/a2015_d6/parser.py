@@ -21,11 +21,10 @@ def _parse_and_give_light_grid_instruction(
             grid.decrease_brightness(region, decrease=1)
         else:
             grid.turn_off(region)
+    elif use_elvish_tongue:
+        grid.increase_brightness(region, increase=2)
     else:
-        if use_elvish_tongue:
-            grid.increase_brightness(region, increase=2)
-        else:
-            grid.toggle(region)
+        grid.toggle(region)
 
 
 def parse_and_give_light_grid_instructions(

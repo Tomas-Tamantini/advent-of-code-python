@@ -79,7 +79,5 @@ class BridgeBuilder:
         # TODO: Optimize (maybe with memoization?)
         current_bridge = MagneticBridge()
         for bridge in self._build_recursive(current_bridge, self._components):
-            if bridge.strength > self._max_strength:
-                self._max_strength = bridge.strength
-            if (bridge.length, bridge.strength) > self._max_length:
-                self._max_length = (bridge.length, bridge.strength)
+            self._max_strength = max(bridge.strength, self._max_strength)
+            self._max_length = max((bridge.length, bridge.strength), self._max_length)
