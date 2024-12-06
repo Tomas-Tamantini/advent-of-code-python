@@ -84,11 +84,10 @@ class BlizzardValley:
         )
 
     def is_wall(self, position: Vector2D) -> bool:
-        return (
-            self._is_border(position)
-            and position != self._entrance
-            and position != self._exit
-        )
+        return self._is_border(position) and position not in {
+            self._entrance,
+            self._exit,
+        }
 
     def _position_is_occupied_by_blizzard(self, position: Vector2D, time: int) -> bool:
         return any(
