@@ -18,8 +18,4 @@ class JigsawPieceOrientation:
         new_matrix = matrix.copy()
         if self.is_flipped:
             new_matrix = np.fliplr(new_matrix)
-        try:
-            new_matrix = np.rot90(new_matrix, k=self.num_quarter_turns, axes=(1, 0))
-        except ValueError:
-            x = 1
-        return new_matrix
+        return np.rot90(new_matrix, k=self.num_quarter_turns, axes=(1, 0))
