@@ -22,7 +22,7 @@ def test_moving_items_between_crates_can_be_done_one_at_a_time():
     crate_b = Crate()
     move = MoveCratesOneAtATime(origin_id=0, destination_id=1, num_times=2)
     move.apply({0: crate_a, 1: crate_b})
-    assert crate_a.peek() == None
+    assert crate_a.peek() is None
     assert crate_b.peek() == "A"
 
 
@@ -33,5 +33,5 @@ def test_moving_items_between_crates_can_be_done_multiple_at_a_time():
     crate_b = Crate()
     move = MoveCratesMultipleAtATime(origin_id=0, destination_id=1, num_times=2)
     move.apply({0: crate_a, 1: crate_b})
-    assert crate_a.peek() == None
+    assert crate_a.peek() is None
     assert crate_b.peek() == "B"
