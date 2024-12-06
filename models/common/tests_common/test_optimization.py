@@ -152,8 +152,8 @@ def test_branch_and_bound_of_single_state_returns_that_state():
 def test_branch_and_bound_finds_state_with_maximum_objective_value():
     initial_state = "A"
     mock_explorer = Mock()
-    mock_explorer.objective_value.side_effect = lambda state: ord(state)
-    mock_explorer.upper_bound_on_objective_value.side_effect = lambda state: ord(state)
+    mock_explorer.objective_value.side_effect = ord
+    mock_explorer.upper_bound_on_objective_value.side_effect = ord
     mock_explorer.children_states.side_effect = lambda state: ["B", "C"]
     result = maximize_with_branch_and_bound(initial_state, mock_explorer)
     assert result == ord("C")

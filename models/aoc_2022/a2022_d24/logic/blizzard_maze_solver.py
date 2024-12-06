@@ -26,7 +26,7 @@ class BlizzardMazeSolver:
             for neighbor in node.next_states()
             if self._valley.position_is_free_at_time(neighbor.position, neighbor.time)
         )
-        yield from sorted(candidates, key=lambda c: self._distance_from_goal(c))
+        yield from sorted(candidates, key=self._distance_from_goal)
 
     def _steps_from_entrance_to_exit(self, initial_timestamp: int) -> int:
         self._goal = self._valley.exit
