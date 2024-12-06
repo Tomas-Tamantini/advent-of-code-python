@@ -8,7 +8,6 @@ class PatrolArea:
     def __init__(self, width: int, height: int, obstacles: set[Vector2D]) -> None:
         self._width = width
         self._height = height
-        self._obstacles = obstacles
         self._obstacles_per_row = defaultdict(list)
         self._obstacles_per_column = defaultdict(list)
         for obstacle in sorted(obstacles):
@@ -16,18 +15,16 @@ class PatrolArea:
             self._obstacles_per_column[obstacle.x].append(obstacle.y)
 
     def is_obstacle(self, position: Vector2D) -> bool:
-        return position in self._obstacles
+        return position.x in self._obstacles_per_row[position.y]
 
     def is_out_of_bounds(self, position: Vector2D) -> bool:
         return not (0 <= position.x < self._width and 0 <= position.y < self._height)
 
     def add_obstacle(self, position: Vector2D) -> None:
-        self._obstacles.add(position)
         insort_left(self._obstacles_per_row[position.y], position.x)
         insort_left(self._obstacles_per_column[position.x], position.y)
 
     def remove_obstacle(self, position: Vector2D) -> None:
-        self._obstacles.remove(position)
         self._obstacles_per_row[position.y].remove(position.x)
         self._obstacles_per_column[position.x].remove(position.y)
 
