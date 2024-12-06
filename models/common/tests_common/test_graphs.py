@@ -283,7 +283,7 @@ def test_topological_sorting_returns_nodes_in_topological_order():
     dag.add_edge("b", "c")
     dag.add_edge("a", "b")
     dag.add_edge("b", "d")
-    assert "".join(topological_sorting(dag)) in ("abcd", "abdc")
+    assert "".join(topological_sorting(dag)) in {"abcd", "abdc"}
 
 
 def test_topological_sorting_of_cyclical_graph_raises_error():

@@ -37,7 +37,7 @@ def _parse_navigation_instruction(
             if relative_to_waypoint
             else MoveShipInstruction(directions[action], value)
         )
-    elif action in ("L", "R"):
+    elif action in {"L", "R"}:
         if value == 0:
             turn = TurnDirection.NO_TURN
         elif value == 90:

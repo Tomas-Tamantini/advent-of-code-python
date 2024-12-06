@@ -17,11 +17,11 @@ class CardinalDirection(Enum):
 
     @property
     def is_vertical(self) -> bool:
-        return self in (CardinalDirection.NORTH, CardinalDirection.SOUTH)
+        return self in {CardinalDirection.NORTH, CardinalDirection.SOUTH}
 
     @property
     def is_horizontal(self) -> bool:
-        return self in (CardinalDirection.EAST, CardinalDirection.WEST)
+        return self in {CardinalDirection.EAST, CardinalDirection.WEST}
 
     def turn(self, turn_direction: TurnDirection) -> "CardinalDirection":
         if turn_direction == TurnDirection.LEFT:

@@ -22,7 +22,7 @@ class PacmanEdgeMapper:
             if navigator.facing.is_horizontal
             else self._faces_on_column(navigator.face_planar_position.x)
         )
-        if navigator.facing in (navigator.facing.EAST, navigator.facing.SOUTH):
+        if navigator.facing in {navigator.facing.EAST, navigator.facing.SOUTH}:
             return min(faces)
         else:
             return max(faces)

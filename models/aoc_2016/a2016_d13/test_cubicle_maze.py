@@ -45,7 +45,7 @@ def test_if_no_walls_exist_shortest_path_length_is_manhattan_distance():
 
 def test_shortest_path_that_does_not_go_through_negative_coordinates_is_found():
     def is_wall_calculator(position: Vector2D) -> bool:
-        return position.y not in (-1, 1_000) and position.x not in (0, 10)
+        return position.y not in {-1, 1_000} and position.x not in {0, 10}
 
     maze = _build_cubicle_maze(is_wall_calculator, destination=Vector2D(10, 0))
     # Cannot take shortcut through y = -1, so needs to go up to y = 1000
@@ -69,7 +69,7 @@ def test_number_of_reachable_cubicles_starting_at_origin_in_maze_without_walls_i
 
 
 def test_number_of_reachable_cubicles_in_tunnel_maze_grows_linearly_after_first_few_steps():
-    maze = _build_cubicle_maze(is_wall=lambda pos: pos.x not in (0, 1, 2))
+    maze = _build_cubicle_maze(is_wall=lambda pos: pos.x not in {0, 1, 2})
     initial_position = Vector2D(0, 0)
     assert maze.number_of_reachable_cubicles(initial_position, max_steps=0) == 1
     assert maze.number_of_reachable_cubicles(initial_position, max_steps=1) == 3

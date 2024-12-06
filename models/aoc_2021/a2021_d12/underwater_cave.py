@@ -38,7 +38,7 @@ class UnderwaterCaveExplorer:
             return None
 
     def _is_intermediary_small_cave(self, cave: UnderwaterCave) -> bool:
-        return cave.is_small and cave not in (self._start_cave, self._end_cave)
+        return cave.is_small and cave not in {self._start_cave, self._end_cave}
 
     def _explore_paths(
         self, current_path: list[UnderwaterCave], may_visit_one_small_cave_twice: bool

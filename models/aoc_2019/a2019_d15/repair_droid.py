@@ -30,7 +30,7 @@ class DroidExploredArea:
         return {
             cell
             for cell, cell_type in self._cells.items()
-            if cell_type in (CellType.EMPTY, CellType.OXYGEN_SYSTEM)
+            if cell_type in {CellType.EMPTY, CellType.OXYGEN_SYSTEM}
         }
 
     def set_cell(self, cell: Vector2D, cell_type: CellType) -> None:

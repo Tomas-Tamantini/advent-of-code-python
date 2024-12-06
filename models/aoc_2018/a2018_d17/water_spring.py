@@ -59,11 +59,11 @@ class _TileGrouping:
 
     def matches(self, soil_grouping: _SoilGrouping) -> bool:
         return (
-            soil_grouping.center in (None, self.center.soil_type)
-            and soil_grouping.left in (None, self.left.soil_type)
-            and soil_grouping.right in (None, self.right.soil_type)
-            and soil_grouping.bottom in (None, self.bottom.soil_type)
-            and soil_grouping.top in (None, self.top.soil_type)
+            soil_grouping.center in {None, self.center.soil_type}
+            and soil_grouping.left in {None, self.left.soil_type}
+            and soil_grouping.right in {None, self.right.soil_type}
+            and soil_grouping.bottom in {None, self.bottom.soil_type}
+            and soil_grouping.top in {None, self.top.soil_type}
         )
 
 
@@ -109,7 +109,7 @@ class _Soil:
         return sum(
             1
             for tile in self._tiles.values()
-            if tile not in (_SoilType.CLAY, _SoilType.SAND)
+            if tile not in {_SoilType.CLAY, _SoilType.SAND}
         )
 
     @property
@@ -165,11 +165,11 @@ class _Soil:
 
         def tile_to_str(x: int, y: int) -> str:
             tile = self.soil_type(Vector2D(x, y))
-            if tile in (
+            if tile in {
                 _SoilType.BOTTOM_CONFINED_WATER,
                 _SoilType.RIGHT_CONFINED_WATER,
                 _SoilType.LEFT_CONFINED_WATER,
-            ):
+            }:
                 return "|"
             return tile
 

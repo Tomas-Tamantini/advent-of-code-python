@@ -57,13 +57,13 @@ class _NonogramSolveState:
         )
 
     def _can_skip_current_cell(self) -> bool:
-        return self._current_cell() in (_EMPTY, _UNKNOWN)
+        return self._current_cell() in {_EMPTY, _UNKNOWN}
 
     def _can_fill_in_current_cell(self) -> bool:
-        if not self._there_are_remaining_groups() or self._current_cell() not in (
+        if not self._there_are_remaining_groups() or self._current_cell() not in {
             _FILLED_IN,
             _UNKNOWN,
-        ):
+        }:
             return False
         current_group_size = self._current_group_size()
         if self._pointers.cell_pointer + current_group_size > self._row.num_cells:

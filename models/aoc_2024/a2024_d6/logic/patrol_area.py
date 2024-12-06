@@ -40,7 +40,7 @@ class PatrolArea:
         index = bisect_left(obstacles, guard_position)
         obstacle_index = (
             index
-            if guard.direction in (CardinalDirection.EAST, CardinalDirection.SOUTH)
+            if guard.direction in {CardinalDirection.EAST, CardinalDirection.SOUTH}
             else index - 1
         )
         if obstacle_index < 0:
