@@ -15,7 +15,8 @@ class GameOfLife(Bounded2DAutomaton):
     ) -> None:
         super().__init__(width, height)
 
-    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
+    @staticmethod
+    def cell_is_alive_in_next_generation(vicinity: TwoStateCellVicinity) -> bool:
         return (
             not vicinity.center_cell_is_alive and vicinity.num_alive_neighbors() == 3
         ) or (

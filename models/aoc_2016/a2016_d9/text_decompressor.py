@@ -10,7 +10,8 @@ class TextDecompressor:
         for match in re.finditer(r"\((\d+)x(\d+)\)", self._compressed_text):
             yield (match.start(), match.end())
 
-    def _parse_marker(self, marker: str) -> tuple[int, int]:
+    @staticmethod
+    def _parse_marker(marker: str) -> tuple[int, int]:
         return tuple(int(value) for value in marker[1:-1].split("x"))
 
     def length_shallow_decompression(self) -> int:

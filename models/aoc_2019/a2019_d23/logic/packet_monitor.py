@@ -14,10 +14,12 @@ class PacketMonitor(Protocol):
 
 
 class MonitorBadAddressPackets:
-    def on_store_lost_packet(self, packet: NetworkPacket) -> None:
+    @staticmethod
+    def on_store_lost_packet(packet: NetworkPacket) -> None:
         raise HaltNetworkError("Bad address packet stored")
 
-    def on_load_lost_packet(self, packet: NetworkPacket) -> None:
+    @staticmethod
+    def on_load_lost_packet(packet: NetworkPacket) -> None:
         raise HaltNetworkError("Bad address packet loaded")
 
 

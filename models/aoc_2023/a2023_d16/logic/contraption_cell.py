@@ -10,8 +10,9 @@ class ContraptionCell(Protocol):
 
 
 class EmptyCell:
+    @staticmethod
     def next_directions(
-        self, beam_direction: CardinalDirection
+        beam_direction: CardinalDirection,
     ) -> Iterator[CardinalDirection]:
         yield beam_direction
 

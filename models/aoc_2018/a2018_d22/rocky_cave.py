@@ -85,7 +85,8 @@ class CaveExplorer:
         self._time_to_move = time_to_move
         self._time_to_switch_gear = time_to_switch_gear
 
-    def _is_out_of_bounds(self, position: Vector2D) -> bool:
+    @staticmethod
+    def _is_out_of_bounds(position: Vector2D) -> bool:
         return position.x < 0 or position.y < 0
 
     def neighbors(self, node: _ExplorerState) -> Iterator[_ExplorerState]:

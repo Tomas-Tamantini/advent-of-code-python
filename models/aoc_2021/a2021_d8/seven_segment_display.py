@@ -37,9 +37,8 @@ class ShuffledSevenDigitDisplay:
                 knowns[2] = pattern
         return knowns
 
-    def _segments_to_digit(
-        self, segments: set[str], mapping: dict[int, set[str]]
-    ) -> int:
+    @staticmethod
+    def _segments_to_digit(segments: set[str], mapping: dict[int, set[str]]) -> int:
         for digit, pattern in mapping.items():
             if pattern == segments:
                 return digit

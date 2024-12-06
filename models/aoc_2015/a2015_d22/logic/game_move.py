@@ -6,13 +6,16 @@ from .spell_effect import PoisonEffect, RechargeEffect, ShieldEffect, SpellEffec
 
 
 class GameMove:
-    def _new_wizard(self, game_state: GameState) -> Wizard:
+    @staticmethod
+    def _new_wizard(game_state: GameState) -> Wizard:
         return game_state.wizard
 
-    def _new_boss(self, game_state: GameState) -> Boss:
+    @staticmethod
+    def _new_boss(game_state: GameState) -> Boss:
         return game_state.boss
 
-    def _new_effect(self) -> Optional[SpellEffect]:
+    @staticmethod
+    def _new_effect() -> Optional[SpellEffect]:
         return None
 
     def apply(self, game_state: GameState) -> GameState:

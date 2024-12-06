@@ -28,17 +28,20 @@ class _LogicGate:
 
 
 class DoNothingGate(_LogicGate):
-    def _process_input_signals(self, signals: list[int]) -> int:
+    @staticmethod
+    def _process_input_signals(signals: list[int]) -> int:
         return signals[0]
 
 
 class AndGate(_LogicGate):
-    def _process_input_signals(self, signals: list[int]) -> int:
+    @staticmethod
+    def _process_input_signals(signals: list[int]) -> int:
         return signals[0] & signals[1]
 
 
 class OrGate(_LogicGate):
-    def _process_input_signals(self, signals: list[int]) -> int:
+    @staticmethod
+    def _process_input_signals(signals: list[int]) -> int:
         return signals[0] | signals[1]
 
 

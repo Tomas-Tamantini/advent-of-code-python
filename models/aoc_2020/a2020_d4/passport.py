@@ -50,7 +50,8 @@ class HeightRule:
 
 
 class HairColorRule:
-    def is_valid(self, value: str) -> bool:
+    @staticmethod
+    def is_valid(value: str) -> bool:
         return (
             len(value) == 7
             and value.startswith("#")
@@ -59,7 +60,8 @@ class HairColorRule:
 
 
 class PassportIdRule:
-    def is_valid(self, value: str) -> bool:
+    @staticmethod
+    def is_valid(value: str) -> bool:
         return len(value) == 9 and value.isdigit()
 
 

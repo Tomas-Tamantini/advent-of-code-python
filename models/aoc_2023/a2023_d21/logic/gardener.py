@@ -9,9 +9,8 @@ class Gardener:
     def __init__(self, initial_position: Vector2D) -> None:
         self._initial_position = initial_position
 
-    def _valid_neighbors(
-        self, position: Vector2D, garden: Garden
-    ) -> Iterator[Vector2D]:
+    @staticmethod
+    def _valid_neighbors(position: Vector2D, garden: Garden) -> Iterator[Vector2D]:
         for neighbor in position.adjacent_positions():
             if garden.is_valid_position(neighbor):
                 yield neighbor

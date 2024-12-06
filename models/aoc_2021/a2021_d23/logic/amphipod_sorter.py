@@ -6,8 +6,9 @@ from .amphipod_burrow import AmphipodBurrow
 
 
 class AmphipodSorter:
+    @staticmethod
     def weighted_neighbors(
-        self, burrow: AmphipodBurrow
+        burrow: AmphipodBurrow,
     ) -> Iterator[tuple[AmphipodBurrow, int]]:
         yield from burrow.weighted_neighbors()
 

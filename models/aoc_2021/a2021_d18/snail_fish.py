@@ -94,7 +94,8 @@ class SnailfishLeaf:
     def to_list(self) -> Union[int, list]:
         return self.value
 
-    def try_explode(self, depth: int) -> bool:
+    @staticmethod
+    def try_explode(depth: int) -> bool:
         return False
 
     def try_split(self) -> bool:

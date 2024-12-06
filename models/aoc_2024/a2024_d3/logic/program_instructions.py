@@ -19,11 +19,13 @@ class MultiplicationInstruction:
 
 @dataclass(frozen=True)
 class DoInstruction:
-    def execute(self, stack: ProgramStack) -> None:
+    @staticmethod
+    def execute(stack: ProgramStack) -> None:
         stack.enable_increment()
 
 
 @dataclass(frozen=True)
 class DontInstruction:
-    def execute(self, stack: ProgramStack) -> None:
+    @staticmethod
+    def execute(stack: ProgramStack) -> None:
         stack.disable_increment()

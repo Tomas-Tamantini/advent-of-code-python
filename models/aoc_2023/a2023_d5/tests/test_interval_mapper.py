@@ -46,12 +46,14 @@ def test_composite_interval_mapper_maps_interval_to_itself_if_no_submappers():
 
 def test_composite_interval_mapper_applies_all_submappers_in_order():
     class MockMapperA:
-        def map_interval(self, interval):
+        @staticmethod
+        def map_interval(interval):
             yield Interval(interval.min_inclusive + 10, interval.max_inclusive + 10)
             yield Interval(interval.min_inclusive + 30, interval.max_inclusive + 40)
 
     class MockMapperB:
-        def map_interval(self, interval):
+        @staticmethod
+        def map_interval(interval):
             yield Interval(interval.min_inclusive * 2, interval.max_inclusive * 2)
 
     mapper = CompositeIntervalMapper(MockMapperA(), MockMapperB())

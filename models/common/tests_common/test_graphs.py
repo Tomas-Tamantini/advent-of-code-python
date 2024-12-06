@@ -172,7 +172,8 @@ def test_weighted_directed_graph_keeps_track_of_number_of_nodes():
 
 
 class MockGraph:
-    def neighbors(self, node):
+    @staticmethod
+    def neighbors(node):
         adjacencies = {
             "a": ("b", "c", "d"),
             "b": ("a", "d"),
@@ -359,7 +360,8 @@ def test_dijkstra_finds_optimal_distance_even_if_multiple_optimal_paths():
 
 def test_dijkstra_also_works_with_single_method_weighted_graph():
     class _SingleMethod:
-        def weighted_neighbors(self, node):
+        @staticmethod
+        def weighted_neighbors(node):
             yield "b", 2
             yield "c", 10
 
@@ -369,7 +371,8 @@ def test_dijkstra_also_works_with_single_method_weighted_graph():
 
 
 class _MockAStarGraph(WeightedUndirectedGraph):
-    def heuristic_potential(self, node) -> float:
+    @staticmethod
+    def heuristic_potential(node) -> float:
         # Taken from computerphile video https://www.youtube.com/watch?v=ySN5Wnu88nE
         return {
             "S": 10,

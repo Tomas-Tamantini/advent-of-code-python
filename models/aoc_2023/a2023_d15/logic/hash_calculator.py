@@ -1,5 +1,6 @@
 class HashCalculator:
-    def get_hash(self, text: str) -> int:
+    @staticmethod
+    def get_hash(text: str) -> int:
         total = 0
         for character in text:
             total += ord(character)

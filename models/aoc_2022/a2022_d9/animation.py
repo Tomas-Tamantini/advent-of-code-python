@@ -31,7 +31,8 @@ class RopeAnimation:
         )
         self._center = Vector2D(new_center_x, new_center_y)
 
-    def _is_landscape_marker(self, pos: Vector2D) -> bool:
+    @staticmethod
+    def _is_landscape_marker(pos: Vector2D) -> bool:
         return (pos.x + pos.y * pos.y) % 31 == (pos.x * pos.y) % 19
 
     def frame(self) -> str:

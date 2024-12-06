@@ -17,7 +17,8 @@ class CommunicationModule(Protocol):
 class BroadcastModule:
     name: str
 
-    def propagate(self, input_pulse: Pulse) -> Optional[PulseType]:
+    @staticmethod
+    def propagate(input_pulse: Pulse) -> Optional[PulseType]:
         return input_pulse.pulse_type
 
     def reset(self) -> None:

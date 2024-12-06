@@ -32,7 +32,8 @@ class IntcodeParameter:
 
 @dataclass(frozen=True)
 class IntcodeHalt:
-    def execute(self, hardware: Hardware) -> None:
+    @staticmethod
+    def execute(hardware: Hardware) -> None:
         hardware.processor.program_counter = -1
 
 

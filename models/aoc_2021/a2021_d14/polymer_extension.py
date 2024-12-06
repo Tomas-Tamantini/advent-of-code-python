@@ -18,7 +18,8 @@ class PolymerExtension:
             extended += polymer[-1]
         return extended
 
-    def _pairs(self, polymer: str) -> Iterator[str]:
+    @staticmethod
+    def _pairs(polymer: str) -> Iterator[str]:
         for i in range(len(polymer) - 1):
             yield polymer[i : i + 2]
 

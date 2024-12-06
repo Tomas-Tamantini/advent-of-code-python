@@ -58,7 +58,8 @@ def test_if_no_walls_exist_shortest_path_length_is_manhattan_distance():
     class MockSecureRoomMaze:
         vault_room = Vector2D(3, 2)
 
-        def valid_directions(self, *_, **__):
+        @staticmethod
+        def valid_directions(*_, **__):
             yield from CardinalDirection
 
     SecureRoom.maze_structure = MockSecureRoomMaze()

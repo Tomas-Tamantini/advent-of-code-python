@@ -8,15 +8,18 @@ from models.common.vectors import CanonicalHexagonalCoordinates
 
 
 class HexagonalAutomaton:
-    def is_within_bounds(self, cell: CanonicalHexagonalCoordinates) -> bool:
+    @staticmethod
+    def is_within_bounds(cell: CanonicalHexagonalCoordinates) -> bool:
         return True
 
+    @staticmethod
     def neighbors(
-        self, cell: CanonicalHexagonalCoordinates
+        cell: CanonicalHexagonalCoordinates,
     ) -> Iterator[CanonicalHexagonalCoordinates]:
         yield from cell.adjacent_positions()
 
-    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
+    @staticmethod
+    def cell_is_alive_in_next_generation(vicinity: TwoStateCellVicinity) -> bool:
         return (
             not vicinity.center_cell_is_alive and vicinity.num_alive_neighbors() == 2
         ) or (

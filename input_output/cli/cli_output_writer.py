@@ -7,7 +7,8 @@ class CliOutputWriter:
     def __init__(self, execution_flags: ExecutionFlags) -> None:
         self._execution_flags = execution_flags
 
-    def write_header(self, problem: Problem) -> None:
+    @staticmethod
+    def write_header(problem: Problem) -> None:
         print(f"--- AOC {problem.year} - Day {problem.day}: {problem.title} ---")
 
     def write_solution(self, solution: ProblemSolution) -> None:
@@ -22,15 +23,16 @@ class CliOutputWriter:
             play = ""
         print(f"{part}{animation}{play}{solution.solution_text}")
 
-    def log_progress(self, progress_message: str) -> None:
+    @staticmethod
+    def log_progress(progress_message: str) -> None:
         print(progress_message, end="\r")
 
-    def log_error(self, error_message: str) -> None:
+    @staticmethod
+    def log_error(error_message: str) -> None:
         print(f"Error: {error_message}")
 
-    def give_time_estimation(
-        self, time_estimation: str, part: Optional[int] = None
-    ) -> None:
+    @staticmethod
+    def give_time_estimation(time_estimation: str, part: Optional[int] = None) -> None:
         msg = f"Be patient, it takes about {time_estimation} to run"
         if part is not None:
             msg = f"Part {part}: {msg}"

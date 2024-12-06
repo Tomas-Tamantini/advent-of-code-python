@@ -291,7 +291,8 @@ class WaterSpring:
                 return new_soil_type
         return None
 
-    def _neighbors_to_visit(self, tile_grouping: _TileGrouping) -> Iterator[Vector2D]:
+    @staticmethod
+    def _neighbors_to_visit(tile_grouping: _TileGrouping) -> Iterator[Vector2D]:
         visitation_table = {
             _SoilGrouping(
                 center=_SoilType.FLOWING_WATER,

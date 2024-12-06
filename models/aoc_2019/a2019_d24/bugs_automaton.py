@@ -20,7 +20,8 @@ class BugsAutomaton(Bounded2DAutomaton):
     def __init__(self, width: int, height: int) -> None:
         super().__init__(width, height, consider_diagonal_neighbors=False)
 
-    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
+    @staticmethod
+    def cell_is_alive_in_next_generation(vicinity: TwoStateCellVicinity) -> bool:
         return _bugs_automaton_rule(vicinity)
 
     def next_state(self, live_cells: set[Vector2D]) -> set[Vector2D]:
@@ -53,7 +54,8 @@ class RecursiveBugsAutomaton:
         self._width = width
         self._center = Vector2D(width // 2, height // 2)
 
-    def is_within_bounds(self, cell: RecursiveTile) -> bool:
+    @staticmethod
+    def is_within_bounds(cell: RecursiveTile) -> bool:
         return True
 
     def _is_center(self, position: Vector2D) -> bool:
@@ -88,7 +90,8 @@ class RecursiveBugsAutomaton:
             else:
                 yield RecursiveTile(neighbor, cell.level)
 
-    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
+    @staticmethod
+    def cell_is_alive_in_next_generation(vicinity: TwoStateCellVicinity) -> bool:
         return _bugs_automaton_rule(vicinity)
 
     def advance(

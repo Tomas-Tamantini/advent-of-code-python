@@ -11,7 +11,8 @@ class _VolcanoExplorer:
     def __init__(self, volcano: Volcano) -> None:
         self._volcano = volcano
 
-    def objective_value(self, state: VolcanoState) -> float:
+    @staticmethod
+    def objective_value(state: VolcanoState) -> float:
         return state.pressure_released
 
     def upper_bound_on_objective_value(self, state: VolcanoState) -> float:

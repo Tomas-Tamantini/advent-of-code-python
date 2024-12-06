@@ -184,7 +184,8 @@ class RadioisotopeTestingFacility:
 
     def min_num_steps_to_reach_final_state(self) -> int:
         class GraphExplorer:
-            def neighbors(self, node):
+            @staticmethod
+            def neighbors(node):
                 yield from node.neighboring_valid_states()
 
         return min_path_length_with_bfs(

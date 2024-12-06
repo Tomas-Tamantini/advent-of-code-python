@@ -25,7 +25,8 @@ class _CircularLinkedList:
             yield current_node.value
             current_node = current_node.next_node
 
-    def remove_node(self, node: _CircularListNode) -> None:
+    @staticmethod
+    def remove_node(node: _CircularListNode) -> None:
         node.previous_node.next_node = node.next_node
         node.next_node.previous_node = node.previous_node
 
@@ -37,8 +38,9 @@ class _CircularLinkedList:
             position_to_insert = position_to_insert.next_node
         self.add_node_after(node, position_to_insert)
 
+    @staticmethod
     def add_node_after(
-        self, node_to_insert: _CircularListNode, position_to_insert: _CircularListNode
+        node_to_insert: _CircularListNode, position_to_insert: _CircularListNode
     ) -> None:
         node_to_insert.next_node = position_to_insert.next_node
         node_to_insert.previous_node = position_to_insert

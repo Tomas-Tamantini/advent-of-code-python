@@ -115,5 +115,6 @@ class OutInstruction:
 
 
 class NoOpInstruction:
-    def execute(self, hardware: Hardware) -> None:
+    @staticmethod
+    def execute(hardware: Hardware) -> None:
         hardware.increment_program_counter()

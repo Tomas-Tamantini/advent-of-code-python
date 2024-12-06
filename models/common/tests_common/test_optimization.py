@@ -185,7 +185,8 @@ def test_branch_and_bound_prunes_branches_with_insufficient_upper_bound():
                 max_value = max(max_value, child.value)
             return max_value
 
-        def children_states(self, state):
+        @staticmethod
+        def children_states(state):
             return state.children or []
 
     state_a = _StateSpy(1)

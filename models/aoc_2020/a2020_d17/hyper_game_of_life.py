@@ -9,13 +9,16 @@ from models.common.vectors import VectorNDimensional
 
 
 class HyperGameOfLife:
-    def is_within_bounds(self, cell: VectorNDimensional) -> bool:
+    @staticmethod
+    def is_within_bounds(cell: VectorNDimensional) -> bool:
         return True
 
-    def neighbors(self, cell: VectorNDimensional) -> Iterator[VectorNDimensional]:
+    @staticmethod
+    def neighbors(cell: VectorNDimensional) -> Iterator[VectorNDimensional]:
         yield from cell.adjacent_positions()
 
-    def cell_is_alive_in_next_generation(self, vicinity: TwoStateCellVicinity) -> bool:
+    @staticmethod
+    def cell_is_alive_in_next_generation(vicinity: TwoStateCellVicinity) -> bool:
         return GameOfLife().cell_is_alive_in_next_generation(vicinity)
 
     def next_state(

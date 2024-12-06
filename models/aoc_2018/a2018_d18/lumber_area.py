@@ -24,7 +24,8 @@ class LumberArea(Bounded2DAutomaton):
     def default_cell_type(self) -> AcreType:
         return AcreType.OPEN
 
-    def apply_rule(self, vicinity: MultiStateCellVicinity) -> AcreType:
+    @staticmethod
+    def apply_rule(vicinity: MultiStateCellVicinity) -> AcreType:
         if (
             vicinity.center_cell_type == AcreType.OPEN
             and vicinity.num_neighbors_by_type(AcreType.TREE) >= 3

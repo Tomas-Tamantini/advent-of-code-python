@@ -122,7 +122,8 @@ class _SubroutineBuilder:
                 ]
         raise ValueError(f"Subroutine {subroutine_name} not found")
 
-    def _instructions_to_str(self, instructions: list[VacuumRobotInstruction]) -> str:
+    @staticmethod
+    def _instructions_to_str(instructions: list[VacuumRobotInstruction]) -> str:
         return ",".join(str(instruction) for instruction in instructions)
 
     def compressed_path(self) -> CompressedPath:

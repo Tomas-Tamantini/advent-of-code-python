@@ -45,14 +45,16 @@ def test_program_instructions_are_executed_until_end_of_program():
             self.output.append(value)
 
     class IncrementInstruction:
-        def execute(self, hardware):
+        @staticmethod
+        def execute(hardware):
             hardware.processor.registers["a"] += (
                 hardware.processor.get_value_or_immediate("b")
             )
             hardware.increment_program_counter()
 
     class OutputInstruction:
-        def execute(self, hardware):
+        @staticmethod
+        def execute(hardware):
             hardware.serial_output.write(hardware.processor.registers["a"])
             if hardware.processor.get_value_or_immediate("a") >= 9:
                 hardware.increment_program_counter()
@@ -73,7 +75,8 @@ def test_program_instructions_are_executed_until_end_of_program():
 
 def test_can_execute_instructions_one_by_one():
     class NoOpInstruction:
-        def execute(self, hardware):
+        @staticmethod
+        def execute(hardware):
             hardware.increment_program_counter()
 
     program = ImmutableProgram([NoOpInstruction(), NoOpInstruction()])

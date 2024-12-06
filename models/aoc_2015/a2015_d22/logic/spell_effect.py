@@ -26,10 +26,12 @@ class SpellEffect:
     def is_high_priority(self) -> bool:
         return self._is_high_priority
 
-    def apply(self, state: CharactersState) -> CharactersState:
+    @staticmethod
+    def apply(state: CharactersState) -> CharactersState:
         return state
 
-    def wear_off(self, state: CharactersState) -> CharactersState:
+    @staticmethod
+    def wear_off(state: CharactersState) -> CharactersState:
         return state
 
     def __hash__(self) -> int:
@@ -94,7 +96,8 @@ class ShieldEffect(SpellEffect):
         new_wizard = state.wizard.add_armor(self._armor)
         return CharactersState(new_wizard, state.boss)
 
-    def wear_off(self, state: CharactersState) -> CharactersState:
+    @staticmethod
+    def wear_off(state: CharactersState) -> CharactersState:
         new_wizard = state.wizard.remove_armor()
         return CharactersState(new_wizard, state.boss)
 

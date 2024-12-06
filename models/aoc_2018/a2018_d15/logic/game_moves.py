@@ -5,17 +5,15 @@ from .units import CaveGameUnit
 
 
 class CaveGameMove:
+    @staticmethod
     def _update_own_team(
-        self,
-        unit: CaveGameUnit,
-        own_team: tuple[CaveGameUnit],
+        unit: CaveGameUnit, own_team: tuple[CaveGameUnit]
     ) -> tuple[CaveGameUnit]:
         return own_team
 
+    @staticmethod
     def _update_opponent_team(
-        self,
-        unit: CaveGameUnit,
-        opponent_team: tuple[CaveGameUnit],
+        unit: CaveGameUnit, opponent_team: tuple[CaveGameUnit]
     ) -> tuple[CaveGameUnit]:
         return opponent_team
 

@@ -25,10 +25,12 @@ class TrenchMapAutomaton:
     def default_cell_type(self) -> _CellType:
         return _CellType.DEFAULT
 
-    def is_within_bounds(self, cell: Vector2D) -> bool:
+    @staticmethod
+    def is_within_bounds(cell: Vector2D) -> bool:
         return True
 
-    def neighbors(self, cell: Vector2D) -> Iterator[Vector2D]:
+    @staticmethod
+    def neighbors(cell: Vector2D) -> Iterator[Vector2D]:
         for neighbor in cell.adjacent_positions(include_diagonals=True):
             yield neighbor
 
