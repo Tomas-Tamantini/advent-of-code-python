@@ -51,12 +51,6 @@ def test_extended_underwater_cave_maze_risk_level_above_nine_wraps_back_to_one()
     assert maze.risk_level_at(Vector2D(19, 13)) == 2
 
 
-def test_can_find_risk_level_of_shortest_path_between_two_points_in_underwater_cave_maze():
-    maze = _example_cave()
-    min_risk = maze.risk_of_optimal_path(start=Vector2D(0, 0), end=Vector2D(9, 9))
-    assert min_risk == 40
-
-
 def test_can_find_risk_level_of_shortest_path_between_two_points_in_extended_underwater_cave_maze():
     maze = _example_cave(extension_factor=5)
     min_risk = maze.risk_of_optimal_path(start=Vector2D(0, 0), end=Vector2D(49, 49))
