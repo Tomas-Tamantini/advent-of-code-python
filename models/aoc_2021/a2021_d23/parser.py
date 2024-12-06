@@ -38,11 +38,11 @@ def parse_amphipod_burrow(
         sorted(rooms_as_dict.items())
     ):
         if room_index < len(insertions):
-            letters = letters[:1] + list(insertions[room_index]) + letters[1:]
-        amphipods = tuple(_amphipod_from_letter(letter) for letter in letters)
+            new_letters = letters[:1] + list(insertions[room_index]) + letters[1:]
+        amphipods = tuple(_amphipod_from_letter(letter) for letter in new_letters)
         room = AmphipodRoom(
             index=room_index,
-            capacity=len(letters),
+            capacity=len(new_letters),
             position_in_hallway=absolute_position - hallway_start_index,
             amphipods_back_to_front=amphipods,
         )

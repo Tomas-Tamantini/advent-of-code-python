@@ -59,7 +59,8 @@ def move_direction(
     initial_node = _Node(unit.position, None, None)
     for node, _ in explore_with_bfs(graph, initial_node):
         if node.position in target_positions:
-            while node.parent is not initial_node:
-                node = node.parent
-            return node.incoming_direction
+            current_node = node
+            while current_node.parent is not initial_node:
+                current_node = current_node.parent
+            return current_node.incoming_direction
     return None

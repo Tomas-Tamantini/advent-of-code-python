@@ -25,10 +25,10 @@ def _parse_robot_cost(cost_str: str) -> dict[ResourceType, int]:
 
 def _parse_robot_costs(robots: Iterable[str]) -> Iterator[RobotCost]:
     for robot in robots:
-        robot = robot.strip()
-        if robot:
-            robot_type = STR_TO_RESOURCE_TYPE[robot.split(" ")[1]]
-            robot_cost = _parse_robot_cost(robot)
+        stripped_robot = robot.strip()
+        if stripped_robot:
+            robot_type = STR_TO_RESOURCE_TYPE[stripped_robot.split(" ")[1]]
+            robot_cost = _parse_robot_cost(stripped_robot)
             yield RobotCost(robot_type, robot_cost)
 
 

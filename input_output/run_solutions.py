@@ -39,9 +39,10 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
     }
     result_checker = _get_result_checker()
     for year, days in problems.items():
-        if len(days) == 0:
-            days = [i + 1 for i in range(len(solutions[year]))]
-        for day in days:
+        actual_days = days
+        if not actual_days == 0:
+            actual_days = [i + 1 for i in range(len(solutions[year]))]
+        for day in actual_days:
             file_name = _get_input_path(year, day)
             io_handler = IOHandler(
                 input_reader=InputFromTextFile(file_name),

@@ -9,7 +9,7 @@ from .turtle import TurtleInstruction
 def parse_turtle_instructions(input_reader: InputReader) -> Iterator[TurtleInstruction]:
     text = input_reader.read()
     for instruction in text.split(","):
-        instruction = instruction.strip()
-        turn = TurnDirection(instruction[0])
-        steps = int(instruction[1:])
+        stripped_instruction = instruction.strip()
+        turn = TurnDirection(stripped_instruction[0])
+        steps = int(stripped_instruction[1:])
         yield TurtleInstruction(turn, steps)

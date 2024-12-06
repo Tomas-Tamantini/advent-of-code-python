@@ -12,15 +12,15 @@ def _offsets(
         if x_offset > 0:
             stack.append((i, y_offset))
             continue
-        j, y_offset = stack.pop()
+        j, new_y_offset = stack.pop()
         power_offset = (
             i
-            if (is_largest and x_offset <= -y_offset)
-            or (not is_largest and x_offset >= -y_offset)
+            if (is_largest and x_offset <= -new_y_offset)
+            or (not is_largest and x_offset >= -new_y_offset)
             else j
         )
         power = 13 - power_offset
-        yield abs((x_offset + y_offset) * 10**power)
+        yield abs((x_offset + new_y_offset) * 10**power)
 
 
 def _largest_number_accepted_by_monad(

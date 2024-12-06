@@ -9,12 +9,12 @@ def _parse_luggage_rule(rule: str) -> LuggageRule:
 
     contained_bags = dict()
     for part in parts[1].split(","):
-        part = (
+        new_part = (
             part.strip().replace("bags", "").replace("bag", "").replace(".", "").strip()
         )
-        if "no other" in part:
+        if "no other" in new_part:
             continue
-        quantity, bag = part.split(" ", 1)
+        quantity, bag = new_part.split(" ", 1)
         contained_bags[bag] = int(quantity)
 
     return LuggageRule(bag=container_bag, contains=contained_bags)

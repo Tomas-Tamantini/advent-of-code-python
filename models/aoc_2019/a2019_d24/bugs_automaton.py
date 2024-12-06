@@ -106,7 +106,6 @@ class RecursiveBugsAutomaton:
         }
         for current_step in range(num_steps):
             if progress_bar is not None:
-                current_step += 1
                 progress_bar.update(current_step, num_steps)
             current_state = two_state_automaton_next_state(self, current_state)
         return current_state
