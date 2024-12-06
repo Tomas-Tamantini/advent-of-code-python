@@ -17,7 +17,7 @@ class CharacterGrid:
 
     @classmethod
     def from_txt_file(cls, file_path: str) -> "CharacterGrid":
-        with open(file_path) as file:
+        with open(file_path, encoding="utf-8") as file:
             content = file.read()
         return cls(content)
 

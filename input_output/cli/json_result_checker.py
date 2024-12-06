@@ -24,7 +24,7 @@ class JsonResultChecker:
         return len(self._checked_solutions)
 
     def _load_expected_results(self) -> None:
-        with open(self._path, "r") as file:
+        with open(self._path, "r", encoding="utf-8") as file:
             data = json.load(file)
             results_by_year = data.get("results_by_year", [])
             for result_by_year in results_by_year:
