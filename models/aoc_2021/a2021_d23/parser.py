@@ -37,6 +37,7 @@ def parse_amphipod_burrow(
     for room_index, (absolute_position, letters) in enumerate(
         sorted(rooms_as_dict.items())
     ):
+        new_letters = letters
         if room_index < len(insertions):
             new_letters = letters[:1] + list(insertions[room_index]) + letters[1:]
         amphipods = tuple(_amphipod_from_letter(letter) for letter in new_letters)
