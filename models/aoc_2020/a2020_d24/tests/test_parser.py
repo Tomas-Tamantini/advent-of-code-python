@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import HexagonalDirection
+
 from ..parser import parse_rotated_hexagonal_directions
 
 

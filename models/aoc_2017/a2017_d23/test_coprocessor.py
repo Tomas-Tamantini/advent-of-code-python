@@ -1,14 +1,16 @@
 from unittest.mock import Mock
+
 from models.common.assembly import (
-    Hardware,
-    Processor,
-    JumpNotZeroInstruction,
     AddInstruction,
     CopyInstruction,
+    Hardware,
+    JumpNotZeroInstruction,
+    Processor,
 )
+
 from .coprocessor import (
-    SpyMultiplyInstruction,
     InstructionCounter,
+    SpyMultiplyInstruction,
     count_multiply_instructions,
 )
 

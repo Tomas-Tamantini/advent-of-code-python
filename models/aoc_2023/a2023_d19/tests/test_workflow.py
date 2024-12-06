@@ -1,12 +1,13 @@
+from models.common.number_theory import Interval
+
 from ..logic import (
-    Workflow,
-    MachinePartRange,
-    LessThanRule,
     GreaterThanRule,
+    LessThanRule,
+    MachinePartRange,
     MachinePartState,
+    Workflow,
     WorkflowNetwork,
 )
-from models.common.number_theory import Interval
 
 
 def _default_part_ranges() -> MachinePartRange:

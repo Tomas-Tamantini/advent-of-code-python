@@ -1,7 +1,9 @@
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
 from typing import Iterator
+
 from models.common.io import InputReader
+
 from .napping_guard import Guard, GuardNap
 
 

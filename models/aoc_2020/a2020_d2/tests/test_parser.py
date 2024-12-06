@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
 from ..parser import parse_password_policies_and_passwords
-from ..password_policy import RangePasswordPolicy, PositionalPasswordPolicy
+from ..password_policy import PositionalPasswordPolicy, RangePasswordPolicy
 
 
 def test_parse_pairs_of_range_password_policy_and_password():

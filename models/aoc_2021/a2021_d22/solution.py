@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_cuboid_instructions
 from .reactor_cells import num_reactor_cells_on
 

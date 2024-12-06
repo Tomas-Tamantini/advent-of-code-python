@@ -1,4 +1,5 @@
 from typing import Protocol
+
 from ..board_piece import BoardPiece
 
 

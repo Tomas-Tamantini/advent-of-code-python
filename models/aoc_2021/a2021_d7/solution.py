@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .optimal_fuel_consumption import (
     optimal_linear_fuel_consumption,
     optimal_triangular_fuel_consumption,

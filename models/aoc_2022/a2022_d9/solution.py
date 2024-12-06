@@ -1,9 +1,11 @@
 from typing import Iterator, Optional
+
 from models.common.io import IOHandler, Problem, ProblemSolution, render_frame
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
+
+from .animation import RopeAnimation
 from .logic import Rope
 from .parser import parse_move_instructions
-from .animation import RopeAnimation
 
 
 def _tail_positions(

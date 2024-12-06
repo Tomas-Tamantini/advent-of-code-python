@@ -1,12 +1,13 @@
 import pytest
+
 from ..string_scrambler import (
-    MultiStepScrambler,
-    LetterSwapScrambler,
-    PositionSwapScrambler,
-    RotationScrambler,
     LetterBasedRotationScrambler,
-    ReversionScrambler,
     LetterMoveScrambler,
+    LetterSwapScrambler,
+    MultiStepScrambler,
+    PositionSwapScrambler,
+    ReversionScrambler,
+    RotationScrambler,
 )
 
 

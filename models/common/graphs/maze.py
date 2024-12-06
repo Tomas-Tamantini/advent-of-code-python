@@ -1,6 +1,8 @@
-from typing import Iterator, Hashable
 from math import inf
+from typing import Hashable, Iterator
+
 from models.common.vectors import Vector2D
+
 from .dijkstra import dijkstra
 from .graph import WeightedUndirectedGraph
 

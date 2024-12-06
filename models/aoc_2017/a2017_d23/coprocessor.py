@@ -1,13 +1,14 @@
 from dataclasses import dataclass
-from models.common.number_theory import is_prime
+
 from models.common.assembly import (
+    Computer,
     Hardware,
+    ImmutableProgram,
     Instruction,
     Processor,
-    Computer,
-    ImmutableProgram,
     UpdateRegisterInstruction,
 )
+from models.common.number_theory import is_prime
 
 
 @dataclass(frozen=True)

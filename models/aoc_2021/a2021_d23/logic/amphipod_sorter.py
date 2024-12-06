@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.graphs import dijkstra
+
 from .amphipod_burrow import AmphipodBurrow
 
 

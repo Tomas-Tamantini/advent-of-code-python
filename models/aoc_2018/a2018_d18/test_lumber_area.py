@@ -1,6 +1,8 @@
 import pytest
+
 from models.common.vectors import Vector2D
-from .lumber_area import LumberArea, AcreType
+
+from .lumber_area import AcreType, LumberArea
 
 CENTER = Vector2D(1, 1)
 area = LumberArea(width=3, height=3)
@@ -140,7 +142,6 @@ def test_can_step_multiple_generations():
 
 
 def test_stepping_multiple_generations_is_done_efficiently():
-
     next_cells = LumberArea(10, 10).multi_step(SAMPLE_CELLS, num_steps=10_000_000_000)
     assert next_cells == _cells_from_str(
         """..........

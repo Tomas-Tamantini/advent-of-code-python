@@ -1,8 +1,10 @@
-from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_engine_symbols, parse_part_numbers
-from .logic import EngineSymbol, PartNumber
 from math import prod
+from typing import Iterator
+
+from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import EngineSymbol, PartNumber
+from .parser import parse_engine_symbols, parse_part_numbers
 
 
 def aoc_2023_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:

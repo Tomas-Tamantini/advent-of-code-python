@@ -1,9 +1,11 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import (
+    LostPackets,
     MonitorBadAddressPackets,
     MonitorRepeatedYValuePackets,
-    LostPackets,
     run_network,
 )
 

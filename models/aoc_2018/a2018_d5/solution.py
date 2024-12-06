@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .polymer_reaction import polymer_reaction, minimum_polymer_length
+
+from .polymer_reaction import minimum_polymer_length, polymer_reaction
 
 
 def aoc_2018_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:

@@ -1,6 +1,8 @@
 from unittest.mock import Mock
-from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
-from ..logic import TurnInstruction, MoveForwardInstruction, BoardPiece
+
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
+from ..logic import BoardPiece, MoveForwardInstruction, TurnInstruction
 
 
 def test_turn_instruction_turns_piece_in_place():

@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_fabric_rectangles
+
 from ..fabric_area import FabricRectangle
+from ..parser import parse_fabric_rectangles
 
 
 def test_parse_fabric_rectangles():

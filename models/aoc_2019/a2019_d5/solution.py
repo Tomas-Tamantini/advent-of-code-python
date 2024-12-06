@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .air_conditioner import run_air_conditioner_program
 
 

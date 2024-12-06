@@ -1,6 +1,8 @@
-from typing import Iterator, Iterable
+from typing import Iterable, Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_camel_bids, CamelBid
+
+from .parser import CamelBid, parse_camel_bids
 
 
 def _winnings(bids: Iterable[CamelBid]) -> int:

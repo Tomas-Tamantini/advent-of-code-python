@@ -1,6 +1,7 @@
-from fractions import Fraction
-from typing import Protocol, Callable
 from dataclasses import dataclass
+from fractions import Fraction
+from typing import Callable, Protocol
+
 from models.common.polynomials import RationalFunction
 
 

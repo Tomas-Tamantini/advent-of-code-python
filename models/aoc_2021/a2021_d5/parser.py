@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
 from models.common.vectors import Vector2D
+
 from .line_segment import LineSegment
 
 

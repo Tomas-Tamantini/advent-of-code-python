@@ -1,8 +1,9 @@
-from typing import Iterator, Optional
-from math import inf
 from collections import defaultdict
-from models.common.vectors import Vector2D, CardinalDirection, BoundingBox
+from math import inf
+from typing import Iterator, Optional
+
 from models.common.io import ProgressBar
+from models.common.vectors import BoundingBox, CardinalDirection, Vector2D
 
 
 class ManhattanVoronoi:

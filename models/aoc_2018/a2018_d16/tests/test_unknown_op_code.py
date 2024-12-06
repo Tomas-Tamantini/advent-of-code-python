@@ -1,12 +1,13 @@
 from models.aoc_2018.three_value_instructions import (
     ALL_THREE_VALUE_INSTRUCTIONS,
     AddImmediate,
-    MultiplyRegisters,
     AssignmentImmediate,
+    MultiplyRegisters,
 )
+
 from ..unknown_op_code import (
-    possible_instructions,
     InstructionSample,
+    possible_instructions,
     work_out_op_codes,
 )
 

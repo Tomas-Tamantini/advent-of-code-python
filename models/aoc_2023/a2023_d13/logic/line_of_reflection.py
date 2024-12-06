@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from typing import Iterator, Protocol
+
 from models.common.vectors import Vector2D
-from .reflection_orientation import ReflectionOrientation
+
 from .ash_valley import AshValley
+from .reflection_orientation import ReflectionOrientation
 
 
 class LineOfReflection(Protocol):

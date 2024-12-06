@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Hashable
+
 from .attack_types import AttackType
 
 

@@ -1,8 +1,8 @@
-from typing import Iterator
 from dataclasses import dataclass
-from models.common.graphs import UndirectedGraph
-from models.common.vectors import Vector2D, CardinalDirection
+from typing import Iterator
 
+from models.common.graphs import UndirectedGraph
+from models.common.vectors import CardinalDirection, Vector2D
 
 _str_to_direction = {
     "E": CardinalDirection.EAST,

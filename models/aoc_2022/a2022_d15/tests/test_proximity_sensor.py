@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D, BoundingBox
 from models.common.number_theory import Interval
+from models.common.vectors import BoundingBox, Vector2D
+
 from ..logic import (
     DiagonalLineSegment,
     ProximitySensor,

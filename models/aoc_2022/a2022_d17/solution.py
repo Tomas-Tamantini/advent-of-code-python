@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
+
+from .logic import TetrisGameState, TetrisPieceGenerator, WindGenerator, tower_height
 from .parser import parse_wind_directions
-from .logic import WindGenerator, TetrisPieceGenerator, TetrisGameState, tower_height
 
 
 def _pieces_generator() -> TetrisPieceGenerator:

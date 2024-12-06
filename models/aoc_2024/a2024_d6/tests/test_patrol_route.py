@@ -1,6 +1,8 @@
 import pytest
-from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import PatrolArea, PatrolGuard, patrol_route, guard_goes_into_loop
+
+from models.common.vectors import CardinalDirection, Vector2D
+
+from ..logic import PatrolArea, PatrolGuard, guard_goes_into_loop, patrol_route
 
 _OBSTACLES = {
     Vector2D(x=0, y=8),

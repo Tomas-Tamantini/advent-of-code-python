@@ -1,5 +1,6 @@
 from models.common.vectors import CardinalDirection, Vector2D
-from ..twisty_wire import WireSegment, TwistyWire
+
+from ..twisty_wire import TwistyWire, WireSegment
 
 
 def test_wire_segment_ends_at_proper_place():

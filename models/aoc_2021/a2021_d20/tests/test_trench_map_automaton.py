@@ -1,5 +1,7 @@
 from math import inf
+
 from models.common.vectors import Vector2D
+
 from ..trench_map_automaton import TrenchMapAutomaton
 
 

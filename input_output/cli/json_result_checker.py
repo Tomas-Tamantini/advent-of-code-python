@@ -1,7 +1,8 @@
 import json
-from typing import Iterator
-from models.common.io import ProblemSolution, WrongResult
 from dataclasses import dataclass
+from typing import Iterator
+
+from models.common.io import ProblemSolution, WrongResult
 
 
 @dataclass(frozen=True)

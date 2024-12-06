@@ -1,5 +1,6 @@
 from models.common.graphs import UndirectedGraph
-from ..logic import build_stoer_wagner_graph, MergedNodes, StoerWagnerGraph
+
+from ..logic import MergedNodes, StoerWagnerGraph, build_stoer_wagner_graph
 
 
 def test_stoer_wagner_graph_starts_with_no_merged_nodes():

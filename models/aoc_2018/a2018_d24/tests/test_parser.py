@@ -1,4 +1,5 @@
 from models.common.io import InputFromString
+
 from ..logic import ArmyGroup, AttackType
 from ..parser import parse_infection_game
 

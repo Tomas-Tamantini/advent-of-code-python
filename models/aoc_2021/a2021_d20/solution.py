@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_trench_rules_and_trench_map
 from .trench_map_automaton import TrenchMapAutomaton
 

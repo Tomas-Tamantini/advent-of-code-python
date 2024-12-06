@@ -1,7 +1,8 @@
-from typing import Iterator
 from enum import Enum
 from math import prod
-from .packets import Packet, LiteralPacket, RecursivePacket
+from typing import Iterator
+
+from .packets import LiteralPacket, Packet, RecursivePacket
 
 
 class LengthType(Enum):

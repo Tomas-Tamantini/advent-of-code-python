@@ -1,8 +1,10 @@
 from typing import Hashable
+
 from models.common.graphs import WeightedDirectedGraph
 from models.common.optimization.branch_and_bound import maximize_with_branch_and_bound
-from .maze_path import MazePath
+
 from .maze_explorer import MazeExplorer
+from .maze_path import MazePath
 
 
 def max_length_non_repeating_path(

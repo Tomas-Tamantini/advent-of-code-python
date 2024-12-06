@@ -1,14 +1,16 @@
 import pytest
-from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
+
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
 from .logic import (
-    ScaffoldMap,
     CameraOutput,
-    VacuumRobotOutput,
-    VacuumRobotInput,
     CompressedPath,
+    ScaffoldMap,
+    VacuumRobotInput,
+    VacuumRobotInstruction,
+    VacuumRobotOutput,
     run_scaffolding_discovery_program,
     run_scaffolding_exploration_program,
-    VacuumRobotInstruction,
 )
 
 

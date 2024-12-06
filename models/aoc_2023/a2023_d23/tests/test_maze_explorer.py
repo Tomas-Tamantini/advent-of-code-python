@@ -1,5 +1,7 @@
 from math import inf
+
 from models.common.graphs import WeightedDirectedGraph
+
 from ..logic import MazeExplorer, MazePath
 
 

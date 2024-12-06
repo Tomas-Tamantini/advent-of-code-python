@@ -1,4 +1,5 @@
 from typing import Optional
+
 from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
 
 

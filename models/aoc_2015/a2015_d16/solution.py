@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_aunt_sue_collection
+
 from .aunt_sue import MatchType
+from .parser import parse_aunt_sue_collection
 
 
 def aoc_2015_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:

@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import InputReader
+
 from .bridge_builder import BridgeComponent
 
 

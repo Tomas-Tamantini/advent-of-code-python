@@ -1,6 +1,6 @@
 from ..molecule import (
-    molecules_after_one_replacement,
     Molecule,
+    molecules_after_one_replacement,
     num_replacements_from_atom_to_molecule,
 )
 

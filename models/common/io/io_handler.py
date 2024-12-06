@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from .input_reader import InputReader
 from .output_writer import OutputWriter, ProblemSolution
 from .progress_bar import ProgressBar

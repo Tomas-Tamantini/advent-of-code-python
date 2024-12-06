@@ -1,7 +1,7 @@
 from models.common.io import CharacterGrid
-from models.common.vectors import Vector2D, CardinalDirection
-from ..parser import parse_patrol_area, parse_patrol_guard
+from models.common.vectors import CardinalDirection, Vector2D
 
+from ..parser import parse_patrol_area, parse_patrol_guard
 
 _GRID = CharacterGrid(
     """

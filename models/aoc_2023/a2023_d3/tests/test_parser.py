@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_engine_symbols, parse_part_numbers
+
 from ..logic import EngineSymbol, PartNumber
+from ..parser import parse_engine_symbols, parse_part_numbers
 
 
 def test_parse_engine_symbols_considers_all_symbols_other_than_dot_and_digits():

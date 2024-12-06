@@ -1,10 +1,11 @@
-from typing import Union
 from dataclasses import dataclass
+from typing import Union
+
 from models.common.assembly import (
-    Hardware,
-    Instruction,
     Computer,
+    Hardware,
     ImmutableProgram,
+    Instruction,
     Processor,
     UpdateRegisterInstruction,
 )

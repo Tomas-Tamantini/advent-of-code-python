@@ -1,5 +1,7 @@
 import pytest
+
 from models.common.vectors import CardinalDirection
+
 from ..logic import EmptyCell, Mirror, Splitter
 
 

@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_moving_particles
+
 from .moving_particles import MovingParticles
+from .parser import parse_moving_particles
 
 
 def aoc_2018_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:

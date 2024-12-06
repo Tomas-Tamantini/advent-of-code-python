@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .logic import ArmyGroup, AttackType, InfectionGameState
 
 

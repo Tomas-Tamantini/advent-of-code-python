@@ -1,5 +1,6 @@
 from unittest.mock import Mock
-from ..logic import VolcanoState, VolcanoWorker, Valve
+
+from ..logic import Valve, VolcanoState, VolcanoWorker
 
 
 def _build_valve(

@@ -1,4 +1,4 @@
-from ..logic import RegisterHistory, InstructionWithDuration
+from ..logic import InstructionWithDuration, RegisterHistory
 
 
 def test_register_history_starts_with_value_one():

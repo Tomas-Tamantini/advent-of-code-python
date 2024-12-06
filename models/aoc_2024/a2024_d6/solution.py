@@ -1,8 +1,10 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
+
+from .logic import PatrolArea, guard_goes_into_loop, patrol_route
 from .parser import parse_patrol_area, parse_patrol_guard
-from .logic import patrol_route, guard_goes_into_loop, PatrolArea
 
 
 def _extra_obstacle_positions(

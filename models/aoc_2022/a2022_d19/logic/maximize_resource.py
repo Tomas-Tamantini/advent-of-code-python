@@ -1,8 +1,9 @@
 from models.common.optimization.linear_programming import MilpSolver
-from .resource_type import ResourceType
+
 from .blueprint import Blueprint
+from .milp_model import constraints, objective_function, variables
 from .mining_state import MiningState
-from .milp_model import variables, objective_function, constraints
+from .resource_type import ResourceType
 
 
 def max_num_resource(

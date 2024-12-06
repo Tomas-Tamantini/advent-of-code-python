@@ -1,16 +1,16 @@
-from typing import Optional, Iterator, Protocol
+from typing import Iterator, Optional, Protocol
+
 from .cave_map import CaveMap
-from .units import CaveGameUnit
+from .game_moves import AttackMove, CaveGameMove, MoveUnit
 from .game_state import CaveGameState
-from .game_moves import CaveGameMove, AttackMove, MoveUnit
 from .movement_maker import move_direction
+from .units import CaveGameUnit
 
 
 class CaveGameBot(Protocol):
     def bot_moves(
         self, unit: CaveGameUnit, game_state: CaveGameState, cave_map: CaveMap
-    ) -> Iterator[CaveGameMove]:
-        ...
+    ) -> Iterator[CaveGameMove]: ...
 
 
 class CaveGameBotAttackWeakest:

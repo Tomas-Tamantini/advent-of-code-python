@@ -1,8 +1,10 @@
-from typing import Iterator, Union, Optional, Callable
 from dataclasses import dataclass
+from typing import Callable, Iterator, Optional, Union
+
 from models.common.io import InputReader
 from models.common.polynomials import Polynomial, RationalFunction
-from .operation_monkeys import OperationMonkey, LeafMonkey, BinaryOperationMonkey
+
+from .operation_monkeys import BinaryOperationMonkey, LeafMonkey, OperationMonkey
 
 
 @dataclass(frozen=True)

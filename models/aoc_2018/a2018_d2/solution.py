@@ -1,5 +1,6 @@
-from typing import Iterator
 from itertools import combinations
+from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 
 

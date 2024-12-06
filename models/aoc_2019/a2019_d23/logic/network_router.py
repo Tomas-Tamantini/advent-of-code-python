@@ -1,6 +1,6 @@
-from .network_packet import NetworkPacket
-from .network_input import NetworkInput
 from .lost_packets import LostPackets
+from .network_input import NetworkInput
+from .network_packet import NetworkPacket
 
 
 class NetworkRouter:

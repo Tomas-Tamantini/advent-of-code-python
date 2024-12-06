@@ -1,4 +1,5 @@
 import pytest
+
 from .knot_hash import KnotHash
 
 

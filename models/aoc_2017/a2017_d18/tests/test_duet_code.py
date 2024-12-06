@@ -1,18 +1,20 @@
 from unittest.mock import Mock
+
 from models.common.assembly import (
-    Hardware,
-    Processor,
-    CopyInstruction,
-    InputInstruction,
-    OutInstruction,
-    JumpGreaterThanZeroInstruction,
     AddInstruction,
+    CopyInstruction,
+    Hardware,
+    InputInstruction,
+    JumpGreaterThanZeroInstruction,
+    OutInstruction,
+    Processor,
 )
+
 from ..duet_code import (
-    last_recovered_frequency,
-    RecoverLastFrequencyInstruction,
     MultiplyInstruction,
+    RecoverLastFrequencyInstruction,
     RemainderInstruction,
+    last_recovered_frequency,
     sent_values_in_two_way_communication,
 )
 

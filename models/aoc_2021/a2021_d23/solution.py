@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_amphipod_burrow
+
 from .logic import AmphipodSorter
+from .parser import parse_amphipod_burrow
 
 
 def aoc_2021_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:

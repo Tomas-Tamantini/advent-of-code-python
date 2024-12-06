@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .xmas_encoding import XMasEncoding
 
 

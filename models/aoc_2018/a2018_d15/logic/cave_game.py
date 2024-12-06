@@ -1,6 +1,6 @@
+from .bot_moves import CaveGameBot
 from .cave_map import CaveMap
 from .game_state import CaveGameState
-from .bot_moves import CaveGameBot
 
 
 class CaveGame:

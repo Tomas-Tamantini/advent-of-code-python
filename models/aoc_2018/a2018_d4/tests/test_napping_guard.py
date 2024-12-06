@@ -1,5 +1,6 @@
 from datetime import datetime
-from ..napping_guard import GuardNap, Guard
+
+from ..napping_guard import Guard, GuardNap
 
 
 def test_guard_keeps_track_of_total_time_asleep():

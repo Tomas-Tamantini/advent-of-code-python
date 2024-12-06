@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .string_classifier import StringClassifier, simple_ruleset, complex_ruleset
+
+from .string_classifier import StringClassifier, complex_ruleset, simple_ruleset
 
 
 def aoc_2015_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:

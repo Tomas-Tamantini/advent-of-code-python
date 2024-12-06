@@ -1,5 +1,6 @@
 from collections import defaultdict
-from typing import Protocol, Iterator
+from typing import Iterator, Protocol
+
 from .hand_rank import HandRank, get_rank
 
 

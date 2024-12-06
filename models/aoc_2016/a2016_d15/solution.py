@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_disc_system
+
 from .disc_system import SpinningDisc
+from .parser import parse_disc_system
 
 
 def aoc_2016_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:

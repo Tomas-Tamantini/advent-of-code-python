@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.vectors import CardinalDirection, TurnDirection
+
 from models.common.io import InputReader
+from models.common.vectors import CardinalDirection, TurnDirection
+
 from .ship import (
     MoveShipForwardInstruction,
     MoveShipInstruction,

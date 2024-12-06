@@ -1,5 +1,5 @@
-from models.common.io import InputReader
 from models.common.graphs import DirectedGraph
+from models.common.io import InputReader
 
 
 def parse_directed_graph(input_reader: InputReader) -> DirectedGraph:

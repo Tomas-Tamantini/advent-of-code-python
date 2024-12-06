@@ -1,4 +1,4 @@
-from ..logic import ResourceType, RobotCost, Blueprint
+from ..logic import Blueprint, ResourceType, RobotCost
 
 
 def test_blueprint_informs_how_much_of_given_resource_it_costs_to_build_given_robot():

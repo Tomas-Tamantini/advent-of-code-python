@@ -1,5 +1,6 @@
 from models.common.graphs import Maze
-from ..logic import maximum_pressure_release, Valve, Volcano
+
+from ..logic import Valve, Volcano, maximum_pressure_release
 
 
 def _example_volcano(time_until_eruption: int) -> Volcano:

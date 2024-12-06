@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_initialization_steps
+
 from .logic import HashCalculator, LensBox, run_initialization_sequence
+from .parser import parse_initialization_steps
 
 
 def _focusing_power(boxes: list[LensBox]) -> int:

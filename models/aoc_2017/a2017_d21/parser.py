@@ -1,5 +1,7 @@
 import numpy as np
+
 from models.common.io import InputReader
+
 from .fractal_art import ArtBlock
 
 

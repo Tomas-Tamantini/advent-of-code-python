@@ -1,7 +1,9 @@
 from typing import Iterator
-from models.common.vectors import Vector2D, CardinalDirection
-from .light_beam import LightBeam
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .contraption_cell import ContraptionCell, EmptyCell
+from .light_beam import LightBeam
 
 
 class MirrorContraption:

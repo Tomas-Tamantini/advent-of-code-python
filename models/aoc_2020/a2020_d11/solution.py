@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
-from .ferry_seats import FerrySeats, FerrySeat
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
+
+from .ferry_seats import FerrySeat, FerrySeats
 
 
 def aoc_2020_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:

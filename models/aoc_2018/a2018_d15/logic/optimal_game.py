@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from .cave_game import CaveGame
+
 from .bot_moves import CaveGameBot
+from .cave_game import CaveGame
 
 
 @dataclass(frozen=True)

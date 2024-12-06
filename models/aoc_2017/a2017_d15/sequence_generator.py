@@ -1,5 +1,6 @@
-from typing import Iterator, Optional
 from dataclasses import dataclass
+from typing import Iterator, Optional
+
 from models.common.io import ProgressBar
 
 

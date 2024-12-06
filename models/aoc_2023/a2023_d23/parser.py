@@ -1,5 +1,6 @@
 from models.common.io import CharacterGrid
 from models.common.vectors import CardinalDirection
+
 from .logic import DirectedMaze
 
 

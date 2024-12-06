@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_string_transformers
 from .string_transform import transform_string_multiple_rounds
 

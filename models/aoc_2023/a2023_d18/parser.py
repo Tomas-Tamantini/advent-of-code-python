@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.vectors import CardinalDirection
+
 from models.common.io import InputReader
+from models.common.vectors import CardinalDirection
+
 from .dig_plan import DiggerInstruction
 
 

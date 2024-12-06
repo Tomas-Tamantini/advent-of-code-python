@@ -1,5 +1,5 @@
-from fractions import Fraction
 from copy import deepcopy
+from fractions import Fraction
 
 
 # TODO: Refactor to reduce cognitive complexity

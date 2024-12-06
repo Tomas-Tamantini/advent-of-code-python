@@ -1,7 +1,9 @@
 from collections import defaultdict
-from typing import Optional, Iterator
+from typing import Iterator, Optional
+
 from models.common.io import InputReader
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .donut_maze import PortalMaze, RecursiveDonutMaze
 
 

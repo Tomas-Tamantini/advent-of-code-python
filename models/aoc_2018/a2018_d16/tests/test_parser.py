@@ -1,7 +1,9 @@
 from unittest.mock import Mock
+
 from models.common.io import InputFromString
-from ..unknown_op_code import InstructionSample
+
 from ..parser import parse_instruction_samples, parse_unknown_op_code_program
+from ..unknown_op_code import InstructionSample
 
 
 def test_parse_instruction_samples():

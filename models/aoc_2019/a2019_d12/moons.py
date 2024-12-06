@@ -1,8 +1,9 @@
-from dataclasses import dataclass
-from typing import Iterator, Hashable
 from collections import defaultdict
-from models.common.vectors import Vector3D
+from dataclasses import dataclass
+from typing import Hashable, Iterator
+
 from models.common.number_theory import lcm
+from models.common.vectors import Vector3D
 
 
 @dataclass

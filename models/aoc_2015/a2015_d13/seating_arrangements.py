@@ -1,5 +1,6 @@
 from itertools import permutations
 from typing import Iterable
+
 from models.common.graphs import WeightedDirectedGraph
 
 

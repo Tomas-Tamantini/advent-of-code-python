@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .string_transform import StringTransform, Spin, Exchange, Partner
+
+from .string_transform import Exchange, Partner, Spin, StringTransform
 
 
 def _parse_string_transformer(instruction: str) -> StringTransform:

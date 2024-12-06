@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_rock_paper_scissors
 from .rock_paper_scissors import rock_paper_scissors_score
 

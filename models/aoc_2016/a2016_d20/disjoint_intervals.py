@@ -1,5 +1,5 @@
-from typing import Iterator
 from bisect import bisect_left, bisect_right
+from typing import Iterator
 
 
 class DisjoinIntervals:

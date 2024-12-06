@@ -1,7 +1,9 @@
 from dataclasses import dataclass
+
 from models.common.vectors import CardinalDirection
-from .units import CaveGameUnit
+
 from .game_state import CaveGameState
+from .units import CaveGameUnit
 
 
 class CaveGameMove:

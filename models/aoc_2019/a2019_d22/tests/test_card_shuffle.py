@@ -1,7 +1,8 @@
 import pytest
+
 from ..card_shuffle import (
-    DealIntoNewStackShuffle,
     CutCardsShuffle,
+    DealIntoNewStackShuffle,
     DealWithIncrementShuffle,
     MultiTechniqueShuffle,
 )

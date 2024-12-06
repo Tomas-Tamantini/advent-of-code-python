@@ -1,10 +1,12 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.aoc_2017.a2017_d18.parser import parse_duet_code
+from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .coprocessor import (
+    SpyMultiplyInstruction,
     count_multiply_instructions,
     optimized_coprocessor_code,
-    SpyMultiplyInstruction,
 )
 
 

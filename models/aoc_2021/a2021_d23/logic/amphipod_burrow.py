@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from typing import Iterator
+
 from .amphipod import Amphipod
-from .amphipod_room import AmphipodRoom
 from .amphipod_hallway import AmphipodHallway
+from .amphipod_room import AmphipodRoom
 
 
 @dataclass(frozen=True)

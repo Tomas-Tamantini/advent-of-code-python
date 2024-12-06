@@ -1,5 +1,6 @@
 from models.common.io import InputReader
-from .light_grid import LightGridRegion, LightGrid
+
+from .light_grid import LightGrid, LightGridRegion
 
 
 def _parse_and_give_light_grid_instruction(

@@ -1,12 +1,14 @@
-from typing import Iterator
 from dataclasses import dataclass
-from models.common.vectors import Vector2D, TurnDirection
+from typing import Iterator
+
 from models.common.io import InputReader
+from models.common.vectors import TurnDirection, Vector2D
+
 from .logic import (
-    CubeNet,
-    TurnInstruction,
-    MoveForwardInstruction,
     BoardInstruction,
+    CubeNet,
+    MoveForwardInstruction,
+    TurnInstruction,
 )
 
 

@@ -1,6 +1,7 @@
-from .logic import TunnelMaze
-from models.common.io import InputReader, CharacterGrid
+from models.common.io import CharacterGrid, InputReader
 from models.common.vectors import Vector2D
+
+from .logic import TunnelMaze
 
 
 def _tunnel_updated_characters(

@@ -1,7 +1,9 @@
 from typing import Protocol
+
 from models.common.vectors import CardinalDirection
-from .droid_input import DroidInput
+
 from .droid_command import MoveCommand, TakeCommand
+from .droid_input import DroidInput
 
 
 class DroidControl(Protocol):

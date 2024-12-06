@@ -1,6 +1,7 @@
-from typing import Iterator, Iterable
-from math import floor, ceil, sqrt
-from models.common.vectors import Vector2D, BoundingBox
+from math import ceil, floor, sqrt
+from typing import Iterable, Iterator
+
+from models.common.vectors import BoundingBox, Vector2D
 
 
 class UnderwaterProjectile:

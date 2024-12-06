@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_blizzard_valley
+
 from .logic import BlizzardMazeSolver
+from .parser import parse_blizzard_valley
 
 
 def aoc_2022_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:

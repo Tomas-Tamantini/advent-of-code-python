@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_network_connections, parse_network_steps
+
 from ..logic import NetworkStep
+from ..parser import parse_network_connections, parse_network_steps
 
 _FILE_CONTENT = """
                 LLR

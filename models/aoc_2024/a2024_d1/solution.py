@@ -1,6 +1,7 @@
-from typing import Iterator
 from collections import defaultdict
-from models.common.io import IOHandler, Problem, ProblemSolution, InputReader
+from typing import Iterator
+
+from models.common.io import InputReader, IOHandler, Problem, ProblemSolution
 
 
 def _parse_elements(input_reader: InputReader) -> Iterator[tuple[int, int]]:

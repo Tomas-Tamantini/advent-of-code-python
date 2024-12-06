@@ -1,8 +1,8 @@
 from .arcade import (
-    ArcadeGameScreen,
-    ArcadeGameTile,
     ArcadeGameInput,
     ArcadeGameOutput,
+    ArcadeGameScreen,
+    ArcadeGameTile,
     run_intcode_arcade,
 )
 

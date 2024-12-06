@@ -1,6 +1,6 @@
-from .lens_box import LensBox
-from .initialization_step import InitializationStep
 from .hash_calculator import HashCalculator
+from .initialization_step import InitializationStep
+from .lens_box import LensBox
 
 
 def run_initialization_sequence(

@@ -1,11 +1,13 @@
-import pytest
-from typing import Hashable, Optional
 from random import choice
+from typing import Hashable, Optional
+
+import pytest
+
 from ..logic import (
-    AttackType,
     ArmyGroup,
-    InfectionGameState,
+    AttackType,
     InfectionGame,
+    InfectionGameState,
     optimal_boost_for_immune_system,
 )
 

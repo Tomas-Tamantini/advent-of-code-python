@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_cube_games
+
 from .logic import CubeAmount
+from .parser import parse_cube_games
 
 
 def _power(bag: CubeAmount) -> int:

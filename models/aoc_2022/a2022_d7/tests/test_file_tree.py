@@ -1,5 +1,6 @@
 import pytest
-from ..file_tree import FileTree, File
+
+from ..file_tree import File, FileTree
 
 
 def _build_file(name: str = "Test File", size: int = 123) -> File:

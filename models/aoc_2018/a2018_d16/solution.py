@@ -1,7 +1,9 @@
-from models.common.assembly import Processor, ImmutableProgram, Computer
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.aoc_2018.three_value_instructions import ALL_THREE_VALUE_INSTRUCTIONS
+from models.common.assembly import Computer, ImmutableProgram, Processor
+from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_instruction_samples, parse_unknown_op_code_program
 from .unknown_op_code import possible_instructions, work_out_op_codes
 

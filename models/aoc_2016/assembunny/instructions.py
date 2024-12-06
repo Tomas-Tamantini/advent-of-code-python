@@ -1,6 +1,7 @@
-from typing import Union
 from dataclasses import dataclass
-from models.common.assembly import Hardware, CopyInstruction, JumpNotZeroInstruction
+from typing import Union
+
+from models.common.assembly import CopyInstruction, Hardware, JumpNotZeroInstruction
 
 
 @dataclass(frozen=True)

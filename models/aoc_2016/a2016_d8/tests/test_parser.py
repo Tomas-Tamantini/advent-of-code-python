@@ -1,5 +1,7 @@
 from unittest.mock import Mock
+
 from models.common.io import InputFromString
+
 from ..parser import parse_programmable_screen_instructions
 from ..programmable_screen import ProgrammableScreen
 

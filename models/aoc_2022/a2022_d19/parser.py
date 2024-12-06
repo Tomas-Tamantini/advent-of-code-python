@@ -1,5 +1,7 @@
-from typing import Iterator, Iterable
+from typing import Iterable, Iterator
+
 from models.common.io import InputReader
+
 from .logic import Blueprint, ResourceType, RobotCost
 
 STR_TO_RESOURCE_TYPE = {

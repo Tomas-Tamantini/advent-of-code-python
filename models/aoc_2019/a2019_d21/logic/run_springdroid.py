@@ -1,4 +1,5 @@
 from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
+
 from .springdroid_io import SpringDroidInput, SpringDroidOutput
 
 

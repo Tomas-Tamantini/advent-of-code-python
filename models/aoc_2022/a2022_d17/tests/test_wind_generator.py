@@ -1,5 +1,6 @@
-from ..logic import WindGenerator
 from models.common.vectors import CardinalDirection
+
+from ..logic import WindGenerator
 
 
 def test_wind_generator_loops_around_wind_directions_endlessy():

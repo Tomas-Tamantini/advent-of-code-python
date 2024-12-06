@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_wiring_diagram
+
 from .logic import minimum_cut_partition
+from .parser import parse_wiring_diagram
 
 
 def aoc_2023_d25(io_handler: IOHandler) -> Iterator[ProblemSolution]:

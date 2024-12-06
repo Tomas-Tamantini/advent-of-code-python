@@ -1,8 +1,10 @@
-from typing import Protocol
 from dataclasses import dataclass
+from typing import Protocol
+
 from models.common.vectors import TurnDirection
-from .board_piece import BoardPiece
+
 from .board import Board
+from .board_piece import BoardPiece
 
 
 class BoardInstruction(Protocol):

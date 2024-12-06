@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import BricksDag, drop_bricks
 from .parser import parse_bricks
-from .logic import drop_bricks, BricksDag
 
 
 def aoc_2023_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:

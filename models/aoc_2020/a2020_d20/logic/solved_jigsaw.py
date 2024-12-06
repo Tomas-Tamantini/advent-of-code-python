@@ -1,6 +1,9 @@
 from typing import Iterator
+
 import numpy as np
-from models.common.vectors import Vector2D, BoundingBox
+
+from models.common.vectors import BoundingBox, Vector2D
+
 from .jigsaw_piece import JigsawPiece
 from .jigsaw_piece_orientation import JigsawPieceOrientation
 
@@ -11,7 +14,7 @@ class SolvedJigsaw:
 
     @staticmethod
     def _shifted_to_origin(
-        placed_pieces: dict[Vector2D, JigsawPiece]
+        placed_pieces: dict[Vector2D, JigsawPiece],
     ) -> dict[Vector2D, JigsawPiece]:
         bounding_box = BoundingBox.from_points(placed_pieces.keys())
         return {

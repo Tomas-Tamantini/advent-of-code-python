@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+
 from ..board_piece import BoardPiece
 from .board import Board
 

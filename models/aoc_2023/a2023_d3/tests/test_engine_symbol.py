@@ -1,5 +1,6 @@
 import pytest
-from ..logic import PartNumber, EngineSymbol
+
+from ..logic import EngineSymbol, PartNumber
 
 
 @pytest.mark.parametrize("row, col", [(2, 0), (0, 2), (-10, -10)])

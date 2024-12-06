@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_cookie_properties
+
 from .cookie import CookieRecipe
+from .parser import parse_cookie_properties
 
 
 def aoc_2015_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:

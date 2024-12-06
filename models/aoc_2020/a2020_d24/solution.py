@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CanonicalHexagonalCoordinates
-from .parser import parse_rotated_hexagonal_directions
+
 from .hexagonal_automaton import HexagonalAutomaton
+from .parser import parse_rotated_hexagonal_directions
 
 
 def aoc_2020_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:

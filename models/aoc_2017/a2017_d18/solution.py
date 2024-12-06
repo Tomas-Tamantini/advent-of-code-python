@@ -1,8 +1,10 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.common.assembly import InputInstruction
-from .parser import parse_duet_code
+from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .duet_code import last_recovered_frequency, sent_values_in_two_way_communication
+from .parser import parse_duet_code
 
 
 def aoc_2017_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:

@@ -1,11 +1,11 @@
-from typing import Protocol
 from dataclasses import dataclass
-from .lens_box import LensBox
+from typing import Protocol
+
 from .lens import Lens
+from .lens_box import LensBox
 
 
 class InitializationStep(Protocol):
-
     def __str__(self) -> str: ...
 
     @property

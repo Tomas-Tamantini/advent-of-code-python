@@ -1,6 +1,7 @@
-from enum import Enum
 from copy import deepcopy
+from enum import Enum
 from typing import Hashable
+
 from models.common.cellular_automata import (
     Bounded2DAutomaton,
     MultiStateCellVicinity,

@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+
 from .network_packet import NetworkPacket
 from .network_router import NetworkRouter
 

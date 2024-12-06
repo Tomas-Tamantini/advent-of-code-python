@@ -1,10 +1,10 @@
 from ..logic import (
-    run_initialization_sequence,
-    RemoveLens,
-    InsertLens,
     HashCalculator,
-    LensBox,
+    InsertLens,
     Lens,
+    LensBox,
+    RemoveLens,
+    run_initialization_sequence,
 )
 
 "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"

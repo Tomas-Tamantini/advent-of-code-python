@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from .dirac_dice_starting_configuration import DiracDiceStartingConfiguration
 
 

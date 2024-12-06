@@ -1,9 +1,9 @@
 from models.common.number_theory import Interval
 
 from ..interval_mapper import (
-    PiecewiseIntervalMapper,
-    IntervalOffset,
     CompositeIntervalMapper,
+    IntervalOffset,
+    PiecewiseIntervalMapper,
 )
 
 

@@ -1,16 +1,18 @@
-import pytest
-from unittest.mock import Mock
 from dataclasses import dataclass
+from unittest.mock import Mock
+
+import pytest
+
+from models.common.optimization.branch_and_bound import maximize_with_branch_and_bound
 from models.common.optimization.linear_programming import (
-    ContinuousVariable,
-    IntegerVariable,
     BinaryVariable,
     Constraint,
     ConstraintType,
-    ObjectiveFunction,
+    ContinuousVariable,
+    IntegerVariable,
     MilpSolver,
+    ObjectiveFunction,
 )
-from models.common.optimization.branch_and_bound import maximize_with_branch_and_bound
 
 
 def test_continuous_variable_is_not_integer():

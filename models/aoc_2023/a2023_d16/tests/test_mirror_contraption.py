@@ -1,6 +1,8 @@
 import pytest
-from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import LightBeam, MirrorContraption, Mirror, Splitter
+
+from models.common.vectors import CardinalDirection, Vector2D
+
+from ..logic import LightBeam, Mirror, MirrorContraption, Splitter
 
 _contraption = MirrorContraption(
     width=10,

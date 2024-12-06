@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import InputReader
+
 from models.aoc_2018.three_value_instructions import ThreeValueInstruction
+from models.common.io import InputReader
+
 from .unknown_op_code import InstructionSample
 
 

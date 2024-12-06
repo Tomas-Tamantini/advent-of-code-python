@@ -1,5 +1,7 @@
 import numpy as np
+
 from models.common.vectors import BoundingBox
+
 from .ray import Ray
 
 

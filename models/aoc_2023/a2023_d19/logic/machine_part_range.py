@@ -1,5 +1,6 @@
-from typing import Iterator
 from math import prod
+from typing import Iterator
+
 from models.common.number_theory.interval import Interval
 
 

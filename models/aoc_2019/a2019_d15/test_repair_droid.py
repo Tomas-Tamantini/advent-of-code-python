@@ -1,7 +1,8 @@
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .repair_droid import (
-    DroidExploredArea,
     CellType,
+    DroidExploredArea,
     RepairDroid,
     RepairDroidIO,
     repair_droid_explore_area,

@@ -1,12 +1,12 @@
-from .characters import Boss, Wizard, CharactersState
+from .characters import Boss, CharactersState, Wizard
+from .game_move import BossMove, Drain, MagicMissile, Poison, Recharge, Shield
+from .game_state import GameState
+from .optimize_game import min_mana_to_defeat_boss
 from .spell_effect import (
-    SpellEffect,
-    SpellEffectTimers,
-    ShieldEffect,
+    DrainWizardHealthEffect,
     PoisonEffect,
     RechargeEffect,
-    DrainWizardHealthEffect,
+    ShieldEffect,
+    SpellEffect,
+    SpellEffectTimers,
 )
-from .game_state import GameState
-from .game_move import BossMove, MagicMissile, Drain, Shield, Poison, Recharge
-from .optimize_game import min_mana_to_defeat_boss

@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import CardinalDirection, TurnDirection
+
 from ..parser import parse_navigation_instructions
 from ..ship import (
     MoveShipForwardInstruction,

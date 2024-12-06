@@ -1,6 +1,7 @@
+from typing import Iterator
+
 from models.common.io import InputReader
 from models.common.vectors import Vector3D
-from typing import Iterator
 
 
 def _parse_3d_vector(vector_str: str) -> Vector3D:

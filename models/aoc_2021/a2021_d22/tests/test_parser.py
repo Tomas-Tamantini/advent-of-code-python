@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import Vector3D
+
 from ..parser import parse_cuboid_instructions
 from ..reactor_cells import Cuboid, CuboidInstruction
 

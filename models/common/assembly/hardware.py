@@ -1,6 +1,7 @@
-from typing import Optional, Hashable
-from .processor import Processor
+from typing import Hashable, Optional
+
 from .memory import Memory
+from .processor import Processor
 from .serial_io import SerialInput, SerialOutput
 
 

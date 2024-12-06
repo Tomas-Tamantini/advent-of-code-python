@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import TurnDirection
+
 from ..parser import parse_turtle_instructions
 from ..turtle import TurtleInstruction
 

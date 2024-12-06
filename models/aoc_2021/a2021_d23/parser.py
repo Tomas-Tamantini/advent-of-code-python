@@ -1,7 +1,9 @@
-from typing import Iterator
 from collections import defaultdict
+from typing import Iterator
+
 from models.common.io import InputReader
-from .logic import Amphipod, AmphipodRoom, AmphipodHallway, AmphipodBurrow
+
+from .logic import Amphipod, AmphipodBurrow, AmphipodHallway, AmphipodRoom
 
 
 @staticmethod

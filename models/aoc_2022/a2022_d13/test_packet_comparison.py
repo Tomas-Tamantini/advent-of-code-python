@@ -1,4 +1,5 @@
 import pytest
+
 from .packet_comparison import left_packet_leq_right
 
 

@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Iterator
+
 from models.common.vectors import Vector2D
 
 

@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from models.common.vectors import Vector3D, Vector2D
+
+from models.common.vectors import Vector2D, Vector3D
+
 from .ray import Ray
 
 

@@ -1,7 +1,8 @@
 from models.common.io import InputReader
+
 from .chip_factory import (
-    ChipFactory,
     ChipAssignment,
+    ChipFactory,
     RobotInstruction,
     RobotProgramming,
 )

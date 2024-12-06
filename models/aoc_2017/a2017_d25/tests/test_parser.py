@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
 from ..parser import parse_turing_machine_specs
-from ..turing_machine import TuringState, TuringRule
+from ..turing_machine import TuringRule, TuringState
 
 
 def test_parse_turing_machine_specs():

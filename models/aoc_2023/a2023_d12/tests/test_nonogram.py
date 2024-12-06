@@ -1,4 +1,5 @@
 import pytest
+
 from ..logic import NonogramRow, num_arrangements_nonogram_row
 
 

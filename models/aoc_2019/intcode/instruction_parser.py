@@ -1,18 +1,20 @@
 from typing import Iterator
+
 from models.common.assembly import Instruction
+
 from .instructions import (
-    ParameterMode,
-    IntcodeParameter,
-    IntcodeHalt,
     IntcodeAdd,
-    IntcodeMultiply,
-    IntcodeInput,
-    IntcodeOutput,
-    IntcodeJumpIfTrue,
-    IntcodeJumpIfFalse,
-    IntcodeLessThan,
     IntcodeEquals,
+    IntcodeHalt,
+    IntcodeInput,
+    IntcodeJumpIfFalse,
+    IntcodeJumpIfTrue,
+    IntcodeLessThan,
+    IntcodeMultiply,
+    IntcodeOutput,
+    IntcodeParameter,
     IntcodeRelativeBaseOffset,
+    ParameterMode,
 )
 
 

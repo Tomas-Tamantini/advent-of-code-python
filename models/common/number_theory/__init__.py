@@ -1,6 +1,6 @@
-from .gcd_and_lcm import gcd, lcm, are_coprime
 from .chinese_remainder import ChineseRemainder, solve_chinese_remainder_system
-from .primes import is_prime
+from .gcd_and_lcm import are_coprime, gcd, lcm
+from .interval import Interval
 from .modular_inverse import modular_inverse
 from .modular_logarithm import modular_logarithm
-from .interval import Interval
+from .primes import is_prime

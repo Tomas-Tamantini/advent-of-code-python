@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
+from models.common.vectors import Vector2D
+
 from .sea_cucumber import SeaCucumbers, SeaCucumbersHerds
 
 

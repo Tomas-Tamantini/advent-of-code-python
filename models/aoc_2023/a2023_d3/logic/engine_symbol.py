@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from .part_number import PartNumber
 
 

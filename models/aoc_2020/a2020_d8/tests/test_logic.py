@@ -1,11 +1,13 @@
-import pytest
 from unittest.mock import Mock
+
+import pytest
+
 from ..logic import (
+    GameConsoleProgram,
     IncrementGlobalAccumulatorInstruction,
     JumpOrNoOpInstruction,
-    GameConsoleProgram,
-    run_game_console,
     find_and_run_game_console_which_terminates,
+    run_game_console,
 )
 
 

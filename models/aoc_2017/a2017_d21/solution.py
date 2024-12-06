@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_art_block_rules, parse_art_block
+
 from .fractal_art import FractalArt
+from .parser import parse_art_block, parse_art_block_rules
 
 
 def aoc_2017_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:

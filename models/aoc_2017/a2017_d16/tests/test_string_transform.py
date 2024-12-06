@@ -1,4 +1,4 @@
-from ..string_transform import Spin, Exchange, Partner, transform_string_multiple_rounds
+from ..string_transform import Exchange, Partner, Spin, transform_string_multiple_rounds
 
 
 def test_spin_rolls_string_to_the_left():

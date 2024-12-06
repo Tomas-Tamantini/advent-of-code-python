@@ -1,5 +1,6 @@
 import pytest
-from .logic import PacketParser, LiteralPacket, RecursivePacket
+
+from .logic import LiteralPacket, PacketParser, RecursivePacket
 
 
 def test_literal_packet_version_sum_is_just_its_version():

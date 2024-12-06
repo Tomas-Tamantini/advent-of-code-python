@@ -1,4 +1,5 @@
 from models.common.vectors import Vector3D, solve_linear_system_exactly
+
 from .hailstone import Hailstone
 
 

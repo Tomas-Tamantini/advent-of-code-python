@@ -1,7 +1,6 @@
-from typing import Hashable, Protocol
 from dataclasses import dataclass
 from math import inf
-
+from typing import Hashable, Protocol
 
 VariableId = Hashable
 

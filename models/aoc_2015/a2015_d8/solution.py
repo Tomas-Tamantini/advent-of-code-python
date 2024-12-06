@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .num_chars import num_chars_encoded, num_chars_in_memory
 
 

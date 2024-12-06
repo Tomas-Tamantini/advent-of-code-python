@@ -1,7 +1,9 @@
 from typing import Iterator
+
+from models.common.graphs import explore_with_bfs
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
-from models.common.graphs import explore_with_bfs
+
 from .lattice_graph import build_lattice_graph
 
 

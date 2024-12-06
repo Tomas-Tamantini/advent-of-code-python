@@ -1,10 +1,11 @@
 import pytest
+
 from ..chip_factory import (
+    ChipAssignment,
+    ChipFactory,
     ChipHandlerRobot,
     RobotInstruction,
-    ChipAssignment,
     RobotProgramming,
-    ChipFactory,
 )
 
 

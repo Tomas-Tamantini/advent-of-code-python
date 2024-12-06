@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
+from ..logic import Pulse, PulseHistory, PulseType
 from ..parser import parse_module_network
-from ..logic import Pulse, PulseType, PulseHistory
 
 
 def test_parse_module_network():

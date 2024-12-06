@@ -1,5 +1,6 @@
-from typing import Protocol, Iterator, Optional
 from dataclasses import dataclass
+from typing import Iterator, Optional, Protocol
+
 from models.common.number_theory import Interval
 
 

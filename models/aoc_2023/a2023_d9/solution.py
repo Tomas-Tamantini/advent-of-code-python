@@ -1,5 +1,6 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, InputReader
+
+from models.common.io import InputReader, IOHandler, Problem, ProblemSolution
 
 
 def _difference(sequence: tuple[int, ...]) -> tuple[int, ...]:

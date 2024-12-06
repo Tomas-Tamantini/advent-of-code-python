@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.graphs import Maze
+
 from .valve import Valve
 
 

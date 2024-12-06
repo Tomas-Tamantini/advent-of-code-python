@@ -1,7 +1,8 @@
 from models.common.io import InputFromString
 from models.common.vectors import CardinalDirection
-from ..parser import parse_dig_plan
+
 from ..dig_plan import DiggerInstruction
+from ..parser import parse_dig_plan
 
 
 def test_parsing_dig_plan_ignoring_hexadecimal_considers_first_part_of_instructions():

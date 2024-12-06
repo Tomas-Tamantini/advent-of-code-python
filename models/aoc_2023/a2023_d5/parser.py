@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import InputReader
 from models.common.number_theory import Interval
-from .interval_mapper import PiecewiseIntervalMapper, IntervalOffset
+
+from .interval_mapper import IntervalOffset, PiecewiseIntervalMapper
 
 
 def _parse_offset(line: str) -> Interval:

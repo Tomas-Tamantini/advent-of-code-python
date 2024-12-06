@@ -1,6 +1,7 @@
-from typing import Callable
-from queue import Queue
 from dataclasses import dataclass
+from queue import Queue
+from typing import Callable
+
 from models.common.number_theory import lcm
 
 

@@ -1,7 +1,9 @@
 import pytest
+
 from models.common.io import CharacterGrid
 from models.common.vectors import Vector2D
-from .logic import Gardener, BoundedGarden, InfiniteGarden
+
+from .logic import BoundedGarden, Gardener, InfiniteGarden
 
 _GARDEN_STR = """...........
                  .....###.#.

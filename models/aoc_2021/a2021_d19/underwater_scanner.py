@@ -1,8 +1,9 @@
+from collections import defaultdict
 from dataclasses import dataclass
 from typing import Iterator, Optional
-from collections import defaultdict
-from models.common.vectors import Vector3D, Orientation
+
 from models.common.io import ProgressBar
+from models.common.vectors import Orientation, Vector3D
 
 
 @dataclass(frozen=True)

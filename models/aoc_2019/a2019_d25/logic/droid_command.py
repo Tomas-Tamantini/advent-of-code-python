@@ -1,5 +1,6 @@
-from models.common.vectors import CardinalDirection
 from dataclasses import dataclass
+
+from models.common.vectors import CardinalDirection
 
 
 @dataclass(frozen=True)

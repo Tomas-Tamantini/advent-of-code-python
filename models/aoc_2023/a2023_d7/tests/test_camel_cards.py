@@ -1,5 +1,6 @@
 import pytest
-from ..logic import HandRank, OrdinaryHand, JokerHand, first_hand_beats_second, CamelBid
+
+from ..logic import CamelBid, HandRank, JokerHand, OrdinaryHand, first_hand_beats_second
 
 
 def test_hand_ranks_are_properly_ordered():

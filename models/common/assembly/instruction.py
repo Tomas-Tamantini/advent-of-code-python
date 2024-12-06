@@ -1,11 +1,11 @@
-from typing import Protocol, Union
 from dataclasses import dataclass
+from typing import Protocol, Union
+
 from .hardware import Hardware, Processor
 
 
 class Instruction(Protocol):
-    def execute(self, hardware: Hardware) -> None:
-        ...
+    def execute(self, hardware: Hardware) -> None: ...
 
 
 # Common instructions:

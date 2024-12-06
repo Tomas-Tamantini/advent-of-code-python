@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import BoundingBox
+
 from .parser import parse_positions_and_fold_instructions
 
 

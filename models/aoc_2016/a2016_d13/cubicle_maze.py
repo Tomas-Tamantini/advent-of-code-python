@@ -1,6 +1,7 @@
-from models.common.vectors import Vector2D
-from models.common.graphs import min_path_length_with_bfs, explore_with_bfs
 from typing import Callable
+
+from models.common.graphs import explore_with_bfs, min_path_length_with_bfs
+from models.common.vectors import Vector2D
 
 
 def is_wall(position: Vector2D, polynomial_offset: int) -> bool:

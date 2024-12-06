@@ -1,7 +1,8 @@
-from typing import Iterator, Optional
 from dataclasses import dataclass
-from .vacuum_robot import VacuumRobotInstruction
 from math import inf
+from typing import Iterator, Optional
+
+from .vacuum_robot import VacuumRobotInstruction
 
 
 @dataclass

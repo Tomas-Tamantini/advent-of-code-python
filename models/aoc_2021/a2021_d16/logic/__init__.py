@@ -1,2 +1,2 @@
-from .packets import Packet, LiteralPacket, RecursivePacket
-from .packet_parser import PacketParser, LengthType
+from .packet_parser import LengthType, PacketParser
+from .packets import LiteralPacket, Packet, RecursivePacket

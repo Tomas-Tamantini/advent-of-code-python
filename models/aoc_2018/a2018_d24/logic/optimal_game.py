@@ -1,5 +1,5 @@
-from .game_state import InfectionGameState
 from .game_engine import InfectionGame
+from .game_state import InfectionGameState
 
 
 def optimal_boost_for_immune_system(

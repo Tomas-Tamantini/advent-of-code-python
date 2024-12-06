@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .plant_automaton import PlantAutomaton
 
 

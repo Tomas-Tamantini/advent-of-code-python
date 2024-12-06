@@ -1,7 +1,9 @@
-from math import inf
 from dataclasses import dataclass
+from math import inf
 from typing import Optional
+
 import numpy as np
+
 from models.common.io import ProgressBar
 
 

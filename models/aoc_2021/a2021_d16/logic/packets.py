@@ -1,5 +1,5 @@
-from typing import Protocol, Callable
 from dataclasses import dataclass
+from typing import Callable, Protocol
 
 
 class Packet(Protocol):

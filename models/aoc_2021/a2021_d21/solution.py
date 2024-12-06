@@ -1,11 +1,13 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_players_starting_positions
+
 from .logic import (
     DiracDiceStartingConfiguration,
-    play_deterministic_dirac_dice,
     QuantumDiracGame,
+    play_deterministic_dirac_dice,
 )
+from .parser import parse_players_starting_positions
 
 
 def aoc_2021_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:

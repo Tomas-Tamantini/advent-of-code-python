@@ -1,12 +1,14 @@
 from typing import Iterator
+
 from models.common.io import InputReader
 from models.common.number_theory import Interval
+
 from .logic import (
-    Workflow,
-    LessThanRule,
     GreaterThanRule,
-    WorkflowRule,
+    LessThanRule,
     MachinePartRange,
+    Workflow,
+    WorkflowRule,
 )
 
 

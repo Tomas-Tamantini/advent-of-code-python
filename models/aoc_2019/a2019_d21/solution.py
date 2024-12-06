@@ -1,12 +1,14 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import (
-    run_spring_droid_program,
-    SpringScriptInstruction,
-    SpringScriptInstructionType,
+    BeginDroidCommand,
     SpringDroidInput,
     SpringDroidOutput,
-    BeginDroidCommand,
+    SpringScriptInstruction,
+    SpringScriptInstructionType,
+    run_spring_droid_program,
 )
 
 

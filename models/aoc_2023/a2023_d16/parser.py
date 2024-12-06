@@ -1,5 +1,6 @@
-from models.common.io import InputReader, CharacterGrid
-from .logic import MirrorContraption, Mirror, Splitter
+from models.common.io import CharacterGrid, InputReader
+
+from .logic import Mirror, MirrorContraption, Splitter
 
 
 def parse_mirror_contraption(input_reader: InputReader) -> MirrorContraption:

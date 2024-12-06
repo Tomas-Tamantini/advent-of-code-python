@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Hashable
+
 from .maze_edge import MazeEdge
 
 

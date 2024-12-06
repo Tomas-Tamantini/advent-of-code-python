@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import InputReader
+
 from .fabric_area import FabricRectangle
 
 

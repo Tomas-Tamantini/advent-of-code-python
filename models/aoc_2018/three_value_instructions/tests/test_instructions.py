@@ -1,23 +1,25 @@
 import pytest
+
 from models.common.assembly import Hardware, Processor
+
 from ..instructions import (
-    AddRegisters,
+    ALL_THREE_VALUE_INSTRUCTIONS,
     AddImmediate,
-    MultiplyRegisters,
-    MultiplyImmediate,
-    BitwiseAndRegisters,
-    BitwiseAndImmediate,
-    BitwiseOrRegisters,
-    BitwiseOrImmediate,
-    AssignmentRegisters,
+    AddRegisters,
     AssignmentImmediate,
-    GreaterThanImmediateRegister,
-    GreaterThanRegisterImmediate,
-    GreaterThanRegisterRegister,
+    AssignmentRegisters,
+    BitwiseAndImmediate,
+    BitwiseAndRegisters,
+    BitwiseOrImmediate,
+    BitwiseOrRegisters,
     EqualImmediateRegister,
     EqualRegisterImmediate,
     EqualRegisterRegister,
-    ALL_THREE_VALUE_INSTRUCTIONS,
+    GreaterThanImmediateRegister,
+    GreaterThanRegisterImmediate,
+    GreaterThanRegisterRegister,
+    MultiplyImmediate,
+    MultiplyRegisters,
 )
 
 

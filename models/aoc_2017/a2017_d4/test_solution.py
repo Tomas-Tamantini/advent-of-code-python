@@ -1,7 +1,8 @@
 import pytest
+
 from .solution import (
-    sentence_contains_no_duplicates,
     sentence_contains_no_anagrams,
+    sentence_contains_no_duplicates,
 )
 
 

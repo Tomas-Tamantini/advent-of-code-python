@@ -1,11 +1,13 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from models.common.vectors import Vector2D, BoundingBox
-from .parser import parse_proximity_sensors
+from models.common.vectors import BoundingBox, Vector2D
+
 from .logic import (
     num_positions_which_cannot_contain_beacon,
     position_which_must_be_beacon,
 )
+from .parser import parse_proximity_sensors
 
 
 def aoc_2022_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:

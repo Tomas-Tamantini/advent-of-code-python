@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
 from models.common.vectors import Vector3D
+
 from .logic import Brick
 
 

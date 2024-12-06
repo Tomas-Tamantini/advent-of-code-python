@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_valve_graph
+
 from ..logic import Valve
+from ..parser import parse_valve_graph
 
 
 def test_parse_valve_graph():

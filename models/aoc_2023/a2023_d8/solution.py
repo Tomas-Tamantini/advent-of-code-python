@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_network_connections, parse_network_steps
+
 from .logic import BinaryNetwork
+from .parser import parse_network_connections, parse_network_steps
 
 
 def aoc_2023_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:

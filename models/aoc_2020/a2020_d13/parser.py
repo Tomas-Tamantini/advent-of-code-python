@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .bus_schedule import BusSchedule
 
 

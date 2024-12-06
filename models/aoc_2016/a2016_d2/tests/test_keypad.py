@@ -1,4 +1,5 @@
 from models.common.vectors import CardinalDirection
+
 from ..keypad import Keypad
 
 

@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_and_give_light_grid_instructions
+
 from .light_grid import LightGrid
+from .parser import parse_and_give_light_grid_instructions
 
 
 def aoc_2015_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:

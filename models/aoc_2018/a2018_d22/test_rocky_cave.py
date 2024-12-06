@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D, BoundingBox
-from .rocky_cave import RockyCave, CaveExplorer
+from models.common.vectors import BoundingBox, Vector2D
+
+from .rocky_cave import CaveExplorer, RockyCave
 
 
 def test_rocky_cave_erosion_levels_are_calculated_properly():

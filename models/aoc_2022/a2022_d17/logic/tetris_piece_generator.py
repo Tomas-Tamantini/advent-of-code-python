@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from models.common.vectors import Vector2D, BoundingBox
+
+from models.common.vectors import BoundingBox, Vector2D
+
 from .tetris_piece import TetrisPiece
 
 

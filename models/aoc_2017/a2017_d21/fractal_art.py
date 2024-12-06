@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Iterator
+
+import numpy as np
 
 
 class ArtBlock:
@@ -50,11 +51,9 @@ class FractalArt:
         new_pattern = np.zeros((new_pattern_size, new_pattern_size), dtype=int)
         for i, block in enumerate(pattern.subdivide(size)):
             new_pattern[
-                (i // num_blocks_per_row)
-                * (size + 1) : (i // num_blocks_per_row + 1)
+                (i // num_blocks_per_row) * (size + 1) : (i // num_blocks_per_row + 1)
                 * (size + 1),
-                (i % num_blocks_per_row)
-                * (size + 1) : (i % num_blocks_per_row + 1)
+                (i % num_blocks_per_row) * (size + 1) : (i % num_blocks_per_row + 1)
                 * (size + 1),
             ] = self._rules[block]._pattern
         return ArtBlock(new_pattern)

@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_portal_maze, parse_recursive_donut_maze
 
 

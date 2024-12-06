@@ -1,4 +1,5 @@
 from typing import Iterator
+
 from models.common.cellular_automata import GameOfLife
 from models.common.vectors import Vector2D
 

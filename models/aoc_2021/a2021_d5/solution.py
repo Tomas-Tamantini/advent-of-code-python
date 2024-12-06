@@ -1,6 +1,8 @@
 from collections import defaultdict
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_line_segments
 
 

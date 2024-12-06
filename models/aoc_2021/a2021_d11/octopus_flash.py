@@ -1,5 +1,6 @@
 from typing import Iterator
-from models.common.vectors import Vector2D, BoundingBox
+
+from models.common.vectors import BoundingBox, Vector2D
 
 
 class OctopusesFlashes:

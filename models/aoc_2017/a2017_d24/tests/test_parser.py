@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_bridge_components
+
 from ..bridge_builder import BridgeComponent
+from ..parser import parse_bridge_components
 
 
 def test_parse_bridge_components():

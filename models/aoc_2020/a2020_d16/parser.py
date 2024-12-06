@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+
 from models.common.io import InputReader
 from models.common.number_theory import Interval
+
 from .ticket_validator import TicketFieldValidator, TicketValidator
 
 

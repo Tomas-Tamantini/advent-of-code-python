@@ -1,8 +1,9 @@
 from math import inf
 from typing import Iterator
-from models.common.vectors import Vector2D
-from models.common.io import CharacterGrid
+
 from models.common.graphs import explore_with_bfs
+from models.common.io import CharacterGrid
+from models.common.vectors import Vector2D
 
 
 class HillMaze:

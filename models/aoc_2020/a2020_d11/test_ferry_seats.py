@@ -1,6 +1,8 @@
 import pytest
-from models.common.vectors import Vector2D
+
 from models.common.io import CharacterGrid
+from models.common.vectors import Vector2D
+
 from .ferry_seats import FerrySeat, FerrySeats
 
 
@@ -20,7 +22,6 @@ def test_empty_seat_in_ferry_without_occupied_neighbors_becomes_occupied():
 def test_empty_seat_in_ferry_with_one_or_more_occupied_neighbors_remains_empty(
     num_neighbors,
 ):
-
     center = Vector2D(1, 1)
     initial_configuration = {center: FerrySeat.EMPTY}
     neighbors = center.adjacent_positions(include_diagonals=True)
@@ -35,7 +36,6 @@ def test_empty_seat_in_ferry_with_one_or_more_occupied_neighbors_remains_empty(
 def test_occupied_seat_with_occupied_neighbors_within_tolerance_remains_occupied(
     num_neighbors,
 ):
-
     center = Vector2D(1, 1)
     initial_configuration = {center: FerrySeat.OCCUPIED}
     neighbors = center.adjacent_positions(include_diagonals=True)
@@ -55,7 +55,6 @@ def test_occupied_seat_with_occupied_neighbors_within_tolerance_remains_occupied
 def test_occupied_seat_with_more_occupied_neighbors_than_tolerated_becomes_empty(
     num_neighbors,
 ):
-
     center = Vector2D(1, 1)
     initial_configuration = {center: FerrySeat.OCCUPIED}
     neighbors = center.adjacent_positions(include_diagonals=True)

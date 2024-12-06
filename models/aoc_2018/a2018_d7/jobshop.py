@@ -1,6 +1,7 @@
-from queue import PriorityQueue
 from dataclasses import dataclass
 from enum import Enum
+from queue import PriorityQueue
+
 from models.common.graphs import DirectedGraph
 
 

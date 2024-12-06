@@ -1,7 +1,8 @@
 import pytest
+
 from .solution import (
-    digits_that_match_the_next,
     digits_that_match_one_across_the_circle,
+    digits_that_match_the_next,
 )
 
 

@@ -1,8 +1,9 @@
 from unittest.mock import Mock
+
 from ..bitmask_memory import (
     Bitmask,
-    FloatingBitmask,
     BitmaskMemory,
+    FloatingBitmask,
     SetMaskInstruction,
     WriteToMemoryInstruction,
 )

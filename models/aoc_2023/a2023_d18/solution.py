@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_dig_plan
+
 from .dig_plan import DiggerInstruction, DigPlan
+from .parser import parse_dig_plan
 
 
 def _lava_lagoon_area(instructions: Iterator[DiggerInstruction]) -> int:

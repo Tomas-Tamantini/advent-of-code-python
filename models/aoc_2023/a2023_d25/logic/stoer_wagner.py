@@ -1,7 +1,8 @@
-from typing import Hashable, Iterator, Iterable
 from collections import defaultdict
 from dataclasses import dataclass
-from models.common.graphs import WeightedUndirectedGraph, UndirectedGraph
+from typing import Hashable, Iterable, Iterator
+
+from models.common.graphs import UndirectedGraph, WeightedUndirectedGraph
 
 
 @dataclass(frozen=True)

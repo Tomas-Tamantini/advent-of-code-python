@@ -1,4 +1,5 @@
 from models.common.io import InputFromString
+
 from .parser import parse_plane_seat_ids
 
 

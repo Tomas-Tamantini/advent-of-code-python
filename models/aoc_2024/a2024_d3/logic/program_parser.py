@@ -1,10 +1,11 @@
 import re
 from typing import Iterator
+
 from .program_instructions import (
-    ProgramInstruction,
-    MultiplicationInstruction,
-    DontInstruction,
     DoInstruction,
+    DontInstruction,
+    MultiplicationInstruction,
+    ProgramInstruction,
 )
 
 

@@ -1,11 +1,13 @@
 from typing import Iterator
+
 from models.common.io import (
+    CharacterGrid,
     IOHandler,
     Problem,
     ProblemSolution,
-    CharacterGrid,
     render_frame,
 )
+
 from .octopus_flash import OctopusesFlashes
 
 

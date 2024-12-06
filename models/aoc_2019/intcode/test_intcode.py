@@ -1,22 +1,24 @@
 import pytest
-from models.common.assembly import Hardware, Processor, SerialOutput, SerialInput
+
+from models.common.assembly import Hardware, Processor, SerialInput, SerialOutput
+
 from .instruction_parser import parse_next_instruction
+from .instructions import (
+    IntcodeAdd,
+    IntcodeEquals,
+    IntcodeHalt,
+    IntcodeInput,
+    IntcodeJumpIfFalse,
+    IntcodeJumpIfTrue,
+    IntcodeLessThan,
+    IntcodeMultiply,
+    IntcodeOutput,
+    IntcodeParameter,
+    IntcodeRelativeBaseOffset,
+    ParameterMode,
+)
 from .program import IntcodeProgram
 from .run_program import run_intcode_program
-from .instructions import (
-    ParameterMode,
-    IntcodeParameter,
-    IntcodeHalt,
-    IntcodeAdd,
-    IntcodeMultiply,
-    IntcodeInput,
-    IntcodeOutput,
-    IntcodeJumpIfTrue,
-    IntcodeJumpIfFalse,
-    IntcodeLessThan,
-    IntcodeEquals,
-    IntcodeRelativeBaseOffset,
-)
 
 
 class _MockMemory:
@@ -138,7 +140,6 @@ def test_intcode_halt_sets_pc_to_negative_one_to_halt():
 
 
 def test_intcode_input_reads_from_serial_input_and_writes_to_memory():
-
     input_instruction = IntcodeInput(
         output=IntcodeParameter(3, parameter_mode=ParameterMode.POSITION)
     )

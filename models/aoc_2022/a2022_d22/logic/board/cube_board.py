@@ -1,6 +1,7 @@
-from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
 from ..board_piece import BoardPiece
-from ..cube_net import EdgeMapper, CubeNavigator
+from ..cube_net import CubeNavigator, EdgeMapper
 
 
 class CubeBoard:

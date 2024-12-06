@@ -1,5 +1,7 @@
 from typing import Iterable, Iterator
+
 from models.common.number_theory import Interval
+
 from .proximity_sensor import ProximitySensor
 
 

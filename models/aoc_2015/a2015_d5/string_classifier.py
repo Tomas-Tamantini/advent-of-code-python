@@ -1,4 +1,4 @@
-from typing import Iterable, Callable
+from typing import Callable, Iterable
 
 
 class StringClassifier:

@@ -1,4 +1,4 @@
-from ..disc_system import SpinningDisc, DiscSystem
+from ..disc_system import DiscSystem, SpinningDisc
 
 
 def test_if_single_disc_should_press_button_when_one_second_before_correct_position():

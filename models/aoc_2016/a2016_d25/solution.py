@@ -1,8 +1,10 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.aoc_2016.assembunny import (
     parse_assembunny_code,
 )
+from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .clock_signal import smallest_value_to_send_clock_signal
 
 

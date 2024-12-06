@@ -1,5 +1,7 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
+
 from .bugs_automaton import BugsAutomaton, RecursiveBugsAutomaton
 
 

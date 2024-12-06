@@ -1,6 +1,8 @@
 import numpy as np
+
 from models.common.io import InputReader
-from .bingo import BingoGame, BingoBoard
+
+from .bingo import BingoBoard, BingoGame
 
 
 def parse_bingo_game_and_numbers_to_draw(

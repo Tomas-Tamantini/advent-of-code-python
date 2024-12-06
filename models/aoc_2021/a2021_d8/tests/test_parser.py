@@ -1,4 +1,5 @@
 from models.common.io import InputFromString
+
 from ..parser import parse_shuffled_seven_digit_displays
 from ..seven_segment_display import ShuffledSevenDigitDisplay
 

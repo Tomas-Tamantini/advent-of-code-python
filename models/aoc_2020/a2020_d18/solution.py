@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .evaluate_expression import (
     evaluate_expression_addition_precedence,
     evaluate_expression_left_precedence,

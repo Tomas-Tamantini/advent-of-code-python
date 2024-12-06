@@ -1,5 +1,5 @@
-from typing import Iterator
 from itertools import product
+from typing import Iterator
 
 
 class VectorNDimensional:

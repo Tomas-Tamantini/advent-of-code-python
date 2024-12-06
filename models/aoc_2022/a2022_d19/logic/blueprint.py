@@ -1,4 +1,5 @@
 from typing import Iterable
+
 from .resource_type import ResourceType
 from .robot_cost import RobotCost
 

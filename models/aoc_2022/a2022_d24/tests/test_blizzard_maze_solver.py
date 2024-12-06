@@ -1,5 +1,6 @@
-from ..logic import BlizzardMazeSolver, BlizzardValley, Blizzard, BlizzardNavigator
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
+
+from ..logic import Blizzard, BlizzardMazeSolver, BlizzardNavigator, BlizzardValley
 
 
 def test_blizzard_maze_solver_starts_at_entrance_of_valley():

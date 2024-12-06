@@ -1,4 +1,5 @@
 from models.common.graphs import DirectedGraph
+
 from ..jobshop import time_to_complete_jobs
 
 

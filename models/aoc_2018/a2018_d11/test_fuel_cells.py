@@ -1,4 +1,5 @@
 import pytest
+
 from .fuel_cells import FuelCells
 
 

@@ -1,5 +1,6 @@
-from models.common.vectors import CardinalDirection, Vector2D, TurnDirection
-from ..turtle import TurtleInstruction, Turtle
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
+from ..turtle import Turtle, TurtleInstruction
 
 
 def test_turtle_starts_at_origin():

@@ -1,5 +1,5 @@
-from typing import Protocol, Union, Optional
 from dataclasses import dataclass
+from typing import Optional, Protocol, Union
 
 
 class SnailfishNodeProtocol(Protocol):

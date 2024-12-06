@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import (
     ScaffoldMap,
     run_scaffolding_discovery_program,

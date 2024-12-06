@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .noun_and_verb import (
-    run_intcode_program_until_halt,
     noun_and_verb_for_given_output,
+    run_intcode_program_until_halt,
 )
 
 

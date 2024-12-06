@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from models.common.number_theory import modular_inverse, are_coprime
+
+from models.common.number_theory import are_coprime, modular_inverse
 
 
 @dataclass(frozen=True)

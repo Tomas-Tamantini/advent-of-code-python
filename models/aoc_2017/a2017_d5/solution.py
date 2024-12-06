@@ -1,4 +1,5 @@
-from typing import Iterator, Callable
+from typing import Callable, Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 
 

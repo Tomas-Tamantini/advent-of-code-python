@@ -1,7 +1,10 @@
 from io import StringIO
-import numpy as np
 from typing import Iterator
+
+import numpy as np
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .spreadsheet import Spreadsheet
 
 

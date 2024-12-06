@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.vectors import Vector2D
-from .cube_net import CubeNet
+
 from .cube_navigator import CubeNavigator
+from .cube_net import CubeNet
 
 
 class PacmanEdgeMapper:

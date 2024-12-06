@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_molecule_replacements
+
 from ..molecule import Molecule
+from ..parser import parse_molecule_replacements
 
 
 def test_parse_molecule_replacements():

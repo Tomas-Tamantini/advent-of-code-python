@@ -1,5 +1,6 @@
 from models.common.graphs import Maze
-from ..logic import Volcano, Valve
+
+from ..logic import Valve, Volcano
 
 
 def _build_valve(valve_id: chr = "A", flow_rate: int = -1, time_to_open: int = 1):

@@ -1,11 +1,11 @@
 from ..logic import (
     BroadcastModule,
-    FlipFlopModule,
     ConjunctionModule,
+    FlipFlopModule,
     ModuleNetwork,
     Pulse,
-    PulseType,
     PulseHistory,
+    PulseType,
 )
 
 

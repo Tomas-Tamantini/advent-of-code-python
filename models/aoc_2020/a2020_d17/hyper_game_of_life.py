@@ -1,10 +1,11 @@
 from typing import Iterator
-from models.common.vectors import VectorNDimensional
+
 from models.common.cellular_automata import (
+    GameOfLife,
     TwoStateCellVicinity,
     two_state_automaton_next_state,
-    GameOfLife,
 )
+from models.common.vectors import VectorNDimensional
 
 
 class HyperGameOfLife:

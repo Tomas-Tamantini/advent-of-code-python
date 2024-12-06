@@ -1,6 +1,7 @@
-from .game_state import GameState
-from .game_move import Spell, GameMove
 from math import inf
+
+from .game_move import GameMove, Spell
+from .game_state import GameState
 
 
 def _min_mana_boss_turn(

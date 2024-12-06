@@ -1,8 +1,10 @@
-from typing import Protocol
-from dataclasses import dataclass
-from models.common.number_theory.interval import Interval
-from .machine_part_range import MachinePartRange
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Protocol
+
+from models.common.number_theory.interval import Interval
+
+from .machine_part_range import MachinePartRange
 
 
 @dataclass(frozen=True)

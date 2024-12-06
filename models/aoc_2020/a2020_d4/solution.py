@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_passports
 from .passport import PASSPORT_RULES, passport_is_valid
 

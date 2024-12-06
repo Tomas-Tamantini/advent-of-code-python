@@ -1,4 +1,5 @@
 from typing import Iterator, Optional
+
 from models.common.io import ProgressBar
 
 

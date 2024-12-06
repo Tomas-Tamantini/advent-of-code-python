@@ -1,4 +1,4 @@
-from .digit_finder import find_digits, Digit
+from .digit_finder import Digit, find_digits
 
 
 def test_digit_finder_finds_digits_and_their_position():

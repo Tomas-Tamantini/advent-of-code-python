@@ -1,6 +1,7 @@
-from typing import Iterable, Iterator
 from dataclasses import dataclass
 from math import inf
+from typing import Iterable, Iterator
+
 from .vector_2d import Vector2D
 
 

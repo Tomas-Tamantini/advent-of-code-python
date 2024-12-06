@@ -1,5 +1,6 @@
 from queue import Queue
 from typing import Iterable, Iterator
+
 from .communication_modules import CommunicationModule
 from .pulse import Pulse
 from .pulse_monitor import PulseMonitor

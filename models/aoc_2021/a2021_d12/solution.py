@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_underwater_cave_connections
 from .underwater_cave import UnderwaterCaveExplorer
 

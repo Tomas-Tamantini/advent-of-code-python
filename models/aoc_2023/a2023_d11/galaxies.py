@@ -1,6 +1,7 @@
-from typing import Iterator
 from bisect import bisect_left
 from itertools import combinations
+from typing import Iterator
+
 from models.common.vectors import Vector2D
 
 

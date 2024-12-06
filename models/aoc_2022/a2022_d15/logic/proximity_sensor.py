@@ -1,7 +1,9 @@
-from typing import Optional, Iterator
 from dataclasses import dataclass
-from models.common.vectors import Vector2D
+from typing import Iterator, Optional
+
 from models.common.number_theory import Interval
+from models.common.vectors import Vector2D
+
 from .diagonal_line_segment import DiagonalLineSegment
 
 

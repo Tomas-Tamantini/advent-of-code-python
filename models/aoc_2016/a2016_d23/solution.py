@@ -1,6 +1,7 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.aoc_2016.assembunny import parse_assembunny_code, run_self_referential_code
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def aoc_2016_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:

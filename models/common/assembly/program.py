@@ -1,10 +1,10 @@
-from typing import Protocol, Optional
+from typing import Optional, Protocol
+
 from .instruction import Instruction
 
 
 class Program(Protocol):
-    def get_instruction(self, program_counter: int) -> Optional[Instruction]:
-        ...
+    def get_instruction(self, program_counter: int) -> Optional[Instruction]: ...
 
 
 class ImmutableProgram:

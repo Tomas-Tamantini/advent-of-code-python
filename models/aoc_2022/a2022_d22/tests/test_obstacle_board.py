@@ -1,6 +1,8 @@
 from unittest.mock import Mock
-from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import ObstacleBoard, BoardPiece
+
+from models.common.vectors import CardinalDirection, Vector2D
+
+from ..logic import BoardPiece, ObstacleBoard
 
 
 def test_obstacle_board_sends_piece_to_next_position_if_not_wall():

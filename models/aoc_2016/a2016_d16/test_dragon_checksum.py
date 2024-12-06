@@ -1,4 +1,5 @@
 import pytest
+
 from .dragon_checksum import DragonChecksum
 
 

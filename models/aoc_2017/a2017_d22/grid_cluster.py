@@ -1,8 +1,9 @@
 from enum import Enum
 from typing import Optional
-from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
+
+from models.common.cellular_automata import AntState, LangtonsAnt, MultiStateLangtonsAnt
 from models.common.io import ProgressBar
-from models.common.cellular_automata import LangtonsAnt, AntState, MultiStateLangtonsAnt
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
 
 
 class CellState(int, Enum):

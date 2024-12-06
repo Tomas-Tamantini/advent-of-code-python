@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 from models.common.vectors import Vector2D
+
 from .tetris_game_state import TetrisGameState
 
 

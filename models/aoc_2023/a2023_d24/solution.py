@@ -1,9 +1,11 @@
-from typing import Iterator
 from itertools import combinations
+from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from models.common.vectors import Vector2D, BoundingBox
-from .parser import parse_hailstones
+from models.common.vectors import BoundingBox, Vector2D
+
 from .logic import rays_intersect, rock_that_hits_all_hailstones
+from .parser import parse_hailstones
 
 
 def _test_area() -> BoundingBox:

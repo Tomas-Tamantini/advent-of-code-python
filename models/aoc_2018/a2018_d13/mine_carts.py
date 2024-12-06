@@ -1,5 +1,6 @@
 from typing import Iterator, Optional
-from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
+
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
 
 
 class _MineCart:

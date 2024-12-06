@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.number_theory import Interval
+
 from ..parser import parse_ticket_validator_and_ticket_values
 from ..ticket_validator import TicketFieldValidator, TicketValidator
 

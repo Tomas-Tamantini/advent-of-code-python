@@ -1,4 +1,5 @@
 import pytest
+
 from .stream_handler import StreamHandler
 
 

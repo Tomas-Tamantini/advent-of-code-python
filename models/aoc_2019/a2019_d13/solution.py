@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .arcade import ArcadeGameScreen, run_intcode_arcade, ArcadeGameTile
+
+from .arcade import ArcadeGameScreen, ArcadeGameTile, run_intcode_arcade
 
 
 def aoc_2019_d13(io_handler: IOHandler) -> Iterator[ProblemSolution]:

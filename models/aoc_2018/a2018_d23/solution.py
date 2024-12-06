@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_nanobots
+
 from .nanobot import distance_of_position_with_strongest_signal
+from .parser import parse_nanobots
 
 
 def aoc_2018_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:

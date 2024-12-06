@@ -1,6 +1,8 @@
 import pytest
+
 from models.common.io import InputFromString
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
+
 from ..logic import LightBeam
 from ..parser import parse_mirror_contraption
 

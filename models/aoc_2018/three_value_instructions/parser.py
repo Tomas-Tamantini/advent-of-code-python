@@ -1,22 +1,24 @@
 from typing import Iterator
+
 from models.common.io import InputReader
+
 from .instructions import (
-    AddRegisters,
     AddImmediate,
-    MultiplyRegisters,
-    MultiplyImmediate,
-    BitwiseAndRegisters,
-    BitwiseAndImmediate,
-    BitwiseOrRegisters,
-    BitwiseOrImmediate,
-    AssignmentRegisters,
+    AddRegisters,
     AssignmentImmediate,
-    GreaterThanImmediateRegister,
-    GreaterThanRegisterImmediate,
-    GreaterThanRegisterRegister,
+    AssignmentRegisters,
+    BitwiseAndImmediate,
+    BitwiseAndRegisters,
+    BitwiseOrImmediate,
+    BitwiseOrRegisters,
     EqualImmediateRegister,
     EqualRegisterImmediate,
     EqualRegisterRegister,
+    GreaterThanImmediateRegister,
+    GreaterThanRegisterImmediate,
+    GreaterThanRegisterRegister,
+    MultiplyImmediate,
+    MultiplyRegisters,
     ThreeValueInstruction,
 )
 

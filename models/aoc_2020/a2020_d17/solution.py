@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 from models.common.vectors import VectorNDimensional
+
 from .hyper_game_of_life import HyperGameOfLife
 
 

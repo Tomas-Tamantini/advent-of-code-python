@@ -1,8 +1,10 @@
 from typing import Iterator
-from .volcano import Volcano
-from .volcano_worker import VolcanoWorker
-from .volcano_state import VolcanoState
+
 from models.common.optimization.branch_and_bound import maximize_with_branch_and_bound
+
+from .volcano import Volcano
+from .volcano_state import VolcanoState
+from .volcano_worker import VolcanoWorker
 
 
 class _VolcanoExplorer:

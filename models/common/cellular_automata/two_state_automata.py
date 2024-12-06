@@ -1,6 +1,7 @@
-from typing import Iterator, Protocol
 from collections import defaultdict
 from dataclasses import dataclass
+from typing import Iterator, Protocol
+
 from .multi_state_automata import Cell
 
 

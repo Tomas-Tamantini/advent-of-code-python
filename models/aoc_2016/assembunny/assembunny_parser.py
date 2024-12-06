@@ -1,9 +1,10 @@
-from models.common.io import InputReader
 from models.common.assembly import (
     CopyInstruction,
-    OutInstruction,
     JumpNotZeroInstruction,
+    OutInstruction,
 )
+from models.common.io import InputReader
+
 from .instructions import (
     DecrementInstruction,
     IncrementInstruction,

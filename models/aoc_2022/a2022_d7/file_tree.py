@@ -1,5 +1,5 @@
-from typing import Optional, Iterator
 from dataclasses import dataclass
+from typing import Iterator, Optional
 
 
 @dataclass(frozen=True)

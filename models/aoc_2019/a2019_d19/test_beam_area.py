@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+
 from .beam_area import BeamArea, run_beam_scanner, square_closest_to_beam_source
 
 

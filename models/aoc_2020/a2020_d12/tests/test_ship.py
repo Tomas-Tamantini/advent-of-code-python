@@ -1,12 +1,13 @@
-from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
 from ..ship import (
-    Ship,
-    MoveShipInstruction,
     MoveShipForwardInstruction,
-    TurnShipInstruction,
+    MoveShipInstruction,
     MoveTowardsWaypointInstruction,
     MoveWaypointInstruction,
     RotateWaypointInstruction,
+    Ship,
+    TurnShipInstruction,
 )
 
 

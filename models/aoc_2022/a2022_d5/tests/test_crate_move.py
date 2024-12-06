@@ -1,5 +1,6 @@
 import pytest
-from ..logic import Crate, MoveCratesOneAtATime, MoveCratesMultipleAtATime
+
+from ..logic import Crate, MoveCratesMultipleAtATime, MoveCratesOneAtATime
 
 
 @pytest.mark.parametrize("move_cls", [MoveCratesOneAtATime, MoveCratesMultipleAtATime])

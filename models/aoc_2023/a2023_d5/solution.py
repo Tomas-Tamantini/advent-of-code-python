@@ -1,13 +1,15 @@
-from typing import Iterator
 from math import inf
+from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.number_theory import Interval
+
+from .interval_mapper import CompositeIntervalMapper
 from .parser import (
     parse_maps,
     parse_seeds_as_intervals,
     parse_seeds_as_standalone_intervals,
 )
-from .interval_mapper import CompositeIntervalMapper
 
 
 def _minimum_output(mapper: CompositeIntervalMapper, seeds: list[Interval]) -> int:

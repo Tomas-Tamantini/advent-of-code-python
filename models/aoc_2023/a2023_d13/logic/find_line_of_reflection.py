@@ -1,7 +1,7 @@
 from .ash_valley import AshValley
 from .line_of_reflection import (
-    LineOfReflection,
     HorizontalLineOfReflection,
+    LineOfReflection,
     VerticalLineOfReflection,
 )
 

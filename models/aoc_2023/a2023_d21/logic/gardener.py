@@ -1,5 +1,7 @@
-from typing import Iterator, Iterable
+from typing import Iterable, Iterator
+
 from models.common.vectors import Vector2D
+
 from .garden import Garden
 
 

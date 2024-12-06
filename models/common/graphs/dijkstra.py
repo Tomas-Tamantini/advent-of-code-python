@@ -1,7 +1,8 @@
-from typing import Hashable, Protocol, Iterator, Union, runtime_checkable
-from math import inf
 from dataclasses import dataclass, field
+from math import inf
 from queue import PriorityQueue
+from typing import Hashable, Iterator, Protocol, Union, runtime_checkable
+
 from .graph import GraphProtocol, WeightedProtocol
 
 

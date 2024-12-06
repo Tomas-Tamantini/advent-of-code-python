@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_page_ordering_rules, parse_updates
+
 from .logic import PageOrderingRules
+from .parser import parse_page_ordering_rules, parse_updates
 
 
 def aoc_2024_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:

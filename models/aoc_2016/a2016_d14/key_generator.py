@@ -1,7 +1,7 @@
-from typing import Iterator
+from bisect import insort
 from dataclasses import dataclass
 from hashlib import md5
-from bisect import insort
+from typing import Iterator
 
 
 @dataclass

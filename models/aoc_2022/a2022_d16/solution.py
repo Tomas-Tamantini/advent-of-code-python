@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import Volcano, maximum_pressure_release
 from .parser import parse_valve_graph
-from .logic import maximum_pressure_release, Volcano
 
 
 def aoc_2022_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:

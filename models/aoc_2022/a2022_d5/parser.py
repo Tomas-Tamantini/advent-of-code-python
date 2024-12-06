@@ -1,8 +1,10 @@
+from collections import defaultdict
 from dataclasses import dataclass
 from typing import Iterator
-from collections import defaultdict
+
 from models.common.io import InputReader
-from .logic import Crate, MoveCratesOneAtATime, MoveCratesMultipleAtATime
+
+from .logic import Crate, MoveCratesMultipleAtATime, MoveCratesOneAtATime
 
 
 @dataclass

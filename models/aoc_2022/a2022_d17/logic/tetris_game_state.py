@@ -1,5 +1,7 @@
 from typing import Iterator
-from models.common.vectors import Vector2D, CardinalDirection
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .tetris_piece import TetrisPiece
 from .tetris_piece_generator import TetrisPieceGenerator
 from .wind_generator import WindGenerator

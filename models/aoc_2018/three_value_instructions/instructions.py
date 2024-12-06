@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Callable, Iterator, Optional
+
 from models.common.assembly import Hardware
 
 

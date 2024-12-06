@@ -1,12 +1,14 @@
 import pytest
+
 from models.common.vectors import CardinalDirection
+
 from .logic import (
-    MoveCommand,
-    TakeCommand,
-    DropCommand,
-    InventoryCommand,
     DroidInput,
     DroidOutput,
+    DropCommand,
+    InventoryCommand,
+    MoveCommand,
+    TakeCommand,
 )
 
 

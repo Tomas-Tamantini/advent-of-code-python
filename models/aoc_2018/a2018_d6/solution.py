@@ -1,7 +1,9 @@
 from math import inf
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
+
 from .voronoi import ManhattanVoronoi
 
 

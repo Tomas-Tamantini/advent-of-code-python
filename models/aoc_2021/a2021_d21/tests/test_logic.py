@@ -1,8 +1,8 @@
 from ..logic import (
-    play_deterministic_dirac_dice,
     DeterministicDiracGameResult,
     DiracDiceStartingConfiguration,
     QuantumDiracGame,
+    play_deterministic_dirac_dice,
 )
 
 

@@ -1,5 +1,7 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, InputReader
+
+from models.common.io import InputReader, IOHandler, Problem, ProblemSolution
+
 from .monkey import Monkeys
 from .parser import parse_monkeys
 

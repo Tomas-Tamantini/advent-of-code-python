@@ -1,4 +1,5 @@
-from models.common.vectors import Vector2D, CardinalDirection, TurnDirection
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
 from .hull_painting import (
     Hull,
     HullRobot,

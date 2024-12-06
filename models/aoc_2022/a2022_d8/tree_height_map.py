@@ -1,5 +1,6 @@
 from typing import Iterator
-from models.common.vectors import Vector2D, CardinalDirection
+
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 class TreeHeightMap:

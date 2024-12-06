@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_bridge_components
+
 from .bridge_builder import BridgeBuilder
+from .parser import parse_bridge_components
 
 
 def aoc_2017_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:

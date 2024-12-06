@@ -1,6 +1,8 @@
-from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
 from math import prod
+from typing import Iterator
+
+from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .packet_arrangement import possible_arrangements_of_packets_in_passenger_comparment
 
 

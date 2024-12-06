@@ -1,5 +1,6 @@
-from models.common.io import InputReader
 from models.common.graphs import Maze
+from models.common.io import InputReader
+
 from .logic import Valve
 
 

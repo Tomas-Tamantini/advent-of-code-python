@@ -1,8 +1,9 @@
 from collections import defaultdict
-from typing import Iterator
-from models.common.vectors import Vector2D
-from models.common.number_theory import gcd
 from math import atan2, pi
+from typing import Iterator
+
+from models.common.number_theory import gcd
+from models.common.vectors import Vector2D
 
 
 class AsteroidBelt:

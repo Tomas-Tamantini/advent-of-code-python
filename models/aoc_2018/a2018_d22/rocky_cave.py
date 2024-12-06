@@ -1,8 +1,9 @@
-from typing import Optional, Iterator
-from enum import Enum
-from models.common.vectors import Vector2D, CardinalDirection, BoundingBox
-from models.common.graphs import a_star
 from dataclasses import dataclass
+from enum import Enum
+from typing import Iterator, Optional
+
+from models.common.graphs import a_star
+from models.common.vectors import BoundingBox, CardinalDirection, Vector2D
 
 
 class _RegionType(int, Enum):

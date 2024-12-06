@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .celestial_body import CelestialBody
 
 

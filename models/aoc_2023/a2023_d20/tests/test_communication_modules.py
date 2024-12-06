@@ -1,4 +1,4 @@
-from ..logic import Pulse, PulseType, BroadcastModule, FlipFlopModule, ConjunctionModule
+from ..logic import BroadcastModule, ConjunctionModule, FlipFlopModule, Pulse, PulseType
 
 
 def test_broadcast_module_sends_signal_forward():

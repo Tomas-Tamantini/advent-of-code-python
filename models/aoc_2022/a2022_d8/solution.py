@@ -1,8 +1,10 @@
+from math import prod
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection, Vector2D
+
 from .tree_height_map import TreeHeightMap
-from math import prod
 
 
 def _scenic_score(position: Vector2D, tree_height_map: TreeHeightMap) -> int:

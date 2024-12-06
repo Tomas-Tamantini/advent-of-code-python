@@ -1,5 +1,6 @@
 import pytest
-from ..logic import MazePath, MazeEdge
+
+from ..logic import MazeEdge, MazePath
 
 
 def test_maze_path_checks_already_visited_nodes():

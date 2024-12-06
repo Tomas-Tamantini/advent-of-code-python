@@ -1,4 +1,5 @@
-from models.common.vectors import Vector2D, BoundingBox
+from models.common.vectors import BoundingBox, Vector2D
+
 from ..moving_particles import MovingParticle, MovingParticles
 
 

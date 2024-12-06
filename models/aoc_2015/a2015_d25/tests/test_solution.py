@@ -1,4 +1,4 @@
-from ..solution import row_and_col_to_index, code_at
+from ..solution import code_at, row_and_col_to_index
 
 
 def test_row_one_and_col_one_is_index_one():

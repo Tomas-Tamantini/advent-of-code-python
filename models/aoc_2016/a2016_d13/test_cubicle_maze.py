@@ -1,6 +1,9 @@
-import pytest
 from typing import Callable
+
+import pytest
+
 from models.common.vectors import Vector2D
+
 from .cubicle_maze import CubicleMaze, is_wall
 
 

@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_crab_combat_cards
+
 from .crab_combat import CrabCombat
+from .parser import parse_crab_combat_cards
 
 
 def aoc_2020_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:

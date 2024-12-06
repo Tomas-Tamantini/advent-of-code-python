@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from models.common.vectors import Vector2D, CardinalDirection
-from .logic import num_energized_tiles, LightBeam
+from models.common.vectors import CardinalDirection, Vector2D
+
+from .logic import LightBeam, num_energized_tiles
 from .parser import parse_mirror_contraption
 
 

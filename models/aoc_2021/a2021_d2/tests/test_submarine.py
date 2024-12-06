@@ -1,9 +1,10 @@
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
+
 from ..submarine import (
-    Submarine,
-    MoveSubmarineInstruction,
     IncrementAimInstruction,
+    MoveSubmarineInstruction,
     MoveSubmarineWithAimInstruction,
+    Submarine,
 )
 
 

@@ -1,14 +1,15 @@
 from models.common.assembly import (
-    Instruction,
-    MutableProgram,
-    CopyInstruction,
     AddInstruction,
+    CopyInstruction,
+    Instruction,
     JumpNotZeroInstruction,
+    MutableProgram,
 )
+
 from .instructions import (
-    IncrementInstruction,
-    DecrementInstruction,
     AddAndMultiplyInstruction,
+    DecrementInstruction,
+    IncrementInstruction,
 )
 
 

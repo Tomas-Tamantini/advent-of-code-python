@@ -1,7 +1,9 @@
 from datetime import datetime
+
 from models.common.io import InputFromString
-from ..parser import parse_guard_logs
+
 from ..napping_guard import GuardNap
+from ..parser import parse_guard_logs
 
 
 def test_parse_shuffled_guard_logs():

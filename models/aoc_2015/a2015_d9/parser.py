@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .city_router import CityRouter
 
 

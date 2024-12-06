@@ -1,5 +1,6 @@
-from .camel_hand import CamelHand, first_hand_beats_second
 from dataclasses import dataclass
+
+from .camel_hand import CamelHand, first_hand_beats_second
 
 
 @dataclass(frozen=True)

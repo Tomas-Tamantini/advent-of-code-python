@@ -1,7 +1,8 @@
 from typing import Iterable, Iterator
-from .workflow import Workflow
+
 from .machine_part_range import MachinePartRange
 from .machine_part_state import MachinePartState
+from .workflow import Workflow
 
 
 class WorkflowNetwork:

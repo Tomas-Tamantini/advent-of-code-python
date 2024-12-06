@@ -1,7 +1,8 @@
-from .characters import Wizard, Boss
-from .spell_effect import SpellEffect, ShieldEffect, PoisonEffect, RechargeEffect
-from .game_state import GameState
 from typing import Optional
+
+from .characters import Boss, Wizard
+from .game_state import GameState
+from .spell_effect import PoisonEffect, RechargeEffect, ShieldEffect, SpellEffect
 
 
 class GameMove:

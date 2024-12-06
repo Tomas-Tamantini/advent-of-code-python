@@ -1,8 +1,10 @@
-from dataclasses import dataclass
-from models.common.vectors import Vector2D, Vector3D, CardinalDirection
-from .cube_net import CubeNet
-from .cube_navigator import CubeNavigator
 from collections import defaultdict
+from dataclasses import dataclass
+
+from models.common.vectors import CardinalDirection, Vector2D, Vector3D
+
+from .cube_navigator import CubeNavigator
+from .cube_net import CubeNet
 
 
 @dataclass(frozen=True)

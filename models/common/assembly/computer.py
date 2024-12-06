@@ -1,6 +1,7 @@
 from typing import Hashable
-from .processor import Processor
+
 from .hardware import Hardware
+from .processor import Processor
 from .program import Program
 
 

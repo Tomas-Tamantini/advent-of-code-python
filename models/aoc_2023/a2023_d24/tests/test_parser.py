@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import Vector3D
+
 from ..logic import Hailstone
 from ..parser import parse_hailstones
 

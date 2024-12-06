@@ -1,5 +1,6 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, ProblemSolution
+
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def final_floor(instructions: str) -> int:

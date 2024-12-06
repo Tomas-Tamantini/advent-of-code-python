@@ -1,23 +1,24 @@
 from models.common.io import InputFromString
-from ..parser import parse_three_value_instructions
+
 from ..instructions import (
-    AddRegisters,
     AddImmediate,
-    MultiplyRegisters,
-    MultiplyImmediate,
-    BitwiseAndRegisters,
-    BitwiseAndImmediate,
-    BitwiseOrRegisters,
-    BitwiseOrImmediate,
-    AssignmentRegisters,
+    AddRegisters,
     AssignmentImmediate,
-    GreaterThanImmediateRegister,
-    GreaterThanRegisterImmediate,
-    GreaterThanRegisterRegister,
+    AssignmentRegisters,
+    BitwiseAndImmediate,
+    BitwiseAndRegisters,
+    BitwiseOrImmediate,
+    BitwiseOrRegisters,
     EqualImmediateRegister,
     EqualRegisterImmediate,
     EqualRegisterRegister,
+    GreaterThanImmediateRegister,
+    GreaterThanRegisterImmediate,
+    GreaterThanRegisterRegister,
+    MultiplyImmediate,
+    MultiplyRegisters,
 )
+from ..parser import parse_three_value_instructions
 
 
 def test_parse_three_value_instructions():

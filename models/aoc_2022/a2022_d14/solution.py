@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
-from .parser import parse_obstacles
+
 from .falling_sand import FallingSand
+from .parser import parse_obstacles
 
 
 def aoc_2022_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:

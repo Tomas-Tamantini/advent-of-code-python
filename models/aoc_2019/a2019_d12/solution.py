@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_3d_vectors
+
 from .moons import MoonOfJupiter, MoonSystem
+from .parser import parse_3d_vectors
 
 
 def aoc_2019_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:

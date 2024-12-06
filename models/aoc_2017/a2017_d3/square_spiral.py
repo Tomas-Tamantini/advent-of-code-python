@@ -1,5 +1,6 @@
+from math import floor, sqrt
 from typing import Iterator
-from math import sqrt, floor
+
 from models.common.vectors import Vector2D
 
 

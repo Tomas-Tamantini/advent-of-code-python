@@ -1,8 +1,10 @@
 from math import inf
-from typing import Iterator, Hashable
+from typing import Hashable, Iterator
+
 from models.common.graphs import WeightedDirectedGraph
-from .maze_path import MazePath
+
 from .maze_edge import MazeEdge
+from .maze_path import MazePath
 
 
 class MazeExplorer:

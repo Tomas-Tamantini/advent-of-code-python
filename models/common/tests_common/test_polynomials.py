@@ -1,6 +1,8 @@
-import pytest
-from ..polynomials import Polynomial, RationalFunction
 from fractions import Fraction
+
+import pytest
+
+from ..polynomials import Polynomial, RationalFunction
 
 
 def test_polynomials_with_the_same_coefficients_are_considered_equal():

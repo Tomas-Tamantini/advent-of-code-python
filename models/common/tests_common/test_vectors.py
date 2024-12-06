@@ -1,16 +1,18 @@
-import pytest
 from fractions import Fraction
+
+import pytest
+
 from models.common.vectors import (
-    CardinalDirection,
-    Vector2D,
-    TurnDirection,
     BoundingBox,
-    Vector3D,
-    VectorNDimensional,
-    HexagonalDirection,
     CanonicalHexagonalCoordinates,
+    CardinalDirection,
+    HexagonalDirection,
     Orientation,
     Polygon,
+    TurnDirection,
+    Vector2D,
+    Vector3D,
+    VectorNDimensional,
     solve_linear_system_exactly,
 )
 

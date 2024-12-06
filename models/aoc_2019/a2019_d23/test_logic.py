@@ -1,18 +1,21 @@
-import pytest
-from unittest import mock
 from typing import Optional
+from unittest import mock
+
+import pytest
+
 from models.common.vectors import Vector2D
+
 from .logic import (
-    NetworkPacket,
-    NetworkInput,
-    NetworkRouter,
-    NetworkOutput,
-    run_network,
-    LostPackets,
-    PacketMonitor,
     HaltNetworkError,
+    LostPackets,
     MonitorBadAddressPackets,
     MonitorRepeatedYValuePackets,
+    NetworkInput,
+    NetworkOutput,
+    NetworkPacket,
+    NetworkRouter,
+    PacketMonitor,
+    run_network,
 )
 
 

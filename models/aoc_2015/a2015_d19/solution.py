@@ -1,10 +1,12 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_molecule_replacements
+
 from .molecule import (
     molecules_after_one_replacement,
     num_replacements_from_atom_to_molecule,
 )
+from .parser import parse_molecule_replacements
 
 
 def aoc_2015_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:

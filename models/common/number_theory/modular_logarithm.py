@@ -1,4 +1,4 @@
-from math import sqrt, ceil
+from math import ceil, sqrt
 
 
 def modular_logarithm(number: int, base: int, mod: int) -> int:

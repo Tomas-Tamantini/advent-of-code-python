@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_nonogram_rows
+
 from .logic import num_arrangements_nonogram_row
+from .parser import parse_nonogram_rows
 
 
 def aoc_2023_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:

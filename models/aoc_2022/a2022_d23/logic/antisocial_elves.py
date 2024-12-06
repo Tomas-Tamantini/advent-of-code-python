@@ -1,6 +1,7 @@
-from typing import Iterable, Iterator, Optional
 from collections import defaultdict
-from models.common.vectors import Vector2D, CardinalDirection
+from typing import Iterable, Iterator, Optional
+
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 class AntisocialElves:

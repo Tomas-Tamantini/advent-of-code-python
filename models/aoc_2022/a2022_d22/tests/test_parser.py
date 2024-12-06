@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
-from models.common.vectors import Vector2D, TurnDirection
+from models.common.vectors import TurnDirection, Vector2D
+
 from ..parser import parse_cube_net_and_instructions
 
 

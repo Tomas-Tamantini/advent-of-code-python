@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Optional, Iterable
+from typing import Iterable, Optional
+
 from .army_group import ArmyGroup
 
 

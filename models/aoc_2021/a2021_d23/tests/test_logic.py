@@ -1,10 +1,12 @@
-import pytest
 from typing import Optional
+
+import pytest
+
 from ..logic import (
     Amphipod,
-    AmphipodRoom,
-    AmphipodHallway,
     AmphipodBurrow,
+    AmphipodHallway,
+    AmphipodRoom,
     AmphipodSorter,
 )
 

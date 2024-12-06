@@ -1,5 +1,7 @@
-from typing import Optional, Iterator
+from typing import Iterator, Optional
+
 from models.common.assembly import Instruction
+
 from .instruction_parser import parse_next_instruction
 
 

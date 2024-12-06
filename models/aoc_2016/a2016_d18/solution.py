@@ -1,6 +1,7 @@
-from typing import Optional, Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, ProgressBar
+from typing import Iterator, Optional
+
 from models.common.cellular_automata import ElementaryAutomaton
+from models.common.io import IOHandler, Problem, ProblemSolution, ProgressBar
 
 
 def num_safe_tiles(

@@ -1,5 +1,7 @@
 import pytest
+
 from models.common.vectors import Vector2D
+
 from .cylindrical_forest import CylindricalForest
 
 

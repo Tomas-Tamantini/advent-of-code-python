@@ -1,4 +1,4 @@
-from ..fabric_area import FabricRectangle, FabricArea
+from ..fabric_area import FabricArea, FabricRectangle
 
 
 def test_non_overlapping_rectangles_return_empty_intersection():

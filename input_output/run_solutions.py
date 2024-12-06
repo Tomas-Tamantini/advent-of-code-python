@@ -1,5 +1,5 @@
 import os
-from models.common.io import IOHandler, ExecutionFlags, ResultChecker
+
 from models.aoc_2015 import ALL_2015_SOLUTIONS
 from models.aoc_2016 import ALL_2016_SOLUTIONS
 from models.aoc_2017 import ALL_2017_SOLUTIONS
@@ -10,7 +10,9 @@ from models.aoc_2021 import ALL_2021_SOLUTIONS
 from models.aoc_2022 import ALL_2022_SOLUTIONS
 from models.aoc_2023 import ALL_2023_SOLUTIONS
 from models.aoc_2024 import ALL_2024_SOLUTIONS
-from .cli import InputFromTextFile, CliProgressBar, CliOutputWriter, JsonResultChecker
+from models.common.io import ExecutionFlags, IOHandler, ResultChecker
+
+from .cli import CliOutputWriter, CliProgressBar, InputFromTextFile, JsonResultChecker
 
 
 def _get_input_path(year: int, day: int) -> str:

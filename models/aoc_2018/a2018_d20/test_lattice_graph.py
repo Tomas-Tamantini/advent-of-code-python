@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+
 from .lattice_graph import build_lattice_graph
 
 

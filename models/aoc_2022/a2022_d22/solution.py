@@ -1,15 +1,17 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection, Vector2D
-from .parser import parse_cube_net_and_instructions
+
 from .logic import (
     BoardPiece,
-    PacmanEdgeMapper,
-    CubeEdgeMapper,
     CubeBoard,
-    ObstacleBoard,
+    CubeEdgeMapper,
     CubeNet,
+    ObstacleBoard,
+    PacmanEdgeMapper,
 )
+from .parser import parse_cube_net_and_instructions
 
 
 def _initial_position(cube_net: CubeNet, cube_size: int) -> Vector2D:

@@ -1,4 +1,5 @@
 from models.common.io import InputFromString
+
 from ..parser import parse_layered_firewall
 
 

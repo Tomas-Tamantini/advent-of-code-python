@@ -1,6 +1,7 @@
-from math import ceil
 from hashlib import md5
+from math import ceil
 from typing import Iterator, Optional
+
 from models.common.io import ProgressBar
 
 

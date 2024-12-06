@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_instructions_with_duration
+
 from .logic import RegisterHistory, SpriteScreen
+from .parser import parse_instructions_with_duration
 
 
 def aoc_2022_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:

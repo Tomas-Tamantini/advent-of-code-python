@@ -1,9 +1,11 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import (
     CaveGameBotAttackWeakest,
-    build_cave_game,
     CaveTeamSpec,
+    build_cave_game,
     optimal_game_for_elves,
 )
 

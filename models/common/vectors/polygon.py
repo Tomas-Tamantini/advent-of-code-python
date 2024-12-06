@@ -1,6 +1,8 @@
 from typing import Iterable, Iterator
-from .vector_2d import Vector2D
+
 from models.common.number_theory import gcd
+
+from .vector_2d import Vector2D
 
 
 class Polygon:

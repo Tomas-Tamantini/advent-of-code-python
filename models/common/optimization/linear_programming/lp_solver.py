@@ -1,10 +1,12 @@
 from typing import Iterator, Optional
+
 import numpy as np
 from scipy.optimize import linprog
-from .variable import VariableProtocol
+
 from .constraint import Constraint, ConstraintType
-from .objective_function import ObjectiveFunction
 from .lp_solution import MilpSolution
+from .objective_function import ObjectiveFunction
+from .variable import VariableProtocol
 
 
 class MilpSolver:

@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Iterator
 from hashlib import md5
-from models.common.vectors import Vector2D, CardinalDirection
+from typing import Iterator
+
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 @dataclass(frozen=True)

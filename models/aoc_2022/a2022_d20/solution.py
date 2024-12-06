@@ -1,5 +1,7 @@
 from typing import Iterable, Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .circular_encryption import mix_list
 
 

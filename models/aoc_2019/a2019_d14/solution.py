@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .chemical_reactions import ChemicalQuantity, ChemicalReactions
 from .parser import parse_chemical_reactions
-from .chemical_reactions import ChemicalReactions, ChemicalQuantity
 
 
 def aoc_2019_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:

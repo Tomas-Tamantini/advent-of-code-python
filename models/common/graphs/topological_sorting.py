@@ -1,4 +1,5 @@
-from typing import Iterator, Hashable, Optional, Callable
+from typing import Callable, Hashable, Iterator, Optional
+
 from .graph import DirectedGraphProtocol
 
 

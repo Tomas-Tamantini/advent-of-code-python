@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
-from .lumber_area import LumberArea, AcreType
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
+
+from .lumber_area import AcreType, LumberArea
 
 
 def aoc_2018_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:

@@ -1,9 +1,9 @@
 from ..logic import (
-    MultiplicationInstruction,
     DoInstruction,
     DontInstruction,
-    StackWithoutConditional,
+    MultiplicationInstruction,
     StackWithConditional,
+    StackWithoutConditional,
 )
 
 _INSTRUCTIONS = [

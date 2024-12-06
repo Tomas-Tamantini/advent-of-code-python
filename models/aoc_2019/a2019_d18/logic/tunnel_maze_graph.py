@@ -1,10 +1,10 @@
 from typing import Iterator
-from models.common.vectors import Vector2D
+
 from models.common.graphs import GridMaze
+from models.common.vectors import Vector2D
 
 
 class TunnelMazeGraph(GridMaze):
-
     def __init__(self) -> None:
         super().__init__()
         self._forbidden_nodes = set()

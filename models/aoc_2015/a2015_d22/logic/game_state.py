@@ -1,4 +1,4 @@
-from .characters import Boss, Wizard, CharactersState
+from .characters import Boss, CharactersState, Wizard
 from .spell_effect import SpellEffect, SpellEffectTimers
 
 

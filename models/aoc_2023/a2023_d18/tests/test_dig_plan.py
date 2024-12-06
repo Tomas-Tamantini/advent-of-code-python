@@ -1,4 +1,5 @@
 from models.common.vectors import CardinalDirection, Vector2D
+
 from ..dig_plan import DiggerInstruction, DigPlan
 
 

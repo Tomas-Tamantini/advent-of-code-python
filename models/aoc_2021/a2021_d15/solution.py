@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
+
 from .underwater_cave import UnderwaterCaveMaze
 
 

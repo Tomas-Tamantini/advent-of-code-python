@@ -1,5 +1,7 @@
-from typing import Iterator, Iterable
+from typing import Iterable, Iterator
+
 from models.common.io import InputReader
+
 from .boat_race import BoatRace
 
 

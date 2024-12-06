@@ -1,4 +1,5 @@
 from typing import Protocol
+
 from .cube_navigator import CubeNavigator
 
 

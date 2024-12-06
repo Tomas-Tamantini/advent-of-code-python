@@ -1,4 +1,5 @@
 from typing import Iterator
+
 from .machine_part_range import MachinePartRange
 from .machine_part_state import MachinePartState
 from .workflow_rules import WorkflowRule

@@ -1,6 +1,7 @@
 from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
-from .droid_output import DroidOutput
+
 from .droid_control import DroidControl
+from .droid_output import DroidOutput
 
 
 def run_droid_explore_program(instructions: list[int], control: DroidControl):

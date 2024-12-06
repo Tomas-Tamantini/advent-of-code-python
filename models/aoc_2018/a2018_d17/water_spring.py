@@ -1,8 +1,9 @@
-from enum import Enum
-from dataclasses import dataclass
-from typing import Optional, Iterator
 from collections import defaultdict
-from models.common.vectors import Vector2D, BoundingBox, CardinalDirection
+from dataclasses import dataclass
+from enum import Enum
+from typing import Iterator, Optional
+
+from models.common.vectors import BoundingBox, CardinalDirection, Vector2D
 
 
 class _SoilType(str, Enum):

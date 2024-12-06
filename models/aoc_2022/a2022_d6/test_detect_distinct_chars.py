@@ -1,4 +1,5 @@
 import pytest
+
 from .solution import detect_distinct_chars
 
 

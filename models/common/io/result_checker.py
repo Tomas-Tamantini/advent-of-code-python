@@ -1,6 +1,7 @@
-from typing import Protocol, Iterator, Optional
 from dataclasses import dataclass
-from .output_writer import ProblemSolution, Problem
+from typing import Iterator, Optional, Protocol
+
+from .output_writer import Problem, ProblemSolution
 
 
 @dataclass(frozen=True)

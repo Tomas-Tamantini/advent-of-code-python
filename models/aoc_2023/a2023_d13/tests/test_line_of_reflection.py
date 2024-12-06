@@ -1,5 +1,7 @@
 import pytest
+
 from models.common.io import CharacterGrid
+
 from ..logic import (
     AshValley,
     HorizontalLineOfReflection,

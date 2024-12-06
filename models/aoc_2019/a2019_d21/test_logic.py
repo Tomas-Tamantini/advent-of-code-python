@@ -1,10 +1,11 @@
 import pytest
+
 from .logic import (
-    SpringScriptInstruction,
-    SpringScriptInstructionType,
+    BeginDroidCommand,
     SpringDroidInput,
     SpringDroidOutput,
-    BeginDroidCommand,
+    SpringScriptInstruction,
+    SpringScriptInstructionType,
     run_spring_droid_program,
 )
 

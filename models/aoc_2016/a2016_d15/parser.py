@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .disc_system import DiscSystem, SpinningDisc
 
 

@@ -1,4 +1,4 @@
-from ..logic import Pulse, PulseType, PulseCounter, PulseHistory, LowPulseMonitor
+from ..logic import LowPulseMonitor, Pulse, PulseCounter, PulseHistory, PulseType
 
 
 def test_pulse_counter_counts_high_and_low_pulses():
@@ -36,13 +36,13 @@ def test_low_pulse_monitor_keeps_track_of_whether_all_monitored_modules_received
 
 
 def test_low_pulse_monitor_keeps_track_of_when_all_monitored_modules_received_low_pulse():
-    monitor = LowPulseMonitor(modules_to_monitor={"a", "b"})    
-    monitor.track(Pulse("x", "a", PulseType.HIGH))    
+    monitor = LowPulseMonitor(modules_to_monitor={"a", "b"})
+    monitor.track(Pulse("x", "a", PulseType.HIGH))
     monitor.increment_iteration()
-    monitor.track(Pulse("x", "a", PulseType.LOW))    
+    monitor.track(Pulse("x", "a", PulseType.LOW))
     monitor.increment_iteration()
-    monitor.track(Pulse("x", "a", PulseType.LOW))    
-    monitor.track(Pulse("x", "b", PulseType.HIGH))    
+    monitor.track(Pulse("x", "a", PulseType.LOW))
+    monitor.track(Pulse("x", "b", PulseType.HIGH))
     monitor.increment_iteration()
     monitor.track(Pulse("x", "b", PulseType.LOW))
     assert monitor.num_iterations_until_first_low_pulse() == {"a": 1, "b": 3}

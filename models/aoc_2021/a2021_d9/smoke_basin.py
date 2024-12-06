@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D
 from typing import Iterator
+
+from models.common.vectors import Vector2D
 
 
 class SmokeBasin:

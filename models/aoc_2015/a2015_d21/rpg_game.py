@@ -1,7 +1,7 @@
 from dataclasses import dataclass
+from itertools import combinations
 from math import ceil, inf
 from typing import Iterator
-from itertools import combinations
 
 
 @dataclass(frozen=True)

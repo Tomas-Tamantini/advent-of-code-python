@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import CubeNavigator, CubeNet, PacmanEdgeMapper, CubeEdgeMapper
+from models.common.vectors import CardinalDirection, Vector2D
+
+from ..logic import CubeEdgeMapper, CubeNavigator, CubeNet, PacmanEdgeMapper
 
 cube_sides = {
     "bottom": Vector2D(1, 1),

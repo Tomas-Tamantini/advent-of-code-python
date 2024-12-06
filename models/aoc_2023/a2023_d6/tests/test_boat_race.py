@@ -1,4 +1,5 @@
 import pytest
+
 from ..boat_race import BoatRace, number_of_ways_to_beat_boat_race_record
 
 

@@ -1,4 +1,5 @@
 from typing import Iterable
+
 from .cube_amount import CubeAmount
 
 

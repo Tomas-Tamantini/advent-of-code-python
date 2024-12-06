@@ -1,7 +1,9 @@
 import pytest
+
 from models.common.io import CharacterGrid
-from models.common.vectors import Vector2D, CardinalDirection
-from .logic import CruciblePath, CityMap, Crucible
+from models.common.vectors import CardinalDirection, Vector2D
+
+from .logic import CityMap, Crucible, CruciblePath
 
 
 def test_initial_crucible_starts_at_origin():

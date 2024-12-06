@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_cardinal_direction_instructions
+
 from .keypad import Keypad
+from .parser import parse_cardinal_direction_instructions
 
 
 def aoc_2016_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:

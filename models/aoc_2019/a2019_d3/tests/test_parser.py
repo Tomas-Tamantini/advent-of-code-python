@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import CardinalDirection
+
 from ..parser import parse_directions
 
 

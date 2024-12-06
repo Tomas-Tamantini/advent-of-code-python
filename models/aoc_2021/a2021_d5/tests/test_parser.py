@@ -1,7 +1,8 @@
 from models.common.io import InputFromString
 from models.common.vectors import Vector2D
-from ..parser import parse_line_segments
+
 from ..line_segment import LineSegment
+from ..parser import parse_line_segments
 
 
 def test_parse_line_segments():

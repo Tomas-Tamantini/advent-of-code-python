@@ -1,5 +1,7 @@
 import pytest
+
 from models.common.graphs import UndirectedGraph
+
 from ..logic import minimum_cut_partition
 
 

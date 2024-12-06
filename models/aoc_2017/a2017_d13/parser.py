@@ -1,5 +1,6 @@
 from models.common.io import InputReader
-from .layered_firewall import LayeredFirewall, FirewallLayer
+
+from .layered_firewall import FirewallLayer, LayeredFirewall
 
 
 def parse_layered_firewall(input_reader: InputReader) -> LayeredFirewall:

@@ -1,5 +1,6 @@
-from typing import Iterator
 from dataclasses import dataclass
+from typing import Iterator
+
 from .cardinal_directions import CardinalDirection
 
 

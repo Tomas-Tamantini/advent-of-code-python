@@ -1,5 +1,6 @@
 from models.common.vectors import Vector3D
-from ..logic import drop_bricks, Brick
+
+from ..logic import Brick, drop_bricks
 
 
 def test_brick_on_ground_stays_on_ground():

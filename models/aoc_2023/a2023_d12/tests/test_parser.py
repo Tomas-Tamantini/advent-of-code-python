@@ -1,4 +1,5 @@
 from models.common.io import InputFromString
+
 from ..logic import NonogramRow
 from ..parser import parse_nonogram_rows
 

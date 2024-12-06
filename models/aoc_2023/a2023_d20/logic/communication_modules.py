@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, Protocol
+
 from .pulse import Pulse, PulseType
 
 

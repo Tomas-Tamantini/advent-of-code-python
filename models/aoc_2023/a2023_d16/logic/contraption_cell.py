@@ -1,4 +1,5 @@
-from typing import Protocol, Iterator
+from typing import Iterator, Protocol
+
 from models.common.vectors import CardinalDirection
 
 

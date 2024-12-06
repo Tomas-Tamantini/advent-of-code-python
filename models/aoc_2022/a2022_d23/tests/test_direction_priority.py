@@ -1,4 +1,5 @@
 from models.common.vectors import CardinalDirection
+
 from ..logic import direction_priority
 
 

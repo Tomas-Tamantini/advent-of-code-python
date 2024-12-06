@@ -1,5 +1,6 @@
-from typing import Iterator
 from enum import Enum
+from typing import Iterator
+
 from .springscript_instruction import SpringScriptInstruction
 
 

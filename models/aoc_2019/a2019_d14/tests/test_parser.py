@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_chemical_reactions
+
 from ..chemical_reactions import ChemicalQuantity, ChemicalReaction
+from ..parser import parse_chemical_reactions
 
 
 def test_parse_chemical_reactions():

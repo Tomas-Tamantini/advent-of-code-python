@@ -1,11 +1,11 @@
 from models.common.io import InputFromString
 from models.common.number_theory import Interval
+
 from ..parser import (
     parse_maps,
-    parse_seeds_as_standalone_intervals,
     parse_seeds_as_intervals,
+    parse_seeds_as_standalone_intervals,
 )
-
 
 file_content = """seeds: 79 14 55 13
 

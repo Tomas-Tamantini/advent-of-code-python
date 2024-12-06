@@ -1,6 +1,8 @@
-from typing import Iterator
 from dataclasses import dataclass
-from models.common.vectors import Vector2D, CardinalDirection
+from typing import Iterator
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .patrol_area import PatrolArea
 from .patrol_guard import PatrolGuard
 

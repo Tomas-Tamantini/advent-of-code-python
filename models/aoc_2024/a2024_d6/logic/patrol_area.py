@@ -1,6 +1,8 @@
-from collections import defaultdict
 from bisect import bisect_left, insort_left
-from models.common.vectors import Vector2D, CardinalDirection
+from collections import defaultdict
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .patrol_guard import PatrolGuard
 
 

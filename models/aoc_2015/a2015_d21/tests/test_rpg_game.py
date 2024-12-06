@@ -1,4 +1,4 @@
-from ..rpg_game import Fighter, ItemAssortment, RpgItem, ItemShop
+from ..rpg_game import Fighter, ItemAssortment, ItemShop, RpgItem
 
 boss = Fighter(hit_points=12, damage=7, armor=2)
 

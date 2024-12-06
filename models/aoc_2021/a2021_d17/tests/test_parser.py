@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import BoundingBox, Vector2D
+
 from ..parser import parse_bounding_box
 
 

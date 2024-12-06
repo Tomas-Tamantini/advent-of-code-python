@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .logic import ProximitySensor
 from models.common.vectors import Vector2D
+
+from .logic import ProximitySensor
 
 
 def _parse_proximity_sensor(line: str) -> ProximitySensor:

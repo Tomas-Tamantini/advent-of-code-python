@@ -1,6 +1,8 @@
 from itertools import combinations
 from typing import Iterable, Iterator
+
 from models.common.graphs import DirectedGraph, topological_sorting
+
 from .page_ordering_rule import PageOrderingRule
 
 

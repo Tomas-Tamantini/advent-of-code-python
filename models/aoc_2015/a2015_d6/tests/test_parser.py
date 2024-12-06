@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_and_give_light_grid_instructions
+
 from ..light_grid import LightGridRegion
+from ..parser import parse_and_give_light_grid_instructions
 
 
 class MockLightGrid:

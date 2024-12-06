@@ -1,4 +1,4 @@
-from typing import Callable, Iterator, Iterable
+from typing import Callable, Iterable, Iterator
 
 
 def digits_are_increasing(n: int) -> bool:

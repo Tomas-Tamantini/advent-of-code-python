@@ -1,4 +1,5 @@
 import numpy as np
+
 from ..fractal_art import ArtBlock, FractalArt
 
 

@@ -1,12 +1,14 @@
+from dataclasses import dataclass
 from enum import Enum
 from typing import Iterator
-from dataclasses import dataclass
-from ..resource_type import ResourceType
+
 from models.common.optimization.linear_programming import (
-    VariableProtocol,
     BinaryVariable,
     ContinuousVariable,
+    VariableProtocol,
 )
+
+from ..resource_type import ResourceType
 
 
 class VariableClass(Enum):

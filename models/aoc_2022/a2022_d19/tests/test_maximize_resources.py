@@ -1,9 +1,10 @@
 import pytest
+
 from ..logic import (
-    ResourceType,
-    RobotCost,
     Blueprint,
     MiningState,
+    ResourceType,
+    RobotCost,
     max_num_resource,
 )
 

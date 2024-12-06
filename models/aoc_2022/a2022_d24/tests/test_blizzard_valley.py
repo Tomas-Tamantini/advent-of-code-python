@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D, CardinalDirection
-from ..logic import BlizzardValley, Blizzard
+from models.common.vectors import CardinalDirection, Vector2D
+
+from ..logic import Blizzard, BlizzardValley
 
 
 def _build_blizzard_valley(

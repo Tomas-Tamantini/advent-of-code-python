@@ -1,4 +1,5 @@
 import pytest
+
 from .solution import next_in_sequence, previous_in_sequence
 
 

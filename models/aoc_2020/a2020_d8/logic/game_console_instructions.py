@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from models.common.assembly import Hardware
 
 

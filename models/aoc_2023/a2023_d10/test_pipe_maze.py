@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D, CardinalDirection
 from models.common.io import CharacterGrid
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .pipe_maze import PipeMaze, PipeSegment
 
 

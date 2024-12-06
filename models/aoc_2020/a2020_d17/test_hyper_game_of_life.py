@@ -1,6 +1,9 @@
-import pytest
 from typing import Iterator
+
+import pytest
+
 from models.common.vectors import Vector3D
+
 from .hyper_game_of_life import HyperGameOfLife
 
 

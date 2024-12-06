@@ -1,23 +1,25 @@
-import pytest
-from unittest import mock
 from math import inf
+from unittest import mock
+
+import pytest
+
 from .logic import (
-    GameState,
     Boss,
-    Wizard,
+    BossMove,
     CharactersState,
+    Drain,
+    DrainWizardHealthEffect,
+    GameState,
+    MagicMissile,
+    Poison,
+    PoisonEffect,
+    Recharge,
+    RechargeEffect,
+    Shield,
+    ShieldEffect,
     SpellEffect,
     SpellEffectTimers,
-    ShieldEffect,
-    PoisonEffect,
-    RechargeEffect,
-    DrainWizardHealthEffect,
-    BossMove,
-    MagicMissile,
-    Drain,
-    Shield,
-    Poison,
-    Recharge,
+    Wizard,
     min_mana_to_defeat_boss,
 )
 

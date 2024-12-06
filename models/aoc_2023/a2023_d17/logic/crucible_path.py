@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.graphs import a_star
-from models.common.vectors import Vector2D, CardinalDirection
-from .crucible import Crucible
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .city_map import CityMap
+from .crucible import Crucible
 
 
 class CruciblePath:

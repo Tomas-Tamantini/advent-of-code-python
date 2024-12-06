@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import InputReader, CharacterGrid
+
+from models.common.io import CharacterGrid, InputReader
 from models.common.vectors import CardinalDirection
+
 from .logic import Blizzard, BlizzardValley
 
 

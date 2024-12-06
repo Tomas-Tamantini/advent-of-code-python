@@ -1,9 +1,11 @@
-from queue import PriorityQueue
 from math import inf
+from queue import PriorityQueue
 from typing import Iterator
+
 from models.common.vectors import Vector2D
+
+from .tunnel_maze_explorers import ExplorerMove, TunnelMazeExplorers
 from .tunnel_maze_graph import TunnelMazeGraph
-from .tunnel_maze_explorers import TunnelMazeExplorers, ExplorerMove
 
 
 class TunnelMaze:

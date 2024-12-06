@@ -1,4 +1,5 @@
-from typing import Iterator, Hashable, Callable
+from typing import Callable, Hashable, Iterator
+
 from .graph import GraphProtocol
 
 

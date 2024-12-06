@@ -1,4 +1,4 @@
-from .num_chars import num_chars_in_memory, num_chars_encoded
+from .num_chars import num_chars_encoded, num_chars_in_memory
 
 
 def test_first_and_last_quote_are_ignored():

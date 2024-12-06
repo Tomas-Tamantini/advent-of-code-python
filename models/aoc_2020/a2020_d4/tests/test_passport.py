@@ -1,12 +1,13 @@
 from unittest.mock import Mock
+
 from ..passport import (
-    passport_is_valid,
-    RangeRule,
-    BelongsToSetRule,
-    HeightRule,
-    HairColorRule,
-    PassportIdRule,
     PASSPORT_RULES,
+    BelongsToSetRule,
+    HairColorRule,
+    HeightRule,
+    PassportIdRule,
+    RangeRule,
+    passport_is_valid,
 )
 
 

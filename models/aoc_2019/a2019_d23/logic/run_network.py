@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.common.assembly import Hardware, Processor, Computer
+
 from models.aoc_2019.intcode import IntcodeProgram
-from .network_router import NetworkRouter
-from .network_output import NetworkOutput
+from models.common.assembly import Computer, Hardware, Processor
+
 from .lost_packets import LostPackets
+from .network_output import NetworkOutput
+from .network_router import NetworkRouter
 from .packet_monitor import HaltNetworkError
 
 

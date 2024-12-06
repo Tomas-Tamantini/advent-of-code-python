@@ -1,12 +1,14 @@
-import pytest
 from unittest.mock import Mock
+
+import pytest
+
 from models.common.assembly import (
     Computer,
-    Processor,
-    Program,
+    ContextFreeGrammar,
     Hardware,
     ImmutableProgram,
-    ContextFreeGrammar,
+    Processor,
+    Program,
 )
 
 
@@ -44,9 +46,9 @@ def test_program_instructions_are_executed_until_end_of_program():
 
     class IncrementInstruction:
         def execute(self, hardware):
-            hardware.processor.registers[
-                "a"
-            ] += hardware.processor.get_value_or_immediate("b")
+            hardware.processor.registers["a"] += (
+                hardware.processor.get_value_or_immediate("b")
+            )
             hardware.increment_program_counter()
 
     class OutputInstruction:

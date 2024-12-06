@@ -1,5 +1,6 @@
 import pytest
-from .snail_fish import SnailfishNode, SnailfishLeaf, SnailFishTree
+
+from .snail_fish import SnailfishLeaf, SnailfishNode, SnailFishTree
 
 
 def test_snailfish_leaf_magnitude_is_its_value():

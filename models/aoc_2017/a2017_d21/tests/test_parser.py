@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_art_block_rules, parse_art_block
+
 from ..fractal_art import FractalArt
+from ..parser import parse_art_block, parse_art_block_rules
 
 
 def test_parse_art_block():

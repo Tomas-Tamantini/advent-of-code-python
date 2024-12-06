@@ -1,4 +1,5 @@
 import pytest
+
 from .fuel_requirement import fuel_requirement
 
 

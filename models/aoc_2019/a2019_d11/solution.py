@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
+
 from .hull_painting import Hull, run_hull_painting_program
 
 

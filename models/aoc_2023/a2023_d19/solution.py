@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.number_theory import Interval
+
 from .logic import MachinePartRange, WorkflowNetwork
-from .parser import parse_workflows, parse_machine_part_ranges
+from .parser import parse_machine_part_ranges, parse_workflows
 
 
 def aoc_2023_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:

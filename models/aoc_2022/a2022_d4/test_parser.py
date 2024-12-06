@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.number_theory import Interval
+
 from .parser import parse_interval_pairs
 
 

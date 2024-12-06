@@ -1,9 +1,9 @@
-from typing import Hashable, Protocol, Callable
-from math import inf
 from dataclasses import dataclass, field
+from math import inf
 from queue import PriorityQueue
+from typing import Callable, Hashable, Protocol
+
 from .dijkstra import WeightedGraph
-from dataclasses import dataclass
 
 
 class AStarGraphProtocol(WeightedGraph, Protocol):

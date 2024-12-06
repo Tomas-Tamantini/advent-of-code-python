@@ -1,7 +1,8 @@
-from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
-from ..parser import parse_forest_map
+from models.common.vectors import Vector2D
+
 from ..logic import max_length_non_repeating_path
+from ..parser import parse_forest_map
 
 _MAZE = """
         #.#####################

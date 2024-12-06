@@ -1,4 +1,5 @@
 from queue import Queue
+
 from .network_packet import NetworkPacket
 
 

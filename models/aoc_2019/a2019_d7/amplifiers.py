@@ -1,5 +1,5 @@
-from models.common.assembly import Hardware, Processor, Computer
 from models.aoc_2019.intcode import IntcodeProgram
+from models.common.assembly import Computer, Hardware, Processor
 
 
 class AmplifierIO:

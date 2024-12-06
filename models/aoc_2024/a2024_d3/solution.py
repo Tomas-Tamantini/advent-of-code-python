@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .logic import parse_program, StackWithConditional, StackWithoutConditional
+
+from .logic import StackWithConditional, StackWithoutConditional, parse_program
 
 
 def aoc_2024_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:

@@ -1,8 +1,9 @@
 from math import sqrt
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
-from models.common.assembly import Processor, ImmutableProgram, Computer
+
 from models.aoc_2018.three_value_instructions import parse_three_value_instructions
+from models.common.assembly import Computer, ImmutableProgram, Processor
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def optimized_sum_divisors_program(a: int, b: int) -> int:

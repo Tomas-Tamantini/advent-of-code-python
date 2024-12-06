@@ -1,5 +1,5 @@
-from typing import Hashable
 from collections import defaultdict
+from typing import Hashable
 
 
 class ContextFreeGrammar:

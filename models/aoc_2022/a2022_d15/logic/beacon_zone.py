@@ -1,6 +1,8 @@
 from itertools import combinations
 from typing import Iterable, Iterator
+
 from models.common.vectors import BoundingBox, Vector2D
+
 from .proximity_sensor import ProximitySensor
 
 

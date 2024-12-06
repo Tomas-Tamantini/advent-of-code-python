@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import find_and_run_game_console_which_terminates, run_game_console
 from .parser import parse_game_console_instructions
-from .logic import run_game_console, find_and_run_game_console_which_terminates
 
 
 def aoc_2020_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:

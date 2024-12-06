@@ -1,5 +1,7 @@
 from fractions import Fraction
+
 from models.common.number_theory import gcd
+
 from .polynomial import Polynomial
 
 

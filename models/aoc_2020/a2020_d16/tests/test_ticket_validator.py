@@ -1,4 +1,5 @@
 from models.common.number_theory import Interval
+
 from ..ticket_validator import TicketFieldValidator, TicketValidator
 
 

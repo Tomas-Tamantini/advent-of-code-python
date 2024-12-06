@@ -1,6 +1,7 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.aoc_2019.a2019_d5.air_conditioner import run_air_conditioner_program
+from models.common.io import IOHandler, Problem, ProblemSolution
 
 
 def aoc_2019_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:

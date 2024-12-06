@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_bus_schedules_and_current_timestamp
+
 from ..bus_schedule import BusSchedule
+from ..parser import parse_bus_schedules_and_current_timestamp
 
 
 def test_parse_bus_schedules_and_current_timestamp():

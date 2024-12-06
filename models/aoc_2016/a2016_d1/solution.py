@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection
+
 from .parser import parse_turtle_instructions
 from .turtle import Turtle
 

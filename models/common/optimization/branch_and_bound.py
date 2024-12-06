@@ -1,5 +1,5 @@
 from math import inf
-from typing import Hashable, Protocol, Iterator
+from typing import Hashable, Iterator, Protocol
 
 
 class _StateExplorer(Protocol):

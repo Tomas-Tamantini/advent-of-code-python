@@ -1,6 +1,8 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
-from .logic import Gardener, BoundedGarden, InfiniteGarden
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
+
+from .logic import BoundedGarden, Gardener, InfiniteGarden
 
 
 def _extrapolate_parabola(first_terms: tuple[int, int, int], desired_index: int) -> int:

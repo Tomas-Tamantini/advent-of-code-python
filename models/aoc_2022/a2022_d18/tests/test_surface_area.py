@@ -1,6 +1,8 @@
 import pytest
+
 from models.common.vectors import Vector3D
-from ..logic import total_surface_area, external_surface_area
+
+from ..logic import external_surface_area, total_surface_area
 
 
 @pytest.mark.parametrize("area_func", [total_surface_area, external_surface_area])

@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_scratchcards
 from .scratchcard import number_of_cards_after_prizes
 

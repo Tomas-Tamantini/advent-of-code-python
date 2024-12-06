@@ -1,6 +1,9 @@
-from typing import Protocol, Hashable
+from typing import Hashable, Protocol
+
 import numpy as np
+
 from models.common.vectors import CardinalDirection
+
 from .jigsaw_piece_orientation import JigsawPieceOrientation
 
 

@@ -1,6 +1,6 @@
-from dataclasses import dataclass
 from collections import defaultdict
-from typing import Protocol, Optional, Iterator
+from dataclasses import dataclass
+from typing import Iterator, Optional, Protocol
 
 
 @dataclass(frozen=True)

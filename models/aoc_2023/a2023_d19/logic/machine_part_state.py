@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from .machine_part_range import MachinePartRange
 
 

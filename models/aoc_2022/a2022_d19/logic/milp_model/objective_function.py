@@ -1,4 +1,5 @@
 from models.common.optimization.linear_programming import ObjectiveFunction
+
 from ..resource_type import ResourceType
 from .variables import VariableClass, VariableId
 

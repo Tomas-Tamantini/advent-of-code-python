@@ -1,9 +1,11 @@
 from typing import Iterator
+
 from models.common.io import InputReader
+
 from .password_policy import (
     PasswordPolicy,
-    RangePasswordPolicy,
     PositionalPasswordPolicy,
+    RangePasswordPolicy,
 )
 
 

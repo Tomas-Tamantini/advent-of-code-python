@@ -1,6 +1,8 @@
 from fractions import Fraction
-from models.common.polynomials import RationalFunction, Polynomial
-from ..operation_monkeys import LeafMonkey, BinaryOperationMonkey
+
+from models.common.polynomials import Polynomial, RationalFunction
+
+from ..operation_monkeys import BinaryOperationMonkey, LeafMonkey
 
 
 def test_leaf_monkey_substitutes_x_for_zero_in_its_evaluation():

@@ -1,7 +1,8 @@
 from models.common.io import InputFromString
 from models.common.vectors import Vector2D
-from ..parser import parse_positions_and_fold_instructions
+
 from ..fold_instruction import FoldInstruction
+from ..parser import parse_positions_and_fold_instructions
 
 
 def test_parse_positions_and_fold_instructions():

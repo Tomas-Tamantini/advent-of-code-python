@@ -1,6 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from models.common.vectors import HexagonalDirection, CanonicalHexagonalCoordinates
+from models.common.vectors import CanonicalHexagonalCoordinates, HexagonalDirection
 
 
 def aoc_2017_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:

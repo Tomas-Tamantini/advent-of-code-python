@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import external_surface_area, total_surface_area
 from .parser import parse_cube_positions
-from .logic import total_surface_area, external_surface_area
 
 
 def aoc_2022_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:

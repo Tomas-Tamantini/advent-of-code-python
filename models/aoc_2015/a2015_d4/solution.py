@@ -1,5 +1,6 @@
 from hashlib import md5
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 
 

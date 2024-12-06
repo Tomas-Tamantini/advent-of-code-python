@@ -1,5 +1,5 @@
-from models.common.io import InputReader
 from models.common.graphs import UndirectedGraph
+from models.common.io import InputReader
 
 
 def _parse_edges(line: str, graph: UndirectedGraph) -> None:

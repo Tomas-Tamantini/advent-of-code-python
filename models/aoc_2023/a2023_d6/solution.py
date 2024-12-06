@@ -1,8 +1,10 @@
-from typing import Iterator, Iterable
 from math import prod
+from typing import Iterable, Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .boat_race import BoatRace, number_of_ways_to_beat_boat_race_record
 from .parser import parse_boat_races
-from .boat_race import number_of_ways_to_beat_boat_race_record, BoatRace
 
 
 def _product(races: Iterable[BoatRace]) -> int:

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator
-from models.common.vectors import Vector3D, Vector2D
+
+from models.common.vectors import Vector2D, Vector3D
 
 
 @dataclass(frozen=True)

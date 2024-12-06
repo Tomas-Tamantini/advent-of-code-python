@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from .gcd_and_lcm import are_coprime
 
 

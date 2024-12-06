@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
+from ..conditional_increment import ComparisonOperator, ConditionalIncrementInstruction
 from ..parser import parse_conditional_increment_instructions
-from ..conditional_increment import ConditionalIncrementInstruction, ComparisonOperator
 
 
 def test_parse_conditional_increment_instructions():

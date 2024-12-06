@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_amphipod_burrow
+
 from ..logic import Amphipod, AmphipodRoom
+from ..parser import parse_amphipod_burrow
 
 
 def test_parse_amphipod_burrow():

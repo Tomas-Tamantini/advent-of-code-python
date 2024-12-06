@@ -1,21 +1,23 @@
-import pytest
 from math import inf
-from models.common.vectors import Vector2D
+
+import pytest
+
 from models.common.graphs import (
-    min_path_length_with_bfs,
+    DirectedGraph,
+    DisjointSet,
+    GridMaze,
+    Maze,
+    UndirectedGraph,
+    WeightedDirectedGraph,
+    WeightedUndirectedGraph,
+    a_star,
+    dijkstra,
     explore_with_bfs,
+    min_path_length_with_bfs,
     topological_sorting,
     travelling_salesman,
-    UndirectedGraph,
-    DirectedGraph,
-    WeightedUndirectedGraph,
-    WeightedDirectedGraph,
-    dijkstra,
-    a_star,
-    DisjointSet,
-    Maze,
-    GridMaze,
 )
+from models.common.vectors import Vector2D
 
 
 def test_mutable_undirected_graph_starts_empty():

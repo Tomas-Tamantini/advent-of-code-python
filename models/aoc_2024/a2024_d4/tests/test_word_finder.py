@@ -1,5 +1,6 @@
-from models.common.vectors import Vector2D
 from models.common.io import CharacterGrid
+from models.common.vectors import Vector2D
+
 from ..logic import WordPosition, find_words, find_x_shaped_words
 
 

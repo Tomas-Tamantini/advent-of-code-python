@@ -1,4 +1,5 @@
 import pytest
+
 from .solution import first_frequency_to_be_reached_twice
 
 

@@ -1,6 +1,8 @@
 from typing import Optional
-from models.common.vectors import Vector2D
+
 from models.common.io import CharacterGrid
+from models.common.vectors import Vector2D
+
 from ..falling_sand import FallingSand
 
 

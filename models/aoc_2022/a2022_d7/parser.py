@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .file_tree import FileTree, File
+
+from .file_tree import File, FileTree
 
 
 def _non_ls_lines(input_reader: InputReader) -> Iterator[str]:

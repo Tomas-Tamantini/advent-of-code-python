@@ -1,19 +1,21 @@
 from typing import Iterator
+
+from models.aoc_2015.a2015_d21.parser import parse_rpg_boss
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import (
-    Wizard,
     Boss,
     BossMove,
+    Drain,
+    DrainWizardHealthEffect,
     GameState,
     MagicMissile,
-    Drain,
-    Shield,
     Poison,
     Recharge,
-    DrainWizardHealthEffect,
+    Shield,
+    Wizard,
     min_mana_to_defeat_boss,
 )
-from models.aoc_2015.a2015_d21.parser import parse_rpg_boss
 
 
 def aoc_2015_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:

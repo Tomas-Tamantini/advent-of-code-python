@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .logic import InitializationStep, RemoveLens, InsertLens, Lens
+
+from .logic import InitializationStep, InsertLens, Lens, RemoveLens
 
 
 def _parse_initialization_step(step_str: str) -> InitializationStep:

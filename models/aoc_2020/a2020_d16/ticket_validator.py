@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import Iterator, Optional
+
 from models.common.number_theory import Interval
 
 

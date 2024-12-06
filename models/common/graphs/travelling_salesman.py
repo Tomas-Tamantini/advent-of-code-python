@@ -1,5 +1,5 @@
-from typing import Hashable
 from itertools import permutations
+from typing import Hashable
 
 
 def _total_distance(

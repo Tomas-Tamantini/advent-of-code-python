@@ -1,18 +1,20 @@
 from typing import Iterator
-from models.common.io import InputReader
+
 from models.common.assembly import (
-    Instruction,
-    CopyInstruction,
-    OutInstruction,
-    JumpNotZeroInstruction,
-    JumpGreaterThanZeroInstruction,
     AddInstruction,
+    CopyInstruction,
+    Instruction,
+    JumpGreaterThanZeroInstruction,
+    JumpNotZeroInstruction,
+    OutInstruction,
     SubtractInstruction,
 )
+from models.common.io import InputReader
+
 from .duet_code import (
     MultiplyInstruction,
-    RemainderInstruction,
     RecoverLastFrequencyInstruction,
+    RemainderInstruction,
 )
 
 

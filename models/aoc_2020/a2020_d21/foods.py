@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Iterator, Optional
 from enum import Enum
+from typing import Iterator, Optional
+
 import numpy as np
 
 

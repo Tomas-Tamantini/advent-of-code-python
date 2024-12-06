@@ -1,7 +1,9 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
-from .parser import parse_jigsaw_pieces
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
+
 from .logic import solve_jigsaw
+from .parser import parse_jigsaw_pieces
 
 
 def aoc_2020_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:

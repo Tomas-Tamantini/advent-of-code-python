@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import LineOfReflection, ReflectionOrientation, find_line_of_reflection
 from .parser import parse_ash_valleys
-from .logic import ReflectionOrientation, find_line_of_reflection, LineOfReflection
 
 
 def _line_of_reflection_summary(line_of_reflection: LineOfReflection) -> int:

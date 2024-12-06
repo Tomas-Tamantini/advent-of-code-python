@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_rpg_boss
-from .rpg_game import Fighter, ItemAssortment, RpgItem, ItemShop
+from .rpg_game import Fighter, ItemAssortment, ItemShop, RpgItem
 
 
 def aoc_2015_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:

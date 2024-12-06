@@ -1,8 +1,10 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution
+
 from models.common.graphs import topological_sorting
-from .parser import parse_directed_graph
+from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .jobshop import time_to_complete_jobs
+from .parser import parse_directed_graph
 
 
 def aoc_2018_d7(io_handler: IOHandler) -> Iterator[ProblemSolution]:

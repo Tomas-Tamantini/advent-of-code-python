@@ -1,5 +1,7 @@
 import pytest
+
 from models.common.assembly import Hardware, Processor
+
 from ..conditional_increment import (
     ComparisonOperator,
     ConditionalIncrementInstruction,

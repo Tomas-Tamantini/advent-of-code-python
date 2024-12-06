@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_conditional_increment_instructions
+
 from .conditional_increment import maximum_value_at_registers
+from .parser import parse_conditional_increment_instructions
 
 
 def aoc_2017_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:

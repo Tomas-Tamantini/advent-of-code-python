@@ -1,5 +1,6 @@
-from .report_safety import report_is_safe
 import pytest
+
+from .report_safety import report_is_safe
 
 
 @pytest.mark.parametrize("good_report", [tuple(), (1,)])

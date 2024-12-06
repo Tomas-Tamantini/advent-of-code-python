@@ -1,8 +1,9 @@
-from typing import Iterator, Optional
 from enum import Enum
-from models.common.vectors import Vector2D, CardinalDirection
-from models.common.graphs import min_path_length_with_bfs, explore_with_bfs
+from typing import Iterator, Optional
+
 from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
+from models.common.graphs import explore_with_bfs, min_path_length_with_bfs
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 class CellType(Enum):

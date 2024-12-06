@@ -1,5 +1,6 @@
+from models.common.vectors import CardinalDirection, Vector2D
+
 from ..logic import TetrisPiece
-from models.common.vectors import Vector2D, CardinalDirection
 
 
 def _example_piece():

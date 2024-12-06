@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Iterator
 from math import inf
-from models.common.vectors import Vector2D, CardinalDirection, BoundingBox
+from typing import Iterator
+
+from models.common.vectors import BoundingBox, CardinalDirection, Vector2D
 
 
 @dataclass(frozen=True)

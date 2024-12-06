@@ -1,12 +1,13 @@
-from typing import Iterator, Optional
 from dataclasses import dataclass
-from models.common.vectors import Vector2D, CardinalDirection
+from typing import Iterator, Optional
+
 from models.common.cellular_automata import (
     Bounded2DAutomaton,
     TwoStateCellVicinity,
     two_state_automaton_next_state,
 )
 from models.common.io import ProgressBar
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 def _bugs_automaton_rule(vicinity: TwoStateCellVicinity) -> bool:

@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_fabric_rectangles
+
 from .fabric_area import FabricArea
+from .parser import parse_fabric_rectangles
 
 
 def aoc_2018_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:

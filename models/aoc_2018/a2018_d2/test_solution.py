@@ -1,4 +1,5 @@
 import pytest
+
 from .solution import contains_exactly_n_of_any_letter, differing_indices
 
 

@@ -1,4 +1,5 @@
 from itertools import permutations
+
 from models.common.graphs import WeightedUndirectedGraph
 
 

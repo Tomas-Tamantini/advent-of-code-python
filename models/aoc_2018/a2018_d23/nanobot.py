@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from models.common.vectors import Vector3D
 
 

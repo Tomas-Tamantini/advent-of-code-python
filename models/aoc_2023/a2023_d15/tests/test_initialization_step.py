@@ -1,5 +1,6 @@
 from unittest.mock import Mock
-from ..logic import RemoveLens, InsertLens, LensBox, Lens
+
+from ..logic import InsertLens, Lens, LensBox, RemoveLens
 
 
 def test_remove_lens_is_properly_converted_to_str():

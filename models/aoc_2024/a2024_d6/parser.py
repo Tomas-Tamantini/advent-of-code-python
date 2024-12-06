@@ -1,6 +1,7 @@
 from models.common.io import CharacterGrid
 from models.common.vectors import CardinalDirection
-from .logic import PatrolGuard, PatrolArea
+
+from .logic import PatrolArea, PatrolGuard
 
 
 def parse_patrol_area(character_grid: CharacterGrid) -> PatrolArea:

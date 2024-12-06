@@ -1,6 +1,7 @@
-from models.common.vectors import Vector2D
-from models.common.graphs import explore_with_bfs, travelling_salesman
 from typing import Iterator
+
+from models.common.graphs import explore_with_bfs, travelling_salesman
+from models.common.vectors import Vector2D
 
 
 class AirDuctMaze:

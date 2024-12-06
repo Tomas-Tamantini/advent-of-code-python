@@ -1,4 +1,5 @@
 import pytest
+
 from .hot_chocolate import HotChocolateRecipeScores
 
 

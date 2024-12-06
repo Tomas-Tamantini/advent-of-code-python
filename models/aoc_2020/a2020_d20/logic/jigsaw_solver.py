@@ -1,9 +1,11 @@
-from typing import Optional
-from math import inf
 from dataclasses import dataclass
-from models.common.vectors import Vector2D, CardinalDirection
-from .jigsaw_piece_orientation import JigsawPieceOrientation
+from math import inf
+from typing import Optional
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .jigsaw_piece import JigsawPiece
+from .jigsaw_piece_orientation import JigsawPieceOrientation
 from .solved_jigsaw import SolvedJigsaw
 
 

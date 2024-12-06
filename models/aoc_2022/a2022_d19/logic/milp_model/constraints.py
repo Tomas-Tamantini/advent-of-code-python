@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.optimization.linear_programming import Constraint, ConstraintType
-from ..resource_type import ResourceType
+
 from ..blueprint import Blueprint
 from ..mining_state import MiningState
+from ..resource_type import ResourceType
 from .variables import VariableClass, VariableId
 
 

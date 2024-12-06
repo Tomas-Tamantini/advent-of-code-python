@@ -1,7 +1,9 @@
 from typing import Iterator
-from models.common.io import InputReader
+
 from models.common.assembly import Instruction
-from .logic import JumpOrNoOpInstruction, IncrementGlobalAccumulatorInstruction
+from models.common.io import InputReader
+
+from .logic import IncrementGlobalAccumulatorInstruction, JumpOrNoOpInstruction
 
 
 def _parse_game_console_instruction(instruction: str) -> Instruction:

@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_blueprints
+
 from ..logic import ResourceType
+from ..parser import parse_blueprints
 
 
 def test_parse_blueprints():

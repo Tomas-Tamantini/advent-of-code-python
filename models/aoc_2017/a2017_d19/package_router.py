@@ -1,6 +1,7 @@
 from typing import Iterator
-from models.common.vectors import Vector2D, CardinalDirection
+
 from models.common.graphs import explore_with_bfs
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 class PackageRouter:

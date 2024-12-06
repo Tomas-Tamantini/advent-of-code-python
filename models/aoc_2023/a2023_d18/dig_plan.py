@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterable, Iterator
-from models.common.vectors import CardinalDirection, Vector2D, Polygon
+
+from models.common.vectors import CardinalDirection, Polygon, Vector2D
 
 
 @dataclass(frozen=True)

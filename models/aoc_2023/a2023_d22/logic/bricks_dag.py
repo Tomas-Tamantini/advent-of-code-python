@@ -2,6 +2,7 @@ from collections import defaultdict
 from itertools import combinations
 from queue import Queue
 from typing import Iterator
+
 from .brick import Brick
 
 

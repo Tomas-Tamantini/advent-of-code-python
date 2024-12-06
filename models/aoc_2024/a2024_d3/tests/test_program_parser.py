@@ -1,8 +1,8 @@
 from ..logic import (
-    parse_program,
-    MultiplicationInstruction,
     DoInstruction,
     DontInstruction,
+    MultiplicationInstruction,
+    parse_program,
 )
 
 

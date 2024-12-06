@@ -1,5 +1,7 @@
-from typing import Iterator, Iterable
-from models.common.io import InputReader, CharacterGrid
+from typing import Iterable, Iterator
+
+from models.common.io import CharacterGrid, InputReader
+
 from .logic import AshValley
 
 

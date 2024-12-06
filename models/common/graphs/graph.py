@@ -1,6 +1,6 @@
-from typing import Protocol, Hashable, Iterator
 from collections import defaultdict
 from math import inf
+from typing import Hashable, Iterator, Protocol
 
 
 class GraphProtocol(Protocol):

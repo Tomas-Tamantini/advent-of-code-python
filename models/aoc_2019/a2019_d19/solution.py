@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .beam_area import BeamArea, run_beam_scanner, square_closest_to_beam_source
 
 

@@ -1,7 +1,9 @@
 from typing import Iterator
-from models.common.io import IOHandler, Problem, ProblemSolution, CharacterGrid
-from .pipe_maze import PipeMaze
+
+from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 from models.common.vectors import Polygon
+
+from .pipe_maze import PipeMaze
 
 
 def aoc_2023_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:

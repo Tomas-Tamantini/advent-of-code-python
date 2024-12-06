@@ -1,4 +1,5 @@
 import pytest
+
 from .josephus import josephus, modified_josephus
 
 

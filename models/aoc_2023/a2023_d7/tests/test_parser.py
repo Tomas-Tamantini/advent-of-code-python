@@ -1,7 +1,9 @@
 import pytest
+
 from models.common.io import InputFromString
-from ..parser import parse_camel_bids
+
 from ..logic import HandRank
+from ..parser import parse_camel_bids
 
 
 @pytest.mark.parametrize("include_joker", [True, False])

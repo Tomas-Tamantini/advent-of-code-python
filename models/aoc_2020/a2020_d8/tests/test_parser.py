@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
+from ..logic import IncrementGlobalAccumulatorInstruction, JumpOrNoOpInstruction
 from ..parser import parse_game_console_instructions
-from ..logic import JumpOrNoOpInstruction, IncrementGlobalAccumulatorInstruction
 
 
 def test_parse_game_console_instructions():

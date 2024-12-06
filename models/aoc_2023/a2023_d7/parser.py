@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .logic import CamelBid, OrdinaryHand, JokerHand
+
+from .logic import CamelBid, JokerHand, OrdinaryHand
 
 
 def _parse_bid(line: str, include_joker: bool) -> CamelBid:

@@ -1,7 +1,8 @@
 from models.common.io import InputFromString
 from models.common.vectors import Vector2D
-from ..parser import parse_moving_particles
+
 from ..moving_particles import MovingParticle
+from ..parser import parse_moving_particles
 
 
 def test_parse_moving_particles():

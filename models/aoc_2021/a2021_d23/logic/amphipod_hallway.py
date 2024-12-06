@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Optional, Iterator
+from typing import Iterator, Optional
+
 from .amphipod import Amphipod
 from .amphipod_room import AmphipodRoom
 

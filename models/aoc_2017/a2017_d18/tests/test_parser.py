@@ -1,18 +1,20 @@
 from dataclasses import dataclass
-from models.common.io import InputFromString
+
 from models.common.assembly import (
+    AddInstruction,
     CopyInstruction,
     InputInstruction,
-    OutInstruction,
-    JumpNotZeroInstruction,
     JumpGreaterThanZeroInstruction,
-    AddInstruction,
+    JumpNotZeroInstruction,
+    OutInstruction,
     SubtractInstruction,
 )
+from models.common.io import InputFromString
+
 from ..duet_code import (
     MultiplyInstruction,
-    RemainderInstruction,
     RecoverLastFrequencyInstruction,
+    RemainderInstruction,
 )
 from ..parser import parse_duet_code
 

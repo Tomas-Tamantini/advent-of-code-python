@@ -1,4 +1,4 @@
-from ..turing_machine import TuringMachine, TuringState, TuringRule
+from ..turing_machine import TuringMachine, TuringRule, TuringState
 
 
 def test_turing_machine_starts_with_all_zeroes_on_tape():

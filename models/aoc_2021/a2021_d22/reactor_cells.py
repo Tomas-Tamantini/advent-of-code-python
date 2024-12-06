@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Iterator, Optional, Iterable
 from math import prod
+from typing import Iterable, Iterator, Optional
+
 from models.common.vectors import Vector3D
 
 

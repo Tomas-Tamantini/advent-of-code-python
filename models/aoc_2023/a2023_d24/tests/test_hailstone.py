@@ -1,5 +1,6 @@
 from models.common.vectors import Vector2D, Vector3D
-from ..logic import Ray, Hailstone
+
+from ..logic import Hailstone, Ray
 
 
 def test_hailstone_xy_projection_ignores_z_coordinate():

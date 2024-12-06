@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_foods
+
 from .foods import Foods
+from .parser import parse_foods
 
 
 def aoc_2020_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:

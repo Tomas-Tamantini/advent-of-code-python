@@ -1,7 +1,8 @@
 from models.common.io import InputFromString
 from models.common.number_theory import Interval
-from ..parser import parse_workflows, parse_machine_part_ranges
+
 from ..logic import MachinePartRange, MachinePartState
+from ..parser import parse_machine_part_ranges, parse_workflows
 
 _FILE_CONTENT = """
 px{a<2006:qkq,m>2090:A,rfg}

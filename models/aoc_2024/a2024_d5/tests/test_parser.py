@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_page_ordering_rules, parse_updates
+
 from ..logic import PageOrderingRule
+from ..parser import parse_page_ordering_rules, parse_updates
 
 _CONTENT = """
            47|53

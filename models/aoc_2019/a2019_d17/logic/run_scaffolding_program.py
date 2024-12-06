@@ -1,7 +1,8 @@
 from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
+
+from .path_compression import CompressedPath
 from .scaffold_map import ScaffoldMap
 from .vacuum_robot_io import CameraOutput, VacuumRobotInput, VacuumRobotOutput
-from .path_compression import CompressedPath
 
 
 def run_scaffolding_discovery_program(

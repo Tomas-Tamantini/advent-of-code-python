@@ -1,12 +1,13 @@
 import pytest
+
 from ..logic_gates import (
-    LogicGatesCircuit,
-    DoNothingGate,
     AndGate,
-    OrGate,
+    DoNothingGate,
     LeftShiftGate,
-    RightShiftGate,
+    LogicGatesCircuit,
     NotGate,
+    OrGate,
+    RightShiftGate,
 )
 
 

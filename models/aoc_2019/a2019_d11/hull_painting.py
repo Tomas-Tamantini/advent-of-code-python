@@ -1,11 +1,12 @@
 from dataclasses import dataclass
+
+from models.aoc_2019.intcode import IntcodeProgram, run_intcode_program
 from models.common.vectors import (
-    Vector2D,
+    BoundingBox,
     CardinalDirection,
     TurnDirection,
-    BoundingBox,
+    Vector2D,
 )
-from models.aoc_2019.intcode import run_intcode_program, IntcodeProgram
 
 
 class Hull:

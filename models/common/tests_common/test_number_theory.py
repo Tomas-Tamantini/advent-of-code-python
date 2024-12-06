@@ -1,14 +1,15 @@
 import pytest
+
 from models.common.number_theory import (
-    gcd,
-    lcm,
-    are_coprime,
     ChineseRemainder,
-    solve_chinese_remainder_system,
+    Interval,
+    are_coprime,
+    gcd,
     is_prime,
+    lcm,
     modular_inverse,
     modular_logarithm,
-    Interval,
+    solve_chinese_remainder_system,
 )
 
 

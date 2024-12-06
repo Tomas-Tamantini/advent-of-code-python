@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .lantern_fish import LanternFish, lantern_fish_population_after_n_days
 
 

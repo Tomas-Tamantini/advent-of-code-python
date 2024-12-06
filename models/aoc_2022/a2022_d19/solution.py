@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
+from .logic import MiningState, ResourceType, max_num_resource
 from .parser import parse_blueprints
-from .logic import max_num_resource, ResourceType, MiningState
 
 # See MILP modelling at - https://colab.research.google.com/drive/1eD3sn1LPaT_qwa1PSUpPvhJopiWKPKGy?usp=sharing
 

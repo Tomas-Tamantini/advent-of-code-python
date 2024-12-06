@@ -1,4 +1,5 @@
 from typing import Hashable, Iterator
+
 from .characters import CharactersState
 
 

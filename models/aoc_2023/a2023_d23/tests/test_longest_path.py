@@ -1,6 +1,9 @@
-import pytest
 from math import inf
+
+import pytest
+
 from models.common.graphs import WeightedDirectedGraph
+
 from ..logic import max_length_non_repeating_path
 
 

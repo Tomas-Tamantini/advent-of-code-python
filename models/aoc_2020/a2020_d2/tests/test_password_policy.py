@@ -1,5 +1,6 @@
 import pytest
-from ..password_policy import RangePasswordPolicy, PositionalPasswordPolicy
+
+from ..password_policy import PositionalPasswordPolicy, RangePasswordPolicy
 
 
 @pytest.mark.parametrize("valid_password", ["abc", "bcaca", "abaa"])

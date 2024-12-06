@@ -1,4 +1,5 @@
 import sys
+
 from input_output import run_solutions
 from models.common.io import ExecutionFlags
 
@@ -7,7 +8,6 @@ def main(flags: ExecutionFlags) -> None:
     solutions_to_run = {
         2024: (),
     }
-
     run_solutions(solutions_to_run, flags)
 
 

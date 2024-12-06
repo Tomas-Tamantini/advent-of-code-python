@@ -1,4 +1,5 @@
 from models.common.io import InputFromString
+
 from ..parser import parse_radioisotope_testing_facility_floor_configurations
 from ..radio_isotope import FloorConfiguration
 

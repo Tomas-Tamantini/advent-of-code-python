@@ -1,8 +1,10 @@
-from typing import Hashable, Optional
-from dataclasses import dataclass
 from collections import deque
+from dataclasses import dataclass
+from typing import Hashable, Optional
+
 from models.common.graphs import UndirectedGraph
 from models.common.io import ProgressBar
+
 from .stoer_wagner import MergedNodes, build_stoer_wagner_graph
 
 

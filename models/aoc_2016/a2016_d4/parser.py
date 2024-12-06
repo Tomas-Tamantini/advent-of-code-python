@@ -1,5 +1,7 @@
-from models.common.io import InputReader
 from typing import Iterator
+
+from models.common.io import InputReader
+
 from .encrypted_room import EncryptedRoom
 
 

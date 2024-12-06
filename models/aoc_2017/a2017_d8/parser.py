@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .conditional_increment import ConditionalIncrementInstruction, ComparisonOperator
+
+from .conditional_increment import ComparisonOperator, ConditionalIncrementInstruction
 
 
 def _parse_conditional_increment_instruction(

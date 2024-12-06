@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_bitmask_instructions
+
 from .bitmask_memory import BitmaskMemory
+from .parser import parse_bitmask_instructions
 
 
 def aoc_2020_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:

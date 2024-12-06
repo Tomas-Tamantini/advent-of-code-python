@@ -1,14 +1,17 @@
-from random import shuffle, seed
+from random import seed, shuffle
 from typing import Hashable
-import numpy as np
 from unittest.mock import Mock
-from models.common.vectors import Vector2D, CardinalDirection
+
+import numpy as np
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from ..logic import (
-    JigsawPieceOrientation,
-    solve_jigsaw,
     JigsawPiece,
     JigsawPieceBinaryImage,
+    JigsawPieceOrientation,
     SolvedJigsaw,
+    solve_jigsaw,
 )
 
 

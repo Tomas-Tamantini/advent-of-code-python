@@ -1,7 +1,9 @@
 import pytest
+
 from models.common.io import InputFromString
-from ..parser import parse_bitmask_instructions
+
 from ..bitmask_memory import SetMaskInstruction, WriteToMemoryInstruction
+from ..parser import parse_bitmask_instructions
 
 
 @pytest.mark.parametrize("is_address_mask", [True, False])

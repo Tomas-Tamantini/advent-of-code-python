@@ -1,6 +1,6 @@
-from typing import Iterator
 from bisect import bisect_left
 from math import ceil
+from typing import Iterator
 
 
 def _element_is_in_sorted_list(

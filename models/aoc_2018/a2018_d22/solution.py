@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
-from .rocky_cave import RockyCave, CaveExplorer
+
+from .rocky_cave import CaveExplorer, RockyCave
 
 
 def aoc_2018_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:

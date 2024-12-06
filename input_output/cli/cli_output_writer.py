@@ -1,5 +1,6 @@
 from typing import Optional
-from models.common.io import Problem, ProblemSolution, ExecutionFlags
+
+from models.common.io import ExecutionFlags, Problem, ProblemSolution
 
 
 class CliOutputWriter:

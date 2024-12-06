@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.graphs import min_path_length_with_bfs
-from .blizzard_valley import BlizzardValley
+
 from .blizzard_navigator import BlizzardNavigator
+from .blizzard_valley import BlizzardValley
 
 
 class BlizzardMazeSolver:

@@ -1,5 +1,7 @@
 import pytest
-from models.common.vectors import Vector2D, TurnDirection
+
+from models.common.vectors import TurnDirection, Vector2D
+
 from .mine_carts import MineCarts
 
 no_carts_layout = "\n".join(

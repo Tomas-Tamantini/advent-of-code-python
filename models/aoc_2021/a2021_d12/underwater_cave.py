@@ -1,6 +1,6 @@
+from collections import defaultdict
 from dataclasses import dataclass
 from typing import Iterator, Optional
-from collections import defaultdict
 
 
 @dataclass(frozen=True)
@@ -22,7 +22,7 @@ class UnderwaterCaveExplorer:
 
     @staticmethod
     def _complete_connections(
-        connections: dict[UnderwaterCave, set[UnderwaterCave]]
+        connections: dict[UnderwaterCave, set[UnderwaterCave]],
     ) -> dict[UnderwaterCave, set[UnderwaterCave]]:
         complete_connections = defaultdict(set)
         for cave, neighbors in connections.items():

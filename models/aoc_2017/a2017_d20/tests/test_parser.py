@@ -1,5 +1,6 @@
 from models.common.io import InputFromString
 from models.common.vectors import Vector3D
+
 from ..parser import parse_particles
 from ..particle_collider import Particle
 

@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import Iterator, Optional
+
 from models.common.io import CharacterGrid
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
 
 
 class PipeSegment:

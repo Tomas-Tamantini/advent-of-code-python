@@ -1,13 +1,13 @@
+from .a_star import a_star
+from .bfs import explore_with_bfs, min_path_length_with_bfs
+from .dijkstra import dijkstra
+from .disjoint_set import DisjointSet
 from .graph import (
-    UndirectedGraph,
     DirectedGraph,
-    WeightedUndirectedGraph,
+    UndirectedGraph,
     WeightedDirectedGraph,
+    WeightedUndirectedGraph,
 )
-from .bfs import min_path_length_with_bfs, explore_with_bfs
+from .maze import GridMaze, Maze
 from .topological_sorting import topological_sorting
 from .travelling_salesman import travelling_salesman
-from .dijkstra import dijkstra
-from .a_star import a_star
-from .disjoint_set import DisjointSet
-from .maze import Maze, GridMaze

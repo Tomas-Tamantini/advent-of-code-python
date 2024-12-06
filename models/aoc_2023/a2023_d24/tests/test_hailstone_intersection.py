@@ -1,4 +1,5 @@
 from models.common.vectors import Vector3D
+
 from ..logic import Hailstone, rock_that_hits_all_hailstones
 
 

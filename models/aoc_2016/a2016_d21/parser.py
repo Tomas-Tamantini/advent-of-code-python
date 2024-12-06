@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .string_scrambler import (
     LetterBasedRotationScrambler,
     LetterMoveScrambler,

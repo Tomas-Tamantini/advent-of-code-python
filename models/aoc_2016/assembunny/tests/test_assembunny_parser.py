@@ -1,15 +1,15 @@
-from models.common.io import InputFromString
+from models.aoc_2016.assembunny import (
+    DecrementInstruction,
+    IncrementInstruction,
+    ToggleInstruction,
+    parse_assembunny_code,
+)
 from models.common.assembly import (
     CopyInstruction,
     JumpNotZeroInstruction,
     OutInstruction,
 )
-from models.aoc_2016.assembunny import (
-    parse_assembunny_code,
-    DecrementInstruction,
-    IncrementInstruction,
-    ToggleInstruction,
-)
+from models.common.io import InputFromString
 
 
 def test_parse_assembunny_code():

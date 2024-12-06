@@ -1,7 +1,9 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .parser import parse_radioisotope_testing_facility_floor_configurations
-from .radio_isotope import RadioisotopeTestingFacility, FloorConfiguration
+from .radio_isotope import FloorConfiguration, RadioisotopeTestingFacility
 
 
 def aoc_2016_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:

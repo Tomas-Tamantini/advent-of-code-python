@@ -1,5 +1,5 @@
-from .scaffold_map import ScaffoldMap
 from .path_compression import CompressedPath
+from .scaffold_map import ScaffoldMap
 
 
 class CameraOutput:

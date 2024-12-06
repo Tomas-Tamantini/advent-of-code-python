@@ -1,7 +1,7 @@
-from typing import Optional, Iterator
 from dataclasses import dataclass
-from .nonogram_row import NonogramRow
+from typing import Iterator, Optional
 
+from .nonogram_row import NonogramRow
 
 _FILLED_IN = "#"
 _EMPTY = "."

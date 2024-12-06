@@ -1,4 +1,5 @@
 from typing import Optional
+
 from .binary_automata import OneDimensionalBinaryCelullarAutomaton
 
 

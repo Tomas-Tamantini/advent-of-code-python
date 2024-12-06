@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_boat_races
+
 from ..boat_race import BoatRace
+from ..parser import parse_boat_races
 
 
 def test_boat_races_are_all_parsed_if_considering_white_spaces():

@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import InputReader
-from .logic import CubeGame, CubeAmount
+
+from .logic import CubeAmount, CubeGame
 
 
 def _parse_cube_amount(line: str) -> CubeAmount:

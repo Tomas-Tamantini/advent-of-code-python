@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import InputReader
+
 from .rock_paper_scissors import (
     RockPaperScissorsAction,
     RockPaperScissorsResult,
@@ -26,7 +28,6 @@ _result_map = {
 def parse_rock_paper_scissors(
     input_reader: InputReader, interpret_as_result: bool = False
 ) -> Iterator[tuple[RockPaperScissorsAction, RockPaperScissorsAction]]:
-
     for line in input_reader.read_stripped_lines():
         left_action_chr, right_action_chr = line.split()
         left_action = _left_action_map[left_action_chr]

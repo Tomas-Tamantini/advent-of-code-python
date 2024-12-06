@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Hashable, Optional
 from math import sqrt
+from typing import Hashable, Optional
+
 from models.common.vectors import Vector3D
 
 

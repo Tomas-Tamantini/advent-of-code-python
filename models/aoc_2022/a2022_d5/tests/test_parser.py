@@ -1,7 +1,9 @@
 import pytest
+
 from models.common.io import InputFromString
+
+from ..logic import MoveCratesMultipleAtATime, MoveCratesOneAtATime
 from ..parser import parse_crates
-from ..logic import MoveCratesOneAtATime, MoveCratesMultipleAtATime
 
 
 @pytest.mark.parametrize(

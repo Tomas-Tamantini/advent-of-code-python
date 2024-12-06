@@ -1,15 +1,15 @@
+from models.aoc_2016.assembunny import (
+    AssembunnyProgram,
+    DecrementInstruction,
+    IncrementInstruction,
+    ToggleInstruction,
+    run_self_referential_code,
+)
 from models.common.assembly import (
-    Processor,
     Computer,
     CopyInstruction,
     JumpNotZeroInstruction,
-)
-from models.aoc_2016.assembunny import (
-    AssembunnyProgram,
-    IncrementInstruction,
-    DecrementInstruction,
-    ToggleInstruction,
-    run_self_referential_code,
+    Processor,
 )
 
 

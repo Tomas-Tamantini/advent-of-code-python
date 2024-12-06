@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from models.common.number_theory import ChineseRemainder, solve_chinese_remainder_system
 
 

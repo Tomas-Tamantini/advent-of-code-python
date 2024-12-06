@@ -1,7 +1,9 @@
 from typing import Iterator, Optional
-from models.common.vectors import Vector2D, TurnDirection, CardinalDirection
-from .vacuum_robot import VacuumRobot, VacuumRobotInstruction
+
+from models.common.vectors import CardinalDirection, TurnDirection, Vector2D
+
 from .path_compression import CompressedPath, compress_vacuum_bot_path
+from .vacuum_robot import VacuumRobot, VacuumRobotInstruction
 
 
 class ScaffoldMap:

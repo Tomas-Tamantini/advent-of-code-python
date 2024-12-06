@@ -1,5 +1,5 @@
-from models.common.assembly import Processor, Computer, Hardware
 from models.aoc_2016.assembunny import AssembunnyProgram
+from models.common.assembly import Computer, Hardware, Processor
 
 
 class ClockSignalSerialOutput:

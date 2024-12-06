@@ -1,4 +1,5 @@
 from models.common.vectors import Vector3D
+
 from ..logic import Brick, BricksDag
 
 

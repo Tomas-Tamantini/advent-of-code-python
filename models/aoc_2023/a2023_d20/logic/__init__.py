@@ -1,9 +1,9 @@
-from .pulse import Pulse, PulseType
 from .communication_modules import (
-    CommunicationModule,
     BroadcastModule,
-    FlipFlopModule,
+    CommunicationModule,
     ConjunctionModule,
+    FlipFlopModule,
 )
 from .module_network import ModuleNetwork
-from .pulse_monitor import PulseCounter, PulseHistory, LowPulseMonitor
+from .pulse import Pulse, PulseType
+from .pulse_monitor import LowPulseMonitor, PulseCounter, PulseHistory

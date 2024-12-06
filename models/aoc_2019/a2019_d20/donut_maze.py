@@ -1,8 +1,9 @@
-from typing import Iterator
 from dataclasses import dataclass
 from math import inf
-from models.common.vectors import Vector2D
+from typing import Iterator
+
 from models.common.graphs import GridMaze, dijkstra
+from models.common.vectors import Vector2D
 
 
 class PortalMaze(GridMaze):

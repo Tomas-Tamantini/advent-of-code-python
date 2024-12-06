@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
-from ..parser import parse_instructions_with_duration
+
 from ..logic import InstructionWithDuration
+from ..parser import parse_instructions_with_duration
 
 
 def test_parse_instructions_with_duration():

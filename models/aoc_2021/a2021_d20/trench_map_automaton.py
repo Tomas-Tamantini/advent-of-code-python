@@ -1,12 +1,13 @@
-from typing import Iterator, Optional
-from math import inf
 from enum import Enum
-from models.common.vectors import Vector2D
+from math import inf
+from typing import Iterator, Optional
+
 from models.common.cellular_automata import (
-    multi_state_automaton_next_state,
     MultiStateCellVicinity,
+    multi_state_automaton_next_state,
 )
 from models.common.io import ProgressBar
+from models.common.vectors import Vector2D
 
 
 class _CellType(int, Enum):

@@ -59,9 +59,11 @@ class CookieRecipe:
             if (len(comb)) == 0:
                 yield [self._num_tablespoons]
             else:
-                yield [comb[0]] + [
-                    comb[i] - comb[i - 1] - 1 for i in range(1, num_walls)
-                ] + [num_possible_indices - comb[-1] - 1]
+                yield (
+                    [comb[0]]
+                    + [comb[i] - comb[i - 1] - 1 for i in range(1, num_walls)]
+                    + [num_possible_indices - comb[-1] - 1]
+                )
 
     def _recipe(self, proportion: list[int]) -> CookieProperties:
         multiplied_ingredients = [

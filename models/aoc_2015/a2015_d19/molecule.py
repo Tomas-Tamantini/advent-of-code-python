@@ -1,6 +1,6 @@
-from typing import Iterator, Optional
 from dataclasses import dataclass
 from random import shuffle
+from typing import Iterator, Optional
 
 
 @dataclass(frozen=True)

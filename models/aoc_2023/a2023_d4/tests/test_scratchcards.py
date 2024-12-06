@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 import pytest
+
 from ..scratchcard import ScratchCard, number_of_cards_after_prizes
 
 

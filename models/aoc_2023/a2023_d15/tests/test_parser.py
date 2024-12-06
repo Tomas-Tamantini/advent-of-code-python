@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
+from ..logic import InsertLens, Lens, RemoveLens
 from ..parser import parse_initialization_steps
-from ..logic import InsertLens, RemoveLens, Lens
 
 
 def test_parse_initialization_sequence():

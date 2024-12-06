@@ -1,4 +1,5 @@
-from typing import Iterator, Optional, Hashable
+from typing import Hashable, Iterator, Optional
+
 from .valve import Valve
 from .volcano import Volcano
 from .volcano_worker import VolcanoWorker

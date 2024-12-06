@@ -1,4 +1,5 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.number_theory import modular_logarithm
 

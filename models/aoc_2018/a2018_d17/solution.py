@@ -1,6 +1,8 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.vectors import Vector2D
+
 from .parser import parse_position_ranges
 from .water_spring import WaterSpring
 

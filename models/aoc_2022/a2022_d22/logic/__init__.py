@@ -1,10 +1,10 @@
+from .board import Board, CubeBoard, ObstacleBoard
+from .board_instruction import BoardInstruction, MoveForwardInstruction, TurnInstruction
+from .board_piece import BoardPiece
 from .cube_net import (
+    CubeEdgeMapper,
+    CubeNavigator,
     CubeNet,
     EdgeMapper,
-    CubeNavigator,
     PacmanEdgeMapper,
-    CubeEdgeMapper,
 )
-from .board_piece import BoardPiece
-from .board import Board, ObstacleBoard, CubeBoard
-from .board_instruction import BoardInstruction, TurnInstruction, MoveForwardInstruction

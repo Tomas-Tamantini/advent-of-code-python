@@ -1,8 +1,9 @@
 import pytest
+
 from .valid_passwords import (
+    at_least_one_group_of_exactly_two_equal_digits,
     digits_are_increasing,
     two_adjacent_digits_are_the_same,
-    at_least_one_group_of_exactly_two_equal_digits,
     valid_passwords_in_range,
 )
 

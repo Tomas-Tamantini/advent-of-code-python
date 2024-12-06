@@ -1,5 +1,6 @@
 import pytest
-from ..bridge_builder import MagneticBridge, BridgeComponent, BridgeBuilder
+
+from ..bridge_builder import BridgeBuilder, BridgeComponent, MagneticBridge
 
 
 def test_bridge_starts_with_zero_strength():

@@ -1,5 +1,6 @@
-from ..parser import parse_file_tree
 from models.common.io import InputFromString
+
+from ..parser import parse_file_tree
 
 
 def test_parse_file_tree():

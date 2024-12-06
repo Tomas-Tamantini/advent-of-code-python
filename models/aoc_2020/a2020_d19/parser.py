@@ -1,6 +1,7 @@
-from models.common.io import InputReader
 from typing import Hashable
+
 from models.common.assembly import ContextFreeGrammar
+from models.common.io import InputReader
 
 
 def parse_context_free_grammar_and_words(

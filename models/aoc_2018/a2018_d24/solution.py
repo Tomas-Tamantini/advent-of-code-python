@@ -1,5 +1,7 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import InfectionGame, optimal_boost_for_immune_system
 from .parser import parse_infection_game
 

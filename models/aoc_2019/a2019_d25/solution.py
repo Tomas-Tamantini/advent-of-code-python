@@ -1,10 +1,12 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .logic import (
-    run_droid_explore_program,
-    DroidCLIControl,
     DroidAutomaticControl,
+    DroidCLIControl,
     DroidInput,
+    run_droid_explore_program,
 )
 
 

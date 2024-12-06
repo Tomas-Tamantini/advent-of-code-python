@@ -1,11 +1,14 @@
-from unittest.mock import Mock
 from typing import Optional
+from unittest.mock import Mock
+
 import pytest
-from models.common.vectors import Vector2D, CardinalDirection
+
+from models.common.vectors import CardinalDirection, Vector2D
+
 from ..logic import (
     TetrisGameState,
-    TetrisPieceGenerator,
     TetrisPiece,
+    TetrisPieceGenerator,
     WindGenerator,
     tower_height,
 )

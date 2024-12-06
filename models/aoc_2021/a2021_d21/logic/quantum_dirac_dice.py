@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator
-from .dirac_dice_starting_configuration import DiracDiceStartingConfiguration
 
+from .dirac_dice_starting_configuration import DiracDiceStartingConfiguration
 
 NUM_WAYS_TO_REACH_DICE_SUM = {
     3: 1,

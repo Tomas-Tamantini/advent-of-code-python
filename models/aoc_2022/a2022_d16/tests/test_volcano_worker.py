@@ -1,4 +1,4 @@
-from ..logic import VolcanoWorker, Valve
+from ..logic import Valve, VolcanoWorker
 
 
 def _build_valve(

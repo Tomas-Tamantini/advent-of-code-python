@@ -1,6 +1,7 @@
-from typing import Optional, Iterator
+from typing import Iterator, Optional
+
 from models.common.graphs import WeightedDirectedGraph
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.vectors import CardinalDirection, Vector2D
 
 # TODO: Refactor this mess, reuse code from maze and grid maze classes
 

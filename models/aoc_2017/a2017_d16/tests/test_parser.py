@@ -1,6 +1,7 @@
 from models.common.io import InputFromString
+
 from ..parser import parse_string_transformers
-from ..string_transform import Spin, Exchange, Partner
+from ..string_transform import Exchange, Partner, Spin
 
 
 def test_parse_string_transformers():

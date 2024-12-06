@@ -1,8 +1,10 @@
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
 from models.common.number_theory import lcm
+
+from .logic import LowPulseMonitor, Pulse, PulseCounter, PulseType
 from .parser import parse_module_network
-from .logic import PulseCounter, LowPulseMonitor, Pulse, PulseType
 
 
 def aoc_2023_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:

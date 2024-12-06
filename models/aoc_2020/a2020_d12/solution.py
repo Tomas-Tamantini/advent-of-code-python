@@ -1,6 +1,8 @@
-from models.common.vectors import Vector2D, CardinalDirection
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+from models.common.vectors import CardinalDirection, Vector2D
+
 from .parser import parse_navigation_instructions
 from .ship import Ship
 

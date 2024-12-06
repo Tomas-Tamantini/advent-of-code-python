@@ -1,12 +1,14 @@
-from typing import Iterator, Iterable
 from collections import defaultdict
+from typing import Iterable, Iterator
+
 from models.common.io import InputReader
+
 from .logic import (
-    ModuleNetwork,
-    CommunicationModule,
-    FlipFlopModule,
     BroadcastModule,
+    CommunicationModule,
     ConjunctionModule,
+    FlipFlopModule,
+    ModuleNetwork,
 )
 
 

@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+
 from .game_of_life_lights import GameOfLifeLights
 
 

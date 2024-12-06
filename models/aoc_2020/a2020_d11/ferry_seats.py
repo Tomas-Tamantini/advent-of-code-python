@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Iterator, Optional
+
 from models.common.cellular_automata import (
     MultiStateCellVicinity,
     multi_state_automaton_next_state,

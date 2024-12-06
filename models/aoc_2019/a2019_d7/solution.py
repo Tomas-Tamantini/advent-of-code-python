@@ -1,6 +1,8 @@
 from itertools import permutations
 from typing import Iterator
+
 from models.common.io import IOHandler, Problem, ProblemSolution
+
 from .amplifiers import Amplifiers
 
 

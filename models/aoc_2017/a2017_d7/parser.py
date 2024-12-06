@@ -1,4 +1,5 @@
 from models.common.io import InputReader
+
 from .tree_builder import TreeBuilder, TreeNode
 
 
