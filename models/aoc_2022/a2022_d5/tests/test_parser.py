@@ -13,10 +13,10 @@ from ..parser import parse_crates
 def test_parse_crates(move_one_at_a_time, move_cls):
     input_reader = InputFromString(
         """
-            [D]    
-        [N] [C]    
+            [D]
+        [N] [C]
         [Z] [M] [P]
-         1   2   3 
+         1   2   3
 
         move 1 from 2 to 1
         move 4 from 1 to 3

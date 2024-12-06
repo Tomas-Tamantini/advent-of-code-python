@@ -77,7 +77,7 @@ def test_ferry_can_consider_neighbors_as_first_chair_in_line_of_site_rather_than
         .....
         L.#.L
         .....
-        ..L.#  
+        ..L.#
         """
     )
     seats = FerrySeats(

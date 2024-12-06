@@ -13,7 +13,7 @@ def test_parse_bingo_game_and_numbers_to_draw():
 
                    10 1  3
                    12 7  19
-                   5  16 2 
+                   5  16 2
                    """
     game, numbers_to_draw = parse_bingo_game_and_numbers_to_draw(
         InputFromString(file_content)

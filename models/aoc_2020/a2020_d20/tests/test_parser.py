@@ -5,7 +5,7 @@ from ..parser import parse_jigsaw_pieces
 
 def test_parse_jigsaw_pieces():
     file_content = """
-                   Tile 2311:                   
+                   Tile 2311:
                    .#.
                    ...
 
