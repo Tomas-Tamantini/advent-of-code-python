@@ -22,7 +22,7 @@ def test_can_calculate_number_of_hits_to_beat_opponent():
 
 def test_first_fighter_to_reach_zero_hit_points_loses():
     player = Fighter(hit_points=8, damage=5, armor=5)
-    assert player.beats_if_goes_first(boss) == True
+    assert player.beats_if_goes_first(boss)
 
 
 def test_items_determine_damage_and_armor():

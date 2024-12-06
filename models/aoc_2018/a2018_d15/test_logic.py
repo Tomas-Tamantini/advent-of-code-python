@@ -82,9 +82,9 @@ def test_unit_can_move_in_four_directions():
 
 
 def test_unit_is_dead_if_hp_drops_to_zero_or_below():
-    assert _build_game_unit(hit_points=0).is_dead == True
-    assert _build_game_unit(hit_points=-1).is_dead == True
-    assert _build_game_unit(hit_points=1).is_dead == False
+    assert _build_game_unit(hit_points=0).is_dead
+    assert _build_game_unit(hit_points=-1).is_dead
+    assert not _build_game_unit(hit_points=1).is_dead
 
 
 def test_unit_can_iterate_through_adjacent_positions_in_reading_order():
@@ -102,13 +102,13 @@ def test_game_is_over_if_some_team_lost_all_players():
         elves=tuple(),
         goblins=(_build_game_unit(),),
     )
-    assert game_state.game_is_over() == True
+    assert game_state.game_is_over()
 
     game_state = CaveGameState(
         elves=(_build_game_unit(),),
         goblins=set(),
     )
-    assert game_state.game_is_over() == True
+    assert game_state.game_is_over()
 
 
 def test_game_is_not_over_if_both_teams_have_players():
@@ -116,7 +116,7 @@ def test_game_is_not_over_if_both_teams_have_players():
         elves=(_build_game_unit("Elf"),),
         goblins=(_build_game_unit("Goblin"),),
     )
-    assert game_state.game_is_over() == False
+    assert not game_state.game_is_over()
 
 
 def test_target_positions_are_ones_adjacent_to_opponents():
