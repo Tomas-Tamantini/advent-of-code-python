@@ -35,9 +35,10 @@ def aoc_2024_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     total_num_steps = len(extra_obstacle_positions)
     for i, position in enumerate(extra_obstacle_positions):
         io_handler.progress_bar.update(i, total_num_steps)
-        new_area = area.add_obstacle(position)
-        if guard_goes_into_loop(new_area, guard):
+        area.add_obstacle(position)
+        if guard_goes_into_loop(area, guard):
             num_loops += 1
+        area.remove_obstacle(position)
 
     yield ProblemSolution(
         problem_id,

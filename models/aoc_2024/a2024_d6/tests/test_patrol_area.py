@@ -44,3 +44,12 @@ def test_patrol_area_keeps_returns_negative_distance_from_guard_to_edge(
 ):
     guard = PatrolGuard(guard_pos, guard_dir)
     assert expected_distance == _AREA.distance_to_next_obstacle(guard)
+
+
+def test_can_add_and_remove_obstacle_from_area():
+    area = PatrolArea(width=10, height=10, obstacles=set())
+    obstacle = Vector2D(3, 3)
+    area.add_obstacle(obstacle)
+    assert area.is_obstacle(obstacle)
+    area.remove_obstacle(obstacle)
+    assert not area.is_obstacle(obstacle)

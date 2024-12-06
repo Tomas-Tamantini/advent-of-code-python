@@ -1,5 +1,5 @@
 from collections import defaultdict
-from bisect import bisect_left
+from bisect import bisect_left, insort_left
 from models.common.vectors import Vector2D, CardinalDirection
 from .patrol_guard import PatrolGuard
 
@@ -21,12 +21,15 @@ class PatrolArea:
     def is_out_of_bounds(self, position: Vector2D) -> bool:
         return not (0 <= position.x < self._width and 0 <= position.y < self._height)
 
-    def add_obstacle(self, position: Vector2D) -> "PatrolArea":
-        return PatrolArea(
-            width=self._width,
-            height=self._height,
-            obstacles=self._obstacles | {position},
-        )
+    def add_obstacle(self, position: Vector2D) -> None:
+        self._obstacles.add(position)
+        insort_left(self._obstacles_per_row[position.y], position.x)
+        insort_left(self._obstacles_per_column[position.x], position.y)
+
+    def remove_obstacle(self, position: Vector2D) -> None:
+        self._obstacles.remove(position)
+        self._obstacles_per_row[position.y].remove(position.x)
+        self._obstacles_per_column[position.x].remove(position.y)
 
     def distance_to_next_obstacle(self, guard: PatrolGuard) -> int:
         if guard.direction.is_horizontal:
