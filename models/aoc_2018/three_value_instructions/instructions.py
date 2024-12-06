@@ -65,9 +65,12 @@ class AddRegisters(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: a + b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a + b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -81,9 +84,12 @@ class AddImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
-        operation = lambda a, b: a + b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a + b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -97,9 +103,12 @@ class MultiplyRegisters(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: a * b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a * b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -113,9 +122,12 @@ class MultiplyImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
-        operation = lambda a, b: a * b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a * b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -129,9 +141,12 @@ class BitwiseAndRegisters(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: a & b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a & b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -145,9 +160,12 @@ class BitwiseAndImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
-        operation = lambda a, b: a & b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a & b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -161,9 +179,12 @@ class BitwiseOrRegisters(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: a | b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a | b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -177,9 +198,12 @@ class BitwiseOrImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
-        operation = lambda a, b: a | b
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: a | b,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -193,9 +217,12 @@ class AssignmentRegisters(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_in, is_register=True)
         input_b = RegisterOrImmediate(throwaway_value, is_register=False)
-        operation = lambda a, _: a
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, _: a,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -209,9 +236,12 @@ class AssignmentImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(value_in, is_register=False)
         input_b = RegisterOrImmediate(throwaway_value, is_register=False)
-        operation = lambda a, _: a
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, _: a,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -225,9 +255,12 @@ class GreaterThanImmediateRegister(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(value_a, is_register=False)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: 1 if a > b else 0
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: 1 if a > b else 0,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -241,9 +274,12 @@ class GreaterThanRegisterImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
-        operation = lambda a, b: 1 if a > b else 0
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: 1 if a > b else 0,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -257,9 +293,12 @@ class GreaterThanRegisterRegister(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: 1 if a > b else 0
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: 1 if a > b else 0,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -273,9 +312,12 @@ class EqualImmediateRegister(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(value_a, is_register=False)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: 1 if a == b else 0
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: 1 if a == b else 0,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -289,9 +331,12 @@ class EqualRegisterImmediate(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(value_b, is_register=False)
-        operation = lambda a, b: 1 if a == b else 0
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: 1 if a == b else 0,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 
@@ -305,9 +350,12 @@ class EqualRegisterRegister(ThreeValueInstruction):
     ) -> None:
         input_a = RegisterOrImmediate(register_a, is_register=True)
         input_b = RegisterOrImmediate(register_b, is_register=True)
-        operation = lambda a, b: 1 if a == b else 0
         super().__init__(
-            register_out, input_a, input_b, operation, register_bound_to_pc
+            register_out,
+            input_a,
+            input_b,
+            operation=lambda a, b: 1 if a == b else 0,
+            register_bound_to_pc=register_bound_to_pc,
         )
 
 

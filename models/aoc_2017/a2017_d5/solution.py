@@ -18,10 +18,9 @@ def aoc_2017_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2017, 5, "A Maze of Twisty Trampolines, All Alike")
     io_handler.output_writer.write_header(problem_id)
     jump_offsets = [int(line) for line in io_handler.input_reader.readlines()]
-    simple_increment_rule = lambda jump: jump + 1
     steps_simple_increment = 0
     for _ in follow_and_increment_jump_instructions(
-        jump_offsets[:], simple_increment_rule
+        jump_offsets[:], increment_rule=lambda jump: jump + 1
     ):
         steps_simple_increment += 1
     yield ProblemSolution(
@@ -31,10 +30,9 @@ def aoc_2017_d5(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=steps_simple_increment,
     )
 
-    complex_increment_rule = lambda jump: jump - 1 if jump >= 3 else jump + 1
     steps_complex_increment = 0
     for _ in follow_and_increment_jump_instructions(
-        jump_offsets[:], complex_increment_rule
+        jump_offsets[:], increment_rule=lambda jump: jump - 1 if jump >= 3 else jump + 1
     ):
         steps_complex_increment += 1
     yield ProblemSolution(

@@ -18,28 +18,24 @@ def _build_cubicle_maze(
     is_wall: Callable[[Vector2D], bool] = None,
     destination: Vector2D = Vector2D(0, 0),
 ) -> CubicleMaze:
-    if not is_wall:
-        is_wall = lambda _: False
+    is_wall = is_wall or (lambda _: False)
     return CubicleMaze(is_wall, destination)
 
 
 def test_if_path_cannot_be_found_value_error_is_raised():
-    is_wall_calculator = lambda _: True
-    maze = _build_cubicle_maze(is_wall_calculator, destination=Vector2D(1, 1))
+    maze = _build_cubicle_maze(is_wall=lambda _: True, destination=Vector2D(1, 1))
     with pytest.raises(ValueError):
         maze.length_shortest_path(initial_position=Vector2D(0, 0))
 
 
 def test_if_origin_and_destination_are_the_same_shortest_path_length_is_zero():
-    is_wall_calculator = lambda _: False
     origin = Vector2D(1, 1)
-    maze = _build_cubicle_maze(is_wall_calculator, destination=origin)
+    maze = _build_cubicle_maze(is_wall=lambda _: True, destination=origin)
     assert maze.length_shortest_path(initial_position=origin) == 0
 
 
 def test_if_no_walls_exist_shortest_path_length_is_manhattan_distance():
-    is_wall_calculator = lambda _: False
-    maze = _build_cubicle_maze(is_wall_calculator, destination=Vector2D(5, 7))
+    maze = _build_cubicle_maze(is_wall=lambda _: False, destination=Vector2D(5, 7))
     assert maze.length_shortest_path(initial_position=Vector2D(1, 2)) == 9
 
 

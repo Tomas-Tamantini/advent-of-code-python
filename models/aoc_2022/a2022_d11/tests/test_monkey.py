@@ -8,8 +8,7 @@ def _build_monkey(
     boredom_worry_level_divisor: int = 3,
     next_monkey_index_rule: NextMonkeyIndexRule = None,
 ):
-    if worry_level_transformation is None:
-        worry_level_transformation = lambda w: w
+    worry_level_transformation = worry_level_transformation or (lambda w: w)
     if next_monkey_index_rule is None:
         next_monkey_index_rule = NextMonkeyIndexRule(
             divisor=2, index_if_divisible=1, index_if_not_divisible=0

@@ -28,9 +28,8 @@ def test_binary_operation_monkey_performs_operation_with_left_and_right_child():
             numerator=Polynomial((3,)), denominator=Polynomial((1,))
         ),
     )
-    operation = lambda x, y: x + y
     binary_operation = BinaryOperationMonkey(
-        "binary", left_child, right_child, operation
+        "binary", left_child, right_child, operation=lambda x, y: x + y
     )
     assert binary_operation.rational_function == RationalFunction(
         numerator=Polynomial((5,)), denominator=Polynomial((1,))
