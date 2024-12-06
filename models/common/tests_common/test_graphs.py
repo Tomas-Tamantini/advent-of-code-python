@@ -395,8 +395,7 @@ def test_a_star_raises_value_error_if_no_path():
     graph = _MockAStarGraph()
     graph.add_edge("A", "B", weight=2)
     with pytest.raises(ValueError):
-        is_destination = lambda n: n == "C"
-        a_star("A", is_destination, graph)
+        a_star("A", is_destination=lambda n: n == "C", graph=graph)
 
 
 def test_a_star_returns_distance_zero_if_origin_equals_destination():
