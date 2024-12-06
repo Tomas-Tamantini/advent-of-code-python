@@ -1,28 +1,54 @@
 from typing import Iterator
-from models.common.vectors import Vector2D
+from dataclasses import dataclass
+from models.common.vectors import Vector2D, CardinalDirection
 from .patrol_area import PatrolArea
 from .patrol_guard import PatrolGuard
 
 
-def _guard_states(area: PatrolArea, guard: PatrolGuard) -> Iterator[PatrolGuard]:
-    while not area.is_out_of_bounds(guard.position):
-        yield guard
-        position_in_front = guard.position_in_front()
-        if area.is_obstacle(position_in_front):
-            guard = guard.turn_right()
+@dataclass(frozen=True)
+class _PatrolSegment:
+    start_position: Vector2D
+    direction: CardinalDirection
+    length: int
+
+    def positions(self) -> Iterator[Vector2D]:
+        position = self.start_position
+        for _ in range(self.length):
+            yield position
+            position = position.move(self.direction, y_grows_down=True)
+
+
+def _patrol_segments(area: PatrolArea, guard: PatrolGuard) -> Iterator[_PatrolSegment]:
+    current_guard = guard
+    while True:
+        distance_to_next_obstacle = area.distance_to_next_obstacle(current_guard)
+        if distance_to_next_obstacle < 0:
+            yield _PatrolSegment(
+                start_position=current_guard.position,
+                direction=current_guard.direction,
+                length=-distance_to_next_obstacle,
+            )
+            break
         else:
-            guard = guard.move_forward()
+            yield _PatrolSegment(
+                start_position=current_guard.position,
+                direction=current_guard.direction,
+                length=distance_to_next_obstacle,
+            )
+            current_guard = current_guard.move_and_turn_right(
+                distance_to_next_obstacle - 1
+            )
 
 
 def patrol_route(area: PatrolArea, guard: PatrolGuard) -> Iterator[Vector2D]:
-    for guard in _guard_states(area, guard):
-        yield guard.position
+    for segment in _patrol_segments(area, guard):
+        yield from segment.positions()
 
 
 def guard_goes_into_loop(area: PatrolArea, guard: PatrolGuard) -> bool:
     visited_states = set()
-    for guard in _guard_states(area, guard):
-        if guard in visited_states:
+    for segment in _patrol_segments(area, guard):
+        if segment in visited_states:
             return True
-        visited_states.add(guard)
+        visited_states.add(segment)
     return False

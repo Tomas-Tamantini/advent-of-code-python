@@ -1,4 +1,5 @@
 from models.common.vectors import Vector2D
+from .patrol_guard import PatrolGuard
 
 
 class PatrolArea:
@@ -19,3 +20,13 @@ class PatrolArea:
             height=self._height,
             obstacles=self._obstacles | {position},
         )
+
+    def distance_to_next_obstacle(self, guard: PatrolGuard) -> int:
+        # TODO: Optimize
+        distance = 0
+        while not self.is_obstacle(guard.position):
+            guard = guard.move_forward()
+            distance += 1
+            if self.is_out_of_bounds(guard.position):
+                return -distance
+        return distance

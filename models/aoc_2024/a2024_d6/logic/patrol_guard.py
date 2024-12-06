@@ -17,3 +17,9 @@ class PatrolGuard:
         return PatrolGuard(
             position=self.position, direction=self.direction.turn_right()
         )
+
+    def move_and_turn_right(self, num_steps: int) -> "PatrolGuard":
+        return PatrolGuard(
+            position=self.position.move(self.direction, num_steps, y_grows_down=True),
+            direction=self.direction.turn_right(),
+        )
