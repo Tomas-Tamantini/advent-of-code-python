@@ -1,1885 +1,1890 @@
 {
-  "results_by_year": [
-    {
-      "year": 2015,
-      "results_by_day": [
+    "results_by_year": [
         {
-          "day": 1,
-          "title": "Not Quite Lisp",
-          "results": [
-            138,
-            1771
-          ]
+            "year": 2015,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Not Quite Lisp",
+                    "results": [
+                        138,
+                        1771
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "I Was Told There Would Be No Math",
+                    "results": [
+                        1598415,
+                        3812909
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Perfectly Spherical Houses in a Vacuum",
+                    "results": [
+                        2565,
+                        2639
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "The Ideal Stocking Stuffer",
+                    "results": [
+                        117946,
+                        3938038
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Doesn't He Have Intern-Elves For This?",
+                    "results": [
+                        236,
+                        51
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Probably a Fire Hazard",
+                    "results": [
+                        377891,
+                        14110788
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "Some Assembly Required",
+                    "results": [
+                        46065,
+                        14134
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Matchsticks",
+                    "results": [
+                        1350,
+                        2085
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "All in a Single Night",
+                    "results": [
+                        141,
+                        736
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Elves Look, Elves Say",
+                    "results": [
+                        492982,
+                        6989950
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Corporate Policy",
+                    "results": [
+                        "hepxxyzz",
+                        "heqaabcc"
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "JSAbacusFramework.io",
+                    "results": [
+                        156366,
+                        96852
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Knights of the Dinner Table",
+                    "results": [
+                        618,
+                        601
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Reindeer Olympics",
+                    "results": [
+                        2640,
+                        1102
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Science for Hungry People",
+                    "results": [
+                        13882464,
+                        11171160
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Aunt Sue",
+                    "results": [
+                        40,
+                        241
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "No Such Thing as Too Much",
+                    "results": [
+                        654,
+                        57
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Like a GIF For Your Yard",
+                    "results": [
+                        814,
+                        924
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Medicine for Rudolph",
+                    "results": [
+                        509,
+                        195
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Infinite Elves and Infinite Houses",
+                    "results": [
+                        776160,
+                        786240
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "RPG Simulator 20XX",
+                    "results": [
+                        78,
+                        148
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Wizard Simulator 20XX",
+                    "results": [
+                        1269,
+                        1309
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Opening the Turing Lock",
+                    "results": [
+                        255,
+                        334
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "It Hangs in the Balance",
+                    "results": [
+                        11266889531,
+                        77387711
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Let It Snow",
+                    "results": [
+                        8997277
+                    ]
+                }
+            ]
         },
         {
-          "day": 2,
-          "title": "I Was Told There Would Be No Math",
-          "results": [
-            1598415,
-            3812909
-          ]
+            "year": 2016,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "No Time for a Taxicab",
+                    "results": [
+                        301,
+                        130
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Bathroom Security",
+                    "results": [
+                        "97289",
+                        "9A7DC"
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Squares With Three Sides",
+                    "results": [
+                        917,
+                        1649
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Security Through Obscurity",
+                    "results": [
+                        137896,
+                        501
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "How About a Nice Game of Chess?",
+                    "results": [
+                        "801b56a7",
+                        "424a0197"
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Signals and Noise",
+                    "results": [
+                        "tkspfjcc",
+                        "xrlmbypn"
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "Internet Protocol Version 7",
+                    "results": [
+                        105,
+                        258
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Two-Factor Authentication",
+                    "results": [
+                        123,
+                        " ##  #### ###  #  # ###  #### ###    ## ###   ### \n#  # #    #  # #  # #  #    # #  #    # #  # #    \n#  # ###  ###  #  # #  #   #  ###     # #  # #    \n#### #    #  # #  # ###   #   #  #    # ###   ##  \n#  # #    #  # #  # #    #    #  # #  # #       # \n#  # #    ###   ##  #    #### ###   ##  #    ###  "
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Explosives in Cyberspace",
+                    "results": [
+                        110346,
+                        10774309173
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Balance Bots",
+                    "results": [
+                        73,
+                        3965
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Radioisotope Thermoelectric Generators",
+                    "results": [
+                        33,
+                        57
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Leonardo's Monorail",
+                    "results": [
+                        318083,
+                        9227737
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "A Maze of Twisty Little Cubicles",
+                    "results": [
+                        90,
+                        135
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "One-Time Pad",
+                    "results": [
+                        23890,
+                        22696
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Timing is Everything",
+                    "results": [
+                        122318,
+                        3208583
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Dragon Checksum",
+                    "results": [
+                        "10111110010110110",
+                        "01101100001100100"
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Two Steps Forward",
+                    "results": [
+                        "DDRRUDLRRD",
+                        488
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Like a Rogue",
+                    "results": [
+                        1974,
+                        19991126
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "An Elephant Named Joseph",
+                    "results": [
+                        1830117,
+                        1417887
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Firewall Rules",
+                    "results": [
+                        31053880,
+                        117
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Scrambled Letters and Hash",
+                    "results": [
+                        "bfheacgd",
+                        "gcehdbfa"
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Grid Computing",
+                    "results": [
+                        892,
+                        227
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Safe Cracking",
+                    "results": [
+                        11748,
+                        479008308
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Air Duct Spelunking",
+                    "results": [
+                        462,
+                        676
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Clock Signal",
+                    "results": [
+                        175
+                    ]
+                }
+            ]
         },
         {
-          "day": 3,
-          "title": "Perfectly Spherical Houses in a Vacuum",
-          "results": [
-            2565,
-            2639
-          ]
+            "year": 2017,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Inverse Captcha",
+                    "results": [
+                        1228,
+                        1238
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Corruption Checksum",
+                    "results": [
+                        51833,
+                        288
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Spiral Memory",
+                    "results": [
+                        430,
+                        312453
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "High-Entropy Passphrases",
+                    "results": [
+                        477,
+                        167
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "A Maze of Twisty Trampolines, All Alike",
+                    "results": [
+                        396086,
+                        28675390
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Memory Reallocation",
+                    "results": [
+                        6681,
+                        2392
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "Recursive Circus",
+                    "results": [
+                        "cqmvs",
+                        2310
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "I Heard You Like Registers",
+                    "results": [
+                        3745,
+                        4644
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Stream Processing",
+                    "results": [
+                        14421,
+                        6817
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Knot Hash",
+                    "results": [
+                        48705,
+                        "1c46642b6f2bc21db2a2149d0aeeae5d"
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Hex Ed",
+                    "results": [
+                        650,
+                        1465
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Digital Plumber",
+                    "results": [
+                        113,
+                        202
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Packet Scanners",
+                    "results": [
+                        1704,
+                        3970918
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Disk Defragmentation",
+                    "results": [
+                        8226,
+                        1128
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Dueling Generators",
+                    "results": [
+                        638,
+                        343
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Permutation Promenade",
+                    "results": [
+                        "jkmflcgpdbonihea",
+                        "ajcdefghpkblmion"
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Spinlock",
+                    "results": [
+                        1025,
+                        37803463
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Duet",
+                    "results": [
+                        7071,
+                        8001
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "A Series of Tubes",
+                    "results": [
+                        "VTWBPYAQFU",
+                        17358
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Particle Swarm",
+                    "results": [
+                        150,
+                        657
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Fractal Art",
+                    "results": [
+                        150,
+                        2606275
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Sporifica Virus",
+                    "results": [
+                        5246,
+                        2512059
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Coprocessor Conflagration",
+                    "results": [
+                        5929,
+                        907
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Electromagnetic Moat",
+                    "results": [
+                        1868,
+                        1841
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "The Halting Problem",
+                    "results": [
+                        3145
+                    ]
+                }
+            ]
         },
         {
-          "day": 4,
-          "title": "The Ideal Stocking Stuffer",
-          "results": [
-            117946,
-            3938038
-          ]
+            "year": 2018,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Chronal Calibration",
+                    "results": [
+                        439,
+                        124645
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Inventory Management System",
+                    "results": [
+                        8610,
+                        "iosnxmfkpabcjpdywvrtahluy"
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "No Matter How You Slice It",
+                    "results": [
+                        112418,
+                        560
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Repose Record",
+                    "results": [
+                        4716,
+                        117061
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Alchemical Reduction",
+                    "results": [
+                        11754,
+                        4098
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Chronal Coordinates",
+                    "results": [
+                        5429,
+                        32614
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "The Sum of Its Parts",
+                    "results": [
+                        "DFOQPTELAYRVUMXHKWSGZBCJIN",
+                        1036
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Memory Maneuver",
+                    "results": [
+                        42951,
+                        18568
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Marble Mania",
+                    "results": [
+                        416424,
+                        3498287922
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "The Stars Align",
+                    "results": [
+                        "######..######...####...#####....####....####....####......###\n.....#.......#..#....#..#....#..#....#..#....#..#....#......#.\n.....#.......#..#.......#....#..#.......#.......#...........#.\n....#.......#...#.......#....#..#.......#.......#...........#.\n...#.......#....#.......#####...#.......#.......#...........#.\n..#.......#.....#.......#....#..#..###..#..###..#...........#.\n.#.......#......#.......#....#..#....#..#....#..#...........#.\n#.......#.......#.......#....#..#....#..#....#..#.......#...#.\n#.......#.......#....#..#....#..#...##..#...##..#....#..#...#.\n######..######...####...#####....###.#...###.#...####....###..",
+                        10886
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Chronal Charge",
+                    "results": [
+                        "235,16",
+                        "236,227,14"
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Subterranean Sustainability",
+                    "results": [
+                        4217,
+                        4550000002111
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Mine Cart Madness",
+                    "results": [
+                        "130,104",
+                        "29,83"
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Chocolate Charts",
+                    "results": [
+                        3147574107,
+                        20280190
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Beverage Bandits",
+                    "results": [
+                        213692,
+                        52688
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Chronal Classification",
+                    "results": [
+                        531,
+                        649
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Reservoir Research",
+                    "results": [
+                        33004,
+                        23294
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Settlers of The North Pole",
+                    "results": [
+                        605154,
+                        200364
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Go With The Flow",
+                    "results": [
+                        1530,
+                        16533000
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "A Regular Map",
+                    "results": [
+                        3502,
+                        8000
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Chronal Conversion",
+                    "results": [
+                        15615244,
+                        12963935
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Mode Maze",
+                    "results": [
+                        10603,
+                        952
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Experimental Emergency Teleportation",
+                    "results": [
+                        430,
+                        80250793
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Immune System Simulator 20XX",
+                    "results": [
+                        24009,
+                        379
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Four-Dimensional Adventure",
+                    "results": [
+                        396
+                    ]
+                }
+            ]
         },
         {
-          "day": 5,
-          "title": "Doesn't He Have Intern-Elves For This?",
-          "results": [
-            236,
-            51
-          ]
+            "year": 2019,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "The Tyranny of the Rocket Equation",
+                    "results": [
+                        3465154,
+                        5194864
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "1202 Program Alarm",
+                    "results": [
+                        2782414,
+                        9820
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Crossed Wires",
+                    "results": [
+                        1431,
+                        48012
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Secure Container",
+                    "results": [
+                        1675,
+                        1142
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Sunny with a Chance of Asteroids",
+                    "results": [
+                        5044655,
+                        7408802
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Universal Orbit Map",
+                    "results": [
+                        150150,
+                        352
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "Amplification Circuit",
+                    "results": [
+                        21760,
+                        69816958
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Space Image Format",
+                    "results": [
+                        1548,
+                        " ##  #### #  # #  #  ##  \n#  # #    # #  #  # #  # \n#    ###  ##   #  # #  # \n#    #    # #  #  # #### \n#  # #    # #  #  # #  # \n ##  #### #  #  ##  #  # \n"
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Sensor Boost",
+                    "results": [
+                        3638931938,
+                        86025
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Monitoring Station",
+                    "results": [
+                        267,
+                        1309
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Space Police",
+                    "results": [
+                        2056,
+                        " ##  #    ###  #### ###    ## #### ### \n#  # #    #  # #    #  #    #    # #  #\n#    #    ###  ###  #  #    #   #  #  #\n# ## #    #  # #    ###     #  #   ### \n#  # #    #  # #    #    #  # #    #   \n ### #### ###  #### #     ##  #### #   \n"
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "The N-Body Problem",
+                    "results": [
+                        8538,
+                        506359021038056
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Care Package",
+                    "results": [
+                        320,
+                        15156
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Space Stoichiometry",
+                    "results": [
+                        261960,
+                        4366186
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Oxygen System",
+                    "results": [
+                        300,
+                        312
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Flawed Frequency Transmission",
+                    "results": [
+                        67481260,
+                        42178738
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Set and Forget",
+                    "results": [
+                        4044,
+                        893283
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Many-Worlds Interpretation",
+                    "results": [
+                        5198,
+                        1736
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Tractor Beam",
+                    "results": [
+                        129,
+                        14040699
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Donut Maze",
+                    "results": [
+                        496,
+                        5886
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Springdroid Adventure",
+                    "results": [
+                        19354392,
+                        1139528802
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Slam Shuffle",
+                    "results": [
+                        7614,
+                        63069809831158
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Category Six",
+                    "results": [
+                        27182,
+                        19285
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Planet of Discord",
+                    "results": [
+                        18370591,
+                        2040
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Cryostasis",
+                    "results": [
+                        16778274
+                    ]
+                }
+            ]
         },
         {
-          "day": 6,
-          "title": "Probably a Fire Hazard",
-          "results": [
-            377891,
-            14110788
-          ]
+            "year": 2020,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Report Repair",
+                    "results": [
+                        969024,
+                        230057040
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Password Philosophy",
+                    "results": [
+                        528,
+                        497
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Toboggan Trajectory",
+                    "results": [
+                        225,
+                        1115775000
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Passport Processing",
+                    "results": [
+                        228,
+                        175
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Binary Boarding",
+                    "results": [
+                        913,
+                        717
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Custom Customs",
+                    "results": [
+                        7120,
+                        3570
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "Handy Haversacks",
+                    "results": [
+                        179,
+                        18925
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Handheld Halting",
+                    "results": [
+                        1446,
+                        1403
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Encoding Error",
+                    "results": [
+                        20874512,
+                        3012420
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Adapter Array",
+                    "results": [
+                        2170,
+                        24803586664192
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Seating System",
+                    "results": [
+                        2470,
+                        2259
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Rain Risk",
+                    "results": [
+                        1457,
+                        106860
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Shuttle Search",
+                    "results": [
+                        259,
+                        210612924879242
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Docking Data",
+                    "results": [
+                        14839536808842,
+                        4215284199669
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Rambunctious Recitation",
+                    "results": [
+                        1665,
+                        16439
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Ticket Translation",
+                    "results": [
+                        21071,
+                        3429967441937
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Conway Cubes",
+                    "results": [
+                        315,
+                        1520
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Operation Order",
+                    "results": [
+                        21022630974613,
+                        169899524778212
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Monster Messages",
+                    "results": [
+                        129,
+                        243
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Jurassic Jigsaw",
+                    "results": [
+                        5966506063747,
+                        1714
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Allergen Assessment",
+                    "results": [
+                        2410,
+                        "tmp,pdpgm,cdslv,zrvtg,ttkn,mkpmkx,vxzpfp,flnhl"
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Crab Combat",
+                    "results": [
+                        31455,
+                        32528
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Crab Cups",
+                    "results": [
+                        34952786,
+                        505334281774
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Lobby Layout",
+                    "results": [
+                        326,
+                        3979
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Combo Breaker",
+                    "results": [
+                        11288669
+                    ]
+                }
+            ]
         },
         {
-          "day": 7,
-          "title": "Some Assembly Required",
-          "results": [
-            46065,
-            14134
-          ]
+            "year": 2021,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Sonar Sweep",
+                    "results": [
+                        1390,
+                        1457
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Dive!",
+                    "results": [
+                        2120749,
+                        2138382217
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Binary Diagnostic",
+                    "results": [
+                        3277364,
+                        5736383
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Giant Squid",
+                    "results": [
+                        14093,
+                        17388
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Hydrothermal Venture",
+                    "results": [
+                        5294,
+                        21698
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Lanternfish",
+                    "results": [
+                        366057,
+                        1653559299811
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "The Treachery of Whales",
+                    "results": [
+                        343441,
+                        98925151
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Seven Segment Search",
+                    "results": [
+                        274,
+                        1012089
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Smoke Basin",
+                    "results": [
+                        458,
+                        1391940
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Syntax Scoring",
+                    "results": [
+                        299793,
+                        3654963618
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Dumbo Octopus",
+                    "results": [
+                        1675,
+                        515
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Passage Pathing",
+                    "results": [
+                        3421,
+                        84870
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Transparent Origami",
+                    "results": [
+                        716,
+                        "###  ###   ##  #  # #### ###  #    ### \n#  # #  # #  # # #  #    #  # #    #  #\n#  # #  # #    ##   ###  ###  #    #  #\n###  ###  #    # #  #    #  # #    ### \n# #  #    #  # # #  #    #  # #    # # \n#  # #     ##  #  # #    ###  #### #  #"
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Extended Polymerization",
+                    "results": [
+                        3284,
+                        4302675529689
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Chiton",
+                    "results": [
+                        373,
+                        2868
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Packet Decoder",
+                    "results": [
+                        960,
+                        12301926782560
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Trick Shot",
+                    "results": [
+                        4095,
+                        3773
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Snailfish",
+                    "results": [
+                        3892,
+                        4909
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Beacon Scanner",
+                    "results": [
+                        350,
+                        10895
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Trench Map",
+                    "results": [
+                        5432,
+                        16016
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Dirac Dice",
+                    "results": [
+                        897798,
+                        48868319769358
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Reactor Reboot",
+                    "results": [
+                        606484,
+                        1162571910364852
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Amphipod",
+                    "results": [
+                        14148,
+                        43814
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Arithmetic Logic Unit",
+                    "results": [
+                        94992992796199,
+                        11931881141161
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Sea Cucumber",
+                    "results": [
+                        414
+                    ]
+                }
+            ]
         },
         {
-          "day": 8,
-          "title": "Matchsticks",
-          "results": [
-            1350,
-            2085
-          ]
+            "year": 2022,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Calorie Counting",
+                    "results": [
+                        70698,
+                        206643
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Rock Paper Scissors",
+                    "results": [
+                        11386,
+                        13600
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Rucksack Reorganization",
+                    "results": [
+                        7597,
+                        2607
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Camp Cleanup",
+                    "results": [
+                        580,
+                        895
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Supply Stacks",
+                    "results": [
+                        "FWNSHLDNZ",
+                        "RNRGDNFQG"
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Tuning Trouble",
+                    "results": [
+                        1480,
+                        2746
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "No Space Left On Device",
+                    "results": [
+                        1348005,
+                        12785886
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Treetop Tree House",
+                    "results": [
+                        1647,
+                        392080
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Rope Bridge",
+                    "results": [
+                        5619,
+                        2376
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Cathode-Ray Tube",
+                    "results": [
+                        14060,
+                        "###   ##  ###  #  # #### #  # ####   ## \n#  # #  # #  # # #  #    # #  #       # \n#  # #  # #  # ##   ###  ##   ###     # \n###  #### ###  # #  #    # #  #       # \n#    #  # #    # #  #    # #  #    #  # \n#    #  # #    #  # #    #  # ####  ##  "
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Monkey in the Middle",
+                    "results": [
+                        113220,
+                        30599555965
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Hill Climbing Algorithm",
+                    "results": [
+                        449,
+                        443
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Distress Signal",
+                    "results": [
+                        5350,
+                        19570
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Regolith Reservoir",
+                    "results": [
+                        799,
+                        29076
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Beacon Exclusion Zone",
+                    "results": [
+                        5166077,
+                        13071206703981
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "Proboscidea Volcanium",
+                    "results": [
+                        1850,
+                        2306
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Pyroclastic Flow",
+                    "results": [
+                        3219,
+                        1582758620701
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Boiling Boulders",
+                    "results": [
+                        3364,
+                        2006
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Not Enough Minerals",
+                    "results": [
+                        1650,
+                        5824
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Grove Positioning System",
+                    "results": [
+                        18257,
+                        4148032160983
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Monkey Math",
+                    "results": [
+                        268597611536314,
+                        3451534022348
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Monkey Map",
+                    "results": [
+                        191010,
+                        55364
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "Unstable Diffusion",
+                    "results": [
+                        3780,
+                        930
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Blizzard Basin",
+                    "results": [
+                        332,
+                        942
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Full of Hot Air",
+                    "results": [
+                        "2=-0=1-0012-=-2=0=01"
+                    ]
+                }
+            ]
         },
         {
-          "day": 9,
-          "title": "All in a Single Night",
-          "results": [
-            141,
-            736
-          ]
+            "year": 2023,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Trebuchet?!",
+                    "results": [
+                        54390,
+                        54277
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Cube Conundrum",
+                    "results": [
+                        2237,
+                        66681
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Gear Ratios",
+                    "results": [
+                        554003,
+                        87263515
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Scratchcards",
+                    "results": [
+                        27454,
+                        6857330
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "If You Give A Seed A Fertilizer",
+                    "results": [
+                        424490994,
+                        15290096
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Wait For It",
+                    "results": [
+                        303600,
+                        23654842
+                    ]
+                },
+                {
+                    "day": 7,
+                    "title": "Camel Cards",
+                    "results": [
+                        249748283,
+                        248029057
+                    ]
+                },
+                {
+                    "day": 8,
+                    "title": "Haunted Wasteland",
+                    "results": [
+                        22199,
+                        13334102464297
+                    ]
+                },
+                {
+                    "day": 9,
+                    "title": "Mirage Maintenance",
+                    "results": [
+                        1782868781,
+                        1057
+                    ]
+                },
+                {
+                    "day": 10,
+                    "title": "Pipe Maze",
+                    "results": [
+                        6754,
+                        567
+                    ]
+                },
+                {
+                    "day": 11,
+                    "title": "Cosmic Expansion",
+                    "results": [
+                        10289334,
+                        649862989626
+                    ]
+                },
+                {
+                    "day": 12,
+                    "title": "Hot Springs",
+                    "results": [
+                        7402,
+                        3384337640277
+                    ]
+                },
+                {
+                    "day": 13,
+                    "title": "Point of Incidence",
+                    "results": [
+                        30518,
+                        36735
+                    ]
+                },
+                {
+                    "day": 14,
+                    "title": "Parabolic Reflector Dish",
+                    "results": [
+                        108792,
+                        99118
+                    ]
+                },
+                {
+                    "day": 15,
+                    "title": "Lens Library",
+                    "results": [
+                        510388,
+                        291774
+                    ]
+                },
+                {
+                    "day": 16,
+                    "title": "The Floor Will Be Lava",
+                    "results": [
+                        7517,
+                        7741
+                    ]
+                },
+                {
+                    "day": 17,
+                    "title": "Clumsy Crucible",
+                    "results": [
+                        851,
+                        982
+                    ]
+                },
+                {
+                    "day": 18,
+                    "title": "Lavaduct Lagoon",
+                    "results": [
+                        31171,
+                        131431655002266
+                    ]
+                },
+                {
+                    "day": 19,
+                    "title": "Aplenty",
+                    "results": [
+                        398527,
+                        133973513090020
+                    ]
+                },
+                {
+                    "day": 20,
+                    "title": "Pulse Propagation",
+                    "results": [
+                        743871576,
+                        244151741342687
+                    ]
+                },
+                {
+                    "day": 21,
+                    "title": "Step Counter",
+                    "results": [
+                        3858,
+                        636350496972143
+                    ]
+                },
+                {
+                    "day": 22,
+                    "title": "Sand Slabs",
+                    "results": [
+                        389,
+                        70609
+                    ]
+                },
+                {
+                    "day": 23,
+                    "title": "A Long Walk",
+                    "results": [
+                        2042,
+                        6466
+                    ]
+                },
+                {
+                    "day": 24,
+                    "title": "Never Tell Me The Odds",
+                    "results": [
+                        29142,
+                        848947587263033
+                    ]
+                },
+                {
+                    "day": 25,
+                    "title": "Snowverload",
+                    "results": [
+                        543256
+                    ]
+                }
+            ]
         },
         {
-          "day": 10,
-          "title": "Elves Look, Elves Say",
-          "results": [
-            492982,
-            6989950
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Corporate Policy",
-          "results": [
-            "hepxxyzz",
-            "heqaabcc"
-          ]
-        },
-        {
-          "day": 12,
-          "title": "JSAbacusFramework.io",
-          "results": [
-            156366,
-            96852
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Knights of the Dinner Table",
-          "results": [
-            618,
-            601
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Reindeer Olympics",
-          "results": [
-            2640,
-            1102
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Science for Hungry People",
-          "results": [
-            13882464,
-            11171160
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Aunt Sue",
-          "results": [
-            40,
-            241
-          ]
-        },
-        {
-          "day": 17,
-          "title": "No Such Thing as Too Much",
-          "results": [
-            654,
-            57
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Like a GIF For Your Yard",
-          "results": [
-            814,
-            924
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Medicine for Rudolph",
-          "results": [
-            509,
-            195
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Infinite Elves and Infinite Houses",
-          "results": [
-            776160,
-            786240
-          ]
-        },
-        {
-          "day": 21,
-          "title": "RPG Simulator 20XX",
-          "results": [
-            78,
-            148
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Wizard Simulator 20XX",
-          "results": [
-            1269,
-            1309
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Opening the Turing Lock",
-          "results": [
-            255,
-            334
-          ]
-        },
-        {
-          "day": 24,
-          "title": "It Hangs in the Balance",
-          "results": [
-            11266889531,
-            77387711
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Let It Snow",
-          "results": [
-            8997277
-          ]
+            "year": 2024,
+            "results_by_day": [
+                {
+                    "day": 1,
+                    "title": "Historian Hysteria",
+                    "results": [
+                        2057374,
+                        23177084
+                    ]
+                },
+                {
+                    "day": 2,
+                    "title": "Red-Nosed Reports",
+                    "results": [
+                        572,
+                        612
+                    ]
+                },
+                {
+                    "day": 3,
+                    "title": "Mull It Over",
+                    "results": [
+                        168539636,
+                        97529391
+                    ]
+                },
+                {
+                    "day": 4,
+                    "title": "Ceres Search",
+                    "results": [
+                        2504,
+                        1923
+                    ]
+                },
+                {
+                    "day": 5,
+                    "title": "Print Queue",
+                    "results": [
+                        6051,
+                        5093
+                    ]
+                },
+                {
+                    "day": 6,
+                    "title": "Guard Gallivant",
+                    "results": []
+                }
+            ]
         }
-      ]
-    },
-    {
-      "year": 2016,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "No Time for a Taxicab",
-          "results": [
-            301,
-            130
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Bathroom Security",
-          "results": [
-            "97289",
-            "9A7DC"
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Squares With Three Sides",
-          "results": [
-            917,
-            1649
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Security Through Obscurity",
-          "results": [
-            137896,
-            501
-          ]
-        },
-        {
-          "day": 5,
-          "title": "How About a Nice Game of Chess?",
-          "results": [
-            "801b56a7",
-            "424a0197"
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Signals and Noise",
-          "results": [
-            "tkspfjcc",
-            "xrlmbypn"
-          ]
-        },
-        {
-          "day": 7,
-          "title": "Internet Protocol Version 7",
-          "results": [
-            105,
-            258
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Two-Factor Authentication",
-          "results": [
-            123,
-            " ##  #### ###  #  # ###  #### ###    ## ###   ### \n#  # #    #  # #  # #  #    # #  #    # #  # #    \n#  # ###  ###  #  # #  #   #  ###     # #  # #    \n#### #    #  # #  # ###   #   #  #    # ###   ##  \n#  # #    #  # #  # #    #    #  # #  # #       # \n#  # #    ###   ##  #    #### ###   ##  #    ###  "
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Explosives in Cyberspace",
-          "results": [
-            110346,
-            10774309173
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Balance Bots",
-          "results": [
-            73,
-            3965
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Radioisotope Thermoelectric Generators",
-          "results": [
-            33,
-            57
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Leonardo's Monorail",
-          "results": [
-            318083,
-            9227737
-          ]
-        },
-        {
-          "day": 13,
-          "title": "A Maze of Twisty Little Cubicles",
-          "results": [
-            90,
-            135
-          ]
-        },
-        {
-          "day": 14,
-          "title": "One-Time Pad",
-          "results": [
-            23890,
-            22696
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Timing is Everything",
-          "results": [
-            122318,
-            3208583
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Dragon Checksum",
-          "results": [
-            "10111110010110110",
-            "01101100001100100"
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Two Steps Forward",
-          "results": [
-            "DDRRUDLRRD",
-            488
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Like a Rogue",
-          "results": [
-            1974,
-            19991126
-          ]
-        },
-        {
-          "day": 19,
-          "title": "An Elephant Named Joseph",
-          "results": [
-            1830117,
-            1417887
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Firewall Rules",
-          "results": [
-            31053880,
-            117
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Scrambled Letters and Hash",
-          "results": [
-            "bfheacgd",
-            "gcehdbfa"
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Grid Computing",
-          "results": [
-            892,
-            227
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Safe Cracking",
-          "results": [
-            11748,
-            479008308
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Air Duct Spelunking",
-          "results": [
-            462,
-            676
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Clock Signal",
-          "results": [
-            175
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2017,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Inverse Captcha",
-          "results": [
-            1228,
-            1238
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Corruption Checksum",
-          "results": [
-            51833,
-            288
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Spiral Memory",
-          "results": [
-            430,
-            312453
-          ]
-        },
-        {
-          "day": 4,
-          "title": "High-Entropy Passphrases",
-          "results": [
-            477,
-            167
-          ]
-        },
-        {
-          "day": 5,
-          "title": "A Maze of Twisty Trampolines, All Alike",
-          "results": [
-            396086,
-            28675390
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Memory Reallocation",
-          "results": [
-            6681,
-            2392
-          ]
-        },
-        {
-          "day": 7,
-          "title": "Recursive Circus",
-          "results": [
-            "cqmvs",
-            2310
-          ]
-        },
-        {
-          "day": 8,
-          "title": "I Heard You Like Registers",
-          "results": [
-            3745,
-            4644
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Stream Processing",
-          "results": [
-            14421,
-            6817
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Knot Hash",
-          "results": [
-            48705,
-            "1c46642b6f2bc21db2a2149d0aeeae5d"
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Hex Ed",
-          "results": [
-            650,
-            1465
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Digital Plumber",
-          "results": [
-            113,
-            202
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Packet Scanners",
-          "results": [
-            1704,
-            3970918
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Disk Defragmentation",
-          "results": [
-            8226,
-            1128
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Dueling Generators",
-          "results": [
-            638,
-            343
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Permutation Promenade",
-          "results": [
-            "jkmflcgpdbonihea",
-            "ajcdefghpkblmion"
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Spinlock",
-          "results": [
-            1025,
-            37803463
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Duet",
-          "results": [
-            7071,
-            8001
-          ]
-        },
-        {
-          "day": 19,
-          "title": "A Series of Tubes",
-          "results": [
-            "VTWBPYAQFU",
-            17358
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Particle Swarm",
-          "results": [
-            150,
-            657
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Fractal Art",
-          "results": [
-            150,
-            2606275
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Sporifica Virus",
-          "results": [
-            5246,
-            2512059
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Coprocessor Conflagration",
-          "results": [
-            5929,
-            907
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Electromagnetic Moat",
-          "results": [
-            1868,
-            1841
-          ]
-        },
-        {
-          "day": 25,
-          "title": "The Halting Problem",
-          "results": [
-            3145
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2018,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Chronal Calibration",
-          "results": [
-            439,
-            124645
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Inventory Management System",
-          "results": [
-            8610,
-            "iosnxmfkpabcjpdywvrtahluy"
-          ]
-        },
-        {
-          "day": 3,
-          "title": "No Matter How You Slice It",
-          "results": [
-            112418,
-            560
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Repose Record",
-          "results": [
-            4716,
-            117061
-          ]
-        },
-        {
-          "day": 5,
-          "title": "Alchemical Reduction",
-          "results": [
-            11754,
-            4098
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Chronal Coordinates",
-          "results": [
-            5429,
-            32614
-          ]
-        },
-        {
-          "day": 7,
-          "title": "The Sum of Its Parts",
-          "results": [
-            "DFOQPTELAYRVUMXHKWSGZBCJIN",
-            1036
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Memory Maneuver",
-          "results": [
-            42951,
-            18568
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Marble Mania",
-          "results": [
-            416424,
-            3498287922
-          ]
-        },
-        {
-          "day": 10,
-          "title": "The Stars Align",
-          "results": [
-            "######..######...####...#####....####....####....####......###\n.....#.......#..#....#..#....#..#....#..#....#..#....#......#.\n.....#.......#..#.......#....#..#.......#.......#...........#.\n....#.......#...#.......#....#..#.......#.......#...........#.\n...#.......#....#.......#####...#.......#.......#...........#.\n..#.......#.....#.......#....#..#..###..#..###..#...........#.\n.#.......#......#.......#....#..#....#..#....#..#...........#.\n#.......#.......#.......#....#..#....#..#....#..#.......#...#.\n#.......#.......#....#..#....#..#...##..#...##..#....#..#...#.\n######..######...####...#####....###.#...###.#...####....###..",
-            10886
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Chronal Charge",
-          "results": [
-            "235,16",
-            "236,227,14"
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Subterranean Sustainability",
-          "results": [
-            4217,
-            4550000002111
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Mine Cart Madness",
-          "results": [
-            "130,104",
-            "29,83"
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Chocolate Charts",
-          "results": [
-            3147574107,
-            20280190
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Beverage Bandits",
-          "results": [
-            213692,
-            52688
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Chronal Classification",
-          "results": [
-            531,
-            649
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Reservoir Research",
-          "results": [
-            33004,
-            23294
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Settlers of The North Pole",
-          "results": [
-            605154,
-            200364
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Go With The Flow",
-          "results": [
-            1530,
-            16533000
-          ]
-        },
-        {
-          "day": 20,
-          "title": "A Regular Map",
-          "results": [
-            3502,
-            8000
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Chronal Conversion",
-          "results": [
-            15615244,
-            12963935
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Mode Maze",
-          "results": [
-            10603,
-            952
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Experimental Emergency Teleportation",
-          "results": [
-            430,
-            80250793
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Immune System Simulator 20XX",
-          "results": [
-            24009,
-            379
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Four-Dimensional Adventure",
-          "results": [
-            396
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2019,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "The Tyranny of the Rocket Equation",
-          "results": [
-            3465154,
-            5194864
-          ]
-        },
-        {
-          "day": 2,
-          "title": "1202 Program Alarm",
-          "results": [
-            2782414,
-            9820
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Crossed Wires",
-          "results": [
-            1431,
-            48012
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Secure Container",
-          "results": [
-            1675,
-            1142
-          ]
-        },
-        {
-          "day": 5,
-          "title": "Sunny with a Chance of Asteroids",
-          "results": [
-            5044655,
-            7408802
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Universal Orbit Map",
-          "results": [
-            150150,
-            352
-          ]
-        },
-        {
-          "day": 7,
-          "title": "Amplification Circuit",
-          "results": [
-            21760,
-            69816958
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Space Image Format",
-          "results": [
-            1548,
-            " ##  #### #  # #  #  ##  \n#  # #    # #  #  # #  # \n#    ###  ##   #  # #  # \n#    #    # #  #  # #### \n#  # #    # #  #  # #  # \n ##  #### #  #  ##  #  # \n"
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Sensor Boost",
-          "results": [
-            3638931938,
-            86025
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Monitoring Station",
-          "results": [
-            267,
-            1309
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Space Police",
-          "results": [
-            2056,
-            " ##  #    ###  #### ###    ## #### ### \n#  # #    #  # #    #  #    #    # #  #\n#    #    ###  ###  #  #    #   #  #  #\n# ## #    #  # #    ###     #  #   ### \n#  # #    #  # #    #    #  # #    #   \n ### #### ###  #### #     ##  #### #   \n"
-          ]
-        },
-        {
-          "day": 12,
-          "title": "The N-Body Problem",
-          "results": [
-            8538,
-            506359021038056
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Care Package",
-          "results": [
-            320,
-            15156
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Space Stoichiometry",
-          "results": [
-            261960,
-            4366186
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Oxygen System",
-          "results": [
-            300,
-            312
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Flawed Frequency Transmission",
-          "results": [
-            67481260,
-            42178738
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Set and Forget",
-          "results": [
-            4044,
-            893283
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Many-Worlds Interpretation",
-          "results": [
-            5198,
-            1736
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Tractor Beam",
-          "results": [
-            129,
-            14040699
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Donut Maze",
-          "results": [
-            496,
-            5886
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Springdroid Adventure",
-          "results": [
-            19354392,
-            1139528802
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Slam Shuffle",
-          "results": [
-            7614,
-            63069809831158
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Category Six",
-          "results": [
-            27182,
-            19285
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Planet of Discord",
-          "results": [
-            18370591,
-            2040
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Cryostasis",
-          "results": [
-            16778274
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2020,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Report Repair",
-          "results": [
-            969024,
-            230057040
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Password Philosophy",
-          "results": [
-            528,
-            497
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Toboggan Trajectory",
-          "results": [
-            225,
-            1115775000
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Passport Processing",
-          "results": [
-            228,
-            175
-          ]
-        },
-        {
-          "day": 5,
-          "title": "Binary Boarding",
-          "results": [
-            913,
-            717
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Custom Customs",
-          "results": [
-            7120,
-            3570
-          ]
-        },
-        {
-          "day": 7,
-          "title": "Handy Haversacks",
-          "results": [
-            179,
-            18925
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Handheld Halting",
-          "results": [
-            1446,
-            1403
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Encoding Error",
-          "results": [
-            20874512,
-            3012420
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Adapter Array",
-          "results": [
-            2170,
-            24803586664192
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Seating System",
-          "results": [
-            2470,
-            2259
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Rain Risk",
-          "results": [
-            1457,
-            106860
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Shuttle Search",
-          "results": [
-            259,
-            210612924879242
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Docking Data",
-          "results": [
-            14839536808842,
-            4215284199669
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Rambunctious Recitation",
-          "results": [
-            1665,
-            16439
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Ticket Translation",
-          "results": [
-            21071,
-            3429967441937
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Conway Cubes",
-          "results": [
-            315,
-            1520
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Operation Order",
-          "results": [
-            21022630974613,
-            169899524778212
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Monster Messages",
-          "results": [
-            129,
-            243
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Jurassic Jigsaw",
-          "results": [
-            5966506063747,
-            1714
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Allergen Assessment",
-          "results": [
-            2410,
-            "tmp,pdpgm,cdslv,zrvtg,ttkn,mkpmkx,vxzpfp,flnhl"
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Crab Combat",
-          "results": [
-            31455,
-            32528
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Crab Cups",
-          "results": [
-            34952786,
-            505334281774
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Lobby Layout",
-          "results": [
-            326,
-            3979
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Combo Breaker",
-          "results": [
-            11288669
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2021,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Sonar Sweep",
-          "results": [
-            1390,
-            1457
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Dive!",
-          "results": [
-            2120749,
-            2138382217
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Binary Diagnostic",
-          "results": [
-            3277364,
-            5736383
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Giant Squid",
-          "results": [
-            14093,
-            17388
-          ]
-        },
-        {
-          "day": 5,
-          "title": "Hydrothermal Venture",
-          "results": [
-            5294,
-            21698
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Lanternfish",
-          "results": [
-            366057,
-            1653559299811
-          ]
-        },
-        {
-          "day": 7,
-          "title": "The Treachery of Whales",
-          "results": [
-            343441,
-            98925151
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Seven Segment Search",
-          "results": [
-            274,
-            1012089
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Smoke Basin",
-          "results": [
-            458,
-            1391940
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Syntax Scoring",
-          "results": [
-            299793,
-            3654963618
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Dumbo Octopus",
-          "results": [
-            1675,
-            515
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Passage Pathing",
-          "results": [
-            3421,
-            84870
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Transparent Origami",
-          "results": [
-            716,
-            "###  ###   ##  #  # #### ###  #    ### \n#  # #  # #  # # #  #    #  # #    #  #\n#  # #  # #    ##   ###  ###  #    #  #\n###  ###  #    # #  #    #  # #    ### \n# #  #    #  # # #  #    #  # #    # # \n#  # #     ##  #  # #    ###  #### #  #"
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Extended Polymerization",
-          "results": [
-            3284,
-            4302675529689
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Chiton",
-          "results": [
-            373,
-            2868
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Packet Decoder",
-          "results": [
-            960,
-            12301926782560
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Trick Shot",
-          "results": [
-            4095,
-            3773
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Snailfish",
-          "results": [
-            3892,
-            4909
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Beacon Scanner",
-          "results": [
-            350,
-            10895
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Trench Map",
-          "results": [
-            5432,
-            16016
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Dirac Dice",
-          "results": [
-            897798,
-            48868319769358
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Reactor Reboot",
-          "results": [
-            606484,
-            1162571910364852
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Amphipod",
-          "results": [
-            14148,
-            43814
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Arithmetic Logic Unit",
-          "results": [
-            94992992796199,
-            11931881141161
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Sea Cucumber",
-          "results": [
-            414
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2022,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Calorie Counting",
-          "results": [
-            70698,
-            206643
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Rock Paper Scissors",
-          "results": [
-            11386,
-            13600
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Rucksack Reorganization",
-          "results": [
-            7597,
-            2607
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Camp Cleanup",
-          "results": [
-            580,
-            895
-          ]
-        },
-        {
-          "day": 5,
-          "title": "Supply Stacks",
-          "results": [
-            "FWNSHLDNZ",
-            "RNRGDNFQG"
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Tuning Trouble",
-          "results": [
-            1480,
-            2746
-          ]
-        },
-        {
-          "day": 7,
-          "title": "No Space Left On Device",
-          "results": [
-            1348005,
-            12785886
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Treetop Tree House",
-          "results": [
-            1647,
-            392080
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Rope Bridge",
-          "results": [
-            5619,
-            2376
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Cathode-Ray Tube",
-          "results": [
-            14060,
-            "###   ##  ###  #  # #### #  # ####   ## \n#  # #  # #  # # #  #    # #  #       # \n#  # #  # #  # ##   ###  ##   ###     # \n###  #### ###  # #  #    # #  #       # \n#    #  # #    # #  #    # #  #    #  # \n#    #  # #    #  # #    #  # ####  ##  "
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Monkey in the Middle",
-          "results": [
-            113220,
-            30599555965
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Hill Climbing Algorithm",
-          "results": [
-            449,
-            443
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Distress Signal",
-          "results": [
-            5350,
-            19570
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Regolith Reservoir",
-          "results": [
-            799,
-            29076
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Beacon Exclusion Zone",
-          "results": [
-            5166077,
-            13071206703981
-          ]
-        },
-        {
-          "day": 16,
-          "title": "Proboscidea Volcanium",
-          "results": [
-            1850,
-            2306
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Pyroclastic Flow",
-          "results": [
-            3219,
-            1582758620701
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Boiling Boulders",
-          "results": [
-            3364,
-            2006
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Not Enough Minerals",
-          "results": [
-            1650,
-            5824
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Grove Positioning System",
-          "results": [
-            18257,
-            4148032160983
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Monkey Math",
-          "results": [
-            268597611536314,
-            3451534022348
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Monkey Map",
-          "results": [
-            191010,
-            55364
-          ]
-        },
-        {
-          "day": 23,
-          "title": "Unstable Diffusion",
-          "results": [
-            3780,
-            930
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Blizzard Basin",
-          "results": [
-            332,
-            942
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Full of Hot Air",
-          "results": [
-            "2=-0=1-0012-=-2=0=01"
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2023,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Trebuchet?!",
-          "results": [
-            54390,
-            54277
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Cube Conundrum",
-          "results": [
-            2237,
-            66681
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Gear Ratios",
-          "results": [
-            554003,
-            87263515
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Scratchcards",
-          "results": [
-            27454,
-            6857330
-          ]
-        },
-        {
-          "day": 5,
-          "title": "If You Give A Seed A Fertilizer",
-          "results": [
-            424490994,
-            15290096
-          ]
-        },
-        {
-          "day": 6,
-          "title": "Wait For It",
-          "results": [
-            303600,
-            23654842
-          ]
-        },
-        {
-          "day": 7,
-          "title": "Camel Cards",
-          "results": [
-            249748283,
-            248029057
-          ]
-        },
-        {
-          "day": 8,
-          "title": "Haunted Wasteland",
-          "results": [
-            22199,
-            13334102464297
-          ]
-        },
-        {
-          "day": 9,
-          "title": "Mirage Maintenance",
-          "results": [
-            1782868781,
-            1057
-          ]
-        },
-        {
-          "day": 10,
-          "title": "Pipe Maze",
-          "results": [
-            6754,
-            567
-          ]
-        },
-        {
-          "day": 11,
-          "title": "Cosmic Expansion",
-          "results": [
-            10289334,
-            649862989626
-          ]
-        },
-        {
-          "day": 12,
-          "title": "Hot Springs",
-          "results": [
-            7402,
-            3384337640277
-          ]
-        },
-        {
-          "day": 13,
-          "title": "Point of Incidence",
-          "results": [
-            30518,
-            36735
-          ]
-        },
-        {
-          "day": 14,
-          "title": "Parabolic Reflector Dish",
-          "results": [
-            108792,
-            99118
-          ]
-        },
-        {
-          "day": 15,
-          "title": "Lens Library",
-          "results": [
-            510388,
-            291774
-          ]
-        },
-        {
-          "day": 16,
-          "title": "The Floor Will Be Lava",
-          "results": [
-            7517,
-            7741
-          ]
-        },
-        {
-          "day": 17,
-          "title": "Clumsy Crucible",
-          "results": [
-            851,
-            982
-          ]
-        },
-        {
-          "day": 18,
-          "title": "Lavaduct Lagoon",
-          "results": [
-            31171,
-            131431655002266
-          ]
-        },
-        {
-          "day": 19,
-          "title": "Aplenty",
-          "results": [
-            398527,
-            133973513090020
-          ]
-        },
-        {
-          "day": 20,
-          "title": "Pulse Propagation",
-          "results": [
-            743871576,
-            244151741342687
-          ]
-        },
-        {
-          "day": 21,
-          "title": "Step Counter",
-          "results": [
-            3858,
-            636350496972143
-          ]
-        },
-        {
-          "day": 22,
-          "title": "Sand Slabs",
-          "results": [
-            389,
-            70609
-          ]
-        },
-        {
-          "day": 23,
-          "title": "A Long Walk",
-          "results": [
-            2042,
-            6466
-          ]
-        },
-        {
-          "day": 24,
-          "title": "Never Tell Me The Odds",
-          "results": [
-            29142,
-            848947587263033
-          ]
-        },
-        {
-          "day": 25,
-          "title": "Snowverload",
-          "results": [
-            543256
-          ]
-        }
-      ]
-    },
-    {
-      "year": 2024,
-      "results_by_day": [
-        {
-          "day": 1,
-          "title": "Historian Hysteria",
-          "results": [
-            2057374,
-            23177084
-          ]
-        },
-        {
-          "day": 2,
-          "title": "Red-Nosed Reports",
-          "results": [
-            572,
-            612
-          ]
-        },
-        {
-          "day": 3,
-          "title": "Mull It Over",
-          "results": [
-            168539636,
-            97529391
-          ]
-        },
-        {
-          "day": 4,
-          "title": "Ceres Search",
-          "results": [
-            2504,
-            1923
-          ]
-        },
-        {
-          "day": 5,
-          "title": "Print Queue",
-          "results": [
-            6051,
-            5093
-          ]
-        }
-      ]
-    }
-  ]
+    ]
 }
