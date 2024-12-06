@@ -6,7 +6,7 @@ from ..parser import parse_page_ordering_rules, parse_updates
 _CONTENT = """
            47|53
            97|13
-   
+
            75,29,13
            75,97,47,61,53
            """

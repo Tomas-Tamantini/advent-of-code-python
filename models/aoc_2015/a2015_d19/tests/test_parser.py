@@ -8,7 +8,7 @@ def test_parse_molecule_replacements():
     file_content = """H => HO
                       H => OH
                       O => HH
-                      
+
                       HOH"""
     molecule, replacements = parse_molecule_replacements(InputFromString(file_content))
     assert replacements == {

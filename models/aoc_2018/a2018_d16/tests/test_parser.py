@@ -34,7 +34,7 @@ def test_parse_instruction_samples():
 
 def test_parse_unknown_op_code_program():
     file_content = """After:  [40, 30, 20, 10]
-    
+
                       14 1 2 3
                       13 3 2 1"""
     instruction_a_spy = Mock()

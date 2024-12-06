@@ -11,7 +11,7 @@ def test_parse_crab_combat_cards():
                    6
                    3
                    1
-                   
+
                    Player 2:
                    5
                    8

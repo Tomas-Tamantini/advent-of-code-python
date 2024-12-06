@@ -8,7 +8,7 @@ def test_parse_jigsaw_pieces():
                    Tile 2311:                   
                    .#.
                    ...
-                   
+
                    Tile 1951:
                    ..#
                    ###

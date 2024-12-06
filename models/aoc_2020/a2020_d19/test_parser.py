@@ -11,7 +11,7 @@ def test_parse_context_free_grammar_and_words():
                    3: 4 5 | 5 4
                    4: "a"
                    5: "b"
- 
+
                    ababbb
                    bababa
                    abbbab

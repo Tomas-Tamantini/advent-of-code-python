@@ -8,11 +8,11 @@ def test_calories_are_grouped_by_line_break():
         """
         12
         123
-        
+
         5
         -6
         3
-        
+
         1
         """
     )

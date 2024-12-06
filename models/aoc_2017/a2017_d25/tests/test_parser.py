@@ -7,7 +7,7 @@ from ..turing_machine import TuringRule, TuringState
 def test_parse_turing_machine_specs():
     file_content = """Begin in state A.
                       Perform a diagnostic checksum after 6 steps.
- 
+
                       In state A:
                       If the current value is 0:
                           - Write the value 1.
