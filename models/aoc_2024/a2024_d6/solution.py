@@ -1,5 +1,6 @@
 from typing import Iterator
 from models.common.io import IOHandler, Problem, ProblemSolution
+from .parser import parse_patrol_area, parse_patrol_guard
 
 
 def aoc_2024_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
