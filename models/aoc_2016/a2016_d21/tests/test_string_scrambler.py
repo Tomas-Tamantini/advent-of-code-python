@@ -12,7 +12,7 @@ from ..string_scrambler import (
 
 
 @pytest.mark.parametrize(
-    "scrambler, original, scrambled",
+    ("scrambler", "original", "scrambled"),
     [
         (PositionSwapScrambler(0, 4), "abcde", "ebcda"),
         (PositionSwapScrambler(4, 0), "abcde", "ebcda"),

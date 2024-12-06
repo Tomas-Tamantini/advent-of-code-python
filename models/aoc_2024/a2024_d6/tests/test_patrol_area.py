@@ -21,7 +21,7 @@ _AREA = PatrolArea(
 
 
 @pytest.mark.parametrize(
-    "guard_pos, guard_dir, expected_distance",
+    ("guard_pos", "guard_dir", "expected_distance"),
     [
         (Vector2D(0, 0), CardinalDirection.EAST, 4),
         (Vector2D(4, 6), CardinalDirection.NORTH, 6),
@@ -35,7 +35,7 @@ def test_patrol_area_keeps_track_of_distance_to_next_obstacle(
 
 
 @pytest.mark.parametrize(
-    "guard_pos, guard_dir, expected_distance",
+    ("guard_pos", "guard_dir", "expected_distance"),
     [
         (Vector2D(0, 0), CardinalDirection.WEST, -1),
         (Vector2D(4, 6), CardinalDirection.SOUTH, -4),

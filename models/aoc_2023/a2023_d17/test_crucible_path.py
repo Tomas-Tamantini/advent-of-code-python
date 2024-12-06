@@ -37,7 +37,7 @@ NINES_MAP = """111111111111
 
 
 @pytest.mark.parametrize(
-    "map_grid, final_x, final_y",
+    ("map_grid", "final_x", "final_y"),
     [
         (SINGLE_BLOCK_MAP, 0, 0),
         (LARGE_MAP, 12, 12),
@@ -58,7 +58,7 @@ def test_city_map_returns_heat_loss_by_block():
 
 
 @pytest.mark.parametrize(
-    "x, y, within_bounds",
+    ("x", "y", "within_bounds"),
     [
         (0, 0, True),
         (11, 4, True),
@@ -239,7 +239,7 @@ def test_heuristic_potential_of_city_block_is_its_manhattan_distance_to_destinat
 
 
 @pytest.mark.parametrize(
-    "map_grid, min_steps_same_direction, max_steps_same_direction, heat_loss",
+    ("map_grid", "min_steps_same_direction", "max_steps_same_direction", "heat_loss"),
     [
         (SINGLE_BLOCK_MAP, 0, 1, 0),
         (LARGE_MAP, 0, 3, 102),

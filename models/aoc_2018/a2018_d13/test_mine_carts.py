@@ -88,7 +88,7 @@ def test_carts_make_predetermined_sequence_of_moves_at_intersections():
 
 
 @pytest.mark.parametrize(
-    "layout, expected_collisions",
+    ("layout", "expected_collisions"),
     [
         (intersection_layout, [Vector2D(7, 3)]),
         ("-->-<--><---", [Vector2D(3, 0), Vector2D(8, 0)]),

@@ -46,7 +46,7 @@ def _example_blueprint_2() -> Blueprint:
 
 
 @pytest.mark.parametrize(
-    "blueprint, max_num_geodes",
+    ("blueprint", "max_num_geodes"),
     [
         (_example_blueprint_1(), 9),
         (_example_blueprint_2(), 12),

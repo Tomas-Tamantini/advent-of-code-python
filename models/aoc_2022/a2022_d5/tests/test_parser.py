@@ -7,7 +7,7 @@ from ..parser import parse_crates
 
 
 @pytest.mark.parametrize(
-    "move_one_at_a_time, move_cls",
+    ("move_one_at_a_time", "move_cls"),
     [(True, MoveCratesOneAtATime), (False, MoveCratesMultipleAtATime)],
 )
 def test_parse_crates(move_one_at_a_time, move_cls):

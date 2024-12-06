@@ -34,7 +34,7 @@ def test_exclamation_mark_cancels_next_character():
 
 
 @pytest.mark.parametrize(
-    "stream, expected_num_non_cancelled_chars_in_garbage",
+    ("stream", "expected_num_non_cancelled_chars_in_garbage"),
     [
         ("", 0),
         ("<>", 0),

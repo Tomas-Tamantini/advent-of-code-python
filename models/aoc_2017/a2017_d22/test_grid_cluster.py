@@ -6,7 +6,7 @@ from .grid_cluster import GridCluster
 
 
 @pytest.mark.parametrize(
-    "num_steps, num_infections",
+    ("num_steps", "num_infections"),
     [(0, 0), (1, 1), (2, 1), (7, 5), (70, 41), (10000, 5587)],
 )
 def test_grid_keeps_track_of_how_many_infections_were_caused(num_steps, num_infections):
@@ -19,7 +19,7 @@ def test_grid_keeps_track_of_how_many_infections_were_caused(num_steps, num_infe
 
 
 @pytest.mark.parametrize(
-    "num_steps, num_infections",
+    ("num_steps", "num_infections"),
     [
         (0, 0),
         (1, 0),

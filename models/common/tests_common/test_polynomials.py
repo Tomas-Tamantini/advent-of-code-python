@@ -31,7 +31,7 @@ def test_polynomial_evaluation_substitutes_variable():
 
 
 @pytest.mark.parametrize(
-    "coeff_a, coeff_b, expected",
+    ("coeff_a", "coeff_b", "expected"),
     [
         ((1, 2, 3), (4, 5, 6), (5, 7, 9)),
         ((1, 2, 3), (-1, 5, -3), (0, 7)),
@@ -44,7 +44,7 @@ def test_polynomial_addition_is_done_coefficient_wise(coeff_a, coeff_b, expected
 
 
 @pytest.mark.parametrize(
-    "coeff_a, coeff_b, expected",
+    ("coeff_a", "coeff_b", "expected"),
     [
         ((1, 2, 3), (6, 5, 4), (-5, -3, -1)),
         ((1, 2, 3), (1, 5, 3), (0, -3)),
@@ -57,7 +57,7 @@ def test_polynomial_subtraction_is_done_coefficient_wise(coeff_a, coeff_b, expec
 
 
 @pytest.mark.parametrize(
-    "coeff_a, coeff_b, expected",
+    ("coeff_a", "coeff_b", "expected"),
     [
         (
             (1, 2, 3),

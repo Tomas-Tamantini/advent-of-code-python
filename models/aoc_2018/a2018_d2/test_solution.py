@@ -4,7 +4,7 @@ from .solution import contains_exactly_n_of_any_letter, differing_indices
 
 
 @pytest.mark.parametrize(
-    "string, n, expected",
+    ("string", "n", "expected"),
     [
         ("abcdef", 2, False),
         ("bababc", 2, True),
@@ -17,7 +17,7 @@ def test_contains_exactly_n_of_any_letter_is_properly_calculated(string, n, expe
 
 
 @pytest.mark.parametrize(
-    "string_a, string_b, expected",
+    ("string_a", "string_b", "expected"),
     [
         ("abcde", "axcye", [1, 3]),
         ("fghij", "fguij", [2]),

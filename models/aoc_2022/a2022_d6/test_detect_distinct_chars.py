@@ -4,7 +4,7 @@ from .solution import detect_distinct_chars
 
 
 @pytest.mark.parametrize(
-    "stream, num_distinct_chars, expected",
+    ("stream", "num_distinct_chars", "expected"),
     [
         ("bvwbjplbgvbhsrlpgdmjqwftvncz", 4, 5),
         ("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 4, 11),

@@ -19,7 +19,7 @@ def test_rope_knot_does_not_pull_knots_adjacent_to_itself(tail_position):
 
 
 @pytest.mark.parametrize(
-    "old_tail_position, new_tail_position",
+    ("old_tail_position", "new_tail_position"),
     [((10, 22), (10, 21)), ((8, 20), (9, 20))],
 )
 def test_rope_knots_aligned_with_head_but_two_units_away_get_pulled_one_unit(
@@ -32,7 +32,7 @@ def test_rope_knots_aligned_with_head_but_two_units_away_get_pulled_one_unit(
 
 
 @pytest.mark.parametrize(
-    "old_tail_position, new_tail_position",
+    ("old_tail_position", "new_tail_position"),
     [((11, 22), (10, 21)), ((12, 18), (11, 19))],
 )
 def test_rope_knots_not_aligned_with_head_two_units_away_get_pulled_one_unit_in_each_coordinate(

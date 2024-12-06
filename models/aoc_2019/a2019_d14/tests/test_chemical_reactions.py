@@ -145,7 +145,7 @@ example_reactions = [
 
 
 @pytest.mark.parametrize(
-    "reactions, expected",
+    ("reactions", "expected"),
     [
         (example_reactions[0], 31),
         (example_reactions[1], 165),

@@ -24,7 +24,7 @@ def test_last_digit_can_be_compared_with_first():
 
 
 @pytest.mark.parametrize(
-    "sequence, expected",
+    ("sequence", "expected"),
     [
         ("1212", ["1", "2", "1", "2"]),
         ("1221", []),

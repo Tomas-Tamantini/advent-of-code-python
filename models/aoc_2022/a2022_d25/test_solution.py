@@ -4,7 +4,7 @@ from .solution import decimal_to_snafu, snafu_to_decimal
 
 
 @pytest.mark.parametrize(
-    "decimal, snafu",
+    ("decimal", "snafu"),
     [
         (0, "0"),
         (1, "1"),

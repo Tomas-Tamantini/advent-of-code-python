@@ -16,7 +16,7 @@ def test_springscript_instruction_can_be_converted_to_string():
 
 
 @pytest.mark.parametrize(
-    "command, command_str",
+    ("command", "command_str"),
     [(BeginDroidCommand.WALK, "WALK"), (BeginDroidCommand.RUN, "RUN")],
 )
 def test_springdroid_input_with_no_instructions_inputs_walk_or_run_command_as_ascii(

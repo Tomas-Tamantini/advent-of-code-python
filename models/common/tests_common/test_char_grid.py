@@ -56,7 +56,7 @@ def test_character_grid_yields_all_positions_with_given_value():
 
 
 @pytest.mark.parametrize(
-    "position, expected",
+    ("position", "expected"),
     [
         (Vector2D(0, 0), True),
         (Vector2D(1, 0), True),

@@ -33,7 +33,7 @@ def test_intersection_of_overlapping_cuboids_is_cuboid():
 
 
 @pytest.mark.parametrize(
-    "min_x, max_x, min_y, max_y, min_z, maz_z, expected",
+    ("min_x", "max_x", "min_y", "max_y", "min_z", "maz_z", "expected"),
     [
         (1, 10, -10, 10, 0, 1, True),
         (0, 0, 1, 1, 2, 2, True),

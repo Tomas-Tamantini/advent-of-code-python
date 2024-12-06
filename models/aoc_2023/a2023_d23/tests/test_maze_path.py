@@ -28,7 +28,7 @@ def test_maze_path_keeps_track_of_number_of_nodes():
 
 
 @pytest.mark.parametrize(
-    "edge_start, edge_end, can_add",
+    ("edge_start", "edge_end", "can_add"),
     [("c", "d", True), ("x", "y", True), ("c", "a", False), ("z", "b", False)],
 )
 def test_can_add_edge_to_maze_path_if_it_does_not_form_cycle(

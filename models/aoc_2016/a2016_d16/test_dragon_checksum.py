@@ -4,7 +4,7 @@ from .dragon_checksum import DragonChecksum
 
 
 @pytest.mark.parametrize(
-    "input, expected",
+    ("input", "expected"),
     [
         ("1", "100"),
         ("0", "001"),
@@ -17,7 +17,7 @@ def test_can_calculate_iterations_of_the_dragon_curve_algorithm(input, expected)
 
 
 @pytest.mark.parametrize(
-    "disk_space, input, expected",
+    ("disk_space", "input", "expected"),
     [
         (12, "110010110100", "100"),
         (20, "10000", "01100"),

@@ -113,7 +113,7 @@ def _undirected_maze() -> DirectedMaze:
 
 
 @pytest.mark.parametrize(
-    "maze, path_length", [(_directed_maze(), 94), (_undirected_maze(), 154)]
+    ("maze", "path_length"), [(_directed_maze(), 94), (_undirected_maze(), 154)]
 )
 def test_reduced_directed_maze_finds_path_efficiently(maze, path_length):
     start = Vector2D(1, 0)

@@ -4,7 +4,7 @@ from ..logic import NonogramRow, num_arrangements_nonogram_row
 
 
 @pytest.mark.parametrize(
-    "cells, contiguous_groups_size, num_arrangements",
+    ("cells", "contiguous_groups_size", "num_arrangements"),
     [
         (".", (1,), 0),
         ("###", (3,), 1),

@@ -311,12 +311,12 @@ def test_hexagonal_coordinates_are_hashable_and_equality_comparable():
     assert hash(pos1) != hash(pos3)
 
 
-def test_shortest_number_of_steps_in_hexagonal_coordinates_is_sum_of_coordinates_if_both_have_same_sign():
+def test_shortest_path_in_hexagonal_coordinates_is_sum_of_coordinates_if_both_have_same_sign():
     assert CanonicalHexagonalCoordinates(1, 2).num_steps_away_from_origin() == 3
     assert CanonicalHexagonalCoordinates(-123, -321).num_steps_away_from_origin() == 444
 
 
-def test_shortest_number_of_steps_in_hexagonal_coordinates_is_max_of_coordinates_if_they_have_opposite_signs():
+def test_shortest_path_in_hexagonal_coordinates_is_max_of_coordinates_if_they_have_opposite_signs():
     assert CanonicalHexagonalCoordinates(1, -2).num_steps_away_from_origin() == 2
     assert CanonicalHexagonalCoordinates(-123, 321).num_steps_away_from_origin() == 321
 
@@ -371,7 +371,7 @@ def test_coordinates_in_given_orientation_can_be_reverted_to_absolute_coordinate
 
 
 @pytest.mark.parametrize(
-    "vertices, twice_area",
+    ("vertices", "twice_area"),
     [
         ([], 0),
         ([(0, 0)], 0),
@@ -388,7 +388,7 @@ def test_twice_area_of_polygon_is_calculated_with_shoelace_theorem(
 
 
 @pytest.mark.parametrize(
-    "vertices, num_grid_points",
+    ("vertices", "num_grid_points"),
     [
         ([], 0),
         ([(0, 0)], 1),
@@ -406,7 +406,7 @@ def test_number_of_grid_on_polygon_perimeter_calulcated_properly(
 
 
 @pytest.mark.parametrize(
-    "vertices, num_grid_points",
+    ("vertices", "num_grid_points"),
     [
         ([], 0),
         ([(0, 0)], 0),

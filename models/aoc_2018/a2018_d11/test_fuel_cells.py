@@ -4,7 +4,7 @@ from .fuel_cells import FuelCells
 
 
 @pytest.mark.parametrize(
-    "x, y, grid_serial_number, expected_value",
+    ("x", "y", "grid_serial_number", "expected_value"),
     [
         (2, 4, 8, 4),
         (121, 78, 57, -5),
@@ -20,7 +20,7 @@ def test_fuel_cells_have_their_values_calculated_properly(
 
 
 @pytest.mark.parametrize(
-    "grid_serial_number, expected_position",
+    ("grid_serial_number", "expected_position"),
     [
         (18, (32, 44)),
         (42, (20, 60)),
@@ -41,7 +41,7 @@ def test_can_find_3x3_region_with_largest_total_power(
 
 @pytest.mark.skip(reason="Takes too long")
 @pytest.mark.parametrize(
-    "grid_serial_number, expected_position, expected_size",
+    ("grid_serial_number", "expected_position", "expected_size"),
     [
         (18, (89, 268), 16),
         (42, (231, 250), 12),

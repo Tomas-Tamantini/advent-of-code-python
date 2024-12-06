@@ -530,7 +530,7 @@ def test_game_can_be_played_by_bots_until_it_is_over():
 
 
 @pytest.mark.parametrize(
-    "map_as_list, expected_num_rounds, expected_hp",
+    ("map_as_list", "expected_num_rounds", "expected_hp"),
     [
         (example_maps[1], 37, 982),
         (example_maps[2], 46, 859),
@@ -557,7 +557,7 @@ def test_can_calculate_number_of_casualties_throughout_game():
 
 
 @pytest.mark.parametrize(
-    "map_as_list, expected_num_rounds, expected_hp, expected_attack_power",
+    ("map_as_list", "expected_num_rounds", "expected_hp", "expected_attack_power"),
     [
         (example_maps[0], 29, 172, 15),
         (example_maps[2], 33, 948, 4),

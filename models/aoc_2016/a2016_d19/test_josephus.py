@@ -4,7 +4,7 @@ from .josephus import josephus, modified_josephus
 
 
 @pytest.mark.parametrize(
-    "num_players, expected_winning_position",
+    ("num_players", "expected_winning_position"),
     [
         (1, 1),
         (2, 1),
@@ -26,7 +26,7 @@ def test_josephus_returns_winning_position_for_n_players(
 
 
 @pytest.mark.parametrize(
-    "num_players, expected_winning_position",
+    ("num_players", "expected_winning_position"),
     [
         (1, 1),
         (2, 1),

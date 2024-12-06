@@ -84,7 +84,7 @@ def test_recursive_packet_of_length_type_one_parses_fixed_number_of_subpackets()
 
 
 @pytest.mark.parametrize(
-    "packet_as_hex,expected_sum",
+    ("packet_as_hex", "expected_sum"),
     [
         ("8A004A801A8002F478", 16),
         ("620080001611562C8802118E34", 12),
@@ -98,7 +98,7 @@ def test_parsed_packets_can_have_versions_summed(packet_as_hex: str, expected_su
 
 
 @pytest.mark.parametrize(
-    "packet_as_hex,expected_eval",
+    ("packet_as_hex", "expected_eval"),
     [
         ("C200B40A82", 3),
         ("04005AC33890", 54),

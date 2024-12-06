@@ -4,7 +4,7 @@ from .solution import next_in_sequence, previous_in_sequence
 
 
 @pytest.mark.parametrize(
-    "sequence, expected",
+    ("sequence", "expected"),
     [
         ((0, 0, 0), 0),
         ((0, 3, 6, 9, 12, 15), 18),
@@ -20,7 +20,7 @@ def test_next_in_sequence_extrapolates_using_newton_forward_difference(
 
 
 @pytest.mark.parametrize(
-    "sequence, expected",
+    ("sequence", "expected"),
     [
         ((13, 13, 13), 13),
         ((0, 3, 6, 9, 12, 15), -3),

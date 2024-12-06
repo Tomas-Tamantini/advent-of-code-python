@@ -74,7 +74,7 @@ def test_if_no_path_exists_raises_error():
 
 
 @pytest.mark.parametrize(
-    "passcode, expected_shortest_path",
+    ("passcode", "expected_shortest_path"),
     [
         ("ihgpwlah", "DDRRRD"),
         ("kglvqrro", "DDUDRLRRUDRD"),

@@ -4,7 +4,7 @@ from .fuel_requirement import fuel_requirement
 
 
 @pytest.mark.parametrize(
-    "rocket_mass, expected",
+    ("rocket_mass", "expected"),
     [
         (2, 0),
         (12, 2),
@@ -18,7 +18,7 @@ def test_fuel_requirement_is_calculated_for_mass_of_ship(rocket_mass, expected):
 
 
 @pytest.mark.parametrize(
-    "rocket_mass, expected",
+    ("rocket_mass", "expected"),
     [
         (2, 0),
         (12, 2),

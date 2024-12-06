@@ -34,7 +34,7 @@ _STEPS_LLR = [NetworkStep.LEFT, NetworkStep.LEFT, NetworkStep.RIGHT]
 
 
 @pytest.mark.parametrize(
-    "steps, connections, expected_num_steps",
+    ("steps", "connections", "expected_num_steps"),
     [
         (_STEPS_RL, _CONNECTIONS_1, 2),
         (_STEPS_LLR, _CONNECTIONS_2, 6),

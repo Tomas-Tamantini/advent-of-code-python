@@ -9,7 +9,7 @@ from ..rock_paper_scissors import (
 
 
 @pytest.mark.parametrize(
-    "my_action, opponent_action, expected_score",
+    ("my_action", "opponent_action", "expected_score"),
     [
         (RockPaperScissorsAction.ROCK, RockPaperScissorsAction.PAPER, 1),
         (RockPaperScissorsAction.PAPER, RockPaperScissorsAction.SCISSORS, 2),
@@ -23,7 +23,7 @@ def test_score_for_losing_rock_paper_scissors_is_shape_score(
 
 
 @pytest.mark.parametrize(
-    "my_action, opponent_action, expected_score",
+    ("my_action", "opponent_action", "expected_score"),
     [
         (RockPaperScissorsAction.ROCK, RockPaperScissorsAction.ROCK, 4),
         (RockPaperScissorsAction.PAPER, RockPaperScissorsAction.PAPER, 5),
@@ -37,7 +37,7 @@ def test_score_for_tying_rock_paper_scissors_is_shape_score_plus_three(
 
 
 @pytest.mark.parametrize(
-    "my_action, opponent_action, expected_score",
+    ("my_action", "opponent_action", "expected_score"),
     [
         (RockPaperScissorsAction.ROCK, RockPaperScissorsAction.SCISSORS, 7),
         (RockPaperScissorsAction.PAPER, RockPaperScissorsAction.ROCK, 8),
@@ -51,7 +51,7 @@ def test_score_for_winning_rock_paper_scissors_is_shape_score_plus_six(
 
 
 @pytest.mark.parametrize(
-    "opponent_action, my_action",
+    ("opponent_action", "my_action"),
     [
         (RockPaperScissorsAction.ROCK, RockPaperScissorsAction.ROCK),
         (RockPaperScissorsAction.PAPER, RockPaperScissorsAction.PAPER),
@@ -68,7 +68,7 @@ def test_to_tie_in_rock_paper_scissors_one_should_play_the_same_action(
 
 
 @pytest.mark.parametrize(
-    "opponent_action, my_action",
+    ("opponent_action", "my_action"),
     [
         (RockPaperScissorsAction.ROCK, RockPaperScissorsAction.SCISSORS),
         (RockPaperScissorsAction.PAPER, RockPaperScissorsAction.ROCK),
@@ -85,7 +85,7 @@ def test_to_lose_in_rock_paper_scissors_one_should_play_the_losing_action(
 
 
 @pytest.mark.parametrize(
-    "opponent_action, my_action",
+    ("opponent_action", "my_action"),
     [
         (RockPaperScissorsAction.ROCK, RockPaperScissorsAction.PAPER),
         (RockPaperScissorsAction.PAPER, RockPaperScissorsAction.SCISSORS),

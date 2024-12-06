@@ -17,7 +17,9 @@ def test_scratchcard_with_no_matches_is_worth_zero_points():
     assert card.num_points() == 0
 
 
-@pytest.mark.parametrize("num_matches, num_points", [(1, 1), (2, 2), (3, 4), (10, 512)])
+@pytest.mark.parametrize(
+    ("num_matches", "num_points"), [(1, 1), (2, 2), (3, 4), (10, 512)]
+)
 def test_scratchcard_with_n_matches_is_worth_n_minus_one_power_of_two_points(
     num_matches, num_points
 ):

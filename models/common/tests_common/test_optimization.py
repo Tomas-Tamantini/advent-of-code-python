@@ -173,10 +173,12 @@ def test_branch_and_bound_prunes_branches_with_insufficient_upper_bound():
             return self.value == other.value
 
     class MockExplorer:
-        def objective_value(self, state):
+        @staticmethod
+        def objective_value(state):
             return state.value
 
-        def upper_bound_on_objective_value(self, state):
+        @staticmethod
+        def upper_bound_on_objective_value(state):
             state.visited = True
             max_value = state.value
             for child in state.children or []:

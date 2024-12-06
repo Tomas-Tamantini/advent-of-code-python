@@ -457,7 +457,7 @@ def test_running_intcode_program_runs_it_until_halt():
 
 
 @pytest.mark.parametrize(
-    "instructions, expected_output",
+    ("instructions", "expected_output"),
     [
         ([1102, 34915192, 34915192, 7, 4, 7, 99, 0], 1219070632396864),
         ([104, 1125899906842624, 99], 1125899906842624),

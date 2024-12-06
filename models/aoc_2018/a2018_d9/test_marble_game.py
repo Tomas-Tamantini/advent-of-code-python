@@ -14,7 +14,7 @@ def test_scoring_marbles_are_multiples_of_23():
 
 
 @pytest.mark.parametrize(
-    "num_players, last_marble, expected_score",
+    ("num_players", "last_marble", "expected_score"),
     [
         (10, 1618, 8317),
         (13, 7999, 146373),

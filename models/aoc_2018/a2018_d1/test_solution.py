@@ -4,7 +4,7 @@ from .solution import first_frequency_to_be_reached_twice
 
 
 @pytest.mark.parametrize(
-    "offsets, expected",
+    ("offsets", "expected"),
     [
         ([1, -1], 0),
         ([3, 3, 4, -2, -4], 10),

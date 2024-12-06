@@ -38,7 +38,7 @@ def test_nested_markers_are_considered_on_recursive_decompression():
 
 
 @pytest.mark.parametrize(
-    "text, expected_length",
+    ("text", "expected_length"),
     [
         ("ADVENT", 6),
         ("A(1x5)BC", 7),

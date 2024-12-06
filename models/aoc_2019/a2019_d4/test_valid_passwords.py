@@ -9,7 +9,7 @@ from .valid_passwords import (
 
 
 @pytest.mark.parametrize(
-    "n, expected",
+    ("n", "expected"),
     [(123456, True), (123455, True), (123454, False)],
 )
 def test_can_check_whether_digits_are_increasing(n, expected):
@@ -17,7 +17,7 @@ def test_can_check_whether_digits_are_increasing(n, expected):
 
 
 @pytest.mark.parametrize(
-    "n, expected",
+    ("n", "expected"),
     [(123456, False), (123455, True), (12232, True)],
 )
 def test_can_check_whether_two_adjacent_digits_are_the_same(n, expected):
@@ -25,7 +25,7 @@ def test_can_check_whether_two_adjacent_digits_are_the_same(n, expected):
 
 
 @pytest.mark.parametrize(
-    "n, expected",
+    ("n", "expected"),
     [(123456, False), (123455, True), (122333, True), (123444, False)],
 )
 def test_can_check_whether_at_least_one_group_of_exactly_two_equal_digits(n, expected):

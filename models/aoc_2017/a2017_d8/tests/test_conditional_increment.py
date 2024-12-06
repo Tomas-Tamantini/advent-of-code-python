@@ -10,7 +10,7 @@ from ..conditional_increment import (
 
 
 @pytest.mark.parametrize(
-    "comparison_operator, value_to_compare",
+    ("comparison_operator", "value_to_compare"),
     [
         (ComparisonOperator.EQUALS, 1),
         (ComparisonOperator.NOT_EQUALS, 10),
@@ -38,7 +38,7 @@ def test_instruction_just_updates_program_counter_when_comparison_fails(
 
 
 @pytest.mark.parametrize(
-    "comparison_operator, value_to_compare",
+    ("comparison_operator", "value_to_compare"),
     [
         (ComparisonOperator.EQUALS, 10),
         (ComparisonOperator.NOT_EQUALS, 1),

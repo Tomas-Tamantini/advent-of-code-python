@@ -4,7 +4,7 @@ from .packet_comparison import left_packet_leq_right
 
 
 @pytest.mark.parametrize(
-    "left_packet, right_packet, expected",
+    ("left_packet", "right_packet", "expected"),
     [(1, 2, True), (123, 123, True), (7, 5, False)],
 )
 def test_if_both_packets_are_integers_they_are_compared_directly(
@@ -14,7 +14,7 @@ def test_if_both_packets_are_integers_they_are_compared_directly(
 
 
 @pytest.mark.parametrize(
-    "left_packet, right_packet, expected",
+    ("left_packet", "right_packet", "expected"),
     [
         ([1, 1, 3, 9], [1, 1, 5, 1], True),
         ([2, 1], [2, 1], True),
@@ -30,7 +30,7 @@ def test_if_both_packets_are_lists_they_are_compared_lexicographically(
 
 
 @pytest.mark.parametrize(
-    "left_packet, right_packet, expected",
+    ("left_packet", "right_packet", "expected"),
     [
         (1, [1, 1, 5, 1], True),
         (2, [1, 1, 5, 1], False),
@@ -45,7 +45,7 @@ def test_if_exactly_one_packet_is_int_it_is_compared_as_list(
 
 
 @pytest.mark.parametrize(
-    "left_packet, right_packet, expected",
+    ("left_packet", "right_packet", "expected"),
     [
         ([[1], [2, 3, 4]], [[1], 4], True),
         ([9], [[8, 7, 6]], False),

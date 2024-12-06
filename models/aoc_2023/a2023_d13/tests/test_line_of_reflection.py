@@ -27,7 +27,7 @@ _SECOND_PATTERN = """#...##..#
 
 
 @pytest.mark.parametrize(
-    "pattern, num_mismatches, line_of_reflection",
+    ("pattern", "num_mismatches", "line_of_reflection"),
     [
         (_FIRST_PATTERN, 0, VerticalLineOfReflection(4)),
         (_SECOND_PATTERN, 0, HorizontalLineOfReflection(3)),

@@ -8,7 +8,7 @@ from ..parser import parse_mirror_contraption
 
 
 @pytest.mark.parametrize(
-    "beam, next_beams",
+    ("beam", "next_beams"),
     [
         (
             LightBeam(Vector2D(0, 0), CardinalDirection.EAST),

@@ -34,7 +34,7 @@ def test_amplifier_io_keeps_track_of_last_value_written():
 
 
 @pytest.mark.parametrize(
-    "instructions, phase_settings, expected_output",
+    ("instructions", "phase_settings", "expected_output"),
     [
         (
             [3, 15, 3, 16, 1002, 16, 10, 16, 1, 16, 15, 15, 4, 15, 99, 0, 0],
@@ -124,7 +124,7 @@ def test_amplifiers_produce_final_output_given_phase_settings_and_input_signal(
 
 
 @pytest.mark.parametrize(
-    "instructions, phase_settings, expected_output",
+    ("instructions", "phase_settings", "expected_output"),
     [
         (
             [

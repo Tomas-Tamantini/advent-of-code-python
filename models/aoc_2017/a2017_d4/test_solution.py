@@ -7,7 +7,7 @@ from .solution import (
 
 
 @pytest.mark.parametrize(
-    "sentence, expected",
+    ("sentence", "expected"),
     [
         ("aa bb cc dd ee", True),
         ("aa bb cc dd aa", False),
@@ -19,7 +19,7 @@ def test_checks_whether_sentence_contains_no_duplicates(sentence, expected):
 
 
 @pytest.mark.parametrize(
-    "sentence, expected",
+    ("sentence", "expected"),
     [
         ("abcde fghij", True),
         ("abcde xyz ecdab", False),

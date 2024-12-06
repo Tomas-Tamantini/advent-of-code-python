@@ -6,7 +6,7 @@ from .square_spiral import SquareSpiral
 
 
 @pytest.mark.parametrize(
-    "index, coordinates",
+    ("index", "coordinates"),
     [
         (1, (0, 0)),
         (2, (1, 0)),

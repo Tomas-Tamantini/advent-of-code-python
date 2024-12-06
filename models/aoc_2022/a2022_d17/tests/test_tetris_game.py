@@ -97,7 +97,7 @@ def test_tetris_game_stores_only_exposed_blocks():
 
 
 @pytest.mark.parametrize(
-    "num_pieces_to_drop, expected_height",
+    ("num_pieces_to_drop", "expected_height"),
     [
         (2022, 3068),
         (1_000_000_000_000, 1_514_285_714_288),

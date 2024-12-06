@@ -29,7 +29,7 @@ def test_incomplete_string_has_no_mismatching_brackets(incomplete_string):
 
 
 @pytest.mark.parametrize(
-    "bad_string, mismatches",
+    ("bad_string", "mismatches"),
     [
         ("(]", ["]"]),
         ("{()()()>", [">"]),
@@ -61,7 +61,7 @@ def test_invalid_string_has_no_missing_brackets(bad_string):
 
 
 @pytest.mark.parametrize(
-    "incomplete_string, missing",
+    ("incomplete_string", "missing"),
     [
         ("(", [")"]),
         ("[", ["]"]),

@@ -13,7 +13,7 @@ def test_running_intcode_program_leaves_initial_instructions_intact():
 
 
 @pytest.mark.parametrize(
-    "instructions, expected",
+    ("instructions", "expected"),
     [
         ([1, 0, 0, 0, 99], [2, 0, 0, 0, 99]),
         ([2, 3, 0, 3, 99], [2, 3, 0, 6, 99]),

@@ -4,7 +4,7 @@ from ..boat_race import BoatRace, number_of_ways_to_beat_boat_race_record
 
 
 @pytest.mark.parametrize(
-    "race, number_of_ways",
+    ("race", "number_of_ways"),
     [
         (BoatRace(7, 90), 0),
         (BoatRace(7, 9), 4),

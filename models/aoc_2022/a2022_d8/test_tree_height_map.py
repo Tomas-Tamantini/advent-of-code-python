@@ -26,7 +26,7 @@ def test_tree_height_map_iterates_through_trees_visible_from_given_direction():
 
 
 @pytest.mark.parametrize(
-    "position, looking_direction, expected",
+    ("position", "looking_direction", "expected"),
     [
         (Vector2D(0, 0), CardinalDirection.WEST, 0),
         (Vector2D(2, 1), CardinalDirection.NORTH, 1),

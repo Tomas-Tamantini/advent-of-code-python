@@ -63,7 +63,7 @@ def test_system_can_take_multiple_steps_at_once():
 
 
 @pytest.mark.parametrize(
-    "positions, period",
+    ("positions", "period"),
     [
         ([(-1, 0, 2), (2, -10, -7), (4, -8, 8), (3, 5, -1)], 2772),
         ([(-8, -10, 0), (5, 5, 10), (2, -7, 3), (9, -8, -3)], 4686774924),

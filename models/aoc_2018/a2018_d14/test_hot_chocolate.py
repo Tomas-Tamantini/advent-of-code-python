@@ -13,7 +13,7 @@ def test_hot_chocolate_recipe_scores_are_calculated_properly():
 
 
 @pytest.mark.parametrize(
-    "subsequence, expected_position",
+    ("subsequence", "expected_position"),
     [
         ((5, 1, 5, 8, 9), 9),
         ((0, 1, 2, 4, 5), 5),

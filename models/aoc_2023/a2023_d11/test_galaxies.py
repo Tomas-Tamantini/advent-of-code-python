@@ -29,7 +29,7 @@ def test_galaxies_keep_track_of_empty_columns():
 
 
 @pytest.mark.parametrize(
-    "expansion_rate, distance", [(1, 7), (2, 9), (1000000, 2000005)]
+    ("expansion_rate", "distance"), [(1, 7), (2, 9), (1000000, 2000005)]
 )
 def test_distance_between_galaxies_takes_expansion_rate_into_consideration(
     expansion_rate, distance

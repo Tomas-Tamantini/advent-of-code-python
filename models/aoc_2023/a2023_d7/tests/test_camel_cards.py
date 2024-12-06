@@ -13,7 +13,7 @@ def test_hand_ranks_are_properly_ordered():
 
 
 @pytest.mark.parametrize(
-    "hand, rank",
+    ("hand", "rank"),
     [
         ("23456", HandRank.HIGH_CARD),
         ("A23A4", HandRank.ONE_PAIR),
@@ -33,7 +33,7 @@ def test_ordinary_hands_properly_classify_card_values():
 
 
 @pytest.mark.parametrize(
-    "hand, rank",
+    ("hand", "rank"),
     [
         ("23456", HandRank.HIGH_CARD),
         ("23J56", HandRank.ONE_PAIR),

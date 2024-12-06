@@ -12,7 +12,7 @@ def test_empty_contraption_cell_does_not_change_beam_direction():
 
 
 @pytest.mark.parametrize(
-    "is_upward_diagonal, incoming_direction, reflected_direction",
+    ("is_upward_diagonal", "incoming_direction", "reflected_direction"),
     [
         (True, CardinalDirection.EAST, CardinalDirection.NORTH),
         (True, CardinalDirection.NORTH, CardinalDirection.EAST),
@@ -33,7 +33,7 @@ def test_mirror_reflects_beam_by_90_degrees(
 
 
 @pytest.mark.parametrize(
-    "is_horizontal, direction",
+    ("is_horizontal", "direction"),
     [
         (True, CardinalDirection.EAST),
         (True, CardinalDirection.WEST),
@@ -50,7 +50,7 @@ def test_beam_parallel_to_splitter_continues_in_same_direction(
 
 
 @pytest.mark.parametrize(
-    "is_horizontal, direction",
+    ("is_horizontal", "direction"),
     [
         (True, CardinalDirection.NORTH),
         (True, CardinalDirection.SOUTH),

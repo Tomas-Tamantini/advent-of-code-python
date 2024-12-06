@@ -18,7 +18,7 @@ def test_gcd_of_a_single_number_is_itself():
 
 
 @pytest.mark.parametrize(
-    "a, b, expected",
+    ("a", "b", "expected"),
     [
         (12, 8, 4),
         (8, 12, 4),
@@ -43,7 +43,7 @@ def test_lcm_of_a_single_number_is_itself():
 
 
 @pytest.mark.parametrize(
-    "a, b, expected",
+    ("a", "b", "expected"),
     [
         (12, 8, 24),
         (8, 12, 24),
@@ -98,7 +98,7 @@ def test_chinese_remainder_system_runs_efficiently():
 
 
 @pytest.mark.parametrize(
-    "n, expected",
+    ("n", "expected"),
     [
         (0, False),
         (1, False),
@@ -117,7 +117,7 @@ def test_can_check_number_for_primality_efficiently(n, expected):
 
 
 @pytest.mark.parametrize(
-    "a, mod, inv_a",
+    ("a", "mod", "inv_a"),
     [(3, 7, 5), (5, 7, 3), (3, 11, 4), (4, 11, 3), (7, 11, 8), (8, 11, 7)],
 )
 def test_modular_inverse_finds_inverse_of_a_modulo_n(a, mod, inv_a):
@@ -125,7 +125,7 @@ def test_modular_inverse_finds_inverse_of_a_modulo_n(a, mod, inv_a):
 
 
 @pytest.mark.parametrize(
-    "a, mod",
+    ("a", "mod"),
     [(0, 2), (3, 39), (21, 45)],
 )
 def test_modular_inverse_raises_value_error_if_a_and_n_are_not_coprime(a, mod):
@@ -134,7 +134,7 @@ def test_modular_inverse_raises_value_error_if_a_and_n_are_not_coprime(a, mod):
 
 
 @pytest.mark.parametrize(
-    "number, base, mod, power",
+    ("number", "base", "mod", "power"),
     [
         (13, 3, 17, 4),
         (5764801, 7, 20201227, 8),

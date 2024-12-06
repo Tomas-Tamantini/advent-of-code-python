@@ -33,7 +33,7 @@ def test_snailfish_splits_numbers_recursively():
 
 
 @pytest.mark.parametrize(
-    "before_reduce, after_reduce",
+    ("before_reduce", "after_reduce"),
     [
         ([[[[[9, 8], 1], 2], 3], 4], [[[[0, 9], 2], 3], 4]),
         ([7, [6, [5, [4, [3, 2]]]]], [7, [6, [5, [7, 0]]]]),

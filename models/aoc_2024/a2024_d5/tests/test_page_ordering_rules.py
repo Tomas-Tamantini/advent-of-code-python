@@ -51,7 +51,7 @@ def test_update_is_not_correctly_ordered_if_it_violates_any_rules(update):
 
 
 @pytest.mark.parametrize(
-    "update, sorted_update",
+    ("update", "sorted_update"),
     [
         ((75, 97, 47, 61, 53), (97, 75, 47, 61, 53)),
         ((61, 13, 29), (61, 29, 13)),
