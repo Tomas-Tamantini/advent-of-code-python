@@ -15,7 +15,7 @@ def test_equation_is_valid_if_some_combination_of_operators_produces_test_value(
     valid_equation,
 ):
     assert is_valid_equation(
-        valid_equation, possible_operators=(lambda x, y: x + y, lambda x, y: x * y)
+        valid_equation, monotonic_operators=(lambda x, y: x + y, lambda x, y: x * y)
     )
 
 
@@ -34,5 +34,5 @@ def test_equation_is_invalid_if_no_combination_of_operators_produces_test_value(
     invalid_equation,
 ):
     assert not is_valid_equation(
-        invalid_equation, possible_operators=(lambda x, y: x + y, lambda x, y: x * y)
+        invalid_equation, monotonic_operators=(lambda x, y: x + y, lambda x, y: x * y)
     )
