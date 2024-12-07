@@ -1,4 +1,5 @@
 import argparse
+
 from input_output import run_solutions
 from models.common.io import ExecutionFlags
 
