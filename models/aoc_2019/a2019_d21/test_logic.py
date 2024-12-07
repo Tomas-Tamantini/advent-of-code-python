@@ -50,7 +50,7 @@ def test_springdroid_input_yields_instructions_separated_by_new_line_and_walk_co
 
 def test_springdroid_output_starts_empty():
     spring_droid_output = SpringDroidOutput()
-    assert spring_droid_output.render() == ""
+    assert not spring_droid_output.render()
 
 
 def test_springdroid_output_stores_ascii_values():

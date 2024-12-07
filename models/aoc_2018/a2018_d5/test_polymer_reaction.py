@@ -10,7 +10,7 @@ def test_units_of_the_same_polarity_do_not_react():
 
 
 def test_units_of_the_same_type_and_opposite_polarity_react():
-    assert polymer_reaction("aA") == ""
+    assert not polymer_reaction("aA")
 
 
 def test_reactions_happen_in_cascade():

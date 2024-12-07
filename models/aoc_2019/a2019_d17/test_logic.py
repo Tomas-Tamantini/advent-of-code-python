@@ -16,7 +16,7 @@ from .logic import (
 
 def test_scaffold_map_starts_empty():
     sm = ScaffoldMap()
-    assert sm.render() == ""
+    assert not sm.render()
 
 
 def test_can_add_pixels_to_scaffold_map():
