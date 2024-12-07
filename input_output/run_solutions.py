@@ -1,15 +1,6 @@
+import importlib
 import os
 
-from models.aoc_2015 import ALL_2015_SOLUTIONS
-from models.aoc_2016 import ALL_2016_SOLUTIONS
-from models.aoc_2017 import ALL_2017_SOLUTIONS
-from models.aoc_2018 import ALL_2018_SOLUTIONS
-from models.aoc_2019 import ALL_2019_SOLUTIONS
-from models.aoc_2020 import ALL_2020_SOLUTIONS
-from models.aoc_2021 import ALL_2021_SOLUTIONS
-from models.aoc_2022 import ALL_2022_SOLUTIONS
-from models.aoc_2023 import ALL_2023_SOLUTIONS
-from models.aoc_2024 import ALL_2024_SOLUTIONS
 from models.common.io import ExecutionFlags, IOHandler, ResultChecker
 
 from .cli import CliOutputWriter, CliProgressBar, InputFromTextFile, JsonResultChecker
@@ -24,24 +15,21 @@ def _get_result_checker() -> ResultChecker:
     return JsonResultChecker(expected_results_path)
 
 
+def _get_all_solutions(year: int) -> tuple:
+    try:
+        module = importlib.import_module(f"models.aoc_{year}")
+        return getattr(module, f"ALL_{year}_SOLUTIONS")
+    except (ModuleNotFoundError, AttributeError):
+        raise ValueError(f"No solutions found for year {year}")
+
+
 def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -> None:
-    solutions = {
-        2015: ALL_2015_SOLUTIONS,
-        2016: ALL_2016_SOLUTIONS,
-        2017: ALL_2017_SOLUTIONS,
-        2018: ALL_2018_SOLUTIONS,
-        2019: ALL_2019_SOLUTIONS,
-        2020: ALL_2020_SOLUTIONS,
-        2021: ALL_2021_SOLUTIONS,
-        2022: ALL_2022_SOLUTIONS,
-        2023: ALL_2023_SOLUTIONS,
-        2024: ALL_2024_SOLUTIONS,
-    }
     result_checker = _get_result_checker()
     for year, days in problems.items():
         actual_days = days
+        solutions = _get_all_solutions(year)
         if not actual_days:
-            actual_days = [i + 1 for i in range(len(solutions[year]))]
+            actual_days = [i + 1 for i in range(len(solutions))]
         for day in actual_days:
             file_name = _get_input_path(year, day)
             io_handler = IOHandler(
@@ -51,7 +39,7 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
                 execution_flags=flags,
                 result_checker=result_checker,
             )
-            for solution in solutions[year][day - 1](io_handler):
+            for solution in solutions[day - 1](io_handler):
                 io_handler.set_solution(solution)
     if flags.check_results:
         _report_wrong_results(result_checker)
