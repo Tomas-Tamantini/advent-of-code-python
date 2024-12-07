@@ -1,9 +1,9 @@
 import importlib
 import os
 import re
-from typing import Iterator
+from typing import Callable, Iterator
 
-from models.common.io import ExecutionFlags, IOHandler, ResultChecker
+from models.common.io import ExecutionFlags, IOHandler, ProblemSolution, ResultChecker
 
 from .cli import CliOutputWriter, CliProgressBar, InputFromTextFile, JsonResultChecker
 
@@ -17,7 +17,9 @@ def _get_result_checker() -> ResultChecker:
     return JsonResultChecker(expected_results_path)
 
 
-def _get_all_solutions(year: int) -> tuple:
+def _get_all_solutions(
+    year: int,
+) -> dict[int, Callable[[IOHandler], Iterator[ProblemSolution]]]:
     try:
         module = importlib.import_module(f"models.aoc_{year}")
         return getattr(module, f"ALL_{year}_SOLUTIONS")
@@ -38,7 +40,8 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
         actual_days = days
         solutions = _get_all_solutions(year)
         if not actual_days:
-            actual_days = [i + 1 for i in range(len(solutions))]
+            # TODO: Do this in main.py, not here
+            actual_days = sorted(solutions.keys())
         for day in actual_days:
             file_name = _get_input_path(year, day)
             io_handler = IOHandler(
@@ -48,7 +51,7 @@ def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -
                 execution_flags=flags,
                 result_checker=result_checker,
             )
-            for solution in solutions[day - 1](io_handler):
+            for solution in solutions[day](io_handler):
                 io_handler.set_solution(solution)
     if flags.check_results:
         _report_wrong_results(result_checker)
