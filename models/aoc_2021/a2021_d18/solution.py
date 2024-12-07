@@ -12,7 +12,7 @@ def aoc_2021_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     lists = [eval(line.strip()) for line in lines]
     acc = SnailFishTree.from_list(lists[0])
     for lst in lists[1:]:
-        acc = acc + SnailFishTree.from_list(lst)
+        acc += SnailFishTree.from_list(lst)
     result = acc.magnitude()
     yield ProblemSolution(
         problem_id, f"The magnitude of the snailfish is {result}", result, part=1

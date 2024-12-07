@@ -27,11 +27,11 @@ class MoonOfJupiter:
                 for coord_a, coord_b in zip(self.position, other.position)
             )
         )
-        self.velocity = self.velocity + offset
-        other.velocity = other.velocity - offset
+        self.velocity += offset
+        other.velocity -= offset
 
     def apply_velocity(self) -> None:
-        self.position = self.position + self.velocity
+        self.position += self.velocity
 
 
 class MoonSystem:

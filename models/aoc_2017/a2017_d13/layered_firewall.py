@@ -14,7 +14,7 @@ class FirewallLayer:
             return -1
         if self._scanning_range == 1:
             return 0
-        t = t % (2 * self._scanning_range - 2)
+        t %= 2 * self._scanning_range - 2
         return self._scanning_range - 1 - abs(t - self._scanning_range + 1)
 
 

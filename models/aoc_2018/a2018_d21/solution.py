@@ -30,7 +30,7 @@ def optimized_chronal_conversion(input_num: int, exit_on_first_occurrence: bool)
                         if max_num_attempts == 0:
                             return last_a
                     break
-            b = b // 256
+            b //= 256
 
 
 def aoc_2018_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
