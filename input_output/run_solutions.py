@@ -1,5 +1,7 @@
 import importlib
 import os
+import re
+from typing import Iterator
 
 from models.common.io import ExecutionFlags, IOHandler, ResultChecker
 
@@ -21,6 +23,13 @@ def _get_all_solutions(year: int) -> tuple:
         return getattr(module, f"ALL_{year}_SOLUTIONS")
     except (ModuleNotFoundError, AttributeError):
         raise ValueError(f"No solutions found for year {year}")
+
+
+def available_years() -> Iterator[int]:
+    for entry in os.scandir("models"):
+        match = re.match(r"aoc_(\d{4})", entry.name)
+        if match:
+            yield int(match.group(1))
 
 
 def run_solutions(problems: dict[int, tuple[int, ...]], flags: ExecutionFlags) -> None:

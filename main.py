@@ -1,12 +1,13 @@
 import argparse
 
-from input_output import run_solutions
+from input_output import available_years, run_solutions
 from models.common.io import ExecutionFlags
 
 
 def _parse_year_range(year_range: str) -> tuple[int, int]:
     if not year_range:
-        return (2015, 2024)  # TODO: Get dynamically
+        all_years = set(available_years())
+        return min(all_years), max(all_years)
     years = year_range.split("-")
     if len(years) == 1:
         return int(years[0]), int(years[0])
@@ -35,20 +36,7 @@ def main(solutions_to_run, flags: ExecutionFlags) -> None:
     run_solutions(solutions_to_run, flags)
 
 
-def _parse_solutions_to_run(args: argparse.Namespace) -> dict[int, tuple[int, ...]]:
-    year_range = args.year
-    if not year_range:
-        year_range = (2015, 2024)  # TODO: Get dynamically
-    days_range = args.day
-    solutions_to_run = {
-        y: _days_for_year(days_range, y)
-        for y in range(year_range[0], year_range[1] + 1)
-    }
-
-    return solutions_to_run
-
-
-if __name__ == "__main__":
+def _arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run Advent of Code solutions")
     parser.add_argument(
         "-y",
@@ -82,12 +70,34 @@ if __name__ == "__main__":
         action="store_true",
         help="Check results against expected results and generate a report",
     )
+    return parser
 
-    args = parser.parse_args()
-    solutions_to_run = _parse_solutions_to_run(args)
-    flags = ExecutionFlags(
+
+def _parse_flags(args: argparse.Namespace) -> ExecutionFlags:
+    return ExecutionFlags(
         animate=args.animate,
         play=args.play,
         check_results=args.check_results,
     )
+
+
+def _parse_solutions_to_run(args: argparse.Namespace) -> dict[int, tuple[int, ...]]:
+    year_range = args.year
+    if not year_range:
+        all_years = set(available_years())
+        year_range = min(all_years), max(all_years)
+    days_range = args.day
+    solutions_to_run = {
+        y: _days_for_year(days_range, y)
+        for y in range(year_range[0], year_range[1] + 1)
+    }
+
+    return solutions_to_run
+
+
+if __name__ == "__main__":
+    parser = _arg_parser()
+    args = parser.parse_args()
+    solutions_to_run = _parse_solutions_to_run(args)
+    flags = _parse_flags(args)
     main(solutions_to_run, flags)
