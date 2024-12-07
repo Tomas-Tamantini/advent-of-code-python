@@ -22,7 +22,7 @@ class CompressedPath:
     def max_length(self) -> int:
         return max(
             len(self.main_routine),
-            max(len(subroutine) for subroutine in self.subroutines.values()),
+            *(len(subroutine) for subroutine in self.subroutines.values()),
         )
 
 

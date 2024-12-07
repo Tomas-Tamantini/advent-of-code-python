@@ -4,18 +4,10 @@ from typing import Iterator
 from models.common.vectors import CardinalDirection, Vector2D
 
 
-@dataclass
+@dataclass(frozen=True)
 class SeaCucumbersHerds:
     east_facing: set[Vector2D]
     south_facing: set[Vector2D]
-
-    def __eq__(self, value: object) -> bool:
-        if not isinstance(value, SeaCucumbersHerds):
-            return False
-        return (
-            self.east_facing == value.east_facing
-            and self.south_facing == value.south_facing
-        )
 
 
 class SeaCucumbers:

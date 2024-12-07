@@ -106,8 +106,10 @@ def test_monkeys_throw_items_to_each_other_in_turn_during_round():
     keep_away_monkeys = Monkeys(monkeys)
     keep_away_monkeys.play_round()
 
-    assert not monkeys[0].empty_handed and not monkeys[1].empty_handed
-    assert monkeys[2].empty_handed and monkeys[3].empty_handed
+    assert not monkeys[0].empty_handed
+    assert not monkeys[1].empty_handed
+    assert monkeys[2].empty_handed
+    assert monkeys[3].empty_handed
 
     expected_num_inspections = (2, 4, 3, 5)
     assert expected_num_inspections == tuple(keep_away_monkeys.num_inspections())

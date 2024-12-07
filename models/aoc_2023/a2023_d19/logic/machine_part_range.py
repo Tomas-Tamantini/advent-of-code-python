@@ -26,3 +26,6 @@ class MachinePartRange:
         if not isinstance(value, MachinePartRange):
             return False
         return self._attributes == value._attributes
+
+    def __hash__(self) -> int:
+        return hash(frozenset(self._attributes.items()))
