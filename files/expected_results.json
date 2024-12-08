@@ -1898,7 +1898,9 @@
                 {
                     "day": 8,
                     "title": "Resonant Collinearity",
-                    "results": []
+                    "results": [
+                        301
+                    ]
                 }
             ]
         }
