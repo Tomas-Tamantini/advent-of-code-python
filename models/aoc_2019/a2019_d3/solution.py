@@ -20,7 +20,10 @@ def aoc_2019_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     closest = min(intersections, key=lambda point: point.manhattan_size)
     yield ProblemSolution(
         problem_id,
-        f"Closest intersection distance to the central port is {closest.manhattan_size}",
+        (
+            f"Closest intersection distance to the "
+            f"central port is {closest.manhattan_size}"
+        ),
         part=1,
         result=closest.manhattan_size,
     )

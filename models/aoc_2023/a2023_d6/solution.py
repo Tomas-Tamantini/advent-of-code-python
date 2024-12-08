@@ -20,7 +20,10 @@ def aoc_2023_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     product_with_whitespaces = _product(races_with_whitespaces)
     yield ProblemSolution(
         problem_id,
-        f"The product of the number of ways to beat the record is {product_with_whitespaces}",
+        (
+            "The product of the number of ways to beat the record is "
+            f"{product_with_whitespaces}"
+        ),
         result=product_with_whitespaces,
         part=1,
     )
@@ -31,7 +34,10 @@ def aoc_2023_d6(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     product_without_whitespaces = _product(races_without_whitespaces)
     yield ProblemSolution(
         problem_id,
-        f"The number of ways to beat the record in the longer race is {product_without_whitespaces}",
+        (
+            "The number of ways to beat the record in the longer race is "
+            f"{product_without_whitespaces}"
+        ),
         result=product_without_whitespaces,
         part=2,
     )

@@ -15,7 +15,10 @@ def aoc_2023_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_cells = num_energized_tiles(initial_beam, contraption)
     yield ProblemSolution(
         problem_id,
-        f"The number of energized tiles with beam coming from top left cell is {num_cells}",
+        (
+            "The number of energized tiles with "
+            f"beam coming from top left cell is {num_cells}"
+        ),
         result=num_cells,
         part=1,
     )

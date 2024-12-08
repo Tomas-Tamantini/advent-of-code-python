@@ -23,7 +23,10 @@ def aoc_2019_d10(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     result = two_hundredth.x * 100 + two_hundredth.y
     yield ProblemSolution(
         problem_id,
-        f"200th asteroid to be vaporized is at {two_hundredth.x}, {two_hundredth.y} - product: {result}",
+        (
+            "200th asteroid to be vaporized is at "
+            f"{two_hundredth.x}, {two_hundredth.y} - product: {result}"
+        ),
         result,
         part=2,
     )

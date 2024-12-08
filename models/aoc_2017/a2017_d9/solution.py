@@ -19,7 +19,10 @@ def aoc_2017_d9(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Number of non-cancelled characters in garbage: {handler.num_non_cancelled_chars_in_garbage}",
+        (
+            "Number of non-cancelled characters in garbage is "
+            f"{handler.num_non_cancelled_chars_in_garbage}"
+        ),
         part=2,
         result=handler.num_non_cancelled_chars_in_garbage,
     )

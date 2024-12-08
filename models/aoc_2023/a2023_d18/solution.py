@@ -20,7 +20,7 @@ def aoc_2023_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        solution_text=f"The area of the lava pool ignoring hexadecimal instructions is {area_no_hexa}",
+        f"The lava pool area ignoring hexadecimal instructions is {area_no_hexa}",
         result=area_no_hexa,
         part=1,
     )
@@ -30,7 +30,7 @@ def aoc_2023_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        solution_text=f"The area of the lava pool considering hexadecimal instructions is {area_hexa}",
+        f"The lava pool area considering hexadecimal instructions is {area_hexa}",
         result=area_hexa,
         part=2,
     )

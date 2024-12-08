@@ -43,7 +43,8 @@ def _create_solution_file(
         if parser_method_name:
             f.write(f"from .parser import {parser_method_name}\n")
         f.write(
-            f"\n\ndef aoc_{year}_d{day}(io_handler: IOHandler) -> Iterator[ProblemSolution]:\n"
+            f"\n\ndef aoc_{year}_d{day}(io_handler: IOHandler)"
+            " -> Iterator[ProblemSolution]:\n"
         )
         f.write(f'    problem_id = Problem({year}, {day}, "{problem_name}")\n')
         f.write("    io_handler.output_writer.write_header(problem_id)\n")
@@ -66,7 +67,8 @@ def _create_parser_file(solution_path: str, parser_method_name: str) -> None:
         f.write("from models.common.io import InputReader\n")
         f.write("\n\n")
         f.write(
-            f'def {parser_method_name}(input_reader: InputReader) -> "InsertReturnType":\n'
+            f"def {parser_method_name}(input_reader: InputReader)"
+            ' -> "InsertReturnType":\n'
         )
         f.write("    pass\n")
 

@@ -42,14 +42,20 @@ def _arg_parser() -> argparse.ArgumentParser:
         "-y",
         "--year",
         nargs="?",
-        help="Run solutions for a specific year (ex. 2024) or range of years (ex. 2015-2024). If empty, all years will be run.",
+        help=(
+            "Run solutions for a specific year (ex. 2024) or "
+            "range of years (ex. 2015-2024). If empty, all years will be run."
+        ),
         type=_parse_year_range,
     )
     parser.add_argument(
         "-d",
         "--day",
         nargs="?",
-        help="Run solutions for a specific day (ex. 1) or range of days (ex. 1-25). If empty, all days will be run.",
+        help=(
+            "Run solutions for a specific day (ex. 1) or range of days (ex. 1-25). "
+            "If empty, all days will be run."
+        ),
         type=_parse_day_range,
     )
     parser.add_argument(

@@ -12,11 +12,12 @@ def aoc_2019_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     instructions = [int(code) for code in io_handler.input_reader.read().split(",")]
     all_black_hull = Hull()
     run_hull_painting_program(instructions, all_black_hull)
+    result = all_black_hull.num_panels_painted_at_least_once
     yield ProblemSolution(
         problem_id,
-        f"Number of panels painted at least once is {all_black_hull.num_panels_painted_at_least_once}",
+        f"Number of panels painted at least once is {result}",
+        result,
         part=1,
-        result=all_black_hull.num_panels_painted_at_least_once,
     )
 
     single_white_hull = Hull()

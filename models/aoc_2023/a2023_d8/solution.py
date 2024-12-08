@@ -18,7 +18,10 @@ def aoc_2023_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The number of steps for single traveler to finish is {num_steps_single_traveler}",
+        (
+            "The number of steps for single traveler to finish is "
+            f"{num_steps_single_traveler}"
+        ),
         result=num_steps_single_traveler,
         part=1,
     )
@@ -28,7 +31,10 @@ def aoc_2023_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_steps_multiple_travelers = network.num_steps_to_finish(start_nodes, end_nodes)
     yield ProblemSolution(
         problem_id,
-        f"The number of steps for multiple travelers to finish is {num_steps_multiple_travelers}",
+        (
+            "The number of steps for multiple travelers to finish is "
+            f"{num_steps_multiple_travelers}"
+        ),
         result=num_steps_multiple_travelers,
         part=2,
     )

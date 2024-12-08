@@ -9,14 +9,20 @@ def aoc_2015_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     # TODO: Make implementation independent of input
     yield ProblemSolution(
         problem_id,
-        "Done by hand (it's just 3n+1 problem in disguise) - Num. steps to go from 20895 to 1: 255",
+        (
+            "Done by hand (it's just 3n+1 problem in disguise) - "
+            "Num. steps to go from 20895 to 1: 255"
+        ),
         part=1,
         result=255,
     )
 
     yield ProblemSolution(
         problem_id,
-        "Done by hand (it's just 3n+1 problem in disguise) - Num. steps to go from 60975 to 1: 334",
+        (
+            "Done by hand (it's just 3n+1 problem in disguise) - "
+            "Num. steps to go from 60975 to 1: 334"
+        ),
         part=2,
         result=334,
     )

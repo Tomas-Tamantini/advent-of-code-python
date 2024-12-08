@@ -26,7 +26,10 @@ def aoc_2016_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"Fewest number of steps to visit all points of interest and return to origin: {min_steps_round_trip}",
+        (
+            "Fewest number of steps to visit all points of interest "
+            f"and return to origin is {min_steps_round_trip}"
+        ),
         part=2,
         result=min_steps_round_trip,
     )

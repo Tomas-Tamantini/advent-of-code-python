@@ -14,7 +14,6 @@ class DisjoinIntervals:
         return sum(end - start + 1 for start, end in self.intervals())
 
     def remove(self, interval_start: int, interval_end: int) -> None:
-        """Remove the interval [interval_start, interval_end] from the original interval"""
         start_index = bisect_left(self._intervals, interval_start)
         end_index = bisect_right(self._intervals, interval_end)
 

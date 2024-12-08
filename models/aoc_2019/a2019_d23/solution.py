@@ -34,7 +34,10 @@ def aoc_2019_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Y value of the first packet sent to address 255 after NAT repeats a packet is {result}",
+        (
+            "Y value of the first packet sent to address 255 "
+            f"after NAT repeats a packet is {result}"
+        ),
         result,
         part=2,
     )

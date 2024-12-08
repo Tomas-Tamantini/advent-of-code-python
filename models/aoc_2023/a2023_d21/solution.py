@@ -30,7 +30,10 @@ def aoc_2023_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_plots_bounded_garden = series[-1]
     yield ProblemSolution(
         problem_id,
-        f"The number of garden plots the gardener can reach in bounded garden is {num_plots_bounded_garden}",
+        (
+            "The number of garden plots the gardener can reach "
+            f"in bounded garden is {num_plots_bounded_garden}"
+        ),
         result=num_plots_bounded_garden,
         part=1,
     )
@@ -38,7 +41,8 @@ def aoc_2023_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     infinite_garden = InfiniteGarden(grid.width, grid.height, rock_positions)
     series_generator = gardener.num_reachable_positions(infinite_garden)
 
-    # Solution below assumes that the series grows as a parabola considering terms of the form s[offset + period * i]
+    # Solution below assumes that the series grows as a parabola
+    # considering terms of the form s[offset + period * i]
     # The period is the size of the garden, but only works for square gardens
     if infinite_garden.width != infinite_garden.height:
         raise NotImplementedError("Algorithm only works for square gardens")
@@ -54,7 +58,10 @@ def aoc_2023_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_plots_infinite_garden = _extrapolate_parabola(terms, desired_index)
     yield ProblemSolution(
         problem_id,
-        f"The number of garden plots the gardener can reach in infinite garden is {num_plots_infinite_garden}",
+        (
+            "The number of garden plots the gardener can reach "
+            f"in infinite garden is {num_plots_infinite_garden}"
+        ),
         result=num_plots_infinite_garden,
         part=2,
     )

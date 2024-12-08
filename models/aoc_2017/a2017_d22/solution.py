@@ -19,7 +19,10 @@ def aoc_2017_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_infections_two_state = cluster.total_number_of_infections_caused(10_000)
     yield ProblemSolution(
         problem_id,
-        f"Number of infections caused with two-state carrier: {num_infections_two_state}",
+        (
+            "The number of infections caused with two-state carrier is "
+            f"{num_infections_two_state}"
+        ),
         part=1,
         result=num_infections_two_state,
     )
@@ -29,7 +32,10 @@ def aoc_2017_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"Number of infections caused with four-state carrier: {num_infections_four_state}",
+        (
+            "The number of infections caused with four-state carrier is "
+            f"{num_infections_four_state}"
+        ),
         part=2,
         result=num_infections_four_state,
     )

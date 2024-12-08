@@ -16,7 +16,10 @@ def aoc_2023_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The number of arrangements ignoring repetitions is {arrangements_no_repetition}",
+        (
+            "The number of arrangements ignoring "
+            f"repetitions is {arrangements_no_repetition}"
+        ),
         result=arrangements_no_repetition,
         part=1,
     )
@@ -27,7 +30,10 @@ def aoc_2023_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The number of arrangements with repetitions is {arrangements_with_repetition}",
+        (
+            "The number of arrangements with "
+            f"repetitions is {arrangements_with_repetition}"
+        ),
         result=arrangements_with_repetition,
         part=2,
     )

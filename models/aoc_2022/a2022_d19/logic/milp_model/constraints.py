@@ -30,7 +30,9 @@ def _initial_inventory_given(initial_state: MiningState) -> Iterator[Constraint]
             coefficients,
             right_hand_side=resource_amount,
             constraint_type=ConstraintType.EQUAL,
-            description=f"Initial amount of resource {resource_type} is {resource_amount}",
+            description=(
+                f"Initial amount of resource {resource_type} is {resource_amount}"
+            ),
         )
 
 
@@ -43,7 +45,9 @@ def _initial_fleet_size_given(initial_state: MiningState) -> Iterator[Constraint
             coefficients,
             right_hand_side=num_robots,
             constraint_type=ConstraintType.EQUAL,
-            description=f"Initial fleet size for resource {resource_type} is {num_robots}",
+            description=(
+                f"Initial fleet size for resource {resource_type} is {num_robots}"
+            ),
         )
 
 
@@ -68,7 +72,10 @@ def _robot_fleet_growth(time_limit: int) -> Iterator[Constraint]:
                 coefficients,
                 right_hand_side=0,
                 constraint_type=ConstraintType.EQUAL,
-                description=f"Fleet size for robot type {resource_type} for minute {minute} increments from previous minute",
+                description=(
+                    f"Fleet size for robot type {resource_type} "
+                    f"for minute {minute} increments from previous minute"
+                ),
             )
 
 
@@ -100,7 +107,10 @@ def _inventory_growth(time_limit: int, blueprint: Blueprint) -> Iterator[Constra
                 coefficients,
                 right_hand_side=0,
                 constraint_type=ConstraintType.EQUAL,
-                description=f"Inventory of resource {resource_type} at the start of minute {minute} increments from previous minute",
+                description=(
+                    f"Inventory of resource {resource_type} "
+                    f"at the start of minute {minute} increments from previous minute"
+                ),
             )
 
 
@@ -134,5 +144,8 @@ def _robot_only_built_if_enough_resources(
                 coefficients,
                 right_hand_side=0,
                 constraint_type=ConstraintType.LESS_THAN_OR_EQUAL,
-                description=f"Robot of type {resource_type} built on minute {minute} must be within budget",
+                description=(
+                    f"Robot of type {resource_type} "
+                    f"built on minute {minute} must be within budget"
+                ),
             )

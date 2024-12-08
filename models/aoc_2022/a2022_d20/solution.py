@@ -33,7 +33,10 @@ def aoc_2022_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     total_sum = sum(_numbers_at_offsets(shuffled_multiplied_list, offsets))
     yield ProblemSolution(
         problem_id,
-        f"Sum of numbers at positions 1000, 2000, and 3000 after 10 rounds mixing: {total_sum}",
+        (
+            f"Sum of numbers at positions 1000, 2000, and 3000 "
+            f"after 10 rounds mixing: {total_sum}"
+        ),
         part=2,
         result=total_sum,
     )

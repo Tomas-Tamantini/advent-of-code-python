@@ -52,5 +52,8 @@ class RopeAnimation:
                     frame += "."
             frame += "\n"
         self._iteration += 1
-        frame += f"Iteration: {self._iteration}/{self._total_num_iterations} / Visited by tail: {len(self._visited_by_tail)}"
+        frame += (
+            f"Iteration: {self._iteration}/{self._total_num_iterations} / "
+            f"Visited by tail: {len(self._visited_by_tail)}"
+        )
         return frame

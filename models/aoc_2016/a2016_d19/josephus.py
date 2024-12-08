@@ -3,15 +3,14 @@ def josephus(num_players: int) -> int:
 
 
 def _number_base_three(n: int) -> str:
-    """Convert a number to base three"""
     if n == 0:
         return ""
     return _number_base_three(n // 3) + str(n % 3)
 
 
 def modified_josephus(num_players: int) -> int:
-    """Game where the elf across the circle is stolen from instead of the one to the left"""
-    """This formula was guessed by looking at the results of the first 100 numbers"""
+    # Game where the elf across the circle is stolen from instead of the one to the left
+    # This formula was guessed by looking at the results of the first 100 numbers
     if num_players < 3:
         return 1
     base_three = _number_base_three(num_players - 1)

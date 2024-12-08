@@ -26,7 +26,10 @@ def aoc_2018_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     result = results.rounds * results.hp_remaining
     yield ProblemSolution(
         problem_id,
-        f"Outcome of combat with optimal elf attack power ({results.elf_attack_power}): {result}",
+        (
+            "Outcome of combat with optimal elf attack power"
+            f" ({results.elf_attack_power}) is {result}"
+        ),
         result,
         part=2,
     )

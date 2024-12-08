@@ -24,7 +24,10 @@ def aoc_2021_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     paths = list(explorer.all_paths(may_visit_one_small_cave_twice=True))
     yield ProblemSolution(
         problem_id,
-        f"The number of paths from start to end with one small cave visited twice is {len(paths)}",
+        (
+            f"The number of paths from start to end with "
+            f"one small cave visited twice is {len(paths)}"
+        ),
         part=2,
         result=len(paths),
     )

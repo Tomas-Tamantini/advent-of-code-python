@@ -17,7 +17,10 @@ def aoc_2021_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     result = max(character_count.values()) - min(character_count.values())
     yield ProblemSolution(
         problem_id,
-        f"The difference between the most and least common characters after 10 steps is {result}",
+        (
+            "The difference between the most and least common characters "
+            f"after 10 steps is {result}"
+        ),
         result,
         part=1,
     )
@@ -28,7 +31,10 @@ def aoc_2021_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     result = max(character_count.values()) - min(character_count.values())
     yield ProblemSolution(
         problem_id,
-        f"The difference between the most and least common characters after 40 steps is {result}",
+        (
+            "The difference between the most and least common characters "
+            f"after 40 steps is {result}"
+        ),
         result,
         part=2,
     )

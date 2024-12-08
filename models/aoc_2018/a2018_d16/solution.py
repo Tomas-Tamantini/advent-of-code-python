@@ -26,9 +26,12 @@ def aoc_2018_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"Number of samples with three or more possible instructions: {num_samples_with_three_or_more}",
-        part=1,
+        (
+            "Number of samples with three or more possible instructions is "
+            f"{num_samples_with_three_or_more}"
+        ),
         result=num_samples_with_three_or_more,
+        part=1,
     )
 
     op_codes_to_instructions = work_out_op_codes(

@@ -194,7 +194,8 @@ class RadioisotopeTestingFacility:
             is_final_state=lambda n: n.is_final_state(),
         )
 
-    # Custom __eq__ and __hash__ to reduce search space - All elements are interchangeable
+    # Custom __eq__ and __hash__ to reduce search space,
+    # since all elements are interchangeable
 
     def _element_floors(self) -> dict[str, tuple[int, int]]:
         element_floors = defaultdict(lambda: [-1, -1])

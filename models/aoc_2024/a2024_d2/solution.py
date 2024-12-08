@@ -19,7 +19,10 @@ def aoc_2024_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The number of safe reports with no error tolerance is {num_safe_reports_zero_tolerance}",
+        (
+            f"The number of safe reports with no error tolerance is "
+            f"{num_safe_reports_zero_tolerance}"
+        ),
         result=num_safe_reports_zero_tolerance,
         part=1,
     )
@@ -29,7 +32,10 @@ def aoc_2024_d2(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The number of safe reports with one error tolerance is {num_safe_reports_one_tolerance}",
+        (
+            "The number of safe reports with one error tolerance is "
+            f"{num_safe_reports_one_tolerance}"
+        ),
         result=num_safe_reports_one_tolerance,
         part=2,
     )

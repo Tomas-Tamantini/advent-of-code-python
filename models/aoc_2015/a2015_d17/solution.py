@@ -35,7 +35,10 @@ def aoc_2015_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     num_ways_min_containers = sum(1 for p in partitions if len(p) == min_num_containers)
     yield ProblemSolution(
         problem_id,
-        f"There are {num_ways_min_containers} ways to store eggnog using {min_num_containers} containers",
+        (
+            f"There are {num_ways_min_containers} ways to store eggnog "
+            f"using {min_num_containers} containers"
+        ),
         part=2,
         result=num_ways_min_containers,
     )

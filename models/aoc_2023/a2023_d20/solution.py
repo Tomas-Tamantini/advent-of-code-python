@@ -36,7 +36,10 @@ def aoc_2023_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Number of button presses until rx receives a low pulse is {steps_until_rx_low}",
+        (
+            "Number of button presses until rx receives a "
+            f"low pulse is {steps_until_rx_low}"
+        ),
         result=steps_until_rx_low,
         part=2,
     )

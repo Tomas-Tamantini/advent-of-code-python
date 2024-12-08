@@ -22,7 +22,7 @@ def aoc_2021_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"The number of different velocities to reach the target is {len(all_velocities)}",
+        f"The number of different velocities to reach target is {len(all_velocities)}",
         part=2,
         result=len(all_velocities),
     )

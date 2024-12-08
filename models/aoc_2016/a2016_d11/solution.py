@@ -34,7 +34,7 @@ def aoc_2016_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     steps = facility.min_num_steps_to_reach_final_state()
     yield ProblemSolution(
         problem_id,
-        f"Minimum number of steps to get all items on 4th floor with extra items: {steps}",
+        f"Minimum steps to get all items on 4th floor with extra items: {steps}",
         part=2,
         result=steps,
     )

@@ -19,7 +19,7 @@ def aoc_2023_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Distance between pairs of galaxies with expansion rate 2 is {distance_exp_2}",
+        f"Dist. between pairs of galaxies with expansion rate 2 is {distance_exp_2}",
         result=distance_exp_2,
         part=1,
     )
@@ -31,7 +31,7 @@ def aoc_2023_d11(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"Distance between pairs of galaxies with expansion rate 1,000,000 is {distance_exp_1m}",
+        f"Dist. between pairs of galaxies with expansion rate 1M is {distance_exp_1m}",
         result=distance_exp_1m,
         part=2,
     )

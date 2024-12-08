@@ -13,7 +13,7 @@ def aoc_2019_d19(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     run_beam_scanner(instructions, area)
     yield ProblemSolution(
         problem_id,
-        f"Number of points attracted to the beam is {area.num_points_attracted_to_beam}",
+        f"Num. of points attracted to the beam is {area.num_points_attracted_to_beam}",
         part=1,
         result=area.num_points_attracted_to_beam,
     )

@@ -43,7 +43,8 @@ class DroidCLIControl:
             self._airlock_password = int(output_line.split()[11])
 
 
-# TODO: Implement actual exploration logic, rather than cheating by using pre-determined commands.
+# TODO: Implement actual exploration logic, rather than using
+# pre-determined commands which only work for the specific input.
 class DroidAutomaticControl:
     def __init__(self, droid_input: DroidInput) -> None:
         self._droid_input = droid_input

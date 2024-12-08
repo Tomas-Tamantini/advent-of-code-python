@@ -25,7 +25,7 @@ def aoc_2021_d3(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     result = int(filtered_most_frequent, 2) * int(filtered_least_frequent, 2)
     yield ProblemSolution(
         problem_id,
-        f"The product of the most and least frequent bits in filtered strings is {result}",
+        f"The product of most and least frequent bits in filtered strings is {result}",
         result,
         part=2,
     )

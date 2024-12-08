@@ -48,7 +48,10 @@ def aoc_2024_d7(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"The calibration result for valid equations with +, *, and concatenation is {calibration_2}",
+        (
+            "The calibration result for valid equations with +, *, "
+            f"and concatenation is {calibration_2}"
+        ),
         result=calibration_2,
         part=2,
     )

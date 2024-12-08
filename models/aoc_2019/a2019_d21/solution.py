@@ -13,7 +13,10 @@ from .logic import (
 
 
 def _log_error(io_handler: IOHandler, droid_output: SpringDroidOutput, part: int):
-    error_msg = f"Part {part}: Spring bot fell into a hole. Try a different springscript.\n{droid_output.render()}"
+    error_msg = (
+        f"Part {part}: Spring bot fell into a hole. "
+        f"Try a different springscript.\n{droid_output.render()}"
+    )
     io_handler.output_writer.log_error(error_msg)
 
 

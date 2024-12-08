@@ -15,9 +15,12 @@ def aoc_2022_d4(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"Number of pairs in which one interval contains the other is {num_pairs_fully_contained}",
-        part=1,
+        (
+            "Number of pairs in which one interval contains"
+            f" the other is {num_pairs_fully_contained}"
+        ),
         result=num_pairs_fully_contained,
+        part=1,
     )
 
     num_pairs_with_overlap = sum(

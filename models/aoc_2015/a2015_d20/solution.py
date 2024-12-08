@@ -24,7 +24,10 @@ def aoc_2015_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
     yield ProblemSolution(
         problem_id,
-        f"First house to receive {target_num_presents} presents (with 50 visits per elf) is {first_house}",
+        (
+            f"First house to receive {target_num_presents} presents "
+            f"(with 50 visits per elf) is {first_house}"
+        ),
         part=2,
         result=first_house,
     )
