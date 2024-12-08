@@ -2,7 +2,7 @@ from typing import Iterator
 
 from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 
-from .logic import AntennaRange
+from .logic import AntennaRange, TwiceDistanceAntinodeGenerator
 from .parser import parse_antennas
 
 
@@ -13,7 +13,9 @@ def aoc_2024_d8(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     antenna_range = AntennaRange(
         grid.width, grid.height, antennas=set(parse_antennas(grid))
     )
-    num_antinodes = len(set(antenna_range.antinodes()))
+
+    twice_distance = TwiceDistanceAntinodeGenerator()
+    num_antinodes = len(set(antenna_range.antinodes(twice_distance)))
     yield ProblemSolution(
         problem_id,
         f"The number of unique antinodes is {num_antinodes}",

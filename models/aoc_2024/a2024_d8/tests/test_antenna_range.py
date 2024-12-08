@@ -1,6 +1,6 @@
 from models.common.vectors import Vector2D
 
-from ..logic import Antenna, AntennaRange
+from ..logic import Antenna, AntennaRange, TwiceDistanceAntinodeGenerator
 
 
 def _example_range_a() -> AntennaRange:
@@ -34,7 +34,7 @@ def _example_range_b() -> AntennaRange:
 
 def test_antenna_range_lists_all_antinodes_within_bounds():
     antenna_range = _example_range_a()
-    antinodes = set(antenna_range.antinodes())
+    antinodes = set(antenna_range.antinodes(TwiceDistanceAntinodeGenerator()))
     assert antinodes == {
         Vector2D(3, 1),
         Vector2D(0, 2),
@@ -42,4 +42,6 @@ def test_antenna_range_lists_all_antinodes_within_bounds():
         Vector2D(6, 7),
     }
 
-    assert len(set(_example_range_b().antinodes())) == 14
+    assert (
+        len(set(_example_range_b().antinodes(TwiceDistanceAntinodeGenerator()))) == 14
+    )
