@@ -10,8 +10,6 @@ def setup_project(
     day: int,
     problem_name: Optional[str] = None,
     parser_method_name: Optional[str] = None,
-    create_empty_input_file: bool = True,
-    create_expected_result_template: bool = True,
 ) -> None:
     if problem_name is None:
         problem_name = fetch_problem_name(year, day)
@@ -24,10 +22,8 @@ def setup_project(
         _create_test_folder(test_path)
         _create_parser_file(solution_path, parser_method_name)
         _create_parser_test_file(parser_method_name, test_path)
-    if create_empty_input_file:
-        _create_empty_input_file(year, day)
-    if create_expected_result_template:
-        _create_expected_result_template(year, day, problem_name)
+    _create_empty_input_file(year, day)
+    _create_expected_result_template(year, day, problem_name)
 
 
 def _create_solution_file(
@@ -110,9 +106,10 @@ def _create_expected_result_template(year: int, day: int, problem_name: str) -> 
     yearly_results = _yearly_results(year, results_by_year)
     results_by_day: list[dict] = yearly_results.get("results_by_day", [])
     if any(day_results["day"] == day for day_results in results_by_day):
-        raise ValueError("Expected results already exist")
-    new_result = {"day": day, "title": problem_name, "results": []}
-    results_by_day.append(new_result)
+        print("Expected results already exist")
+    else:
+        new_result = {"day": day, "title": problem_name, "results": []}
+        results_by_day.append(new_result)
 
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(expected_results, f, indent=4)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(expected_results, f, indent=4)

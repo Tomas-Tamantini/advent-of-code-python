@@ -20,8 +20,7 @@ def aoc_2023_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     grid = CharacterGrid(io_handler.input_reader.read())
     rock_positions = set(grid.positions_with_value("#"))
-    initial_position = next(grid.positions_with_value("S"))
-    gardener = Gardener(initial_position)
+    gardener = Gardener(initial_position=next(grid.positions_with_value("S")))
 
     bounded_garden = BoundedGarden(grid.width, grid.height, rock_positions)
     series_generator = gardener.num_reachable_positions(bounded_garden)

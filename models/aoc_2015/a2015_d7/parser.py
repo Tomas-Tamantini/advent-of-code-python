@@ -15,7 +15,7 @@ def _parse_logic_gate_input(gate, input: str) -> None:
     try:
         input_signal = int(input)
         gate.add_input_signal(input_signal)
-    except:
+    except ValueError:
         gate.add_input_wire(input.strip())
 
 

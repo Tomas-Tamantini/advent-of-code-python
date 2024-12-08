@@ -18,7 +18,7 @@ from .duet_code import (
 )
 
 
-def parse_duet_instruction(instruction_str: str, rcv_cls, mul_cls) -> Instruction:
+def _parse_instruction_parts(instruction_str: str) -> list[int | str]:
     raw_parts = instruction_str.split(" ")
     parts = []
     for part in raw_parts[1:]:
@@ -26,32 +26,29 @@ def parse_duet_instruction(instruction_str: str, rcv_cls, mul_cls) -> Instructio
             parts.append(int(part))
         except ValueError:
             parts.append(part)
-    if "snd" in instruction_str:
-        return OutInstruction(source=parts[0])
-    elif "set" in instruction_str:
-        return CopyInstruction(source=parts[1], destination=parts[0])
-    elif "add" in instruction_str:
-        return AddInstruction(source=parts[1], destination=parts[0])
-    elif "sub" in instruction_str:
-        return SubtractInstruction(source=parts[1], destination=parts[0])
-    elif "mul" in instruction_str:
-        return mul_cls(parts[1], parts[0])
-    elif "mod" in instruction_str:
-        return RemainderInstruction(source=parts[1], destination=parts[0])
-    elif "rcv" in instruction_str:
-        return rcv_cls(parts[0])
-    elif "jgz" in instruction_str:
-        return JumpGreaterThanZeroInstruction(
-            value_to_compare=parts[0],
-            offset=parts[1],
-        )
-    elif "jnz" in instruction_str:
-        return JumpNotZeroInstruction(
-            value_to_compare=parts[0],
-            offset=parts[1],
-        )
-    else:
-        raise ValueError(f"Unknown instruction: {instruction_str}")
+    return parts
+
+
+def parse_duet_instruction(instruction_str: str, rcv_cls, mul_cls) -> Instruction:
+    parts = _parse_instruction_parts(instruction_str)
+    instruction_map = {
+        "snd": lambda p: OutInstruction(source=p[0]),
+        "set": lambda p: CopyInstruction(source=p[1], destination=p[0]),
+        "add": lambda p: AddInstruction(source=p[1], destination=p[0]),
+        "sub": lambda p: SubtractInstruction(source=p[1], destination=p[0]),
+        "mul": lambda p: mul_cls(p[1], p[0]),
+        "mod": lambda p: RemainderInstruction(source=p[1], destination=p[0]),
+        "rcv": lambda p: rcv_cls(p[0]),
+        "jgz": lambda p: JumpGreaterThanZeroInstruction(
+            value_to_compare=p[0],
+            offset=p[1],
+        ),
+        "jnz": lambda p: JumpNotZeroInstruction(
+            value_to_compare=p[0],
+            offset=p[1],
+        ),
+    }
+    return instruction_map[instruction_str[:3]](parts)
 
 
 def parse_duet_code(
