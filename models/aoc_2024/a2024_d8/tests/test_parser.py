@@ -1,8 +1,35 @@
-from models.common.io import InputFromString
-from ..parser import parse_antenna_range
+from models.common.io import CharacterGrid
+from models.common.vectors import Vector2D
+
+from ..logic import Antenna
+from ..parser import parse_antennas
 
 
-def test_parse_antenna_range():
-    file_content = ""
-    input_reader = InputFromString(file_content)
-    # TODO: Implement test
+def test_parse_antennas():
+    grid = CharacterGrid(
+        """
+        ............
+        ........0...
+        .....0......
+        .......0....
+        ....0.......
+        ......A.....
+        ............
+        ............
+        ........A...
+        .........A..
+        ............
+        ............
+        """
+    )
+    antennas = list(parse_antennas(grid))
+    assert len(antennas) == 7
+    assert set(antennas) == {
+        Antenna(frequency="0", position=Vector2D(x=4, y=4)),
+        Antenna(frequency="0", position=Vector2D(x=5, y=2)),
+        Antenna(frequency="0", position=Vector2D(x=7, y=3)),
+        Antenna(frequency="0", position=Vector2D(x=8, y=1)),
+        Antenna(frequency="A", position=Vector2D(x=6, y=5)),
+        Antenna(frequency="A", position=Vector2D(x=8, y=8)),
+        Antenna(frequency="A", position=Vector2D(x=9, y=9)),
+    }
