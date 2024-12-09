@@ -1,6 +1,6 @@
 import pytest
 
-from ..logic import DiskFile, fragmented_checksum
+from ..logic import DiskFile, fragmented_checksum, integral_checksum
 
 
 def _example_a() -> set[DiskFile]:
@@ -27,11 +27,14 @@ def _example_b() -> set[DiskFile]:
 
 
 @pytest.mark.parametrize(
-    ("files", "expected_checksum"),
-    [
-        (_example_a(), 60),
-        (_example_b(), 1928),
-    ],
+    ("files", "expected_checksum"), [(_example_a(), 60), (_example_b(), 1928)]
 )
 def test_fragmented_checksum_is_calculated_properly(files, expected_checksum):
     assert expected_checksum == fragmented_checksum(files)
+
+
+@pytest.mark.parametrize(
+    ("files", "expected_checksum"), [(_example_a(), 132), (_example_b(), 2858)]
+)
+def test_integral_checksum_is_calculated_properly(files, expected_checksum):
+    assert expected_checksum == integral_checksum(files)
