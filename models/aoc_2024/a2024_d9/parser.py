@@ -2,7 +2,7 @@ from typing import Iterator
 
 from models.common.io import InputReader
 
-from .logic import Disk, DiskFile
+from .logic import DiskFile
 
 
 def _disk_mapper_sections(content: str) -> Iterator[tuple[int, int]]:
@@ -13,15 +13,11 @@ def _disk_mapper_sections(content: str) -> Iterator[tuple[int, int]]:
         yield file_size, free_space
 
 
-def _parse_files(content: str) -> Iterator[DiskFile]:
+def parse_disk_files(input_reader: InputReader) -> Iterator[DiskFile]:
+    content = input_reader.read().strip()
     current_address = 0
     current_file_id = 0
     for file_size, free_space in _disk_mapper_sections(content):
         yield DiskFile(current_file_id, current_address, file_size)
         current_file_id += 1
         current_address += file_size + free_space
-
-
-def parse_disk(input_reader: InputReader) -> Disk:
-    files = set(_parse_files(input_reader.read()))
-    return Disk(files)
