@@ -15,3 +15,22 @@ from .instructions import (
 )
 from .program import IntcodeProgram
 from .run_program import run_intcode_program
+
+
+__all__ = [
+    "IntcodeAdd",
+    "IntcodeEquals",
+    "IntcodeHalt",
+    "IntcodeInput",
+    "IntcodeJumpIfFalse",
+    "IntcodeJumpIfTrue",
+    "IntcodeLessThan",
+    "IntcodeMultiply",
+    "IntcodeOutput",
+    "IntcodeParameter",
+    "IntcodeProgram",
+    "IntcodeRelativeBaseOffset",
+    "ParameterMode",
+    "parse_next_instruction",
+    "run_intcode_program",
+]

@@ -7,3 +7,12 @@ from .run_game_console import (
     find_and_run_game_console_which_terminates,
     run_game_console,
 )
+
+
+__all__ = [
+    "GameConsoleProgram",
+    "IncrementGlobalAccumulatorInstruction",
+    "JumpOrNoOpInstruction",
+    "find_and_run_game_console_which_terminates",
+    "run_game_console",
+]
