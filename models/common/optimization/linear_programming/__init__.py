@@ -10,7 +10,6 @@ from .variable import (
     VariableProtocol,
 )
 
-
 __all__ = [
     "BinaryVariable",
     "Constraint",

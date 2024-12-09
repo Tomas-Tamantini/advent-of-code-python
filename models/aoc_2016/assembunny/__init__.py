@@ -8,7 +8,6 @@ from .instructions import (
 from .program import AssembunnyProgram
 from .self_referential_code import run_self_referential_code
 
-
 __all__ = [
     "AddAndMultiplyInstruction",
     "AssembunnyProgram",

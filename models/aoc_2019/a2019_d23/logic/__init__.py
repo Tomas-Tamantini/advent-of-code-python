@@ -11,7 +11,6 @@ from .packet_monitor import (
 )
 from .run_network import run_network
 
-
 __all__ = [
     "HaltNetworkError",
     "LostPackets",

@@ -18,7 +18,6 @@ from .two_state_automata import (
     two_state_automaton_next_state,
 )
 
-
 __all__ = [
     "AntState",
     "Bounded2DAutomaton",

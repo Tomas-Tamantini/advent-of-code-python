@@ -5,7 +5,6 @@ from .springscript_instruction import (
     SpringScriptInstructionType,
 )
 
-
 __all__ = [
     "BeginDroidCommand",
     "SpringDroidInput",

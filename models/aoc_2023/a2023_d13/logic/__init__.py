@@ -7,7 +7,6 @@ from .line_of_reflection import (
 )
 from .reflection_orientation import ReflectionOrientation
 
-
 __all__ = [
     "AshValley",
     "HorizontalLineOfReflection",

@@ -11,7 +11,6 @@ from .spell_effect import (
     SpellEffectTimers,
 )
 
-
 __all__ = [
     "Boss",
     "BossMove",

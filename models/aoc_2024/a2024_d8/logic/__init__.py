@@ -6,7 +6,6 @@ from .antinode_generator import (
     TwiceDistanceAntinodeGenerator,
 )
 
-
 __all__ = [
     "Antenna",
     "AntennaRange",

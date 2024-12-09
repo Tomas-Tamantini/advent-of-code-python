@@ -8,7 +8,6 @@ from .run_game_console import (
     run_game_console,
 )
 
-
 __all__ = [
     "GameConsoleProgram",
     "IncrementGlobalAccumulatorInstruction",

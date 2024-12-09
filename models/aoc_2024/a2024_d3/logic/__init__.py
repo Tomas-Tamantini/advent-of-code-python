@@ -6,7 +6,6 @@ from .program_instructions import (
 from .program_parser import parse_program
 from .program_stack import StackWithConditional, StackWithoutConditional
 
-
 __all__ = [
     "DoInstruction",
     "DontInstruction",

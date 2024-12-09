@@ -9,7 +9,6 @@ from .cube_net import (
     PacmanEdgeMapper,
 )
 
-
 __all__ = [
     "Board",
     "BoardInstruction",

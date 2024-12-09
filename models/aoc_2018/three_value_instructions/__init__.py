@@ -20,7 +20,6 @@ from .instructions import (
 )
 from .parser import parse_three_value_instructions
 
-
 __all__ = [
     "ALL_THREE_VALUE_INSTRUCTIONS",
     "AddImmediate",

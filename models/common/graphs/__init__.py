@@ -12,7 +12,6 @@ from .maze import GridMaze, Maze
 from .topological_sorting import topological_sorting
 from .travelling_salesman import travelling_salesman
 
-
 __all__ = [
     "DirectedGraph",
     "DisjointSet",

@@ -18,7 +18,6 @@ from .processor import Processor
 from .program import ImmutableProgram, MutableProgram, Program
 from .serial_io import SerialInput, SerialOutput
 
-
 __all__ = [
     "AddInstruction",
     "Computer",

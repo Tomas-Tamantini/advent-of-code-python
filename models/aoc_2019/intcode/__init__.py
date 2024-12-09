@@ -16,7 +16,6 @@ from .instructions import (
 from .program import IntcodeProgram
 from .run_program import run_intcode_program
 
-
 __all__ = [
     "IntcodeAdd",
     "IntcodeEquals",
