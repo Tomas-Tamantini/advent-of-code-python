@@ -1,5 +1,4 @@
 from random import choice
-from typing import Hashable, Optional
 
 import pytest
 
@@ -12,28 +11,19 @@ from ..logic import (
 )
 
 
-def _build_army_group(
-    group_id: Optional[Hashable] = None,
-    num_units: int = 1,
-    hit_points_per_unit: int = 1,
-    attack_damage_per_unit: int = 1,
-    initiative: int = 1,
-    attack_type: AttackType = AttackType.SLASHING,
-    weaknesses: tuple[AttackType] = tuple(),
-    immunities: tuple[AttackType] = tuple(),
-) -> ArmyGroup:
-    if group_id is None:
-        group_id = "".join(choice("abcdefghijklmnopqrstuvwxyz") for _ in range(20))
-    return ArmyGroup(
-        group_id=group_id,
-        num_units=num_units,
-        hit_points_per_unit=hit_points_per_unit,
-        attack_damage_per_unit=attack_damage_per_unit,
-        initiative=initiative,
-        attack_type=attack_type,
-        weaknesses=weaknesses,
-        immunities=immunities,
-    )
+def _build_army_group(**kwargs) -> ArmyGroup:
+    defaults = {
+        "group_id": "".join(choice("abcdefghijklmnopqrstuvwxyz") for _ in range(20)),
+        "num_units": 1,
+        "hit_points_per_unit": 1,
+        "attack_damage_per_unit": 1,
+        "initiative": 1,
+        "attack_type": AttackType.SLASHING,
+        "weaknesses": tuple(),
+        "immunities": tuple(),
+    }
+    defaults.update(kwargs)
+    return ArmyGroup(**defaults)
 
 
 def test_army_group_is_not_dead_if_some_unit_is_alive():
