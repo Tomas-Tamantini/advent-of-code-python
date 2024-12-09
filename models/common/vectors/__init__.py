@@ -7,3 +7,17 @@ from .polygon import Polygon
 from .vector_2d import Vector2D
 from .vector_3d import Vector3D
 from .vector_n_dimensional import VectorNDimensional
+
+__all__ = [
+    "BoundingBox",
+    "CanonicalHexagonalCoordinates",
+    "CardinalDirection",
+    "HexagonalDirection",
+    "Orientation",
+    "Polygon",
+    "TurnDirection",
+    "Vector2D",
+    "Vector3D",
+    "VectorNDimensional",
+    "solve_linear_system_exactly",
+]

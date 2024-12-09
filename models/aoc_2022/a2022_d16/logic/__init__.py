@@ -3,3 +3,11 @@ from .valve import Valve
 from .volcano import Volcano
 from .volcano_state import VolcanoState
 from .volcano_worker import VolcanoWorker
+
+__all__ = [
+    "Valve",
+    "Volcano",
+    "VolcanoState",
+    "VolcanoWorker",
+    "maximum_pressure_release",
+]

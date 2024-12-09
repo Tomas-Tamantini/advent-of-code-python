@@ -3,3 +3,11 @@ from .longest_path import max_length_non_repeating_path
 from .maze_edge import MazeEdge
 from .maze_explorer import MazeExplorer
 from .maze_path import MazePath
+
+__all__ = [
+    "DirectedMaze",
+    "MazeEdge",
+    "MazeExplorer",
+    "MazePath",
+    "max_length_non_repeating_path",
+]
