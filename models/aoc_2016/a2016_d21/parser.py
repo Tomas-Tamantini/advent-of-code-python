@@ -13,29 +13,29 @@ from .string_scrambler import (
 
 
 def _parse_string_scrambler_function(line: str) -> StringScrambler:
-    parts = line.strip().split(" ")
-    if "swap position" in line:
-        return PositionSwapScrambler(
-            position_a=int(parts[2]), position_b=int(parts[-1])
-        )
-    elif "swap letter" in line:
-        return LetterSwapScrambler(letter_a=parts[2], letter_b=parts[-1])
-    elif "rotate left" in line:
-        steps = -int(parts[2])
-        return RotationScrambler(steps=steps)
-    elif "rotate right" in line:
-        steps = int(parts[2])
-        return RotationScrambler(steps=steps)
-    elif "rotate based on position of letter" in line:
-        return LetterBasedRotationScrambler(letter=parts[-1])
-    elif "reverse positions" in line:
-        return ReversionScrambler(start=int(parts[2]), end=int(parts[-1]))
-    elif "move position" in line:
-        origin = int(parts[2])
-        destination = int(parts[-1])
-        return LetterMoveScrambler(origin=origin, destination=destination)
-    else:
-        raise ValueError(f"Unknown instruction: {line.strip()}")
+    parse_map = {
+        "swap position": lambda p: PositionSwapScrambler(
+            position_a=int(p[2]), position_b=int(p[-1])
+        ),
+        "swap letter": lambda p: LetterSwapScrambler(letter_a=p[2], letter_b=p[-1]),
+        "rotate left": lambda p: RotationScrambler(steps=-int(p[2])),
+        "rotate right": lambda p: RotationScrambler(steps=int(p[2])),
+        "rotate based on position of letter": lambda p: LetterBasedRotationScrambler(
+            letter=p[-1]
+        ),
+        "reverse positions": lambda p: ReversionScrambler(
+            start=int(p[2]), end=int(p[-1])
+        ),
+        "move position": lambda p: LetterMoveScrambler(
+            origin=int(p[2]), destination=int(p[-1])
+        ),
+    }
+    for key, value in parse_map.items():
+        if key in line:
+            parts = line.strip().split(" ")
+            return value(parts)
+
+    raise ValueError(f"Unknown instruction: {line.strip()}")
 
 
 def parse_string_scrambler(input_reader: InputReader) -> MultiStepScrambler:
