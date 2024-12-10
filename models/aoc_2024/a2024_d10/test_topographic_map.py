@@ -49,11 +49,19 @@ _map_e = """89010123
 
 
 @pytest.mark.parametrize(
-    ("map_str", "expected_num_trails"),
-    [(_map_a, 1), (_map_b, 2), (_map_c, 4), (_map_d, 3), (_map_e, 36)],
+    ("map_str", "expected_num_trails", "expected_score"),
+    [
+        (_map_a, 16, 1),
+        (_map_b, 2, 2),
+        (_map_c, 14, 4),
+        (_map_d, 3, 3),
+        (_map_e, 81, 36),
+    ],
 )
 def test_topographic_map_iterates_through_all_hiking_trails(
-    map_str, expected_num_trails
+    map_str, expected_num_trails, expected_score
 ):
     topographic_map = _build_topographic_map(map_str)
-    assert expected_num_trails == len(set(topographic_map.hiking_trails()))
+    trails = list(topographic_map.hiking_trails())
+    assert expected_num_trails == len(trails)
+    assert expected_score == len(set(trails))
