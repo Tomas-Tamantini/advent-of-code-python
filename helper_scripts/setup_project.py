@@ -56,6 +56,8 @@ def _create_test_folder(test_path: str) -> None:
 def _create_init_file(year: int, day: int, solution_path: str) -> None:
     with open(os.path.join(solution_path, "__init__.py"), "w", encoding="utf-8") as f:
         f.write(f"from .solution import aoc_{year}_d{day}\n")
+        f.write("\n")
+        f.write(f'__all__ = ["aoc_{year}_d{day}"]\n')
 
 
 def _create_parser_file(solution_path: str, parser_method_name: str) -> None:
