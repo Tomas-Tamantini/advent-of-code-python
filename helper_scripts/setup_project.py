@@ -34,7 +34,7 @@ def _create_solution_file(
     parser_method_name: Optional[str],
 ) -> None:
     with open(os.path.join(solution_path, "solution.py"), "w", encoding="utf-8") as f:
-        f.write("from typing import Iterator\n")
+        f.write("from typing import Iterator\n\n")
         f.write("from models.common.io import IOHandler, Problem, ProblemSolution\n")
         if parser_method_name:
             f.write(f"from .parser import {parser_method_name}\n")
