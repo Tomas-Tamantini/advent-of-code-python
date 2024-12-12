@@ -2,7 +2,7 @@ import pytest
 
 from models.common.io import CharacterGrid
 
-from .garden import Garden
+from .logic import Garden
 
 _garden_a = """AAAA
                BBCD
@@ -33,5 +33,6 @@ _garden_c = """RRRRIICCFF
 )
 def test_garden_iterates_through_all_regions(garden_str, expected_checksum):
     garden = Garden(CharacterGrid(garden_str))
-    checksum = sum(r.area * r.perimeter for r in garden.regions())
+    dimensions = [r.dimensions() for r in garden.regions()]
+    checksum = sum(r.area * r.perimeter for r in dimensions)
     assert expected_checksum == checksum

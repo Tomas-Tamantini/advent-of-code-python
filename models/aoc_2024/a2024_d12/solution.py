@@ -2,7 +2,7 @@ from typing import Iterator
 
 from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 
-from .garden import Garden
+from .logic import Garden
 
 
 def aoc_2024_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
@@ -10,10 +10,12 @@ def aoc_2024_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     garden = Garden(CharacterGrid(io_handler.input_reader.read()))
 
-    cost_fences = sum(r.area * r.perimeter for r in garden.regions())
+    dimensions = [r.dimensions() for r in garden.regions()]
+
+    cost_perimeter = sum(d.area * d.perimeter for d in dimensions)
     yield ProblemSolution(
         problem_id,
-        f"The cost of the fences is {cost_fences}",
-        result=cost_fences,
+        f"The cost of the fences considering perimeter is {cost_perimeter}",
+        result=cost_perimeter,
         part=1,
     )

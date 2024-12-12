@@ -1,18 +1,11 @@
-from dataclasses import dataclass
+from collections import defaultdict
 from typing import Iterator
 
 from models.common.graphs import DisjointSet
 from models.common.io import CharacterGrid
 from models.common.vectors import CardinalDirection, Vector2D
 
-
-@dataclass(frozen=True)
-class GardenRegion:
-    area: int
-    perimeter: int
-
-    def increment(self, other: "GardenRegion") -> "GardenRegion":
-        return GardenRegion(self.area + other.area, self.perimeter + other.perimeter)
+from .garden_region import GardenRegion
 
 
 class Garden:
@@ -38,19 +31,9 @@ class Garden:
 
     def regions(self) -> Iterator[GardenRegion]:
         disjoint_set = self._merged_regions()
-        _regions = dict()
+        _region_positions = defaultdict(set)
         for position in self._positions():
             root = disjoint_set.find(position)
-            if root not in _regions:
-                _regions[root] = GardenRegion(0, 0)
-            area_increment = 1
-            perimeter_increment = 0
-            for neighbor in position.adjacent_positions():
-                if not self._grid.contains(neighbor):
-                    perimeter_increment += 1
-                elif disjoint_set.find(neighbor) != root:
-                    perimeter_increment += 1
-            _regions[root] = _regions[root].increment(
-                GardenRegion(area_increment, perimeter_increment)
-            )
-        yield from _regions.values()
+            _region_positions[root].add(position)
+        for positions in _region_positions.values():
+            yield GardenRegion(positions)
