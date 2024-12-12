@@ -38,41 +38,19 @@ class GardenRegion:
         self._positions = positions
 
     def _next_contour_direction(self, segment: _ContourSegment) -> CardinalDirection:
-        # TODO: Refactor
         next_pos = segment.position.move(segment.direction)
-        if segment.direction == CardinalDirection.EAST:
-            if next_pos not in self._positions:
-                return CardinalDirection.SOUTH
-            elif next_pos.move(CardinalDirection.NORTH) in self._positions:
-                return CardinalDirection.NORTH
-            else:
-                return CardinalDirection.EAST
-        elif segment.direction == CardinalDirection.SOUTH:
-            if next_pos.move(CardinalDirection.WEST) not in self._positions:
-                return CardinalDirection.WEST
-            elif next_pos in self._positions:
-                return CardinalDirection.EAST
-            else:
-                return CardinalDirection.SOUTH
-        elif segment.direction == CardinalDirection.WEST:
-            if (
-                next_pos.move(CardinalDirection.WEST).move(CardinalDirection.NORTH)
-                not in self._positions
-            ):
-                return CardinalDirection.NORTH
-            elif next_pos.move(CardinalDirection.WEST) in self._positions:
-                return CardinalDirection.SOUTH
-            else:
-                return CardinalDirection.WEST
-        elif next_pos.move(CardinalDirection.NORTH) not in self._positions:
-            return CardinalDirection.EAST
-        elif (
-            next_pos.move(CardinalDirection.WEST).move(CardinalDirection.NORTH)
-            in self._positions
-        ):
-            return CardinalDirection.WEST
+        offset = {
+            CardinalDirection.EAST: Vector2D(0, 0),
+            CardinalDirection.SOUTH: Vector2D(-1, 0),
+            CardinalDirection.WEST: Vector2D(-1, 1),
+            CardinalDirection.NORTH: Vector2D(0, 1),
+        }
+        if next_pos + offset[segment.direction] not in self._positions:
+            return segment.direction.turn_right()
+        elif next_pos + offset[segment.direction.turn_left()] in self._positions:
+            return segment.direction.turn_left()
         else:
-            return CardinalDirection.NORTH
+            return segment.direction
 
     def _next_contour_segment(self, segment: _ContourSegment) -> _ContourSegment:
         next_pos = segment.position.move(segment.direction)
@@ -92,13 +70,12 @@ class GardenRegion:
         for pos in self._positions:
             neighbor_above = pos.move(CardinalDirection.NORTH)
             if neighbor_above not in self._positions and pos not in visited:
-                segments = []
                 initial_segment = _ContourSegment(pos, CardinalDirection.EAST)
-                for segment in self._countour_segments(initial_segment):
-                    segments.append(segment)
+                segments = list(self._countour_segments(initial_segment))
+                yield _Contour(segments)
+                for segment in segments:
                     if segment.direction == CardinalDirection.EAST:
                         visited.add(segment.position)
-                yield _Contour(segments)
 
     def dimensions(self) -> _GardenRegionDimensions:
         area = len(self._positions)
