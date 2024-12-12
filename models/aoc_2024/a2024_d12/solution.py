@@ -19,3 +19,11 @@ def aoc_2024_d12(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=cost_perimeter,
         part=1,
     )
+
+    cost_sides = sum(d.area * d.num_sides for d in dimensions)
+    yield ProblemSolution(
+        problem_id,
+        f"The cost of the fences considering sides is {cost_sides}",
+        result=cost_sides,
+        part=2,
+    )
