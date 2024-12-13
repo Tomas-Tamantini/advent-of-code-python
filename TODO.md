@@ -5,7 +5,7 @@
 - [x] Use taskipy for task shortcuts
 - [x] Use ruff for formatting
 - [x] Get coverage
-- [ ] Fix every linter issue
+- [x] Fix every linter issue
 - [ ] Remove duplication in __init__.py for every year
 - [ ] Stop passing empty days tuple to run_solution
 - [ ] Run mutation tests
