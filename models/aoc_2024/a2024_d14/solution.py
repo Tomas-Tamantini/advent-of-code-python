@@ -27,9 +27,13 @@ def aoc_2024_d14(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         if len(positions) == len(set(positions)):
             break
 
+    if io_handler.execution_flags.animate:
+        print(bathroom.render_guards_at_time(guards, seconds_until_easter_egg))
+
     yield ProblemSolution(
         problem_id,
         f"The easter egg is reachable after {seconds_until_easter_egg} seconds",
         seconds_until_easter_egg,
         part=2,
+        supports_animation=True,
     )
