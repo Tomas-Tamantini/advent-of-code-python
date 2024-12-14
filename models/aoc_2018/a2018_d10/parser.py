@@ -1,12 +1,10 @@
 from typing import Iterator
 
 from models.common.io import InputReader
-from models.common.vectors import Vector2D
-
-from .moving_particles import MovingParticle
+from models.common.vectors import Particle2D, Vector2D
 
 
-def parse_moving_particles(input_reader: InputReader) -> Iterator[MovingParticle]:
+def parse_moving_particles(input_reader: InputReader) -> Iterator[Particle2D]:
     for line in input_reader.readlines():
         stripped_line = (
             line.strip()
@@ -17,4 +15,4 @@ def parse_moving_particles(input_reader: InputReader) -> Iterator[MovingParticle
         coords = list(map(int, stripped_line.split(",")))
         position = Vector2D(*coords[:2])
         velocity = Vector2D(*coords[2:])
-        yield MovingParticle(position, velocity)
+        yield Particle2D(position, velocity)

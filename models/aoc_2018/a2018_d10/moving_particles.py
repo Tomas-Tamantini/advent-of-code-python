@@ -1,21 +1,12 @@
 from dataclasses import dataclass
 from typing import Iterator
 
-from models.common.vectors import BoundingBox, Vector2D
-
-
-@dataclass(frozen=True)
-class MovingParticle:
-    position: Vector2D
-    velocity: Vector2D
-
-    def position_at_time(self, time: int) -> Vector2D:
-        return self.position + self.velocity * time
+from models.common.vectors import BoundingBox, Particle2D
 
 
 @dataclass(frozen=True)
 class MovingParticles:
-    particles: tuple[MovingParticle, ...]
+    particles: tuple[Particle2D, ...]
 
     def bounding_box_at_time(self, time: int) -> BoundingBox:
         return BoundingBox.from_points(

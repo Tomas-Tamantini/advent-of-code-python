@@ -8,6 +8,7 @@ from models.common.vectors import (
     CardinalDirection,
     HexagonalDirection,
     Orientation,
+    Particle2D,
     Polygon,
     TurnDirection,
     Vector2D,
@@ -123,12 +124,19 @@ def test_cardinal_directions_can_be_spun_around():
     assert CardinalDirection.EAST.turn(TurnDirection.U_TURN) == CardinalDirection.WEST
 
 
-def test_bottom_left_cannot_be_to_the_right_of_top_right():
+def test_2d_particle_moves_in_straight_line():
+    particle = Particle2D(position=Vector2D(1, 2), velocity=Vector2D(3, 4))
+    assert particle.position_at_time(0) == Vector2D(1, 2)
+    assert particle.position_at_time(1) == Vector2D(4, 6)
+    assert particle.position_at_time(1000000000) == Vector2D(3000000001, 4000000002)
+
+
+def test_bounding_box_bottom_left_cannot_be_to_the_right_of_top_right():
     with pytest.raises(ValueError):
         BoundingBox(Vector2D(2, 0), Vector2D(1, 0))
 
 
-def test_bottom_left_cannot_be_to_the_top_of_top_right():
+def test_bounding_box_bottom_left_cannot_be_to_the_top_of_top_right():
     with pytest.raises(ValueError):
         BoundingBox(Vector2D(0, 2), Vector2D(0, 1))
 
