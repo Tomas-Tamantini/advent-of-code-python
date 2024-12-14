@@ -28,3 +28,10 @@ class GuardedBathroom:
             num_guards[quadrant_id] += 1
 
         yield from num_guards.values()
+
+    def render_guards_at_time(self, guards: list[Particle2D], time: int) -> str:
+        positions = (self.guard_position_after_time(g, time) for g in guards)
+        grid = [["." for _ in range(self._width)] for _ in range(self._height)]
+        for pos in positions:
+            grid[pos.y][pos.x] = "#"
+        return "\n".join("".join(row) for row in grid)
