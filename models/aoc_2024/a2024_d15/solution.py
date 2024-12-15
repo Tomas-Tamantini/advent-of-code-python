@@ -20,7 +20,7 @@ def aoc_2024_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     for move in moves:
         next_warehouse = next_warehouse.move_robot(move)
 
-    gps_coords = sum(_box_score(b) for b in next_warehouse.boxes)
+    gps_coords = sum(_box_score(b) for b in next_warehouse.box_positions())
 
     yield ProblemSolution(
         problem_id,

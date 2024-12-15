@@ -34,7 +34,7 @@ def test_parse_warehouse_robot_moves():
 def test_parse_warehouse():
     warehouse = parse_warehouse(InputFromString(_FILE_CONTENT))
     assert warehouse.robot == Vector2D(2, 2)
-    assert warehouse.boxes == {
+    assert set(warehouse.box_positions()) == {
         Vector2D(4, 4),
         Vector2D(4, 3),
         Vector2D(3, 1),

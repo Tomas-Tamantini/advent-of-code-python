@@ -3,7 +3,7 @@ from typing import Iterator
 from models.common.io import CharacterGrid, InputReader
 from models.common.vectors import CardinalDirection
 
-from .logic import Warehouse
+from .logic import SingleWidthBox, Warehouse, WarehouseBoxes
 
 _DIRECTIONS = {
     "<": CardinalDirection.WEST,
@@ -21,9 +21,10 @@ def parse_warehouse(input_reader: InputReader) -> Warehouse:
     ]
     joined_lines = "\n".join(lines)
     grid = CharacterGrid(joined_lines)
+    boxes = {SingleWidthBox(pos) for pos in grid.positions_with_value("O")}
     return Warehouse(
         robot=next(grid.positions_with_value("@")),
-        boxes=set(grid.positions_with_value("O")),
+        boxes=WarehouseBoxes(boxes),
         walls=set(grid.positions_with_value("#")),
     )
 
