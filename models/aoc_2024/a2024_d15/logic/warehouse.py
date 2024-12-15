@@ -22,6 +22,15 @@ class Warehouse:
     def walls(self) -> set[Vector2D]:
         return self._walls
 
+    def double_width(self) -> "Warehouse":
+        new_robot = Vector2D(2 * self._robot.x, self._robot.y)
+        new_walls = set()
+        for wall in self._walls:
+            new_walls.add(Vector2D(2 * wall.x, wall.y))
+            new_walls.add(Vector2D(2 * wall.x + 1, wall.y))
+        new_boxes = self._boxes.double_width()
+        return Warehouse(new_robot, new_boxes, new_walls)
+
     def _box_runs_into_wall(self, box: Vector2D, direction: CardinalDirection) -> bool:
         return set(box.move(direction).positions()) & self._walls
 

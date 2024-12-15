@@ -28,3 +28,15 @@ def aoc_2024_d15(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=gps_coords,
         part=1,
     )
+
+    next_warehouse = warehouse.double_width()
+    for move in moves:
+        next_warehouse = next_warehouse.move_robot(move)
+
+    gps_coords = sum(_box_score(b) for b in next_warehouse.box_positions())
+    yield ProblemSolution(
+        problem_id,
+        f"The sum of GPS coordinates for double width warehouse is {gps_coords}",
+        result=gps_coords,
+        part=2,
+    )
