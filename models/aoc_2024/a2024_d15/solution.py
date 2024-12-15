@@ -1,9 +1,9 @@
 from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
+from models.common.vectors import Vector2D
 
 from .parser import parse_warehouse, parse_warehouse_robot_moves
-from models.common.vectors import Vector2D
 
 
 def _box_score(box: Vector2D) -> int:

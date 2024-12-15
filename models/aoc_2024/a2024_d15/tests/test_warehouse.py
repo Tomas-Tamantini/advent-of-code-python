@@ -2,7 +2,7 @@ import pytest
 
 from models.common.vectors import CardinalDirection, Vector2D
 
-from ..warehouse import Warehouse
+from ..logic import Warehouse
 
 
 @pytest.mark.parametrize(

@@ -3,7 +3,7 @@ from typing import Iterator
 from models.common.io import CharacterGrid, InputReader
 from models.common.vectors import CardinalDirection
 
-from .warehouse import Warehouse
+from .logic import Warehouse
 
 _DIRECTIONS = {
     "<": CardinalDirection.WEST,
