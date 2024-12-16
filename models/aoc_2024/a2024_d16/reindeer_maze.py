@@ -1,7 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
 from math import inf
-from typing import Iterator, Optional
+from typing import Iterable, Iterator, Optional
 
 from models.common.graphs import GridMaze, a_star
 from models.common.vectors import CardinalDirection, Vector2D
@@ -65,14 +65,12 @@ class ReindeerMaze:
         for tile in maze_tiles:
             self._maze.add_node_and_connect_to_neighbors(tile)
         self._maze.reduce(set(self._irreducible_tiles(maze_tiles)))
-        # TODO: Make these parameters configurable
+        self._cached_minimal_score = None
         self._move_forward_cost = 1
         self._turn_cost = 1000
 
-    def _irreducible_tiles(self, maze_tiles: set[Vector2D]) -> Iterator[Vector2D]:
-        yield self._start_state.position
-        yield self._end_tile
-        # Find corner tiles
+    @staticmethod
+    def _corner_tiles(maze_tiles: set[Vector2D]) -> Iterator[Vector2D]:
         for tile in maze_tiles:
             neighbors = [n for n in tile.adjacent_positions() if n in maze_tiles]
             if len(neighbors) > 2:
@@ -82,6 +80,11 @@ class ReindeerMaze:
                 delta_2 = neighbors[1] - tile
                 if delta_1.dot_product(delta_2) == 0:
                     yield tile
+
+    def _irreducible_tiles(self, maze_tiles: set[Vector2D]) -> Iterator[Vector2D]:
+        yield self._start_state.position
+        yield self._end_tile
+        yield from self._corner_tiles(maze_tiles)
 
     def _is_final_state(self, state: _ReindeerRacer) -> bool:
         return state.position == self._end_tile
@@ -113,52 +116,58 @@ class ReindeerMaze:
         return node.position.manhattan_distance(self._end_tile)
 
     def minimal_score(self) -> int:
-        return a_star(
-            origin=self._start_state, is_destination=self._is_final_state, graph=self
-        )[1]
+        if self._cached_minimal_score is None:
+            _, self._cached_minimal_score = a_star(
+                origin=self._start_state,
+                is_destination=self._is_final_state,
+                graph=self,
+            )
+        return self._cached_minimal_score
+
+    def _optimal_path_tiles(
+        self, path_state: _PathState, came_from: dict[_PathState, Iterable[_PathState]]
+    ) -> Iterator[Vector2D]:
+        for parent in came_from[path_state]:
+            yield from _positions_between(
+                path_state.racer.position, parent.racer.position
+            )
+            yield from self._optimal_path_tiles(parent, came_from)
+
+    def _neighboring_path_states(self, state: _PathState) -> Iterator[_PathState]:
+        for neighbor in self.neighbors(state.racer):
+            weight_increment = self.weight(state.racer, neighbor)
+            yield _PathState(
+                neighbor, accumulated_cost=state.accumulated_cost + weight_increment
+            )
 
     def tiles_on_optimal_paths(self) -> Iterator[Vector2D]:
-        # TODO: Refactor
         min_score_per_racer = dict()
-        min_score = self.minimal_score()
-        explore_stack = [_PathState(self._start_state, accumulated_cost=0)]
-        visited = set()
+        explore_stack = [_PathState(self._start_state)]
         came_from = defaultdict(set)
         optimal_paths = set()
         while explore_stack:
-            current_path_state = explore_stack.pop()
-            if (
-                current_path_state in visited
-                or current_path_state.accumulated_cost
-                > min_score_per_racer.get(current_path_state.racer, inf)
-                or current_path_state.cost_lower_bound(
-                    self._end_tile, self._move_forward_cost, self._turn_cost
+            current_state = explore_stack.pop()
+            if self._path_may_be_optimal(current_state, min_score_per_racer):
+                min_score_per_racer[current_state.racer] = (
+                    current_state.accumulated_cost
                 )
-                > min_score
-            ):
-                continue
-            visited.add(current_path_state)
-            min_score_per_racer[current_path_state.racer] = (
-                current_path_state.accumulated_cost
-            )
-            if current_path_state.racer.position == self._end_tile:
-                optimal_paths.add(current_path_state)
-            else:
-                for neighbor in self.neighbors(current_path_state.racer):
-                    weight_increment = self.weight(current_path_state.racer, neighbor)
-                    new_path_state = _PathState(
-                        neighbor,
-                        accumulated_cost=current_path_state.accumulated_cost
-                        + weight_increment,
-                    )
-                    explore_stack.append(new_path_state)
-                    came_from[new_path_state].add(current_path_state)
+                if current_state.racer.position == self._end_tile:
+                    optimal_paths.add(current_state)
+                else:
+                    for neighbor in self._neighboring_path_states(current_state):
+                        explore_stack.append(neighbor)
+                        came_from[neighbor].add(current_state)
+
         for path_state in optimal_paths:
-            yield_stack = [path_state]
-            while yield_stack:
-                current_path_state = yield_stack.pop()
-                for parent in came_from[current_path_state]:
-                    yield from _positions_between(
-                        current_path_state.racer.position, parent.racer.position
-                    )
-                    yield_stack.append(parent)
+            yield from self._optimal_path_tiles(path_state, came_from)
+
+    def _path_may_be_optimal(
+        self, state: _PathState, min_score_per_racer: dict[_PathState, int]
+    ) -> bool:
+        return (
+            state.accumulated_cost < min_score_per_racer.get(state.racer, inf)
+            and state.cost_lower_bound(
+                self._end_tile, self._move_forward_cost, self._turn_cost
+            )
+            <= self.minimal_score()
+        )
