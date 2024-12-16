@@ -82,7 +82,6 @@ def test_reindeer_completes_maze_with_minimal_score(maze_str, expected_score):
     assert expected_score == maze.minimal_score()
 
 
-@pytest.mark.skip("Takes 5 seconds to run")
 @pytest.mark.parametrize(
     ("maze_str", "expected_num_tiles"), [(_maze_a, 45), (_maze_b, 64)]
 )

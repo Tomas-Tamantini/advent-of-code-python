@@ -1,4 +1,6 @@
+from collections import defaultdict
 from dataclasses import dataclass
+from math import inf
 from typing import Iterator, Optional
 
 from models.common.graphs import GridMaze, a_star
@@ -22,49 +24,31 @@ class _ReindeerRacer:
         return _ReindeerRacer(self.position, self.direction.turn_right())
 
 
-class _ReindeerPath:
-    def __init__(self, states: tuple[_ReindeerRacer, ...], weight: int):
-        self._states = states
-        self._weight = weight
+@dataclass(frozen=True)
+class _PathState:
+    racer: _ReindeerRacer
+    accumulated_cost: int = 0
 
-    @staticmethod
-    def _positions_between(
-        position_before: _ReindeerRacer, position_after: _ReindeerRacer
-    ) -> Iterator[Vector2D]:
-        diff = position_after - position_before
-        diff_size = diff.manhattan_size
-        if diff_size > 0:
-            diff_normal = Vector2D(diff.x // diff_size, diff.y // diff_size)
-            for i in range(1, diff_size + 1):
-                yield position_before + i * diff_normal
-
-    def tiles(self) -> Iterator[Vector2D]:
-        yield self._states[0].position
-        for i in range(1, len(self._states)):
-            pos_before = self._states[i - 1].position
-            pos_after = self._states[i].position
-            yield from self._positions_between(pos_before, pos_after)
-
-    @property
-    def last_state(self) -> _ReindeerRacer:
-        return self._states[-1]
-
-    def add_state(
-        self, state: _ReindeerRacer, weight_increment: int
-    ) -> "_ReindeerPath":
-        return _ReindeerPath(
-            states=self._states + (state,), weight=self._weight + weight_increment
-        )
-
-    def weight_lower_bound(
+    def cost_lower_bound(
         self, end_tile: Vector2D, move_forward_cost: int, turn_cost: int
     ) -> int:
-        delta = end_tile - self.last_state.position
-        lb = self._weight + move_forward_cost * delta.manhattan_size
+        delta = end_tile - self.racer.position
+        lb = self.accumulated_cost + move_forward_cost * delta.manhattan_size
         if delta.x == 0 or delta.y == 0:
             return lb
         else:
             return lb + turn_cost
+
+
+def _positions_between(start: Vector2D, end: Vector2D) -> Iterator[Vector2D]:
+    diff = end - start
+    diff_size = diff.manhattan_size
+    if diff_size == 0:
+        yield start
+    else:
+        diff_normal = Vector2D(diff.x // diff_size, diff.y // diff_size)
+        for i in range(diff_size + 1):
+            yield start + i * diff_normal
 
 
 class ReindeerMaze:
@@ -133,27 +117,48 @@ class ReindeerMaze:
             origin=self._start_state, is_destination=self._is_final_state, graph=self
         )[1]
 
-    def _optimal_paths(self) -> Iterator[_ReindeerPath]:
+    def tiles_on_optimal_paths(self) -> Iterator[Vector2D]:
+        # TODO: Refactor
+        min_score_per_racer = dict()
         min_score = self.minimal_score()
-        path = _ReindeerPath(states=(self._start_state,), weight=0)
-        explore_stack = [path]
+        explore_stack = [_PathState(self._start_state, accumulated_cost=0)]
+        visited = set()
+        came_from = defaultdict(set)
+        optimal_paths = set()
         while explore_stack:
-            current_path = explore_stack.pop()
+            current_path_state = explore_stack.pop()
             if (
-                current_path.weight_lower_bound(
+                current_path_state in visited
+                or current_path_state.accumulated_cost
+                > min_score_per_racer.get(current_path_state.racer, inf)
+                or current_path_state.cost_lower_bound(
                     self._end_tile, self._move_forward_cost, self._turn_cost
                 )
                 > min_score
             ):
                 continue
-            if current_path.last_state.position == self._end_tile:
-                yield current_path
+            visited.add(current_path_state)
+            min_score_per_racer[current_path_state.racer] = (
+                current_path_state.accumulated_cost
+            )
+            if current_path_state.racer.position == self._end_tile:
+                optimal_paths.add(current_path_state)
             else:
-                for next_state in self.neighbors(current_path.last_state):
-                    weight_increment = self.weight(current_path.last_state, next_state)
-                    new_path = current_path.add_state(next_state, weight_increment)
-                    explore_stack.append(new_path)
-
-    def tiles_on_optimal_paths(self) -> Iterator[Vector2D]:
-        for path in self._optimal_paths():
-            yield from path.tiles()
+                for neighbor in self.neighbors(current_path_state.racer):
+                    weight_increment = self.weight(current_path_state.racer, neighbor)
+                    new_path_state = _PathState(
+                        neighbor,
+                        accumulated_cost=current_path_state.accumulated_cost
+                        + weight_increment,
+                    )
+                    explore_stack.append(new_path_state)
+                    came_from[new_path_state].add(current_path_state)
+        for path_state in optimal_paths:
+            yield_stack = [path_state]
+            while yield_stack:
+                current_path_state = yield_stack.pop()
+                for parent in came_from[current_path_state]:
+                    yield from _positions_between(
+                        current_path_state.racer.position, parent.racer.position
+                    )
+                    yield_stack.append(parent)

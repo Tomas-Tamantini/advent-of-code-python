@@ -26,7 +26,7 @@ def aoc_2024_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=min_score,
         part=1,
     )
-
+    io_handler.output_writer.give_time_estimation("10s", part=2)
     num_tiles = len(set(maze.tiles_on_optimal_paths()))
     yield ProblemSolution(
         problem_id,
