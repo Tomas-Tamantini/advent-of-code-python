@@ -121,13 +121,18 @@ class ReindeerMaze:
         for path_state in optimal_paths:
             yield from self._optimal_path_tiles(path_state, came_from)
 
+    def _cost_lower_bound(self, state: PathState) -> int:
+        delta = self._end_tile - state.racer.position
+        lb = state.accumulated_cost + self._move_forward_cost * delta.manhattan_size
+        if delta.x == 0 or delta.y == 0:
+            return lb
+        else:
+            return lb + self._turn_cost
+
     def _path_may_be_optimal(
         self, state: PathState, min_score_per_racer: dict[PathState, int]
     ) -> bool:
         return (
             state.accumulated_cost < min_score_per_racer.get(state.racer, inf)
-            and state.cost_lower_bound(
-                self._end_tile, self._move_forward_cost, self._turn_cost
-            )
-            <= self.minimal_score()
+            and self._cost_lower_bound(state) <= self.minimal_score()
         )
