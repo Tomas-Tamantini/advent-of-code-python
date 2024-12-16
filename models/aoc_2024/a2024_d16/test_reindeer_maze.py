@@ -3,7 +3,7 @@ import pytest
 from models.common.io import CharacterGrid
 from models.common.vectors import CardinalDirection, Vector2D
 
-from .reindeer_maze import ReindeerMaze
+from .logic import ReindeerMaze
 
 
 def test_reindeer_in_maze_spends_one_point_per_move_forward():

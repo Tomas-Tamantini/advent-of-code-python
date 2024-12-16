@@ -3,7 +3,7 @@ from typing import Iterator
 from models.common.io import CharacterGrid, IOHandler, Problem, ProblemSolution
 from models.common.vectors import CardinalDirection
 
-from .reindeer_maze import ReindeerMaze
+from .logic import ReindeerMaze
 
 
 def _parse_maze(grid: CharacterGrid) -> ReindeerMaze:
