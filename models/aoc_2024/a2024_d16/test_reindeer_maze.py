@@ -79,4 +79,15 @@ def _parse_maze(maze_str) -> ReindeerMaze:
 )
 def test_reindeer_completes_maze_with_minimal_score(maze_str, expected_score):
     maze = _parse_maze(maze_str)
-    assert maze.minimal_score() == expected_score
+    assert expected_score == maze.minimal_score()
+
+
+@pytest.mark.skip("Takes 5 seconds to run")
+@pytest.mark.parametrize(
+    ("maze_str", "expected_num_tiles"), [(_maze_a, 45), (_maze_b, 64)]
+)
+def test_reindeer_maze_keeps_track_of_tiles_on_optimal_paths(
+    maze_str, expected_num_tiles
+):
+    maze = _parse_maze(maze_str)
+    assert expected_num_tiles == len(set(maze.tiles_on_optimal_paths()))

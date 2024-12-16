@@ -26,3 +26,11 @@ def aoc_2024_d16(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=min_score,
         part=1,
     )
+
+    num_tiles = len(set(maze.tiles_on_optimal_paths()))
+    yield ProblemSolution(
+        problem_id,
+        f"The number of tiles on the optimal paths is {num_tiles}",
+        result=num_tiles,
+        part=2,
+    )
