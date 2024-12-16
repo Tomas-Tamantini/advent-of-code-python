@@ -14,6 +14,10 @@ class SingleWidthBox:
     def move(self, direction: CardinalDirection) -> "SingleWidthBox":
         return SingleWidthBox(self.origin_position.move(direction, y_grows_down=True))
 
+    @staticmethod
+    def from_position(position: Vector2D) -> Iterator["SingleWidthBox"]:
+        yield SingleWidthBox(position)
+
 
 @dataclass(frozen=True)
 class DoubleWidthBox:
@@ -25,6 +29,11 @@ class DoubleWidthBox:
 
     def move(self, direction: CardinalDirection) -> "DoubleWidthBox":
         return DoubleWidthBox(self.origin_position.move(direction, y_grows_down=True))
+
+    @staticmethod
+    def from_position(position: Vector2D) -> Iterator["DoubleWidthBox"]:
+        yield DoubleWidthBox(position)
+        yield DoubleWidthBox(position.move(CardinalDirection.WEST))
 
 
 class WarehouseBoxes:
@@ -41,13 +50,16 @@ class WarehouseBoxes:
         }
         return WarehouseBoxes(new_boxes)
 
+    def _box_candidates_at_position(
+        self, position: Vector2D
+    ) -> Iterator[SingleWidthBox | DoubleWidthBox]:
+        yield from SingleWidthBox.from_position(position)
+        yield from DoubleWidthBox.from_position(position)
+
     def _box_at(self, position: Vector2D) -> SingleWidthBox | DoubleWidthBox | None:
-        if SingleWidthBox(position) in self._boxes:
-            return SingleWidthBox(position)
-        elif DoubleWidthBox(position) in self._boxes:
-            return DoubleWidthBox(position)
-        elif DoubleWidthBox(position.move(CardinalDirection.WEST)) in self._boxes:
-            return DoubleWidthBox(position.move(CardinalDirection.WEST))
+        for candidate in self._box_candidates_at_position(position):
+            if candidate in self._boxes:
+                return candidate
 
     def boxes_in_front(
         self, position: Vector2D, direction: CardinalDirection
