@@ -50,8 +50,9 @@ class WarehouseBoxes:
         }
         return WarehouseBoxes(new_boxes)
 
+    @staticmethod
     def _box_candidates_at_position(
-        self, position: Vector2D
+        position: Vector2D,
     ) -> Iterator[SingleWidthBox | DoubleWidthBox]:
         yield from SingleWidthBox.from_position(position)
         yield from DoubleWidthBox.from_position(position)
