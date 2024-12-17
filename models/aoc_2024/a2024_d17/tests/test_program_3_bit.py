@@ -28,6 +28,7 @@ def test_3_bit_program_returns_parsed_instruction_if_pc_within_range():
         ((5, 0, 5, 1, 5, 4), 10, "0,1,2"),
         ((0, 1, 5, 4, 3, 0), 2024, "4,2,5,6,7,7,7,7,3,1,0"),
         ((0, 1, 5, 4, 3, 0), 729, "4,6,3,5,6,3,5,2,1,0"),
+        ((0, 3, 5, 4, 3, 0), 117440, "0,3,5,4,3,0"),
     ],
 )
 def test_3_bit_program_runs_until_halting(instructions, register_a, expected_output):
@@ -38,11 +39,3 @@ def test_3_bit_program_runs_until_halting(instructions, register_a, expected_out
     computer = Computer(hardware)
     computer.run_program(program)
     assert expected_output == output.get_output()
-
-
-def test_serial_output_3_bit_returns_output_values_separated_by_comma():
-    serial_output = SerialOutput3Bit()
-    serial_output.write(1)
-    serial_output.write(2)
-    serial_output.write(3)
-    assert serial_output.get_output() == "1,2,3"
