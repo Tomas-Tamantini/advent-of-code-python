@@ -1,5 +1,6 @@
 from typing import Optional
 
+from models.common.assembly import Computer, Hardware, Processor, SerialOutput
 from models.common.assembly.instruction import Instruction
 
 from .parse_instructions_3_bit import parse_3_bit_instruction
@@ -17,3 +18,11 @@ class Program3Bit:
                 self._instructions[program_counter],
                 self._instructions[program_counter + 1],
             )
+
+
+def run_3_bit_program(
+    program: Program3Bit, output: SerialOutput, registers: dict[chr, int]
+) -> None:
+    hardware = Hardware(Processor(registers.copy()), serial_output=output)
+    computer = Computer(hardware)
+    computer.run_program(program)

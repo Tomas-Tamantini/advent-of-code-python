@@ -1,9 +1,8 @@
 from typing import Iterator
 
-from models.common.assembly import Computer, Hardware, Processor
 from models.common.io import IOHandler, Problem, ProblemSolution
 
-from .logic import Program3Bit, SerialOutput3Bit
+from .logic import Program3Bit, SerialOutput3Bit, run_3_bit_program
 from .parser import parse_3_bit_program, parse_3_bit_registers
 
 
@@ -16,9 +15,7 @@ def aoc_2024_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     program = Program3Bit(instructions)
     output = SerialOutput3Bit()
-    hardware = Hardware(Processor(registers), serial_output=output)
-    computer = Computer(hardware)
-    computer.run_program(program)
+    run_3_bit_program(program, output, registers)
     result = output.get_output()
 
     yield ProblemSolution(

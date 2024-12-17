@@ -1,8 +1,6 @@
 import pytest
 
-from models.common.assembly import Computer, Hardware, Processor
-
-from ..logic import Program3Bit, SerialOutput3Bit
+from ..logic import Program3Bit, SerialOutput3Bit, run_3_bit_program
 from ..logic.instructions_3_bit import JumpNotZero3BitInstruction, Modulo3BitInstruction
 
 
@@ -35,7 +33,5 @@ def test_3_bit_program_runs_until_halting(instructions, register_a, expected_out
     registers = {"A": register_a, "B": 0, "C": 0}
     program = Program3Bit(instructions)
     output = SerialOutput3Bit()
-    hardware = Hardware(Processor(registers), serial_output=output)
-    computer = Computer(hardware)
-    computer.run_program(program)
+    run_3_bit_program(program, output, registers)
     assert expected_output == output.get_output()
