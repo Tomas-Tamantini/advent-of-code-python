@@ -1,6 +1,6 @@
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Iterator
 
 from .output_3_bit import HaltOutput3Bit
 from .program_3_bit import Program3Bit, run_3_bit_program
@@ -16,25 +16,30 @@ class _CandidateBatch:
     def total_bits(self) -> int:
         return self.bit_offset + self.num_bits
 
+    def _candidate_pair(self, other: "_CandidateBatch") -> Iterator[tuple[int, int]]:
+        for candidate_a in self.candidates:
+            for candidate_b in other.candidates:
+                yield candidate_a << self.bit_offset, candidate_b << other.bit_offset
+
+    @staticmethod
+    def _are_compatible(
+        num_a: int, num_b: int, offset: int, intersection_size: int
+    ) -> bool:
+        merged_number = (num_a ^ num_b) >> offset
+        return (merged_number % (2**intersection_size)) == 0
+
+    def _merged_candidates(self, other: "_CandidateBatch") -> Iterator[int]:
+        max_offset = max(self.bit_offset, other.bit_offset)
+        min_offset = min(self.bit_offset, other.bit_offset)
+        intersection_size = min(self.total_bits, other.total_bits) - max_offset
+        for num_a, num_b in self._candidate_pair(other):
+            if self._are_compatible(num_a, num_b, max_offset, intersection_size):
+                yield (num_a | num_b) >> min_offset
+
     def merge(self, other: "_CandidateBatch") -> "_CandidateBatch":
-        # TODO: Refactor
         new_offset = min(self.bit_offset, other.bit_offset)
         new_num_bits = max(self.total_bits, other.total_bits) - new_offset
-        new_candidates = set()
-        for candidate_a in self.candidates:
-            number_a = candidate_a << self.bit_offset
-            for candidate_b in other.candidates:
-                number_b = candidate_b << other.bit_offset
-                aux = number_a ^ number_b
-                aux >>= max(self.bit_offset, other.bit_offset)
-                intersection_size = min(self.total_bits, other.total_bits) - max(
-                    self.bit_offset, other.bit_offset
-                )
-                are_compatible = (aux % (1 << intersection_size)) == 0
-                if are_compatible:
-                    new_number = number_a | number_b
-                    new_candidate = new_number >> new_offset
-                    new_candidates.add(new_candidate)
+        new_candidates = set(self._merged_candidates(other))
         return _CandidateBatch(new_candidates, new_offset, new_num_bits)
 
     def smallest_candidate(self) -> int:
