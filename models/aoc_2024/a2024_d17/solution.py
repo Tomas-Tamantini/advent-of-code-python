@@ -2,7 +2,12 @@ from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
 
-from .logic import Program3Bit, SerialOutput3Bit, run_3_bit_program
+from .logic import (
+    Program3Bit,
+    SerialOutput3Bit,
+    a_register_value_to_produce_quine,
+    run_3_bit_program,
+)
 from .parser import parse_3_bit_program, parse_3_bit_registers
 
 
@@ -19,5 +24,13 @@ def aoc_2024_d17(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     result = output.get_output()
 
     yield ProblemSolution(
-        problem_id, f"The output of the program is: {result}", result, part=1
+        problem_id, f"The output of the program is {result}", result, part=1
+    )
+
+    a_reg = a_register_value_to_produce_quine(instructions)
+    yield ProblemSolution(
+        problem_id,
+        f"The value of register A to produce the quine is {a_reg}",
+        a_reg,
+        part=2,
     )
