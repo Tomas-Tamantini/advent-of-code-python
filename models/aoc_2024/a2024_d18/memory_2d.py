@@ -1,6 +1,6 @@
 from typing import Iterator
 
-from models.common.graphs import a_star
+from models.common.graphs import min_path_length_with_bfs
 from models.common.vectors import Vector2D
 
 
@@ -19,20 +19,9 @@ class Memory2D:
             if self._is_within_bounds(pos) and (pos not in self._corrupted_positions):
                 yield pos
 
-    @staticmethod
-    def weight(node_a: Vector2D, node_b: Vector2D) -> int:
-        return 1
-
-    def heuristic_potential(self, node: Vector2D) -> int:
-        return node.manhattan_distance(self._end_position)
-
     def shortest_path(self, start: Vector2D, end: Vector2D) -> int:
         self._end_position = end
         try:
-            return a_star(
-                origin=start,
-                is_destination=lambda position: position == end,
-                graph=self,
-            )[1]
+            return min_path_length_with_bfs(self, start, lambda p: p == end)
         except ValueError:
             return -1
