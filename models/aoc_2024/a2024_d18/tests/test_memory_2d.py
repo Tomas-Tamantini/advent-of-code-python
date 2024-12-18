@@ -25,3 +25,9 @@ def test_shortest_path_through_corrupted_memory_avoids_corrupted_positions():
     ]
     memory = Memory2D(7, 7, corrupted_positions)
     assert memory.shortest_path(Vector2D(0, 0), Vector2D(6, 6)) == 22
+
+
+def test_shortest_path_through_corrupted_memory_is_minus_one_if_no_possible_path():
+    corrupted_positions = [Vector2D(0, 1), Vector2D(1, 0)]
+    memory = Memory2D(2, 2, corrupted_positions)
+    assert memory.shortest_path(Vector2D(0, 0), Vector2D(1, 1)) == -1

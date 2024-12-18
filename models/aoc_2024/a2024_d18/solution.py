@@ -22,3 +22,25 @@ def aoc_2024_d18(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         result=min_steps,
         part=1,
     )
+
+    # TODO: Extract method and add progress bar
+    lb = 1024
+    ub = len(corrupted_positions)
+    while lb < ub:
+        mid = (lb + ub) // 2
+        memory = Memory2D(
+            width=71, height=71, corrupted_positions=corrupted_positions[:mid]
+        )
+        if memory.shortest_path(Vector2D(0, 0), Vector2D(70, 70)) != -1:
+            lb = mid + 1
+        else:
+            ub = mid
+    coords = corrupted_positions[lb - 1]
+    result = f"{coords.x},{coords.y}"
+
+    yield ProblemSolution(
+        problem_id,
+        f"The first corrupted position that blocks the path is {result}",
+        result,
+        part=2,
+    )

@@ -28,6 +28,11 @@ class Memory2D:
 
     def shortest_path(self, start: Vector2D, end: Vector2D) -> int:
         self._end_position = end
-        return a_star(
-            origin=start, is_destination=lambda position: position == end, graph=self
-        )[1]
+        try:
+            return a_star(
+                origin=start,
+                is_destination=lambda position: position == end,
+                graph=self,
+            )[1]
+        except ValueError:
+            return -1
