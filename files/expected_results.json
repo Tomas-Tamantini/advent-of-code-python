@@ -1978,7 +1978,9 @@
                 {
                     "day": 18,
                     "title": "RAM Run",
-                    "results": []
+                    "results": [
+                        354
+                    ]
                 }
             ]
         }
