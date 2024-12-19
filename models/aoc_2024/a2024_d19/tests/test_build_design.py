@@ -1,21 +1,27 @@
 import pytest
 
-from ..build_design import design_is_possible
-
-_AVAILABLE_PATTERNS = ["r", "wr", "b", "g", "bwu", "rb", "gb", "br"]
+from ..build_design import num_ways_to_make_design
 
 
 @pytest.mark.parametrize(
-    "design",
-    ["brwrr", "bggr", "gbbr", "rrbgbr", "bwurrg", "brgr"],
+    ("design", "num_ways"),
+    [
+        ("brwrr", 2),
+        ("bggr", 1),
+        ("gbbr", 4),
+        ("rrbgbr", 6),
+        ("bwurrg", 1),
+        ("brgr", 2),
+        ("ubwu", 0),
+        ("bbrgwb", 0),
+    ],
 )
-def test_design_is_possible_if_some_combination_of_patterns_yields_it(design):
-    assert design_is_possible(design, _AVAILABLE_PATTERNS)
+def test_design_is_possible_if_some_combination_of_patterns_yields_it(design, num_ways):
+    available_patterns = ["r", "wr", "b", "g", "bwu", "rb", "gb", "br"]
+    assert num_ways == num_ways_to_make_design(design, available_patterns)
 
 
-@pytest.mark.parametrize(
-    "design",
-    ["ubwu", "bbrgwb"],
-)
-def test_design_is_impossible_if_no_combination_of_patterns_yields_it(design):
-    assert not design_is_possible(design, _AVAILABLE_PATTERNS)
+def test_num_ways_to_build_design_is_calculated_efficiently():
+    design = "a" * 30
+    available_patterns = ["a", "aa"]
+    assert 1346269 == num_ways_to_make_design(design, available_patterns)
