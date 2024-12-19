@@ -16,6 +16,7 @@ from .a2024_d15 import aoc_2024_d15
 from .a2024_d16 import aoc_2024_d16
 from .a2024_d17 import aoc_2024_d17
 from .a2024_d18 import aoc_2024_d18
+from .a2024_d19 import aoc_2024_d19
 
 ALL_2024_SOLUTIONS = {
     1: aoc_2024_d1,
@@ -36,4 +37,5 @@ ALL_2024_SOLUTIONS = {
     16: aoc_2024_d16,
     17: aoc_2024_d17,
     18: aoc_2024_d18,
+    19: aoc_2024_d19,
 }
