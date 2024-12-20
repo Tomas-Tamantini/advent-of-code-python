@@ -11,7 +11,11 @@ def aoc_2024_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     racetrack = parse_racetrack(io_handler.input_reader)
 
     cheats_20 = [
-        c for c in racetrack.advantageous_cheats(cheat_length=20) if c.saved_time >= 100
+        c
+        for c in racetrack.advantageous_cheats(
+            cheat_length=20, progress_bar=io_handler.progress_bar
+        )
+        if c.saved_time >= 100
     ]
 
     result = sum(c.start_pos.manhattan_distance(c.end_pos) <= 2 for c in cheats_20)
