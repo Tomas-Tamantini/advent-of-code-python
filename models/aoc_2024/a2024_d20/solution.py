@@ -10,10 +10,7 @@ def aoc_2024_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     io_handler.output_writer.write_header(problem_id)
     racetrack = parse_racetrack(io_handler.input_reader)
 
-    num_cheats = 0
-    for cheat in racetrack.advantageous_cheats():
-        if cheat.saved_time >= 100:
-            num_cheats += 1
+    num_cheats = sum(1 for _ in racetrack.advantageous_cheats(min_saved_time=100))
 
     yield ProblemSolution(
         problem_id,

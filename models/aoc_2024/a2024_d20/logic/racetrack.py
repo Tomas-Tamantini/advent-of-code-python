@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterator
 
-from models.common.graphs import explore_with_bfs
+from models.common.graphs import explore_with_bfs, GridMaze
 from models.common.vectors import Vector2D
 
 
@@ -43,19 +43,25 @@ class CpuRacetrack:
                 ) and node.cheat_start_pos is None:
                     yield _RaceState(neighbor_pos, neighbor_pos, None)
 
-    def advantageous_cheats(self) -> Iterator[_Cheat]:
-        time_without_cheat = 0
+    def _min_time_without_cheat(self) -> int:
+        _maze = GridMaze()
+        for node in self._track_positions:
+            _maze.add_node_and_connect_to_neighbors(node)
+        _maze.reduce(irreducible_nodes={self._start, self._end})
+        return _maze.shortest_distance(self._start, self._end)
+
+    def advantageous_cheats(self, min_saved_time: int) -> Iterator[_Cheat]:
+        time_without_cheat = self._min_time_without_cheat()
+        max_time_with_cheat = time_without_cheat - min_saved_time
         times_with_cheat = dict()
         initial_node = _RaceState(
             position=self._start, cheat_start_pos=None, cheat_end_pos=None
         )
         for node, time in explore_with_bfs(self, initial_node):
+            if time > max_time_with_cheat:
+                break
             if node.position == self._end:
-                if node.cheat_end_pos is None:
-                    time_without_cheat = time
-                    break
-                else:
-                    times_with_cheat[(node.cheat_start_pos, node.cheat_end_pos)] = time
+                times_with_cheat[(node.cheat_start_pos, node.cheat_end_pos)] = time
 
         for cheat_pos, cheat_time in times_with_cheat.items():
             saved_time = time_without_cheat - cheat_time
