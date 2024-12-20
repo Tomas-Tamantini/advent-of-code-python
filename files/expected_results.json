@@ -1994,7 +1994,9 @@
                 {
                     "day": 20,
                     "title": "Race Condition",
-                    "results": []
+                    "results": [
+                        1497
+                    ]
                 }
             ]
         }
