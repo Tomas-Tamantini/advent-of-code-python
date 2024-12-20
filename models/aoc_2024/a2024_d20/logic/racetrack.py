@@ -39,7 +39,7 @@ class CpuRacetrack:
     ) -> Iterator[Vector2D]:
         for x_offset in range(cheat_length + 1):
             if x_offset == 0:
-                min_y, max_y = 0, cheat_length
+                min_y, max_y = 1, cheat_length
             else:
                 max_y = cheat_length - x_offset
                 min_y = -max_y
