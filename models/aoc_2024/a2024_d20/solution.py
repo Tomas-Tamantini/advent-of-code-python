@@ -1,7 +1,6 @@
 from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .parser import parse_x
 
 
 def aoc_2024_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
