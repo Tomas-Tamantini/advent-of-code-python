@@ -2,8 +2,22 @@ from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
 
+from .parser import parse_racetrack
+
 
 def aoc_2024_d20(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     problem_id = Problem(2024, 20, "Race Condition")
     io_handler.output_writer.write_header(problem_id)
-    yield from []
+    racetrack = parse_racetrack(io_handler.input_reader)
+
+    num_cheats = 0
+    for cheat in racetrack.advantageous_cheats():
+        if cheat.saved_time >= 100:
+            num_cheats += 1
+
+    yield ProblemSolution(
+        problem_id,
+        f"The number of cheats that save at least 100ps is {num_cheats}",
+        result=num_cheats,
+        part=1,
+    )
