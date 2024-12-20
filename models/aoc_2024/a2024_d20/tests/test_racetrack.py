@@ -37,7 +37,7 @@ def _example_racetrack() -> CpuRacetrack:
 def test_cpu_racetrack_yields_advantageous_cheats():
     track = _example_racetrack()
     cheat_count = defaultdict(int)
-    for cheat in track.advantageous_cheats(min_saved_time=1):
+    for cheat in track.advantageous_cheats():
         cheat_count[cheat.saved_time] += 1
     assert cheat_count == {
         2: 14,

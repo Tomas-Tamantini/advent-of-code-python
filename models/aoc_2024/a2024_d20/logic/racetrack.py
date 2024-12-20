@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from itertools import combinations
 from typing import Iterator
 
-from models.common.graphs import min_path_length_with_bfs
-from models.common.vectors import Vector2D, CardinalDirection
+from models.common.graphs import explore_with_bfs, min_path_length_with_bfs
+from models.common.vectors import Vector2D
 
 
 @dataclass(frozen=True)
@@ -24,37 +25,38 @@ class CpuRacetrack:
         self._end = end
         self._track_positions = track_positions
         self._wall_positions = wall_positions
-        self._cheat_position = None
 
     def neighbors(self, node: Vector2D) -> Iterator[Vector2D]:
-        if node != self._end:
-            for neighbor in node.adjacent_positions():
-                if neighbor in self._track_positions or (
-                    self._cheat_position and neighbor == self._cheat_position[0]
-                ):
-                    yield neighbor
+        for neighbor in node.adjacent_positions():
+            if neighbor in self._track_positions:
+                yield neighbor
 
-    def _min_time(self) -> int:
-        return min_path_length_with_bfs(
-            self, self._start, is_final_state=lambda pos: pos == self._end
-        )
+    def _min_time_without_cheat(self) -> int:
+        return min_path_length_with_bfs(self, self._start, lambda p: p == self._end)
 
     def _cheat_positions(self) -> Iterator[tuple[Vector2D, Vector2D]]:
-        for pos in self._track_positions:
-            for direction in {CardinalDirection.EAST, CardinalDirection.SOUTH}:
-                start_pos = pos.move(direction)
-                if start_pos in self._wall_positions:
-                    end_pos = start_pos.move(direction)
-                    if end_pos in self._track_positions:
-                        yield start_pos, end_pos
+        for start_pos, end_pos in combinations(self._track_positions, 2):
+            distance = start_pos.manhattan_distance(end_pos)
+            if distance <= 2:
+                yield start_pos, end_pos
+                yield end_pos, start_pos
 
-    def advantageous_cheats(self, min_saved_time: int) -> Iterator[_Cheat]:
-        self._cheat_position = None
-        time_without_cheat = self._min_time()
-        max_time_with_cheat = time_without_cheat - min_saved_time
+    def advantageous_cheats(self) -> Iterator[_Cheat]:
+        _distance_to_start = dict()
+        for node, distance in explore_with_bfs(self, self._start):
+            _distance_to_start[node] = distance
+        _distance_to_end = dict()
+        for node, distance in explore_with_bfs(self, self._end):
+            _distance_to_end[node] = distance
+        min_time_without_cheat = self._min_time_without_cheat()
         cheat_positions = list(self._cheat_positions())
-        for i, cheat_pos in enumerate(cheat_positions):
-            self._cheat_position = cheat_pos
-            cheat_time = self._min_time()
-            if cheat_time <= max_time_with_cheat:
-                yield _Cheat(*cheat_pos, saved_time=time_without_cheat - cheat_time)
+        for cheat_start, cheat_end in cheat_positions:
+            cheat_time = (
+                _distance_to_start[cheat_start]
+                + cheat_start.manhattan_distance(cheat_end)
+                + _distance_to_end[cheat_end]
+            )
+            if cheat_time < min_time_without_cheat:
+                yield _Cheat(
+                    cheat_start, cheat_end, min_time_without_cheat - cheat_time
+                )
