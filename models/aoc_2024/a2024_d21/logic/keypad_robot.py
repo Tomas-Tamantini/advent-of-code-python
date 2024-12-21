@@ -11,7 +11,16 @@ class KeypadRobot:
     keypad_layout: KeypadLayout
 
 
-CODE_ROBOT = KeypadRobot(
+@dataclass(frozen=True)
+class KeypadRobots:
+    robot: KeypadRobot
+    num_robots: int
+
+    def decrement(self) -> "KeypadRobots":
+        return KeypadRobots(self.robot, self.num_robots - 1)
+
+
+NUMERIC_ROBOT = KeypadRobot(
     initial_button="A",
     keypad_layout=KeypadLayout(
         {

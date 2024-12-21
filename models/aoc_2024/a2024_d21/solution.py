@@ -2,7 +2,12 @@ from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
 
-from .logic import CODE_ROBOT, DIRECTIONAL_ROBOT, min_num_keypad_presses
+from .logic import (
+    DIRECTIONAL_ROBOT,
+    NUMERIC_ROBOT,
+    KeypadRobots,
+    min_num_keypad_presses,
+)
 
 
 def _numeric_part(code: str) -> int:
@@ -11,7 +16,7 @@ def _numeric_part(code: str) -> int:
 
 def _complexity(code: str, num_directional_robots: int) -> int:
     min_presses = min_num_keypad_presses(
-        code, CODE_ROBOT, DIRECTIONAL_ROBOT, num_directional_robots
+        code, NUMERIC_ROBOT, KeypadRobots(DIRECTIONAL_ROBOT, num_directional_robots)
     )
     return min_presses * _numeric_part(code)
 

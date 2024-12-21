@@ -1,15 +1,23 @@
 import pytest
 
-from .logic import CODE_ROBOT, DIRECTIONAL_ROBOT, min_num_keypad_presses
+from .logic import (
+    DIRECTIONAL_ROBOT,
+    NUMERIC_ROBOT,
+    KeypadRobots,
+    min_num_keypad_presses,
+)
+
+
+def _directional_robots(num_robots: int) -> KeypadRobots:
+    return KeypadRobots(DIRECTIONAL_ROBOT, num_robots)
 
 
 def test_min_num_keypad_presses_with_no_directional_robots():
     assert (
         min_num_keypad_presses(
             code="029A",
-            code_robot=CODE_ROBOT,
-            directional_robot=DIRECTIONAL_ROBOT,
-            num_directional_robots=0,
+            numeric_robot=NUMERIC_ROBOT,
+            directional_robots=_directional_robots(num_robots=0),
         )
         == 12
     )
@@ -23,9 +31,8 @@ def test_min_num_keypad_presses_with_two_directional_robots(code, expected):
     assert (
         min_num_keypad_presses(
             code,
-            code_robot=CODE_ROBOT,
-            directional_robot=DIRECTIONAL_ROBOT,
-            num_directional_robots=2,
+            numeric_robot=NUMERIC_ROBOT,
+            directional_robots=_directional_robots(num_robots=2),
         )
         == expected
     )
@@ -35,9 +42,8 @@ def test_min_num_keypad_presses_is_calculated_efficiently():
     assert (
         min_num_keypad_presses(
             code="029A",
-            code_robot=CODE_ROBOT,
-            directional_robot=DIRECTIONAL_ROBOT,
-            num_directional_robots=25,
+            numeric_robot=NUMERIC_ROBOT,
+            directional_robots=_directional_robots(num_robots=25),
         )
         == 82050061710
     )

@@ -19,11 +19,10 @@ class KeypadLayout:
                 return False
         return True
 
-    def shortest_paths_between_buttons(
-        self, button_a: chr, button_b: chr
-    ) -> Iterator[tuple[CardinalDirection]]:
-        pos_a = self._btn_positions[button_a]
-        pos_b = self._btn_positions[button_b]
+    @staticmethod
+    def _paths_between_positions(
+        pos_a: Vector2D, pos_b: Vector2D
+    ) -> Iterator[tuple[CardinalDirection, ...]]:
         diff = pos_b - pos_a
         dx = diff.x
         dy = diff.y
@@ -32,9 +31,16 @@ class KeypadLayout:
         slots = [i for i in range(diff.manhattan_size)]
         num_horizontal_steps = abs(dx)
         for choice in combinations(slots, num_horizontal_steps):
-            path = [
+            yield tuple(
                 horizontal_step if i in choice else vertical_step
                 for i in range(diff.manhattan_size)
-            ]
-            if self._is_valid(path, pos_a):
+            )
+
+    def shortest_paths_between_buttons(
+        self, button_a: chr, button_b: chr
+    ) -> Iterator[tuple[CardinalDirection, ...]]:
+        pos_a = self._btn_positions[button_a]
+        pos_b = self._btn_positions[button_b]
+        for path in self._paths_between_positions(pos_a, pos_b):
+            if self._is_valid(path, start_position=pos_a):
                 yield tuple(path)
