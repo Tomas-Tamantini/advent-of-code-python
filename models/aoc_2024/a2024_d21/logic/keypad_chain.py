@@ -1,4 +1,5 @@
 from math import inf
+from typing import Iterator
 
 from models.common.vectors import CardinalDirection
 
@@ -38,6 +39,16 @@ def _direction_to_btn(direction: CardinalDirection) -> chr:
         raise ValueError(f"Invalid direction: {direction}")
 
 
+def _directional_button_pairs(
+    initial_button: chr, path: tuple[CardinalDirection, ...]
+) -> Iterator[tuple[chr, chr]]:
+    current_btn = initial_button
+    for next_btn in path:
+        yield current_btn, _direction_to_btn(next_btn)
+        current_btn = _direction_to_btn(next_btn)
+    yield current_btn, initial_button
+
+
 def _min_presses_between_button_pair(
     current_btn: chr,
     next_btn: chr,
@@ -50,32 +61,16 @@ def _min_presses_between_button_pair(
     else:
         min_num_presses = inf
         for path in keypad_layout.shortest_paths_between_buttons(current_btn, next_btn):
-            num_presses = 0
-            for i, next_step in enumerate(path):
-                current_step = (
-                    _direction_to_btn(path[i - 1])
-                    if i > 0
-                    else directional_robot.initial_button
-                )
-
-                num_presses += _min_presses_between_button_pair(
-                    current_step,
-                    _direction_to_btn(next_step),
+            num_presses = sum(
+                _min_presses_between_button_pair(
+                    *btn_pair,
                     directional_robot.keypad_layout,
                     directional_robot,
                     num_directional_robots - 1,
                 )
-            current_step = (
-                _direction_to_btn(path[-1])
-                if path
-                else directional_robot.initial_button
-            )
-            num_presses += _min_presses_between_button_pair(
-                current_step,
-                directional_robot.initial_button,
-                directional_robot.keypad_layout,
-                directional_robot,
-                num_directional_robots - 1,
+                for btn_pair in _directional_button_pairs(
+                    directional_robot.initial_button, path
+                )
             )
             min_num_presses = min(min_num_presses, num_presses)
         return min_num_presses
