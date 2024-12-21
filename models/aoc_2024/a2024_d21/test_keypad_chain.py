@@ -29,3 +29,15 @@ def test_min_num_keypad_presses_with_two_directional_robots(code, expected):
         )
         == expected
     )
+
+
+def test_min_num_keypad_presses_is_calculated_efficiently():
+    assert (
+        min_num_keypad_presses(
+            code="029A",
+            code_robot=CODE_ROBOT,
+            directional_robot=DIRECTIONAL_ROBOT,
+            num_directional_robots=25,
+        )
+        == 82050061710
+    )

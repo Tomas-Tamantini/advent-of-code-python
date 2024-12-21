@@ -14,6 +14,7 @@ def min_num_keypad_presses(
     num_directional_robots: int,
 ) -> int:
     total_length = 0
+    memoized_results = dict()
     for i, next_btn in enumerate(code):
         current_btn = code[i - 1] if i > 0 else code_robot.initial_button
         total_length += _min_presses_between_button_pair(
@@ -22,21 +23,18 @@ def min_num_keypad_presses(
             code_robot.keypad_layout,
             directional_robot,
             num_directional_robots,
+            memoized_results,
         )
     return total_length
 
 
 def _direction_to_btn(direction: CardinalDirection) -> chr:
-    if direction == CardinalDirection.NORTH:
-        return "^"
-    elif direction == CardinalDirection.SOUTH:
-        return "v"
-    elif direction == CardinalDirection.WEST:
-        return "<"
-    elif direction == CardinalDirection.EAST:
-        return ">"
-    else:
-        raise ValueError(f"Invalid direction: {direction}")
+    return {
+        CardinalDirection.NORTH: "^",
+        CardinalDirection.SOUTH: "v",
+        CardinalDirection.WEST: "<",
+        CardinalDirection.EAST: ">",
+    }[direction]
 
 
 def _directional_button_pairs(
@@ -55,10 +53,12 @@ def _min_presses_between_button_pair(
     keypad_layout: KeypadLayout,
     directional_robot: KeypadRobot,
     num_directional_robots: int,
+    memoized_results: dict[tuple[chr, chr, int], int],
 ) -> int:
     if num_directional_robots < 0:
         return 1
-    else:
+    iteration_id = (current_btn, next_btn, num_directional_robots)
+    if iteration_id not in memoized_results:
         min_num_presses = inf
         for path in keypad_layout.shortest_paths_between_buttons(current_btn, next_btn):
             num_presses = sum(
@@ -67,10 +67,12 @@ def _min_presses_between_button_pair(
                     directional_robot.keypad_layout,
                     directional_robot,
                     num_directional_robots - 1,
+                    memoized_results
                 )
                 for btn_pair in _directional_button_pairs(
                     directional_robot.initial_button, path
                 )
             )
             min_num_presses = min(min_num_presses, num_presses)
-        return min_num_presses
+        memoized_results[iteration_id] = min_num_presses
+    return memoized_results[iteration_id]
