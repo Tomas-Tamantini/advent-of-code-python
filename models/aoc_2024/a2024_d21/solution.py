@@ -2,23 +2,13 @@ from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
 
-from .logic import (
-    DIRECTIONAL_ROBOT,
-    NUMERIC_ROBOT,
-    KeypadRobots,
-    min_num_keypad_presses,
-)
-
-
-def _numeric_part(code: str) -> int:
-    return int(code[:-1])
+from .logic import DIRECTIONAL_ROBOT, NUMERIC_ROBOT, KeypadChain
 
 
 def _complexity(code: str, num_directional_robots: int) -> int:
-    min_presses = min_num_keypad_presses(
-        code, NUMERIC_ROBOT, KeypadRobots(DIRECTIONAL_ROBOT, num_directional_robots)
-    )
-    return min_presses * _numeric_part(code)
+    chain = KeypadChain(NUMERIC_ROBOT, DIRECTIONAL_ROBOT, num_directional_robots)
+    min_presses = chain.min_num_keypad_presses(code)
+    return min_presses * int(code[:-1])
 
 
 def aoc_2024_d21(io_handler: IOHandler) -> Iterator[ProblemSolution]:
