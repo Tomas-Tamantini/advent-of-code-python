@@ -1,7 +1,8 @@
 from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
-from .pseudo_random import pseudo_random_sequence
+
+from .pseudo_random import maximize_winnings, pseudo_random_sequence
 
 
 def aoc_2024_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
@@ -16,4 +17,12 @@ def aoc_2024_d22(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id, f"The sum of generated numbers is {total}", result=total, part=1
+    )
+
+    max_winnings = maximize_winnings(secret_numbers, 2000)
+    yield ProblemSolution(
+        problem_id,
+        f"The maximum winnings are {max_winnings}",
+        result=max_winnings,
+        part=2,
     )
