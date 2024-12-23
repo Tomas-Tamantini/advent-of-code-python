@@ -1,9 +1,9 @@
 from models.common.graphs import UndirectedGraph
 
-from ..cliques import three_cliques
+from ..cliques import max_clique, three_cliques
 
 
-def test_all_cliques_of_size_three_are_found():
+def _example_graph() -> UndirectedGraph:
     graph = UndirectedGraph()
     graph.add_edge("kh", "tc")
     graph.add_edge("qp", "kh")
@@ -37,7 +37,11 @@ def test_all_cliques_of_size_three_are_found():
     graph.add_edge("wh", "qp")
     graph.add_edge("tb", "vc")
     graph.add_edge("td", "yn")
-    cliques = set(three_cliques(graph))
+    return graph
+
+
+def test_all_cliques_of_size_three_are_found():
+    cliques = set(three_cliques(_example_graph()))
     assert set(cliques) == {
         frozenset(["aq", "cg", "yn"]),
         frozenset(["aq", "vc", "wq"]),
@@ -52,3 +56,8 @@ def test_all_cliques_of_size_three_are_found():
         frozenset(["td", "wh", "yn"]),
         frozenset(["ub", "vc", "wq"]),
     }
+
+
+def test_max_clique_of_undirected_graph_is_found():
+    clique = max_clique(_example_graph())
+    assert clique == {"co", "de", "ka", "ta"}

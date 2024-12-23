@@ -3,7 +3,7 @@ from typing import Iterator
 from models.common.graphs import UndirectedGraph
 from models.common.io import IOHandler, Problem, ProblemSolution
 
-from .cliques import three_cliques
+from .cliques import max_clique, three_cliques
 from .parser import parse_connections
 
 
@@ -24,4 +24,10 @@ def aoc_2024_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
         f"The number of cliques is {num_cliques}",
         result=num_cliques,
         part=1,
+    )
+
+    password = ",".join(sorted(max_clique(graph)))
+
+    yield ProblemSolution(
+        problem_id, f"The clique password is {password}", result=password, part=2
     )
