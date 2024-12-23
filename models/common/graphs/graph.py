@@ -41,6 +41,9 @@ class UndirectedGraph:
     def neighbors(self, node: Hashable) -> Iterator[Hashable]:
         yield from self._adjacencies[node]
 
+    def are_connected(self, node_a: Hashable, node_b: Hashable) -> bool:
+        return node_b in self._adjacencies[node_a]
+
 
 class WeightedUndirectedGraph:
     def __init__(self) -> None:

@@ -39,6 +39,15 @@ def test_can_add_edge_to_mutable_undirected_graph():
     assert list(graph.neighbors("b")) == ["a"]
 
 
+def test_can_check_connections_in_mutable_undirected_graph():
+    graph = UndirectedGraph()
+    graph.add_edge("a", "b")
+    graph.add_edge("b", "c")
+    assert graph.are_connected("a", "b")
+    assert graph.are_connected("b", "a")
+    assert not graph.are_connected("a", "c")
+
+
 def test_mutable_undirected_graph_keeps_track_of_number_of_nodes():
     graph = UndirectedGraph()
     assert graph.num_nodes == 0
