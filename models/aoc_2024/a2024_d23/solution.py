@@ -13,6 +13,7 @@ def aoc_2024_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     graph = UndirectedGraph()
     for edge in parse_connections(io_handler.input_reader):
         graph.add_edge(*edge)
+
     cliques = set(three_cliques(graph))
     num_cliques = 0
     for clique in cliques:
@@ -21,12 +22,14 @@ def aoc_2024_d23(io_handler: IOHandler) -> Iterator[ProblemSolution]:
 
     yield ProblemSolution(
         problem_id,
-        f"The number of cliques is {num_cliques}",
+        f"The number of 3-cliques is {num_cliques}",
         result=num_cliques,
         part=1,
     )
 
-    password = ",".join(sorted(max_clique(graph)))
+    password = ",".join(
+        sorted(max_clique(graph, io_handler.progress_bar, expected_max_clique_size=13))
+    )
 
     yield ProblemSolution(
         problem_id, f"The clique password is {password}", result=password, part=2
