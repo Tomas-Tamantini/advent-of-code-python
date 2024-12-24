@@ -15,15 +15,14 @@ def aoc_2024_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     input_pulses = list(parse_input_pulses(io_handler.input_reader))
     circuit = Circuit(gates)
 
-    output_pulses = dict()
+    output_sum = 0
     for output_pulse in circuit.propagate(input_pulses):
-        output_pulses[output_pulse.wire] = output_pulse.pulse_type
-    out_gates = sorted(wire for wire in output_pulses if wire.startswith("z"))
-    out_value = sum(
-        2**i
-        for i, wire in enumerate(out_gates)
-        if output_pulses[wire] == PulseType.HIGH
-    )
+        if (
+            output_pulse.wire.startswith("z")
+            and output_pulse.pulse_type == PulseType.HIGH
+        ):
+            output_sum += 2 ** int(output_pulse.wire[1:])
+
     yield ProblemSolution(
-        problem_id, f"The output value is {out_value}", result=out_value, part=1
+        problem_id, f"The output value is {output_sum}", result=output_sum, part=1
     )
