@@ -32,7 +32,7 @@ def aoc_2024_d24(io_handler: IOHandler) -> Iterator[ProblemSolution]:
     )
 
     swapped = set()
-    for pair in swapped_pair_of_wires_for_full_adder(gates):
+    for pair in swapped_pair_of_wires_for_full_adder(circuit):
         swapped.update(pair)
 
     result = ",".join(sorted(swapped))

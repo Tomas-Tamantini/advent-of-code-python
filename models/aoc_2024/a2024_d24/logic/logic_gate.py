@@ -10,6 +10,9 @@ class LogicGate(ABC):
     wire_input_b: str
     wire_output: str
 
+    def has_input(self, wire_id: str) -> bool:
+        return wire_id in {self.wire_input_a, self.wire_input_b}
+
     def output(self, signal_a: PulseType, signal_b: PulseType) -> Pulse:
         out_signal = self._output_level(signal_a, signal_b)
         return Pulse(self.wire_output, out_signal)
