@@ -1,4 +1,5 @@
+from .circuit import Circuit
 from .logic_gate import AndGate, LogicGate, OrGate, XorGate
 from .pulse import Pulse, PulseType
 
-__all__ = ["Pulse", "PulseType", "AndGate", "LogicGate", "OrGate", "XorGate"]
+__all__ = ["Circuit", "Pulse", "PulseType", "AndGate", "LogicGate", "OrGate", "XorGate"]
