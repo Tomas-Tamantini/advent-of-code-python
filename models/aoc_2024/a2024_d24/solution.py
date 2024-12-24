@@ -2,7 +2,11 @@ from typing import Iterator
 
 from models.common.io import IOHandler, Problem, ProblemSolution
 
-from .logic import Circuit, PulseType, swapped_pair_of_wires_for_full_adder
+from .logic import (
+    Circuit,
+    PulseType,
+    swapped_pair_of_wires_for_full_adder,
+)
 from .parser import parse_input_pulses, parse_logic_gates
 
 # TODO: Try to merge pulse and circuit logic with AOC 2023 - Day 20
